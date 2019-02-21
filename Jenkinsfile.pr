@@ -46,7 +46,9 @@ pipeline {
 
         stage('Test') {
             steps {
-                pr_result = sh script: "./mvnw $MAVEN_PARAMS clean install -f pom.xml"
+                script {
+                    pr_result = sh script: "./mvnw $MAVEN_PARAMS clean install -f pom.xml"
+                }
             }
         }
 
