@@ -77,13 +77,13 @@
 
     <issueManagement>
         <system>github</system>
-        <url>https://github.com/apache/camel-k/issues</url>
+        <url>https://github.com/apache/camel-k-runtime/issues</url>
     </issueManagement>
 
     <scm>
-        <connection>scm:git:http://gitbox.apache.org/repos/asf/camel-k.git</connection>
-        <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/camel-k.git</developerConnection>
-        <url>https://gitbox.apache.org/repos/asf?p=camel-k.git;a=summary</url>
+        <connection>scm:git:http://gitbox.apache.org/repos/asf/camel-k-runtime.git</connection>
+        <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/camel-k-runtime.git</developerConnection>
+        <url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary</url>
         <tag>HEAD</tag>
     </scm>
 
@@ -142,6 +142,7 @@
         <module>camel-k-runtime-spring-boot</module>
         <module>camel-knative-http</module>
         <module>camel-knative</module>
+        <module>camel-k-runtime-bom</module>
     </modules>
 
     <repositories>

@@ -22,7 +22,6 @@ import java.util.Map;
 
 import com.vdurmont.semver4j.Semver;
 
-import org.apache.camel.Ordered;
 import org.apache.camel.catalog.CamelCatalog;
 import org.apache.camel.k.tooling.maven.model.CamelArtifact;
 import org.apache.camel.k.tooling.maven.model.CatalogProcessor;
@@ -93,7 +92,6 @@ public class CatalogProcessor_2_x implements CatalogProcessor {
             CamelArtifact artifact = new CamelArtifact();
             artifact.setGroupId("org.apache.camel.k");
             artifact.setArtifactId("camel-k-runtime-jvm");
-            artifact.setVersion(project.getVersion());
             artifact.addDependency("org.apache.camel", "camel-core");
 
             artifacts.put(artifact.getArtifactId(), artifact);
@@ -109,7 +107,6 @@ public class CatalogProcessor_2_x implements CatalogProcessor {
             CamelArtifact artifact = new CamelArtifact();
             artifact.setGroupId("org.apache.camel.k");
             artifact.setArtifactId("camel-k-runtime-groovy");
-            artifact.setVersion(project.getVersion());
             artifact.addDependency("org.apache.camel", "camel-groovy");
 
             artifacts.put(artifact.getArtifactId(), artifact);
@@ -125,7 +122,20 @@ public class CatalogProcessor_2_x implements CatalogProcessor {
             CamelArtifact artifact = new CamelArtifact();
             artifact.setGroupId("org.apache.camel.k");
             artifact.setArtifactId("camel-k-runtime-kotlin");
-            artifact.setVersion(project.getVersion());
+
+            artifacts.put(artifact.getArtifactId(), artifact);
+        }
+
+        // ************************
+        //
+        // camel-k-runtime-yaml
+        //
+        // ************************
+
+        {
+            CamelArtifact artifact = new CamelArtifact();
+            artifact.setGroupId("org.apache.camel.k");
+            artifact.setArtifactId("camel-k-runtime-yaml");
 
             artifacts.put(artifact.getArtifactId(), artifact);
         }
@@ -140,7 +150,6 @@ public class CatalogProcessor_2_x implements CatalogProcessor {
             CamelArtifact artifact = new CamelArtifact();
             artifact.setGroupId("org.apache.camel.k");
             artifact.setArtifactId("camel-knative");
-            artifact.setVersion(project.getVersion());
             artifact.createScheme("knative").setHttp(true);
             artifact.addDependency("org.apache.camel", "camel-netty4-http");
 
