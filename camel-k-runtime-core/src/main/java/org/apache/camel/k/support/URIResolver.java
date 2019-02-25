@@ -26,7 +26,7 @@ import java.util.zip.GZIPInputStream;
 import org.apache.camel.CamelContext;
 import org.apache.camel.k.Constants;
 import org.apache.camel.k.Source;
-import org.apache.camel.util.ResourceHelper;
+import org.apache.camel.k.adapter.Resources;
 import org.apache.camel.util.StringHelper;
 
 
@@ -46,7 +46,7 @@ public class URIResolver {
             // Using platform encoding on purpose
             is = new ByteArrayInputStream(content.getBytes());
         } else {
-            is = ResourceHelper.resolveMandatoryResourceAsInputStream(ctx, source.getLocation());
+            is = Resources.resolveResourceAsInputStream(ctx, source.getLocation());
         }
 
         return source.isCompressed() ? new GZIPInputStream(Base64.getDecoder().wrap(is)) : is;

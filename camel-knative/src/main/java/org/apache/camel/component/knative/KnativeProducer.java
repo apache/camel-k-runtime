@@ -24,10 +24,10 @@ import org.apache.camel.AsyncProcessor;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
-import org.apache.camel.impl.DefaultAsyncProducer;
+import org.apache.camel.k.adapter.DefaultAsyncProducer;
+import org.apache.camel.k.adapter.Processors;
+import org.apache.camel.k.adapter.Services;
 import org.apache.camel.processor.Pipeline;
-import org.apache.camel.util.AsyncProcessorConverterHelper;
-import org.apache.camel.util.ServiceHelper;
 import org.apache.commons.collections4.CollectionUtils;
 
 public class KnativeProducer extends DefaultAsyncProducer {
@@ -43,7 +43,7 @@ public class KnativeProducer extends DefaultAsyncProducer {
 
         Processor pipeline = Pipeline.newInstance(endpoint.getCamelContext(), elements);
 
-        this.processor = AsyncProcessorConverterHelper.convert(pipeline);
+        this.processor = Processors.convertToAsync(pipeline);
     }
 
     @Override
@@ -53,27 +53,27 @@ public class KnativeProducer extends DefaultAsyncProducer {
 
     @Override
     protected void doStart() throws Exception {
-        ServiceHelper.startServices(processor);
+        Services.start(processor);
     }
 
     @Override
     protected void doStop() throws Exception {
-        ServiceHelper.stopServices(processor);
+        Services.start(processor);
     }
 
     @Override
     protected void doSuspend() throws Exception {
-        ServiceHelper.suspendService(processor);
+        Services.suspend(processor);
     }
 
     @Override
     protected void doResume() throws Exception {
-        ServiceHelper.resumeService(processor);
+        Services.resume(processor);
     }
 
     @Override
     protected void doShutdown() throws Exception {
-        ServiceHelper.stopAndShutdownServices(processor);
+        Services.shutdown(processor);
     }
 
 }

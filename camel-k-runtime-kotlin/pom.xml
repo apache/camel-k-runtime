@@ -29,15 +29,16 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.apache.camel.k</groupId>
+            <artifactId>camel-k-runtime-jvm</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-core</artifactId>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-runtime-jvm</artifactId>
-            <version>${project.version}</version>
-        </dependency>
+
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib-jdk8</artifactId>
@@ -77,7 +78,6 @@
             <version>${junit-jupiter.version}</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
@@ -119,5 +119,46 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>camel3</id>
+            <activation>
+                <property>
+                    <name>camel3</name>
+                </property>
+            </activation>
+            <dependencies>
+                <!-- runtime -->
+                <dependency>
+                    <groupId>org.apache.camel.k</groupId>
+                    <artifactId>camel-k-adapter-camel-3</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+                <!-- test -->
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-properties</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>camel2</id>
+            <activation>
+                <property>
+                    <name>!camel3</name>
+                </property>
+            </activation>
+            <dependencies>
+                <!-- runtime -->
+                <dependency>
+                    <groupId>org.apache.camel.k</groupId>
+                    <artifactId>camel-k-adapter-camel-2</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 
 </project>

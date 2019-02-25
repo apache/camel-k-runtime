@@ -27,14 +27,14 @@ import org.apache.camel.Processor;
 import org.apache.camel.Producer;
 import org.apache.camel.cloud.ServiceDefinition;
 import org.apache.camel.component.knative.ce.CloudEventsProcessors;
-import org.apache.camel.impl.DefaultEndpoint;
+import org.apache.camel.k.adapter.DefaultEndpoint;
+import org.apache.camel.k.adapter.Services;
 import org.apache.camel.processor.Pipeline;
 import org.apache.camel.spi.Metadata;
 import org.apache.camel.spi.UriEndpoint;
 import org.apache.camel.spi.UriParam;
 import org.apache.camel.spi.UriPath;
 import org.apache.camel.util.ObjectHelper;
-import org.apache.camel.util.ServiceHelper;
 import org.apache.camel.util.StringHelper;
 import org.apache.camel.util.URISupport;
 
@@ -47,11 +47,9 @@ import org.apache.camel.util.URISupport;
     label = "cloud,eventing")
 public class KnativeEndpoint extends DefaultEndpoint implements DelegateEndpoint {
     @UriPath(description = "The Knative type")
-    @Metadata(required = "true")
     private final Knative.Type type;
 
     @UriPath(description = "The Knative name")
-    @Metadata(required = "true")
     private final String name;
 
     @UriParam
@@ -83,12 +81,12 @@ public class KnativeEndpoint extends DefaultEndpoint implements DelegateEndpoint
     @Override
     protected void doStart() throws Exception {
         super.doStart();
-        ServiceHelper.startService(endpoint);
+        Services.start(endpoint);
     }
 
     @Override
     protected void doStop() throws Exception {
-        ServiceHelper.stopService(endpoint);
+        Services.stop(endpoint);
         super.doStop();
     }
 

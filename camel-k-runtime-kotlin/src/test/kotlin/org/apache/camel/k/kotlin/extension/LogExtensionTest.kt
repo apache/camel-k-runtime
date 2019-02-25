@@ -2,7 +2,7 @@ package org.apache.camel.k.kotlin.extension
 
 import org.apache.camel.component.log.LogComponent
 import org.apache.camel.impl.DefaultCamelContext
-import org.apache.camel.impl.DefaultExchange
+import org.apache.camel.k.adapter.Exchanges
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -16,7 +16,7 @@ class LogExtensionTest {
             e -> "body: " + e.getIn().body
         }
 
-        var ex = DefaultExchange(ctx)
+        var ex = Exchanges.newDefaultExchange(ctx)
         ex.getIn().body = "hello"
 
         assertThat(log.exchangeFormatter.format(ex)).isEqualTo("body: hello")

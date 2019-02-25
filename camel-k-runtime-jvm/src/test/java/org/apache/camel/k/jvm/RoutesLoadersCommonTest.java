@@ -48,6 +48,7 @@ public class RoutesLoadersCommonTest {
         assertThat(loader).isInstanceOf(type);
         assertThat(builder).isNotNull();
 
+        builder.setContext(new DefaultCamelContext());
         builder.configure();
 
         List<RouteDefinition> routes = builder.getRouteCollection().getRoutes();

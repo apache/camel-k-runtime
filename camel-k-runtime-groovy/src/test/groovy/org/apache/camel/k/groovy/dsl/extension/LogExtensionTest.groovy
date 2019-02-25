@@ -18,7 +18,7 @@ package org.apache.camel.k.groovy.dsl.extension
 
 import org.apache.camel.component.log.LogComponent
 import org.apache.camel.impl.DefaultCamelContext
-import org.apache.camel.impl.DefaultExchange
+import org.apache.camel.k.adapter.Exchanges
 import spock.lang.Specification
 
 class LogExtensionTest extends Specification {
@@ -33,7 +33,7 @@ class LogExtensionTest extends Specification {
             "body: $it.in.body"
         }
 
-        def ex = new DefaultExchange(ctx)
+        def ex = Exchanges.newDefaultExchange(ctx)
         ex.in.body = 'hello'
         def result = log.exchangeFormatter.format(ex)
 

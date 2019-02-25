@@ -37,9 +37,9 @@ import org.apache.camel.k.ContextCustomizer;
 import org.apache.camel.k.RoutesLoader;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
+import org.apache.camel.k.adapter.Introspection;
 import org.apache.camel.spi.FactoryFinder;
 import org.apache.camel.spi.RestConfiguration;
-import org.apache.camel.util.IntrospectionSupport;
 import org.apache.camel.util.ObjectHelper;
 import org.apache.commons.io.FilenameUtils;
 
@@ -118,7 +118,7 @@ public final class RuntimeSupport {
                     final Object val = entry.getValue();
 
                     try {
-                        if (IntrospectionSupport.setProperty(target, key, val, false)) {
+                        if (Introspection.setProperty(target, key, val)) {
                             count.incrementAndGet();
                         }
                     } catch (Exception ex) {

@@ -23,12 +23,13 @@ import java.util.List;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Route;
 import org.apache.camel.k.Runtime;
+import org.apache.camel.k.adapter.Resources;
 import org.apache.camel.k.listener.ContextConfigurer;
 import org.apache.camel.k.listener.ContextLifecycleConfigurer;
 import org.apache.camel.k.listener.RoutesConfigurer;
 import org.apache.camel.k.support.PlatformStreamHandler;
+import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.util.ObjectHelper;
-import org.apache.camel.util.ResourceHelper;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
 
@@ -72,8 +73,8 @@ public class RuntimeTest {
             runtime.addListener(Runtime.Phase.Started, r -> {
                 CamelContext context = r.getContext();
 
-                assertThat(context.getRouteDefinitions()).isNotEmpty();
-                assertThat(context.getRestDefinitions()).isNotEmpty();
+                assertThat(context.adapt(ModelCamelContext.class).getRouteDefinitions()).isNotEmpty();
+                assertThat(context.adapt(ModelCamelContext.class).getRestDefinitions()).isNotEmpty();
 
                 runtime.stop();
             });
@@ -91,13 +92,13 @@ public class RuntimeTest {
 
         CamelContext context = new ApplicationRuntime().getContext();
 
-        try (InputStream is = ResourceHelper.resolveMandatoryResourceAsInputStream(context, "platform:my-resource.txt")) {
+        try (InputStream is = Resources.resolveResourceAsInputStream(context, "platform:my-resource.txt")) {
             String content = IOUtils.toString(is, Charset.defaultCharset());
 
             assertThat(content).isEqualTo("value from file resource");
         }
 
-        try (InputStream is = ResourceHelper.resolveMandatoryResourceAsInputStream(context, "platform:my-other-resource.txt")) {
+        try (InputStream is = Resources.resolveResourceAsInputStream(context, "platform:my-other-resource.txt")) {
             String content = IOUtils.toString(is, Charset.defaultCharset());
 
             assertThat(content).isEqualTo("value from env");
