@@ -17,12 +17,10 @@
 package org.apache.camel.component.knative;
 
 import org.apache.camel.RuntimeCamelException;
-import org.apache.camel.spi.Metadata;
 import org.apache.camel.spi.UriParam;
 
 public class KnativeConfiguration implements Cloneable {
     @UriParam
-    @Metadata(required = "true")
     private KnativeEnvironment environment;
 
     @UriParam(defaultValue = "false")

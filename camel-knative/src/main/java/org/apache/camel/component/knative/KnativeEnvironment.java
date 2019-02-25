@@ -34,8 +34,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.camel.CamelContext;
 import org.apache.camel.cloud.ServiceDefinition;
 import org.apache.camel.impl.cloud.DefaultServiceDefinition;
+import org.apache.camel.k.adapter.Resources;
 import org.apache.camel.util.CollectionHelper;
-import org.apache.camel.util.ResourceHelper;
 import org.apache.camel.util.StringHelper;
 
 /*
@@ -133,7 +133,7 @@ public class KnativeEnvironment {
     }
 
     public static KnativeEnvironment mandatoryLoadFromResource(CamelContext context, String path) throws Exception {
-        try (InputStream is = ResourceHelper.resolveMandatoryResourceAsInputStream(context, path)) {
+        try (InputStream is = Resources.resolveResourceAsInputStream(context, path)) {
 
             //
             // read the knative environment from a file formatted as json, i.e. :

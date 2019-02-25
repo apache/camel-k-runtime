@@ -27,16 +27,18 @@ class LoaderTest extends Specification {
 
     def "load route from classpath"() {
         given:
+            def context = new DefaultCamelContext()
             def source = Source.create("classpath:routes.groovy")
 
         when:
-            def loader = RuntimeSupport.loaderFor(new DefaultCamelContext(), source)
+            def loader = RuntimeSupport.loaderFor(context, source)
             def builder = loader.load(new InMemoryRegistry(), source)
 
         then:
             loader instanceof GroovyRoutesLoader
             builder != null
 
+            builder.setContext(context)
             builder.configure()
 
             def routes = builder.routeCollection.routes

@@ -18,6 +18,7 @@ package org.apache.camel.k.yaml;
 
 import java.util.List;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.k.RoutesLoader;
@@ -34,13 +35,15 @@ public class RoutesLoaderTest {
 
     @Test
     public void testLoadYamlFlow() throws Exception {
+        CamelContext context = new DefaultCamelContext();
         Source source = Source.create("classpath:routes.flow");
-        RoutesLoader loader = RuntimeSupport.loaderFor(new DefaultCamelContext(), source);
+        RoutesLoader loader = RuntimeSupport.loaderFor(context, source);
         RouteBuilder builder = loader.load(new InMemoryRegistry(), source);
 
         assertThat(loader).isInstanceOf(YamlFlowLoader.class);
         assertThat(builder).isNotNull();
 
+        builder.setContext(context);
         builder.configure();
 
         List<RouteDefinition> routes = builder.getRouteCollection().getRoutes();

@@ -20,6 +20,7 @@ import javax.xml.bind.JAXBException;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.k.Runtime;
+import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.model.ModelHelper;
 import org.apache.camel.model.RoutesDefinition;
 import org.apache.camel.model.rest.RestsDefinition;
@@ -38,10 +39,10 @@ public class RoutesDumper extends AbstractPhaseListener {
         CamelContext context = runtime.getContext();
 
         RoutesDefinition routes = new RoutesDefinition();
-        routes.setRoutes(context.getRouteDefinitions());
+        routes.setRoutes(context.adapt(ModelCamelContext.class).getRouteDefinitions());
 
         RestsDefinition rests = new RestsDefinition();
-        rests.setRests(context.getRestDefinitions());
+        rests.setRests(context.adapt(ModelCamelContext.class).getRestDefinitions());
 
         try {
             if (LOGGER.isDebugEnabled() && !routes.getRoutes().isEmpty()) {

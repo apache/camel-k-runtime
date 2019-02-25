@@ -36,15 +36,17 @@
         <!-- ****************************** -->
 
         <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-core</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -74,7 +76,6 @@
             <version>${junit-jupiter.version}</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
@@ -82,5 +83,40 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>camel3</id>
+            <activation>
+                <property>
+                    <name>camel3</name>
+                </property>
+            </activation>
+            <dependencies>
+                <!-- runtime -->
+                <dependency>
+                    <groupId>org.apache.camel.k</groupId>
+                    <artifactId>camel-k-adapter-camel-3</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>camel2</id>
+            <activation>
+                <property>
+                    <name>!camel3</name>
+                </property>
+            </activation>
+            <dependencies>
+                <!-- runtime -->
+                <dependency>
+                    <groupId>org.apache.camel.k</groupId>
+                    <artifactId>camel-k-adapter-camel-2</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 
 </project>

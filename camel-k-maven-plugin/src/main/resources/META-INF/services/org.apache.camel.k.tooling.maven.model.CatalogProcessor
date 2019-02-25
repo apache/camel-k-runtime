@@ -1,1 +1,2 @@
 org.apache.camel.k.tooling.maven.processors.CatalogProcessor_2_x
+org.apache.camel.k.tooling.maven.processors.CatalogProcessor_3_x

@@ -21,8 +21,6 @@ import java.util.Properties;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.properties.PropertiesComponent;
-import org.apache.camel.util.ObjectHelper;
-import org.apache.camel.util.function.ThrowingConsumer;
 
 public interface Runtime {
     /**
@@ -58,19 +56,16 @@ public interface Runtime {
         void bind(String name, Object bean);
 
         @SuppressWarnings("deprecation")
-        @Override
         default public Object lookup(String name) {
             return lookupByName(name);
         }
 
         @SuppressWarnings("deprecation")
-        @Override
         default public <T> T lookup(String name, Class<T> type) {
             return lookupByNameAndType(name, type);
         }
 
         @SuppressWarnings("deprecation")
-        @Override
         default public <T> Map<String, T> lookupByType(Class<T> type) {
             return findByTypeWithName(type);
         }

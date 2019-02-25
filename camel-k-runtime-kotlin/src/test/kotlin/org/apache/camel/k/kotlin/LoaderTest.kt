@@ -29,13 +29,15 @@ class LoaderTest {
 
     @Test
     fun `load route from classpath`() {
+        var context = DefaultCamelContext()
         var source = Source.create("classpath:routes.kts")
-        val loader = RuntimeSupport.loaderFor(DefaultCamelContext(), source)
+        val loader = RuntimeSupport.loaderFor(context, source)
         val builder = loader.load(InMemoryRegistry(), source)
 
         assertThat(loader).isInstanceOf(KotlinRoutesLoader::class.java)
         assertThat(builder).isNotNull
 
+        builder.context = context
         builder.configure()
 
         val routes = builder.routeCollection.routes

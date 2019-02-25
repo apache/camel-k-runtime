@@ -59,11 +59,13 @@ public class JavaSourceLoader implements RoutesLoader {
                     // create the builder
                     RoutesBuilder builder = compiled.create().get();
 
-                    // Wrap routes builder
-                    includeRoutes(builder);
-
                     if (builder instanceof RouteBuilder) {
-                        Map<String, RestConfigurationDefinition> configurations = ((RouteBuilder) builder).getRestConfigurations();
+                        RouteBuilder rb = ((RouteBuilder) builder);
+
+                        rb.setContext(context);
+                        rb.configure();
+
+                        Map<String, RestConfigurationDefinition> configurations = rb.getRestConfigurations();
 
                         //
                         // TODO: RouteBuilder.getRestConfigurations() should not
@@ -83,6 +85,9 @@ public class JavaSourceLoader implements RoutesLoader {
                                 context.addRestConfiguration(conf);
                             }
                         }
+
+                        setRouteCollection(rb.getRouteCollection());
+                        setRestCollection(rb.getRestCollection());
                     }
                 }
             }

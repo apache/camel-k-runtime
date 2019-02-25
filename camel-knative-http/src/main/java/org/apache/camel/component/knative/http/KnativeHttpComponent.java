@@ -39,9 +39,9 @@ import org.apache.camel.component.netty4.http.NettyHttpComponent;
 import org.apache.camel.component.netty4.http.NettyHttpConsumer;
 import org.apache.camel.component.netty4.http.handlers.HttpServerChannelHandler;
 import org.apache.camel.http.common.CamelServlet;
+import org.apache.camel.k.adapter.Services;
 import org.apache.camel.support.RestConsumerContextPathMatcher;
 import org.apache.camel.util.ObjectHelper;
-import org.apache.camel.util.ServiceHelper;
 import org.apache.camel.util.URISupport;
 import org.apache.camel.util.UnsafeUriCharactersEncoder;
 import org.slf4j.Logger;
@@ -63,7 +63,7 @@ public class KnativeHttpComponent extends NettyHttpComponent {
     protected void doStop() throws Exception {
         super.doStop();
 
-        ServiceHelper.stopService(handlers.values());
+        Services.start(handlers.values());
         handlers.clear();
     }
 

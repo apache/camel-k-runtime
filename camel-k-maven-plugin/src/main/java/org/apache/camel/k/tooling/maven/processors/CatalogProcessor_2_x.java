@@ -93,6 +93,7 @@ public class CatalogProcessor_2_x implements CatalogProcessor {
             artifact.setGroupId("org.apache.camel.k");
             artifact.setArtifactId("camel-k-runtime-jvm");
             artifact.addDependency("org.apache.camel", "camel-core");
+            artifact.addDependency("org.apache.camel.k", "camel-k-adapter-camel-2");
 
             artifacts.put(artifact.getArtifactId(), artifact);
         }

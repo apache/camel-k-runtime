@@ -54,6 +54,8 @@ public class RoutesLoadersTest {
 
     @Test
     public void testLoadJavaWithNestedClass() throws Exception {
+        CamelContext context = new DefaultCamelContext();
+
         Source source = Source.create("classpath:MyRoutesWithNestedClass.java");
         RoutesLoader loader = RuntimeSupport.loaderFor(new DefaultCamelContext(), source);
         RouteBuilder builder = loader.load(new InMemoryRegistry(), source);
@@ -61,6 +63,7 @@ public class RoutesLoadersTest {
         assertThat(loader).isInstanceOf(JavaSourceLoader.class);
         assertThat(builder).isNotNull();
 
+        builder.setContext(context);
         builder.configure();
 
         List<RouteDefinition> routes = builder.getRouteCollection().getRoutes();
@@ -74,6 +77,7 @@ public class RoutesLoadersTest {
     @Test
     public void testLoadJavaWithRestConfiguration() throws Exception {
         CamelContext context = new DefaultCamelContext();
+
         Source source = Source.create("classpath:MyRoutesWithRestConfiguration.java");
         RoutesLoader loader = RuntimeSupport.loaderFor(new DefaultCamelContext(), source);
         RouteBuilder builder = loader.load(new InMemoryRegistry(), source);

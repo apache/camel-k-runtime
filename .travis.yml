@@ -18,4 +18,6 @@
 #
 language: java
 
-script: ./mvnw test
+script:
+  - ./mvnw test -Dcamel2
+  - ./mvnw test -Dcamel3

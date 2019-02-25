@@ -87,6 +87,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-catalog</artifactId>
+      <version>${camel.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>

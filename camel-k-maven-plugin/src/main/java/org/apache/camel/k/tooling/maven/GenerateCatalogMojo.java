@@ -128,7 +128,7 @@ public class GenerateCatalogMojo extends AbstractMojo {
             try (Writer writer = Files.newBufferedWriter(output, StandardCharsets.UTF_8)) {
                 CamelCatalog cr = new CamelCatalog.Builder()
                     .metadata(new ObjectMeta.Builder()
-                        .name("camel-catalog-" + catalog.getCatalogVersion())
+                        .name("camel-catalog-" + catalog.getCatalogVersion().toLowerCase())
                         .putLabels("app", "camel-k")
                         .putLabels("camel.apache.org/catalog.version", catalog.getCatalogVersion())
                         .putLabels("camel.apache.org/catalog.loader.version", catalog.getLoadedVersion())
