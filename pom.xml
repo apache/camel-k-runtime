@@ -135,6 +135,7 @@
         <module>camel-knative-http</module>
         <module>camel-knative</module>
         <module>camel-k-runtime-bom</module>
+        <module>distribution</module>
     </modules>
 
     <repositories>
