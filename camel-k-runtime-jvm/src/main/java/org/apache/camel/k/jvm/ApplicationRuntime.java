@@ -27,11 +27,17 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.k.InMemoryRegistry;
 import org.apache.camel.k.Runtime;
+import org.apache.camel.k.support.RuntimeSupport;
 import org.apache.camel.main.MainSupport;
+import org.apache.camel.spi.HasId;
 import org.apache.camel.util.ObjectHelper;
 import org.apache.camel.util.function.ThrowingConsumer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class ApplicationRuntime implements Runtime {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationRuntime.class);
+
     private final Main main;
     private final ConcurrentMap<String, CamelContext> contextMap;
     private final Runtime.Registry registry;
@@ -70,7 +76,22 @@ public final class ApplicationRuntime implements Runtime {
         this.main.stop();
     }
 
+    public void addListeners(Iterable<Runtime.Listener> listeners) {
+        listeners.forEach(this::addListener);
+    }
+
     public void addListener(Runtime.Listener listener) {
+        if (listener instanceof HasId) {
+            String id = ((HasId) listener).getId();
+            if (!id.endsWith(".")) {
+                id = id + ".";
+            }
+
+            RuntimeSupport.bindProperties(getContext(), listener, id);
+        }
+
+        LOGGER.info("Add listener: {}", listener);
+
         this.listeners.add(listener);
     }
 
@@ -124,7 +145,6 @@ public final class ApplicationRuntime implements Runtime {
     }
 
     private class MainListenerAdapter implements org.apache.camel.main.MainListener {
-
         @Override
         public void beforeStart(MainSupport main) {
             listeners.forEach(l -> l.accept(Phase.Starting, ApplicationRuntime.this));
@@ -143,12 +163,12 @@ public final class ApplicationRuntime implements Runtime {
 
         @Override
         public void beforeStop(MainSupport main) {
-
+            listeners.forEach(l -> l.accept(Phase.Stopping, ApplicationRuntime.this));
         }
 
         @Override
         public void afterStop(MainSupport main) {
-
+            listeners.forEach(l -> l.accept(Phase.Stopped, ApplicationRuntime.this));
         }
     }
 }
