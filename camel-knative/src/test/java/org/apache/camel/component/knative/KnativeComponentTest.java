@@ -73,7 +73,7 @@ public class KnativeComponentTest {
     void testLoadEnvironment() throws Exception {
         KnativeEnvironment env = mandatoryLoadFromResource(context, "classpath:/environment.json");
 
-        assertThat(env.stream()).hasSize(2);
+        assertThat(env.stream()).hasSize(3);
         assertThat(env.stream()).anyMatch(s -> s.getType() == Knative.Type.channel);
         assertThat(env.stream()).anyMatch(s -> s.getType() == Knative.Type.endpoint);
 
@@ -81,6 +81,16 @@ public class KnativeComponentTest {
         assertThat(env.lookupService(Knative.Type.channel, "e1")).isNotPresent();
         assertThat(env.lookupService(Knative.Type.endpoint, "e1")).isPresent();
         assertThat(env.lookupService(Knative.Type.endpoint, "c1")).isNotPresent();
+
+        assertThat(env.lookupServiceOrDefault(Knative.Type.endpoint, "undefined"))
+            .hasFieldOrPropertyWithValue("name", "default")
+            .hasFieldOrPropertyWithValue("host", "0.0.0.0")
+            .hasFieldOrPropertyWithValue("port", 8080);
+
+        assertThat(env.lookupServiceOrDefault(Knative.Type.channel, "myChannel"))
+            .hasFieldOrPropertyWithValue("name", "myChannel-channel")
+            .hasFieldOrPropertyWithValue("host", "")
+            .hasFieldOrPropertyWithValue("port", -1);
 
         assertThatThrownBy(() -> env.mandatoryLookupService(Knative.Type.endpoint, "unknown"))
             .isInstanceOf(IllegalArgumentException.class)

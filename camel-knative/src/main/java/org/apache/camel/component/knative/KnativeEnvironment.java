@@ -55,36 +55,12 @@ public class KnativeEnvironment {
         return services.stream();
     }
 
-    public Optional<KnativeServiceDefinition> lookupService(Knative.Type type, String name) {
-        final String contextPath = StringHelper.after(name, "/");
-        final String serviceName = (contextPath == null) ? name : StringHelper.before(name, "/");
-
-        return services.stream()
-            .filter(definition -> {
-                return Objects.equals(type.name(), definition.getMetadata().get(Knative.KNATIVE_TYPE))
-                    && Objects.equals(serviceName, definition.getName());
-            })
-            .map(definition -> {
-                //
-                // The context path set on the endpoint  overrides the one
-                // eventually provided by the service definition.
-                //
-                if (contextPath != null) {
-                    return new KnativeServiceDefinition(
-                        definition.getType(),
-                        definition.getProtocol(),
-                        definition.getName(),
-                        definition.getHost(),
-                        definition.getPort(),
-                        KnativeSupport.mergeMaps(
-                            definition.getMetadata(),
-                            Collections.singletonMap(ServiceDefinition.SERVICE_META_PATH, "/" + contextPath)
-                        )
-                    );
-                }
-
-                return definition;
-            })
+    public Optional<KnativeServiceDefinition> lookupService(Knative.Type type, String name, String... aliases) {
+        return Stream.concat(Stream.of(name), Stream.of(aliases))
+            .sequential()
+            .map(n -> lookup(type, n))
+            .filter(Optional::isPresent)
+            .map(Optional::get)
             .findFirst();
     }
 
@@ -96,28 +72,7 @@ public class KnativeEnvironment {
 
 
     public KnativeServiceDefinition lookupServiceOrDefault(Knative.Type type, String name) {
-        return lookupService(type, name).orElseGet(() -> {
-            String contextPath = StringHelper.after(name, "/");
-            String serviceName = (contextPath == null) ? name : StringHelper.before(name, "/");
-            Map<String, String> meta = new HashMap<>();
-
-            if (type == Knative.Type.channel && !serviceName.endsWith(".channel")) {
-                serviceName += "-channel";
-
-            }
-            if (contextPath != null) {
-                meta.put(ServiceDefinition.SERVICE_META_PATH, "/" + contextPath);
-            }
-
-            return new KnativeEnvironment.KnativeServiceDefinition(
-                type,
-                Knative.Protocol.http,
-                serviceName,
-                "",
-                -1,
-                meta
-            );
-        });
+        return lookupService(type, name, "default").orElseGet(() -> computeServiceDefinition(type, name));
     }
 
     // ************************
@@ -125,6 +80,63 @@ public class KnativeEnvironment {
     // Helpers
     //
     // ************************
+
+     private Optional<KnativeServiceDefinition> lookup(Knative.Type type, String name) {
+         final String contextPath = StringHelper.after(name, "/");
+         final String serviceName = (contextPath == null) ? name : StringHelper.before(name, "/");
+
+         return services.stream()
+             .filter(definition -> {
+                 return Objects.equals(type.name(), definition.getMetadata().get(Knative.KNATIVE_TYPE))
+                     && Objects.equals(serviceName, definition.getName());
+             })
+             .map(definition -> {
+                 //
+                 // The context path set on the endpoint  overrides the one
+                 // eventually provided by the service definition.
+                 //
+                 if (contextPath != null) {
+                     return new KnativeServiceDefinition(
+                         definition.getType(),
+                         definition.getProtocol(),
+                         definition.getName(),
+                         definition.getHost(),
+                         definition.getPort(),
+                         KnativeSupport.mergeMaps(
+                             definition.getMetadata(),
+                             Collections.singletonMap(ServiceDefinition.SERVICE_META_PATH, "/" + contextPath)
+                         )
+                     );
+                 }
+
+                 return definition;
+             })
+             .findFirst();
+
+    }
+
+    public static KnativeServiceDefinition computeServiceDefinition(Knative.Type type, String name) {
+        String contextPath = StringHelper.after(name, "/");
+        String serviceName = (contextPath == null) ? name : StringHelper.before(name, "/");
+        Map<String, String> meta = new HashMap<>();
+
+        if (type == Knative.Type.channel && !serviceName.endsWith("-channel")) {
+            serviceName += "-channel";
+
+        }
+        if (contextPath != null) {
+            meta.put(ServiceDefinition.SERVICE_META_PATH, "/" + contextPath);
+        }
+
+        return new KnativeEnvironment.KnativeServiceDefinition(
+            type,
+            Knative.Protocol.http,
+            serviceName,
+            "",
+            -1,
+            meta
+        );
+    }
 
     public static KnativeEnvironment mandatoryLoadFromSerializedString(CamelContext context, String configuration) throws Exception {
         try (Reader reader = new StringReader(configuration)) {
