@@ -14,40 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.jvm;
+package org.apache.camel.k.health;
 
+import java.util.Properties;
 import java.util.ServiceLoader;
 
 import org.apache.camel.k.Runtime;
-import org.apache.camel.k.support.PlatformStreamHandler;
-import org.apache.camel.k.support.RuntimeSupport;
+import org.apache.camel.k.jvm.ApplicationRuntime;
 
-public class Application {
-    static {
-        //
-        // Configure the logging subsystem log4j2 using a subset of spring boot
-        // conventions:
-        //
-        //    logging.level.${nane} = OFF|FATAL|ERROR|WARN|INFO|DEBUG|TRACE|ALL
-        //
-        // We now support setting the logging level only
-        //
-        ApplicationSupport.configureLogging();
-
-        //
-        // Install a custom protocol handler to support discovering resources
-        // from the platform i.e. in knative, resources are provided through
-        // env var as it is not possible to mount config maps / secrets.
-        //
-        // TODO: we should remove as soon as we get a knative version that
-        //       includes https://github.com/knative/serving/pull/3061
-        //
-        PlatformStreamHandler.configure();
-    }
-
+public class HealthMain {
     public static void main(String[] args) throws Exception {
+        Properties p = new Properties();
+        p.setProperty("endpoint.health.bindHost", "localhost");
+        p.setProperty("endpoint.health.bindPort", "9988");
+        p.setProperty("endpoint.health.path", "/ht");
+
         ApplicationRuntime runtime = new ApplicationRuntime();
-        runtime.setProperties(RuntimeSupport.loadProperties());
+        runtime.setProperties(p);
         runtime.addListeners(ServiceLoader.load(Runtime.Listener.class));
         runtime.run();
     }

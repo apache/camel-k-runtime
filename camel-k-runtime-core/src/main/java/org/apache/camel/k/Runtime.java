@@ -44,7 +44,9 @@ public interface Runtime {
         Starting,
         ConfigureContext,
         ConfigureRoutes,
-        Started
+        Started,
+        Stopping,
+        Stopped
     }
 
     @FunctionalInterface
