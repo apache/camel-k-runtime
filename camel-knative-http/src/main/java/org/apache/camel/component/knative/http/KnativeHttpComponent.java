@@ -39,6 +39,7 @@ import org.apache.camel.component.netty4.http.NettyHttpComponent;
 import org.apache.camel.component.netty4.http.NettyHttpConsumer;
 import org.apache.camel.component.netty4.http.handlers.HttpServerChannelHandler;
 import org.apache.camel.http.common.CamelServlet;
+import org.apache.camel.k.adapter.Exceptions;
 import org.apache.camel.k.adapter.Services;
 import org.apache.camel.support.RestConsumerContextPathMatcher;
 import org.apache.camel.util.ObjectHelper;
@@ -231,7 +232,7 @@ public class KnativeHttpComponent extends NettyHttpComponent {
                             break;
                         }
                     } catch (Exception e) {
-                        throw ObjectHelper.wrapRuntimeCamelException(e);
+                        throw Exceptions.wrapRuntimeCamelException(e);
                     }
                 }
             }

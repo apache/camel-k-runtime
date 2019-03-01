@@ -28,9 +28,9 @@ import org.apache.camel.Producer;
 import org.apache.camel.cloud.ServiceDefinition;
 import org.apache.camel.component.knative.ce.CloudEventsProcessors;
 import org.apache.camel.k.adapter.DefaultEndpoint;
+import org.apache.camel.k.adapter.Exceptions;
 import org.apache.camel.k.adapter.Services;
 import org.apache.camel.processor.Pipeline;
-import org.apache.camel.spi.Metadata;
 import org.apache.camel.spi.UriEndpoint;
 import org.apache.camel.spi.UriParam;
 import org.apache.camel.spi.UriPath;
@@ -204,7 +204,7 @@ public class KnativeEndpoint extends DefaultEndpoint implements DelegateEndpoint
 
             return context.getEndpoint(uri);
         } catch (Exception e) {
-            throw ObjectHelper.wrapRuntimeCamelException(e);
+            throw Exceptions.wrapRuntimeCamelException(e);
         }
     }
 }

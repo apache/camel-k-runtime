@@ -19,5 +19,5 @@
 language: java
 
 script:
-  - ./mvnw test -Dcamel2
-  - ./mvnw test -Dcamel3
+  - ./mvnw clean install -Dcamel2
+  - ./mvnw clean install -Dcamel3
