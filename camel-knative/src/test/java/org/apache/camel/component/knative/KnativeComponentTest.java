@@ -27,6 +27,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.cloud.ServiceDefinition;
+import org.apache.camel.component.knative.ce.CloudEventsProcessors;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.component.netty4.NettyEndpoint;
 import org.apache.camel.component.properties.PropertiesComponent;
@@ -331,6 +332,7 @@ public class KnativeComponentTest {
         ));
 
         KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
+        component.setCloudEventsSpecVersion(CloudEventsProcessors.v01.getVersion());
         component.setEnvironment(env);
 
         context.addRoutes(new RouteBuilder() {
@@ -385,6 +387,7 @@ public class KnativeComponentTest {
         ));
 
         KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
+        component.setCloudEventsSpecVersion(CloudEventsProcessors.v01.getVersion());
         component.setEnvironment(env);
 
         context.addRoutes(new RouteBuilder() {
@@ -448,6 +451,7 @@ public class KnativeComponentTest {
         ));
 
         KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
+        component.setCloudEventsSpecVersion(CloudEventsProcessors.v01.getVersion());
         component.setEnvironment(env);
 
         context.addRoutes(new RouteBuilder() {
@@ -521,6 +525,7 @@ public class KnativeComponentTest {
         ));
 
         KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
+        component.setCloudEventsSpecVersion(CloudEventsProcessors.v01.getVersion());
         component.setEnvironment(env);
 
         context.addRoutes(new RouteBuilder() {
