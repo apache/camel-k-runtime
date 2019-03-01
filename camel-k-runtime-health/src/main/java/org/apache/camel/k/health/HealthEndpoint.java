@@ -32,10 +32,10 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.DefaultFullHttpResponse;
 import io.netty.handler.codec.http.FullHttpResponse;
+import io.netty.handler.codec.http.HttpObject;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.handler.codec.http.HttpServerCodec;
-import io.netty.handler.codec.http.HttpServerExpectContinueHandler;
 import io.netty.handler.codec.http.HttpVersion;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
@@ -80,7 +80,6 @@ public class HealthEndpoint extends ServiceSupport {
                 protected void initChannel(SocketChannel ch) throws Exception {
                     ch.pipeline()
                         .addLast(new HttpServerCodec())
-                        .addLast(new HttpServerExpectContinueHandler())
                         .addLast(new Handler());
                 }
             });
@@ -98,33 +97,37 @@ public class HealthEndpoint extends ServiceSupport {
         }
     }
 
-    private class Handler extends SimpleChannelInboundHandler<HttpRequest> {
+    private class Handler extends SimpleChannelInboundHandler<HttpObject> {
         @Override
         public void channelReadComplete(ChannelHandlerContext ctx) {
             ctx.flush();
         }
 
         @Override
-        protected void channelRead0(ChannelHandlerContext ctx, HttpRequest msg) throws Exception {
-            HttpResponseStatus status;
-            ByteBuf content;
+        protected void channelRead0(ChannelHandlerContext ctx, HttpObject object) throws Exception {
+            if (object instanceof HttpRequest) {
+                final HttpRequest msg = (HttpRequest)object;
 
-            if (!Objects.equals(path, msg.uri())) {
-                status = HttpResponseStatus.NOT_FOUND;
-                content = Unpooled.wrappedBuffer(KO);
-            } else if (context.getStatus() == ServiceStatus.Started) {
-                status = HttpResponseStatus.OK;
-                content = Unpooled.wrappedBuffer(OK);
-            } else {
-                status = HttpResponseStatus.SERVICE_UNAVAILABLE;
-                content = Unpooled.wrappedBuffer(KO);
+                HttpResponseStatus status;
+                ByteBuf content;
+
+                if (!Objects.equals(path, msg.uri())) {
+                    status = HttpResponseStatus.NOT_FOUND;
+                    content = Unpooled.wrappedBuffer(KO);
+                } else if (context.getStatus() == ServiceStatus.Started) {
+                    status = HttpResponseStatus.OK;
+                    content = Unpooled.wrappedBuffer(OK);
+                } else {
+                    status = HttpResponseStatus.SERVICE_UNAVAILABLE;
+                    content = Unpooled.wrappedBuffer(KO);
+                }
+
+                FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, status, content);
+                response.headers().set(CONTENT_TYPE, "text/plain");
+                response.headers().setInt(CONTENT_LENGTH, response.content().readableBytes());
+
+                ctx.write(response).addListener(ChannelFutureListener.CLOSE);
             }
-
-            FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, status, content);
-            response.headers().set(CONTENT_TYPE, "text/plain");
-            response.headers().setInt(CONTENT_LENGTH, response.content().readableBytes());
-
-            ctx.write(response).addListener(ChannelFutureListener.CLOSE);
         }
     }
 }
