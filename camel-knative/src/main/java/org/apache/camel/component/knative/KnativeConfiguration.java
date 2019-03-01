@@ -26,8 +26,8 @@ public class KnativeConfiguration implements Cloneable {
     @UriParam(defaultValue = "false")
     private boolean jsonSerializationEnabled;
 
-    @UriParam(defaultValue = "0.1", enums = "0.1,0.2")
-    private String cloudEventsSpecVersion = "0.1";
+    @UriParam(defaultValue = "0.2", enums = "0.1,0.2")
+    private String cloudEventsSpecVersion = "0.2";
 
     public KnativeConfiguration() {
     }
