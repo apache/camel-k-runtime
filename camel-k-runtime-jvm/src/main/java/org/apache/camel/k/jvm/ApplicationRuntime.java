@@ -27,10 +27,10 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.k.InMemoryRegistry;
 import org.apache.camel.k.Runtime;
+import org.apache.camel.k.adapter.Exceptions;
 import org.apache.camel.k.support.RuntimeSupport;
 import org.apache.camel.main.MainSupport;
 import org.apache.camel.spi.HasId;
-import org.apache.camel.util.ObjectHelper;
 import org.apache.camel.util.function.ThrowingConsumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -101,7 +101,7 @@ public final class ApplicationRuntime implements Runtime {
                 try {
                     consumer.accept(runtime);
                 } catch (Exception e) {
-                    throw ObjectHelper.wrapRuntimeCamelException(e);
+                    throw Exceptions.wrapRuntimeCamelException(e);
                 }
             }
         });

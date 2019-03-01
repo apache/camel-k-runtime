@@ -42,7 +42,7 @@ import io.netty.handler.logging.LoggingHandler;
 import io.netty.util.AsciiString;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ServiceStatus;
-import org.apache.camel.support.ServiceSupport;
+import org.apache.camel.k.adapter.ServiceSupport;
 
 public class HealthEndpoint extends ServiceSupport {
     private static final AsciiString CONTENT_TYPE = AsciiString.cached("Content-Type");
