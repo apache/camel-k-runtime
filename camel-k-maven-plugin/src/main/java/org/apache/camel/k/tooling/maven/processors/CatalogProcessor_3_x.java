@@ -75,7 +75,8 @@ public class CatalogProcessor_3_x implements CatalogProcessor {
 
     @Override
     public boolean accepts(CamelCatalog catalog) {
-        return new Semver(catalog.getCatalogVersion(), Semver.SemverType.IVY).withClearedSuffixAndBuild().satisfies("[3,4]");
+        Semver semver = new Semver(catalog.getCatalogVersion(), Semver.SemverType.IVY);
+        return semver.isGreaterThan("2.999.999") && semver.isLowerThan("4.0.0");
     }
 
     @Override
