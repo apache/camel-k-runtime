@@ -11,7 +11,7 @@ public class CataloProcessor2Test extends AbstractCataloProcessorTest {
     public void testAcceptHyphen(){
         CatalogProcessor_2_x cp2 = new CatalogProcessor_2_x();
 
-        CamelCatalog catalog = versionCamelCatalog("2.21.0.fuse-730049");
+        CamelCatalog catalog = versionCamelCatalog("2.21.0.acme-123456");
 
         assertThat(cp2.accepts(catalog)).isTrue();
     }
