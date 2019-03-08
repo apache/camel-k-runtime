@@ -162,7 +162,34 @@
                     <artifactId>camel-properties</artifactId>
                     <scope>test</scope>
                 </dependency>
+                <!-- catalog geenration -->
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>apt</artifactId>
+                    <scope>provided</scope>
+                </dependency>
             </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.camel</groupId>
+                        <artifactId>camel-package-maven-plugin</artifactId>
+                        <version>${camel3.version}</version>
+                        <configuration>
+                            <failFast>false</failFast>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>generate</id>
+                                <goals>
+                                    <goal>prepare-components</goal>
+                                </goals>
+                                <phase>process-classes</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
         <profile>
             <id>camel2</id>
@@ -178,7 +205,34 @@
                     <artifactId>camel-k-adapter-camel-2</artifactId>
                     <scope>provided</scope>
                 </dependency>
+                <!-- catalog geenration -->
+                <dependency>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>apt</artifactId>
+                    <scope>provided</scope>
+                </dependency>
             </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.camel</groupId>
+                        <artifactId>camel-package-maven-plugin</artifactId>
+                        <version>${camel2.version}</version>
+                        <configuration>
+                            <failFast>false</failFast>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>generate</id>
+                                <goals>
+                                    <goal>prepare-components</goal>
+                                </goals>
+                                <phase>process-classes</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 
