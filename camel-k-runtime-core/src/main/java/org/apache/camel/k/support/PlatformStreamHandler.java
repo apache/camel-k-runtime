@@ -17,7 +17,6 @@
 package org.apache.camel.k.support;
 
 import java.io.ByteArrayInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
@@ -32,8 +31,8 @@ import java.util.Map;
 import java.util.zip.GZIPInputStream;
 
 import org.apache.camel.util.ObjectHelper;
+import org.apache.camel.util.StringHelper;
 import org.apache.camel.util.URISupport;
-import org.apache.commons.lang3.StringUtils;
 
 public class PlatformStreamHandler extends URLStreamHandler {
     public static void configure() {
@@ -49,68 +48,128 @@ public class PlatformStreamHandler extends URLStreamHandler {
 
             @Override
             public InputStream getInputStream() throws IOException {
-                InputStream is = null;
+                String path = url.getPath();
+                String type = StringHelper.before(path, ":");
+                String query = StringHelper.after(path, "?");
 
-                // check if the file exists
-                Path path = Paths.get(url.getPath());
-                if (Files.exists(path)) {
-                    is = Files.newInputStream(path);
+                if (ObjectHelper.isNotEmpty(type)) {
+                    path = StringHelper.after(path, ":");
+                }
+                if (ObjectHelper.isNotEmpty(query)) {
+                    path = StringHelper.before(path, "?");
                 }
 
-                // check if the file exists in classpath
-                if (is == null) {
-                    is = ObjectHelper.loadResourceAsStream(url.getPath());
-                }
+                boolean compression = hasCompression(query);
 
-                if (is == null) {
-                    String name = getURL().getPath().toUpperCase();
-                    name = name.replace(" ", "_");
-                    name = name.replace(".", "_");
-                    name = name.replace("-", "_");
+                InputStream is;
 
-                    String envName = System.getenv(name);
-                    String envType = StringUtils.substringBefore(envName, ":");
-                    String envQuery = StringUtils.substringAfter(envName, "?");
-
-                    envName = StringUtils.substringAfter(envName, ":");
-                    envName = StringUtils.substringBefore(envName, "?");
-
-                    if (envName != null) {
-                        try {
-                            final Map<String, Object> params = URISupport.parseQuery(envQuery);
-                            final boolean compression = Boolean.valueOf((String) params.get("compression"));
-
-                            if (StringUtils.equals(envType, "env")) {
-                                String data = System.getenv(envName);
-
-                                if (data == null) {
-                                    throw new IllegalArgumentException("Unknown env var: " + envName);
-                                }
-
-                                is = new ByteArrayInputStream(data.getBytes());
-                            } else if (StringUtils.equals(envType, "file")) {
-                                Path data = Paths.get(envName);
-
-                                if (!Files.exists(data)) {
-                                    throw new FileNotFoundException(envName);
-                                }
-
-                                is = Files.newInputStream(data);
-                            } else if (StringUtils.equals(envType, "classpath")) {
-                                is = ObjectHelper.loadResourceAsStream(envName);
-                            }
-
-                            if (is != null && compression) {
-                                is = new GZIPInputStream(Base64.getDecoder().wrap(is));
-                            }
-                        } catch (URISyntaxException e) {
-                            throw new IOException(e);
-                        }
+                if (type != null) {
+                    switch (type) {
+                    case "env":
+                        is = resolveEnv(path);
+                        break;
+                    case "file":
+                        is = resolveFile(path);
+                        break;
+                    case "classpath":
+                        is = resolveClasspath(path);
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Unsupported delegated resolver: " + type);
                     }
+                } else {
+                    is = resolveEnv(path);
+
+                    if (is == null) {
+                        is = resolveFile(path);
+                    }
+                    if (is == null) {
+                        is = resolveClasspath(path);
+                    }
+                }
+
+                if (is != null && compression) {
+                    is = new GZIPInputStream(Base64.getDecoder().wrap(is));
                 }
 
                 return is;
             }
         };
+    }
+
+    private static InputStream resolveEnv(String path) {
+        String name = path.toUpperCase();
+        name = name.replace(" ", "_");
+        name = name.replace(".", "_");
+        name = name.replace("-", "_");
+
+        String ref = System.getenv(name);
+
+        if (ref == null) {
+            return null;
+        }
+
+        String refType = StringHelper.before(ref, ":");
+        String refName = StringHelper.after(ref, ":");
+        String refQuery = StringHelper.after(refName, "?");
+        boolean compression = hasCompression(refQuery);
+
+        if (ObjectHelper.isNotEmpty(refQuery)) {
+            refName = StringHelper.before(refName, "?");
+        }
+
+        InputStream is;
+
+        switch (refType) {
+        case "env":
+            String content = System.getenv(refName);
+            is = new ByteArrayInputStream(content.getBytes());
+            break;
+        case "file":
+            is = resolveFile(refName);
+            break;
+        case "classpath":
+            is = resolveClasspath(refName);
+            break;
+        default:
+            throw new IllegalArgumentException("Unsupported delegated resolver: " + refName);
+        }
+
+        if (is != null && compression) {
+            try {
+                is = new GZIPInputStream(Base64.getDecoder().wrap(is));
+            } catch (IOException e) {
+                throw new IllegalArgumentException(e);
+            }
+        }
+
+        return is;
+    }
+
+    private static InputStream resolveFile(String path) {
+        Path data = Paths.get(path);
+
+        if (!Files.exists(data)) {
+            return null;
+        }
+
+        try {
+            return Files.newInputStream(data);
+        } catch (IOException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
+    private static InputStream resolveClasspath(String path) {
+        return ObjectHelper.loadResourceAsStream(path);
+    }
+
+    private static boolean hasCompression(String query) {
+        try {
+            Map<String, Object> params = URISupport.parseQuery(query);
+            return Boolean.valueOf((String) params.get("compression"));
+        } catch (URISyntaxException e) {
+            throw new IllegalArgumentException(e);
+        }
     }
 }
