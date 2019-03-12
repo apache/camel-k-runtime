@@ -82,7 +82,40 @@
             <version>${assertj.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j2.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>${log4j2.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <environmentVariables>
+                        <CAMEL_K_RESOURCE_001>my env content</CAMEL_K_RESOURCE_001>
+                        <MY_ENV_RESOURCE_TXT>env:CAMEL_K_RESOURCE_001</MY_ENV_RESOURCE_TXT>
+                        <CAMEL_K_RESOURCE_002>H4sIAFlah1wAA8utVEjOzy0oSi0uTk1RSM0rA3LzSlLzSrgAUbkzGRoAAAA=</CAMEL_K_RESOURCE_002>
+                        <MY_COMPRESSED_ENV_RESOURCE_TXT>env:CAMEL_K_RESOURCE_002?compression=true</MY_COMPRESSED_ENV_RESOURCE_TXT>
+                    </environmentVariables>
+                    <systemPropertyVariables>
+                        <root>${project.basedir}</root>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <profiles>
         <profile>
