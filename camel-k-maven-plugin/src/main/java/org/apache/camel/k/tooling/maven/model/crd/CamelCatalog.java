@@ -19,13 +19,22 @@ package org.apache.camel.k.tooling.maven.model.crd;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.apache.camel.k.tooling.maven.model.k8s.ObjectMeta;
-import org.apache.camel.k.tooling.maven.model.k8s.TypeMeta;
 import org.immutables.value.Value;
 
 @Value.Immutable
 @JsonDeserialize(builder = CamelCatalog.Builder.class)
 @JsonPropertyOrder({ "apiVersion", "kind", "metadata", "spec" })
-public interface CamelCatalog extends TypeMeta {
+public interface CamelCatalog {
+    @Value.Default
+    default String getApiVersion() {
+        return "camel.apache.org/v1alpha1";
+    }
+
+    @Value.Default
+    default String getKind() {
+        return "CamelCatalog";
+    }
+
     ObjectMeta getMetadata();
 
     CamelCatalogSpec getSpec();
