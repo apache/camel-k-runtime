@@ -45,7 +45,7 @@
             <exclusions>
                 <exclusion>
                     <groupId>org.codehaus.groovy</groupId>
-                    <artifactId>groovy</artifactId>
+                    <artifactId>*</artifactId>
                 </exclusion>
             </exclusions>
             <scope>provided</scope>
@@ -78,7 +78,7 @@
             <exclusions>
                 <exclusion>
                     <groupId>org.codehaus.groovy</groupId>
-                    <artifactId>groovy-all</artifactId>
+                    <artifactId>*</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
