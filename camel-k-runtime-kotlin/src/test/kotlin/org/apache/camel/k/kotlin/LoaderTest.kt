@@ -42,7 +42,7 @@ class LoaderTest {
 
         val routes = builder.routeCollection.routes
         assertThat(routes).hasSize(1)
-        assertThat(routes[0].inputs[0].endpointUri).isEqualTo("timer:tick")
+        assertThat(routes[0].input.endpointUri).isEqualTo("timer:tick")
         assertThat(routes[0].outputs[0]).isInstanceOf(ProcessDefinition::class.java)
         assertThat(routes[0].outputs[1]).isInstanceOf(ToDefinition::class.java)
     }

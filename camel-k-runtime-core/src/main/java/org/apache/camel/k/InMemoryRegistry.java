@@ -24,6 +24,7 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.stream.Collectors;
 
 import org.apache.camel.NoSuchBeanException;
+import org.apache.camel.RuntimeCamelException;
 
 public final class InMemoryRegistry implements Runtime.Registry {
     private final ConcurrentMap<String, Object> registry;
@@ -34,6 +35,10 @@ public final class InMemoryRegistry implements Runtime.Registry {
 
     public void bind(String name, Object bean) {
         this.registry.put(name, bean);
+    }
+
+    public void bind(String id, Class<?> type, Object bean) throws RuntimeCamelException {
+        this.registry.put(id, bean);
     }
 
     @Override

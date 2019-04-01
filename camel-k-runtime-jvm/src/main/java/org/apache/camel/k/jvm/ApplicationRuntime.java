@@ -113,8 +113,13 @@ public final class ApplicationRuntime implements Runtime {
             return getContext().createProducerTemplate();
         }
 
-        @Override
+        protected CamelContext createCamelContext() {
+            // camel 3.x
+            return getContext();
+        }
+
         protected Map<String, CamelContext> getCamelContextMap() {
+            // camel 2.x
             getContext();
 
             return contextMap;
@@ -123,7 +128,7 @@ public final class ApplicationRuntime implements Runtime {
         @Override
         protected void doStart() throws Exception {
             super.doStart();
-            postProcessContext();
+            initCamelContext();
 
             try {
                 getContext().start();
@@ -138,9 +143,7 @@ public final class ApplicationRuntime implements Runtime {
         protected void doStop() throws Exception {
             super.doStop();
 
-            if (!getCamelContexts().isEmpty()) {
-                getContext().stop();
-            }
+            getContext().stop();
         }
     }
 

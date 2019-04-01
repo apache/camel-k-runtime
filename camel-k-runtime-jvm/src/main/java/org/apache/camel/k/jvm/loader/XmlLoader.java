@@ -26,6 +26,8 @@ import org.apache.camel.k.RoutesLoader;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.support.URIResolver;
+import org.apache.camel.model.ModelCamelContext;
+import org.apache.camel.model.ModelHelper;
 import org.apache.camel.model.RoutesDefinition;
 import org.apache.camel.model.rest.RestsDefinition;
 import org.slf4j.Logger;
@@ -46,7 +48,7 @@ public class XmlLoader implements RoutesLoader {
             public void configure() throws Exception {
                 try (InputStream is = URIResolver.resolve(getContext(), source)) {
                     try {
-                        RoutesDefinition definition = getContext().loadRoutesDefinition(is);
+                        RoutesDefinition definition = ModelHelper.loadRoutesDefinition(getContext(), is);
                         LOGGER.debug("Loaded {} routes from {}", definition.getRoutes().size(), source);
 
                         setRouteCollection(definition);
@@ -59,7 +61,7 @@ public class XmlLoader implements RoutesLoader {
 
                 try (InputStream is = URIResolver.resolve(getContext(), source)) {
                     try {
-                        RestsDefinition definition = getContext().loadRestsDefinition(is);
+                        RestsDefinition definition = ModelHelper.loadRestsDefinition(getContext(), is);
                         LOGGER.debug("Loaded {} rests from {}", definition.getRests().size(), source);
 
                         setRestCollection(definition);

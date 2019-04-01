@@ -123,10 +123,15 @@ public class ApplicationAutoConfiguration {
         public <T> Set<T> findByType(Class<T> type) {
             return registry.findByType(type);
         }
-        @Override
+
         public void bind(String name, Object bean) {
             applicationContext.getBeanFactory().registerSingleton(name, bean);
         }
+
+        public void bind(String name, Class type, Object bean) {
+            applicationContext.getBeanFactory().registerSingleton(name, bean);
+        }
+
     }
 
 }

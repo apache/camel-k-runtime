@@ -16,14 +16,13 @@
  */
 package org.apache.camel.component.knative.http;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.impl.SimpleRegistry;
 
 public class KnativeHttpMain {
     public static void main(String[] args) throws Exception {
-        SimpleRegistry registry = new SimpleRegistry();
-        DefaultCamelContext context = new DefaultCamelContext(registry);
+        CamelContext context = new DefaultCamelContext();
 
         try {
             context.disableJMX();

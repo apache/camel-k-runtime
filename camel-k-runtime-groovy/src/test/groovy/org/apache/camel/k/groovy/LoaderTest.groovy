@@ -44,7 +44,7 @@ class LoaderTest extends Specification {
             def routes = builder.routeCollection.routes
 
             routes.size() == 1
-            routes[0].inputs[0].endpointUri == 'timer:tick'
+            routes[0].input.endpointUri == 'timer:tick'
             routes[0].outputs[0] instanceof ToDefinition
     }
 }
