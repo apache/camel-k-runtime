@@ -31,6 +31,10 @@ public final class Knative {
     public static final String CONTENT_TYPE = "content.type";
     public static final String MIME_STRUCTURED_CONTENT_MODE = "application/cloudevents+json";
 
+    public static final String SERVICE_META_HOST = "service.host";
+    public static final String SERVICE_META_ZONE = "service.zone";
+    public static final String SERVICE_META_PATH = "service.path";
+
     private Knative() {
     }
 
