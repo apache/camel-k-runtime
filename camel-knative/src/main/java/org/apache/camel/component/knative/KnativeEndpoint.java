@@ -16,9 +16,6 @@
  */
 package org.apache.camel.component.knative;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.Consumer;
 import org.apache.camel.DelegateEndpoint;
@@ -37,6 +34,9 @@ import org.apache.camel.spi.UriPath;
 import org.apache.camel.util.ObjectHelper;
 import org.apache.camel.util.StringHelper;
 import org.apache.camel.util.URISupport;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 @UriEndpoint(
@@ -154,7 +154,7 @@ public class KnativeEndpoint extends DefaultEndpoint implements DelegateEndpoint
 
             if (ObjectHelper.isEmpty(host)) {
                 String name = definition.getName();
-                String zone = definition.getMetadata().get(ServiceDefinition.SERVICE_META_ZONE);
+                String zone = definition.getMetadata().get(Knative.SERVICE_META_ZONE);
 
                 if (ObjectHelper.isNotEmpty(zone)) {
                     try {
@@ -170,7 +170,7 @@ public class KnativeEndpoint extends DefaultEndpoint implements DelegateEndpoint
                 host = name;
             }
 
-            ObjectHelper.notNull(host, ServiceDefinition.SERVICE_META_HOST);
+            ObjectHelper.notNull(host, Knative.SERVICE_META_HOST);
             ObjectHelper.notNull(protocol, Knative.KNATIVE_PROTOCOL);
 
             String uri = String.format("%s:%s://%s", scheme, protocol, host);
@@ -178,7 +178,7 @@ public class KnativeEndpoint extends DefaultEndpoint implements DelegateEndpoint
                 uri = uri + ":" + port;
             }
 
-            String path = definition.getMetadata().get(ServiceDefinition.SERVICE_META_PATH);
+            String path = definition.getMetadata().get(Knative.SERVICE_META_PATH);
             if (path != null) {
                 if (!path.startsWith("/")) {
                     uri += "/";

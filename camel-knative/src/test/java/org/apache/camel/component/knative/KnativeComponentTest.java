@@ -16,17 +16,10 @@
  */
 package org.apache.camel.component.knative;
 
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Properties;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.cloud.ServiceDefinition;
 import org.apache.camel.component.knative.ce.CloudEventsProcessors;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.component.netty4.NettyEndpoint;
@@ -37,8 +30,13 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Properties;
+
 import static org.apache.camel.component.knative.KnativeEnvironment.mandatoryLoadFromResource;
-import static org.apache.camel.util.CollectionHelper.mapOf;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -119,7 +117,7 @@ public class KnativeComponentTest {
                 "myEndpoint",
                 "my-node",
                 9001,
-                mapOf(ServiceDefinition.SERVICE_META_PATH, "/a/path"))
+                KnativeSupport.mapOf(Knative.SERVICE_META_PATH, "/a/path"))
         ));
 
         KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
@@ -171,7 +169,7 @@ public class KnativeComponentTest {
                 "myEndpoint",
                 "",
                 -1,
-                mapOf(ServiceDefinition.SERVICE_META_PATH, "/a/path"))
+                KnativeSupport.mapOf(Knative.SERVICE_META_PATH, "/a/path"))
         ));
 
         KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
@@ -204,9 +202,9 @@ public class KnativeComponentTest {
                 "myEndpoint",
                 "",
                 -1,
-                mapOf(
-                    ServiceDefinition.SERVICE_META_PATH, "/a/path",
-                    ServiceDefinition.SERVICE_META_ZONE, "myNamespace"))
+                KnativeSupport.mapOf(
+                    Knative.SERVICE_META_PATH, "/a/path",
+                        Knative.SERVICE_META_ZONE, "myNamespace"))
         ));
 
         KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
@@ -239,9 +237,9 @@ public class KnativeComponentTest {
                 "myEndpoint",
                 "",
                 -1,
-                mapOf(
-                    ServiceDefinition.SERVICE_META_PATH, "/a/path",
-                    ServiceDefinition.SERVICE_META_ZONE, "{{myNamespaceKey}}"))
+                KnativeSupport.mapOf(
+                    Knative.SERVICE_META_PATH, "/a/path",
+                    Knative.SERVICE_META_ZONE, "{{myNamespaceKey}}"))
         ));
 
         Properties properties = new Properties();
@@ -324,8 +322,8 @@ public class KnativeComponentTest {
                 "myEndpoint",
                 "localhost",
                 port,
-                mapOf(
-                    ServiceDefinition.SERVICE_META_PATH, "/a/path",
+                KnativeSupport.mapOf(
+                    Knative.SERVICE_META_PATH, "/a/path",
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 ))
@@ -379,8 +377,8 @@ public class KnativeComponentTest {
                 "myEndpoint",
                 "localhost",
                 port,
-                mapOf(
-                    ServiceDefinition.SERVICE_META_PATH, "/a/path",
+                KnativeSupport.mapOf(
+                    Knative.SERVICE_META_PATH, "/a/path",
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 ))
@@ -417,7 +415,7 @@ public class KnativeComponentTest {
             "direct:source",
             e -> {
                 e.getIn().setHeader(Exchange.CONTENT_TYPE, Knative.MIME_STRUCTURED_CONTENT_MODE);
-                e.getIn().setBody(new ObjectMapper().writeValueAsString(mapOf(
+                e.getIn().setBody(new ObjectMapper().writeValueAsString(KnativeSupport.mapOf(
                     "cloudEventsVersion", "0.1",
                     "eventType", "org.apache.camel.event",
                     "eventID", "myEventID",
@@ -443,8 +441,8 @@ public class KnativeComponentTest {
                 "myEndpoint",
                 "localhost",
                 port,
-                mapOf(
-                    ServiceDefinition.SERVICE_META_PATH, "/a/path",
+                KnativeSupport.mapOf(
+                    Knative.SERVICE_META_PATH, "/a/path",
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 ))
@@ -504,7 +502,7 @@ public class KnativeComponentTest {
                 "ep1",
                 "localhost",
                 port,
-                mapOf(
+                KnativeSupport.mapOf(
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain",
                     Knative.FILTER_HEADER_NAME, "CE-Source",
@@ -516,7 +514,7 @@ public class KnativeComponentTest {
                 "ep2",
                 "localhost",
                 port,
-                mapOf(
+                KnativeSupport.mapOf(
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain",
                     Knative.FILTER_HEADER_NAME, "CE-Source",

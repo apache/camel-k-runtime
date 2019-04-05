@@ -16,6 +16,14 @@
  */
 package org.apache.camel.component.knative;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.apache.camel.CamelContext;
+import org.apache.camel.impl.cloud.DefaultServiceDefinition;
+import org.apache.camel.k.adapter.Resources;
+import org.apache.camel.util.CollectionHelper;
+import org.apache.camel.util.StringHelper;
+
 import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
@@ -28,15 +36,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Stream;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import org.apache.camel.CamelContext;
-import org.apache.camel.cloud.ServiceDefinition;
-import org.apache.camel.impl.cloud.DefaultServiceDefinition;
-import org.apache.camel.k.adapter.Resources;
-import org.apache.camel.util.CollectionHelper;
-import org.apache.camel.util.StringHelper;
 
 /*
  * Assuming it is loaded from a json for now
@@ -104,7 +103,7 @@ public class KnativeEnvironment {
                          definition.getPort(),
                          KnativeSupport.mergeMaps(
                              definition.getMetadata(),
-                             Collections.singletonMap(ServiceDefinition.SERVICE_META_PATH, "/" + contextPath)
+                             Collections.singletonMap(Knative.SERVICE_META_PATH, "/" + contextPath)
                          )
                      );
                  }
@@ -125,7 +124,7 @@ public class KnativeEnvironment {
 
         }
         if (contextPath != null) {
-            meta.put(ServiceDefinition.SERVICE_META_PATH, "/" + contextPath);
+            meta.put(Knative.SERVICE_META_PATH, "/" + contextPath);
         }
 
         return new KnativeEnvironment.KnativeServiceDefinition(
@@ -190,13 +189,12 @@ public class KnativeEnvironment {
             @JsonProperty(value = "metadata", required = false) Map<String, String> metadata) {
 
             super(
-                UUID.randomUUID().toString(),
                 name,
                 host,
                 port,
                 KnativeSupport.mergeMaps(
                     metadata,
-                    CollectionHelper.mapOf(
+                    KnativeSupport.mapOf(
                         Knative.KNATIVE_TYPE, type.name(),
                         Knative.KNATIVE_PROTOCOL, protocol.name())
                 )
@@ -212,7 +210,7 @@ public class KnativeEnvironment {
         }
 
         public String getPath() {
-            return getMetadata().get(ServiceDefinition.SERVICE_META_PATH);
+            return getMetadata().get(Knative.SERVICE_META_PATH);
         }
 
         public String getEventType() {

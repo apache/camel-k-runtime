@@ -16,15 +16,10 @@
  */
 package org.apache.camel.component.knative;
 
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.cloud.ServiceDefinition;
 import org.apache.camel.component.knative.ce.CloudEventsProcessors;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -33,7 +28,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.apache.camel.util.CollectionHelper.mapOf;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 
 public class CloudEventsV01Test {
 
@@ -74,8 +71,8 @@ public class CloudEventsV01Test {
                 "myEndpoint",
                 "localhost",
                 port,
-                mapOf(
-                    ServiceDefinition.SERVICE_META_PATH, "/a/path",
+                KnativeSupport.mapOf(
+                    Knative.SERVICE_META_PATH, "/a/path",
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 ))
@@ -129,8 +126,8 @@ public class CloudEventsV01Test {
                 "myEndpoint",
                 "localhost",
                 port,
-                mapOf(
-                    ServiceDefinition.SERVICE_META_PATH, "/a/path",
+                KnativeSupport.mapOf(
+                    Knative.SERVICE_META_PATH, "/a/path",
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 ))
@@ -167,7 +164,7 @@ public class CloudEventsV01Test {
             "direct:source",
             e -> {
                 e.getIn().setHeader(Exchange.CONTENT_TYPE, Knative.MIME_STRUCTURED_CONTENT_MODE);
-                e.getIn().setBody(new ObjectMapper().writeValueAsString(mapOf(
+                e.getIn().setBody(new ObjectMapper().writeValueAsString(KnativeSupport.mapOf(
                     "cloudEventsVersion", CloudEventsProcessors.v01.getVersion(),
                     "eventType", "org.apache.camel.event",
                     "eventID", "myEventID",
@@ -192,8 +189,8 @@ public class CloudEventsV01Test {
                 "myEndpoint",
                 "localhost",
                 port,
-                mapOf(
-                    ServiceDefinition.SERVICE_META_PATH, "/a/path",
+                KnativeSupport.mapOf(
+                    Knative.SERVICE_META_PATH, "/a/path",
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 ))
@@ -253,7 +250,7 @@ public class CloudEventsV01Test {
                 "ep1",
                 "localhost",
                 port,
-                mapOf(
+                KnativeSupport.mapOf(
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain",
                     Knative.FILTER_HEADER_NAME, "CE-Source",
@@ -265,7 +262,7 @@ public class CloudEventsV01Test {
                 "ep2",
                 "localhost",
                 port,
-                mapOf(
+                KnativeSupport.mapOf(
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain",
                     Knative.FILTER_HEADER_NAME, "CE-Source",
