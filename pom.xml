@@ -36,7 +36,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <camel2.version>2.23.1</camel2.version>
-        <camel3.version>3.0.0-M1</camel3.version>
+        <camel3.version>3.0.0-M2</camel3.version>
         <camel.version>${camel2.version}</camel.version>
         <catalog.version>${camel.version}</catalog.version>
         <junit.version>4.12</junit.version>

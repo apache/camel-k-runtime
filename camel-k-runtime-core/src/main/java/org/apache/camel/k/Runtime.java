@@ -16,7 +16,6 @@
  */
 package org.apache.camel.k;
 
-import java.util.Map;
 import java.util.Properties;
 
 import org.apache.camel.CamelContext;
@@ -54,22 +53,6 @@ public interface Runtime {
         void accept(Phase phase, Runtime runtime);
     }
 
-    interface Registry extends org.apache.camel.spi.Registry {
-        void bind(String name, Object bean);
-
-        @SuppressWarnings("deprecation")
-        default public Object lookup(String name) {
-            return lookupByName(name);
-        }
-
-        @SuppressWarnings("deprecation")
-        default public <T> T lookup(String name, Class<T> type) {
-            return lookupByNameAndType(name, type);
-        }
-
-        @SuppressWarnings("deprecation")
-        default public <T> Map<String, T> lookupByType(Class<T> type) {
-            return findByTypeWithName(type);
-        }
+    interface Registry extends org.apache.camel.k.adapter.Registry {
     }
 }

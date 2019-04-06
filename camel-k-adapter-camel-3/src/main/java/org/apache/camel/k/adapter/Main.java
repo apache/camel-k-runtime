@@ -16,28 +16,42 @@
  */
 package org.apache.camel.k.adapter;
 
-import java.io.IOException;
-import java.io.InputStream;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.model.ModelHelper;
-import org.apache.camel.model.RoutesDefinition;
-import org.apache.camel.model.rest.RestsDefinition;
-import org.apache.camel.support.ResourceHelper;
+import org.apache.camel.ProducerTemplate;
 
-public final class Resources {
-    private Resources() {
+public class Main extends org.apache.camel.main.MainSupport {
+    public Main(CamelContext context) {
+        this.camelContext = context;
     }
 
-    public static InputStream resolveResourceAsInputStream(CamelContext camelContext, String uri) throws IOException {
-        return ResourceHelper.resolveMandatoryResourceAsInputStream(camelContext, uri);
+    @Override
+    protected void doStart() throws Exception {
+        super.doStart();
+        postProcessCamelContext(camelContext);
+
+        try {
+            // if we were veto started then mark as completed
+            this.camelContext.start();
+        } finally {
+            if (this.camelContext.isVetoStarted()) {
+                completed();
+            }
+        }
     }
 
-    public static RoutesDefinition loadRoutesDefinition(CamelContext camelContext, InputStream is) throws Exception {
-        return ModelHelper.loadRoutesDefinition(camelContext, is);
+    protected void doStop() throws Exception {
+        super.doStop();
+        this.camelContext.stop();
     }
 
-    public static RestsDefinition loadRestsDefinition(CamelContext camelContext, InputStream is) throws Exception {
-        return ModelHelper.loadRestsDefinition(camelContext, is);
+    @Override
+    protected ProducerTemplate findOrCreateCamelTemplate() {
+        return this.camelContext.createProducerTemplate();
+    }
+
+    @Override
+    protected CamelContext createCamelContext() {
+        return this.camelContext;
     }
 }

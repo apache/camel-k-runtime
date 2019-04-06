@@ -20,6 +20,9 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.model.ModelHelper;
+import org.apache.camel.model.RoutesDefinition;
+import org.apache.camel.model.rest.RestsDefinition;
 import org.apache.camel.util.ResourceHelper;
 
 public final class Resources {
@@ -28,5 +31,13 @@ public final class Resources {
 
     public static InputStream resolveResourceAsInputStream(CamelContext camelContext, String uri) throws IOException {
         return ResourceHelper.resolveMandatoryResourceAsInputStream(camelContext, uri);
+    }
+
+    public static RoutesDefinition loadRoutesDefinition(CamelContext camelContext, InputStream is) throws Exception {
+        return camelContext.loadRoutesDefinition(is);
+    }
+
+    public static RestsDefinition loadRestsDefinition(CamelContext camelContext, InputStream is) throws Exception {
+        return camelContext.loadRestsDefinition(is);
     }
 }
