@@ -54,7 +54,6 @@ import org.apache.camel.component.netty4.http.NettyHttpConfiguration;
 import org.apache.camel.component.netty4.http.NettyHttpConsumer;
 import org.apache.camel.component.netty4.http.NettyHttpHelper;
 import org.apache.camel.component.netty4.http.handlers.HttpServerChannelHandler;
-import org.apache.camel.http.common.CamelServlet;
 import org.apache.camel.k.adapter.Exceptions;
 import org.apache.camel.k.adapter.Objects;
 import org.apache.camel.k.adapter.Services;
@@ -66,7 +65,6 @@ import org.apache.camel.util.UnsafeUriCharactersEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static io.netty.handler.codec.http.HttpResponseStatus.METHOD_NOT_ALLOWED;
 import static io.netty.handler.codec.http.HttpResponseStatus.NOT_FOUND;
 import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
@@ -156,17 +154,7 @@ public class KnativeHttpComponent extends NettyHttpComponent {
                 }
                 handler.channelRead(ctx, request);
             } else {
-                // okay we cannot process this requires so return either 404 or 405.
-                // to know if its 405 then we need to check if any other HTTP method would have a consumer for the "same" request
-                boolean hasAnyMethod = CamelServlet.METHODS.stream().anyMatch(m -> isHttpMethodAllowed(request, m));
-                HttpResponse response = null;
-                if (hasAnyMethod) {
-                    //method match error, return 405
-                    response = new DefaultHttpResponse(HTTP_1_1, METHOD_NOT_ALLOWED);
-                } else {
-                    // this resource is not found, return 404
-                    response = new DefaultHttpResponse(HTTP_1_1, NOT_FOUND);
-                }
+                HttpResponse response = new DefaultHttpResponse(HTTP_1_1, NOT_FOUND);
                 response.headers().set(Exchange.CONTENT_TYPE, "text/plain");
                 response.headers().set(Exchange.CONTENT_LENGTH, 0);
                 ctx.writeAndFlush(response);
