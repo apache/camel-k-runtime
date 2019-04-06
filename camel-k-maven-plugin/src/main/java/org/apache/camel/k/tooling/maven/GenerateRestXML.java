@@ -1,4 +1,3 @@
-package org.apache.camel.k.tooling.maven;
 /**
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -15,6 +14,7 @@ package org.apache.camel.k.tooling.maven;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.apache.camel.k.tooling.maven;
 
 import java.io.PrintWriter;
 import java.io.Writer;

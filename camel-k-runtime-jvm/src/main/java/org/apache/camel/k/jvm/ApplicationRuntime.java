@@ -17,17 +17,14 @@
 package org.apache.camel.k.jvm;
 
 import java.util.LinkedHashSet;
-import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.ProducerTemplate;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.k.InMemoryRegistry;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.adapter.Exceptions;
+import org.apache.camel.k.adapter.Main;
 import org.apache.camel.k.support.RuntimeSupport;
 import org.apache.camel.main.MainSupport;
 import org.apache.camel.spi.HasId;
@@ -39,28 +36,25 @@ public final class ApplicationRuntime implements Runtime {
     private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationRuntime.class);
 
     private final Main main;
-    private final ConcurrentMap<String, CamelContext> contextMap;
+    private final DefaultCamelContext context;
     private final Runtime.Registry registry;
     private final Set<Runtime.Listener> listeners;
 
     public ApplicationRuntime() {
-        this.contextMap = new ConcurrentHashMap<>();
         this.registry = new InMemoryRegistry();
         this.listeners = new LinkedHashSet<>();
 
-        this.main = new Main();
+        this.context = new DefaultCamelContext();
+        this.context.setName("camel-k");
+        this.context.setRegistry(this.registry);
+
+        this.main = new Main(context);
         this.main.addMainListener(new MainListenerAdapter());
     }
 
     @Override
     public CamelContext getContext() {
-        return contextMap.computeIfAbsent("camel-k", key -> {
-            DefaultCamelContext context = new DefaultCamelContext();
-            context.setName(key);
-            context.setRegistry(this.registry);
-
-            return context;
-        });
+        return context;
     }
 
     @Override
@@ -105,43 +99,6 @@ public final class ApplicationRuntime implements Runtime {
                 }
             }
         });
-    }
-
-    private class Main extends org.apache.camel.main.MainSupport {
-        @Override
-        protected ProducerTemplate findOrCreateCamelTemplate() {
-            return getContext().createProducerTemplate();
-        }
-
-        @Override
-        protected Map<String, CamelContext> getCamelContextMap() {
-            getContext();
-
-            return contextMap;
-        }
-
-        @Override
-        protected void doStart() throws Exception {
-            super.doStart();
-            postProcessContext();
-
-            try {
-                getContext().start();
-            } finally {
-                if (getContext().isVetoStarted()) {
-                    completed();
-                }
-            }
-        }
-
-        @Override
-        protected void doStop() throws Exception {
-            super.doStop();
-
-            if (!getCamelContexts().isEmpty()) {
-                getContext().stop();
-            }
-        }
     }
 
     private class MainListenerAdapter implements org.apache.camel.main.MainListener {

@@ -14,19 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.apache.camel.k.adapter;
 
-package org.apache.camel.k.tooling.maven.processors;
-
-import org.apache.camel.catalog.CamelCatalog;
-import org.apache.camel.catalog.DefaultCamelCatalog;
-
-public abstract class AbstractCataloProcessorTest {
-    protected CamelCatalog versionCamelCatalog(String version){
-        return new DefaultCamelCatalog() {
-            @Override
-            public String getCatalogVersion() {
-                return version;
-            }
-        };
-    }
+public class DefaultRegistry extends org.apache.camel.support.DefaultRegistry implements Registry {
 }

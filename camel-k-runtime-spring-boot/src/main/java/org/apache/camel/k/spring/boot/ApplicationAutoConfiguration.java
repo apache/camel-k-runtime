@@ -19,20 +19,18 @@ package org.apache.camel.k.spring.boot;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.k.InMemoryRegistry;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.listener.ContextConfigurer;
 import org.apache.camel.k.listener.RoutesConfigurer;
 import org.apache.camel.k.listener.RoutesDumper;
-import org.apache.camel.k.support.RuntimeSupport;
 import org.apache.camel.spring.boot.CamelContextConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 @Configuration
 public class ApplicationAutoConfiguration {
@@ -95,7 +93,7 @@ public class ApplicationAutoConfiguration {
         }
     }
 
-    private static class RuntimeApplicationContextRegistry implements Runtime.Registry {
+    private static class RuntimeApplicationContextRegistry extends InMemoryRegistry {
         private final ConfigurableApplicationContext applicationContext;
         private final org.apache.camel.spi.Registry registry;
 
@@ -123,10 +121,5 @@ public class ApplicationAutoConfiguration {
         public <T> Set<T> findByType(Class<T> type) {
             return registry.findByType(type);
         }
-        @Override
-        public void bind(String name, Object bean) {
-            applicationContext.getBeanFactory().registerSingleton(name, bean);
-        }
     }
-
 }

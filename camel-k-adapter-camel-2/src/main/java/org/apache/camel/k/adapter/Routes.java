@@ -14,19 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.apache.camel.k.adapter;
 
-package org.apache.camel.k.tooling.maven.processors;
+import org.apache.camel.model.FromDefinition;
+import org.apache.camel.model.RouteDefinition;
 
-import org.apache.camel.catalog.CamelCatalog;
-import org.apache.camel.catalog.DefaultCamelCatalog;
-
-public abstract class AbstractCataloProcessorTest {
-    protected CamelCatalog versionCamelCatalog(String version){
-        return new DefaultCamelCatalog() {
-            @Override
-            public String getCatalogVersion() {
-                return version;
-            }
-        };
+public final class Routes {
+    public static FromDefinition getInput(RouteDefinition definition) {
+        return definition.getInputs().get(0);
     }
 }

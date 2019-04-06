@@ -14,19 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.apache.camel.k.adapter;
 
-package org.apache.camel.k.tooling.maven.processors;
+import java.util.Map;
 
-import org.apache.camel.catalog.CamelCatalog;
-import org.apache.camel.catalog.DefaultCamelCatalog;
+public interface Registry extends org.apache.camel.spi.Registry {
+    void bind(String name, Object bean);
 
-public abstract class AbstractCataloProcessorTest {
-    protected CamelCatalog versionCamelCatalog(String version){
-        return new DefaultCamelCatalog() {
-            @Override
-            public String getCatalogVersion() {
-                return version;
-            }
-        };
+    @SuppressWarnings("deprecation")
+    default public Object lookup(String name) {
+        return lookupByName(name);
+    }
+
+    @SuppressWarnings("deprecation")
+    default public <T> T lookup(String name, Class<T> type) {
+        return lookupByNameAndType(name, type);
+    }
+
+    @SuppressWarnings("deprecation")
+    default public <T> Map<String, T> lookupByType(Class<T> type) {
+        return findByTypeWithName(type);
     }
 }
