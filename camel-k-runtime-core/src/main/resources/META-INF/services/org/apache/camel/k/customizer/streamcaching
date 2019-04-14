@@ -15,4 +15,4 @@
 # limitations under the License.
 #
 
-class=org.apache.camel.k.cutomizer.StreamCachingContextCustomizer
+class=org.apache.camel.k.customizer.StreamCachingContextCustomizer
