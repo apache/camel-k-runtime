@@ -73,7 +73,7 @@ public class CloudEventsV02Test {
                 port,
                 KnativeSupport.mapOf(
                     Knative.SERVICE_META_PATH, "/a/path",
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.custom-event",
                     Knative.CONTENT_TYPE, "text/plain"
                 ))
         ));
@@ -98,7 +98,7 @@ public class CloudEventsV02Test {
         MockEndpoint mock = context.getEndpoint("mock:ce", MockEndpoint.class);
         mock.expectedMessageCount(1);
         mock.expectedHeaderReceived("ce-specversion", CloudEventsProcessors.v02.getVersion());
-        mock.expectedHeaderReceived("ce-type", "org.apache.camel.event");
+        mock.expectedHeaderReceived("ce-type", "org.apache.camel.custom-event");
         mock.expectedHeaderReceived("ce-source", "knative://endpoint/myEndpoint");
         mock.expectedHeaderReceived(Exchange.CONTENT_TYPE, "text/plain");
         mock.expectedMessagesMatches(e -> e.getIn().getHeaders().containsKey("ce-time"));
@@ -113,6 +113,94 @@ public class CloudEventsV02Test {
         );
 
         mock.assertIsSatisfied();
+    }
+
+    @Test
+    void testProduceDefaultEventType() throws Exception {
+        final int port1 = AvailablePortFinder.getNextAvailable();
+        final int port2 = AvailablePortFinder.getNextAvailable();
+
+        KnativeEnvironment env = new KnativeEnvironment(Arrays.asList(
+                new KnativeEnvironment.KnativeServiceDefinition(
+                        Knative.Type.endpoint,
+                        Knative.Protocol.http,
+                        "myEndpoint",
+                        "localhost",
+                        port1,
+                        KnativeSupport.mapOf(
+                                Knative.SERVICE_META_PATH, "/",
+                                Knative.CONTENT_TYPE, "text/plain"
+                        )),
+                new KnativeEnvironment.KnativeServiceDefinition(
+                        Knative.Type.endpoint,
+                        Knative.Protocol.http,
+                        "myEndpoint2",
+                        "localhost",
+                        port2,
+                        KnativeSupport.mapOf(
+                                Knative.SERVICE_META_PATH, "/",
+                                Knative.CONTENT_TYPE, "text/plain"
+                        ))
+        ));
+
+        KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
+        component.setCloudEventsSpecVersion(CloudEventsProcessors.v02.getVersion());
+        component.setEnvironment(env);
+
+        context.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:source")
+                        .to("knative:endpoint/myEndpoint");
+
+                from("direct:source2")
+                        .to("knative:endpoint/myEndpoint2?cloudEventsType=my.type");
+
+                fromF("netty4-http:http://localhost:%d/", port1)
+                        .to("mock:ce");
+
+                fromF("netty4-http:http://localhost:%d/", port2)
+                        .to("mock:ce2");
+            }
+        });
+
+        context.start();
+
+        MockEndpoint mock = context.getEndpoint("mock:ce", MockEndpoint.class);
+        mock.expectedMessageCount(1);
+        mock.expectedHeaderReceived("ce-specversion", CloudEventsProcessors.v02.getVersion());
+        mock.expectedHeaderReceived("ce-type", "org.apache.camel.event");
+        mock.expectedHeaderReceived("ce-source", "knative://endpoint/myEndpoint");
+        mock.expectedHeaderReceived(Exchange.CONTENT_TYPE, "text/plain");
+        mock.expectedMessagesMatches(e -> e.getIn().getHeaders().containsKey("ce-time"));
+        mock.expectedMessagesMatches(e -> e.getIn().getHeaders().containsKey("ce-id"));
+        mock.expectedBodiesReceived("test");
+
+        MockEndpoint mock2 = context.getEndpoint("mock:ce2", MockEndpoint.class);
+        mock2.expectedMessageCount(1);
+        mock2.expectedHeaderReceived("ce-specversion", CloudEventsProcessors.v02.getVersion());
+        mock2.expectedHeaderReceived("ce-type", "my.type");
+        mock2.expectedHeaderReceived("ce-source", "knative://endpoint/myEndpoint2?cloudEventsType=my.type");
+        mock2.expectedHeaderReceived(Exchange.CONTENT_TYPE, "text/plain");
+        mock2.expectedMessagesMatches(e -> e.getIn().getHeaders().containsKey("ce-time"));
+        mock2.expectedMessagesMatches(e -> e.getIn().getHeaders().containsKey("ce-id"));
+        mock2.expectedBodiesReceived("test2");
+
+        context.createProducerTemplate().send(
+                "direct:source",
+                e -> {
+                    e.getIn().setBody("test");
+                }
+        );
+        context.createProducerTemplate().send(
+                "direct:source2",
+                e -> {
+                    e.getIn().setBody("test2");
+                }
+        );
+
+        mock.assertIsSatisfied();
+        mock2.assertIsSatisfied();
     }
 
     @Test

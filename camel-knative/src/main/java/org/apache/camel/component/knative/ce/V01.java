@@ -43,7 +43,10 @@ final class V01 {
         String uri = endpoint.getEndpointUri();
 
         return exchange -> {
-            final String eventType = service.getMetadata().get(Knative.KNATIVE_EVENT_TYPE);
+            String eventType = service.getMetadata().get(Knative.KNATIVE_EVENT_TYPE);
+            if (eventType == null) {
+                eventType = endpoint.getConfiguration().getCloudEventsType();
+            }
             final String contentType = service.getMetadata().get(Knative.CONTENT_TYPE);
             final ZonedDateTime created = exchange.getCreated().toInstant().atZone(ZoneId.systemDefault());
             final String eventTime = DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(created);
