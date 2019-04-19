@@ -117,8 +117,7 @@ public class CloudEventsV01Test {
 
     @Test
     void testProduceDefaultEventType() throws Exception {
-        final int port1 = AvailablePortFinder.getNextAvailable();
-        final int port2 = AvailablePortFinder.getNextAvailable();
+        final int port = AvailablePortFinder.getNextAvailable();
 
         KnativeEnvironment env = new KnativeEnvironment(Arrays.asList(
                 new KnativeEnvironment.KnativeServiceDefinition(
@@ -126,7 +125,7 @@ public class CloudEventsV01Test {
                         Knative.Protocol.http,
                         "myEndpoint",
                         "localhost",
-                        port1,
+                        port,
                         KnativeSupport.mapOf(
                                 Knative.SERVICE_META_PATH, "/",
                                 Knative.CONTENT_TYPE, "text/plain"
@@ -136,9 +135,9 @@ public class CloudEventsV01Test {
                         Knative.Protocol.http,
                         "myEndpoint2",
                         "localhost",
-                        port2,
+                        port,
                         KnativeSupport.mapOf(
-                                Knative.SERVICE_META_PATH, "/",
+                                Knative.SERVICE_META_PATH, "/2",
                                 Knative.CONTENT_TYPE, "text/plain"
                         ))
         ));
@@ -156,10 +155,10 @@ public class CloudEventsV01Test {
                 from("direct:source2")
                         .to("knative:endpoint/myEndpoint2?cloudEventsType=my.type");
 
-                fromF("netty4-http:http://localhost:%d/", port1)
+                fromF("netty4-http:http://localhost:%d/", port)
                         .to("mock:ce");
 
-                fromF("netty4-http:http://localhost:%d/", port2)
+                fromF("netty4-http:http://localhost:%d/2", port)
                         .to("mock:ce2");
             }
         });
