@@ -29,6 +29,9 @@ public class KnativeConfiguration implements Cloneable {
     @UriParam(defaultValue = "0.2", enums = "0.1,0.2")
     private String cloudEventsSpecVersion = "0.2";
 
+    @UriParam(defaultValue = "org.apache.camel.event")
+    private String cloudEventsType = "org.apache.camel.event";
+
     public KnativeConfiguration() {
     }
 
@@ -53,6 +56,10 @@ public class KnativeConfiguration implements Cloneable {
         return jsonSerializationEnabled;
     }
 
+
+    /**
+     * Enables automatic serialization to JSON of the produced events.
+     */
     public void setJsonSerializationEnabled(boolean jsonSerializationEnabled) {
         this.jsonSerializationEnabled = jsonSerializationEnabled;
     }
@@ -61,8 +68,22 @@ public class KnativeConfiguration implements Cloneable {
         return cloudEventsSpecVersion;
     }
 
+    /**
+     * Set the version of the cloudevents spec.
+     */
     public void setCloudEventsSpecVersion(String cloudEventsSpecVersion) {
         this.cloudEventsSpecVersion = cloudEventsSpecVersion;
+    }
+
+    public String getCloudEventsType() {
+        return cloudEventsType;
+    }
+
+    /**
+     * Set the event-type information of the produced events.
+     */
+    public void setCloudEventsType(String cloudEventsType) {
+        this.cloudEventsType = cloudEventsType;
     }
 
     // ************************

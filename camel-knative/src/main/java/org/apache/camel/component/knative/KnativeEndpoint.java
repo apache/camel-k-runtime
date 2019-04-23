@@ -134,6 +134,10 @@ public class KnativeEndpoint extends DefaultEndpoint implements DelegateEndpoint
         return name;
     }
 
+    public KnativeConfiguration getConfiguration() {
+        return configuration;
+    }
+
     public KnativeEnvironment.KnativeServiceDefinition getService() {
         return service;
     }
