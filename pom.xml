@@ -140,6 +140,7 @@
 
     <modules>
         <module>camel-k-adapter-camel-2</module>
+        <module>camel-k-adapter-camel-3</module>
         <module>camel-k-maven-plugin</module>
         <module>camel-k-runtime-core</module>
         <module>camel-k-runtime-jvm</module>
@@ -255,9 +256,6 @@
                     <name>camel3</name>
                 </property>
             </activation>
-            <modules>
-                <module>camel-k-adapter-camel-3</module>
-            </modules>
             <dependencyManagement>
                 <dependencies>
                     <dependency>
