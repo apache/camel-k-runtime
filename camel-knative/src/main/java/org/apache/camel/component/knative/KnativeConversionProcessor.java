@@ -21,7 +21,7 @@ public class KnativeConversionProcessor implements Processor {
             if (body != null) {
                 byte[] newBody = Knative.MAPPER.writeValueAsBytes(body);
                 exchange.getIn().setBody(newBody);
-                exchange.getIn().setHeader("CE-ContentType", "application/json");
+                exchange.getIn().setHeader(Exchange.CONTENT_TYPE, "application/json");
             }
         }
     }
