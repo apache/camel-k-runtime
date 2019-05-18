@@ -27,7 +27,6 @@ import org.apache.camel.k.adapter.Resources;
 import org.apache.camel.k.listener.ContextConfigurer;
 import org.apache.camel.k.listener.ContextLifecycleConfigurer;
 import org.apache.camel.k.listener.RoutesConfigurer;
-import org.apache.camel.k.support.PlatformStreamHandler;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.util.ObjectHelper;
 import org.apache.commons.io.IOUtils;
@@ -82,26 +81,6 @@ public class RuntimeTest {
             runtime.run();
         } finally {
             runtime.stop();
-        }
-    }
-
-
-    @Test
-    void testLoadResource() throws Exception {
-        PlatformStreamHandler.configure();
-
-        CamelContext context = new ApplicationRuntime().getContext();
-
-        try (InputStream is = Resources.resolveResourceAsInputStream(context, "platform:my-resource.txt")) {
-            String content = IOUtils.toString(is, Charset.defaultCharset());
-
-            assertThat(content).isEqualTo("value from file resource");
-        }
-
-        try (InputStream is = Resources.resolveResourceAsInputStream(context, "platform:my-other-resource.txt")) {
-            String content = IOUtils.toString(is, Charset.defaultCharset());
-
-            assertThat(content).isEqualTo("value from env");
         }
     }
 }

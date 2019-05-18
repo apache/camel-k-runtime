@@ -19,7 +19,6 @@ package org.apache.camel.k.jvm;
 import java.util.ServiceLoader;
 
 import org.apache.camel.k.Runtime;
-import org.apache.camel.k.support.PlatformStreamHandler;
 import org.apache.camel.k.support.RuntimeSupport;
 
 public class Application {
@@ -33,16 +32,6 @@ public class Application {
         // We now support setting the logging level only
         //
         ApplicationSupport.configureLogging();
-
-        //
-        // Install a custom protocol handler to support discovering resources
-        // from the platform i.e. in knative, resources are provided through
-        // env var as it is not possible to mount config maps / secrets.
-        //
-        // TODO: we should remove as soon as we get a knative version that
-        //       includes https://github.com/knative/serving/pull/3061
-        //
-        PlatformStreamHandler.configure();
     }
 
     public static void main(String[] args) throws Exception {
