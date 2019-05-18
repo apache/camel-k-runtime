@@ -14,26 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.listener;
+package org.apache.camel.k.example;
 
+import org.apache.camel.CamelContext;
+import org.apache.camel.component.servlet.CamelHttpTransportServlet;
+import org.apache.camel.k.ContextCustomizer;
 import org.apache.camel.k.Runtime;
+import org.apache.camel.k.servlet.ServletRegistration;
 
-public abstract class AbstractPhaseListener implements Runtime.Listener {
-    private final Runtime.Phase phase;
-
-    protected AbstractPhaseListener(Runtime.Phase phase) {
-        this.phase = phase;
-    }
-
+public class WebhookCustomizer implements ContextCustomizer {
     @Override
-    public boolean accept(Runtime.Phase phase, Runtime runtime) {
-        boolean run = this.phase == phase;
-        if (run) {
-            accept(runtime);
-        }
-
-        return run;
+    public void apply(CamelContext camelContext, Runtime.Registry registry) {
+        registry.bind(
+            "webhook-servlet",
+            new ServletRegistration("CamelServlet", new CamelHttpTransportServlet(), "/webhook/*")
+        );
     }
-
-    protected abstract void accept(Runtime runtime);
 }

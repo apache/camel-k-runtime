@@ -91,10 +91,10 @@ public final class PropertiesSupport {
     }
 
     public static Properties loadProperties() {
-        final String conf = System.getenv(Constants.ENV_CAMEL_K_CONF);
-        final String confd = System.getenv(Constants.ENV_CAMEL_K_CONF_D);
-
-        return loadProperties(conf, confd);
+        return loadProperties(
+            System.getProperty(Constants.PROPERTY_CAMEL_K_CONF, System.getenv(Constants.ENV_CAMEL_K_CONF)),
+            System.getProperty(Constants.PROPERTY_CAMEL_K_CONF_D, System.getenv(Constants.ENV_CAMEL_K_CONF_D))
+        );
     }
 
     public static Properties loadProperties(String conf, String confd) {
