@@ -36,10 +36,15 @@ public class RoutesConfigurer extends AbstractPhaseListener {
 
     @Override
     protected void accept(Runtime runtime) {
-        final String routes = System.getenv().getOrDefault(Constants.ENV_CAMEL_K_ROUTES, "");
+        String routes = System.getProperty(Constants.PROPERTY_CAMEL_K_ROUTES);
+
+        if (ObjectHelper.isEmpty(routes)) {
+            routes = System.getenv(Constants.ENV_CAMEL_K_ROUTES);
+        }
 
         if (ObjectHelper.isEmpty(routes)) {
             LOGGER.warn("No routes found in {} environment variable", Constants.ENV_CAMEL_K_ROUTES);
+            return;
         }
 
         load(runtime, routes.split(",", -1));

@@ -16,22 +16,37 @@
  */
 package org.apache.camel.k.health;
 
-import java.util.Properties;
-import java.util.ServiceLoader;
-
+import org.apache.camel.CamelContext;
+import org.apache.camel.k.ContextCustomizer;
 import org.apache.camel.k.Runtime;
-import org.apache.camel.k.jvm.ApplicationRuntime;
+import org.apache.camel.k.servlet.ServletRegistration;
 
-public class HealthMain {
-    public static void main(String[] args) throws Exception {
-        Properties p = new Properties();
-        p.setProperty("endpoint.health.bindHost", "localhost");
-        p.setProperty("endpoint.health.bindPort", "9988");
-        p.setProperty("endpoint.health.path", "/ht");
+public class HealthContextCustomizer implements ContextCustomizer {
+    public static final String DEFAULT_PATH = "/health";
 
-        ApplicationRuntime runtime = new ApplicationRuntime();
-        runtime.setProperties(p);
-        runtime.addListeners(ServiceLoader.load(Runtime.Listener.class));
-        runtime.run();
+    private String path;
+
+    public HealthContextCustomizer() {
+        this.path = DEFAULT_PATH;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    @Override
+    public void apply(CamelContext camelContext, Runtime.Registry registry) {
+        registry.bind(
+            "health-servlet",
+            new ServletRegistration(
+                "HealthServlet",
+                new HealthEndpoint(camelContext),
+                path
+            )
+        );
     }
 }

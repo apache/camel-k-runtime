@@ -18,16 +18,24 @@ package org.apache.camel.k;
 
 public final class Constants {
     public static final String ENV_CAMEL_K_ROUTES = "CAMEL_K_ROUTES";
+    public static final String PROPERTY_CAMEL_K_ROUTES = "camel.k.routes";
+
     public static final String ENV_CAMEL_K_CONF = "CAMEL_K_CONF";
+    public static final String PROPERTY_CAMEL_K_CONF = "camel.k.conf";
+
     public static final String ENV_CAMEL_K_CONF_D = "CAMEL_K_CONF_D";
+    public static final String PROPERTY_CAMEL_K_CONF_D = "camel.k.conf.d";
+
     public static final String ENV_CAMEL_K_CUSTOMIZERS = "CAMEL_K_CUSTOMIZERS";
+    public static final String PROPERTY_CAMEL_K_CUSTOMIZER = "camel.k.customizer";
+
     public static final String SCHEME_CLASSPATH = "classpath:";
     public static final String SCHEME_FILE = "file:";
     public static final String SCHEME_ENV = "env:";
     public static final String LOGGING_LEVEL_PREFIX = "logging.level.";
     public static final String ROUTES_LOADER_RESOURCE_PATH = "META-INF/services/org/apache/camel/k/loader/";
     public static final String CONTEXT_CUSTOMIZER_RESOURCE_PATH = "META-INF/services/org/apache/camel/k/customizer/";
-    public static final String PROPERTY_CAMEL_K_CUSTOMIZER = "camel.k.customizer";
+
     public static final String ENABLE_CUSTOMIZER_PATTERN = "customizer.([\\w][\\w-]*).enabled";
     public static final String PROPERTY_PREFIX_REST_COMPONENT_PROPERTY = "camel.rest.componentProperty.";
     public static final String PROPERTY_PREFIX_REST_ENDPOINT_PROPERTY = "camel.rest.endpointProperty.";
