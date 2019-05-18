@@ -14,25 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.health;
+package org.apache.camel.k.servlet;
 
 import org.apache.camel.Ordered;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.spi.HasId;
 
-public class HealthConfigurer implements Runtime.Listener, HasId {
-    public static final String ID = "endpoint.health";
+public class ServletConfigurer  implements Runtime.Listener, HasId {
+    public static final String ID = "endpoint.servlet";
     public static final String DEFAULT_BIND_HOST = "0.0.0.0";
-    public static final int DEFAULT_BIND_PORT = 8081;
-    public static final String DEFAULT_PATH = "/health";
-
-    private HealthEndpoint endpoint;
+    public static final int DEFAULT_BIND_PORT = 8080;
+    public static final String DEFAULT_PATH = "/";
 
     private String bindHost;
     private int bindPort;
     private String path;
+    private ServletEndpoint endpoint;
 
-    public HealthConfigurer() {
+    public ServletConfigurer() {
         this.bindHost = DEFAULT_BIND_HOST;
         this.bindPort = DEFAULT_BIND_PORT;
         this.path = DEFAULT_PATH;
@@ -64,7 +63,7 @@ public class HealthConfigurer implements Runtime.Listener, HasId {
 
     @Override
     public int getOrder() {
-        return Ordered.LOWEST;
+        return Ordered.HIGHEST;
     }
 
     @Override
@@ -73,7 +72,7 @@ public class HealthConfigurer implements Runtime.Listener, HasId {
 
         try {
             if (phase == Runtime.Phase.ContextConfigured) {
-                endpoint = new HealthEndpoint(runtime.getContext(), bindHost, bindPort, path);
+                endpoint = new ServletEndpoint(runtime.getContext(), bindHost, bindPort, path);
                 endpoint.start();
 
                 executed = true;
@@ -94,5 +93,15 @@ public class HealthConfigurer implements Runtime.Listener, HasId {
     @Override
     public String getId() {
         return ID;
+    }
+
+    // ****************************
+    //
+    // Exposed for testing purpose
+    //
+    // ****************************
+
+    ServletEndpoint getEndpoint() {
+        return endpoint;
     }
 }

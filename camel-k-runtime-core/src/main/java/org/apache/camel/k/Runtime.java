@@ -19,6 +19,7 @@ package org.apache.camel.k;
 import java.util.Properties;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.Ordered;
 import org.apache.camel.component.properties.PropertiesComponent;
 
 public interface Runtime {
@@ -42,17 +43,45 @@ public interface Runtime {
     enum Phase {
         Starting,
         ConfigureContext,
+        ContextConfigured,
         ConfigureRoutes,
+        RoutesConfigured,
         Started,
         Stopping,
         Stopped
     }
 
     @FunctionalInterface
-    interface Listener {
-        void accept(Phase phase, Runtime runtime);
+    interface Listener extends Ordered {
+        boolean accept(Phase phase, Runtime runtime);
+
+        @Override
+        default int getOrder() {
+            return Ordered.LOWEST;
+        }
     }
 
     interface Registry extends org.apache.camel.k.adapter.Registry {
+    }
+
+    /**
+     * Helper to create a simple runtime from a given Camel Context and Runtime Registry.
+     *
+     * @param camelContext the camel context
+     * @param registry the runtime registry
+     * @return the runtime
+     */
+    static Runtime of( CamelContext camelContext, Registry registry) {
+        return new Runtime() {
+            @Override
+            public CamelContext getContext() {
+                return camelContext;
+            }
+
+            @Override
+            public Registry getRegistry() {
+                return registry;
+            }
+        };
     }
 }

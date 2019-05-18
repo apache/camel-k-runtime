@@ -134,6 +134,12 @@ public final class RuntimeSupport {
         }
     }
 
+    public static String resolvePropertyPlaceholders(CamelContext context, String text) throws Exception {
+        return context.resolvePropertyPlaceholders(
+            context.getPropertyPrefixToken() + text + context.getPropertySuffixToken()
+        );
+    }
+
     public static int bindProperties(CamelContext context, Object target, String prefix) {
         final PropertiesComponent component = context.getComponent("properties", PropertiesComponent.class);
         final Properties properties = component.getInitialProperties();
@@ -191,8 +197,8 @@ public final class RuntimeSupport {
     }
 
     public static Properties loadProperties() {
-        final String conf = System.getenv(Constants.ENV_CAMEL_K_CONF);
-        final String confd = System.getenv(Constants.ENV_CAMEL_K_CONF_D);
+        final String conf = System.getProperty(Constants.PROPERTY_CAMEL_K_CONF, System.getenv(Constants.ENV_CAMEL_K_CONF));
+        final String confd = System.getProperty(Constants.PROPERTY_CAMEL_K_CONF_D, System.getenv(Constants.ENV_CAMEL_K_CONF_D));
 
         return loadProperties(conf, confd);
     }

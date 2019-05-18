@@ -16,6 +16,7 @@
  */
 package org.apache.camel.k.jvm;
 
+import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -94,38 +95,53 @@ public final class ApplicationRuntime implements Runtime {
             if (p == phase) {
                 try {
                     consumer.accept(runtime);
+                    return true;
                 } catch (Exception e) {
                     throw Exceptions.wrapRuntimeCamelException(e);
                 }
             }
+
+            return false;
         });
     }
 
     private class MainListenerAdapter implements org.apache.camel.main.MainListener {
         @Override
         public void beforeStart(MainSupport main) {
-            listeners.forEach(l -> l.accept(Phase.Starting, ApplicationRuntime.this));
+            invokeListeners(Phase.Starting);
         }
 
         @Override
         public void configure(CamelContext context) {
-            listeners.forEach(l -> l.accept(Phase.ConfigureContext, ApplicationRuntime.this));
-            listeners.forEach(l -> l.accept(Phase.ConfigureRoutes, ApplicationRuntime.this));
+            invokeListeners(Phase.ConfigureContext);
+            invokeListeners(Phase.ContextConfigured);
+            invokeListeners(Phase.ConfigureRoutes);
+            invokeListeners(Phase.RoutesConfigured);
         }
 
         @Override
         public void afterStart(MainSupport main) {
-            listeners.forEach(l -> l.accept(Phase.Started, ApplicationRuntime.this));
+            invokeListeners(Phase.Started);
         }
 
         @Override
         public void beforeStop(MainSupport main) {
-            listeners.forEach(l -> l.accept(Phase.Stopping, ApplicationRuntime.this));
+            invokeListeners(Phase.Stopping);
         }
 
         @Override
         public void afterStop(MainSupport main) {
-            listeners.forEach(l -> l.accept(Phase.Stopped, ApplicationRuntime.this));
+            invokeListeners(Phase.Stopped);
+        }
+
+        private void invokeListeners(Phase phase) {
+            listeners.stream()
+                .sorted(Comparator.comparingInt(Listener::getOrder))
+                .forEach(l -> {
+                    if (l.accept(phase, ApplicationRuntime.this)) {
+                        LOGGER.info("Listener {} executed in phase {}", l, phase);
+                    }
+                });
         }
     }
 }
