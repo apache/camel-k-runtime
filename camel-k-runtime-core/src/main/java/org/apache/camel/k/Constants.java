@@ -28,6 +28,7 @@ public final class Constants {
     public static final String ROUTES_LOADER_RESOURCE_PATH = "META-INF/services/org/apache/camel/k/loader/";
     public static final String CONTEXT_CUSTOMIZER_RESOURCE_PATH = "META-INF/services/org/apache/camel/k/customizer/";
     public static final String PROPERTY_CAMEL_K_CUSTOMIZER = "camel.k.customizer";
+    public static final String ENABLE_CUSTOMIZER_PATTERN = "customizer.([\\w][\\w-]*).enabled";
 
     private Constants() {
     }

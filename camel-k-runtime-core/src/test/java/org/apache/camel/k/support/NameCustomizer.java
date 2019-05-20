@@ -17,6 +17,7 @@
 package org.apache.camel.k.support;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.Ordered;
 import org.apache.camel.impl.ExplicitCamelContextNameStrategy;
 import org.apache.camel.k.ContextCustomizer;
 import org.apache.camel.k.Runtime;
@@ -30,6 +31,11 @@ public final class NameCustomizer implements ContextCustomizer {
 
     public NameCustomizer(String name) {
         this.name = name;
+    }
+
+    @Override
+    public int getOrder() {
+        return Ordered.HIGHEST;
     }
 
     @Override

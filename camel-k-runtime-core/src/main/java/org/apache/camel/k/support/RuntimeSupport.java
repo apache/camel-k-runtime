@@ -32,7 +32,10 @@ import java.util.Objects;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.NoFactoryAvailableException;
@@ -46,7 +49,6 @@ import org.apache.camel.k.adapter.Introspection;
 import org.apache.camel.spi.FactoryFinder;
 import org.apache.camel.spi.RestConfiguration;
 import org.apache.camel.util.ObjectHelper;
-import org.apache.camel.util.StringHelper;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,44 +62,92 @@ public final class RuntimeSupport {
 
     public static List<ContextCustomizer> configureContext(CamelContext context, Runtime.Registry registry) {
         List<ContextCustomizer> appliedCustomizers = new ArrayList<>();
-        Set<String> customizers = lookupCustomizerIDs(context);
+        Map<String, ContextCustomizer> customizers = lookupCustomizers(context);
 
-        // this is to initialize all customizers that might be already present in
-        // the context injected by other means.
-        for (Map.Entry<String, ContextCustomizer> entry: context.getRegistry().findByTypeWithName(ContextCustomizer.class).entrySet()) {
-            if (!customizers.remove(entry.getKey())) {
-                continue;
-            }
+        customizers.entrySet().stream()
+            .sorted(Map.Entry.comparingByValue())
+            .forEach(e -> {
+                LOGGER.info("Apply ContextCustomizer with id={} and type={}", e.getKey(), e.getValue().getClass().getName());
 
-            applyCustomizer(context, entry.getKey(), entry.getValue(), registry);
+                bindProperties(context, e.getValue(), "customizer." + e.getKey() + ".");
+                e.getValue().apply(context, registry);
 
-            appliedCustomizers.add(entry.getValue());
-        }
-
-        try {
-            FactoryFinder finder = context.getFactoryFinder(Constants.CONTEXT_CUSTOMIZER_RESOURCE_PATH);
-
-            for (String customizerId : customizers) {
-                ContextCustomizer customizer = (ContextCustomizer) finder.newInstance(customizerId);
-                applyCustomizer(context, customizerId, customizer, registry);
-
-                appliedCustomizers.add(customizer);
-            }
-        } catch (NoFactoryAvailableException e) {
-            throw new RuntimeException(e);
-        }
+                appliedCustomizers.add(e.getValue());
+            });
 
         return appliedCustomizers;
     }
 
-    public static void applyCustomizer(CamelContext context, String customizerId, ContextCustomizer customizer, Runtime.Registry registry) {
-        ObjectHelper.notNull(customizer, "customizer");
-        StringHelper.notEmpty(customizerId, "customizerId");
+    public static void configureRest(CamelContext context) {
+        RestConfiguration configuration = new RestConfiguration();
 
-        LOGGER.info("Apply ContextCustomizer with id={} and type={}", customizerId, customizer.getClass().getName());
+        if (RuntimeSupport.bindProperties(context, configuration, "camel.rest.") > 0) {
+            //
+            // Set the rest configuration if only if at least one
+            // rest parameter has been set.
+            //
+            context.setRestConfiguration(configuration);
+        }
+    }
 
-        bindProperties(context, customizer, "customizer." + customizerId + ".");
-        customizer.apply(context, registry);
+    // *********************************
+    //
+    // Helpers - Customizers
+    //
+    // *********************************
+
+    public static Map<String, ContextCustomizer> lookupCustomizers(CamelContext context) {
+        Map<String, ContextCustomizer> customizers = new ConcurrentHashMap<>();
+
+        PropertiesComponent component = context.getComponent("properties", PropertiesComponent.class);
+        Properties properties = component.getInitialProperties();
+
+        if (properties != null) {
+            //
+            // Lookup customizers listed in Constants.ENV_CAMEL_K_CUSTOMIZERS or Constants.PROPERTY_CAMEL_K_CUSTOMIZER
+            // for backward compatibility
+            //
+            for (String customizerId: lookupCustomizerIDs(context)) {
+                customizers.computeIfAbsent(customizerId, id -> lookupCustomizerByID(context, id));
+            }
+
+            Pattern pattern = Pattern.compile(Constants.ENABLE_CUSTOMIZER_PATTERN);
+
+            properties.entrySet().stream()
+                .filter(entry -> entry.getKey() instanceof String)
+                .filter(entry -> entry.getValue() != null)
+                .forEach(entry -> {
+                        final String key = (String)entry.getKey();
+                        final Object val = entry.getValue();
+                        final Matcher matcher = pattern.matcher(key);
+
+                        if (matcher.matches() && matcher.groupCount() == 1) {
+                            if (Boolean.valueOf(String.valueOf(val))) {
+                                //
+                                // Do not override customizers eventually found
+                                // in the registry
+                                //
+                                customizers.computeIfAbsent(matcher.group(1), id -> lookupCustomizerByID(context, id));
+                            }
+                        }
+                    }
+                );
+        }
+
+        return customizers;
+    }
+
+    public static ContextCustomizer lookupCustomizerByID(CamelContext context, String customizerId) {
+        ContextCustomizer customizer = context.getRegistry().lookupByNameAndType(customizerId, ContextCustomizer.class);
+        if (customizer == null) {
+            try {
+                customizer = (ContextCustomizer) context.getFactoryFinder(Constants.CONTEXT_CUSTOMIZER_RESOURCE_PATH).newInstance(customizerId);
+            } catch (NoFactoryAvailableException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        return customizer;
     }
 
     public static Set<String> lookupCustomizerIDs(CamelContext context) {
@@ -122,17 +172,11 @@ public final class RuntimeSupport {
         return customizers;
     }
 
-    public static void configureRest(CamelContext context) {
-        RestConfiguration configuration = new RestConfiguration();
-
-        if (RuntimeSupport.bindProperties(context, configuration, "camel.rest.") > 0) {
-            //
-            // Set the rest configuration if only if at least one
-            // rest parameter has been set.
-            //
-            context.setRestConfiguration(configuration);
-        }
-    }
+    // *********************************
+    //
+    // Helpers - Properties
+    //
+    // *********************************
 
     public static int bindProperties(CamelContext context, Object target, String prefix) {
         final PropertiesComponent component = context.getComponent("properties", PropertiesComponent.class);
@@ -167,27 +211,6 @@ public final class RuntimeSupport {
             );
 
         return count.get();
-    }
-
-    public static RoutesLoader loaderFor(CamelContext context, Source source) {
-        return  context.getRegistry().findByType(RoutesLoader.class).stream()
-            .filter(rl -> rl.getSupportedLanguages().contains(source.getLanguage()))
-            .findFirst()
-            .orElseGet(() -> lookupLoaderFromResource(context, source));
-    }
-
-    public static RoutesLoader lookupLoaderFromResource(CamelContext context, Source source) {
-        final FactoryFinder finder;
-        final RoutesLoader loader;
-
-        try {
-            finder = context.getFactoryFinder(Constants.ROUTES_LOADER_RESOURCE_PATH);
-            loader = (RoutesLoader)finder.newInstance(source.getLanguage());
-        } catch (NoFactoryAvailableException e) {
-            throw new IllegalArgumentException("Unable to find loader for: " + source, e);
-        }
-
-        return loader;
     }
 
     public static Properties loadProperties() {
@@ -249,5 +272,32 @@ public final class RuntimeSupport {
         }
 
         return properties;
+    }
+
+    // *********************************
+    //
+    // Helpers - Loaders
+    //
+    // *********************************
+
+    public static RoutesLoader loaderFor(CamelContext context, Source source) {
+        return  context.getRegistry().findByType(RoutesLoader.class).stream()
+            .filter(rl -> rl.getSupportedLanguages().contains(source.getLanguage()))
+            .findFirst()
+            .orElseGet(() -> lookupLoaderFromResource(context, source));
+    }
+
+    public static RoutesLoader lookupLoaderFromResource(CamelContext context, Source source) {
+        final FactoryFinder finder;
+        final RoutesLoader loader;
+
+        try {
+            finder = context.getFactoryFinder(Constants.ROUTES_LOADER_RESOURCE_PATH);
+            loader = (RoutesLoader)finder.newInstance(source.getLanguage());
+        } catch (NoFactoryAvailableException e) {
+            throw new IllegalArgumentException("Unable to find loader for: " + source, e);
+        }
+
+        return loader;
     }
 }

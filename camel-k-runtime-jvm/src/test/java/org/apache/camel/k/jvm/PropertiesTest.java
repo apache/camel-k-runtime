@@ -21,7 +21,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.seda.SedaComponent;
-import org.apache.camel.k.Constants;
 import org.apache.camel.k.ContextCustomizer;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.listener.ContextConfigurer;
@@ -130,11 +129,12 @@ public class PropertiesTest {
 
     @Test
     public void testContextCustomizerFromProperty() throws Exception {
-        System.setProperty(Constants.PROPERTY_CAMEL_K_CUSTOMIZER, "test");
-        System.setProperty("customizer.test.messageHistory", "false");
+        Properties properties = new Properties();
+        properties.setProperty("customizer.test.enabled", "true");
+        properties.setProperty("customizer.test.messageHistory", "false");
 
         ApplicationRuntime runtime = new ApplicationRuntime();
-        runtime.setProperties(System.getProperties());
+        runtime.setProperties(properties);
         runtime.addListener(new ContextConfigurer());
         runtime.addListener(new ContextLifecycleConfigurer());
         runtime.addListener(Runtime.Phase.Started, r -> {
@@ -149,8 +149,11 @@ public class PropertiesTest {
 
     @Test
     public void testContextCustomizerFromRegistry() throws Exception {
+        Properties properties = new Properties();
+        properties.setProperty("customizer.c1.enabled", "true");
+
         ApplicationRuntime runtime = new ApplicationRuntime();
-        runtime.setProperties(System.getProperties());
+        runtime.setProperties(properties);
         runtime.addListener(new ContextConfigurer());
         runtime.addListener(new ContextLifecycleConfigurer());
         runtime.getRegistry().bind("c1", (ContextCustomizer) (camelContext, registry) -> {
