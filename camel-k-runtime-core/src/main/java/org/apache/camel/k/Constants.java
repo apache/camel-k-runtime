@@ -29,6 +29,8 @@ public final class Constants {
     public static final String CONTEXT_CUSTOMIZER_RESOURCE_PATH = "META-INF/services/org/apache/camel/k/customizer/";
     public static final String PROPERTY_CAMEL_K_CUSTOMIZER = "camel.k.customizer";
     public static final String ENABLE_CUSTOMIZER_PATTERN = "customizer.([\\w][\\w-]*).enabled";
+    public static final String PROPERTY_PREFIX_REST_COMPONENT_PROPERTY = "camel.rest.componentProperty.";
+    public static final String PROPERTY_PREFIX_REST_ENDPOINT_PROPERTY = "camel.rest.endpointProperty.";
 
     private Constants() {
     }

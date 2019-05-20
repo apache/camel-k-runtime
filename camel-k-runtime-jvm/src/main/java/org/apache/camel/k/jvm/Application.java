@@ -19,7 +19,7 @@ package org.apache.camel.k.jvm;
 import java.util.ServiceLoader;
 
 import org.apache.camel.k.Runtime;
-import org.apache.camel.k.support.RuntimeSupport;
+import org.apache.camel.k.support.PropertiesSupport;
 
 public class Application {
     static {
@@ -36,7 +36,7 @@ public class Application {
 
     public static void main(String[] args) throws Exception {
         ApplicationRuntime runtime = new ApplicationRuntime();
-        runtime.setProperties(RuntimeSupport.loadProperties());
+        runtime.setProperties(PropertiesSupport.loadProperties());
         runtime.addListeners(ServiceLoader.load(Runtime.Listener.class));
         runtime.run();
     }

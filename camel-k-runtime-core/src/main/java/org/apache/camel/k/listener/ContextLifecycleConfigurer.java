@@ -18,7 +18,7 @@ package org.apache.camel.k.listener;
 
 import org.apache.camel.Component;
 import org.apache.camel.k.Runtime;
-import org.apache.camel.k.support.RuntimeSupport;
+import org.apache.camel.k.support.PropertiesSupport;
 import org.apache.camel.support.LifecycleStrategySupport;
 
 public class ContextLifecycleConfigurer extends AbstractPhaseListener {
@@ -41,7 +41,7 @@ public class ContextLifecycleConfigurer extends AbstractPhaseListener {
                 //
                 //     camel.component.${scheme}.${name} = ${value}
                 //
-                RuntimeSupport.bindProperties(runtime.getContext(), component, "camel.component." + name + ".");
+                PropertiesSupport.bindProperties(runtime.getContext(), component, "camel.component." + name + ".");
             }
         });
     }
