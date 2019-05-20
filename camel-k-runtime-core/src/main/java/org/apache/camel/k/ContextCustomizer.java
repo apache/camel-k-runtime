@@ -17,9 +17,10 @@
 package org.apache.camel.k;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.Ordered;
 
 @FunctionalInterface
-public interface ContextCustomizer {
+public interface ContextCustomizer extends Ordered, Comparable<ContextCustomizer>{
     /**
      * Perform CamelContext customization.
      *
@@ -27,4 +28,14 @@ public interface ContextCustomizer {
      * @param registry the runtime registry.
      */
     void apply(CamelContext camelContext, Runtime.Registry registry);
+
+    @Override
+    default int getOrder() {
+        return 0;
+    }
+
+    @Override
+    default int compareTo(ContextCustomizer o) {
+        return Integer.compare(getOrder(), o.getOrder());
+    }
 }
