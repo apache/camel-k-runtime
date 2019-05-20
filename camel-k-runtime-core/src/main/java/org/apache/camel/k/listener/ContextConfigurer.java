@@ -17,6 +17,7 @@
 package org.apache.camel.k.listener;
 
 import org.apache.camel.k.Runtime;
+import org.apache.camel.k.support.PropertiesSupport;
 import org.apache.camel.k.support.RuntimeSupport;
 
 public class ContextConfigurer extends AbstractPhaseListener {
@@ -31,7 +32,7 @@ public class ContextConfigurer extends AbstractPhaseListener {
         //
         //     camel.context.${name} = ${value}
         //
-        RuntimeSupport.bindProperties(runtime.getContext(), runtime.getContext(), "camel.context.");
+        PropertiesSupport.bindProperties(runtime.getContext(), runtime.getContext(), "camel.context.");
 
         //
         // Configure the camel rest definition using properties in the form:

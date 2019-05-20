@@ -25,7 +25,7 @@ import org.apache.camel.k.InMemoryRegistry;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.adapter.Exceptions;
 import org.apache.camel.k.adapter.Main;
-import org.apache.camel.k.support.RuntimeSupport;
+import org.apache.camel.k.support.PropertiesSupport;
 import org.apache.camel.main.MainSupport;
 import org.apache.camel.spi.HasId;
 import org.apache.camel.util.function.ThrowingConsumer;
@@ -81,7 +81,7 @@ public final class ApplicationRuntime implements Runtime {
                 id = id + ".";
             }
 
-            RuntimeSupport.bindProperties(getContext(), listener, id);
+            PropertiesSupport.bindProperties(getContext(), listener, id);
         }
 
         LOGGER.info("Add listener: {}", listener);

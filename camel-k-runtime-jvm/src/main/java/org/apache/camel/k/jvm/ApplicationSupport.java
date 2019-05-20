@@ -19,7 +19,7 @@ package org.apache.camel.k.jvm;
 import java.util.Properties;
 
 import org.apache.camel.k.Constants;
-import org.apache.camel.k.support.RuntimeSupport;
+import org.apache.camel.k.support.PropertiesSupport;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.LoggerContext;
@@ -32,7 +32,7 @@ public final class ApplicationSupport {
 
     public static void configureLogging() {
         final LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
-        final Properties properties = RuntimeSupport.loadProperties();
+        final Properties properties = PropertiesSupport.loadProperties();
 
         properties.entrySet().stream()
             .filter(entry -> entry.getKey() instanceof String)

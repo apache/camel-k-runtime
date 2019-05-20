@@ -28,6 +28,7 @@ import org.apache.camel.k.Constants;
 import org.apache.camel.k.ContextCustomizer;
 import org.apache.camel.k.InMemoryRegistry;
 import org.apache.camel.k.Runtime;
+import org.apache.camel.spi.RestConfiguration;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -127,6 +128,7 @@ public class RuntimeSupportTest {
             public int getOrder() {
                 return Ordered.LOWEST;
             }
+
             @Override
             public void apply(CamelContext camelContext, Runtime.Registry registry) {
                 camelContext.setNameStrategy(new ExplicitCamelContextNameStrategy(camelContext.getName() + "-c1"));
@@ -137,6 +139,7 @@ public class RuntimeSupportTest {
             public int getOrder() {
                 return Ordered.HIGHEST;
             }
+
             @Override
             public void apply(CamelContext camelContext, Runtime.Registry registry) {
                 camelContext.setNameStrategy(new ExplicitCamelContextNameStrategy(camelContext.getName() + "-c2"));
@@ -158,5 +161,30 @@ public class RuntimeSupportTest {
         List<ContextCustomizer> customizers = RuntimeSupport.configureContext(context, registry);
         assertThat(customizers).hasSize(3);
         assertThat(context.getName()).isEqualTo("camel-c2-c3-c1");
+    }
+
+    @Test
+    public void testCustomizeRestConfiguration() {
+        Properties properties = new Properties();
+        properties.setProperty("camel.rest.component", "servlet");
+        properties.setProperty("camel.rest.contextPath", "/mypath");
+        properties.setProperty(Constants.PROPERTY_PREFIX_REST_COMPONENT_PROPERTY + "servletName", "MyCamelServlet");
+        properties.setProperty(Constants.PROPERTY_PREFIX_REST_ENDPOINT_PROPERTY  + "headerFilterStrategy", "myHeaderStrategy");
+
+        PropertiesComponent pc = new PropertiesComponent();
+        pc.setInitialProperties(properties);
+
+        Runtime.Registry registry = new InMemoryRegistry();
+        CamelContext context = new DefaultCamelContext(registry);
+        context.addComponent("properties", pc);
+
+
+        RuntimeSupport.configureRest(context);
+
+        RestConfiguration configuration = context.getRestConfiguration();
+        assertThat(configuration).hasFieldOrPropertyWithValue("component", "servlet");
+        assertThat(configuration).hasFieldOrPropertyWithValue("contextPath", "/mypath");
+        assertThat(configuration.getComponentProperties()).containsEntry("servletName", "MyCamelServlet");
+        assertThat(configuration.getEndpointProperties()).containsEntry("headerFilterStrategy", "myHeaderStrategy");
     }
 }

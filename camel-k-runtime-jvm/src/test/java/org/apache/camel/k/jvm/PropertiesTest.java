@@ -25,7 +25,7 @@ import org.apache.camel.k.ContextCustomizer;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.listener.ContextConfigurer;
 import org.apache.camel.k.listener.ContextLifecycleConfigurer;
-import org.apache.camel.k.support.RuntimeSupport;
+import org.apache.camel.k.support.PropertiesSupport;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -34,7 +34,7 @@ public class PropertiesTest {
 
     @Test
     public void testLoadProperties() throws Exception {
-        Properties properties = RuntimeSupport.loadProperties("src/test/resources/conf.properties", "src/test/resources/conf.d");
+        Properties properties = PropertiesSupport.loadProperties("src/test/resources/conf.properties", "src/test/resources/conf.d");
 
         ApplicationRuntime runtime = new ApplicationRuntime();
         runtime.setProperties(properties);
