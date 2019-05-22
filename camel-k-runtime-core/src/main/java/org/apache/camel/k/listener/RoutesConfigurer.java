@@ -16,12 +16,12 @@
  */
 package org.apache.camel.k.listener;
 
+import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.k.Constants;
 import org.apache.camel.k.RoutesLoader;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
-import org.apache.camel.k.adapter.Exceptions;
 import org.apache.camel.k.support.RuntimeSupport;
 import org.apache.camel.util.ObjectHelper;
 import org.slf4j.Logger;
@@ -63,9 +63,9 @@ public class RoutesConfigurer extends AbstractPhaseListener {
             try {
                 source = Source.create(route);
                 loader = RuntimeSupport.loaderFor(runtime.getContext(), source);
-                builder = loader.load(runtime.getRegistry(), source);
+                builder = loader.load(runtime.getContext(), source);
             } catch (Exception e) {
-                throw Exceptions.wrapRuntimeCamelException(e);
+                throw RuntimeCamelException.wrapRuntimeCamelException(e);
             }
 
             if (builder == null) {
@@ -77,7 +77,7 @@ public class RoutesConfigurer extends AbstractPhaseListener {
             try {
                 runtime.getContext().addRoutes(builder);
             } catch (Exception e) {
-                throw Exceptions.wrapRuntimeCamelException(e);
+                throw RuntimeCamelException.wrapRuntimeCamelException(e);
             }
         }
     }

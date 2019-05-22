@@ -21,6 +21,7 @@ import java.util.Properties;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Ordered;
 import org.apache.camel.component.properties.PropertiesComponent;
+import org.apache.camel.spi.Registry;
 
 public interface Runtime {
     /**
@@ -31,7 +32,9 @@ public interface Runtime {
     /**
      * Returns the registry associated to this runtime.
      */
-    Registry getRegistry();
+    default Registry getRegistry() {
+        return getContext().getRegistry();
+    }
 
     default void setProperties(Properties properties) {
         PropertiesComponent pc = new PropertiesComponent();
@@ -59,27 +62,13 @@ public interface Runtime {
         }
     }
 
-    interface Registry extends org.apache.camel.k.adapter.Registry {
-    }
-
     /**
      * Helper to create a simple runtime from a given Camel Context and Runtime Registry.
      *
      * @param camelContext the camel context
-     * @param registry the runtime registry
      * @return the runtime
      */
-    static Runtime of( CamelContext camelContext, Registry registry) {
-        return new Runtime() {
-            @Override
-            public CamelContext getContext() {
-                return camelContext;
-            }
-
-            @Override
-            public Registry getRegistry() {
-                return registry;
-            }
-        };
+    static Runtime of(CamelContext camelContext) {
+        return () -> camelContext;
     }
 }

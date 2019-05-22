@@ -47,6 +47,6 @@ public class ContextConfigurer extends AbstractPhaseListener {
         // This is useful to configure services such as the ClusterService,
         // RouteController, etc
         //
-        RuntimeSupport.configureContext(runtime.getContext(), runtime.getRegistry());
+        RuntimeSupport.configureContext(runtime.getContext());
     }
 }

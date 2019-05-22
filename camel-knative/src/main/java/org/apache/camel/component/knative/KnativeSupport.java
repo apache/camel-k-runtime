@@ -44,6 +44,7 @@ public final class KnativeSupport {
         return answer;
     }
 
+    @SuppressWarnings("unchecked")
     public static <K, V> Map<K, V> mapOf(K key, V value, Object... keyVals) {
         Map<K, V> map = new HashMap<>();
         map.put(key, value);

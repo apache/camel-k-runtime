@@ -28,16 +28,14 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.camel.k</groupId>
     <artifactId>camel-k-runtime-parent</artifactId>
-    <version>0.3.4-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <camel2.version>2.24.0</camel2.version>
-        <camel3.version>3.0.0-M2</camel3.version>
-        <camel.version>${camel2.version}</camel.version>
+        <camel.version>3.0.0-M2</camel.version>
         <catalog.version>${camel.version}</catalog.version>
         <junit.version>4.12</junit.version>
         <junit-jupiter.version>5.4.2</junit-jupiter.version>
@@ -140,8 +138,6 @@
     </build>
 
     <modules>
-        <module>camel-k-adapter-camel-2</module>
-        <module>camel-k-adapter-camel-3</module>
         <module>camel-k-maven-plugin</module>
         <module>camel-k-runtime-core</module>
         <module>camel-k-runtime-jvm</module>
@@ -187,15 +183,13 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-adapter-camel-3</artifactId>
-                <version>${project.version}</version>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-bom</artifactId>
+                <version>${camel.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-adapter-camel-2</artifactId>
-                <version>${project.version}</version>
-            </dependency>
+
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-runtime-core</artifactId>
@@ -245,45 +239,6 @@
     </dependencyManagement>
 
     <profiles>
-        <profile>
-            <id>camel3</id>
-            <activation>
-                <property>
-                    <name>camel3</name>
-                </property>
-            </activation>
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.camel</groupId>
-                        <artifactId>camel-bom</artifactId>
-                        <version>${camel3.version}</version>
-                        <type>pom</type>
-                        <scope>import</scope>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement>
-        </profile>
-        <profile>
-            <id>camel2</id>
-            <activation>
-                <property>
-                    <name>!camel3</name>
-                </property>
-            </activation>
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.camel</groupId>
-                        <artifactId>camel-bom</artifactId>
-                        <version>${camel2.version}</version>
-                        <type>pom</type>
-                        <scope>import</scope>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement>
-        </profile>
-
         <profile>
             <id>deps</id>
             <activation>

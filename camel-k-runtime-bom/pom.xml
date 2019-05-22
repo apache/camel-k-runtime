@@ -28,7 +28,11 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.camel.k</groupId>
     <artifactId>camel-k-runtime-bom</artifactId>
+<<<<<<< HEAD
     <version>0.3.4-SNAPSHOT</version>
+=======
+    <version>1.0.0-SNAPSHOT</version>
+>>>>>>> switch to camel 3, drop support for camel 2.x
     <packaging>pom</packaging>
 
     <properties>

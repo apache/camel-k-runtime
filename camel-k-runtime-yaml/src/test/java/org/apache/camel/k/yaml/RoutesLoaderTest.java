@@ -21,10 +21,8 @@ import java.util.List;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.k.InMemoryRegistry;
 import org.apache.camel.k.RoutesLoader;
 import org.apache.camel.k.Source;
-import org.apache.camel.k.adapter.Routes;
 import org.apache.camel.k.support.RuntimeSupport;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.model.ToDefinition;
@@ -39,7 +37,7 @@ public class RoutesLoaderTest {
         CamelContext context = new DefaultCamelContext();
         Source source = Source.create("classpath:routes.flow");
         RoutesLoader loader = RuntimeSupport.loaderFor(context, source);
-        RouteBuilder builder = loader.load(new InMemoryRegistry(), source);
+        RouteBuilder builder = loader.load(context, source);
 
         assertThat(loader).isInstanceOf(YamlFlowLoader.class);
         assertThat(builder).isNotNull();
@@ -49,7 +47,7 @@ public class RoutesLoaderTest {
 
         List<RouteDefinition> routes = builder.getRouteCollection().getRoutes();
         assertThat(routes).hasSize(1);
-        assertThat(Routes.getInput(routes.get(0)).getEndpointUri()).isEqualTo("timer:tick");
+        assertThat(routes.get(0).getInput().getEndpointUri()).isEqualTo("timer:tick");
         assertThat(routes.get(0).getOutputs().get(0)).isInstanceOf(ToDefinition.class);
     }
 }

@@ -16,12 +16,13 @@
  */
 package org.apache.camel.k.groovy.dsl
 
-import org.apache.camel.k.Runtime
+import org.apache.camel.spi.Registry
+
 
 class RegistryConfiguration {
-    private final Runtime.Registry registry
+    private final Registry registry
 
-    RegistryConfiguration(Runtime.Registry registry) {
+    RegistryConfiguration(Registry registry) {
         this.registry = registry
     }
 

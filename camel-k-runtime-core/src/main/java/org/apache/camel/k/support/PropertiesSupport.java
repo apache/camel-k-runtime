@@ -34,7 +34,7 @@ import java.util.function.Predicate;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.properties.PropertiesComponent;
 import org.apache.camel.k.Constants;
-import org.apache.camel.k.adapter.Introspection;
+import org.apache.camel.support.IntrospectionSupport;
 import org.apache.camel.util.ObjectHelper;
 import org.apache.commons.io.FilenameUtils;
 
@@ -78,7 +78,7 @@ public final class PropertiesSupport {
                     final Object val = entry.getValue();
 
                     try {
-                        if (Introspection.setProperty(target, key, val)) {
+                        if (IntrospectionSupport.setProperty(target, key, val)) {
                             count.incrementAndGet();
                         }
                     } catch (Exception ex) {

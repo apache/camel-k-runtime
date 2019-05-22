@@ -21,10 +21,8 @@ import java.util.stream.Stream;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.k.InMemoryRegistry;
 import org.apache.camel.k.RoutesLoader;
 import org.apache.camel.k.Source;
-import org.apache.camel.k.adapter.Routes;
 import org.apache.camel.k.jvm.loader.JavaClassLoader;
 import org.apache.camel.k.jvm.loader.JavaScriptLoader;
 import org.apache.camel.k.jvm.loader.JavaSourceLoader;
@@ -44,7 +42,7 @@ public class RoutesLoadersCommonTest {
     void testLoaders(String location, Class<? extends RoutesLoader> type) throws Exception{
         Source source = Source.create(location);
         RoutesLoader loader = RuntimeSupport.loaderFor(new DefaultCamelContext(), source);
-        RouteBuilder builder = loader.load(new InMemoryRegistry(), source);
+        RouteBuilder builder = loader.load(new DefaultCamelContext(), source);
 
         assertThat(loader).isInstanceOf(type);
         assertThat(builder).isNotNull();
@@ -54,7 +52,7 @@ public class RoutesLoadersCommonTest {
 
         List<RouteDefinition> routes = builder.getRouteCollection().getRoutes();
         assertThat(routes).hasSize(1);
-        assertThat(Routes.getInput(routes.get(0)).getEndpointUri()).isEqualTo("timer:tick");
+        assertThat(routes.get(0).getInput().getEndpointUri()).isEqualTo("timer:tick");
         assertThat(routes.get(0).getOutputs().get(0)).isInstanceOf(ToDefinition.class);
     }
 

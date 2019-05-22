@@ -21,12 +21,12 @@ import java.util.Collections;
 import java.util.List;
 import javax.xml.bind.UnmarshalException;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.k.RoutesLoader;
-import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
-import org.apache.camel.k.adapter.Resources;
 import org.apache.camel.k.support.URIResolver;
+import org.apache.camel.model.ModelHelper;
 import org.apache.camel.model.RoutesDefinition;
 import org.apache.camel.model.rest.RestsDefinition;
 import org.slf4j.Logger;
@@ -41,13 +41,13 @@ public class XmlLoader implements RoutesLoader {
     }
 
     @Override
-    public RouteBuilder load(Runtime.Registry registry, Source source) throws Exception {
+    public RouteBuilder load(CamelContext camelContext, Source source) throws Exception {
         return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 try (InputStream is = URIResolver.resolve(getContext(), source)) {
                     try {
-                        RoutesDefinition definition = Resources.loadRoutesDefinition(getContext(), is);
+                        RoutesDefinition definition = ModelHelper.loadRoutesDefinition(getContext(), is);
                         LOGGER.debug("Loaded {} routes from {}", definition.getRoutes().size(), source);
 
                         setRouteCollection(definition);
@@ -60,7 +60,7 @@ public class XmlLoader implements RoutesLoader {
 
                 try (InputStream is = URIResolver.resolve(getContext(), source)) {
                     try {
-                        RestsDefinition definition = Resources.loadRestsDefinition(getContext(), is);
+                        RestsDefinition definition = ModelHelper.loadRestsDefinition(getContext(), is);
                         LOGGER.debug("Loaded {} rests from {}", definition.getRests().size(), source);
 
                         setRestCollection(definition);

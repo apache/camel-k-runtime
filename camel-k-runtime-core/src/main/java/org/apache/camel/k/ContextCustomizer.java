@@ -25,9 +25,8 @@ public interface ContextCustomizer extends Ordered, Comparable<ContextCustomizer
      * Perform CamelContext customization.
      *
      * @param camelContext the camel context to customize.
-     * @param registry the runtime registry.
      */
-    void apply(CamelContext camelContext, Runtime.Registry registry);
+    void apply(CamelContext camelContext);
 
     @Override
     default int getOrder() {

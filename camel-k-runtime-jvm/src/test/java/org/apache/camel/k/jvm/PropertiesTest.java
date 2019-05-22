@@ -156,7 +156,7 @@ public class PropertiesTest {
         runtime.setProperties(properties);
         runtime.addListener(new ContextConfigurer());
         runtime.addListener(new ContextLifecycleConfigurer());
-        runtime.getRegistry().bind("c1", (ContextCustomizer) (camelContext, registry) -> {
+        runtime.getRegistry().bind("c1", (ContextCustomizer) camelContext -> {
             camelContext.setMessageHistory(false);
             camelContext.setLoadTypeConverters(false);
         });

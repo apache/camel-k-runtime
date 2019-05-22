@@ -17,20 +17,17 @@
 package org.apache.camel.k.groovy.dsl
 
 import org.apache.camel.CamelContext
-import org.apache.camel.k.Runtime
 
 class ContextConfiguration {
     private final CamelContext context
-    private final Runtime.Registry registry
 
-    ContextConfiguration(CamelContext context, Runtime.Registry registry) {
+    ContextConfiguration(CamelContext context) {
         this.context = context
-        this.registry = registry
     }
 
     def registry(Closure<?> callable) {
         callable.resolveStrategy = Closure.DELEGATE_FIRST
-        callable.delegate = new RegistryConfiguration(registry)
+        callable.delegate = new RegistryConfiguration(this.context.registry)
         callable.call()
     }
 

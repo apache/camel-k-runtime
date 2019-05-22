@@ -16,20 +16,16 @@
  */
 package org.apache.camel.k.jvm;
 
-import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.util.List;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Route;
 import org.apache.camel.k.Runtime;
-import org.apache.camel.k.adapter.Resources;
 import org.apache.camel.k.listener.ContextConfigurer;
 import org.apache.camel.k.listener.ContextLifecycleConfigurer;
 import org.apache.camel.k.listener.RoutesConfigurer;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.util.ObjectHelper;
-import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;

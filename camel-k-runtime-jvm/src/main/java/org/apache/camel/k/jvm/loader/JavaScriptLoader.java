@@ -30,7 +30,6 @@ import javax.script.SimpleBindings;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.k.RoutesLoader;
-import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.jvm.dsl.Components;
 import org.apache.camel.k.support.URIResolver;
@@ -45,7 +44,7 @@ public class JavaScriptLoader implements RoutesLoader {
     }
 
     @Override
-    public RouteBuilder load(Runtime.Registry registry, Source source) throws Exception {
+    public RouteBuilder load(CamelContext camelContext, Source source) throws Exception {
         return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -59,7 +58,7 @@ public class JavaScriptLoader implements RoutesLoader {
                 bindings.put("builder", this);
                 bindings.put("context", context);
                 bindings.put("components", new Components(context));
-                bindings.put("registry", registry);
+                bindings.put("registry", camelContext.getRegistry());
                 bindings.put("from", (Function<String, RouteDefinition>) uri -> from(uri));
                 bindings.put("rest", (Supplier<RestDefinition>) () -> rest());
                 bindings.put("restConfiguration", (Supplier<RestConfigurationDefinition>) () -> restConfiguration());
