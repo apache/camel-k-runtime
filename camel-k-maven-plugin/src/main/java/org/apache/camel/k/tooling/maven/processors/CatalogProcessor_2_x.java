@@ -175,6 +175,21 @@ public class CatalogProcessor_2_x implements CatalogProcessor {
 
         // ************************
         //
+        // camel-k-runtime-servlet
+        //
+        // ************************
+
+        {
+            CamelArtifact artifact = new CamelArtifact();
+            artifact.setGroupId("org.apache.camel.k");
+            artifact.setArtifactId("camel-k-runtime-servlet");
+            artifact.addDependency("org.apache.camel", "camel-servlet");
+
+            artifacts.put(artifact.getArtifactId(), artifact);
+        }
+
+        // ************************
+        //
         //
         //
         // ************************

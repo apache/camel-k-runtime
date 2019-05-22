@@ -17,7 +17,13 @@
 
 package org.apache.camel.k.tooling.maven.processors;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.camel.catalog.CamelCatalog;
+import org.apache.camel.k.tooling.maven.model.CamelArtifact;
+import org.apache.camel.k.tooling.maven.model.CatalogProcessor;
+import org.apache.maven.project.MavenProject;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -67,5 +73,46 @@ public class CataloProcessor3Test extends AbstractCataloProcessorTest {
         CamelCatalog catalog = versionCamelCatalog("5.0.0");
 
         assertThat(cp3.accepts(catalog)).isFalse();
+    }
+
+    @Test
+    public void testArtifactsEnrichment(){
+        CatalogProcessor processor = new CatalogProcessor_3_x();
+        CamelCatalog catalog = versionCamelCatalog("3.0.0");
+        Map<String, CamelArtifact> artifactMap = new HashMap<>();
+
+        assertThat(processor.accepts(catalog)).isTrue();
+        processor.process(new MavenProject(), catalog, artifactMap);
+
+
+        assertThat(artifactMap.get("camel-k-runtime-jvm")).satisfies(a -> {
+            assertThat(a.getDependencies()).anyMatch(
+                d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-core")
+            );
+            assertThat(a.getDependencies()).anyMatch(
+                d -> d.getGroupId().equals("org.apache.camel.k") && d.getArtifactId().equals("camel-k-adapter-camel-3")
+            );
+        });
+        assertThat(artifactMap.get("camel-k-runtime-groovy")).satisfies(a -> {
+            assertThat(a.getDependencies()).anyMatch(
+                d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-groovy")
+            );
+        });
+        assertThat(artifactMap.get("camel-k-runtime-health")).satisfies(a -> {
+            assertThat(a.getDependencies()).anyMatch(
+                d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-netty4-http")
+            );
+        });
+        assertThat(artifactMap.get("camel-k-runtime-servlet")).satisfies(a -> {
+            assertThat(a.getDependencies()).anyMatch(
+                d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-servlet")
+            );
+        });
+
+        assertThat(artifactMap.get("camel-knative")).satisfies(a -> {
+            assertThat(a.getDependencies()).anyMatch(
+                d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-netty4-http")
+            );
+        });
     }
 }
