@@ -1,0 +1,14 @@
+Servlet Apache Camel K Runtime example
+======================================
+
+This repository contains an Apache Camel-K Runtime application that use camel servlet.
+
+In order to run it:
+```bash
+mvn clean exec:java
+```
+while it is running (from another terminal) you can access the rest camel route exposed through the servlet with:
+```bash
+curl http://localhost:8080/mypath/test
+```
+that should log and empty exchange in the running application console logs.
