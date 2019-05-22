@@ -29,14 +29,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ServletCustomizerTest {
+public class ServletRegistrationCustomizerTest {
 
     @Test
-    public void testServletConfigurer() {
+    public void testServletRegistrationConfigurer() {
         Runtime.Registry registry = new InMemoryRegistry();
         Runtime runtime = Runtime.of(new DefaultCamelContext(registry), registry);
 
-        ServletRegistrationContextCustomizer servletRegistrationCustomizer = new ServletRegistrationContextCustomizer("/webhook/*", "webhook-servlet");
+        ServletRegistrationContextCustomizer servletRegistrationCustomizer = new ServletRegistrationContextCustomizer();
         servletRegistrationCustomizer.apply(runtime.getContext(), runtime.getRegistry());
 
         ServletContextCustomizer servletCustomizer = new ServletContextCustomizer();
@@ -45,9 +45,9 @@ public class ServletCustomizerTest {
 
         DeploymentManager manager = Servlets.defaultContainer().getDeploymentByPath("/");
         ManagedServlets managedServlets = manager.getDeployment().getServlets();
-        ManagedServlet servlet = managedServlets.getManagedServlet("webhook-servlet");
+        ManagedServlet servlet = managedServlets.getManagedServlet("CamelServlet");
 
         assertThat(servlet).isNotNull();
-        assertThat(servlet.getServletInfo().getMappings()).contains("/webhook/*");
+        assertThat(servlet.getServletInfo().getMappings()).contains("/camel/*");
     }
 }

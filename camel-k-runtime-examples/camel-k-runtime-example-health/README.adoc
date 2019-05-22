@@ -1,0 +1,14 @@
+Health Apache Camel K Runtime example
+======================================
+
+This repository contains an Apache Camel-K Runtime application that expose `/health` endpoint to gather Camel context status.
+
+In order to run it:
+```bash
+mvn clean exec:java
+```
+while it is running (from another terminal) you can access the rest camel route exposed through the servlet with:
+```bash
+curl http://localhost:8080/health
+```
+if the camel context has started properly that should get `OK`.
