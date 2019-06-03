@@ -61,7 +61,7 @@ public final class ApplicationRuntime implements Runtime {
     }
 
     @Override
-    public CamelContext getContext() {
+    public CamelContext getCamelContext() {
         return context;
     }
 
@@ -84,7 +84,7 @@ public final class ApplicationRuntime implements Runtime {
                 id = id + ".";
             }
 
-            PropertiesSupport.bindProperties(getContext(), listener, id);
+            PropertiesSupport.bindProperties(getCamelContext(), listener, id);
         }
 
         LOGGER.info("Add listener: {}", listener);

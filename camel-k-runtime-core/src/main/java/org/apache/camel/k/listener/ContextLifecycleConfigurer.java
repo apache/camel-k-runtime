@@ -31,7 +31,7 @@ public class ContextLifecycleConfigurer extends AbstractPhaseListener {
         //
         // Configure components upon creation
         //
-        runtime.getContext().addLifecycleStrategy(new LifecycleStrategySupport() {
+        runtime.getCamelContext().addLifecycleStrategy(new LifecycleStrategySupport() {
             @SuppressWarnings("unchecked")
             @Override
             public void onComponentAdd(String name, Component component) {
@@ -41,7 +41,7 @@ public class ContextLifecycleConfigurer extends AbstractPhaseListener {
                 //
                 //     camel.component.${scheme}.${name} = ${value}
                 //
-                PropertiesSupport.bindProperties(runtime.getContext(), component, "camel.component." + name + ".");
+                PropertiesSupport.bindProperties(runtime.getCamelContext(), component, "camel.component." + name + ".");
             }
         });
     }

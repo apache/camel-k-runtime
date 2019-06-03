@@ -32,14 +32,14 @@ public class ContextConfigurer extends AbstractPhaseListener {
         //
         //     camel.context.${name} = ${value}
         //
-        PropertiesSupport.bindProperties(runtime.getContext(), runtime.getContext(), "camel.context.");
+        PropertiesSupport.bindProperties(runtime.getCamelContext(), runtime.getCamelContext(), "camel.context.");
 
         //
         // Configure the camel rest definition using properties in the form:
         //
         //     camel.rest.${name} = ${value}
         //
-        RuntimeSupport.configureRest(runtime.getContext());
+        RuntimeSupport.configureRest(runtime.getCamelContext());
 
         //
         // Programmatically configure the camel context.
@@ -47,6 +47,6 @@ public class ContextConfigurer extends AbstractPhaseListener {
         // This is useful to configure services such as the ClusterService,
         // RouteController, etc
         //
-        RuntimeSupport.configureContext(runtime.getContext());
+        RuntimeSupport.configureContext(runtime.getCamelContext());
     }
 }

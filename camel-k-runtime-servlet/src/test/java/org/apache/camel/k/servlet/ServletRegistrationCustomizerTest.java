@@ -20,9 +20,7 @@ import io.undertow.servlet.Servlets;
 import io.undertow.servlet.api.DeploymentManager;
 import io.undertow.servlet.core.ManagedServlet;
 import io.undertow.servlet.core.ManagedServlets;
-import org.apache.camel.component.servlet.CamelHttpTransportServlet;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.k.InMemoryRegistry;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.test.AvailablePortFinder;
 import org.junit.jupiter.api.Test;
@@ -33,15 +31,14 @@ public class ServletRegistrationCustomizerTest {
 
     @Test
     public void testServletRegistrationConfigurer() {
-        Runtime.Registry registry = new InMemoryRegistry();
-        Runtime runtime = Runtime.of(new DefaultCamelContext(registry), registry);
+        Runtime runtime = Runtime.of(new DefaultCamelContext());
 
         ServletRegistrationContextCustomizer servletRegistrationCustomizer = new ServletRegistrationContextCustomizer();
-        servletRegistrationCustomizer.apply(runtime.getContext(), runtime.getRegistry());
+        servletRegistrationCustomizer.apply(runtime.getCamelContext());
 
         ServletContextCustomizer servletCustomizer = new ServletContextCustomizer();
         servletCustomizer.setBindPort(AvailablePortFinder.getNextAvailable());
-        servletCustomizer.apply(runtime.getContext(), runtime.getRegistry());
+        servletCustomizer.apply(runtime.getCamelContext());
 
         DeploymentManager manager = Servlets.defaultContainer().getDeploymentByPath("/");
         ManagedServlets managedServlets = manager.getDeployment().getServlets();

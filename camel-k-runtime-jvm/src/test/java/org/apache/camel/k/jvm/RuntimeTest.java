@@ -41,7 +41,7 @@ public class RuntimeTest {
             runtime.addListener(new ContextLifecycleConfigurer());
             runtime.addListener(RoutesConfigurer.forRoutes("classpath:r1.js", "classpath:r2.mytype?language=js"));
             runtime.addListener(Runtime.Phase.Started, r -> {
-                CamelContext context = r.getContext();
+                CamelContext context = r.getCamelContext();
                 List<Route> routes = context.getRoutes();
 
                 assertThat(routes).hasSize(2);
@@ -66,7 +66,7 @@ public class RuntimeTest {
             runtime.addListener(new ContextLifecycleConfigurer());
             runtime.addListener(RoutesConfigurer.forRoutes("classpath:routes.xml", "classpath:rests.xml"));
             runtime.addListener(Runtime.Phase.Started, r -> {
-                CamelContext context = r.getContext();
+                CamelContext context = r.getCamelContext();
 
                 assertThat(context.adapt(ModelCamelContext.class).getRouteDefinitions()).isNotEmpty();
                 assertThat(context.adapt(ModelCamelContext.class).getRestDefinitions()).isNotEmpty();

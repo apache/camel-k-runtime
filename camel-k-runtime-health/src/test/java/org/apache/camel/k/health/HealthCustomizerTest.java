@@ -35,11 +35,11 @@ public class HealthCustomizerTest {
         Runtime runtime = Runtime.of(new DefaultCamelContext());
 
         HealthContextCustomizer healthCustomizer = new HealthContextCustomizer();
-        healthCustomizer.apply(runtime.getContext());
+        healthCustomizer.apply(runtime.getCamelContext());
 
         ServletContextCustomizer servletCustomizer = new ServletContextCustomizer();
         servletCustomizer.setBindPort(AvailablePortFinder.getNextAvailable());
-        servletCustomizer.apply(runtime.getContext());
+        servletCustomizer.apply(runtime.getCamelContext());
 
         DeploymentManager manager = Servlets.defaultContainer().getDeploymentByPath("/");
         ManagedServlets managedServlets = manager.getDeployment().getServlets();

@@ -36,12 +36,12 @@ class IntegrationTest extends Specification {
             runtime.run()
 
         then:
-            runtime.context.restConfiguration.host == 'my-host'
-            runtime.context.restConfiguration.port == 9192
-            runtime.context.getRestConfiguration('undertow', false).host == 'my-undertow-host'
-            runtime.context.getRestConfiguration('undertow', false).port == 9193
-            runtime.context.restDefinitions.size() == 1
-            runtime.context.restDefinitions[0].path == '/my/path'
+            runtime.camelContext.restConfiguration.host == 'my-host'
+            runtime.camelContext.restConfiguration.port == 9192
+            runtime.camelContext.getRestConfiguration('undertow', false).host == 'my-undertow-host'
+            runtime.camelContext.getRestConfiguration('undertow', false).port == 9193
+            runtime.camelContext.restDefinitions.size() == 1
+            runtime.camelContext.restDefinitions[0].path == '/my/path'
     }
 
     def "load integration with bindings"()  {
@@ -52,9 +52,9 @@ class IntegrationTest extends Specification {
             runtime.run()
 
         then:
-            runtime.context.registry.lookupByName('myEntry1') == 'myRegistryEntry1'
-            runtime.context.registry.lookupByName('myEntry2') == 'myRegistryEntry2'
-            runtime.context.registry.lookupByName('myEntry3') instanceof Processor
+            runtime.camelContext.registry.lookupByName('myEntry1') == 'myRegistryEntry1'
+            runtime.camelContext.registry.lookupByName('myEntry2') == 'myRegistryEntry2'
+            runtime.camelContext.registry.lookupByName('myEntry3') instanceof Processor
     }
 
     def "load integration with component configuration"()  {
@@ -69,9 +69,9 @@ class IntegrationTest extends Specification {
             def runtime = new ApplicationRuntime()
             runtime.addListener(RoutesConfigurer.forRoutes('classpath:routes-with-component-configuration.groovy'))
             runtime.addListener(Runtime.Phase.Started, {
-                def seda = it.context.getComponent('seda', SedaComponent)
-                def mySeda = it.context.getComponent('mySeda', SedaComponent)
-                def log = it.context.getComponent('log', LogComponent)
+                def seda = it.camelContext.getComponent('seda', SedaComponent)
+                def mySeda = it.camelContext.getComponent('mySeda', SedaComponent)
+                def log = it.camelContext.getComponent('log', LogComponent)
 
                 assert seda != null
                 assert mySeda != null
