@@ -16,6 +16,9 @@
  */
 package org.apache.camel.component.knative;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.Consumer;
 import org.apache.camel.DelegateEndpoint;
@@ -24,19 +27,15 @@ import org.apache.camel.Processor;
 import org.apache.camel.Producer;
 import org.apache.camel.cloud.ServiceDefinition;
 import org.apache.camel.component.knative.ce.CloudEventsProcessors;
-import org.apache.camel.k.adapter.DefaultEndpoint;
-import org.apache.camel.k.adapter.Exceptions;
-import org.apache.camel.k.adapter.Services;
+import org.apache.camel.impl.DefaultEndpoint;
 import org.apache.camel.processor.Pipeline;
 import org.apache.camel.spi.UriEndpoint;
 import org.apache.camel.spi.UriParam;
 import org.apache.camel.spi.UriPath;
 import org.apache.camel.util.ObjectHelper;
+import org.apache.camel.util.ServiceHelper;
 import org.apache.camel.util.StringHelper;
 import org.apache.camel.util.URISupport;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 @UriEndpoint(
@@ -81,12 +80,12 @@ public class KnativeEndpoint extends DefaultEndpoint implements DelegateEndpoint
     @Override
     protected void doStart() throws Exception {
         super.doStart();
-        Services.start(endpoint);
+        ServiceHelper.startServices(endpoint);
     }
 
     @Override
     protected void doStop() throws Exception {
-        Services.stop(endpoint);
+        ServiceHelper.stopService(endpoint);
         super.doStop();
     }
 
@@ -208,7 +207,7 @@ public class KnativeEndpoint extends DefaultEndpoint implements DelegateEndpoint
 
             return context.getEndpoint(uri);
         } catch (Exception e) {
-            throw Exceptions.wrapRuntimeCamelException(e);
+            throw ObjectHelper.wrapRuntimeCamelException(e);
         }
     }
 }

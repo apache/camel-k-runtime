@@ -19,7 +19,6 @@ package org.apache.camel.k.kotlin
 import org.apache.camel.impl.DefaultCamelContext
 import org.apache.camel.k.InMemoryRegistry
 import org.apache.camel.k.Source
-import org.apache.camel.k.adapter.Routes
 import org.apache.camel.k.support.RuntimeSupport
 import org.apache.camel.model.ProcessDefinition
 import org.apache.camel.model.ToDefinition
@@ -43,7 +42,7 @@ class LoaderTest {
 
         val routes = builder.routeCollection.routes
         assertThat(routes).hasSize(1)
-        assertThat(Routes.getInput(routes[0]).endpointUri).isEqualTo("timer:tick")
+        assertThat(routes[0].inputs[0].endpointUri).isEqualTo("timer:tick")
         assertThat(routes[0].outputs[0]).isInstanceOf(ProcessDefinition::class.java)
         assertThat(routes[0].outputs[1]).isInstanceOf(ToDefinition::class.java)
     }

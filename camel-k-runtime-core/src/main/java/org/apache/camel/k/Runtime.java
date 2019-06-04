@@ -16,17 +16,24 @@
  */
 package org.apache.camel.k;
 
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Ordered;
 import org.apache.camel.component.properties.PropertiesComponent;
+import org.apache.camel.spi.HasCamelContext;
 
-public interface Runtime {
+public interface Runtime extends HasCamelContext {
     /**
      * Returns the context associated to this runtime.
+     *
+     * @deprecated use {@link #getCamelContext()}
      */
-    CamelContext getContext();
+    @Deprecated
+    default CamelContext getContext() {
+        return getCamelContext();
+    }
 
     /**
      * Returns the registry associated to this runtime.
@@ -59,7 +66,23 @@ public interface Runtime {
         }
     }
 
-    interface Registry extends org.apache.camel.k.adapter.Registry {
+    interface Registry extends org.apache.camel.spi.Registry {
+        void bind(String name, Object bean);
+
+        @SuppressWarnings("deprecation")
+        default Object lookup(String name) {
+            return lookupByName(name);
+        }
+
+        @SuppressWarnings("deprecation")
+        default <T> T lookup(String name, Class<T> type) {
+            return lookupByNameAndType(name, type);
+        }
+
+        @SuppressWarnings("deprecation")
+        default <T> Map<String, T> lookupByType(Class<T> type) {
+            return findByTypeWithName(type);
+        }
     }
 
     /**
@@ -69,10 +92,10 @@ public interface Runtime {
      * @param registry the runtime registry
      * @return the runtime
      */
-    static Runtime of( CamelContext camelContext, Registry registry) {
+    static Runtime of(CamelContext camelContext, Registry registry) {
         return new Runtime() {
             @Override
-            public CamelContext getContext() {
+            public CamelContext getCamelContext() {
                 return camelContext;
             }
 

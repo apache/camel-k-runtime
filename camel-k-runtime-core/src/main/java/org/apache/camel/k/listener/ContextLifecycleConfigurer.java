@@ -16,6 +16,7 @@
  */
 package org.apache.camel.k.listener;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.support.PropertiesSupport;
@@ -28,10 +29,12 @@ public class ContextLifecycleConfigurer extends AbstractPhaseListener {
 
     @Override
     protected void accept(Runtime runtime) {
+        final CamelContext camelContext = runtime.getCamelContext();
+
         //
         // Configure components upon creation
         //
-        runtime.getContext().addLifecycleStrategy(new LifecycleStrategySupport() {
+        camelContext.addLifecycleStrategy(new LifecycleStrategySupport() {
             @SuppressWarnings("unchecked")
             @Override
             public void onComponentAdd(String name, Component component) {
@@ -41,7 +44,7 @@ public class ContextLifecycleConfigurer extends AbstractPhaseListener {
                 //
                 //     camel.component.${scheme}.${name} = ${value}
                 //
-                PropertiesSupport.bindProperties(runtime.getContext(), component, "camel.component." + name + ".");
+                PropertiesSupport.bindProperties(camelContext, component, "camel.component." + name + ".");
             }
         });
     }

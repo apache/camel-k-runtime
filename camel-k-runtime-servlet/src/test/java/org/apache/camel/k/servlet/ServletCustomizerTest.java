@@ -20,7 +20,6 @@ import io.undertow.servlet.Servlets;
 import io.undertow.servlet.api.DeploymentManager;
 import io.undertow.servlet.core.ManagedServlet;
 import io.undertow.servlet.core.ManagedServlets;
-import org.apache.camel.component.servlet.CamelHttpTransportServlet;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.k.InMemoryRegistry;
 import org.apache.camel.k.Runtime;
@@ -37,11 +36,11 @@ public class ServletCustomizerTest {
         Runtime runtime = Runtime.of(new DefaultCamelContext(registry), registry);
 
         ServletRegistrationContextCustomizer servletRegistrationCustomizer = new ServletRegistrationContextCustomizer("/webhook/*", "webhook-servlet");
-        servletRegistrationCustomizer.apply(runtime.getContext(), runtime.getRegistry());
+        servletRegistrationCustomizer.apply(runtime.getCamelContext(), runtime.getRegistry());
 
         ServletContextCustomizer servletCustomizer = new ServletContextCustomizer();
         servletCustomizer.setBindPort(AvailablePortFinder.getNextAvailable());
-        servletCustomizer.apply(runtime.getContext(), runtime.getRegistry());
+        servletCustomizer.apply(runtime.getCamelContext(), runtime.getRegistry());
 
         DeploymentManager manager = Servlets.defaultContainer().getDeploymentByPath("/");
         ManagedServlets managedServlets = manager.getDeployment().getServlets();
