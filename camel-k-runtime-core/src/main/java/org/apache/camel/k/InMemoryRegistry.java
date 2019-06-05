@@ -16,7 +16,68 @@
  */
 package org.apache.camel.k;
 
-import org.apache.camel.k.adapter.DefaultRegistry;
 
-public class InMemoryRegistry extends DefaultRegistry implements Runtime.Registry {
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+import java.util.stream.Collectors;
+
+import org.apache.camel.NoSuchBeanException;
+
+public class InMemoryRegistry implements Runtime.Registry {
+    private final ConcurrentMap<String, Object> registry;
+
+    public InMemoryRegistry() {
+        this.registry = new ConcurrentHashMap<>();
+    }
+
+    @Override
+    public void bind(String name, Object bean) {
+        this.registry.put(name, bean);
+    }
+
+    @Override
+    public Object lookupByName(String name) {
+        return registry.get(name);
+    }
+
+    @Override
+    public <T> T lookupByNameAndType(String name, Class<T> type) {
+        final Object answer = lookupByName(name);
+
+        if (answer != null) {
+            try {
+                return type.cast(answer);
+            } catch (Throwable t) {
+                throw new NoSuchBeanException(
+                    name,
+                    "Found bean: " + name + " in RuntimeRegistry: " + this + " of type: " + answer.getClass().getName() + " expected type was: " + type,
+                    t
+                );
+            }
+        }
+
+        return null;
+    }
+
+    @Override
+    public <T> Map<String, T> findByTypeWithName(Class<T> type) {
+        final Map<String, T> result = new HashMap<>();
+
+        registry.entrySet().stream()
+            .filter(entry -> type.isInstance(entry.getValue()))
+            .forEach(entry -> result.put(entry.getKey(), type.cast(entry.getValue())));
+
+        return result;
+    }
+
+    @Override
+    public <T> Set<T> findByType(Class<T> type) {
+        return registry.values().stream()
+            .filter(type::isInstance)
+            .map(type::cast)
+            .collect(Collectors.toSet());
+    }
 }

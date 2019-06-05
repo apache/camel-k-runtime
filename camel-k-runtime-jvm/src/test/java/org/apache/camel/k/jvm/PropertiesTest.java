@@ -41,7 +41,7 @@ public class PropertiesTest {
         runtime.addListener(new ContextConfigurer());
         runtime.addListener(new ContextLifecycleConfigurer());
         runtime.addListener(Runtime.Phase.Started, r -> {
-            CamelContext context = r.getContext();
+            CamelContext context = r.getCamelContext();
             assertThat(context.resolvePropertyPlaceholders("{{root.key}}")).isEqualTo("root.value");
             assertThat(context.resolvePropertyPlaceholders("{{001.key}}")).isEqualTo("001.value");
             assertThat(context.resolvePropertyPlaceholders("{{002.key}}")).isEqualTo("002.value");
@@ -62,7 +62,7 @@ public class PropertiesTest {
             runtime.addListener(new ContextConfigurer());
             runtime.addListener(new ContextLifecycleConfigurer());
             runtime.addListener(Runtime.Phase.Started, r -> {
-                CamelContext context = r.getContext();
+                CamelContext context = r.getCamelContext();
                 String value = context.resolvePropertyPlaceholders("{{my.property}}");
 
                 assertThat(value).isEqualTo("my.value");
@@ -90,7 +90,7 @@ public class PropertiesTest {
             runtime.addListener(new ContextConfigurer());
             runtime.addListener(new ContextLifecycleConfigurer());
             runtime.addListener(Runtime.Phase.Started, r -> {
-                CamelContext context = r.getContext();
+                CamelContext context = r.getCamelContext();
                 assertThat(context.getComponent("seda", true)).hasFieldOrPropertyWithValue("queueSize", queueSize1);
                 assertThat(context.getComponent("my-seda", true)).hasFieldOrPropertyWithValue("queueSize", queueSize2);
                 runtime.stop();
@@ -114,7 +114,7 @@ public class PropertiesTest {
             runtime.addListener(new ContextConfigurer());
             runtime.addListener(new ContextLifecycleConfigurer());
             runtime.addListener(Runtime.Phase.Started, r -> {
-                CamelContext context = r.getContext();
+                CamelContext context = r.getCamelContext();
                 assertThat(context.isMessageHistory()).isFalse();
                 assertThat(context.isLoadTypeConverters()).isFalse();
                 runtime.stop();
@@ -138,7 +138,7 @@ public class PropertiesTest {
         runtime.addListener(new ContextConfigurer());
         runtime.addListener(new ContextLifecycleConfigurer());
         runtime.addListener(Runtime.Phase.Started, r -> {
-            CamelContext context = r.getContext();
+            CamelContext context = r.getCamelContext();
             assertThat(context.isMessageHistory()).isFalse();
             assertThat(context.isLoadTypeConverters()).isFalse();
             runtime.stop();
@@ -161,7 +161,7 @@ public class PropertiesTest {
             camelContext.setLoadTypeConverters(false);
         });
         runtime.addListener(Runtime.Phase.Started, r -> {
-            CamelContext context = r.getContext();
+            CamelContext context = r.getCamelContext();
             assertThat(context.isMessageHistory()).isFalse();
             assertThat(context.isLoadTypeConverters()).isFalse();
             runtime.stop();

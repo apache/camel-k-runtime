@@ -16,14 +16,6 @@
  */
 package org.apache.camel.component.knative;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import org.apache.camel.CamelContext;
-import org.apache.camel.impl.cloud.DefaultServiceDefinition;
-import org.apache.camel.k.adapter.Resources;
-import org.apache.camel.util.CollectionHelper;
-import org.apache.camel.util.StringHelper;
-
 import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
@@ -34,8 +26,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Stream;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.apache.camel.CamelContext;
+import org.apache.camel.impl.cloud.DefaultServiceDefinition;
+import org.apache.camel.util.ResourceHelper;
+import org.apache.camel.util.StringHelper;
 
 /*
  * Assuming it is loaded from a json for now
@@ -144,7 +142,7 @@ public class KnativeEnvironment {
     }
 
     public static KnativeEnvironment mandatoryLoadFromResource(CamelContext context, String path) throws Exception {
-        try (InputStream is = Resources.resolveResourceAsInputStream(context, path)) {
+        try (InputStream is = ResourceHelper.resolveMandatoryResourceAsInputStream(context, path)) {
 
             //
             // read the knative environment from a file formatted as json, i.e. :

@@ -25,7 +25,6 @@ import org.apache.camel.k.InMemoryRegistry;
 import org.apache.camel.k.RoutesLoader;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
-import org.apache.camel.k.adapter.Routes;
 import org.apache.camel.k.jvm.loader.JavaClassLoader;
 import org.apache.camel.k.jvm.loader.JavaSourceLoader;
 import org.apache.camel.k.support.RuntimeSupport;
@@ -69,7 +68,7 @@ public class RoutesLoadersTest {
 
         List<RouteDefinition> routes = builder.getRouteCollection().getRoutes();
         assertThat(routes).hasSize(1);
-        assertThat(Routes.getInput(routes.get(0)).getEndpointUri()).isEqualTo("timer:tick");
+        assertThat(routes.get(0).getInputs().get(0).getEndpointUri()).isEqualTo("timer:tick");
         assertThat(routes.get(0).getOutputs().get(0)).isInstanceOf(SetBodyDefinition.class);
         assertThat(routes.get(0).getOutputs().get(1)).isInstanceOf(ProcessDefinition.class);
         assertThat(routes.get(0).getOutputs().get(2)).isInstanceOf(ToDefinition.class);

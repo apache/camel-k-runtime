@@ -98,37 +98,4 @@
         </plugins>
     </build>
 
-    <profiles>
-        <profile>
-            <id>camel3</id>
-            <activation>
-                <property>
-                    <name>camel3</name>
-                </property>
-            </activation>
-            <dependencies>
-                <!-- runtime -->
-                <dependency>
-                    <groupId>org.apache.camel.k</groupId>
-                    <artifactId>camel-k-adapter-camel-3</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>camel2</id>
-            <activation>
-                <property>
-                    <name>!camel3</name>
-                </property>
-            </activation>
-            <dependencies>
-                <!-- runtime -->
-                <dependency>
-                    <groupId>org.apache.camel.k</groupId>
-                    <artifactId>camel-k-adapter-camel-2</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-    </profiles>
-
 </project>

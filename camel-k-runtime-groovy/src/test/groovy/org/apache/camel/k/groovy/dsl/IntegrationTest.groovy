@@ -69,9 +69,9 @@ class IntegrationTest extends Specification {
             def runtime = new ApplicationRuntime()
             runtime.addListener(RoutesConfigurer.forRoutes('classpath:routes-with-component-configuration.groovy'))
             runtime.addListener(Runtime.Phase.Started, {
-                def seda = it.context.getComponent('seda', SedaComponent)
-                def mySeda = it.context.getComponent('mySeda', SedaComponent)
-                def log = it.context.getComponent('log', LogComponent)
+                def seda = it.camelContext.getComponent('seda', SedaComponent)
+                def mySeda = it.camelContext.getComponent('mySeda', SedaComponent)
+                def log = it.camelContext.getComponent('log', LogComponent)
 
                 assert seda != null
                 assert mySeda != null

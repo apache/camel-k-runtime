@@ -19,8 +19,7 @@
 language: java
 
 script:
-  - ./mvnw clean install -Dcamel2
-  - ./mvnw clean install -Dcamel2 -Dcamel2.version=2.21.0
-  - ./mvnw clean install -Dcamel2 -Dcamel2.version=2.22.0
-  - ./mvnw clean install -Dcamel2 -Dcamel2.version=2.23.0
-  - ./mvnw clean install -Dcamel3
+  - ./mvnw clean install
+  - ./mvnw clean install -Dcamel.version=2.21.0
+  - ./mvnw clean install -Dcamel.version=2.22.0
+  - ./mvnw clean install -Dcamel.version=2.23.0

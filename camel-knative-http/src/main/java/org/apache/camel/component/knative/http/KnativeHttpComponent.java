@@ -54,12 +54,10 @@ import org.apache.camel.component.netty4.http.NettyHttpConfiguration;
 import org.apache.camel.component.netty4.http.NettyHttpConsumer;
 import org.apache.camel.component.netty4.http.NettyHttpHelper;
 import org.apache.camel.component.netty4.http.handlers.HttpServerChannelHandler;
-import org.apache.camel.k.adapter.Exceptions;
-import org.apache.camel.k.adapter.Objects;
-import org.apache.camel.k.adapter.Services;
 import org.apache.camel.spi.HeaderFilterStrategy;
 import org.apache.camel.support.RestConsumerContextPathMatcher;
 import org.apache.camel.util.ObjectHelper;
+import org.apache.camel.util.ServiceHelper;
 import org.apache.camel.util.URISupport;
 import org.apache.camel.util.UnsafeUriCharactersEncoder;
 import org.slf4j.Logger;
@@ -86,7 +84,7 @@ public class KnativeHttpComponent extends NettyHttpComponent {
     protected void doStop() throws Exception {
         super.doStop();
 
-        Services.start(handlers.values());
+        ServiceHelper.startService(handlers.values());
         handlers.clear();
     }
 
@@ -237,7 +235,7 @@ public class KnativeHttpComponent extends NettyHttpComponent {
                             break;
                         }
                     } catch (Exception e) {
-                        throw Exceptions.wrapRuntimeCamelException(e);
+                        throw ObjectHelper.wrapRuntimeCamelException(e);
                     }
                 }
             }
@@ -351,7 +349,7 @@ public class KnativeHttpComponent extends NettyHttpComponent {
                 }
 
                 // use an iterator as there can be multiple values. (must not use a delimiter)
-                final Iterator<?> it = Objects.createIterator(value, null, true);
+                final Iterator<?> it = ObjectHelper.createIterator(value, null, true);
                 while (it.hasNext()) {
                     String headerValue = tc.convertTo(String.class, it.next());
 

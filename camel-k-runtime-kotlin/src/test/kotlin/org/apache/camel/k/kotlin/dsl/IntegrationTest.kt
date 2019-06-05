@@ -37,12 +37,12 @@ class IntegrationTest {
         runtime.addListener(Runtime.Phase.Started) { runtime.stop() }
         runtime.run()
 
-        assertThat(runtime.context.restConfiguration.host).isEqualTo("my-host")
-        assertThat(runtime.context.restConfiguration.port).isEqualTo(9192)
-        assertThat(runtime.context.getRestConfiguration("undertow", false).host).isEqualTo("my-undertow-host")
-        assertThat(runtime.context.getRestConfiguration("undertow", false).port).isEqualTo(9193)
-        assertThat(runtime.context.adapt(ModelCamelContext::class.java).restDefinitions.size).isEqualTo(1)
-        assertThat(runtime.context.adapt(ModelCamelContext::class.java).restDefinitions[0].path).isEqualTo("/my/path")
+        assertThat(runtime.camelContext.restConfiguration.host).isEqualTo("my-host")
+        assertThat(runtime.camelContext.restConfiguration.port).isEqualTo(9192)
+        assertThat(runtime.camelContext.getRestConfiguration("undertow", false).host).isEqualTo("my-undertow-host")
+        assertThat(runtime.camelContext.getRestConfiguration("undertow", false).port).isEqualTo(9193)
+        assertThat(runtime.camelContext.adapt(ModelCamelContext::class.java).restDefinitions.size).isEqualTo(1)
+        assertThat(runtime.camelContext.adapt(ModelCamelContext::class.java).restDefinitions[0].path).isEqualTo("/my/path")
     }
 
     @Test
@@ -52,8 +52,8 @@ class IntegrationTest {
         runtime.addListener(Runtime.Phase.Started) { runtime.stop() }
         runtime.run()
 
-        assertThat(runtime.context.registry.lookupByName("my-entry")).isEqualTo("myRegistryEntry1")
-        assertThat(runtime.context.registry.lookupByName("my-proc")).isInstanceOf(Processor::class.java)
+        assertThat(runtime.camelContext.registry.lookupByName("my-entry")).isEqualTo("myRegistryEntry1")
+        assertThat(runtime.camelContext.registry.lookupByName("my-proc")).isInstanceOf(Processor::class.java)
     }
 
     @Test
@@ -67,9 +67,9 @@ class IntegrationTest {
         var runtime = ApplicationRuntime()
         runtime.addListener(RoutesConfigurer.forRoutes("classpath:routes-with-component-configuration.kts"))
         runtime.addListener(Runtime.Phase.Started) {
-            val seda = runtime.context.getComponent("seda", SedaComponent::class.java)
-            val mySeda = runtime.context.getComponent("mySeda", SedaComponent::class.java)
-            val log = runtime.context.getComponent("log", LogComponent::class.java)
+            val seda = runtime.camelContext.getComponent("seda", SedaComponent::class.java)
+            val mySeda = runtime.camelContext.getComponent("mySeda", SedaComponent::class.java)
+            val log = runtime.camelContext.getComponent("log", LogComponent::class.java)
 
             sedaSize.set(seda!!.queueSize)
             sedaConsumers.set(seda.concurrentConsumers)

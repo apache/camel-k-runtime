@@ -16,19 +16,21 @@
  */
 package org.apache.camel.k.jvm;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ProducerTemplate;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.k.InMemoryRegistry;
 import org.apache.camel.k.Runtime;
-import org.apache.camel.k.adapter.Exceptions;
-import org.apache.camel.k.adapter.Main;
 import org.apache.camel.k.support.PropertiesSupport;
 import org.apache.camel.main.MainSupport;
 import org.apache.camel.spi.HasId;
+import org.apache.camel.util.ObjectHelper;
 import org.apache.camel.util.function.ThrowingConsumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,7 +56,7 @@ public final class ApplicationRuntime implements Runtime {
     }
 
     @Override
-    public CamelContext getContext() {
+    public CamelContext getCamelContext() {
         return context;
     }
 
@@ -97,12 +99,53 @@ public final class ApplicationRuntime implements Runtime {
                     consumer.accept(runtime);
                     return true;
                 } catch (Exception e) {
-                    throw Exceptions.wrapRuntimeCamelException(e);
+                    throw ObjectHelper.wrapRuntimeCamelException(e);
                 }
             }
 
             return false;
         });
+    }
+
+    private class Main extends org.apache.camel.main.MainSupport {
+        private CamelContext context;
+
+        public Main(CamelContext context) {
+            this.context = context;
+        }
+
+        @Override
+        protected ProducerTemplate findOrCreateCamelTemplate() {
+            return context.createProducerTemplate();
+        }
+
+        @Override
+        protected Map<String, CamelContext> getCamelContextMap() {
+            return Collections.singletonMap(context.getName(), context);
+        }
+
+        @Override
+        protected void doStart() throws Exception {
+            super.doStart();
+            postProcessContext();
+
+            try {
+                context.start();
+            } finally {
+                if (context.isVetoStarted()) {
+                    completed();
+                }
+            }
+        }
+
+        @Override
+        protected void doStop() throws Exception {
+            super.doStop();
+
+            if (!getCamelContexts().isEmpty()) {
+                context.stop();
+            }
+        }
     }
 
     private class MainListenerAdapter implements org.apache.camel.main.MainListener {
