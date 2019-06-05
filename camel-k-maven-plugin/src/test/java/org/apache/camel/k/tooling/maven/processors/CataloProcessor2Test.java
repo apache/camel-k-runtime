@@ -97,7 +97,10 @@ public class CataloProcessor2Test extends AbstractCataloProcessorTest {
         });
         assertThat(artifactMap.get("camel-k-runtime-health")).satisfies(a -> {
             assertThat(a.getDependencies()).anyMatch(
-                d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-netty4-http")
+                d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-servlet")
+            );
+            assertThat(a.getDependencies()).anyMatch(
+                d -> d.getGroupId().equals("org.apache.camel.k") && d.getArtifactId().equals("camel-k-runtime-servlet")
             );
         });
         assertThat(artifactMap.get("camel-k-runtime-servlet")).satisfies(a -> {
