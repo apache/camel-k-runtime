@@ -41,16 +41,9 @@ pipeline {
     }
 
     stages {
-
-        stage('Test Vs Camel 2.x & Install') {
+        stage('Test & Install') {
             steps {
-                sh "./mvnw $MAVEN_PARAMS clean install -Dcamel2 -f pom.xml"
-            }
-        }
-
-        stage('Test Vs Camel 3.x & Install') {
-            steps {
-                sh "./mvnw $MAVEN_PARAMS clean install -Dcamel3 -f pom.xml"
+                sh "./mvnw $MAVEN_PARAMS clean install -f pom.xml"
             }
         }
 
