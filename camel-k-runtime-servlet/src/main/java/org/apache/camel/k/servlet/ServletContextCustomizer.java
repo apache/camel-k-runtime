@@ -19,7 +19,6 @@ package org.apache.camel.k.servlet;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Ordered;
 import org.apache.camel.k.ContextCustomizer;
-import org.apache.camel.k.Runtime;
 
 public class ServletContextCustomizer implements ContextCustomizer {
     public static final String DEFAULT_BIND_HOST = "0.0.0.0";
@@ -62,7 +61,7 @@ public class ServletContextCustomizer implements ContextCustomizer {
     }
 
     @Override
-    public void apply(CamelContext camelContext, Runtime.Registry registry) {
+    public void apply(CamelContext camelContext) {
         endpoint = new ServletEndpoint(camelContext, bindHost, bindPort, path);
 
         try {

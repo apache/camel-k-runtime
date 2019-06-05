@@ -18,7 +18,6 @@ package org.apache.camel.k.support;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.k.InMemoryRegistry;
 import org.apache.camel.k.customizer.StreamCachingContextCustomizer;
 import org.apache.camel.spi.StreamCachingStrategy;
 import org.junit.jupiter.api.Test;
@@ -43,7 +42,7 @@ public class StreamCachingContextCustomizerTest {
         scccc.setSpoolUsedHeapMemoryThreshold(9);
 
         CamelContext context = new DefaultCamelContext();
-        scccc.apply(context, new InMemoryRegistry());
+        scccc.apply(context);
 
         assertThat(context.getStreamCachingStrategy().isAnySpoolRules()).isTrue();
         assertThat(context.getStreamCachingStrategy().getBufferSize()).isEqualTo(9);
@@ -57,7 +56,7 @@ public class StreamCachingContextCustomizerTest {
 
         scccc.setSpoolUsedHeapMemoryLimit("Max");
 
-        scccc.apply(context, new InMemoryRegistry());
+        scccc.apply(context);
         assertThat(context.getStreamCachingStrategy().getSpoolUsedHeapMemoryLimit()).isEqualTo(StreamCachingStrategy.SpoolUsedHeapMemoryLimit.Max);
     }
 
@@ -69,7 +68,7 @@ public class StreamCachingContextCustomizerTest {
 
         CamelContext context = new DefaultCamelContext();
 
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> scccc.apply(context, new InMemoryRegistry()));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> scccc.apply(context));
 
         assertThat(exception.getMessage()).isEqualTo("Invalid option Unsupported must either be Committed or Max");
     }

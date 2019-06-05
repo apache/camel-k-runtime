@@ -18,7 +18,6 @@ package org.apache.camel.k.health;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.k.ContextCustomizer;
-import org.apache.camel.k.Runtime;
 import org.apache.camel.k.servlet.ServletRegistration;
 
 public class HealthContextCustomizer implements ContextCustomizer {
@@ -39,8 +38,8 @@ public class HealthContextCustomizer implements ContextCustomizer {
     }
 
     @Override
-    public void apply(CamelContext camelContext, Runtime.Registry registry) {
-        registry.bind(
+    public void apply(CamelContext camelContext) {
+        camelContext.getRegistry().bind(
             "health-servlet",
             new ServletRegistration(
                 "HealthServlet",

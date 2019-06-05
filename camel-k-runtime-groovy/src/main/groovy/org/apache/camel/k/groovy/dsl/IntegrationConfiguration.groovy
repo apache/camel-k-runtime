@@ -21,28 +21,26 @@ import org.apache.camel.Exchange
 import org.apache.camel.Predicate
 import org.apache.camel.Processor
 import org.apache.camel.builder.RouteBuilder
-import org.apache.camel.k.Runtime
-
 import org.apache.camel.k.jvm.dsl.Components
 import org.apache.camel.model.RouteDefinition
+import org.apache.camel.spi.Registry
 
 class IntegrationConfiguration {
-    private final Runtime.Registry registry
-
     final CamelContext context
+    final Registry registry
     final Components components
     final RouteBuilder builder
 
-    IntegrationConfiguration(Runtime.Registry registry, RouteBuilder builder) {
-        this.registry = registry
+    IntegrationConfiguration(RouteBuilder builder) {
         this.context = builder.getContext()
+        this.registry = this.context.registry
         this.components = new Components(this.context)
         this.builder = builder
     }
 
     def context(Closure<?> callable) {
         callable.resolveStrategy = Closure.DELEGATE_FIRST
-        callable.delegate = new ContextConfiguration(context, registry)
+        callable.delegate = new ContextConfiguration(context)
         callable.call()
     }
 

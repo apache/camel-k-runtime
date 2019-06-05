@@ -20,7 +20,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Ordered;
 import org.apache.camel.impl.ExplicitCamelContextNameStrategy;
 import org.apache.camel.k.ContextCustomizer;
-import org.apache.camel.k.Runtime;
+import org.apache.camel.model.ModelCamelContext;
 
 public final class NameCustomizer implements ContextCustomizer {
     private String name;
@@ -39,7 +39,7 @@ public final class NameCustomizer implements ContextCustomizer {
     }
 
     @Override
-    public void apply(CamelContext camelContext, Runtime.Registry registry) {
-        camelContext.setNameStrategy(new ExplicitCamelContextNameStrategy(name));
+    public void apply(CamelContext camelContexty) {
+        camelContexty.adapt(ModelCamelContext.class).setNameStrategy(new ExplicitCamelContextNameStrategy(name));
     }
 }

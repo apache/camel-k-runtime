@@ -18,6 +18,7 @@ package org.apache.camel.k;
 
 import java.util.List;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 
 public interface RoutesLoader {
@@ -31,10 +32,10 @@ public interface RoutesLoader {
     /**
      * Creates a camel {@link RouteBuilder} from the given resource.
      *
-     * @param registry the runtime registry.
+     * @param context the camel runtime.
      * @param source the source to load.
      * @return the RouteBuilder.
      * @throws Exception
      */
-    RouteBuilder load(Runtime.Registry registry, Source source) throws Exception;
+    RouteBuilder load(CamelContext context, Source source) throws Exception;
 }

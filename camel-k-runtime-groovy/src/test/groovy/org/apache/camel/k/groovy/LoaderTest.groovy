@@ -17,9 +17,7 @@
 package org.apache.camel.k.groovy
 
 import org.apache.camel.impl.DefaultCamelContext
-import org.apache.camel.k.InMemoryRegistry
 import org.apache.camel.k.Source
-import org.apache.camel.k.adapter.Routes
 import org.apache.camel.k.support.RuntimeSupport
 import org.apache.camel.model.ToDefinition
 import spock.lang.Specification
@@ -33,7 +31,7 @@ class LoaderTest extends Specification {
 
         when:
             def loader = RuntimeSupport.loaderFor(context, source)
-            def builder = loader.load(new InMemoryRegistry(), source)
+            def builder = loader.load(context, source)
 
         then:
             loader instanceof GroovyRoutesLoader
@@ -46,7 +44,6 @@ class LoaderTest extends Specification {
 
             routes.size() == 1
             routes[0].outputs[0] instanceof ToDefinition
-
-            Routes.getInput(routes[0]).endpointUri == 'timer:tick'
+            routes[0].input.endpointUri == 'timer:tick'
     }
 }

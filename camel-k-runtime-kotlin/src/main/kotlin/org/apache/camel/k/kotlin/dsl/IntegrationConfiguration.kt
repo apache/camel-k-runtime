@@ -20,8 +20,8 @@ import org.apache.camel.Exchange
 import org.apache.camel.Predicate
 import org.apache.camel.Processor
 import org.apache.camel.builder.RouteBuilder
-import org.apache.camel.k.Runtime.Registry
 import org.apache.camel.model.RouteDefinition
+import org.apache.camel.spi.Registry
 
 abstract class IntegrationConfiguration(
         private val registry : Registry,

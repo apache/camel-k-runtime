@@ -4,7 +4,6 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Ordered;
 import org.apache.camel.component.servlet.CamelHttpTransportServlet;
 import org.apache.camel.k.ContextCustomizer;
-import org.apache.camel.k.Runtime;
 
 public class ServletRegistrationContextCustomizer implements ContextCustomizer {
     public static final String DEFAULT_PATH = "/camel/*";
@@ -23,10 +22,10 @@ public class ServletRegistrationContextCustomizer implements ContextCustomizer {
     }
 
     @Override
-    public void apply(CamelContext camelContext, Runtime.Registry registry) {
-        registry.bind(
-                camelServletName,
-                new ServletRegistration(camelServletName, new CamelHttpTransportServlet(), path)
+    public void apply(CamelContext camelContext) {
+        camelContext.getRegistry().bind(
+            camelServletName,
+            new ServletRegistration(camelServletName, new CamelHttpTransportServlet(), path)
         );
     }
 

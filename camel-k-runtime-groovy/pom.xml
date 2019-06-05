@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.apache.camel.k</groupId>
         <artifactId>camel-k-runtime-parent</artifactId>
-        <version>0.3.4-SNAPSHOT</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -35,8 +35,17 @@
 
         <dependency>
             <groupId>org.apache.camel</groupId>
+            <artifactId>camel-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
             <artifactId>camel-core</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.k</groupId>
+            <artifactId>camel-k-runtime-core</artifactId>
         </dependency>
 
         <dependency>
@@ -64,6 +73,11 @@
         <!--                                -->
         <!-- ****************************** -->
 
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-properties</artifactId>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-test</artifactId>
@@ -118,46 +132,5 @@
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>camel3</id>
-            <activation>
-                <property>
-                    <name>camel3</name>
-                </property>
-            </activation>
-            <dependencies>
-                <!-- runtime -->
-                <dependency>
-                    <groupId>org.apache.camel.k</groupId>
-                    <artifactId>camel-k-adapter-camel-3</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-                <!-- test -->
-                <dependency>
-                    <groupId>org.apache.camel</groupId>
-                    <artifactId>camel-properties</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>camel2</id>
-            <activation>
-                <property>
-                    <name>!camel3</name>
-                </property>
-            </activation>
-            <dependencies>
-                <!-- runtime -->
-                <dependency>
-                    <groupId>org.apache.camel.k</groupId>
-                    <artifactId>camel-k-adapter-camel-2</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-    </profiles>
 
 </project>

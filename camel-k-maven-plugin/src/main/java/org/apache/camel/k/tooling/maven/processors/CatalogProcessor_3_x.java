@@ -94,7 +94,6 @@ public class CatalogProcessor_3_x implements CatalogProcessor {
             artifact.setArtifactId("camel-k-runtime-jvm");
             artifact.setVersion(project.getVersion());
             artifact.addDependency("org.apache.camel", "camel-core");
-            artifact.addDependency("org.apache.camel.k", "camel-k-adapter-camel-3");
 
             artifacts.put(artifact.getArtifactId(), artifact);
         }

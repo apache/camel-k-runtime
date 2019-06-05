@@ -26,8 +26,6 @@ import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.ExplicitCamelContextNameStrategy;
 import org.apache.camel.k.Constants;
 import org.apache.camel.k.ContextCustomizer;
-import org.apache.camel.k.InMemoryRegistry;
-import org.apache.camel.k.Runtime;
 import org.apache.camel.spi.RestConfiguration;
 import org.junit.jupiter.api.Test;
 
@@ -38,14 +36,13 @@ public class RuntimeSupportTest {
     @Test
     public void testLoadCustomizersWithPropertiesFlags() {
         PropertiesComponent pc = new PropertiesComponent();
-        Runtime.Registry registry = new InMemoryRegistry();
-        CamelContext context = new DefaultCamelContext(registry);
+        CamelContext context = new DefaultCamelContext();
         context.addComponent("properties", pc);
 
         NameCustomizer customizer = new NameCustomizer("from-registry");
-        registry.bind("name", customizer);
+        context.getRegistry().bind("name", customizer);
 
-        List<ContextCustomizer> customizers = RuntimeSupport.configureContext(context, registry);
+        List<ContextCustomizer> customizers = RuntimeSupport.configureContext(context);
         assertThat(context.getName()).isNotEqualTo("from-registry");
         assertThat(context.getName()).isNotEqualTo("default");
         assertThat(customizers).hasSize(0);
@@ -54,7 +51,7 @@ public class RuntimeSupportTest {
         properties.setProperty("customizer.name.enabled", "true");
         pc.setInitialProperties(properties);
 
-        customizers = RuntimeSupport.configureContext(context, registry);
+        customizers = RuntimeSupport.configureContext(context);
         assertThat(context.getName()).isEqualTo("from-registry");
         assertThat(customizers).hasSize(1);
     }
@@ -62,14 +59,13 @@ public class RuntimeSupportTest {
     @Test
     public void testLoadCustomizersWithList() {
         PropertiesComponent pc = new PropertiesComponent();
-        Runtime.Registry registry = new InMemoryRegistry();
-        CamelContext context = new DefaultCamelContext(registry);
+        CamelContext context = new DefaultCamelContext();
         context.addComponent("properties", pc);
 
         NameCustomizer customizer = new NameCustomizer("from-registry");
-        registry.bind("name", customizer);
+        context.getRegistry().bind("name", customizer);
 
-        List<ContextCustomizer> customizers = RuntimeSupport.configureContext(context, registry);
+        List<ContextCustomizer> customizers = RuntimeSupport.configureContext(context);
         assertThat(context.getName()).isNotEqualTo("from-registry");
         assertThat(context.getName()).isNotEqualTo("default");
         assertThat(customizers).hasSize(0);
@@ -78,7 +74,7 @@ public class RuntimeSupportTest {
         properties.setProperty(Constants.PROPERTY_CAMEL_K_CUSTOMIZER, "name");
         pc.setInitialProperties(properties);
 
-        customizers = RuntimeSupport.configureContext(context, registry);
+        customizers = RuntimeSupport.configureContext(context);
         assertThat(context.getName()).isEqualTo("from-registry");
         assertThat(customizers).hasSize(1);
     }
@@ -86,13 +82,11 @@ public class RuntimeSupportTest {
     @Test
     public void testLoadCustomizers() {
         PropertiesComponent pc = new PropertiesComponent();
-        Runtime.Registry registry = new InMemoryRegistry();
-        CamelContext context = new DefaultCamelContext(registry);
+        CamelContext context = new DefaultCamelContext();
         context.addComponent("properties", pc);
+        context.getRegistry().bind("converters", (ContextCustomizer) (camelContext) -> camelContext.setLoadTypeConverters(false));
 
-        registry.bind("converters", (ContextCustomizer) (camelContext, registry1) -> camelContext.setLoadTypeConverters(false));
-
-        List<ContextCustomizer> customizers = RuntimeSupport.configureContext(context, registry);
+        List<ContextCustomizer> customizers = RuntimeSupport.configureContext(context);
         assertThat(context.getName()).isNotEqualTo("from-registry");
         assertThat(context.getName()).isNotEqualTo("default");
         assertThat(context.isLoadTypeConverters()).isTrue();
@@ -102,14 +96,14 @@ public class RuntimeSupportTest {
         properties.setProperty("customizer.name.enabled", "true");
         pc.setInitialProperties(properties);
 
-        customizers = RuntimeSupport.configureContext(context, registry);
+        customizers = RuntimeSupport.configureContext(context);
         assertThat(context.getName()).isEqualTo("default");
         assertThat(customizers).hasSize(1);
 
         properties.setProperty("customizer.converters.enabled", "true");
         pc.setInitialProperties(properties);
 
-        customizers = RuntimeSupport.configureContext(context, registry);
+        customizers = RuntimeSupport.configureContext(context);
         assertThat(context.getName()).isEqualTo("default");
         assertThat(context.isLoadTypeConverters()).isFalse();
         assertThat(customizers).hasSize(2);
@@ -118,36 +112,34 @@ public class RuntimeSupportTest {
     @Test
     public void testLoadCustomizerOrder() {
         PropertiesComponent pc = new PropertiesComponent();
-        Runtime.Registry registry = new InMemoryRegistry();
-        DefaultCamelContext context = new DefaultCamelContext(registry);
+        DefaultCamelContext context = new DefaultCamelContext();
         context.setName("camel");
         context.addComponent("properties", pc);
-
-        registry.bind("c1", new ContextCustomizer() {
+        context.getRegistry().bind("c1", new ContextCustomizer() {
             @Override
             public int getOrder() {
                 return Ordered.LOWEST;
             }
 
             @Override
-            public void apply(CamelContext camelContext, Runtime.Registry registry) {
+            public void apply(CamelContext camelContext) {
                 camelContext.setNameStrategy(new ExplicitCamelContextNameStrategy(camelContext.getName() + "-c1"));
             }
         });
-        registry.bind("c2", new ContextCustomizer() {
+        context.getRegistry().bind("c2", new ContextCustomizer() {
             @Override
             public int getOrder() {
                 return Ordered.HIGHEST;
             }
 
             @Override
-            public void apply(CamelContext camelContext, Runtime.Registry registry) {
+            public void apply(CamelContext camelContext) {
                 camelContext.setNameStrategy(new ExplicitCamelContextNameStrategy(camelContext.getName() + "-c2"));
             }
         });
-        registry.bind("c3", new ContextCustomizer() {
+        context.getRegistry().bind("c3", new ContextCustomizer() {
             @Override
-            public void apply(CamelContext camelContext, Runtime.Registry registry) {
+            public void apply(CamelContext camelContext) {
                 camelContext.setNameStrategy(new ExplicitCamelContextNameStrategy(camelContext.getName() + "-c3"));
             }
         });
@@ -158,7 +150,7 @@ public class RuntimeSupportTest {
         properties.setProperty("customizer.c3.enabled", "true");
         pc.setInitialProperties(properties);
 
-        List<ContextCustomizer> customizers = RuntimeSupport.configureContext(context, registry);
+        List<ContextCustomizer> customizers = RuntimeSupport.configureContext(context);
         assertThat(customizers).hasSize(3);
         assertThat(context.getName()).isEqualTo("camel-c2-c3-c1");
     }
@@ -174,8 +166,7 @@ public class RuntimeSupportTest {
         PropertiesComponent pc = new PropertiesComponent();
         pc.setInitialProperties(properties);
 
-        Runtime.Registry registry = new InMemoryRegistry();
-        CamelContext context = new DefaultCamelContext(registry);
+        CamelContext context = new DefaultCamelContext();
         context.addComponent("properties", pc);
 
 

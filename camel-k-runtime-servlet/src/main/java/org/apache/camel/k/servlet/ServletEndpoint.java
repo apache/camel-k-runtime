@@ -26,7 +26,7 @@ import io.undertow.servlet.api.DeploymentInfo;
 import io.undertow.servlet.api.DeploymentManager;
 import io.undertow.servlet.util.ImmediateInstanceHandle;
 import org.apache.camel.CamelContext;
-import org.apache.camel.k.adapter.ServiceSupport;
+import org.apache.camel.support.service.ServiceSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

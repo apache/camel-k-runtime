@@ -36,7 +36,7 @@ public class RoutesDumper extends AbstractPhaseListener {
 
     @Override
     protected void accept(Runtime runtime) {
-        CamelContext context = runtime.getContext();
+        CamelContext context = runtime.getCamelContext();
 
         RoutesDefinition routes = new RoutesDefinition();
         routes.setRoutes(context.adapt(ModelCamelContext.class).getRouteDefinitions());

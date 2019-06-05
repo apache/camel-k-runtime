@@ -18,7 +18,6 @@ package org.apache.camel.k.jvm;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.k.ContextCustomizer;
-import org.apache.camel.k.Runtime;
 
 public class TestCustomizer implements ContextCustomizer {
     private boolean messageHistory = true;
@@ -32,7 +31,7 @@ public class TestCustomizer implements ContextCustomizer {
     }
 
     @Override
-    public void apply(CamelContext camelContext, Runtime.Registry registry) {
+    public void apply(CamelContext camelContext) {
         camelContext.setMessageHistory(messageHistory);
         camelContext.setLoadTypeConverters(false);
     }

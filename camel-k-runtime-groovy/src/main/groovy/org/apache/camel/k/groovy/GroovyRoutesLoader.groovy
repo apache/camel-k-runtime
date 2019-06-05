@@ -16,14 +16,14 @@
  */
 package org.apache.camel.k.groovy
 
+import org.apache.camel.CamelContext
 import org.apache.camel.builder.RouteBuilder
 import org.apache.camel.k.RoutesLoader
-import org.apache.camel.k.Runtime
-
 import org.apache.camel.k.Source
 import org.apache.camel.k.groovy.dsl.IntegrationConfiguration
 import org.apache.camel.k.support.URIResolver
 import org.codehaus.groovy.control.CompilerConfiguration
+
 
 class GroovyRoutesLoader implements RoutesLoader {
     @Override
@@ -32,7 +32,7 @@ class GroovyRoutesLoader implements RoutesLoader {
     }
 
     @Override
-    RouteBuilder load(Runtime.Registry registry, Source source) throws Exception {
+    RouteBuilder load(CamelContext camelContext, Source source) throws Exception {
         return new RouteBuilder() {
             @Override
             void configure() throws Exception {
@@ -48,7 +48,7 @@ class GroovyRoutesLoader implements RoutesLoader {
                     def script = (DelegatingScript) sh.parse(reader)
 
                     // set the delegate target
-                    script.setDelegate(new IntegrationConfiguration(registry, this))
+                    script.setDelegate(new IntegrationConfiguration(this))
                     script.run()
                 }
             }

@@ -21,11 +21,8 @@ import java.util.List;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.k.InMemoryRegistry;
 import org.apache.camel.k.RoutesLoader;
-import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
-import org.apache.camel.k.adapter.Routes;
 import org.apache.camel.k.jvm.loader.JavaClassLoader;
 import org.apache.camel.k.jvm.loader.JavaSourceLoader;
 import org.apache.camel.k.support.RuntimeSupport;
@@ -43,11 +40,11 @@ public class RoutesLoadersTest {
     @Test
     public void testLoaderFromRegistry() throws Exception {
         RoutesLoader myLoader = new JavaClassLoader();
-        Runtime.Registry registry = new InMemoryRegistry();
-        registry.bind("my-loader", myLoader);
+        CamelContext camelContext = new DefaultCamelContext();
+        camelContext.getRegistry().bind("my-loader", myLoader);
 
         Source source = Source.create("classpath:" + MyRoutes.class.getName() + ".class");
-        RoutesLoader loader = RuntimeSupport.loaderFor(new DefaultCamelContext(registry), source);
+        RoutesLoader loader = RuntimeSupport.loaderFor(camelContext, source);
 
         assertThat(loader).isInstanceOf(JavaClassLoader.class);
         assertThat(loader).isSameAs(myLoader);
@@ -59,7 +56,7 @@ public class RoutesLoadersTest {
 
         Source source = Source.create("classpath:MyRoutesWithNestedClass.java");
         RoutesLoader loader = RuntimeSupport.loaderFor(new DefaultCamelContext(), source);
-        RouteBuilder builder = loader.load(new InMemoryRegistry(), source);
+        RouteBuilder builder = loader.load(context, source);
 
         assertThat(loader).isInstanceOf(JavaSourceLoader.class);
         assertThat(builder).isNotNull();
@@ -69,7 +66,7 @@ public class RoutesLoadersTest {
 
         List<RouteDefinition> routes = builder.getRouteCollection().getRoutes();
         assertThat(routes).hasSize(1);
-        assertThat(Routes.getInput(routes.get(0)).getEndpointUri()).isEqualTo("timer:tick");
+        assertThat(routes.get(0).getInput().getEndpointUri()).isEqualTo("timer:tick");
         assertThat(routes.get(0).getOutputs().get(0)).isInstanceOf(SetBodyDefinition.class);
         assertThat(routes.get(0).getOutputs().get(1)).isInstanceOf(ProcessDefinition.class);
         assertThat(routes.get(0).getOutputs().get(2)).isInstanceOf(ToDefinition.class);
@@ -81,7 +78,7 @@ public class RoutesLoadersTest {
 
         Source source = Source.create("classpath:MyRoutesWithRestConfiguration.java");
         RoutesLoader loader = RuntimeSupport.loaderFor(new DefaultCamelContext(), source);
-        RouteBuilder builder = loader.load(new InMemoryRegistry(), source);
+        RouteBuilder builder = loader.load(context, source);
 
         assertThat(loader).isInstanceOf(JavaSourceLoader.class);
         assertThat(builder).isNotNull();

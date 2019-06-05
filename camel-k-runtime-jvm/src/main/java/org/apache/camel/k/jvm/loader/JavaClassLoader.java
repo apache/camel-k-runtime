@@ -19,9 +19,9 @@ package org.apache.camel.k.jvm.loader;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.k.RoutesLoader;
-import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
 import org.apache.commons.lang3.StringUtils;
 
@@ -32,7 +32,7 @@ public class JavaClassLoader implements RoutesLoader {
     }
 
     @Override
-    public RouteBuilder load(Runtime.Registry registry, Source source) throws Exception {
+    public RouteBuilder load(CamelContext camelContext, Source source) throws Exception {
         String name = source.getName();
         name = StringUtils.removeEnd(name, ".class");
 

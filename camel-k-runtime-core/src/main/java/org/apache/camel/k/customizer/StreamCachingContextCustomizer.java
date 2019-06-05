@@ -18,7 +18,6 @@ package org.apache.camel.k.customizer;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.k.ContextCustomizer;
-import org.apache.camel.k.Runtime;
 import org.apache.camel.spi.StreamCachingStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -109,7 +108,7 @@ public class StreamCachingContextCustomizer implements ContextCustomizer {
     }
 
     @Override
-    public void apply(CamelContext camelContext, Runtime.Registry runtimeRegistry) {
+    public void apply(CamelContext camelContext) {
         camelContext.setStreamCaching(isEnabled());
         camelContext.getStreamCachingStrategy().setAnySpoolRules(isAnySpoolRules());
         camelContext.getStreamCachingStrategy().setBufferSize(getBufferSize());

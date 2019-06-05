@@ -16,9 +16,9 @@
  */
 package org.apache.camel.k.kotlin
 
+import org.apache.camel.CamelContext
 import org.apache.camel.builder.RouteBuilder
 import org.apache.camel.k.RoutesLoader
-import org.apache.camel.k.Runtime.Registry
 import org.apache.camel.k.Source
 import org.apache.camel.k.kotlin.dsl.IntegrationConfiguration
 import org.apache.camel.k.support.URIResolver
@@ -43,7 +43,7 @@ class KotlinRoutesLoader : RoutesLoader {
     }
 
     @Throws(Exception::class)
-    override fun load(registry: Registry, source: Source): RouteBuilder? {
+    override fun load(camelContext: CamelContext, source: Source): RouteBuilder? {
         return object : RouteBuilder() {
             @Throws(Exception::class)
             override fun configure() {
@@ -69,7 +69,7 @@ class KotlinRoutesLoader : RoutesLoader {
                             //
                             // Arguments used to initialize the script base class
                             //
-                            constructorArgs(registry, builder)
+                            constructorArgs(camelContext.registry, builder)
                         }
                     )
 

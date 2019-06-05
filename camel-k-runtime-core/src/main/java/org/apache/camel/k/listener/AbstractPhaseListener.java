@@ -17,6 +17,8 @@
 package org.apache.camel.k.listener;
 
 import org.apache.camel.k.Runtime;
+import org.apache.camel.CamelContext;
+import org.apache.camel.k.ContextCustomizer;
 
 public abstract class AbstractPhaseListener implements Runtime.Listener {
     private final Runtime.Phase phase;

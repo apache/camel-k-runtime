@@ -21,12 +21,12 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ProducerTemplate;
+import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.k.InMemoryRegistry;
 import org.apache.camel.k.Runtime;
-import org.apache.camel.k.adapter.Exceptions;
-import org.apache.camel.k.adapter.Main;
 import org.apache.camel.k.support.PropertiesSupport;
+import org.apache.camel.main.Main;
 import org.apache.camel.main.MainSupport;
 import org.apache.camel.spi.HasId;
 import org.apache.camel.util.function.ThrowingConsumer;
@@ -38,29 +38,31 @@ public final class ApplicationRuntime implements Runtime {
 
     private final Main main;
     private final DefaultCamelContext context;
-    private final Runtime.Registry registry;
     private final Set<Runtime.Listener> listeners;
 
     public ApplicationRuntime() {
-        this.registry = new InMemoryRegistry();
         this.listeners = new LinkedHashSet<>();
 
         this.context = new DefaultCamelContext();
         this.context.setName("camel-k");
-        this.context.setRegistry(this.registry);
 
-        this.main = new Main(context);
+        this.main = new Main() {
+            @Override
+            protected ProducerTemplate findOrCreateCamelTemplate() {
+                return context.createProducerTemplate();
+            }
+            @Override
+            protected CamelContext createCamelContext() {
+                return context;
+            }
+        };
+
         this.main.addMainListener(new MainListenerAdapter());
     }
 
     @Override
-    public CamelContext getContext() {
+    public CamelContext getCamelContext() {
         return context;
-    }
-
-    @Override
-    public Runtime.Registry getRegistry() {
-        return registry;
     }
 
     public void run() throws Exception {
@@ -82,7 +84,7 @@ public final class ApplicationRuntime implements Runtime {
                 id = id + ".";
             }
 
-            PropertiesSupport.bindProperties(getContext(), listener, id);
+            PropertiesSupport.bindProperties(getCamelContext(), listener, id);
         }
 
         LOGGER.info("Add listener: {}", listener);
@@ -97,7 +99,7 @@ public final class ApplicationRuntime implements Runtime {
                     consumer.accept(runtime);
                     return true;
                 } catch (Exception e) {
-                    throw Exceptions.wrapRuntimeCamelException(e);
+                    throw RuntimeCamelException.wrapRuntimeCamelException(e);
                 }
             }
 

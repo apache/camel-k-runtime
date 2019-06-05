@@ -89,9 +89,6 @@ public class CataloProcessor3Test extends AbstractCataloProcessorTest {
             assertThat(a.getDependencies()).anyMatch(
                 d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-core")
             );
-            assertThat(a.getDependencies()).anyMatch(
-                d -> d.getGroupId().equals("org.apache.camel.k") && d.getArtifactId().equals("camel-k-adapter-camel-3")
-            );
         });
         assertThat(artifactMap.get("camel-k-runtime-groovy")).satisfies(a -> {
             assertThat(a.getDependencies()).anyMatch(

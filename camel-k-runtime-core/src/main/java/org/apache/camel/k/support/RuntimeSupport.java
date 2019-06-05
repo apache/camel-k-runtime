@@ -33,7 +33,6 @@ import org.apache.camel.component.properties.PropertiesComponent;
 import org.apache.camel.k.Constants;
 import org.apache.camel.k.ContextCustomizer;
 import org.apache.camel.k.RoutesLoader;
-import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
 import org.apache.camel.spi.FactoryFinder;
 import org.apache.camel.spi.RestConfiguration;
@@ -48,7 +47,7 @@ public final class RuntimeSupport {
     private RuntimeSupport() {
     }
 
-    public static List<ContextCustomizer> configureContext(CamelContext context, Runtime.Registry registry) {
+    public static List<ContextCustomizer> configureContext(CamelContext context) {
         List<ContextCustomizer> appliedCustomizers = new ArrayList<>();
         Map<String, ContextCustomizer> customizers = lookupCustomizers(context);
 
@@ -58,7 +57,7 @@ public final class RuntimeSupport {
                 LOGGER.info("Apply ContextCustomizer with id={} and type={}", e.getKey(), e.getValue().getClass().getName());
 
                 PropertiesSupport.bindProperties(context, e.getValue(), "customizer." + e.getKey() + ".");
-                e.getValue().apply(context, registry);
+                e.getValue().apply(context);
 
                 appliedCustomizers.add(e.getValue());
             });

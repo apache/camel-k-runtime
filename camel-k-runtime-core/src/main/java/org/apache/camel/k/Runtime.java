@@ -21,17 +21,16 @@ import java.util.Properties;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Ordered;
 import org.apache.camel.component.properties.PropertiesComponent;
+import org.apache.camel.spi.HasCamelContext;
+import org.apache.camel.spi.Registry;
 
-public interface Runtime {
-    /**
-     * Returns the context associated to this runtime.
-     */
-    CamelContext getContext();
-
+public interface Runtime extends HasCamelContext {
     /**
      * Returns the registry associated to this runtime.
      */
-    Registry getRegistry();
+    default Registry getRegistry() {
+        return getCamelContext().getRegistry();
+    }
 
     default void setProperties(Properties properties) {
         PropertiesComponent pc = new PropertiesComponent();
@@ -59,27 +58,23 @@ public interface Runtime {
         }
     }
 
-    interface Registry extends org.apache.camel.k.adapter.Registry {
+    /**
+     * Helper to create a simple runtime from a given Camel Context.
+     *
+     * @param camelContext the camel context
+     * @return the runtime
+     */
+    static Runtime of(CamelContext camelContext) {
+        return () -> camelContext;
     }
 
     /**
-     * Helper to create a simple runtime from a given Camel Context and Runtime Registry.
+     * Helper to create a simple runtime from a given Camel Context provider.
      *
-     * @param camelContext the camel context
-     * @param registry the runtime registry
+     * @param provider the camel context provider
      * @return the runtime
      */
-    static Runtime of( CamelContext camelContext, Registry registry) {
-        return new Runtime() {
-            @Override
-            public CamelContext getContext() {
-                return camelContext;
-            }
-
-            @Override
-            public Registry getRegistry() {
-                return registry;
-            }
-        };
+    static Runtime of(HasCamelContext provider) {
+        return () -> provider.getCamelContext();
     }
 }
