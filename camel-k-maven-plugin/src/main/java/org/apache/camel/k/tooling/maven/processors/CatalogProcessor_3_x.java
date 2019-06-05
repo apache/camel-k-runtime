@@ -156,7 +156,9 @@ public class CatalogProcessor_3_x implements CatalogProcessor {
             CamelArtifact artifact = new CamelArtifact();
             artifact.setGroupId("org.apache.camel.k");
             artifact.setArtifactId("camel-k-runtime-health");
-            artifact.addDependency("org.apache.camel", "camel-netty4-http");
+            artifact.addDependency("org.apache.camel", "camel-servlet");
+            artifact.addDependency("org.apache.camel.k", "camel-k-runtime-servlet");
+
 
             artifacts.put(artifact.getArtifactId(), artifact);
         }
