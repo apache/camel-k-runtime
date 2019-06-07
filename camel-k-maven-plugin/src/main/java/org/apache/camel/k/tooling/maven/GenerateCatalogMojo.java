@@ -17,6 +17,7 @@
 package org.apache.camel.k.tooling.maven;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -53,6 +54,7 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.shared.utils.io.IOUtil;
 
 @Mojo(
     name = "generate-catalog",
@@ -110,7 +112,7 @@ public class GenerateCatalogMojo extends AbstractMojo {
 
                 p.process(project, catalog, artifacts);
             });
-
+            
             //
             // apiVersion: camel.apache.org/v1alpha1
             // kind: CamelCatalog
@@ -145,7 +147,13 @@ public class GenerateCatalogMojo extends AbstractMojo {
                     .configure(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID, false)
                     .configure(YAMLGenerator.Feature.WRITE_DOC_START_MARKER, false);
 
-                //new Yaml(representer, options).dump(cr, writer);
+
+                // write license header
+                writer.write(
+                    GenerateSupport.getResourceAsString("/catalog-license.txt")
+                );
+
+                // write catalog data
                 ObjectMapper mapper = new ObjectMapper(factory);
                 mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
                 mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
