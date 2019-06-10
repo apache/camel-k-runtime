@@ -17,7 +17,6 @@
 package org.apache.camel.k.support;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -28,6 +27,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.NoFactoryAvailableException;
 import org.apache.camel.component.properties.PropertiesComponent;
 import org.apache.camel.k.Constants;
@@ -35,7 +35,6 @@ import org.apache.camel.k.ContextCustomizer;
 import org.apache.camel.k.RoutesLoader;
 import org.apache.camel.k.Source;
 import org.apache.camel.spi.FactoryFinder;
-import org.apache.camel.spi.RestConfiguration;
 import org.apache.camel.util.ObjectHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +46,13 @@ public final class RuntimeSupport {
     private RuntimeSupport() {
     }
 
-    public static List<ContextCustomizer> configureContext(CamelContext context) {
+    // *********************************
+    //
+    // Helpers - Customizers
+    //
+    // *********************************
+
+    public static List<ContextCustomizer> configureContextCustomizers(CamelContext context) {
         List<ContextCustomizer> appliedCustomizers = new ArrayList<>();
         Map<String, ContextCustomizer> customizers = lookupCustomizers(context);
 
@@ -65,43 +70,11 @@ public final class RuntimeSupport {
         return appliedCustomizers;
     }
 
-    @SuppressWarnings("unchecked")
-    public static void configureRest(CamelContext context) {
-        RestConfiguration configuration = new RestConfiguration();
-        configuration.setComponentProperties(new HashMap<>());
-        configuration.setEndpointProperties(new HashMap<>());
-
-        PropertiesSupport.forEachProperty(
-            context,
-            name -> name.startsWith(Constants.PROPERTY_PREFIX_REST_COMPONENT_PROPERTY),
-            (k, v) -> configuration.getComponentProperties().put(k.substring(Constants.PROPERTY_PREFIX_REST_COMPONENT_PROPERTY.length()), v)
-        );
-        PropertiesSupport.forEachProperty(
-            context,
-            name -> name.startsWith(Constants.PROPERTY_PREFIX_REST_ENDPOINT_PROPERTY),
-            (k, v) -> configuration.getEndpointProperties().put(k.substring(Constants.PROPERTY_PREFIX_REST_ENDPOINT_PROPERTY.length()), v)
-        );
-
-        if (PropertiesSupport.bindProperties(context, configuration, "camel.rest.") > 0) {
-            //
-            // Set the rest configuration if only if at least one
-            // rest parameter has been set.
-            //
-            context.setRestConfiguration(configuration);
-        }
-    }
-
-    // *********************************
-    //
-    // Helpers - Customizers
-    //
-    // *********************************
-
     public static Map<String, ContextCustomizer> lookupCustomizers(CamelContext context) {
         Map<String, ContextCustomizer> customizers = new ConcurrentHashMap<>();
 
         PropertiesComponent component = context.getComponent("properties", PropertiesComponent.class);
-        Properties properties = component.getInitialProperties();
+        Properties properties = component.loadProperties();
 
         if (properties != null) {
             //
@@ -142,7 +115,7 @@ public final class RuntimeSupport {
         ContextCustomizer customizer = context.getRegistry().lookupByNameAndType(customizerId, ContextCustomizer.class);
         if (customizer == null) {
             try {
-                customizer = (ContextCustomizer) context.getFactoryFinder(Constants.CONTEXT_CUSTOMIZER_RESOURCE_PATH).newInstance(customizerId);
+                customizer = (ContextCustomizer) context.adapt(ExtendedCamelContext.class).getFactoryFinder(Constants.CONTEXT_CUSTOMIZER_RESOURCE_PATH).newInstance(customizerId);
             } catch (NoFactoryAvailableException e) {
                 throw new RuntimeException(e);
             }
@@ -191,7 +164,7 @@ public final class RuntimeSupport {
         final RoutesLoader loader;
 
         try {
-            finder = context.getFactoryFinder(Constants.ROUTES_LOADER_RESOURCE_PATH);
+            finder = context.adapt(ExtendedCamelContext.class).getFactoryFinder(Constants.ROUTES_LOADER_RESOURCE_PATH);
             loader = (RoutesLoader)finder.newInstance(source.getLanguage());
         } catch (NoFactoryAvailableException e) {
             throw new IllegalArgumentException("Unable to find loader for: " + source, e);

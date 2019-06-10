@@ -17,7 +17,6 @@
 package org.apache.camel.k.listener;
 
 import org.apache.camel.k.Runtime;
-import org.apache.camel.k.support.PropertiesSupport;
 import org.apache.camel.k.support.RuntimeSupport;
 
 public class ContextConfigurer extends AbstractPhaseListener {
@@ -28,25 +27,11 @@ public class ContextConfigurer extends AbstractPhaseListener {
     @Override
     protected void accept(Runtime runtime) {
         //
-        // Configure the camel context using properties in the form:
-        //
-        //     camel.context.${name} = ${value}
-        //
-        PropertiesSupport.bindProperties(runtime.getCamelContext(), runtime.getCamelContext(), "camel.context.");
-
-        //
-        // Configure the camel rest definition using properties in the form:
-        //
-        //     camel.rest.${name} = ${value}
-        //
-        RuntimeSupport.configureRest(runtime.getCamelContext());
-
-        //
         // Programmatically configure the camel context.
         //
         // This is useful to configure services such as the ClusterService,
         // RouteController, etc
         //
-        RuntimeSupport.configureContext(runtime.getCamelContext());
+        RuntimeSupport.configureContextCustomizers(runtime.getCamelContext());
     }
 }

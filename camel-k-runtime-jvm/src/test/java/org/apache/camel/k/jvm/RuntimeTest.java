@@ -16,19 +16,18 @@
  */
 package org.apache.camel.k.jvm;
 
+import static org.assertj.core.api.Java6Assertions.assertThat;
+
 import java.util.List;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Route;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.listener.ContextConfigurer;
-import org.apache.camel.k.listener.ContextLifecycleConfigurer;
 import org.apache.camel.k.listener.RoutesConfigurer;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.util.ObjectHelper;
 import org.junit.jupiter.api.Test;
-
-import static org.assertj.core.api.Java6Assertions.assertThat;
 
 public class RuntimeTest {
 
@@ -38,7 +37,6 @@ public class RuntimeTest {
 
         try {
             runtime.addListener(new ContextConfigurer());
-            runtime.addListener(new ContextLifecycleConfigurer());
             runtime.addListener(RoutesConfigurer.forRoutes("classpath:r1.js", "classpath:r2.mytype?language=js"));
             runtime.addListener(Runtime.Phase.Started, r -> {
                 CamelContext context = r.getCamelContext();
@@ -63,7 +61,6 @@ public class RuntimeTest {
         ApplicationRuntime runtime = new ApplicationRuntime();
         try {
             runtime.addListener(new ContextConfigurer());
-            runtime.addListener(new ContextLifecycleConfigurer());
             runtime.addListener(RoutesConfigurer.forRoutes("classpath:routes.xml", "classpath:rests.xml"));
             runtime.addListener(Runtime.Phase.Started, r -> {
                 CamelContext context = r.getCamelContext();
