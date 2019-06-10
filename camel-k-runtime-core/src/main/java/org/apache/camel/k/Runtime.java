@@ -34,7 +34,7 @@ public interface Runtime extends HasCamelContext {
 
     default void setProperties(Properties properties) {
         PropertiesComponent pc = new PropertiesComponent();
-        pc.setInitialProperties(properties);
+        pc.setOverrideProperties(properties);
 
         getRegistry().bind("properties", pc);
     }

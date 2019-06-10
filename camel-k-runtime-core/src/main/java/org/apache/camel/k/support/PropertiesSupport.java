@@ -28,13 +28,11 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.BiConsumer;
-import java.util.function.Predicate;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.properties.PropertiesComponent;
 import org.apache.camel.k.Constants;
-import org.apache.camel.support.IntrospectionSupport;
+import org.apache.camel.support.PropertyBindingSupport;
 import org.apache.camel.util.ObjectHelper;
 import org.apache.commons.io.FilenameUtils;
 
@@ -42,31 +40,18 @@ public final class PropertiesSupport {
     private PropertiesSupport() {
     }
 
-    public static void forEachProperty(CamelContext context, Predicate<String> nameFilter, BiConsumer<String, Object> consumer) {
-        final PropertiesComponent component = context.getComponent("properties", PropertiesComponent.class);
-        final Properties properties = component.getInitialProperties();
-
-        if (properties != null) {
-            for (String name: properties.stringPropertyNames()) {
-                if (nameFilter.test(name)) {
-                    consumer.accept(name,  properties.get(name));
-                }
-            }
-        }
-    }
-
     public static int bindProperties(CamelContext context, Object target, String prefix) {
         final PropertiesComponent component = context.getComponent("properties", PropertiesComponent.class);
-        final Properties properties = component.getInitialProperties();
+        final Properties properties = component.loadProperties();
 
         if (properties == null) {
             return 0;
         }
 
-        return bindProperties(properties, target, prefix);
+        return bindProperties(context, properties, target, prefix);
     }
 
-    public static int bindProperties(Properties properties, Object target, String prefix) {
+    public static int bindProperties(CamelContext context, Properties properties, Object target, String prefix) {
         final AtomicInteger count = new AtomicInteger();
 
         properties.entrySet().stream()
@@ -78,7 +63,7 @@ public final class PropertiesSupport {
                     final Object val = entry.getValue();
 
                     try {
-                        if (IntrospectionSupport.setProperty(target, key, val)) {
+                        if (PropertyBindingSupport.bindProperty(context, target, key, val)) {
                             count.incrementAndGet();
                         }
                     } catch (Exception ex) {
@@ -102,18 +87,10 @@ public final class PropertiesSupport {
 
         // Main location
         if (ObjectHelper.isNotEmpty(conf)) {
-            if (conf.startsWith(Constants.SCHEME_ENV)) {
-                try (Reader reader = URIResolver.resolveEnv(conf)) {
-                    properties.load(reader);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            } else {
-                try (Reader reader = Files.newBufferedReader(Paths.get(conf))) {
-                    properties.load(reader);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+            try (Reader reader = Files.newBufferedReader(Paths.get(conf))) {
+                properties.load(reader);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
 

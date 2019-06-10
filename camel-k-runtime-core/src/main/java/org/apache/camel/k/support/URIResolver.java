@@ -16,18 +16,14 @@
  */
 package org.apache.camel.k.support;
 
-import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.io.Reader;
-import java.io.StringReader;
 import java.util.Base64;
 import java.util.zip.GZIPInputStream;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.k.Constants;
 import org.apache.camel.k.Source;
+import org.apache.camel.spi.ClassResolver;
 import org.apache.camel.support.ResourceHelper;
-import org.apache.camel.util.StringHelper;
 
 
 public class URIResolver {
@@ -37,30 +33,11 @@ public class URIResolver {
             throw new IllegalArgumentException("Cannot resolve null URI");
         }
 
-        final InputStream is;
+        final ClassResolver cr = ctx.getClassResolver();
+        final InputStream is = ResourceHelper.resolveResourceAsInputStream(cr, source.getLocation());
 
-        if (source.getLocation().startsWith(Constants.SCHEME_ENV)) {
-            final String envvar = StringHelper.after(source.getLocation(), ":");
-            final String content = System.getenv(envvar);
-
-            // Using platform encoding on purpose
-            is = new ByteArrayInputStream(content.getBytes());
-        } else {
-            is = ResourceHelper.resolveResourceAsInputStream(ctx.getClassResolver(), source.getLocation());
-        }
-
-        return source.isCompressed() ? new GZIPInputStream(Base64.getDecoder().wrap(is)) : is;
+        return source.isCompressed()
+            ? new GZIPInputStream(Base64.getDecoder().wrap(is))
+            : is;
     }
-
-    public static Reader resolveEnv(String uri) {
-        if (!uri.startsWith(Constants.SCHEME_ENV)) {
-            throw new IllegalArgumentException("The provided content is not env: " + uri);
-        }
-
-        final String envvar = StringHelper.after(uri, ":");
-        final String content = System.getenv(envvar);
-
-        return new StringReader(content);
-    }
-
 }

@@ -18,10 +18,10 @@ package org.apache.camel.k.jvm;
 
 import java.util.Comparator;
 import java.util.LinkedHashSet;
+import java.util.Properties;
 import java.util.Set;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.ProducerTemplate;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.k.Runtime;
@@ -48,12 +48,8 @@ public final class ApplicationRuntime implements Runtime {
 
         this.main = new Main() {
             @Override
-            protected ProducerTemplate findOrCreateCamelTemplate() {
-                return context.createProducerTemplate();
-            }
-            @Override
             protected CamelContext createCamelContext() {
-                return context;
+                return ApplicationRuntime.this.context;
             }
         };
 
@@ -62,7 +58,7 @@ public final class ApplicationRuntime implements Runtime {
 
     @Override
     public CamelContext getCamelContext() {
-        return context;
+        return this.context;
     }
 
     public void run() throws Exception {
@@ -71,6 +67,11 @@ public final class ApplicationRuntime implements Runtime {
 
     public void stop()throws Exception {
         this.main.stop();
+    }
+
+    @Override
+    public void setProperties(Properties properties) {
+        this.main.setOverrideProperties(properties);
     }
 
     public void addListeners(Iterable<Runtime.Listener> listeners) {
@@ -145,3 +146,4 @@ public final class ApplicationRuntime implements Runtime {
         }
     }
 }
+

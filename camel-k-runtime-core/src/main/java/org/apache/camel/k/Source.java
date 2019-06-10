@@ -64,8 +64,7 @@ public class Source {
         final String location = StringUtils.substringBefore(uri, "?");
 
         if (!location.startsWith(Constants.SCHEME_CLASSPATH) &&
-            !location.startsWith(Constants.SCHEME_FILE) &&
-            !location.startsWith(Constants.SCHEME_ENV)) {
+            !location.startsWith(Constants.SCHEME_FILE)) {
             throw new IllegalArgumentException("No valid resource format, expected scheme:path, found " + uri);
         }
 

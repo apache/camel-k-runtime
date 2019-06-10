@@ -27,6 +27,7 @@ import com.fasterxml.jackson.databind.jsontype.NamedType;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 import org.apache.camel.CamelContext;
+import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.k.RoutesLoader;
 import org.apache.camel.k.Source;
@@ -69,7 +70,7 @@ public class YamlFlowLoader implements RoutesLoader {
                     for (Flow flow: mapper.readValue(is, Flow[].class)) {
                         final List<Step> steps = flow.getSteps();
                         final int size = steps.size();
-                        final FactoryFinder finder = getContext().getFactoryFinder(Step.RESOURCE_PATH);
+                        final FactoryFinder finder = getContext().adapt(ExtendedCamelContext.class).getFactoryFinder(Step.RESOURCE_PATH);
 
                         ProcessorDefinition<?> definition = null;
 
