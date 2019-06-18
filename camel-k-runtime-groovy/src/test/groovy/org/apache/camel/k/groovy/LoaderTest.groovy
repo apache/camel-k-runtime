@@ -46,4 +46,27 @@ class LoaderTest extends Specification {
             routes[0].outputs[0] instanceof ToDefinition
             routes[0].input.endpointUri == 'timer:tick'
     }
+
+    def "load route from classpath with builder"() {
+        given:
+        def context = new DefaultCamelContext()
+        def source = Source.create("classpath:routes-with-builder.groovy")
+
+        when:
+        def loader = RuntimeSupport.loaderFor(context, source)
+        def builder = loader.load(context, source)
+
+        then:
+        loader instanceof GroovyRoutesLoader
+        builder != null
+
+        builder.setContext(context)
+        builder.configure()
+
+        def routes = builder.routeCollection.routes
+
+        routes.size() == 1
+        routes[0].outputs[0] instanceof ToDefinition
+        routes[0].input.endpointUri == 'timer:clock'
+    }
 }

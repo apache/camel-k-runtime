@@ -36,6 +36,9 @@ class GroovyRoutesLoader implements RoutesLoader {
         return new RouteBuilder() {
             @Override
             void configure() throws Exception {
+                Builder.delegate = this
+                System.setProperty("groovy.grape.enable", "false")
+
                 def cc = new CompilerConfiguration()
                 cc.setScriptBaseClass(DelegatingScript.class.getName())
 
