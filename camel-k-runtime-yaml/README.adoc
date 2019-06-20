@@ -76,7 +76,7 @@ filter:
     simple: "${in.header.continue} == true"
 ----
 +
-In general expression can be defined inline like in the examples above but in case you need provide more information, you can 'unroll' the expression definition and  configure any single parameter the expression defines.
+In general expression can be defined inline like in the examples above but in case you need provide more information, you can 'unroll' the expression definition and configure any single parameter the expression defines.
 +
 [source, yaml]
 .Full Expression definition
@@ -89,7 +89,7 @@ filter:
 
 - *Data Format Aware Steps*
 +
-Some EIP such as `set-body` and `marshal` supports the definition of a data formats through the `data-format` field:
+Some EIP such as `set-body` and `marshal` supports the definition of data formats through the `data-format` field:
 +
 [source, yaml]
 .Explicit Data Format field
@@ -97,7 +97,7 @@ Some EIP such as `set-body` and `marshal` supports the definition of a data form
 set-body:
     data-format:
       json:
-        library: Jackson
+        library: Gson
 ----
 +
 To make the DSL less verbose, the `data-format` field can be omitted:
@@ -107,7 +107,7 @@ To make the DSL less verbose, the `data-format` field can be omitted:
 ----
 set-body:
     json:
-      library: Jackson
+      library: Gson
 ----
 +
 [NOTE]
