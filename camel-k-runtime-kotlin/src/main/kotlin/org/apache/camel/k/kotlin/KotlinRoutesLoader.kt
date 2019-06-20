@@ -29,7 +29,7 @@ import kotlin.script.experimental.api.*
 import kotlin.script.experimental.host.toScriptSource
 import kotlin.script.experimental.jvm.dependenciesFromClassloader
 import kotlin.script.experimental.jvm.jvm
-import kotlin.script.experimental.jvmhost.BasicJvmScriptEvaluator
+import kotlin.script.experimental.jvm.BasicJvmScriptEvaluator
 import kotlin.script.experimental.jvmhost.BasicJvmScriptingHost
 import kotlin.script.experimental.jvmhost.JvmScriptCompiler
 
