@@ -32,6 +32,7 @@
     <modules>
         <module>camel-k-runtime-example-servlet</module>
         <module>camel-k-runtime-example-health</module>
+        <module>camel-k-runtime-example-yaml</module>
     </modules>
 
 </project>

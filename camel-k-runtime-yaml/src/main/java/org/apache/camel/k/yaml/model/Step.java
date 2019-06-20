@@ -16,23 +16,48 @@
  */
 package org.apache.camel.k.yaml.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import java.io.IOException;
+import java.util.Map;
 
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "kind")
-public abstract class Step {
-    public static final String RESOURCE_PATH = "META-INF/services/org/apache/camel/k/yaml/flow/";
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
-    private final String kind;
+@JsonDeserialize(using = Step.Deserializer.class)
+public final class Step {
+    public final String id;
+    public final JsonNode node;
 
-    public Step(String kind) {
-        this.kind = kind;
+    public Step(String id, JsonNode node) {
+        this.id = id;
+        this.node = node;
     }
 
-    @JsonIgnore
-    public String getKind() {
-        return kind;
+    public static class Deserializer extends StdDeserializer<Step> {
+        public Deserializer() {
+            this(null);
+        }
+
+        protected Deserializer(Class<?> vc) {
+            super(vc);
+        }
+
+        @Override
+        public Step deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+            JsonNode node = p.getCodec().readTree(p);
+
+            if (node.size() != 1) {
+                throw new IllegalStateException("Step should not have more tha one child");
+            }
+
+            final Map.Entry<String, JsonNode> field = node.fields().next();
+            final String stepId = field.getKey();
+            final JsonNode stepData = field.getValue();
+
+            return new Step(stepId, stepData);
+        }
     }
 }
