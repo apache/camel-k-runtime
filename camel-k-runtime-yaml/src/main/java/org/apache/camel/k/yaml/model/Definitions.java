@@ -64,22 +64,15 @@ public final class Definitions {
             for (String name : IOUtils.readLines(is, StandardCharsets.UTF_8)) {
                 name = name.trim();
 
-                if (name.startsWith("#")) {
-                    continue;
-                }
-                if (name.isEmpty()) {
-                    continue;
-                }
+                if (!name.startsWith("#") && !name.isEmpty()) {
+                    ClassLoader cl = Thread.currentThread().getContextClassLoader();
+                    Class<?> clazz = cl.loadClass(packageName + "." + name);
+                    XmlRootElement root = clazz.getAnnotation(XmlRootElement.class);
 
-                ClassLoader cl = Thread.currentThread().getContextClassLoader();
-                Class<?> clazz = cl.loadClass(packageName + "." + name);
-                XmlRootElement root = clazz.getAnnotation(XmlRootElement.class);
-
-                if (root == null) {
-                    continue;
+                    if (root != null) {
+                        definitions.put(root.name(), (Class<T>) clazz);
+                    }
                 }
-
-                definitions.put(root.name(), (Class<T>)clazz);
             }
         } catch (IOException|NoClassDefFoundError|ClassNotFoundException e) {
             throw new IllegalArgumentException(e);
