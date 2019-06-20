@@ -92,6 +92,16 @@
             <!-- camel-k -->
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-knative</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-knative-http</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-maven-plugin</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -132,12 +142,7 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-knative</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-knative-http</artifactId>
+                <artifactId>camel-k-runtime-knative</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
