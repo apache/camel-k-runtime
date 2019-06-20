@@ -16,7 +16,9 @@
  */
 package org.apache.camel.k.groovy.dsl
 
+
 import org.apache.camel.support.IntrospectionSupport
+import org.apache.camel.support.PropertyBindingSupport
 
 class ComponentConfiguration {
     private final org.apache.camel.Component component
@@ -47,13 +49,13 @@ class ComponentConfiguration {
             }
         }
 
-        if (!IntrospectionSupport.setProperty(component, name, value, true)) {
+        if (!PropertyBindingSupport.bindProperty(component.camelContext, component, name, value)) {
             throw new MissingMethodException(name, this.component.class, args as Object[])
         }
     }
 
     def propertyMissing(String name, value) {
-        if (!IntrospectionSupport.setProperty(component, name, value, true)) {
+        if (!PropertyBindingSupport.bindProperty(component.camelContext, component, name, value,)) {
             throw new MissingMethodException(name, this.component.class, value)
         }
     }

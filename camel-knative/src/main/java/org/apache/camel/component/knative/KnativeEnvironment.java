@@ -78,7 +78,8 @@ public class KnativeEnvironment {
     //
     // ************************
 
-     private Optional<KnativeServiceDefinition> lookup(Knative.Type type, String name) {
+    @SuppressWarnings("unchecked")
+    private Optional<KnativeServiceDefinition> lookup(Knative.Type type, String name) {
          final String contextPath = StringHelper.after(name, "/");
          final String serviceName = (contextPath == null) ? name : StringHelper.before(name, "/");
 
@@ -176,6 +177,7 @@ public class KnativeEnvironment {
     //
     // ************************
 
+    @SuppressWarnings("unchecked")
     public final static class KnativeServiceDefinition extends DefaultServiceDefinition {
         @JsonCreator
         public KnativeServiceDefinition(
