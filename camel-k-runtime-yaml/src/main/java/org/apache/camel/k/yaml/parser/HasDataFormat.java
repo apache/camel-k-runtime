@@ -38,7 +38,7 @@ public interface HasDataFormat {
         Class<? extends DataFormatDefinition> type = Definitions.DATA_FORMATS_MAP.get(id);
 
         if (type == null) {
-            throw new IllegalArgumentException("unknown data format type: " + type);
+            throw new IllegalArgumentException("unknown data format type: " + id);
         }
 
         if (getDataFormatType() != null) {

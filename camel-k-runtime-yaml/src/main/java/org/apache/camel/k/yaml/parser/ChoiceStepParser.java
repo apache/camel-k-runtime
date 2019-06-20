@@ -48,8 +48,7 @@ public class ChoiceStepParser implements ProcessorStepParser {
             StepParserSupport.convertSteps(
                 context,
                 choice.otherwise(),
-                definition.otherwise.steps)
-            ;
+                definition.otherwise.steps);
         }
 
         return choice;

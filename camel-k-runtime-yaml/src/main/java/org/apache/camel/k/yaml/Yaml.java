@@ -38,7 +38,7 @@ import org.apache.camel.model.OtherAttributesAware;
 import org.apache.camel.model.ProcessorDefinition;
 
 public final class Yaml {
-    public final static ObjectMapper MAPPER = mapper();
+    public static final ObjectMapper MAPPER = mapper();
 
     public static ObjectMapper mapper() {
         YAMLFactory yamlFactory = new YAMLFactory()
@@ -68,6 +68,11 @@ public final class Yaml {
         return Yaml.MAPPER.createObjectNode().set(name, value);
     }
 
+    /**
+     * ProcessorDefinition declares multiple methods for setBody and Jackson get confused
+     * about what method to use so to hide such fields from the deserialization process
+     * without having to change the original class, a MixIn is required.
+     */
     public abstract class ProcessorDefinitionMixIn<Type extends ProcessorDefinition<Type>>
         extends OptionalIdentifiedDefinition<Type>
         implements Block, OtherAttributesAware {
