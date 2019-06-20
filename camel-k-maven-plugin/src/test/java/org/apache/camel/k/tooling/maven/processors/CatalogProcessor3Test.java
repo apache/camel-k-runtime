@@ -28,8 +28,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CataloProcessor3Test extends AbstractCataloProcessorTest {
-
+public class CatalogProcessor3Test extends AbstractCataloProcessorTest {
     @Test
     public void testAcceptHyphen(){
         CatalogProcessor_3_x cp3 = new CatalogProcessor_3_x();
@@ -106,6 +105,20 @@ public class CataloProcessor3Test extends AbstractCataloProcessorTest {
         assertThat(artifactMap.get("camel-k-runtime-servlet")).satisfies(a -> {
             assertThat(a.getDependencies()).anyMatch(
                 d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-servlet")
+            );
+        });
+        assertThat(artifactMap.get("camel-k-runtime-knative")).satisfies(a -> {
+            assertThat(a.getDependencies()).anyMatch(
+                d -> d.getGroupId().equals("org.apache.camel.k") && d.getArtifactId().equals("camel-knative")
+            );
+            assertThat(a.getDependencies()).anyMatch(
+                d -> d.getGroupId().equals("org.apache.camel.k") && d.getArtifactId().equals("camel-knative-http")
+            );
+            assertThat(a.getDependencies()).anyMatch(
+                d -> d.getGroupId().equals("org.apache.camel.k") && d.getArtifactId().equals("camel-k-runtime-yaml")
+            );
+            assertThat(a.getDependencies()).anyMatch(
+                d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-netty4-http")
             );
         });
 
