@@ -21,7 +21,7 @@ import java.util.Map;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.support.DefaultComponent;
-import org.apache.camel.support.IntrospectionSupport;
+import org.apache.camel.support.PropertyBindingSupport;
 import org.apache.camel.util.StringHelper;
 
 public class KnativeComponent extends DefaultComponent {
@@ -101,7 +101,7 @@ public class KnativeComponent extends DefaultComponent {
         final KnativeConfiguration conf = getKnativeConfiguration();
 
         // set properties from the endpoint uri
-        IntrospectionSupport.setProperties(getCamelContext().getTypeConverter(), conf, parameters);
+        PropertyBindingSupport.bindProperties(getCamelContext(), conf, parameters);
 
         return new KnativeEndpoint(uri, this, Knative.Type.valueOf(type), target, conf);
     }

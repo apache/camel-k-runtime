@@ -48,6 +48,7 @@ public class ServletEndpoint extends ServiceSupport {
         this.path = path;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     protected void doStart() throws Exception {
         DeploymentInfo servletBuilder = Servlets.deployment()

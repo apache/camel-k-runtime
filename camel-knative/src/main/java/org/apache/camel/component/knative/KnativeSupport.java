@@ -30,6 +30,7 @@ public final class KnativeSupport {
         return Objects.equals(exchange.getIn().getHeader(Exchange.CONTENT_TYPE), Knative.MIME_STRUCTURED_CONTENT_MODE);
     }
 
+    @SafeVarargs
     public static <K, V> Map<K, V> mergeMaps(Map<K, V> map, Map<K, V>... maps) {
         Map<K, V> answer = new HashMap<>();
 

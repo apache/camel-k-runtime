@@ -64,6 +64,7 @@ final class V02 {
         };
     };
 
+    @SuppressWarnings("unchecked")
     public static final Function<KnativeEndpoint, Processor> CONSUMER = (KnativeEndpoint endpoint) -> {
         return exchange -> {
             if (!KnativeSupport.hasStructuredContent(exchange)) {
