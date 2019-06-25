@@ -35,9 +35,6 @@ import org.apache.commons.lang3.StringUtils;
 import static org.apache.camel.util.ObjectHelper.ifNotEmpty;
 
 final class V01 {
-    private V01() {
-    }
-
     public static final Function<KnativeEndpoint, Processor> PRODUCER = (KnativeEndpoint endpoint) -> {
         KnativeEnvironment.KnativeServiceDefinition service = endpoint.getService();
         String uri = endpoint.getEndpointUri();
@@ -103,4 +100,7 @@ final class V01 {
             }
         };
     };
+
+    private V01() {
+    }
 }
