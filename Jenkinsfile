@@ -43,7 +43,7 @@ pipeline {
     stages {
         stage('Test & Install') {
             steps {
-                sh "./mvnw $MAVEN_PARAMS clean install -f pom.xml"
+                sh "./mvnw $MAVEN_PARAMS clean install -Dcheckstyle.failOnViolation=true -Psourcecheck -f pom.xml"
             }
         }
 
