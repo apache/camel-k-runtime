@@ -80,36 +80,36 @@ public class KnativeEnvironment {
 
     @SuppressWarnings("unchecked")
     private Optional<KnativeServiceDefinition> lookup(Knative.Type type, String name) {
-         final String contextPath = StringHelper.after(name, "/");
-         final String serviceName = (contextPath == null) ? name : StringHelper.before(name, "/");
+        final String contextPath = StringHelper.after(name, "/");
+        final String serviceName = (contextPath == null) ? name : StringHelper.before(name, "/");
 
-         return services.stream()
-             .filter(definition -> {
-                 return Objects.equals(type.name(), definition.getMetadata().get(Knative.KNATIVE_TYPE))
-                     && Objects.equals(serviceName, definition.getName());
-             })
-             .map(definition -> {
-                 //
-                 // The context path set on the endpoint  overrides the one
-                 // eventually provided by the service definition.
-                 //
-                 if (contextPath != null) {
-                     return new KnativeServiceDefinition(
-                         definition.getType(),
-                         definition.getProtocol(),
-                         definition.getName(),
-                         definition.getHost(),
-                         definition.getPort(),
-                         KnativeSupport.mergeMaps(
-                             definition.getMetadata(),
-                             Collections.singletonMap(Knative.SERVICE_META_PATH, "/" + contextPath)
-                         )
-                     );
-                 }
+        return services.stream()
+            .filter(definition -> {
+                return Objects.equals(type.name(), definition.getMetadata().get(Knative.KNATIVE_TYPE))
+                    && Objects.equals(serviceName, definition.getName());
+            })
+            .map(definition -> {
+                //
+                // The context path set on the endpoint  overrides the one
+                // eventually provided by the service definition.
+                //
+                if (contextPath != null) {
+                    return new KnativeServiceDefinition(
+                        definition.getType(),
+                        definition.getProtocol(),
+                        definition.getName(),
+                        definition.getHost(),
+                        definition.getPort(),
+                        KnativeSupport.mergeMaps(
+                            definition.getMetadata(),
+                            Collections.singletonMap(Knative.SERVICE_META_PATH, "/" + contextPath)
+                        )
+                    );
+                }
 
-                 return definition;
-             })
-             .findFirst();
+                return definition;
+            })
+            .findFirst();
 
     }
 
@@ -178,7 +178,7 @@ public class KnativeEnvironment {
     // ************************
 
     @SuppressWarnings("unchecked")
-    public final static class KnativeServiceDefinition extends DefaultServiceDefinition {
+    public static final class KnativeServiceDefinition extends DefaultServiceDefinition {
         @JsonCreator
         public KnativeServiceDefinition(
             @JsonProperty(value = "type", required = true) Knative.Type type,

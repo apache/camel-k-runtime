@@ -16,6 +16,10 @@
  */
 package org.apache.camel.component.knative;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
@@ -27,10 +31,6 @@ import org.apache.camel.test.AvailablePortFinder;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 
 public class CloudEventsV01Test {
 
@@ -186,16 +186,16 @@ public class CloudEventsV01Test {
         mock2.expectedBodiesReceived("test2");
 
         context.createProducerTemplate().send(
-                "direct:source",
-                e -> {
-                    e.getIn().setBody("test");
-                }
+            "direct:source",
+            e -> {
+                e.getIn().setBody("test");
+            }
         );
         context.createProducerTemplate().send(
-                "direct:source2",
-                e -> {
-                    e.getIn().setBody("test2");
-                }
+            "direct:source2",
+            e -> {
+                e.getIn().setBody("test2");
+            }
         );
 
         mock.assertIsSatisfied();
