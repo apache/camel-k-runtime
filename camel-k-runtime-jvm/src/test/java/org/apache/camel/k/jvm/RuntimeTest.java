@@ -16,8 +16,6 @@
  */
 package org.apache.camel.k.jvm;
 
-import static org.assertj.core.api.Java6Assertions.assertThat;
-
 import java.util.List;
 
 import org.apache.camel.CamelContext;
@@ -28,6 +26,8 @@ import org.apache.camel.k.listener.RoutesConfigurer;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.util.ObjectHelper;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Java6Assertions.assertThat;
 
 public class RuntimeTest {
 

@@ -59,7 +59,7 @@ public class JavaSourceLoader implements RoutesLoader {
                     RoutesBuilder builder = compiled.create().get();
 
                     if (builder instanceof RouteBuilder) {
-                        RouteBuilder rb = ((RouteBuilder) builder);
+                        RouteBuilder rb = (RouteBuilder) builder;
 
                         rb.setContext(context);
                         rb.configure();

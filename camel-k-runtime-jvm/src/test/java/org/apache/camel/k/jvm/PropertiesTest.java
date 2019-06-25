@@ -16,8 +16,6 @@
  */
 package org.apache.camel.k.jvm;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.util.Properties;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -28,6 +26,8 @@ import org.apache.camel.k.Runtime;
 import org.apache.camel.k.listener.ContextConfigurer;
 import org.apache.camel.k.support.PropertiesSupport;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class PropertiesTest {
 

@@ -39,8 +39,8 @@ public final class ApplicationSupport {
             .filter(entry -> entry.getValue() instanceof String)
             .filter(entry -> ((String)entry.getKey()).startsWith(Constants.LOGGING_LEVEL_PREFIX))
             .forEach(entry -> {
-                String key = ((String)entry.getKey());
-                String val = ((String)entry.getValue());
+                String key = (String)entry.getKey();
+                String val = (String)entry.getValue();
 
                 String logger = key.substring(Constants.LOGGING_LEVEL_PREFIX.length());
                 Level level = Level.getLevel(val);
