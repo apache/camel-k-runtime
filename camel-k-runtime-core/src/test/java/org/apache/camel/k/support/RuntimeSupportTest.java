@@ -16,8 +16,6 @@
  */
 package org.apache.camel.k.support;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.util.List;
 import java.util.Properties;
 
@@ -29,6 +27,8 @@ import org.apache.camel.impl.engine.ExplicitCamelContextNameStrategy;
 import org.apache.camel.k.Constants;
 import org.apache.camel.k.ContextCustomizer;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class RuntimeSupportTest {
 

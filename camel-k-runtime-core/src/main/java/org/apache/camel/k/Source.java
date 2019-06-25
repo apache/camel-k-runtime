@@ -22,7 +22,7 @@ import org.apache.camel.util.ObjectHelper;
 import org.apache.camel.util.URISupport;
 import org.apache.commons.lang3.StringUtils;
 
-public class Source {
+public final class Source {
     private final String name;
     private final String location;
     private final String language;
@@ -53,18 +53,17 @@ public class Source {
 
     @Override
     public String toString() {
-        return "Source{" +
-            "location='" + location + '\'' +
-            ", language=" + language +
-            ", compressed=" + compressed +
-            '}';
+        return "Source{"
+            + "location='" + location + '\''
+            + ", language=" + language
+            + " , compressed=" + compressed
+            + '}';
     }
 
     public static Source create(String uri) throws Exception {
         final String location = StringUtils.substringBefore(uri, "?");
 
-        if (!location.startsWith(Constants.SCHEME_CLASSPATH) &&
-            !location.startsWith(Constants.SCHEME_FILE)) {
+        if (!location.startsWith(Constants.SCHEME_CLASSPATH) && !location.startsWith(Constants.SCHEME_FILE)) {
             throw new IllegalArgumentException("No valid resource format, expected scheme:path, found " + uri);
         }
 

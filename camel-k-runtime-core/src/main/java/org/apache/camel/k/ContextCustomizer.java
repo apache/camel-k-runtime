@@ -20,7 +20,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Ordered;
 
 @FunctionalInterface
-public interface ContextCustomizer extends Ordered, Comparable<ContextCustomizer>{
+public interface ContextCustomizer extends Ordered, Comparable<ContextCustomizer> {
     /**
      * Perform CamelContext customization.
      *

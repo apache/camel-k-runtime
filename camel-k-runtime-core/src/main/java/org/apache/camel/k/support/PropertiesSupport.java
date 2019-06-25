@@ -59,18 +59,17 @@ public final class PropertiesSupport {
             .filter(entry -> entry.getValue() != null)
             .filter(entry -> ((String)entry.getKey()).startsWith(prefix))
             .forEach(entry -> {
-                    final String key = ((String)entry.getKey()).substring(prefix.length());
-                    final Object val = entry.getValue();
+                final String key = ((String)entry.getKey()).substring(prefix.length());
+                final Object val = entry.getValue();
 
-                    try {
-                        if (PropertyBindingSupport.bindProperty(context, target, key, val)) {
-                            count.incrementAndGet();
-                        }
-                    } catch (Exception ex) {
-                        throw new RuntimeException(ex);
+                try {
+                    if (PropertyBindingSupport.bindProperty(context, target, key, val)) {
+                        count.incrementAndGet();
                     }
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
                 }
-            );
+            });
 
         return count.get();
     }

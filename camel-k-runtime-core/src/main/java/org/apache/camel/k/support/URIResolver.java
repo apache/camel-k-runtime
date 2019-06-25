@@ -26,7 +26,9 @@ import org.apache.camel.spi.ClassResolver;
 import org.apache.camel.support.ResourceHelper;
 
 
-public class URIResolver {
+public final class URIResolver {
+    private URIResolver() {
+    }
 
     public static InputStream resolve(CamelContext ctx, Source source) throws Exception {
         if (source.getLocation() == null) {
