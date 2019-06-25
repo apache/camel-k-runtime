@@ -28,11 +28,11 @@ public class ServletRegistrationContextCustomizer implements ContextCustomizer {
     private String path;
     private String camelServletName;
 
-    public ServletRegistrationContextCustomizer(){
+    public ServletRegistrationContextCustomizer() {
         this(DEFAULT_PATH, DEFAULT_CAMEL_SERVLET_NAME);
     }
 
-    public ServletRegistrationContextCustomizer(String path, String camelServletName){
+    public ServletRegistrationContextCustomizer(String path, String camelServletName) {
         this.path = path;
         this.camelServletName = camelServletName;
     }

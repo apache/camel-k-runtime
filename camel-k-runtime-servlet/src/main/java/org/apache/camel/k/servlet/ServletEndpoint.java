@@ -56,7 +56,8 @@ public class ServletEndpoint extends ServiceSupport {
             .setContextPath(path)
             .setDeploymentName("camel-k.war");
 
-        context.getRegistry().findByType(ServletRegistration.class).forEach( r -> {
+        context.getRegistry().findByType(ServletRegistration.class)
+            .forEach(r -> {
                 LOGGER.info("Registering servlet: {}", r);
 
                 servletBuilder.addServlet(
