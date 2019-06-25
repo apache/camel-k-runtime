@@ -59,9 +59,9 @@ public class CamelScheme {
             return false;
         }
         CamelScheme scheme = (CamelScheme) o;
-        return isHttp() == scheme.isHttp() &&
-            isPassive() == scheme.isPassive() &&
-            Objects.equals(getId(), scheme.getId());
+        return isHttp() == scheme.isHttp()
+            && isPassive() == scheme.isPassive()
+            && Objects.equals(getId(), scheme.getId());
     }
 
     @Override

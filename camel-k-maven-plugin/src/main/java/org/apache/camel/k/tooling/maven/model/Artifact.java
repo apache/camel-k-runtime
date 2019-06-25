@@ -56,8 +56,9 @@ public class Artifact {
             return false;
         }
         Artifact artifact = (Artifact) o;
-        return Objects.equals(groupId, artifact.groupId) &&
-            Objects.equals(artifactId, artifact.artifactId);
+
+        return Objects.equals(groupId, artifact.groupId)
+            && Objects.equals(artifactId, artifact.artifactId);
     }
 
     @Override

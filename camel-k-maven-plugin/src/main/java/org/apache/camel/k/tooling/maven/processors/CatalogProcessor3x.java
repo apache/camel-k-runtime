@@ -26,7 +26,7 @@ import org.apache.camel.k.tooling.maven.model.CamelArtifact;
 import org.apache.camel.k.tooling.maven.model.CatalogProcessor;
 import org.apache.maven.project.MavenProject;
 
-public class CatalogProcessor_3_x implements CatalogProcessor {
+public class CatalogProcessor3x implements CatalogProcessor {
     private static final List<String> KNOWN_HTTP_URIS = Arrays.asList(
         "ahc",
         "ahc-ws",

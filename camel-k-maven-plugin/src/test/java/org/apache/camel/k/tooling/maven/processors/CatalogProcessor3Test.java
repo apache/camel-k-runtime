@@ -29,8 +29,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CatalogProcessor3Test extends AbstractCataloProcessorTest {
     @Test
-    public void testAcceptHyphen(){
-        CatalogProcessor_3_x cp3 = new CatalogProcessor_3_x();
+    public void testAcceptHyphen() {
+        CatalogProcessor3x cp3 = new CatalogProcessor3x();
 
         CamelCatalog catalog = versionCamelCatalog("3.0.0.acme-123456");
 
@@ -38,8 +38,8 @@ public class CatalogProcessor3Test extends AbstractCataloProcessorTest {
     }
 
     @Test
-    public void testAcceptEqualToLower(){
-        CatalogProcessor_3_x cp3 = new CatalogProcessor_3_x();
+    public void testAcceptEqualToLower() {
+        CatalogProcessor3x cp3 = new CatalogProcessor3x();
 
         CamelCatalog catalog = versionCamelCatalog("3.0.0");
 
@@ -47,8 +47,8 @@ public class CatalogProcessor3Test extends AbstractCataloProcessorTest {
     }
 
     @Test
-    public void testAcceptLessThanLower(){
-        CatalogProcessor_3_x cp3 = new CatalogProcessor_3_x();
+    public void testAcceptLessThanLower() {
+        CatalogProcessor3x cp3 = new CatalogProcessor3x();
 
         CamelCatalog catalog = versionCamelCatalog("2.17.0");
 
@@ -56,8 +56,8 @@ public class CatalogProcessor3Test extends AbstractCataloProcessorTest {
     }
 
     @Test
-    public void testAcceptEqualToHigher(){
-        CatalogProcessor_3_x cp3 = new CatalogProcessor_3_x();
+    public void testAcceptEqualToHigher() {
+        CatalogProcessor3x cp3 = new CatalogProcessor3x();
 
         CamelCatalog catalog = versionCamelCatalog("4.0.0");
 
@@ -65,8 +65,8 @@ public class CatalogProcessor3Test extends AbstractCataloProcessorTest {
     }
 
     @Test
-    public void testAcceptMoreThanHigher(){
-        CatalogProcessor_3_x cp3 = new CatalogProcessor_3_x();
+    public void testAcceptMoreThanHigher() {
+        CatalogProcessor3x cp3 = new CatalogProcessor3x();
 
         CamelCatalog catalog = versionCamelCatalog("5.0.0");
 
@@ -74,8 +74,8 @@ public class CatalogProcessor3Test extends AbstractCataloProcessorTest {
     }
 
     @Test
-    public void testArtifactsEnrichment(){
-        CatalogProcessor processor = new CatalogProcessor_3_x();
+    public void testArtifactsEnrichment() {
+        CatalogProcessor processor = new CatalogProcessor3x();
         CamelCatalog catalog = versionCamelCatalog("3.0.0");
         Map<String, CamelArtifact> artifactMap = new HashMap<>();
 
