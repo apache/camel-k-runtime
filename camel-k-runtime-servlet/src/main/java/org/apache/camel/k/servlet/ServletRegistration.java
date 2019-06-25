@@ -72,10 +72,10 @@ public final class ServletRegistration {
 
     @Override
     public String toString() {
-        return "ServletRegistration{" +
-            "servlet=" + servlet +
-            ", name='" + name + '\'' +
-            ", mappings=" + mappings +
-            '}';
+        return "ServletRegistration{"
+            + "servlet=" + servlet
+            + ", name='" + name + '\''
+            + ", mappings=" + mappings
+            + '}';
     }
 }
