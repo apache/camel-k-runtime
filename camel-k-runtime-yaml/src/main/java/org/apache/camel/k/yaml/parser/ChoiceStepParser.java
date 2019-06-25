@@ -29,7 +29,7 @@ public class ChoiceStepParser implements ProcessorStepParser {
         final Definition definition = context.node(Definition.class);
         final ChoiceDefinition choice = new ChoiceDefinition();
 
-        StepParserSupport.notNull(definition.when,"when");
+        StepParserSupport.notNull(definition.when, "when");
 
         for (Definition.When whenDefinition : definition.when) {
             StepParserSupport.notNull(whenDefinition.getExpression(), "when.expression");

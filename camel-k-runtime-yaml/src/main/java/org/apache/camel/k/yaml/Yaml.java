@@ -40,6 +40,9 @@ import org.apache.camel.model.ProcessorDefinition;
 public final class Yaml {
     public static final ObjectMapper MAPPER = mapper();
 
+    private Yaml() {
+    }
+
     public static ObjectMapper mapper() {
         YAMLFactory yamlFactory = new YAMLFactory()
             .configure(YAMLGenerator.Feature.MINIMIZE_QUOTES, true)

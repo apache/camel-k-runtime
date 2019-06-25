@@ -28,6 +28,7 @@ import org.apache.camel.util.ObjectHelper;
 public interface StepParser {
     String RESOURCE_PATH = "META-INF/services/org/apache/camel/k/yaml/";
 
+    @SuppressWarnings("unchecked")
     static <T extends StepParser> T lookup(CamelContext camelContext, Class<T> type, String stepId) throws NoFactoryAvailableException {
         T converter = camelContext.getRegistry().lookupByNameAndType(stepId, type);
         if (converter == null) {
