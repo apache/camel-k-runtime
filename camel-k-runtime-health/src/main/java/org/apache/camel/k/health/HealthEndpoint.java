@@ -40,7 +40,7 @@ public class HealthEndpoint extends HttpServlet {
             resp.setContentLength(2);
             resp.setStatus(HttpServletResponse.SC_OK);
 
-            try(PrintWriter writer = resp.getWriter()) {
+            try (PrintWriter writer = resp.getWriter()) {
                 writer.write("OK");
             }
 
@@ -49,7 +49,7 @@ public class HealthEndpoint extends HttpServlet {
             resp.setContentLength(2);
             resp.setStatus(HttpServletResponse.SC_SERVICE_UNAVAILABLE);
 
-            try(PrintWriter writer = resp.getWriter()) {
+            try (PrintWriter writer = resp.getWriter()) {
                 writer.write("KO");
             }
         }
