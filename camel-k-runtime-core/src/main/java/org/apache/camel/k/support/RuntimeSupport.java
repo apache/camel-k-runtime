@@ -91,21 +91,20 @@ public final class RuntimeSupport {
                 .filter(entry -> entry.getKey() instanceof String)
                 .filter(entry -> entry.getValue() != null)
                 .forEach(entry -> {
-                        final String key = (String)entry.getKey();
-                        final Object val = entry.getValue();
-                        final Matcher matcher = pattern.matcher(key);
+                    final String key = (String)entry.getKey();
+                    final Object val = entry.getValue();
+                    final Matcher matcher = pattern.matcher(key);
 
-                        if (matcher.matches() && matcher.groupCount() == 1) {
-                            if (Boolean.valueOf(String.valueOf(val))) {
-                                //
-                                // Do not override customizers eventually found
-                                // in the registry
-                                //
-                                customizers.computeIfAbsent(matcher.group(1), id -> lookupCustomizerByID(context, id));
-                            }
+                    if (matcher.matches() && matcher.groupCount() == 1) {
+                        if (Boolean.valueOf(String.valueOf(val))) {
+                            //
+                            // Do not override customizers eventually found
+                            // in the registry
+                            //
+                            customizers.computeIfAbsent(matcher.group(1), id -> lookupCustomizerByID(context, id));
                         }
                     }
-                );
+                });
         }
 
         return customizers;
