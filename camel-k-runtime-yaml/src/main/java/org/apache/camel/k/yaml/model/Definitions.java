@@ -31,8 +31,8 @@ import org.apache.camel.model.language.ExpressionDefinition;
 import org.apache.commons.io.IOUtils;
 
 public final class Definitions {
-    public static Map<String, Class<? extends DataFormatDefinition>> DATA_FORMATS_MAP = dataFormatDefinition();
-    public static Map<String, Class<? extends ExpressionDefinition>> EXPRESSIONS_MAP = expressionDefinition();
+    public static final Map<String, Class<? extends DataFormatDefinition>> DATA_FORMATS_MAP = dataFormatDefinition();
+    public static final Map<String, Class<? extends ExpressionDefinition>> EXPRESSIONS_MAP = expressionDefinition();
 
     private Definitions() {
     }
@@ -74,7 +74,7 @@ public final class Definitions {
                     }
                 }
             }
-        } catch (IOException|NoClassDefFoundError|ClassNotFoundException e) {
+        } catch (IOException | NoClassDefFoundError | ClassNotFoundException e) {
             throw new IllegalArgumentException(e);
         }
 
