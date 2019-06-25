@@ -39,7 +39,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class RoutesLoadersCommonTest {
     @ParameterizedTest
     @MethodSource("parameters")
-    void testLoaders(String location, Class<? extends RoutesLoader> type) throws Exception{
+    public void testLoaders(String location, Class<? extends RoutesLoader> type) throws Exception {
         Source source = Source.create(location);
         RoutesLoader loader = RuntimeSupport.loaderFor(new DefaultCamelContext(), source);
         RouteBuilder builder = loader.load(new DefaultCamelContext(), source);

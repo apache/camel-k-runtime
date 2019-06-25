@@ -64,7 +64,7 @@ public class XmlLoader implements RoutesLoader {
                         LOGGER.debug("Loaded {} rests from {}", definition.getRests().size(), source);
 
                         setRestCollection(definition);
-                    } catch(IllegalArgumentException e) {
+                    } catch (IllegalArgumentException e) {
                         // ignore
                     } catch (UnmarshalException e) {
                         LOGGER.debug("Unable to load RestsDefinition: {}", e.getMessage());

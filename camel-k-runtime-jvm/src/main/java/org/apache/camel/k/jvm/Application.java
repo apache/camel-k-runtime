@@ -21,7 +21,7 @@ import java.util.ServiceLoader;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.support.PropertiesSupport;
 
-public class Application {
+public final class Application {
     static {
         //
         // Configure the logging subsystem log4j2 using a subset of spring boot
@@ -32,6 +32,9 @@ public class Application {
         // We now support setting the logging level only
         //
         ApplicationSupport.configureLogging();
+    }
+
+    private Application() {
     }
 
     public static void main(String[] args) throws Exception {
