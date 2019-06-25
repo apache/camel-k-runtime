@@ -19,7 +19,10 @@ package org.apache.camel.component.knative.http;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 
-public class KnativeHttpMain {
+public final class KnativeHttpMain {
+    private KnativeHttpMain() {
+    }
+
     public static void main(String[] args) throws Exception {
         DefaultCamelContext context = new DefaultCamelContext();
 
