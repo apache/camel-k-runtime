@@ -26,7 +26,7 @@ class ComponentsConfiguration {
         this.context = context
     }
 
-    def component(String name, Closure<?> callable) {
+    def component(String name, @DelegatesTo(ComponentConfiguration) Closure<?> callable) {
         def component = context.getComponent(name, true, false)
 
         callable.resolveStrategy = Closure.DELEGATE_FIRST
@@ -34,7 +34,7 @@ class ComponentsConfiguration {
         callable.call()
     }
 
-    def component(String name, Class<? extends Component> type, Closure <?> callable) {
+    def component(String name, Class<? extends Component> type, @DelegatesTo(ComponentConfiguration) Closure <?> callable) {
         def component = context.getComponent(name, true, false)
 
         // if the component is not found, let's create a new one. This is
