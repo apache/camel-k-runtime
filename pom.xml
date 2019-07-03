@@ -54,7 +54,6 @@
         <semver4j.version>2.2.0</semver4j.version>
         <undertow.version>1.4.26.Final</undertow.version>
         <gmavenplus-plugin.version>1.6.1</gmavenplus-plugin.version>
-        <fabric8-maven-plugin.version>3.5.42</fabric8-maven-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <maven-remote-resources-plugin.version>1.5</maven-remote-resources-plugin.version>
@@ -95,11 +94,6 @@
     <build>
         <pluginManagement>
             <plugins>
-                <plugin>
-                    <groupId>io.fabric8</groupId>
-                    <artifactId>fabric8-maven-plugin</artifactId>
-                    <version>${fabric8-maven-plugin.version}</version>
-                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
