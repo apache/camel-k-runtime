@@ -22,7 +22,7 @@ import org.apache.camel.Predicate
 import org.apache.camel.Processor
 import org.apache.camel.builder.RouteBuilder
 import org.apache.camel.k.jvm.dsl.Components
-import org.apache.camel.model.RouteDefinition
+import org.apache.camel.model.ProcessorDefinition
 import org.apache.camel.spi.Registry
 
 class IntegrationConfiguration {
@@ -38,23 +38,23 @@ class IntegrationConfiguration {
         this.builder = builder
     }
 
-    def context(Closure<?> callable) {
+    def context(@DelegatesTo(ContextConfiguration) Closure<?> callable) {
         callable.resolveStrategy = Closure.DELEGATE_FIRST
         callable.delegate = new ContextConfiguration(context)
         callable.call()
     }
 
-    def rest(Closure<?> callable) {
+    def rest(@DelegatesTo(RestConfiguration) Closure<?> callable) {
         callable.resolveStrategy = Closure.DELEGATE_FIRST
         callable.delegate = new RestConfiguration(builder)
         callable.call()
     }
 
-    RouteDefinition from(String endpoint) {
+    ProcessorDefinition from(String endpoint) {
         return builder.from(endpoint)
     }
 
-    def processor(Closure<?> callable) {
+    def processor(@DelegatesTo(Exchange) Closure<?> callable) {
         return new Processor() {
             @Override
             void process(Exchange exchange) throws Exception {
@@ -64,7 +64,7 @@ class IntegrationConfiguration {
         }
     }
 
-    def predicate(Closure<?> callable) {
+    def predicate(@DelegatesTo(Exchange) Closure<?> callable) {
         return new Predicate() {
             @Override
             boolean matches(Exchange exchange) throws Exception {

@@ -17,6 +17,8 @@
 package org.apache.camel.k.groovy.dsl
 
 import org.apache.camel.builder.RouteBuilder
+import org.apache.camel.model.rest.RestConfigurationDefinition
+import org.apache.camel.model.rest.RestDefinition
 
 class RestConfiguration {
     private final RouteBuilder builder
@@ -25,19 +27,19 @@ class RestConfiguration {
         this.builder = builder
     }
 
-    def configuration(Closure<?> callable) {
+    def configuration(@DelegatesTo(RestConfigurationDefinition) Closure<?> callable) {
         callable.resolveStrategy = Closure.DELEGATE_FIRST
         callable.delegate = builder.restConfiguration()
         callable.call()
     }
 
-    def configuration(String component, Closure<?> callable) {
+    def configuration(String component, @DelegatesTo(RestConfigurationDefinition) Closure<?> callable) {
         callable.resolveStrategy = Closure.DELEGATE_FIRST
         callable.delegate = builder.restConfiguration(component)
         callable.call()
     }
 
-    def path(String path, Closure<?> callable) {
+    def path(String path, @DelegatesTo(RestDefinition) Closure<?> callable) {
         callable.resolveStrategy = Closure.DELEGATE_FIRST
         callable.delegate = builder.rest(path)
         callable.call()
