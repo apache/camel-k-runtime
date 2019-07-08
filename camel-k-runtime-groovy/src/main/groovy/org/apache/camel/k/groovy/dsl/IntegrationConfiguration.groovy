@@ -16,23 +16,22 @@
  */
 package org.apache.camel.k.groovy.dsl
 
-import org.apache.camel.CamelContext
 import org.apache.camel.Exchange
 import org.apache.camel.Predicate
 import org.apache.camel.Processor
 import org.apache.camel.builder.RouteBuilder
 import org.apache.camel.k.jvm.dsl.Components
-import org.apache.camel.model.ProcessorDefinition
+import org.apache.camel.model.*
 import org.apache.camel.spi.Registry
 
-class IntegrationConfiguration {
-    final CamelContext context
+class IntegrationConfiguration extends org.apache.camel.builder.BuilderSupport {
     final Registry registry
     final Components components
     final RouteBuilder builder
 
     IntegrationConfiguration(RouteBuilder builder) {
-        this.context = builder.getContext()
+        super(builder.context)
+
         this.registry = this.context.registry
         this.components = new Components(this.context)
         this.builder = builder
@@ -48,10 +47,6 @@ class IntegrationConfiguration {
         callable.resolveStrategy = Closure.DELEGATE_FIRST
         callable.delegate = new RestConfiguration(builder)
         callable.call()
-    }
-
-    ProcessorDefinition from(String endpoint) {
-        return builder.from(endpoint)
     }
 
     def processor(@DelegatesTo(Exchange) Closure<?> callable) {
@@ -72,5 +67,33 @@ class IntegrationConfiguration {
                 return callable.call(exchange)
             }
         }
+    }
+
+    ProcessorDefinition from(String endpoint) {
+        return builder.from(endpoint)
+    }
+
+    OnExceptionDefinition onException(Class<? extends Throwable> exception) {
+        return builder.onException(exception)
+    }
+
+    OnCompletionDefinition onCompletion() {
+        return builder.onCompletion()
+    }
+
+    InterceptDefinition intercept() {
+        return builder.intercept()
+    }
+
+    InterceptFromDefinition interceptFrom() {
+        return builder.interceptFrom()
+    }
+
+    InterceptFromDefinition interceptFrom(String uri) {
+        return builder.interceptFrom(uri)
+    }
+
+    InterceptSendToEndpointDefinition interceptSendToEndpoint(String uri) {
+        return builder.interceptSendToEndpoint(uri)
     }
 }
