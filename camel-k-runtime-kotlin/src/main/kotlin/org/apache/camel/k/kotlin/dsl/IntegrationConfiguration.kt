@@ -20,9 +20,12 @@ import org.apache.camel.Exchange
 import org.apache.camel.Predicate
 import org.apache.camel.Processor
 import org.apache.camel.builder.RouteBuilder
+import org.apache.camel.k.kotlin.KamelKtsConfigurator
 import org.apache.camel.model.RouteDefinition
 import org.apache.camel.spi.Registry
+import kotlin.script.experimental.annotations.KotlinScript
 
+@KotlinScript(fileExtension = "kts", compilationConfiguration = KamelKtsConfigurator::class)
 abstract class IntegrationConfiguration(
         private val registry : Registry,
         private val builder : RouteBuilder) {

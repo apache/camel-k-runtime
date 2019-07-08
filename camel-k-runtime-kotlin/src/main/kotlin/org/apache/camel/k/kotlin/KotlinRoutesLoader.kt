@@ -27,11 +27,26 @@ import org.slf4j.LoggerFactory
 import java.io.InputStreamReader
 import kotlin.script.experimental.api.*
 import kotlin.script.experimental.host.toScriptSource
+import kotlin.script.experimental.jvm.BasicJvmScriptEvaluator
 import kotlin.script.experimental.jvm.dependenciesFromClassloader
 import kotlin.script.experimental.jvm.jvm
-import kotlin.script.experimental.jvm.BasicJvmScriptEvaluator
 import kotlin.script.experimental.jvmhost.BasicJvmScriptingHost
 import kotlin.script.experimental.jvmhost.JvmScriptCompiler
+import kotlin.script.experimental.jvmhost.createJvmCompilationConfigurationFromTemplate
+
+class KamelKtsConfigurator : ScriptCompilationConfiguration(
+{
+    jvm {
+        //
+        // The Kotlin script compiler does not inherit
+        // the classpath by default
+        //
+        dependenciesFromClassloader(wholeClasspath = true)
+    }
+    ide {
+        acceptedLocations(ScriptAcceptedLocation.Everywhere)
+    }
+})
 
 class KotlinRoutesLoader : RoutesLoader {
     companion object {
@@ -51,20 +66,12 @@ class KotlinRoutesLoader : RoutesLoader {
                 val compiler = JvmScriptCompiler()
                 val evaluator = BasicJvmScriptEvaluator()
                 val host = BasicJvmScriptingHost(compiler = compiler, evaluator = evaluator)
+                val config = createJvmCompilationConfigurationFromTemplate<IntegrationConfiguration>()
 
                 URIResolver.resolve(context, source).use { `is` ->
                     val result = host.eval(
                         InputStreamReader(`is`).readText().toScriptSource(),
-                        ScriptCompilationConfiguration {
-                            baseClass(IntegrationConfiguration::class)
-                            jvm {
-                                //
-                                // The Kotlin script compiler does not inherit
-                                // the classpath by default
-                                //
-                                dependenciesFromClassloader(wholeClasspath = true)
-                            }
-                        },
+                        config,
                         ScriptEvaluationConfiguration {
                             //
                             // Arguments used to initialize the script base class
