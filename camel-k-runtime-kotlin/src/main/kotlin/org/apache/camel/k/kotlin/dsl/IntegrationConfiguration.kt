@@ -21,14 +21,14 @@ import org.apache.camel.Predicate
 import org.apache.camel.Processor
 import org.apache.camel.builder.RouteBuilder
 import org.apache.camel.k.kotlin.KamelKtsConfigurator
-import org.apache.camel.model.RouteDefinition
+import org.apache.camel.model.*
 import org.apache.camel.spi.Registry
 import kotlin.script.experimental.annotations.KotlinScript
 
 @KotlinScript(fileExtension = "kts", compilationConfiguration = KamelKtsConfigurator::class)
 abstract class IntegrationConfiguration(
         private val registry : Registry,
-        private val builder : RouteBuilder) {
+        private val builder : RouteBuilder) : org.apache.camel.builder.BuilderSupport(builder.context) {
 
     fun rest(block: RestConfiguration.() -> Unit) {
         val delegate = RestConfiguration(builder)
@@ -37,15 +37,11 @@ abstract class IntegrationConfiguration(
 
     fun context(block: ContextConfiguration.() -> Unit) {
         val delegate = ContextConfiguration(
-            context  = builder.context,
+            context  = context,
             registry = registry
         )
 
         delegate.block()
-    }
-
-    fun from(uri: String): RouteDefinition {
-        return builder.from(uri)
     }
 
     fun processor(fn: (Exchange) -> Unit) : Processor {
@@ -53,5 +49,34 @@ abstract class IntegrationConfiguration(
     }
     fun predicate(fn: (Exchange) -> Boolean) : Predicate {
         return Predicate { exchange -> fn(exchange) }
+    }
+
+    fun from(uri: String): RouteDefinition {
+        return builder.from(uri)
+    }
+
+
+    fun intercept() : InterceptDefinition {
+        return builder.intercept()
+    }
+
+    fun onException(exception: Class<out Throwable>) : OnExceptionDefinition {
+        return builder.onException(exception)
+    }
+
+    fun onCompletion() : OnCompletionDefinition {
+        return builder.onCompletion()
+    }
+
+    fun interceptFrom() : InterceptFromDefinition {
+        return builder.interceptFrom()
+    }
+
+    fun interceptFrom(uri: String) : InterceptFromDefinition{
+        return builder.interceptFrom(uri)
+    }
+
+    fun interceptSendToEndpoint(uri: String) : InterceptSendToEndpointDefinition {
+        return builder.interceptSendToEndpoint(uri)
     }
 }

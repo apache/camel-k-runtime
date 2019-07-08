@@ -23,6 +23,7 @@ import org.apache.camel.k.Runtime
 import org.apache.camel.k.jvm.ApplicationRuntime
 import org.apache.camel.k.listener.RoutesConfigurer
 import org.apache.camel.model.ModelCamelContext
+import org.apache.camel.processor.FatalFallbackErrorHandler
 import org.apache.camel.spi.ExchangeFormatter
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -87,5 +88,26 @@ class IntegrationTest {
         assertThat(mySedaSize.get()).isEqualTo(4321)
         assertThat(mySedaConsumers.get()).isEqualTo(21)
         assertThat(format.get()).isNotNull
+    }
+
+    @Test
+    fun `load integration with error handler`() {
+        var onExceptions = mutableListOf<Processor>()
+
+        var runtime = ApplicationRuntime()
+        runtime.addListener(RoutesConfigurer.forRoutes("classpath:routes-with-error-handler.kts"))
+        runtime.addListener(Runtime.Phase.Started) {
+            assertThat(it.camelContext.routes).hasSize(1)
+            assertThat(it.camelContext.routes[0].routeContext.getOnException("my-on-exception")).isNotNull
+
+            onExceptions.add(it.camelContext.routes[0].routeContext.getOnException("my-on-exception"))
+
+            runtime.stop()
+        }
+
+        runtime.run()
+
+        assertThat(onExceptions).hasSize(1)
+        assertThat(onExceptions).first().isInstanceOf(FatalFallbackErrorHandler::class.java)
     }
 }
