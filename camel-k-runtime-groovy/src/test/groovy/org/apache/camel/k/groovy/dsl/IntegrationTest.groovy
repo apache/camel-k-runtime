@@ -22,6 +22,9 @@ import org.apache.camel.component.seda.SedaComponent
 import org.apache.camel.k.Runtime
 import org.apache.camel.k.jvm.ApplicationRuntime
 import org.apache.camel.k.listener.RoutesConfigurer
+import org.apache.camel.processor.FatalFallbackErrorHandler
+import org.apache.camel.processor.SendProcessor
+import org.apache.camel.processor.channel.DefaultChannel
 import spock.lang.Specification
 
 import java.util.concurrent.atomic.AtomicInteger
@@ -86,13 +89,37 @@ class IntegrationTest extends Specification {
                 runtime.stop()
             })
 
-        runtime.run()
-
+            runtime.run()
         then:
-        sedaSize == 1234
-        sedaConsumers == 12
-        mySedaSize == 4321
-        mySedaConsumers == 21
-        format != null
+            sedaSize == 1234
+            sedaConsumers == 12
+            mySedaSize == 4321
+            mySedaConsumers == 21
+            format != null
+    }
+
+    def "load integration with error handler"()  {
+        given:
+            def onExceptions = []
+        when:
+            def runtime = new ApplicationRuntime()
+            runtime.addListener(RoutesConfigurer.forRoutes('classpath:routes-with-error-handler.groovy'))
+            runtime.addListener(Runtime.Phase.Started, {
+                it.camelContext.routes?.size() == 1
+                it.camelContext.routes[0].routeContext.getOnException('my-on-exception') != null
+
+                onExceptions << it.camelContext.routes[0].routeContext.getOnException('my-on-exception')
+
+                runtime.stop()
+            })
+            runtime.run()
+        then:
+            onExceptions.size() == 1
+            onExceptions[0] instanceof FatalFallbackErrorHandler
+
+            def eh = onExceptions[0] as FatalFallbackErrorHandler
+            def ch = eh.processor as DefaultChannel
+
+            ch.output instanceof SendProcessor
     }
 }
