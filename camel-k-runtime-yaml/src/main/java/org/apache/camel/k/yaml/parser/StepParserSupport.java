@@ -31,6 +31,7 @@ public final class StepParserSupport {
     private StepParserSupport() {
     }
 
+    @SuppressWarnings("unchecked")
     public static <T extends ProcessorDefinition<?>, I> T adaptProcessorToSuper(CamelContext context, I instance) {
         ObjectHelper.notNull(context, "camel context");
         ObjectHelper.notNull(instance, "instance");
@@ -38,6 +39,7 @@ public final class StepParserSupport {
         return adaptProcessor(context, (Class<T>)instance.getClass().getSuperclass(), instance);
     }
 
+    @SuppressWarnings("unchecked")
     public static <T extends ProcessorDefinition<?>, I> T adaptProcessor(CamelContext context, Class<T> type, I instance) {
         ObjectHelper.notNull(context, "camel context");
         ObjectHelper.notNull(type, "type");
