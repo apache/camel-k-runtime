@@ -41,7 +41,6 @@ public class YamlRoutesLoader implements RoutesLoader {
         return Collections.singletonList("yaml");
     }
 
-    @SuppressWarnings("uncheked")
     @Override
     public RouteBuilder load(CamelContext camelContext, Source source) throws Exception {
         return builder(URIResolver.resolve(camelContext, source));
