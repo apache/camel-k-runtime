@@ -16,7 +16,6 @@
  */
 package org.apache.camel.k.yaml.parser;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.SetHeaderDefinition;
 
@@ -31,11 +30,6 @@ public class SetHeaderStepParser implements ProcessorStepParser {
     }
 
     public static final class Definition extends SetHeaderDefinition implements HasExpression {
-        @JsonAlias("name")
-        @Override
-        public void setHeaderName(String headerName) {
-            super.setHeaderName(headerName);
-        }
     }
 }
 

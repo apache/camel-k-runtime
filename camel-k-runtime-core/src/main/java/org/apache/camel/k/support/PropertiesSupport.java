@@ -25,9 +25,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.properties.PropertiesComponent;
@@ -40,38 +41,20 @@ public final class PropertiesSupport {
     private PropertiesSupport() {
     }
 
-    public static int bindProperties(CamelContext context, Object target, String prefix) {
+    public static boolean bindProperties(CamelContext context, Object target, String prefix) {
         final PropertiesComponent component = context.getComponent("properties", PropertiesComponent.class);
         final Properties properties = component.loadProperties();
 
         if (properties == null) {
-            return 0;
+            return false;
         }
 
-        return bindProperties(context, properties, target, prefix);
-    }
+        Map<String, Object> props = new HashMap<>();
+        for (String key : properties.stringPropertyNames()) {
+            props.put(key, properties.get(key));
+        }
 
-    public static int bindProperties(CamelContext context, Properties properties, Object target, String prefix) {
-        final AtomicInteger count = new AtomicInteger();
-
-        properties.entrySet().stream()
-            .filter(entry -> entry.getKey() instanceof String)
-            .filter(entry -> entry.getValue() != null)
-            .filter(entry -> ((String)entry.getKey()).startsWith(prefix))
-            .forEach(entry -> {
-                final String key = ((String)entry.getKey()).substring(prefix.length());
-                final Object val = entry.getValue();
-
-                try {
-                    if (PropertyBindingSupport.bindProperty(context, target, key, val)) {
-                        count.incrementAndGet();
-                    }
-                } catch (Exception ex) {
-                    throw new RuntimeException(ex);
-                }
-            });
-
-        return count.get();
+        return PropertyBindingSupport.bindProperties(context, target, props, prefix);
     }
 
     public static Properties loadProperties() {
