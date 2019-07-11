@@ -37,14 +37,12 @@ public final class Definitions {
     private Definitions() {
     }
 
-    @SuppressWarnings("unchecked")
     public static Map<String, Class<? extends DataFormatDefinition>> dataFormatDefinition() {
         Map<String, Class<? extends DataFormatDefinition>> definitions = loadDefinitionFromJaxbIndex("org.apache.camel.model.dataformat");
 
         return Collections.unmodifiableMap(definitions);
     }
 
-    @SuppressWarnings("unchecked")
     public static Map<String, Class<? extends ExpressionDefinition>> expressionDefinition() {
         Map<String, Class<? extends ExpressionDefinition>> definitions = loadDefinitionFromJaxbIndex("org.apache.camel.model.language");
 
