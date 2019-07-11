@@ -30,11 +30,11 @@ class SetPropertyTest extends TestSupport {
         when:
             def processor = new SetPropertyStepParser().toProcessor(stepContext)
         then:
-            def p = processor as SetPropertyDefinition
-
-            p.propertyName == 'test'
-            p.expression.language == 'simple'
-            p.expression.expression == '${body}'
+            with(processor, SetPropertyDefinition) {
+                name == 'test'
+                expression.language == 'simple'
+                expression.expression == '${body}'
+            }
     }
 
     def "definition with expression block"() {
@@ -48,7 +48,7 @@ class SetPropertyTest extends TestSupport {
             def processor = new SetPropertyStepParser().toProcessor(stepContext)
         then:
             with(processor, SetPropertyDefinition) {
-                propertyName == 'test'
+                name == 'test'
                 expression.language == 'simple'
                 expression.expression == '${body}'
             }

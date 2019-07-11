@@ -17,7 +17,6 @@
 package org.apache.camel.k.tooling.maven;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -29,6 +28,7 @@ import java.util.Objects;
 import java.util.ServiceLoader;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.regex.Pattern;
 import java.util.stream.StreamSupport;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -54,7 +54,6 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
-import org.apache.maven.shared.utils.io.IOUtil;
 
 @Mojo(
     name = "generate-catalog",
@@ -167,6 +166,12 @@ public class GenerateCatalogMojo extends AbstractMojo {
     private void processComponents(org.apache.camel.catalog.CamelCatalog catalog, Map<String, CamelArtifact> artifacts) {
         for (String name : catalog.findComponentNames()) {
             String json = catalog.componentJSonSchema(name);
+
+            if ("rest-swagger".equalsIgnoreCase(name)) {
+                // TODO: workaround for https://issues.apache.org/jira/browse/CAMEL-13588
+                json = json.replaceAll(Pattern.quote("\\h"), "h");
+            }
+
             CatalogComponentDefinition definition = CatalogSupport.unmarshallComponent(json);
 
             artifacts.compute(definition.getArtifactId(), (key, artifact) -> {

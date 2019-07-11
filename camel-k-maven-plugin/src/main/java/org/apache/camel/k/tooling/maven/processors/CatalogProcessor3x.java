@@ -93,7 +93,9 @@ public class CatalogProcessor3x implements CatalogProcessor {
             artifact.setGroupId("org.apache.camel.k");
             artifact.setArtifactId("camel-k-runtime-jvm");
             artifact.setVersion(project.getVersion());
-            artifact.addDependency("org.apache.camel", "camel-core");
+            artifact.addDependency("org.apache.camel", "camel-core-engine");
+            artifact.addDependency("org.apache.camel", "camel-main");
+            artifact.addDependency("org.apache.camel", "camel-properties");
 
             artifacts.put(artifact.getArtifactId(), artifact);
         }
@@ -198,6 +200,26 @@ public class CatalogProcessor3x implements CatalogProcessor {
 
         // ************************
         //
+        // camel-http4
+        //
+        // ************************
+
+        {
+            CamelArtifact artifact = new CamelArtifact();
+            artifact.setGroupId("org.apache.camel.k");
+            artifact.setArtifactId("camel-k-runtime-knative");
+            artifact.addDependency("org.apache.camel.k", "camel-k-runtime-yaml");
+            artifact.addDependency("org.apache.camel.k", "camel-knative");
+            artifact.addDependency("org.apache.camel.k", "camel-knative-http");
+            artifact.addDependency("org.apache.camel", "camel-netty4-http");
+
+            artifacts.put(artifact.getArtifactId(), artifact);
+
+
+        }
+
+        // ************************
+        //
         //
         //
         // ************************
@@ -208,5 +230,16 @@ public class CatalogProcessor3x implements CatalogProcessor {
         for (String scheme: KNOWN_PASSIVE_URIS) {
             artifacts.values().forEach(artifact -> artifact.getScheme(scheme).ifPresent(s -> s.setPassive(true)));
         }
+
+        // ************************
+        //
+        //
+        //
+        // ************************
+
+        artifacts.computeIfPresent("camel-http4", (key, artifact) -> {
+            artifact.addDependency("org.apache.camel", "camel-file");
+            return artifact;
+        });
     }
 }

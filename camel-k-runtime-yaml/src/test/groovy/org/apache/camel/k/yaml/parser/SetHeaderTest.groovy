@@ -31,7 +31,7 @@ class SetHeaderTest extends TestSupport {
             def processor = new SetHeaderStepParser().toProcessor(stepContext)
         then:
             with(processor, SetHeaderDefinition) {
-                headerName == 'test'
+                name == 'test'
                 expression.language == 'simple'
                 expression.expression == '${body}'
             }
@@ -48,7 +48,7 @@ class SetHeaderTest extends TestSupport {
             def processor = new SetHeaderStepParser().toProcessor(stepContext)
         then:
             with(processor, SetHeaderDefinition) {
-                headerName == 'test'
+                name == 'test'
                 expression.language == 'simple'
                 expression.expression == '${body}'
             }

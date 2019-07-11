@@ -22,6 +22,7 @@ import java.util.Objects;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.k.yaml.model.Step;
+import org.apache.camel.model.OutputNode;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.support.IntrospectionSupport;
 import org.apache.camel.support.PropertyBindingSupport;
@@ -83,7 +84,7 @@ public final class StepParserSupport {
 
             current.addOutput(child);
 
-            if (child.isOutputSupported() && child.getOutputs().isEmpty()) {
+            if (child instanceof OutputNode && child.getOutputs().isEmpty()) {
                 current = child;
             }
         }
