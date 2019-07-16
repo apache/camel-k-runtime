@@ -83,20 +83,6 @@ public class CatalogProcessor3Test extends AbstractCataloProcessorTest {
         assertThat(processor.accepts(catalog)).isTrue();
         processor.process(new MavenProject(), catalog, artifactMap);
 
-
-        assertThat(artifactMap.get("camel-k-runtime-jvm")).satisfies(a -> {
-            assertThat(a.getDependencies()).anyMatch(
-                d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-core-engine")
-            );
-            assertThat(a.getDependencies()).anyMatch(
-                d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-properties")
-            );
-        });
-        assertThat(artifactMap.get("camel-k-runtime-groovy")).satisfies(a -> {
-            assertThat(a.getDependencies()).anyMatch(
-                d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-groovy")
-            );
-        });
         assertThat(artifactMap.get("camel-k-runtime-health")).satisfies(a -> {
             assertThat(a.getDependencies()).anyMatch(
                 d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-servlet")
@@ -110,6 +96,7 @@ public class CatalogProcessor3Test extends AbstractCataloProcessorTest {
                 d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-servlet")
             );
         });
+
         assertThat(artifactMap.get("camel-k-runtime-knative")).satisfies(a -> {
             assertThat(a.getDependencies()).anyMatch(
                 d -> d.getGroupId().equals("org.apache.camel.k") && d.getArtifactId().equals("camel-knative")
@@ -118,7 +105,7 @@ public class CatalogProcessor3Test extends AbstractCataloProcessorTest {
                 d -> d.getGroupId().equals("org.apache.camel.k") && d.getArtifactId().equals("camel-knative-http")
             );
             assertThat(a.getDependencies()).anyMatch(
-                d -> d.getGroupId().equals("org.apache.camel.k") && d.getArtifactId().equals("camel-k-runtime-yaml")
+                d -> d.getGroupId().equals("org.apache.camel.k") && d.getArtifactId().equals("camel-k-loader-yaml")
             );
             assertThat(a.getDependencies()).anyMatch(
                 d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-netty4-http")
@@ -134,6 +121,34 @@ public class CatalogProcessor3Test extends AbstractCataloProcessorTest {
         assertThat(artifactMap.get("camel-http4")).satisfies(a -> {
             assertThat(a.getDependencies()).anyMatch(
                 d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-file")
+            );
+        });
+    }
+
+    @Test
+    public void testLegacyArtifactsEnrichment() {
+        CatalogProcessor processor = new CatalogProcessor3x();
+        CamelCatalog catalog = versionCamelCatalog("3.0.0");
+        Map<String, CamelArtifact> artifactMap = new HashMap<>();
+        artifactMap.put("camel-http4", new CamelArtifact());
+
+        assertThat(processor.accepts(catalog)).isTrue();
+        processor.process(new MavenProject(), catalog, artifactMap);
+
+
+        assertThat(artifactMap.get("camel-k-runtime-jvm")).satisfies(a -> {
+            assertThat(a.getDependencies()).anyMatch(
+                d -> d.getGroupId().equals("org.apache.camel.k") && d.getArtifactId().equals("camel-k-runtime-main")
+            );
+        });
+        assertThat(artifactMap.get("camel-k-runtime-groovy")).satisfies(a -> {
+            assertThat(a.getDependencies()).anyMatch(
+                d -> d.getGroupId().equals("org.apache.camel.k") && d.getArtifactId().equals("camel-k-loader-groovy")
+            );
+        });
+        assertThat(artifactMap.get("camel-k-runtime-kotlin")).satisfies(a -> {
+            assertThat(a.getDependencies()).anyMatch(
+                d -> d.getGroupId().equals("org.apache.camel.k") && d.getArtifactId().equals("camel-k-loader-kotlin")
             );
         });
     }

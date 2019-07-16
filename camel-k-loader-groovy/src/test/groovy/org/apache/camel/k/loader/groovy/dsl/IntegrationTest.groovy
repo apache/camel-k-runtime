@@ -20,8 +20,8 @@ import org.apache.camel.Processor
 import org.apache.camel.component.log.LogComponent
 import org.apache.camel.component.seda.SedaComponent
 import org.apache.camel.k.Runtime
-import org.apache.camel.k.jvm.ApplicationRuntime
 import org.apache.camel.k.listener.RoutesConfigurer
+import org.apache.camel.k.main.ApplicationRuntime
 import org.apache.camel.processor.FatalFallbackErrorHandler
 import org.apache.camel.processor.SendProcessor
 import org.apache.camel.processor.channel.DefaultChannel

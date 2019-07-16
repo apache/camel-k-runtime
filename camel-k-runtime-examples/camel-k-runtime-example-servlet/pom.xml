@@ -53,7 +53,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-runtime-jvm</artifactId>
+            <artifactId>camel-k-runtime-main</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
