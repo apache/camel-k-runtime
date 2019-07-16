@@ -112,7 +112,7 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-runtime-jvm</artifactId>
+                <artifactId>camel-k-runtime-main</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -178,6 +178,11 @@
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-runtime-yaml</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-runtime-jvm</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
