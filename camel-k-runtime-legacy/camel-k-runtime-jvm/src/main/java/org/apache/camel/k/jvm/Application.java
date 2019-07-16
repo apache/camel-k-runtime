@@ -14,33 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.main;
+package org.apache.camel.k.jvm;
 
-import java.util.ServiceLoader;
-
-import org.apache.camel.k.Runtime;
-import org.apache.camel.k.support.PropertiesSupport;
+import org.slf4j.LoggerFactory;
 
 public final class Application {
-    static {
-        //
-        // Configure the logging subsystem log4j2 using a subset of spring boot
-        // conventions:
-        //
-        //    logging.level.${nane} = OFF|FATAL|ERROR|WARN|INFO|DEBUG|TRACE|ALL
-        //
-        // We now support setting the logging level only
-        //
-        ApplicationSupport.configureLogging();
-    }
-
     private Application() {
     }
-    
+
     public static void main(String[] args) throws Exception {
-        ApplicationRuntime runtime = new ApplicationRuntime();
-        runtime.setProperties(PropertiesSupport.loadProperties());
-        runtime.addListeners(ServiceLoader.load(Runtime.Listener.class));
-        runtime.run();
+        LoggerFactory.getLogger(Application.class).warn("Legacy Camel K runtime detected");
+
+        org.apache.camel.k.main.Application.main(args);
     }
 }
