@@ -23,9 +23,9 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.camel.component.knative.Knative;
-import org.apache.camel.k.yaml.parser.ProcessorStepParser;
-import org.apache.camel.k.yaml.parser.StartStepParser;
-import org.apache.camel.k.yaml.parser.StepParserSupport;
+import org.apache.camel.k.loader.yaml.parser.ProcessorStepParser;
+import org.apache.camel.k.loader.yaml.parser.StartStepParser;
+import org.apache.camel.k.loader.yaml.parser.StepParserSupport;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.model.ToDefinition;
@@ -58,7 +58,7 @@ public class KnativeStepParser implements ProcessorStepParser, StartStepParser {
         public Knative.Type type;
         public String name;
         public Map<String, Object> parameters;
-        public List<org.apache.camel.k.yaml.model.Step> steps;
+        public List<org.apache.camel.k.loader.yaml.model.Step> steps;
 
         @JsonIgnore
         public String getEndpointUri() {
