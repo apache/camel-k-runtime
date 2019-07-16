@@ -25,12 +25,13 @@ import org.apache.camel.k.listener.ContextConfigurer;
 import org.apache.camel.k.listener.RoutesConfigurer;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.util.ObjectHelper;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
 public class RuntimeTest {
-
+    @Disabled
     @Test
     void testLoadMultipleRoutes() throws Exception {
         ApplicationRuntime runtime = new ApplicationRuntime();
@@ -55,7 +56,7 @@ public class RuntimeTest {
         }
     }
 
-
+    @Disabled
     @Test
     void testLoadRouteAndRest() throws Exception {
         ApplicationRuntime runtime = new ApplicationRuntime();

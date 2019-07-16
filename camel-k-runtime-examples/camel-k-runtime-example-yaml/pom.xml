@@ -53,15 +53,11 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-runtime-groovy</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.k</groupId>
             <artifactId>camel-k-runtime-servlet</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-runtime-yaml</artifactId>
+            <artifactId>camel-k-loader-yaml</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
