@@ -17,7 +17,7 @@
 package org.apache.camel.k.loader.js;
 
 import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
 
@@ -25,16 +25,18 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.k.RoutesLoader;
 import org.apache.camel.k.Source;
-import org.apache.camel.k.loader.js.dsl.Components;
+import org.apache.camel.k.loader.js.dsl.IntegrationConfiguration;
 import org.apache.camel.k.support.URIResolver;
+import org.apache.commons.io.IOUtils;
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.Value;
-import org.graalvm.polyglot.proxy.ProxyExecutable;
 
 public class JavaScriptRoutesLoader implements RoutesLoader {
+    private static final String LANGUAGE_ID = "js";
+
     @Override
     public List<String> getSupportedLanguages() {
-        return Collections.singletonList("js");
+        return Collections.singletonList(LANGUAGE_ID);
     }
 
     @Override
@@ -45,22 +47,15 @@ public class JavaScriptRoutesLoader implements RoutesLoader {
                 final CamelContext context = getContext();
 
                 try (Context ctx = createPolyglotContext(); InputStream is = URIResolver.resolve(context, source)) {
-                    Value bindings = ctx.getBindings("js");
-                    bindings.putMember("builder", this);
-                    bindings.putMember("context", context);
-                    bindings.putMember("components", new Components(context));
-                    bindings.putMember("registry", context.getRegistry());
+                    Value bindings = ctx.getBindings(LANGUAGE_ID);
 
-                    bindings.putMember("from", (ProxyExecutable) args -> from(args[0].asString()));
-                    bindings.putMember("rest", (ProxyExecutable) args -> rest());
-                    bindings.putMember("restConfiguration", (ProxyExecutable) args -> restConfiguration());
+                    // configure bindings
+                    bindings.putMember("dsl", new IntegrationConfiguration(this));
 
-                    ctx.eval(
-                        org.graalvm.polyglot.Source.newBuilder(
-                            "js",
-                            new InputStreamReader(is), source.getName()
-                        ).build()
-                    );
+                    final String script = IOUtils.toString(is, StandardCharsets.UTF_8);
+                    final String wrappedScript = "with (dsl) { " + script + " }";
+
+                    ctx.eval(LANGUAGE_ID, wrappedScript);
                 }
             }
         };
