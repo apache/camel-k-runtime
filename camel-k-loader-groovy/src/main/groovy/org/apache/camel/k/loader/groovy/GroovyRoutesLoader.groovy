@@ -23,6 +23,7 @@ import org.apache.camel.k.Source
 import org.apache.camel.k.loader.groovy.dsl.IntegrationConfiguration
 import org.apache.camel.k.support.URIResolver
 import org.codehaus.groovy.control.CompilerConfiguration
+import org.codehaus.groovy.control.customizers.ImportCustomizer
 
 
 class GroovyRoutesLoader implements RoutesLoader {
@@ -36,7 +37,12 @@ class GroovyRoutesLoader implements RoutesLoader {
         return new RouteBuilder() {
             @Override
             void configure() throws Exception {
+                def ic = new ImportCustomizer()
+                ic.addStarImports('org.apache.camel')
+                ic.addStarImports('org.apache.camel.spi')
+
                 def cc = new CompilerConfiguration()
+                cc.addCompilationCustomizers(ic)
                 cc.setScriptBaseClass(DelegatingScript.class.getName())
 
                 def cl = Thread.currentThread().getContextClassLoader()
