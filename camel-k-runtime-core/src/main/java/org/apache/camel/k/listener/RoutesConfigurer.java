@@ -74,11 +74,7 @@ public class RoutesConfigurer extends AbstractPhaseListener {
 
             LOGGER.info("Loading routes from: {}", route);
 
-            try {
-                runtime.getCamelContext().addRoutes(builder);
-            } catch (Exception e) {
-                throw RuntimeCamelException.wrapRuntimeCamelException(e);
-            }
+            runtime.addRoutes(builder);
         }
     }
 

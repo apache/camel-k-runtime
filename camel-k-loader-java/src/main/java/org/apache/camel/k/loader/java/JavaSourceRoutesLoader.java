@@ -20,18 +20,14 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.k.RoutesLoader;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.support.URIResolver;
-import org.apache.camel.model.rest.RestConfigurationDefinition;
-import org.apache.camel.spi.RestConfiguration;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.joor.Reflect;
@@ -44,53 +40,14 @@ public class JavaSourceRoutesLoader implements RoutesLoader {
 
     @Override
     public RouteBuilder load(CamelContext camelContext, Source source) throws Exception {
-        return new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                final CamelContext context = getContext();
+        try (InputStream is = URIResolver.resolve(camelContext, source)) {
+            final String content = IOUtils.toString(is, StandardCharsets.UTF_8);
+            final String name = determineQualifiedName(source, content);
+            final Reflect compiled = Reflect.compile(name, content);
 
-                try (InputStream is = URIResolver.resolve(context, source)) {
-                    // compile the source in memory
-                    String content = IOUtils.toString(is, StandardCharsets.UTF_8);
-                    String name = determineQualifiedName(source, content);
-                    Reflect compiled = Reflect.compile(name, content);
-
-                    // create the builder
-                    RoutesBuilder builder = compiled.create().get();
-
-                    if (builder instanceof RouteBuilder) {
-                        RouteBuilder rb = (RouteBuilder) builder;
-
-                        rb.setContext(context);
-                        rb.configure();
-
-                        Map<String, RestConfigurationDefinition> configurations = rb.getRestConfigurations();
-
-                        //
-                        // TODO: RouteBuilder.getRestConfigurations() should not
-                        //       return null
-                        //
-                        if (configurations != null) {
-                            for (RestConfigurationDefinition definition : configurations.values()) {
-                                RestConfiguration conf = definition.asRestConfiguration(context);
-
-                                //
-                                // this is an hack to copy routes configuration
-                                // to the camel context
-                                //
-                                // TODO: fix RouteBuilder.includeRoutes to include
-                                //       rest configurations
-                                //
-                                context.addRestConfiguration(conf);
-                            }
-                        }
-
-                        setRouteCollection(rb.getRouteCollection());
-                        setRestCollection(rb.getRestCollection());
-                    }
-                }
-            }
-        };
+            RouteBuilder rb =  compiled.create().get();
+            return rb;
+        }
     }
 
     private static String determineQualifiedName(Source source, String content) throws Exception {
