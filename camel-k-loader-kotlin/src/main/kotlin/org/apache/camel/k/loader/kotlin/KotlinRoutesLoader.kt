@@ -34,20 +34,6 @@ import kotlin.script.experimental.jvmhost.BasicJvmScriptingHost
 import kotlin.script.experimental.jvmhost.JvmScriptCompiler
 import kotlin.script.experimental.jvmhost.createJvmCompilationConfigurationFromTemplate
 
-class KamelKtsConfigurator : ScriptCompilationConfiguration(
-{
-    jvm {
-        //
-        // The Kotlin script compiler does not inherit
-        // the classpath by default
-        //
-        dependenciesFromClassloader(wholeClasspath = true)
-    }
-    ide {
-        acceptedLocations(ScriptAcceptedLocation.Everywhere)
-    }
-})
-
 class KotlinRoutesLoader : RoutesLoader {
     companion object {
         val LOGGER : Logger = LoggerFactory.getLogger(KotlinRoutesLoader::class.java)
