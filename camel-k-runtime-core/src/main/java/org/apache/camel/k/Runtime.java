@@ -20,6 +20,8 @@ import java.util.Properties;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Ordered;
+import org.apache.camel.RoutesBuilder;
+import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.component.properties.PropertiesComponent;
 import org.apache.camel.spi.HasCamelContext;
 import org.apache.camel.spi.Registry;
@@ -37,6 +39,14 @@ public interface Runtime extends HasCamelContext {
         pc.setOverrideProperties(properties);
 
         getRegistry().bind("properties", pc);
+    }
+
+    default void addRoutes(RoutesBuilder builder) {
+        try {
+            getCamelContext().addRoutes(builder);
+        } catch (Exception e) {
+            throw RuntimeCamelException.wrapRuntimeCamelException(e);
+        }
     }
 
     enum Phase {

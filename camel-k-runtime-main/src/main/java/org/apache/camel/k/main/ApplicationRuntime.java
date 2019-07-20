@@ -22,7 +22,9 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.RoutesBuilder;
 import org.apache.camel.RuntimeCamelException;
+import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.support.PropertiesSupport;
@@ -46,19 +48,22 @@ public final class ApplicationRuntime implements Runtime {
         this.context = new DefaultCamelContext();
         this.context.setName("camel-k");
 
-        this.main = new Main() {
-            @Override
-            protected CamelContext createCamelContext() {
-                return ApplicationRuntime.this.context;
-            }
-        };
-
+        this.main = new MainAdapter();
         this.main.addMainListener(new MainListenerAdapter());
     }
 
     @Override
     public CamelContext getCamelContext() {
         return this.context;
+    }
+
+    @Override
+    public void addRoutes(RoutesBuilder builder) {
+        if (builder instanceof RouteBuilder) {
+            this.main.addRouteBuilder((RouteBuilder) builder);
+        } else {
+            Runtime.super.addRoutes(builder);
+        }
     }
 
     public void run() throws Exception {
@@ -108,16 +113,16 @@ public final class ApplicationRuntime implements Runtime {
         });
     }
 
-    private class MainListenerAdapter implements org.apache.camel.main.MainListener {
+    private final class MainListenerAdapter implements org.apache.camel.main.MainListener {
         @Override
         public void beforeStart(MainSupport main) {
             invokeListeners(Phase.Starting);
+            invokeListeners(Phase.ConfigureRoutes);
         }
 
         @Override
         public void configure(CamelContext context) {
             invokeListeners(Phase.ConfigureContext);
-            invokeListeners(Phase.ConfigureRoutes);
         }
 
         @Override
@@ -143,6 +148,13 @@ public final class ApplicationRuntime implements Runtime {
                         LOGGER.info("Listener {} executed in phase {}", l, phase);
                     }
                 });
+        }
+    }
+
+    private final class MainAdapter extends Main {
+        @Override
+        protected CamelContext createCamelContext() {
+            return ApplicationRuntime.this.context;
         }
     }
 }
