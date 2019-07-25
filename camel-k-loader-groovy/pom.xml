@@ -39,11 +39,6 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-main</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
             <artifactId>camel-log</artifactId>
             <scope>provided</scope>
         </dependency>
@@ -65,9 +60,18 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- ******************************* -->
+        <!-- test deps :: camel              -->
+        <!-- ******************************* -->
+
         <dependency>
             <groupId>org.apache.camel.k</groupId>
             <artifactId>camel-k-runtime-main</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-main</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -95,6 +99,11 @@
             <artifactId>camel-properties</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- ******************************* -->
+        <!-- test deps                       -->
+        <!-- ******************************* -->
+
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-test</artifactId>
