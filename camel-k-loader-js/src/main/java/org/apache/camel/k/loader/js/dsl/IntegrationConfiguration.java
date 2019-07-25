@@ -28,9 +28,9 @@ import org.apache.camel.model.rest.RestDefinition;
 import org.apache.camel.spi.Registry;
 
 public class IntegrationConfiguration extends org.apache.camel.builder.BuilderSupport {
-    final Registry registry;
-    final Components components;
-    final RouteBuilder builder;
+    public final Registry registry;
+    public final Components components;
+    public final RouteBuilder builder;
 
     public IntegrationConfiguration(RouteBuilder builder) {
         super(builder.getContext());
