@@ -27,6 +27,7 @@ import org.apache.camel.k.RoutesLoader;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.loader.js.dsl.IntegrationConfiguration;
 import org.apache.camel.k.support.URIResolver;
+import org.apache.camel.support.LifecycleStrategySupport;
 import org.apache.commons.io.IOUtils;
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.Value;
@@ -44,24 +45,30 @@ public class JavaScriptRoutesLoader implements RoutesLoader {
         return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                final CamelContext context = getContext();
+                final Context context = Context.newBuilder("js").allowAllAccess(true).build();
 
-                try (Context ctx = createPolyglotContext(); InputStream is = URIResolver.resolve(context, source)) {
-                    Value bindings = ctx.getBindings(LANGUAGE_ID);
+                try (InputStream is = URIResolver.resolve(camelContext, source)) {
+                    Value bindings = context.getBindings(LANGUAGE_ID);
 
                     // configure bindings
-                    bindings.putMember("dsl", new IntegrationConfiguration(this));
+                    bindings.putMember("__dsl", new IntegrationConfiguration(this));
 
                     final String script = IOUtils.toString(is, StandardCharsets.UTF_8);
-                    final String wrappedScript = "with (dsl) { " + script + " }";
+                    final String wrappedScript = "with (__dsl) { " + script + " }";
 
-                    ctx.eval(LANGUAGE_ID, wrappedScript);
+                    context.eval(LANGUAGE_ID, wrappedScript);
+
+                    //
+                    // Close the polyglot context when the camel context stops
+                    //
+                    getContext().addLifecycleStrategy(new LifecycleStrategySupport() {
+                        @Override
+                        public void onContextStop(CamelContext camelContext) {
+                            context.close(true);
+                        }
+                    });
                 }
             }
         };
-    }
-
-    private static Context createPolyglotContext() {
-        return Context.newBuilder("js").allowAllAccess(true).build();
     }
 }
