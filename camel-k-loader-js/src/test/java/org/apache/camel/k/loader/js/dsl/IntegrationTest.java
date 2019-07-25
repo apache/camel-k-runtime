@@ -18,6 +18,7 @@ package org.apache.camel.k.loader.js.dsl;
 
 import java.util.List;
 
+import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.seda.SedaComponent;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.listener.RoutesConfigurer;
@@ -93,6 +94,25 @@ public class IntegrationTest {
                     assertThat(output).isInstanceOf(TransformDefinition.class);
                 });
             });
+
+            runtime.stop();
+        });
+
+        runtime.run();
+    }
+
+    @Test
+    public void testProcessors() throws Exception {
+        ApplicationRuntime runtime = new ApplicationRuntime();
+        runtime.addListener(RoutesConfigurer.forRoutes("classpath:routes-with-processors.js"));
+        runtime.addListener(Runtime.Phase.Started, r -> {
+            ProducerTemplate template = r.getCamelContext().createProducerTemplate();
+
+            String a = template.requestBody("direct:arrow", "", String.class);
+            assertThat(a).isEqualTo("arrow");
+
+            String f = template.requestBody("direct:function", "", String.class);
+            assertThat(f).isEqualTo("function");
 
             runtime.stop();
         });
