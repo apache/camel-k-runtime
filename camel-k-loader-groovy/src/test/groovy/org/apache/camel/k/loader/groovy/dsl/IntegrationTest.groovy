@@ -25,8 +25,11 @@ import org.apache.camel.k.main.ApplicationRuntime
 import org.apache.camel.processor.FatalFallbackErrorHandler
 import org.apache.camel.processor.SendProcessor
 import org.apache.camel.processor.channel.DefaultChannel
+import org.apache.camel.spi.HeaderFilterStrategy
+import org.apache.camel.support.DefaultHeaderFilterStrategy
 import spock.lang.Specification
 
+import javax.sql.DataSource
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicReference
 
@@ -45,6 +48,20 @@ class IntegrationTest extends Specification {
             runtime.camelContext.getRestConfiguration('undertow', false).port == 9193
             runtime.camelContext.restDefinitions.size() == 1
             runtime.camelContext.restDefinitions[0].path == '/my/path'
+    }
+
+    def "load integration with beans"()  {
+        when:
+            def runtime = new ApplicationRuntime()
+            runtime.addListener(RoutesConfigurer.forRoutes('classpath:routes-with-beans.groovy'))
+            runtime.addListener(Runtime.Phase.Started, { runtime.stop() })
+            runtime.run()
+
+        then:
+            runtime.camelContext.registry.findByType(DataSource).size() == 1
+            runtime.camelContext.registry.lookupByName('dataSource') instanceof DataSource
+            runtime.camelContext.registry.findByType(HeaderFilterStrategy).size() == 1
+            runtime.camelContext.registry.lookupByName('filterStrategy') instanceof DefaultHeaderFilterStrategy
     }
 
     def "load integration with bindings"()  {

@@ -25,10 +25,12 @@ import org.apache.camel.k.main.ApplicationRuntime
 import org.apache.camel.model.ModelCamelContext
 import org.apache.camel.processor.FatalFallbackErrorHandler
 import org.apache.camel.spi.ExchangeFormatter
+import org.apache.camel.support.DefaultHeaderFilterStrategy
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicReference
+import javax.sql.DataSource
 
 class IntegrationTest {
     @Test
@@ -44,6 +46,19 @@ class IntegrationTest {
         assertThat(runtime.camelContext.getRestConfiguration("undertow", false).port).isEqualTo(9193)
         assertThat(runtime.camelContext.adapt(ModelCamelContext::class.java).restDefinitions.size).isEqualTo(1)
         assertThat(runtime.camelContext.adapt(ModelCamelContext::class.java).restDefinitions[0].path).isEqualTo("/my/path")
+    }
+
+    @Test
+    fun `load integration with beans`() {
+        var runtime = ApplicationRuntime()
+        runtime.addListener(RoutesConfigurer.forRoutes("classpath:routes-with-beans.kts"))
+        runtime.addListener(Runtime.Phase.Started) { runtime.stop() }
+        runtime.run()
+
+        assertThat(runtime.camelContext.registry.findByType(DataSource::class.java)).hasSize(1)
+        assertThat(runtime.camelContext.registry.lookupByName("dataSource")).isInstanceOf(DataSource::class.java)
+        assertThat(runtime.camelContext.registry.findByType(DefaultHeaderFilterStrategy::class.java)).hasSize(1)
+        assertThat(runtime.camelContext.registry.lookupByName("filterStrategy")).isInstanceOf(DefaultHeaderFilterStrategy::class.java)
     }
 
     @Test
