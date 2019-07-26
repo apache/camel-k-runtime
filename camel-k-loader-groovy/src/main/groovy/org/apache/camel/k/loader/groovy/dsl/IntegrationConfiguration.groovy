@@ -36,6 +36,12 @@ class IntegrationConfiguration extends org.apache.camel.builder.BuilderSupport {
         this.builder = builder
     }
 
+    def beans(@DelegatesTo(BeansConfiguration) Closure<?> callable) {
+        callable.resolveStrategy = Closure.DELEGATE_FIRST
+        callable.delegate = new BeansConfiguration(context)
+        callable.call()
+    }
+
     def context(@DelegatesTo(ContextConfiguration) Closure<?> callable) {
         callable.resolveStrategy = Closure.DELEGATE_FIRST
         callable.delegate = new ContextConfiguration(context)

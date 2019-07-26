@@ -31,17 +31,15 @@ abstract class IntegrationConfiguration(
         private val builder : RouteBuilder) : org.apache.camel.builder.BuilderSupport(builder.context) {
 
     fun rest(block: RestConfiguration.() -> Unit) {
-        val delegate = RestConfiguration(builder)
-        delegate.block()
+        RestConfiguration(builder).block()
+    }
+
+    fun beans(block: BeansConfiguration.() -> Unit) {
+        BeansConfiguration(context = context).block()
     }
 
     fun context(block: ContextConfiguration.() -> Unit) {
-        val delegate = ContextConfiguration(
-                context = context,
-                registry = registry
-        )
-
-        delegate.block()
+        ContextConfiguration(context = context, registry = registry).block()
     }
 
     fun processor(fn: (Exchange) -> Unit) : Processor {
