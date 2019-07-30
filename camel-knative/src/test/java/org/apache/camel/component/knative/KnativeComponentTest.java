@@ -31,6 +31,7 @@ import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.component.netty4.NettyEndpoint;
 import org.apache.camel.component.properties.PropertiesComponent;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.support.DefaultHeaderFilterStrategy;
 import org.apache.camel.test.AvailablePortFinder;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -594,5 +595,113 @@ public class KnativeComponentTest {
 
         mock1.assertIsSatisfied();
         mock2.assertIsSatisfied();
+    }
+
+    @Test
+    void testDefaultHeadersFilter() throws Exception {
+        final int port = AvailablePortFinder.getNextAvailable();
+
+        KnativeEnvironment env = new KnativeEnvironment(Arrays.asList(
+            new KnativeEnvironment.KnativeServiceDefinition(
+                Knative.Type.endpoint,
+                Knative.Protocol.http,
+                "myEndpoint",
+                "localhost",
+                port,
+                KnativeSupport.mapOf(
+                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.CONTENT_TYPE, "text/plain"
+                ))
+        ));
+
+        KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
+        component.setCloudEventsSpecVersion(CloudEventsProcessors.v01.getVersion());
+        component.setEnvironment(env);
+
+        context.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:source")
+                    .setHeader("CamelHeader")
+                        .constant("CamelHeaderValue")
+                    .setHeader("MyHeader")
+                        .constant("MyHeaderValue")
+                    .to("knative:endpoint/myEndpoint")
+                    .to("mock:source");
+
+                fromF("netty4-http:http://localhost:%d", port)
+                    .setBody().constant("test");
+            }
+        });
+
+        context.start();
+
+        MockEndpoint mock = context.getEndpoint("mock:source", MockEndpoint.class);
+        mock.expectedMessageCount(1);
+
+        context.createProducerTemplate().sendBody("direct:source", "test");
+
+        mock.assertIsSatisfied();
+
+
+        assertThat(mock.getExchanges().get(0).getMessage().getHeaders()).doesNotContainKey("CamelHeader");
+        assertThat(mock.getExchanges().get(0).getMessage().getHeaders()).containsEntry("MyHeader", "MyHeaderValue");
+    }
+
+    @Test
+    void testCustomHeadersFilter() throws Exception {
+        final int port = AvailablePortFinder.getNextAvailable();
+
+        KnativeEnvironment env = new KnativeEnvironment(Arrays.asList(
+            new KnativeEnvironment.KnativeServiceDefinition(
+                Knative.Type.endpoint,
+                Knative.Protocol.http,
+                "myEndpoint",
+                "localhost",
+                port,
+                KnativeSupport.mapOf(
+                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.CONTENT_TYPE, "text/plain"
+                ))
+        ));
+
+        KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
+        component.setCloudEventsSpecVersion(CloudEventsProcessors.v01.getVersion());
+        component.setEnvironment(env);
+
+        DefaultHeaderFilterStrategy hfs = new DefaultHeaderFilterStrategy();
+        hfs.setOutFilterPattern("(?i)(My)[\\.|a-z|A-z|0-9]*");
+        hfs.setInFilterPattern("(?i)(My)[\\.|a-z|A-z|0-9]*");
+
+
+        context.getRegistry().bind("myFilterStrategy", hfs);
+
+        context.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:source")
+                    .setHeader("CamelHeader")
+                        .constant("CamelHeaderValue")
+                    .setHeader("MyHeader")
+                        .constant("MyHeaderValue")
+                    .to("knative:endpoint/myEndpoint?transport.headerFilterStrategy=#myFilterStrategy")
+                    .to("mock:source");
+
+                fromF("netty4-http:http://localhost:%d?headerFilterStrategy=#myFilterStrategy", port)
+                    .setBody().constant("test");
+            }
+        });
+
+        context.start();
+
+        MockEndpoint mock = context.getEndpoint("mock:source", MockEndpoint.class);
+        mock.expectedMessageCount(1);
+
+        context.createProducerTemplate().sendBody("direct:source", "test");
+
+        mock.assertIsSatisfied();
+
+        assertThat(mock.getExchanges().get(0).getMessage().getHeaders()).doesNotContainKey("MyHeader");
+        assertThat(mock.getExchanges().get(0).getMessage().getHeaders()).containsEntry("CamelHeader", "CamelHeaderValue");
     }
 }

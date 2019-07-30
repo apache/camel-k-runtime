@@ -71,7 +71,7 @@ public class KnativeEndpoint extends DefaultEndpoint implements DelegateEndpoint
         switch (service.getProtocol()) {
         case http:
         case https:
-            this.endpoint = http(component.getCamelContext(), service);
+            this.endpoint = http(component.getCamelContext(), service, configuration.getTransportOptions());
             break;
         default:
             throw new IllegalArgumentException("unsupported protocol: " + this.service.getProtocol());
@@ -148,7 +148,7 @@ public class KnativeEndpoint extends DefaultEndpoint implements DelegateEndpoint
     //
     // *****************************
 
-    private static Endpoint http(CamelContext context, ServiceDefinition definition) {
+    private static Endpoint http(CamelContext context, ServiceDefinition definition, Map<String, Object> transportOptions) {
         try {
             final String scheme = Knative.HTTP_COMPONENT;
             final String protocol = definition.getMetadata().getOrDefault(Knative.KNATIVE_PROTOCOL, "http");
@@ -195,6 +195,8 @@ public class KnativeEndpoint extends DefaultEndpoint implements DelegateEndpoint
             final String filterVal = definition.getMetadata().get(Knative.FILTER_HEADER_VALUE);
             final Map<String, Object> parameters = new HashMap<>();
 
+            parameters.putAll(transportOptions);
+
             if (ObjectHelper.isNotEmpty(filterKey) && ObjectHelper.isNotEmpty(filterVal)) {
                 parameters.put("filter.headerName", filterKey);
                 parameters.put("filter.headerValue", filterVal);
@@ -202,7 +204,7 @@ public class KnativeEndpoint extends DefaultEndpoint implements DelegateEndpoint
 
             // configure netty to use relative path instead of full
             // path that is the default to make istio working
-            parameters.put("useRelativePath", "true");
+            //parameters.put("useRelativePath", "true");
 
             uri = URISupport.appendParametersToURI(uri, parameters);
 

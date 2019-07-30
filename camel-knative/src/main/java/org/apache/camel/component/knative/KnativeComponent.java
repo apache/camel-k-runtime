@@ -16,11 +16,13 @@
  */
 package org.apache.camel.component.knative;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.support.DefaultComponent;
+import org.apache.camel.support.IntrospectionSupport;
 import org.apache.camel.support.PropertyBindingSupport;
 import org.apache.camel.util.StringHelper;
 
@@ -88,6 +90,17 @@ public class KnativeComponent extends DefaultComponent {
         configuration.setCloudEventsSpecVersion(cloudEventSpecVersion);
     }
 
+    public Map<String, Object> getTransportOptions() {
+        return configuration.getTransportOptions();
+    }
+
+    /**
+     * Transport options.
+     */
+    public void setTransportOptions(Map<String, Object> transportOptions) {
+        configuration.setTransportOptions(transportOptions);
+    }
+
     // ************************
     //
     //
@@ -100,8 +113,13 @@ public class KnativeComponent extends DefaultComponent {
         final String target = StringHelper.after(remaining, "/");
         final KnativeConfiguration conf = getKnativeConfiguration();
 
+        conf.getTransportOptions().putAll(
+            IntrospectionSupport.extractProperties(parameters, "transport.", true)
+        );
+
         // set properties from the endpoint uri
         PropertyBindingSupport.bindProperties(getCamelContext(), conf, parameters);
+
 
         return new KnativeEndpoint(uri, this, Knative.Type.valueOf(type), target, conf);
     }
@@ -114,6 +132,10 @@ public class KnativeComponent extends DefaultComponent {
 
     private KnativeConfiguration getKnativeConfiguration() throws Exception {
         KnativeConfiguration conf = configuration.copy();
+
+        if (conf.getTransportOptions() == null) {
+            conf.setTransportOptions(new HashMap<>());
+        }
 
         if (conf.getEnvironment() == null) {
             String envConfig = System.getenv(CONFIGURATION_ENV_VARIABLE);

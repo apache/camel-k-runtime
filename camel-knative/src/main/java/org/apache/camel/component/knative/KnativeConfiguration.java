@@ -16,6 +16,8 @@
  */
 package org.apache.camel.component.knative;
 
+import java.util.Map;
+
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.spi.UriParam;
 
@@ -31,6 +33,9 @@ public class KnativeConfiguration implements Cloneable {
 
     @UriParam(defaultValue = "org.apache.camel.event")
     private String cloudEventsType = "org.apache.camel.event";
+
+    @UriParam(prefix = "transport.")
+    private Map<String, Object> transportOptions;
 
     public KnativeConfiguration() {
     }
@@ -84,6 +89,17 @@ public class KnativeConfiguration implements Cloneable {
      */
     public void setCloudEventsType(String cloudEventsType) {
         this.cloudEventsType = cloudEventsType;
+    }
+
+    public Map<String, Object> getTransportOptions() {
+        return transportOptions;
+    }
+
+    /**
+     * Set the transport options.
+     */
+    public void setTransportOptions(Map<String, Object> transportOptions) {
+        this.transportOptions = transportOptions;
     }
 
     // ************************
