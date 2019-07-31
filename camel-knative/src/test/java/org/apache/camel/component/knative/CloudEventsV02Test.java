@@ -88,7 +88,7 @@ public class CloudEventsV02Test {
                 from("direct:source")
                     .to("knative:endpoint/myEndpoint");
 
-                fromF("netty4-http:http://localhost:%d/a/path", port)
+                fromF("undertow:http://localhost:%d/a/path", port)
                     .to("mock:ce");
             }
         });
@@ -155,10 +155,10 @@ public class CloudEventsV02Test {
                 from("direct:source2")
                         .to("knative:endpoint/myEndpoint2?cloudEventsType=my.type");
 
-                fromF("netty4-http:http://localhost:%d/", port)
+                fromF("undertow:http://localhost:%d/", port)
                         .to("mock:ce");
 
-                fromF("netty4-http:http://localhost:%d/2", port)
+                fromF("undertow:http://localhost:%d/2", port)
                         .to("mock:ce2");
             }
         });
@@ -231,7 +231,7 @@ public class CloudEventsV02Test {
                     .to("mock:ce");
 
                 from("direct:source")
-                    .toF("netty4-http:http://localhost:%d/a/path", port);
+                    .toF("undertow:http://localhost:%d/a/path", port);
             }
         });
 

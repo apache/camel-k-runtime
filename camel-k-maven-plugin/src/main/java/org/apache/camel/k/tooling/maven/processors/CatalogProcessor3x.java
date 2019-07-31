@@ -192,7 +192,8 @@ public class CatalogProcessor3x implements CatalogProcessor {
             artifact.setArtifactId("camel-knative");
             artifact.setVersion(project.getVersion());
             artifact.createScheme("knative").setHttp(true);
-            artifact.addDependency("org.apache.camel", "camel-netty4-http");
+            artifact.addDependency("org.apache.camel", "camel-cloud");
+            artifact.addDependency("org.apache.camel", "camel-http-common");
 
             artifacts.put(artifact.getArtifactId(), artifact);
         }
@@ -239,10 +240,11 @@ public class CatalogProcessor3x implements CatalogProcessor {
             CamelArtifact artifact = new CamelArtifact();
             artifact.setGroupId("org.apache.camel.k");
             artifact.setArtifactId("camel-k-runtime-knative");
+            artifact.addDependency("org.apache.camel", "camel-cloud");
+            artifact.addDependency("org.apache.camel", "camel-http-common");
             artifact.addDependency("org.apache.camel.k", "camel-k-loader-yaml");
             artifact.addDependency("org.apache.camel.k", "camel-knative");
             artifact.addDependency("org.apache.camel.k", "camel-knative-http");
-            artifact.addDependency("org.apache.camel", "camel-netty4-http");
 
             artifacts.put(artifact.getArtifactId(), artifact);
         }

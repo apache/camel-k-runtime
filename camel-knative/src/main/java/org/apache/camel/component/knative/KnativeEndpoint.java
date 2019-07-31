@@ -150,12 +150,13 @@ public class KnativeEndpoint extends DefaultEndpoint implements DelegateEndpoint
 
     private static Endpoint http(CamelContext context, ServiceDefinition definition, Map<String, Object> transportOptions) {
         try {
-            final String scheme = Knative.HTTP_COMPONENT;
-            final String protocol = definition.getMetadata().getOrDefault(Knative.KNATIVE_PROTOCOL, "http");
-
+            String scheme = Knative.HTTP_COMPONENT;
             String host = definition.getHost();
             int port = definition.getPort();
 
+            if (port == -1) {
+                port = Knative.DEFAULT_HTTP_PORT;
+            }
             if (ObjectHelper.isEmpty(host)) {
                 String name = definition.getName();
                 String zone = definition.getMetadata().get(Knative.SERVICE_META_ZONE);
@@ -175,13 +176,8 @@ public class KnativeEndpoint extends DefaultEndpoint implements DelegateEndpoint
             }
 
             ObjectHelper.notNull(host, Knative.SERVICE_META_HOST);
-            ObjectHelper.notNull(protocol, Knative.KNATIVE_PROTOCOL);
 
-            String uri = String.format("%s:%s://%s", scheme, protocol, host);
-            if (port != -1) {
-                uri = uri + ":" + port;
-            }
-
+            String uri = String.format("%s:%s:%s", scheme, host, port);
             String path = definition.getMetadata().get(Knative.SERVICE_META_PATH);
             if (path != null) {
                 if (!path.startsWith("/")) {
@@ -198,13 +194,8 @@ public class KnativeEndpoint extends DefaultEndpoint implements DelegateEndpoint
             parameters.putAll(transportOptions);
 
             if (ObjectHelper.isNotEmpty(filterKey) && ObjectHelper.isNotEmpty(filterVal)) {
-                parameters.put("filter.headerName", filterKey);
-                parameters.put("filter.headerValue", filterVal);
+                parameters.put("filter." + filterKey, filterVal);
             }
-
-            // configure netty to use relative path instead of full
-            // path that is the default to make istio working
-            //parameters.put("useRelativePath", "true");
 
             uri = URISupport.appendParametersToURI(uri, parameters);
 

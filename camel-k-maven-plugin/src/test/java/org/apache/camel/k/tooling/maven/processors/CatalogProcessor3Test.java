@@ -102,19 +102,28 @@ public class CatalogProcessor3Test extends AbstractCataloProcessorTest {
                 d -> d.getGroupId().equals("org.apache.camel.k") && d.getArtifactId().equals("camel-knative")
             );
             assertThat(a.getDependencies()).anyMatch(
+                d -> d.getGroupId().equals("org.apache.camel.k") && d.getArtifactId().equals("camel-knative")
+            );
+            assertThat(a.getDependencies()).anyMatch(
                 d -> d.getGroupId().equals("org.apache.camel.k") && d.getArtifactId().equals("camel-knative-http")
             );
             assertThat(a.getDependencies()).anyMatch(
                 d -> d.getGroupId().equals("org.apache.camel.k") && d.getArtifactId().equals("camel-k-loader-yaml")
             );
             assertThat(a.getDependencies()).anyMatch(
-                d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-netty4-http")
+                d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-cloud")
+            );
+            assertThat(a.getDependencies()).anyMatch(
+                d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-http-common")
             );
         });
 
         assertThat(artifactMap.get("camel-knative")).satisfies(a -> {
             assertThat(a.getDependencies()).anyMatch(
-                d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-netty4-http")
+                d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-cloud")
+            );
+            assertThat(a.getDependencies()).anyMatch(
+                d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-http-common")
             );
         });
 
