@@ -27,8 +27,8 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.knative.ce.CloudEventsProcessors;
+import org.apache.camel.component.knative.http.KnativeHttpEndpoint;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.component.netty4.NettyEndpoint;
 import org.apache.camel.component.properties.PropertiesComponent;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.support.DefaultHeaderFilterStrategy;
@@ -140,8 +140,8 @@ public class KnativeComponentTest {
         assertThat(e1.getService()).hasFieldOrPropertyWithValue("type", Knative.Type.endpoint);
         assertThat(e1.getService()).hasFieldOrPropertyWithValue("protocol", Knative.Protocol.http);
         assertThat(e1.getService()).hasFieldOrPropertyWithValue("path", "/a/path");
-        assertThat(e1.getEndpoint()).isInstanceOf(NettyEndpoint.class);
-        assertThat(e1.getEndpoint()).hasFieldOrPropertyWithValue("endpointUri", "http://my-node:9001/a/path");
+        assertThat(e1.getEndpoint()).isInstanceOf(KnativeHttpEndpoint.class);
+        assertThat(e1.getEndpoint()).hasFieldOrPropertyWithValue("endpointUri", "knative-http://my-node:9001/a/path");
 
         //
         // Endpoint with context path overridden by endpoint uri
@@ -157,8 +157,8 @@ public class KnativeComponentTest {
         assertThat(e2.getService()).hasFieldOrPropertyWithValue("type", Knative.Type.endpoint);
         assertThat(e2.getService()).hasFieldOrPropertyWithValue("protocol", Knative.Protocol.http);
         assertThat(e2.getService()).hasFieldOrPropertyWithValue("path", "/another/path");
-        assertThat(e2.getEndpoint()).isInstanceOf(NettyEndpoint.class);
-        assertThat(e2.getEndpoint()).hasFieldOrPropertyWithValue("endpointUri", "http://my-node:9001/another/path");
+        assertThat(e2.getEndpoint()).isInstanceOf(KnativeHttpEndpoint.class);
+        assertThat(e2.getEndpoint()).hasFieldOrPropertyWithValue("endpointUri", "knative-http://my-node:9001/another/path");
     }
 
     @Test
@@ -190,8 +190,8 @@ public class KnativeComponentTest {
         assertThat(e1.getService()).hasFieldOrPropertyWithValue("type", Knative.Type.endpoint);
         assertThat(e1.getService()).hasFieldOrPropertyWithValue("protocol", Knative.Protocol.http);
         assertThat(e1.getService()).hasFieldOrPropertyWithValue("path", "/a/path");
-        assertThat(e1.getEndpoint()).isInstanceOf(NettyEndpoint.class);
-        assertThat(e1.getEndpoint()).hasFieldOrPropertyWithValue("endpointUri", "http://myEndpoint/a/path");
+        assertThat(e1.getEndpoint()).isInstanceOf(KnativeHttpEndpoint.class);
+        assertThat(e1.getEndpoint()).hasFieldOrPropertyWithValue("endpointUri", "knative-http://myEndpoint:80/a/path");
     }
 
     @Test
@@ -225,8 +225,8 @@ public class KnativeComponentTest {
         assertThat(e1.getService()).hasFieldOrPropertyWithValue("type", Knative.Type.endpoint);
         assertThat(e1.getService()).hasFieldOrPropertyWithValue("protocol", Knative.Protocol.http);
         assertThat(e1.getService()).hasFieldOrPropertyWithValue("path", "/a/path");
-        assertThat(e1.getEndpoint()).isInstanceOf(NettyEndpoint.class);
-        assertThat(e1.getEndpoint()).hasFieldOrPropertyWithValue("endpointUri", "http://myEndpoint.myNamespace/a/path");
+        assertThat(e1.getEndpoint()).isInstanceOf(KnativeHttpEndpoint.class);
+        assertThat(e1.getEndpoint()).hasFieldOrPropertyWithValue("endpointUri", "knative-http://myEndpoint.myNamespace:80/a/path");
     }
 
     @Test
@@ -266,8 +266,8 @@ public class KnativeComponentTest {
         assertThat(e1.getService()).hasFieldOrPropertyWithValue("type", Knative.Type.endpoint);
         assertThat(e1.getService()).hasFieldOrPropertyWithValue("protocol", Knative.Protocol.http);
         assertThat(e1.getService()).hasFieldOrPropertyWithValue("path", "/a/path");
-        assertThat(e1.getEndpoint()).isInstanceOf(NettyEndpoint.class);
-        assertThat(e1.getEndpoint()).hasFieldOrPropertyWithValue("endpointUri", "http://myEndpoint.myNamespace/a/path");
+        assertThat(e1.getEndpoint()).isInstanceOf(KnativeHttpEndpoint.class);
+        assertThat(e1.getEndpoint()).hasFieldOrPropertyWithValue("endpointUri", "knative-http://myEndpoint.myNamespace:80/a/path");
     }
 
     @Test
@@ -291,8 +291,8 @@ public class KnativeComponentTest {
         assertThat(e1.getService()).hasFieldOrPropertyWithValue("type", Knative.Type.endpoint);
         assertThat(e1.getService()).hasFieldOrPropertyWithValue("protocol", Knative.Protocol.http);
         assertThat(e1.getService()).hasFieldOrPropertyWithValue("path", "/my/path");
-        assertThat(e1.getEndpoint()).isInstanceOf(NettyEndpoint.class);
-        assertThat(e1.getEndpoint()).hasFieldOrPropertyWithValue("endpointUri", "http://myEndpoint/my/path");
+        assertThat(e1.getEndpoint()).isInstanceOf(KnativeHttpEndpoint.class);
+        assertThat(e1.getEndpoint()).hasFieldOrPropertyWithValue("endpointUri", "knative-http://myEndpoint:80/my/path");
 
         //
         // Endpoint with context path overridden by endpoint uri
@@ -306,8 +306,8 @@ public class KnativeComponentTest {
         assertThat(e2.getService()).hasFieldOrPropertyWithValue("type", Knative.Type.channel);
         assertThat(e2.getService()).hasFieldOrPropertyWithValue("protocol", Knative.Protocol.http);
         assertThat(e2.getService()).hasFieldOrPropertyWithValue("path", "/another/path");
-        assertThat(e2.getEndpoint()).isInstanceOf(NettyEndpoint.class);
-        assertThat(e2.getEndpoint()).hasFieldOrPropertyWithValue("endpointUri", "http://myChannel-channel/another/path");
+        assertThat(e2.getEndpoint()).isInstanceOf(KnativeHttpEndpoint.class);
+        assertThat(e2.getEndpoint()).hasFieldOrPropertyWithValue("endpointUri", "knative-http://myChannel-channel:80/another/path");
 
 
     }
@@ -340,7 +340,7 @@ public class KnativeComponentTest {
                 from("direct:source")
                     .to("knative:endpoint/myEndpoint");
 
-                fromF("netty4-http:http://localhost:%d/a/path", port)
+                fromF("undertow:http://localhost:%d/a/path", port)
                     .to("mock:ce");
             }
         });
@@ -396,7 +396,7 @@ public class KnativeComponentTest {
                     .to("mock:ce");
 
                 from("direct:source")
-                    .toF("netty4-http:http://localhost:%d/a/path", port);
+                    .toF("undertow:http://localhost:%d/a/path", port);
             }
         });
 
@@ -545,7 +545,7 @@ public class KnativeComponentTest {
                     .setHeader(Exchange.HTTP_METHOD)
                         .constant("POST")
                     .setHeader(Exchange.HTTP_QUERY)
-                        .simple("filter.headerName=CE-Source&filter.headerValue=${header.FilterVal}")
+                        .simple("filter.CE-Source=${header.FilterVal}")
                     .toD("http4://localhost:" + port);
             }
         });
@@ -629,7 +629,7 @@ public class KnativeComponentTest {
                     .to("knative:endpoint/myEndpoint")
                     .to("mock:source");
 
-                fromF("netty4-http:http://localhost:%d", port)
+                fromF("undertow:http://localhost:%d", port)
                     .setBody().constant("test");
             }
         });
@@ -687,7 +687,7 @@ public class KnativeComponentTest {
                     .to("knative:endpoint/myEndpoint?transport.headerFilterStrategy=#myFilterStrategy")
                     .to("mock:source");
 
-                fromF("netty4-http:http://localhost:%d?headerFilterStrategy=#myFilterStrategy", port)
+                fromF("undertow:http://localhost:%d?headerFilterStrategy=#myFilterStrategy", port)
                     .setBody().constant("test");
             }
         });
