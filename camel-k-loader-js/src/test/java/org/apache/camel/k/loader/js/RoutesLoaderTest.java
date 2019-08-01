@@ -55,6 +55,7 @@ public class RoutesLoaderTest {
     static Stream<Arguments> parameters() {
         return Stream.of(
             Arguments.arguments("classpath:routes.js", JavaScriptRoutesLoader.class),
+            Arguments.arguments("classpath:routes-with-endpoint-dsl.js", JavaScriptRoutesLoader.class),
             Arguments.arguments("classpath:routes-compressed.js.gz.b64?language=js&compression=true", JavaScriptRoutesLoader.class),
             Arguments.arguments("classpath:routes.mytype?language=js", JavaScriptRoutesLoader.class)
         );

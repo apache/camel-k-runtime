@@ -23,6 +23,7 @@ import java.util.List;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
 import org.apache.camel.k.RoutesLoader;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.loader.js.dsl.IntegrationConfiguration;
@@ -42,7 +43,7 @@ public class JavaScriptRoutesLoader implements RoutesLoader {
 
     @Override
     public RouteBuilder load(CamelContext camelContext, Source source) throws Exception {
-        return new RouteBuilder() {
+        return new EndpointRouteBuilder() {
             @Override
             public void configure() throws Exception {
                 final Context context = Context.newBuilder("js").allowAllAccess(true).build();

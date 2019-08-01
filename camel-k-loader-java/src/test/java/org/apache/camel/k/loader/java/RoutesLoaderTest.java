@@ -140,7 +140,8 @@ public class RoutesLoaderTest {
             Arguments.arguments("classpath:" + MyRoutes.class.getName() + ".class", JavaClassRoutesLoader.class),
             Arguments.arguments("classpath:MyRoutes.java", JavaSourceRoutesLoader.class),
             Arguments.arguments("classpath:MyRoutesWithNameOverride.java?name=MyRoutes.java", JavaSourceRoutesLoader.class),
-            Arguments.arguments("classpath:MyRoutesWithPackage.java", JavaSourceRoutesLoader.class)
+            Arguments.arguments("classpath:MyRoutesWithPackage.java", JavaSourceRoutesLoader.class),
+            Arguments.arguments("classpath:MyRoutesWithEndpointDsl.java", JavaSourceRoutesLoader.class)
         );
     }
 }
