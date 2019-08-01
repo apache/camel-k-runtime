@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test
 class LoaderTest {
 
     @Test
-    fun `load route from classpath`() {
+    fun `load routes`() {
         var context = DefaultCamelContext()
         var source = Source.create("classpath:routes.kts")
         val loader = RuntimeSupport.loaderFor(context, source)
@@ -41,8 +41,30 @@ class LoaderTest {
 
         val routes = builder.routeCollection.routes
         assertThat(routes).hasSize(1)
-        assertThat(routes[0].getInput().endpointUri).isEqualTo("timer:tick")
+        assertThat(routes[0].input.endpointUri).isEqualTo("timer:tick")
         assertThat(routes[0].outputs[0]).isInstanceOf(ProcessDefinition::class.java)
         assertThat(routes[0].outputs[1]).isInstanceOf(ToDefinition::class.java)
+    }
+
+    @Test
+    fun `load routes with endpoint dsl`() {
+        var context = DefaultCamelContext()
+        var source = Source.create("classpath:routes-with-endpoint-dsl.kts")
+        val loader = RuntimeSupport.loaderFor(context, source)
+        val builder = loader.load(context, source)
+
+        assertThat(loader).isInstanceOf(KotlinRoutesLoader::class.java)
+        assertThat(builder).isNotNull
+
+        builder.context = context
+        builder.configure()
+
+        val routes = builder.routeCollection.routes
+        assertThat(routes).hasSize(1)
+        assertThat(routes[0].input.endpointUri).isEqualTo("timer:tick?period=1s")
+        assertThat(routes[0].outputs[0]).isInstanceOfSatisfying(ToDefinition::class.java) {
+            assertThat(it.endpointUri).isEqualTo("log:info")
+        }
+
     }
 }

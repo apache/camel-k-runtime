@@ -16,23 +16,26 @@
  */
 package org.apache.camel.k.loader.js.dsl;
 
-import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.builder.BuilderSupport;
+import org.apache.camel.builder.EndpointConsumerBuilder;
+import org.apache.camel.builder.endpoint.EndpointBuilderFactory;
+import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
 import org.apache.camel.model.InterceptDefinition;
 import org.apache.camel.model.InterceptFromDefinition;
 import org.apache.camel.model.InterceptSendToEndpointDefinition;
 import org.apache.camel.model.OnCompletionDefinition;
 import org.apache.camel.model.OnExceptionDefinition;
-import org.apache.camel.model.ProcessorDefinition;
+import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.model.rest.RestConfigurationDefinition;
 import org.apache.camel.model.rest.RestDefinition;
 import org.apache.camel.spi.Registry;
 
-public class IntegrationConfiguration extends org.apache.camel.builder.BuilderSupport {
+public class IntegrationConfiguration extends BuilderSupport implements EndpointBuilderFactory {
     public final Registry registry;
     public final Components components;
-    public final RouteBuilder builder;
+    public final EndpointRouteBuilder builder;
 
-    public IntegrationConfiguration(RouteBuilder builder) {
+    public IntegrationConfiguration(EndpointRouteBuilder builder) {
         super(builder.getContext());
 
         this.registry = builder.getContext().getRegistry();
@@ -40,7 +43,11 @@ public class IntegrationConfiguration extends org.apache.camel.builder.BuilderSu
         this.builder = builder;
     }
 
-    public ProcessorDefinition from(String endpoint) {
+    public RouteDefinition from(String endpoint) {
+        return builder.from(endpoint);
+    }
+
+    public RouteDefinition from(EndpointConsumerBuilder endpoint) {
         return builder.from(endpoint);
     }
 

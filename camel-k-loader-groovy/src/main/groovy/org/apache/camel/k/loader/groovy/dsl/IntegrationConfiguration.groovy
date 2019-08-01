@@ -19,16 +19,24 @@ package org.apache.camel.k.loader.groovy.dsl
 import org.apache.camel.Exchange
 import org.apache.camel.Predicate
 import org.apache.camel.Processor
-import org.apache.camel.builder.RouteBuilder
-import org.apache.camel.model.*
+import org.apache.camel.builder.BuilderSupport
+import org.apache.camel.builder.EndpointConsumerBuilder
+import org.apache.camel.builder.endpoint.EndpointBuilderFactory
+import org.apache.camel.builder.endpoint.EndpointRouteBuilder
+import org.apache.camel.model.InterceptDefinition
+import org.apache.camel.model.InterceptFromDefinition
+import org.apache.camel.model.InterceptSendToEndpointDefinition
+import org.apache.camel.model.OnCompletionDefinition
+import org.apache.camel.model.OnExceptionDefinition
+import org.apache.camel.model.RouteDefinition
 import org.apache.camel.spi.Registry
 
-class IntegrationConfiguration extends org.apache.camel.builder.BuilderSupport {
+class IntegrationConfiguration extends BuilderSupport implements EndpointBuilderFactory {
     final Registry registry
     final Components components
-    final RouteBuilder builder
+    final EndpointRouteBuilder builder
 
-    IntegrationConfiguration(RouteBuilder builder) {
+    IntegrationConfiguration(EndpointRouteBuilder builder) {
         super(builder.context)
 
         this.registry = this.context.registry
@@ -74,7 +82,11 @@ class IntegrationConfiguration extends org.apache.camel.builder.BuilderSupport {
         }
     }
 
-    ProcessorDefinition from(String endpoint) {
+    RouteDefinition from(String endpoint) {
+        return builder.from(endpoint)
+    }
+
+    RouteDefinition from(EndpointConsumerBuilder endpoint) {
         return builder.from(endpoint)
     }
 

@@ -17,7 +17,7 @@
 package org.apache.camel.k.loader.kotlin
 
 import org.apache.camel.CamelContext
-import org.apache.camel.builder.RouteBuilder
+import org.apache.camel.builder.endpoint.EndpointRouteBuilder
 import org.apache.camel.k.RoutesLoader
 import org.apache.camel.k.Source
 import org.apache.camel.k.loader.kotlin.dsl.IntegrationConfiguration
@@ -25,11 +25,11 @@ import org.apache.camel.k.support.URIResolver
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.InputStreamReader
-import kotlin.script.experimental.api.*
+import kotlin.script.experimental.api.ScriptDiagnostic
+import kotlin.script.experimental.api.ScriptEvaluationConfiguration
+import kotlin.script.experimental.api.constructorArgs
 import kotlin.script.experimental.host.toScriptSource
 import kotlin.script.experimental.jvm.BasicJvmScriptEvaluator
-import kotlin.script.experimental.jvm.dependenciesFromClassloader
-import kotlin.script.experimental.jvm.jvm
 import kotlin.script.experimental.jvmhost.BasicJvmScriptingHost
 import kotlin.script.experimental.jvmhost.JvmScriptCompiler
 import kotlin.script.experimental.jvmhost.createJvmCompilationConfigurationFromTemplate
@@ -44,8 +44,8 @@ class KotlinRoutesLoader : RoutesLoader {
     }
 
     @Throws(Exception::class)
-    override fun load(camelContext: CamelContext, source: Source): RouteBuilder? {
-        return object : RouteBuilder() {
+    override fun load(camelContext: CamelContext, source: Source): EndpointRouteBuilder? {
+        return object : EndpointRouteBuilder() {
             @Throws(Exception::class)
             override fun configure() {
                 val builder = this

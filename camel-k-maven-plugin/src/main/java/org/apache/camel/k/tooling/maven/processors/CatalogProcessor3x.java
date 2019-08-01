@@ -111,6 +111,7 @@ public class CatalogProcessor3x implements CatalogProcessor {
             artifact.setGroupId("org.apache.camel.k");
             artifact.setArtifactId("camel-k-loader-groovy");
             artifact.setVersion(project.getVersion());
+            artifact.addDependency("org.apache.camel", "camel-endpointdsl");
             artifact.addDependency("org.apache.camel", "camel-groovy");
 
             artifacts.put(artifact.getArtifactId(), artifact);
@@ -127,6 +128,7 @@ public class CatalogProcessor3x implements CatalogProcessor {
             artifact.setGroupId("org.apache.camel.k");
             artifact.setArtifactId("camel-k-loader-kotlin");
             artifact.setVersion(project.getVersion());
+            artifact.addDependency("org.apache.camel", "camel-endpointdsl");
 
             artifacts.put(artifact.getArtifactId(), artifact);
         }
@@ -142,6 +144,7 @@ public class CatalogProcessor3x implements CatalogProcessor {
             artifact.setGroupId("org.apache.camel.k");
             artifact.setArtifactId("camel-k-loader-js");
             artifact.setVersion(project.getVersion());
+            artifact.addDependency("org.apache.camel", "camel-endpointdsl");
 
             artifacts.put(artifact.getArtifactId(), artifact);
         }
@@ -172,6 +175,7 @@ public class CatalogProcessor3x implements CatalogProcessor {
             artifact.setGroupId("org.apache.camel.k");
             artifact.setArtifactId("camel-k-loader-java");
             artifact.setVersion(project.getVersion());
+            artifact.addDependency("org.apache.camel", "camel-endpointdsl");
 
             artifacts.put(artifact.getArtifactId(), artifact);
         }

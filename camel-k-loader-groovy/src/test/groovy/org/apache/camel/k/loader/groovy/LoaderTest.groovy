@@ -19,12 +19,13 @@ package org.apache.camel.k.loader.groovy
 import org.apache.camel.impl.DefaultCamelContext
 import org.apache.camel.k.Source
 import org.apache.camel.k.support.RuntimeSupport
+import org.apache.camel.model.FromDefinition
 import org.apache.camel.model.ToDefinition
 import spock.lang.Specification
 
 class LoaderTest extends Specification {
 
-    def "load route from classpath"() {
+    def "load routes"() {
         given:
             def context = new DefaultCamelContext()
             def source = Source.create("classpath:routes.groovy")
@@ -45,5 +46,33 @@ class LoaderTest extends Specification {
             routes.size() == 1
             routes[0].outputs[0] instanceof ToDefinition
             routes[0].input.endpointUri == 'timer:tick'
+    }
+
+    def "load routes with endpoint dsl"() {
+        given:
+            def context = new DefaultCamelContext()
+            def source = Source.create("classpath:routes-with-endpoint-dsl.groovy")
+
+        when:
+            def loader = RuntimeSupport.loaderFor(context, source)
+            def builder = loader.load(context, source)
+
+        then:
+            loader instanceof GroovyRoutesLoader
+            builder != null
+
+            builder.setContext(context)
+            builder.configure()
+
+            def routes = builder.routeCollection.routes
+
+            routes.size() == 1
+
+            with(routes[0].input, FromDefinition) {
+                it.endpointUri == 'timer:tick?period=1s'
+            }
+            with(routes[0].outputs[0], ToDefinition) {
+                it.endpointUri == 'log:info'
+            }
     }
 }
