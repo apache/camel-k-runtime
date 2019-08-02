@@ -14,22 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-beans {
-    dataSource(org.apache.commons.dbcp2.BasicDataSource) {
-        driverClassName = "org.h2.Driver"
-        url = "jdbc:h2:mem:camel"
-        username = "sa"
-        password = ""
-    }
-    filterStrategy {
-        new org.apache.camel.support.DefaultHeaderFilterStrategy()
+package org.apache.camel.k.loader.groovy.dsl
+
+import org.apache.camel.Exchange
+
+trait Support {
+    def processor(@DelegatesTo(Exchange) Closure<?> callable) {
+        return {
+            callable.resolveStrategy = Closure.DELEGATE_FIRST
+            callable.call(it)
+        } as org.apache.camel.Processor
     }
 
-    myProcessor = processor {
-        it.in.body = 'value'
-    }
-
-    myPredicate = predicate {
-        false
+    def predicate(@DelegatesTo(Exchange) Closure<?> callable) {
+        return {
+            callable.resolveStrategy = Closure.DELEGATE_FIRST
+            return callable.call(it)
+        } as org.apache.camel.Predicate
     }
 }

@@ -17,12 +17,17 @@
 package org.apache.camel.k.loader.groovy.dsl
 
 import org.apache.camel.CamelContext
+import org.apache.camel.builder.endpoint.EndpointBuilderFactory
 
-class BeansConfiguration {
+class BeansConfiguration implements Support, EndpointBuilderFactory {
     private final CamelContext context
 
     BeansConfiguration(CamelContext context) {
         this.context = context
+    }
+
+    def propertyMissing(String name, value) {
+        context.registry.bind(name, value)
     }
 
     def methodMissing(String name, arguments) {
@@ -43,8 +48,6 @@ class BeansConfiguration {
             clos.resolveStrategy = Closure.DELEGATE_ONLY
 
             context.registry.bind(name, clos.call())
-        } else {
-            throw new MissingMethodException(name, this, args)
         }
     }
 }

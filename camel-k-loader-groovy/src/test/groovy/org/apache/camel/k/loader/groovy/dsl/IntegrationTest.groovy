@@ -16,6 +16,7 @@
  */
 package org.apache.camel.k.loader.groovy.dsl
 
+import org.apache.camel.Predicate
 import org.apache.camel.Processor
 import org.apache.camel.component.log.LogComponent
 import org.apache.camel.component.seda.SedaComponent
@@ -62,6 +63,9 @@ class IntegrationTest extends Specification {
             runtime.camelContext.registry.lookupByName('dataSource') instanceof DataSource
             runtime.camelContext.registry.findByType(HeaderFilterStrategy).size() == 1
             runtime.camelContext.registry.lookupByName('filterStrategy') instanceof DefaultHeaderFilterStrategy
+
+            runtime.camelContext.registry.lookupByName('myProcessor') instanceof Processor
+            runtime.camelContext.registry.lookupByName('myPredicate') instanceof Predicate
     }
 
     def "load integration with bindings"()  {
@@ -140,3 +144,4 @@ class IntegrationTest extends Specification {
             ch.output instanceof SendProcessor
     }
 }
+

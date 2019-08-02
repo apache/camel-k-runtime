@@ -16,6 +16,7 @@
  */
 package org.apache.camel.k.loader.kotlin.dsl
 
+import org.apache.camel.Predicate
 import org.apache.camel.Processor
 import org.apache.camel.component.log.LogComponent
 import org.apache.camel.component.seda.SedaComponent
@@ -59,6 +60,8 @@ class IntegrationTest {
         assertThat(runtime.camelContext.registry.lookupByName("dataSource")).isInstanceOf(DataSource::class.java)
         assertThat(runtime.camelContext.registry.findByType(DefaultHeaderFilterStrategy::class.java)).hasSize(1)
         assertThat(runtime.camelContext.registry.lookupByName("filterStrategy")).isInstanceOf(DefaultHeaderFilterStrategy::class.java)
+        assertThat(runtime.camelContext.registry.lookupByName("myProcessor")).isInstanceOf(Processor::class.java)
+        assertThat(runtime.camelContext.registry.lookupByName("myPredicate")).isInstanceOf(Predicate::class.java)
     }
 
     @Test

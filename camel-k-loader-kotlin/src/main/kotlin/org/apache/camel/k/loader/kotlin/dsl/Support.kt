@@ -16,29 +16,15 @@
  */
 package org.apache.camel.k.loader.kotlin.dsl
 
-import org.apache.camel.CamelContext
 import org.apache.camel.Exchange
 import org.apache.camel.Predicate
 import org.apache.camel.Processor
-import org.apache.camel.builder.endpoint.EndpointBuilderFactory
 
-class BeansConfiguration(val context: CamelContext) : EndpointBuilderFactory {
-    inline fun <reified T : Any> bean(name: String, block: T.() -> Unit) {
-        var bean = T::class.java.newInstance()
-        bean.block()
-
-        context.registry.bind(name, T::class.java, bean)
+interface Support {
+    fun processor(fn: (Exchange) -> Unit) : Processor {
+        return Processor { exchange -> fn(exchange) }
     }
-
-    inline fun bean(name: String, crossinline function: () -> Any ) {
-        context.registry.bind(name, function())
-    }
-
-    fun processor(name: String, fn: (Exchange) -> Unit) {
-        context.registry.bind(name, Processor { exchange -> fn(exchange) } )
-    }
-
-    fun predicate(name: String, fn: (Exchange) -> Boolean) {
-        context.registry.bind(name, Predicate { exchange -> fn(exchange) } )
+    fun predicate(fn: (Exchange) -> Boolean) : Predicate {
+        return Predicate { exchange -> fn(exchange) }
     }
 }

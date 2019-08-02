@@ -16,9 +16,6 @@
  */
 package org.apache.camel.k.loader.kotlin.dsl
 
-import org.apache.camel.Exchange
-import org.apache.camel.Predicate
-import org.apache.camel.Processor
 import org.apache.camel.builder.BuilderSupport
 import org.apache.camel.builder.EndpointConsumerBuilder
 import org.apache.camel.builder.endpoint.EndpointBuilderFactory
@@ -31,7 +28,7 @@ import kotlin.script.experimental.annotations.KotlinScript
 @KotlinScript(fileExtension = "kts", compilationConfiguration = KotlinCompilationConfiguration::class)
 abstract class IntegrationConfiguration(
         private val registry : Registry,
-        private val builder : EndpointRouteBuilder) : BuilderSupport(builder.context), EndpointBuilderFactory {
+        private val builder : EndpointRouteBuilder) : BuilderSupport(builder.context), Support, EndpointBuilderFactory {
 
     fun rest(block: RestConfiguration.() -> Unit) {
         RestConfiguration(builder).block()
@@ -43,13 +40,6 @@ abstract class IntegrationConfiguration(
 
     fun context(block: ContextConfiguration.() -> Unit) {
         ContextConfiguration(context = context, registry = registry).block()
-    }
-
-    fun processor(fn: (Exchange) -> Unit) : Processor {
-        return Processor { exchange -> fn(exchange) }
-    }
-    fun predicate(fn: (Exchange) -> Boolean) : Predicate {
-        return Predicate { exchange -> fn(exchange) }
     }
 
     fun from(uri: String): RouteDefinition {

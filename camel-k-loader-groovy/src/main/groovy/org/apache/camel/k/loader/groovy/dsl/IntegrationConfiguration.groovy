@@ -16,9 +16,7 @@
  */
 package org.apache.camel.k.loader.groovy.dsl
 
-import org.apache.camel.Exchange
-import org.apache.camel.Predicate
-import org.apache.camel.Processor
+
 import org.apache.camel.builder.BuilderSupport
 import org.apache.camel.builder.EndpointConsumerBuilder
 import org.apache.camel.builder.endpoint.EndpointBuilderFactory
@@ -31,7 +29,7 @@ import org.apache.camel.model.OnExceptionDefinition
 import org.apache.camel.model.RouteDefinition
 import org.apache.camel.spi.Registry
 
-class IntegrationConfiguration extends BuilderSupport implements EndpointBuilderFactory {
+class IntegrationConfiguration extends BuilderSupport implements Support, EndpointBuilderFactory {
     final Registry registry
     final Components components
     final EndpointRouteBuilder builder
@@ -60,26 +58,6 @@ class IntegrationConfiguration extends BuilderSupport implements EndpointBuilder
         callable.resolveStrategy = Closure.DELEGATE_FIRST
         callable.delegate = new RestConfiguration(builder)
         callable.call()
-    }
-
-    def processor(@DelegatesTo(Exchange) Closure<?> callable) {
-        return new Processor() {
-            @Override
-            void process(Exchange exchange) throws Exception {
-                callable.resolveStrategy = Closure.DELEGATE_FIRST
-                callable.call(exchange)
-            }
-        }
-    }
-
-    def predicate(@DelegatesTo(Exchange) Closure<?> callable) {
-        return new Predicate() {
-            @Override
-            boolean matches(Exchange exchange) throws Exception {
-                callable.resolveStrategy = Closure.DELEGATE_FIRST
-                return callable.call(exchange)
-            }
-        }
     }
 
     RouteDefinition from(String endpoint) {

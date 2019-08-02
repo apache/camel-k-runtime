@@ -9,4 +9,12 @@ beans {
     bean("filterStrategy") {
         org.apache.camel.support.DefaultHeaderFilterStrategy()
     }
+
+    processor("myProcessor") {
+        it.getIn().body = "Hello"
+    }
+
+    predicate("myPredicate") {
+        false
+    }
 }
