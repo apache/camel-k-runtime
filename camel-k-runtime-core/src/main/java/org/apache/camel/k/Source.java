@@ -17,6 +17,7 @@
 package org.apache.camel.k;
 
 import java.util.Map;
+import java.util.Optional;
 
 import org.apache.camel.util.ObjectHelper;
 import org.apache.camel.util.URISupport;
@@ -26,12 +27,14 @@ public final class Source {
     private final String name;
     private final String location;
     private final String language;
+    private final String loader;
     private final boolean compressed;
 
-    private Source(String name, String location, String language, boolean compression) {
+    private Source(String name, String location, String language, String loader, boolean compression) {
         this.name = name;
         this.location = location;
         this.language = language;
+        this.loader = loader;
         this.compressed = compression;
     }
 
@@ -51,12 +54,17 @@ public final class Source {
         return compressed;
     }
 
+    public Optional<String> getLoader() {
+        return Optional.ofNullable(loader);
+    }
+
     @Override
     public String toString() {
         return "Source{"
             + "location='" + location + '\''
             + ", language=" + language
-            + " , compressed=" + compressed
+            + ", loader=" + loader
+            + ", compressed=" + compressed
             + '}';
     }
 
@@ -71,6 +79,7 @@ public final class Source {
         final Map<String, Object> params = URISupport.parseQuery(query);
         final String languageName = (String) params.get("language");
         final String compression = (String) params.get("compression");
+        final String loader = (String) params.get("loader");
 
 
         String language = languageName;
@@ -92,6 +101,6 @@ public final class Source {
             }
         }
 
-        return new Source(name, location, language, Boolean.valueOf(compression));
+        return new Source(name, location, language, loader, Boolean.valueOf(compression));
     }
 }
