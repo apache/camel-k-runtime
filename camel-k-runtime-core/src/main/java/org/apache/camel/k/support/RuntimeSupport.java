@@ -152,21 +152,39 @@ public final class RuntimeSupport {
     // *********************************
 
     public static RoutesLoader loaderFor(CamelContext context, Source source) {
-        return  context.getRegistry().findByType(RoutesLoader.class).stream()
-            .filter(rl -> rl.getSupportedLanguages().contains(source.getLanguage()))
-            .findFirst()
-            .orElseGet(() -> lookupLoaderFromResource(context, source));
+        return source.getLoader().map(
+            loaderId -> lookupLoaderById(context, loaderId)
+        ).orElseGet(
+            () -> lookupLoaderByLanguage(context, source.getLanguage())
+        );
     }
 
-    public static RoutesLoader lookupLoaderFromResource(CamelContext context, Source source) {
+    public static RoutesLoader lookupLoaderById(CamelContext context, String loaderId) {
+        RoutesLoader answer = context.getRegistry().findByTypeWithName(RoutesLoader.class).get(loaderId);
+        if (answer == null) {
+            return lookupLoaderFromResource(context, loaderId);
+        }
+
+        return answer;
+    }
+
+    public static RoutesLoader lookupLoaderByLanguage(CamelContext context, String language) {
+        return  context.getRegistry().findByType(RoutesLoader.class).stream()
+            .filter(rl -> rl.getSupportedLanguages().contains(language))
+            .findFirst()
+            .orElseGet(() -> lookupLoaderFromResource(context, language));
+
+    }
+
+    public static RoutesLoader lookupLoaderFromResource(CamelContext context, String loaderId) {
         final FactoryFinder finder;
         final RoutesLoader loader;
 
         try {
             finder = context.adapt(ExtendedCamelContext.class).getFactoryFinder(Constants.ROUTES_LOADER_RESOURCE_PATH);
-            loader = (RoutesLoader)finder.newInstance(source.getLanguage());
+            loader = (RoutesLoader)finder.newInstance(loaderId);
         } catch (NoFactoryAvailableException e) {
-            throw new IllegalArgumentException("Unable to find loader for: " + source, e);
+            throw new IllegalArgumentException("Unable to find loader for: " + loaderId, e);
         }
 
         return loader;

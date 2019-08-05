@@ -20,6 +20,7 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -168,6 +169,30 @@ public class KnativeEnvironment {
             //
             return Knative.MAPPER.readValue(is, KnativeEnvironment.class);
         }
+    }
+
+    public static KnativeServiceDefinition httpEndpoint(String name, String host, int port) {
+        return new KnativeEnvironment.KnativeServiceDefinition(
+            Knative.Type.endpoint,
+            Knative.Protocol.http,
+            name,
+            host,
+            port,
+            Collections.emptyMap());
+    }
+
+    public static KnativeServiceDefinition httpChannel(String name, String host, int port) {
+        return new KnativeEnvironment.KnativeServiceDefinition(
+            Knative.Type.channel,
+            Knative.Protocol.http,
+            name,
+            host,
+            port,
+            Collections.emptyMap());
+    }
+
+    public static KnativeEnvironment on(KnativeServiceDefinition... definitions) {
+        return new KnativeEnvironment(Arrays.asList(definitions));
     }
 
     // ************************
