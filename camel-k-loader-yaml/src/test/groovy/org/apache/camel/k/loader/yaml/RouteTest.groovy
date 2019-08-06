@@ -28,7 +28,7 @@ class RouteTest extends TestSupport {
                     uri: "direct:route"
                     steps:
                       - split:
-                          tokenizer: ","
+                          tokenize: ","
                           steps:
                             - to: "mock:split"
                       - to: "mock:route"
@@ -36,7 +36,7 @@ class RouteTest extends TestSupport {
                     uri: "direct:flow"
                     steps:
                       - split:
-                          tokenizer: ","
+                          tokenize: ","
                       - to: "mock:flow"
             ''')
 

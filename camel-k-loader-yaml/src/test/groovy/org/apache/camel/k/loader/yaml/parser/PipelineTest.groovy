@@ -39,7 +39,7 @@ class PipelineTest extends TestSupport {
 
     def "should fail without steps"() {
         given:
-            def stepContext = stepContext(org.apache.camel.k.loader.yaml.Yaml.MAPPER.createObjectNode());
+            def stepContext = stepContext(MAPPER.createObjectNode());
         when:
             new PipelineStepParser().toProcessor(stepContext)
         then:

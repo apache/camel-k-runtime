@@ -24,7 +24,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.regex.Matcher;
 
-import static java.lang.Integer.*;
+import static java.lang.Integer.parseInt;
 
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
@@ -68,14 +68,31 @@ public class KnativeHttpComponent extends DefaultComponent {
 
         this.executor = getCamelContext().getExecutorServiceManager().newSingleThreadExecutor(this, "knative-http-component");
 
+        if (this.vertx != null)  {
+            LOGGER.info("Using Vert.x instance configured on component: {}", this.vertx);
+            return;
+        }
+
         if (this.vertx == null) {
             Set<Vertx> instances = getCamelContext().getRegistry().findByType(Vertx.class);
             if (instances.size() == 1) {
                 this.vertx = instances.iterator().next();
+
+                //
+                // if this method is executed before the container is fully started,
+                // it may return a null reference, may be related to:
+                //
+                //    https://groups.google.com/forum/#!topic/quarkus-dev/qSo65fTyYVA
+                //
+                if (this.vertx != null) {
+                    LOGGER.info("Found Vert.x instance in registry: {}", this.vertx);
+                }
             }
         }
 
         if (this.vertx == null) {
+            LOGGER.info("Creating new Vert.x instance");
+
             VertxOptions options = ObjectHelper.supplyIfEmpty(this.vertxOptions, VertxOptions::new);
 
             this.vertx = Vertx.vertx(options);
@@ -198,9 +215,5 @@ public class KnativeHttpComponent extends DefaultComponent {
 
     KnativeHttpConsumerDispatcher getDispatcher(KnativeHttp.ServerKey key) {
         return registry.computeIfAbsent(key, k -> new KnativeHttpConsumerDispatcher(executor, vertx, k, vertxHttpServerOptions));
-    }
-
-    ExecutorService getExecutorService() {
-        return this.executor;
     }
 }

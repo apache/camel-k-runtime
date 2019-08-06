@@ -36,12 +36,14 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <camel.version>3.0.0-RC1</camel.version>
+        <camel-quarkus.version>0.2.0</camel-quarkus.version>
         <catalog.version>${camel.version}</catalog.version>
         <junit.version>5.5.2</junit.version>
         <joor.version>0.9.12</joor.version>
         <commons-io.version>2.6</commons-io.version>
         <commons-lang.version>3.9</commons-lang.version>
         <commons-collections4.version>4.4</commons-collections4.version>
+        <commons-text.version>1.7</commons-text.version>
         <assertj.version>3.13.2</assertj.version>
         <log4j2.version>2.12.1</log4j2.version>
         <slf4j.version>1.7.28</slf4j.version>
@@ -57,6 +59,10 @@
         <undertow.version>1.4.26.Final</undertow.version>
         <vertx.version>3.8.1</vertx.version>
         <graalvm.version>19.1.1</graalvm.version>
+        <quarkus.version>0.21.2</quarkus.version>
+        <jandex.version>2.1.1.Final</jandex.version>
+        <javapoet.version>1.11.1</javapoet.version>
+        <auto-service.version>1.0-rc6</auto-service.version>
         <gmavenplus-plugin.version>1.7.1</gmavenplus-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
@@ -73,6 +79,9 @@
         <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
         <maven-source-plugin.version>3.1.0</maven-source-plugin.version>
         <maven-assembly-plugin.version>3.1.1</maven-assembly-plugin.version>
+        <jandex-maven-plugin.version>1.0.6</jandex-maven-plugin.version>
+        <docker-maven-plugin.version>0.3.0</docker-maven-plugin.version>
+        <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
     </properties>
 
      <developers>
@@ -181,15 +190,24 @@
                         </execution>
                     </executions>
                 </plugin>
+                <plugin>
+                    <groupId>org.jboss.jandex</groupId>
+                    <artifactId>jandex-maven-plugin</artifactId>
+                    <version>${jandex-maven-plugin.version}</version>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
 
     <modules>
+        <module>tooling</module>
+
         <module>camel-knative-http</module>
         <module>camel-knative</module>
+
         <module>camel-k-runtime-core</module>
         <module>camel-k-runtime-main</module>
+        <module>camel-k-quarkus</module>
 
         <module>camel-k-loader-groovy</module>
         <module>camel-k-loader-kotlin</module>
@@ -205,7 +223,6 @@
         <module>camel-k-runtime-bom</module>
         <module>camel-k-runtime-legacy</module>
 
-        <module>tooling</module>
         <module>examples</module>
         <module>distribution</module>
     </modules>
@@ -254,6 +271,19 @@
                 <type>pom</type>
             </dependency>
 
+            <!-- tools -->
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-annotations</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-apt</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- components -->
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-knative</artifactId>
@@ -265,6 +295,7 @@
                 <version>${project.version}</version>
             </dependency>
 
+            <!-- runtime -->
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-runtime-core</artifactId>
@@ -288,6 +319,78 @@
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-runtime-knative</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- runtime - quarkus -->
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-runtime-quarkus</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-runtime-quarkus-deployment</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-quarkus-loader-yaml</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-quarkus-loader-yaml-deployment</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-quarkus-loader-knative</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-quarkus-loader-knative-deployment</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-quarkus-loader-xml</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-quarkus-loader-xml-deployment</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-quarkus-loader-js</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-quarkus-loader-js-deployment</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-quarkus-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-quarkus-core-deployment</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-quarkus-knative</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-quarkus-knative-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

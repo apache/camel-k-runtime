@@ -28,12 +28,18 @@
     <packaging>pom</packaging>
     <artifactId>camel-k-runtime-examples</artifactId>
 
+    <properties>
+        <maven.install.skip>true</maven.install.skip>
+    </properties>
 
     <modules>
         <module>camel-k-runtime-example-servlet</module>
         <module>camel-k-runtime-example-health</module>
         <module>camel-k-runtime-example-yaml</module>
         <module>camel-k-runtime-example-knative</module>
+        <module>camel-k-runtime-example-quarkus-js</module>
+        <module>camel-k-runtime-example-quarkus-yaml</module>
+        <module>camel-k-runtime-example-quarkus-knative</module>
     </modules>
 
 </project>

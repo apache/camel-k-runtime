@@ -27,7 +27,6 @@ import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
 import org.apache.camel.k.RoutesLoader;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.loader.js.dsl.IntegrationConfiguration;
-import org.apache.camel.k.support.URIResolver;
 import org.apache.camel.support.LifecycleStrategySupport;
 import org.apache.commons.io.IOUtils;
 import org.graalvm.polyglot.Context;
@@ -48,7 +47,7 @@ public class JavaScriptRoutesLoader implements RoutesLoader {
             public void configure() throws Exception {
                 final Context context = Context.newBuilder("js").allowAllAccess(true).build();
 
-                try (InputStream is = URIResolver.resolve(camelContext, source)) {
+                try (InputStream is = source.resolveAsInputStream(getContext())) {
                     Value bindings = context.getBindings(LANGUAGE_ID);
 
                     // configure bindings

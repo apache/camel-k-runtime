@@ -16,13 +16,14 @@
  */
 package org.apache.camel.k.loader.yaml.parser;
 
+import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.RemoveHeadersDefinition;
 
+@YAMLStepParser("remove-headers")
 public class RemoveHeadersStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {
         return context.node(RemoveHeadersDefinition.class);
     }
 }
-

@@ -24,6 +24,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.k.RoutesLoader;
 import org.apache.camel.k.Source;
+import org.apache.camel.k.Sources;
 import org.apache.camel.k.support.RuntimeSupport;
 import org.apache.camel.model.ProcessDefinition;
 import org.apache.camel.model.RouteDefinition;
@@ -43,7 +44,7 @@ public class RoutesLoaderTest {
         CamelContext camelContext = new DefaultCamelContext();
         camelContext.getRegistry().bind("my-loader", myLoader);
 
-        Source source = Source.create("classpath:" + MyRoutes.class.getName() + ".class");
+        Source source = Sources.fromURI("classpath:" + MyRoutes.class.getName() + ".class");
         RoutesLoader loader = RuntimeSupport.loaderFor(camelContext, source);
 
         assertThat(loader).isInstanceOf(JavaClassRoutesLoader.class);
@@ -54,7 +55,7 @@ public class RoutesLoaderTest {
     public void testLoadJavaWithNestedClass() throws Exception {
         CamelContext context = new DefaultCamelContext();
 
-        Source source = Source.create("classpath:MyRoutesWithNestedClass.java");
+        Source source = Sources.fromURI("classpath:MyRoutesWithNestedClass.java");
         RoutesLoader loader = RuntimeSupport.loaderFor(new DefaultCamelContext(), source);
         RouteBuilder builder = loader.load(context, source);
 
@@ -76,7 +77,7 @@ public class RoutesLoaderTest {
     public void testLoadJavaWithRestConfiguration() throws Exception {
         CamelContext context = new DefaultCamelContext();
 
-        Source source = Source.create("classpath:MyRoutesWithRestConfiguration.java");
+        Source source = Sources.fromURI("classpath:MyRoutesWithRestConfiguration.java");
         RoutesLoader loader = RuntimeSupport.loaderFor(new DefaultCamelContext(), source);
         RouteBuilder builder = loader.load(context, source);
 
@@ -92,7 +93,7 @@ public class RoutesLoaderTest {
     @ParameterizedTest
     @MethodSource("parameters")
     public void testLoaders(String location, Class<? extends RoutesLoader> type) throws Exception {
-        Source source = Source.create(location);
+        Source source = Sources.fromURI(location);
         RoutesLoader loader = RuntimeSupport.loaderFor(new DefaultCamelContext(), source);
         RouteBuilder builder = loader.load(new DefaultCamelContext(), source);
 

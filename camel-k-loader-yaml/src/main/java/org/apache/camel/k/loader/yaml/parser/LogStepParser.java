@@ -16,9 +16,11 @@
  */
 package org.apache.camel.k.loader.yaml.parser;
 
+import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.model.LogDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 
+@YAMLStepParser("log")
 public class LogStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

@@ -45,7 +45,7 @@ class RouteDefinitionTest extends TestSupport {
             def camelContext = new DefaultCamelContext()
             def istream = IOUtils.toInputStream(content, StandardCharsets.UTF_8)
         when:
-            camelContext.addRoutes(YamlRoutesLoader.builder(istream))
+            camelContext.addRoutes(new YamlRoutesLoader().builder(istream))
         then:
             camelContext.routeDefinitions[0].id == 'my-route-id'
             camelContext.routeDefinitions[0].group == 'my-route-group'
@@ -84,7 +84,7 @@ class RouteDefinitionTest extends TestSupport {
             def camelContext = new DefaultCamelContext()
             def istream = IOUtils.toInputStream(content, StandardCharsets.UTF_8)
         when:
-            camelContext.addRoutes(YamlRoutesLoader.builder(istream))
+            camelContext.addRoutes(new YamlRoutesLoader().builder(istream))
         then:
             camelContext.routeDefinitions[0].input.endpointUri == 'direct:start'
 
@@ -116,21 +116,21 @@ class RouteDefinitionTest extends TestSupport {
     def "route with split"() {
         given:
             def content = '''
-             - from:
-                 uri: "direct:start"
-                 steps:
-                   - split: 
-                       tokenizer: ","
-                       steps:
-                         - to: "log:split1"
-                         - to: "log:split2"
-                   - to: "log:info"
+                 - from:
+                     uri: "direct:start"
+                     steps:
+                       - split: 
+                           tokenize: ","
+                           steps:
+                             - to: "log:split1"
+                             - to: "log:split2"
+                       - to: "log:info"
             '''.stripMargin('|')
 
             def camelContext = new DefaultCamelContext()
             def istream = IOUtils.toInputStream(content, StandardCharsets.UTF_8)
         when:
-            camelContext.addRoutes(YamlRoutesLoader.builder(istream))
+            camelContext.addRoutes(new YamlRoutesLoader().builder(istream))
         then:
             camelContext.routeDefinitions[0].input.endpointUri == 'direct:start'
             camelContext.routeDefinitions[0].outputs.size() == 2
@@ -158,18 +158,18 @@ class RouteDefinitionTest extends TestSupport {
     def "flow style route with split"() {
         given:
             def content = '''
-             - from:
-                 uri: "direct:start"
-                 steps:
-                   - split: 
-                       tokenizer: ","
-                   - to: "log:info"
+                 - from:
+                     uri: "direct:start"
+                     steps:
+                       - split: 
+                           tokenize: ","
+                       - to: "log:info"
             '''.stripMargin('|')
 
             def camelContext = new DefaultCamelContext()
             def istream = IOUtils.toInputStream(content, StandardCharsets.UTF_8)
         when:
-            camelContext.addRoutes(YamlRoutesLoader.builder(istream))
+            camelContext.addRoutes(new YamlRoutesLoader().builder(istream))
         then:
             camelContext.routeDefinitions[0].input.endpointUri == 'direct:start'
             camelContext.routeDefinitions[0].outputs.size() == 1
@@ -204,7 +204,7 @@ class RouteDefinitionTest extends TestSupport {
             def camelContext = new DefaultCamelContext()
             def istream = IOUtils.toInputStream(content, StandardCharsets.UTF_8)
         when:
-            camelContext.addRoutes(YamlRoutesLoader.builder(istream))
+            camelContext.addRoutes(new YamlRoutesLoader().builder(istream))
         then:
             camelContext.routeDefinitions[0].input.endpointUri == 'direct:start'
             camelContext.routeDefinitions[0].outputs.size() == 2
@@ -243,7 +243,7 @@ class RouteDefinitionTest extends TestSupport {
             def camelContext = new DefaultCamelContext()
             def istream = IOUtils.toInputStream(content, StandardCharsets.UTF_8)
         when:
-            camelContext.addRoutes(YamlRoutesLoader.builder(istream))
+            camelContext.addRoutes(new YamlRoutesLoader().builder(istream))
         then:
             camelContext.routeDefinitions[0].input.endpointUri == 'direct:start'
             camelContext.routeDefinitions[0].outputs.size() == 1

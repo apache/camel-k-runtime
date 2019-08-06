@@ -18,10 +18,12 @@ package org.apache.camel.k.loader.yaml.parser;
 
 import java.util.List;
 
+import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.k.loader.yaml.model.Step;
 import org.apache.camel.model.PipelineDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 
+@YAMLStepParser("pipeline")
 public class PipelineStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {
@@ -37,7 +39,7 @@ public class PipelineStepParser implements ProcessorStepParser {
         );
     }
 
-    public static final class Definition {
+    public static final class Definition implements Step.Definition {
         public List<Step> steps;
     }
 }

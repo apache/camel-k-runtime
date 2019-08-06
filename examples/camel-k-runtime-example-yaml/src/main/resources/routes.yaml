@@ -32,7 +32,7 @@
             - simple: "${body.contains(\",\")}"
               steps:
                 - split:
-                    tokenizer: ","
+                    tokenize: ","
                     steps:
                       - set-body:
                           simple: "${body.toUpperCase()}"
@@ -41,7 +41,7 @@
             - simple: "${body.contains(\";\")}"
               steps:
                 - split:
-                    tokenizer: ";"
+                    tokenize: ";"
                     steps:
                       - set-body:
                           simple: "${body.toLowerCase()}"
@@ -68,7 +68,7 @@
       - filter:
           simple: "${body.contains(\",\")}"
       - split:
-          tokenizer: ";"
+          tokenize: ";"
       - set-body:
           simple: "${body.toLowerCase()}"
       - to:
@@ -90,7 +90,7 @@
             - simple: "${body.contains(\",\")}"
               steps:
                 - split:
-                    tokenizer: ","
+                    tokenize: ","
                 - set-body:
                     simple: "${body.toUpperCase()}"
                 - to:
@@ -98,7 +98,7 @@
             - simple: "${body.contains(\";\")}"
               steps:
                 - split:
-                    tokenizer: ";"
+                    tokenize: ";"
                 - set-body:
                     simple: "${body.toLowerCase()}"
                 - to:

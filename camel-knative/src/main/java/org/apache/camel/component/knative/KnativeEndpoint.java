@@ -47,12 +47,10 @@ import org.apache.camel.util.URISupport;
 public class KnativeEndpoint extends DefaultEndpoint implements DelegateEndpoint {
     @UriPath(description = "The Knative type")
     private final Knative.Type type;
-
     @UriPath(description = "The Knative name")
     private final String name;
 
     private final KnativeConfiguration configuration;
-
     private final KnativeEnvironment environment;
     private final KnativeEnvironment.KnativeServiceDefinition service;
     private final Endpoint endpoint;

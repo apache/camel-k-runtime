@@ -23,6 +23,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.k.RoutesLoader;
 import org.apache.camel.k.Source;
+import org.apache.camel.k.Sources;
 import org.apache.camel.k.support.RuntimeSupport;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.model.ToDefinition;
@@ -36,7 +37,7 @@ public class RoutesLoaderTest {
     @ParameterizedTest
     @MethodSource("parameters")
     public void testLoaders(String location, Class<? extends RoutesLoader> type) throws Exception {
-        Source source = Source.create(location);
+        Source source = Sources.fromURI(location);
         RoutesLoader loader = RuntimeSupport.loaderFor(new DefaultCamelContext(), source);
         RouteBuilder builder = loader.load(new DefaultCamelContext(), source);
 

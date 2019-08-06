@@ -29,24 +29,23 @@ import java.nio.charset.StandardCharsets
 
 @Slf4j
 class TestSupport extends Specification {
+    static def MAPPER = new YamlRoutesLoader().mapper()
 
     static StepParser.Context stepContext(String content) {
-        def node = Yaml.MAPPER.readTree(content.stripMargin())
+        def node = MAPPER.readTree(content.stripMargin())
         def cctx = new DefaultCamelContext()
 
-        return new StepParser.Context(cctx, node)
+        return new StepParser.Context(cctx, MAPPER, node)
     }
 
     static StepParser.Context stepContext(JsonNode content) {
-        def cctx = new DefaultCamelContext()
-
-        return new StepParser.Context(cctx, content)
+        return new StepParser.Context(new DefaultCamelContext(), MAPPER, content)
     }
 
     static CamelContext startContext(String content) {
         def context = new DefaultCamelContext()
         def istream = IOUtils.toInputStream(content.stripMargin(), StandardCharsets.UTF_8)
-        def builder = YamlRoutesLoader.builder(istream)
+        def builder = new YamlRoutesLoader().builder(istream)
 
         context.disableJMX()
         context.setStreamCaching(true)

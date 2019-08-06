@@ -39,7 +39,7 @@ public class JavaClassRoutesLoader implements RoutesLoader {
         Class<?> type = Class.forName(name);
 
         if (!RouteBuilder.class.isAssignableFrom(type)) {
-            throw new IllegalStateException("The class provided (" + source.getLocation() + ") is not a org.apache.camel.builder.RouteBuilder");
+            throw new IllegalStateException("The class provided is not a org.apache.camel.builder.RouteBuilder");
         }
 
         return (RouteBuilder)type.newInstance();

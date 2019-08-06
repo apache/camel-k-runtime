@@ -454,7 +454,7 @@ public class KnativeComponentTest {
                     .to("mock:ce");
 
                 from("direct:source")
-                    .toF("http://localhost:%d/a/path", port);
+                    .toF("undertow:http://localhost:%d/a/path", port);
             }
         });
 
@@ -540,7 +540,7 @@ public class KnativeComponentTest {
                         .constant("POST")
                     .setHeader(Exchange.HTTP_QUERY)
                         .simple("filter.CE-Source=${header.FilterVal}")
-                    .toD("http://localhost:" + port);
+                    .toD("undertow:http://localhost:" + port);
             }
         });
 

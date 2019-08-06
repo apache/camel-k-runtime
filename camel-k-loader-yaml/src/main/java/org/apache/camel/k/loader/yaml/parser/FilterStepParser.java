@@ -18,25 +18,31 @@ package org.apache.camel.k.loader.yaml.parser;
 
 import java.util.List;
 
+import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.k.loader.yaml.model.Step;
 import org.apache.camel.model.FilterDefinition;
 import org.apache.camel.model.ProcessorDefinition;
+import org.apache.camel.reifier.FilterReifier;
+import org.apache.camel.reifier.ProcessorReifier;
 
+@YAMLStepParser("filter")
 public class FilterStepParser implements ProcessorStepParser {
+    static {
+        ProcessorReifier.registerReifier(Definition.class, FilterReifier::new);
+    }
+
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {
         Definition definition = context.node(Definition.class);
 
         return StepParserSupport.convertSteps(
             context,
-            // TODO: this should be removed once we can register custom
-            //       reifiers or register custom processor factory
-            StepParserSupport.adaptProcessorToSuper(context.camelContext(), definition),
+            definition,
             definition.steps
         );
     }
 
-    public static final class Definition extends FilterDefinition implements HasExpression {
+    public static final class Definition extends FilterDefinition implements HasExpression, Step.Definition {
         public List<Step> steps;
     }
 }

@@ -24,21 +24,21 @@ public class SourceTest {
     @Test
     public void testResourceWithoutScheme() {
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(
-            () -> Source.create("routes.js")
+            () -> Sources.fromURI("routes.js")
         );
     }
 
     @Test
     public void testResourceWithIllegalScheme() {
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(
-            () -> Source.create("http:routes.js")
+            () -> Sources.fromURI("http:routes.js")
         );
     }
 
     @Test
     public void testUnsupportedLanguage() {
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(
-            () -> Source.create("  test")
+            () -> Sources.fromURI("  test")
         );
     }
 

@@ -22,15 +22,17 @@ import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.k.loader.yaml.model.Step;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.util.URISupport;
 
+@YAMLStepParser("from")
 public class FromStepParser implements StartStepParser {
     @Override
     public ProcessorDefinition<?> toStartProcessor(Context context) {
-        final Definition definition = context.node(Definition.class);
+        final FromStepDefinition definition = context.node(FromStepDefinition.class);
         final String uri = definition.getEndpointUri();
         final RouteDefinition route = new RouteDefinition().from(uri);
 
@@ -44,7 +46,7 @@ public class FromStepParser implements StartStepParser {
         );
     }
 
-    public static final class Definition {
+    public static final class FromStepDefinition implements Step.Definition {
         public String uri;
         public Map<String, Object> parameters;
         public List<Step> steps;
