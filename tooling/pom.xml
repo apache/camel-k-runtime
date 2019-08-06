@@ -28,8 +28,9 @@
     <packaging>pom</packaging>
     <artifactId>camel-k-tooling</artifactId>
 
-
     <modules>
+        <module>camel-k-annotations</module>
+        <module>camel-k-apt</module>
         <module>camel-k-maven-plugin</module>
     </modules>
 

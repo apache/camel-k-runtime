@@ -25,9 +25,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
+import java.util.Set;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.properties.PropertiesComponent;
@@ -43,18 +46,14 @@ public final class PropertiesSupport {
     @SuppressWarnings("unchecked")
     public static boolean bindProperties(CamelContext context, Object target, String prefix) {
         final PropertiesComponent component = context.getComponent("properties", PropertiesComponent.class);
-        final Properties properties = component.loadProperties();
-
-        if (properties == null) {
-            return false;
-        }
+        final Properties properties = component.loadProperties(k -> k.startsWith(prefix));
 
         return PropertyBindingSupport.build()
             .withCamelContext(context)
             .withTarget(target)
             .withProperties((Map)properties)
-            .withOptionPrefix(prefix)
             .withRemoveParameters(false)
+            .withOptionPrefix(prefix)
             .bind();
     }
 
@@ -67,14 +66,27 @@ public final class PropertiesSupport {
 
     public static Properties loadProperties(String conf, String confd) {
         final Properties properties = new Properties();
+        final Collection<String> locations = resolvePropertiesLocation(conf, confd);
+
+        try {
+            for (String location: locations) {
+                try (Reader reader = Files.newBufferedReader(Paths.get(location))) {
+                    properties.load(reader);
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return properties;
+    }
+
+    public static Collection<String> resolvePropertiesLocation(String conf, String confd) {
+        final Set<String> locations = new LinkedHashSet<>();
 
         // Main location
         if (ObjectHelper.isNotEmpty(conf)) {
-            try (Reader reader = Files.newBufferedReader(Paths.get(conf))) {
-                properties.load(reader);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            locations.add(conf);
         }
 
         // Additional locations
@@ -86,13 +98,11 @@ public final class PropertiesSupport {
                     Objects.requireNonNull(file);
                     Objects.requireNonNull(attrs);
 
-                    String path = file.toFile().getAbsolutePath();
-                    String ext = FilenameUtils.getExtension(path);
+                    final String path = file.toFile().getAbsolutePath();
+                    final String ext = FilenameUtils.getExtension(path);
 
                     if (Objects.equals("properties", ext)) {
-                        try (Reader reader = Files.newBufferedReader(Paths.get(path))) {
-                            properties.load(reader);
-                        }
+                        locations.add(path);
                     }
 
                     return FileVisitResult.CONTINUE;
@@ -108,6 +118,6 @@ public final class PropertiesSupport {
             }
         }
 
-        return properties;
+        return locations;
     }
 }

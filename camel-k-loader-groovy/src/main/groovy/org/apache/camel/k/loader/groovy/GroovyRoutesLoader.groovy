@@ -22,10 +22,8 @@ import org.apache.camel.builder.endpoint.EndpointRouteBuilder
 import org.apache.camel.k.RoutesLoader
 import org.apache.camel.k.Source
 import org.apache.camel.k.loader.groovy.dsl.IntegrationConfiguration
-import org.apache.camel.k.support.URIResolver
 import org.codehaus.groovy.control.CompilerConfiguration
 import org.codehaus.groovy.control.customizers.ImportCustomizer
-
 
 class GroovyRoutesLoader implements RoutesLoader {
     @Override
@@ -48,7 +46,7 @@ class GroovyRoutesLoader implements RoutesLoader {
 
                 def cl = Thread.currentThread().getContextClassLoader()
                 def sh = new GroovyShell(cl, new Binding(), cc)
-                def is = URIResolver.resolve(context, source)
+                def is = source.resolveAsInputStream(getContext())
 
                 is.withCloseable {
                     def reader = new InputStreamReader(is)

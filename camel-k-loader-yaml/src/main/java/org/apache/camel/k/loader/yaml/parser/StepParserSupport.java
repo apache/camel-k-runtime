@@ -16,51 +16,15 @@
  */
 package org.apache.camel.k.loader.yaml.parser;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
-import org.apache.camel.CamelContext;
-import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.k.loader.yaml.model.Step;
 import org.apache.camel.model.OutputNode;
 import org.apache.camel.model.ProcessorDefinition;
-import org.apache.camel.spi.BeanIntrospection;
-import org.apache.camel.support.PropertyBindingSupport;
 import org.apache.camel.util.ObjectHelper;
 
 public final class StepParserSupport {
     private StepParserSupport() {
-    }
-
-    @SuppressWarnings("unchecked")
-    public static <T extends ProcessorDefinition<?>, I> T adaptProcessorToSuper(CamelContext context, I instance) {
-        ObjectHelper.notNull(context, "camel context");
-        ObjectHelper.notNull(instance, "instance");
-
-        return adaptProcessor(context, (Class<T>)instance.getClass().getSuperclass(), instance);
-    }
-
-    @SuppressWarnings("unchecked")
-    public static <T extends ProcessorDefinition<?>, I> T adaptProcessor(CamelContext context, Class<T> type, I instance) {
-        ObjectHelper.notNull(context, "camel context");
-        ObjectHelper.notNull(type, "type");
-        ObjectHelper.notNull(instance, "instance");
-
-        if (Objects.equals(type, instance.getClass())) {
-            return (T)instance;
-        }
-
-        final T answer = context.getInjector().newInstance(type);
-        final Map<String, Object> properties = new HashMap<>();
-        final BeanIntrospection introspection = context.adapt(ExtendedCamelContext.class).getBeanIntrospection();
-
-        if (introspection.getProperties(instance, properties, null, false)) {
-            PropertyBindingSupport.build().withCamelContext(context).withTarget(answer).withProperties(properties).bind();
-        }
-
-        return answer;
     }
 
     public static <T> T notNull(T value, String name) {

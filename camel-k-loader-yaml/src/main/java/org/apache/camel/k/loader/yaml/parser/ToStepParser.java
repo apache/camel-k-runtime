@@ -21,17 +21,23 @@ import java.net.URISyntaxException;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.camel.k.annotation.yaml.YAMLStepParser;
+import org.apache.camel.k.loader.yaml.model.Step;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.ToDefinition;
 import org.apache.camel.util.URISupport;
 
+@YAMLStepParser("to")
 public class ToStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {
-        return new ToDefinition(context.node(Definition.class).getEndpointUri());
+        final Definition definition = context.node(Definition.class);
+        final ToDefinition answer = new ToDefinition(definition.getEndpointUri());
+
+        return answer;
     }
 
-    public static final class Definition extends ToDefinition {
+    public static final class Definition extends ToDefinition implements Step.Definition {
         public Map<String, Object> parameters;
 
         public Definition() {

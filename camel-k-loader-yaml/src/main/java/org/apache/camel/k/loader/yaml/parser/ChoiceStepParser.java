@@ -18,15 +18,17 @@ package org.apache.camel.k.loader.yaml.parser;
 
 import java.util.List;
 
+import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.k.loader.yaml.model.Step;
 import org.apache.camel.model.ChoiceDefinition;
+import org.apache.camel.model.OtherwiseDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.WhenDefinition;
 
+@YAMLStepParser("choice")
 public class ChoiceStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {
-
         final Definition definition = context.node(Definition.class);
         final ChoiceDefinition choice = new ChoiceDefinition();
 
@@ -55,7 +57,7 @@ public class ChoiceStepParser implements ProcessorStepParser {
         return choice;
     }
 
-    public static final class Definition {
+    public static final class Definition implements Step.Definition {
         public List<When> when;
         public Otherwise otherwise;
 
@@ -63,7 +65,7 @@ public class ChoiceStepParser implements ProcessorStepParser {
             public List<Step> steps;
         }
 
-        public static final class Otherwise {
+        public static final class Otherwise extends OtherwiseDefinition {
             public List<Step> steps;
         }
     }

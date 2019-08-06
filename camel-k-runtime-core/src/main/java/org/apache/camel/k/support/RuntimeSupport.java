@@ -117,9 +117,13 @@ public final class RuntimeSupport {
                     .getFactoryFinder(Constants.CONTEXT_CUSTOMIZER_RESOURCE_PATH)
                     .newInstance(customizerId, ContextCustomizer.class)
                     .orElseThrow(() -> new RuntimeException("Error creating instance for customizer: " + customizerId));
+
+                LOGGER.info("Found customizer {} with id {} rom service definition", customizer, customizerId);
             } catch (NoFactoryAvailableException e) {
                 throw new RuntimeException(e);
             }
+        } else {
+            LOGGER.info("Found customizer {} with id {} from the registry", customizer, customizerId);
         }
 
         return customizer;
@@ -161,31 +165,46 @@ public final class RuntimeSupport {
         );
     }
 
+
     public static RoutesLoader lookupLoaderById(CamelContext context, String loaderId) {
-        RoutesLoader answer = context.getRegistry().findByTypeWithName(RoutesLoader.class).get(loaderId);
-        if (answer == null) {
-            return lookupLoaderFromResource(context, loaderId);
+        LOGGER.info("Looking up loader for id: {}", loaderId);
+
+        RoutesLoader loader = context.getRegistry().findByTypeWithName(RoutesLoader.class).get(loaderId);
+        if (loader != null) {
+            LOGGER.info("Found loader {} with id {} from the registry", loader, loaderId);
+            return loader;
         }
 
-        return answer;
+        return lookupLoaderFromResource(context, loaderId);
     }
 
-    public static RoutesLoader lookupLoaderByLanguage(CamelContext context, String language) {
-        return  context.getRegistry().findByType(RoutesLoader.class).stream()
-            .filter(rl -> rl.getSupportedLanguages().contains(language))
-            .findFirst()
-            .orElseGet(() -> lookupLoaderFromResource(context, language));
+    public static RoutesLoader lookupLoaderByLanguage(CamelContext context, String loaderId) {
+        LOGGER.info("Looking up loader for language: {}", loaderId);
 
+        for (RoutesLoader loader: context.getRegistry().findByType(RoutesLoader.class)) {
+            if (loader.getSupportedLanguages().contains(loaderId)) {
+                LOGGER.info("Found loader {} for language {} from the registry", loader, loaderId);
+                return loader;
+            }
+        }
+
+        return lookupLoaderFromResource(context, loaderId);
     }
 
     public static RoutesLoader lookupLoaderFromResource(CamelContext context, String loaderId) {
+        RoutesLoader loader;
+
         try {
-            return context.adapt(ExtendedCamelContext.class)
+            loader = context.adapt(ExtendedCamelContext.class)
                 .getFactoryFinder(Constants.ROUTES_LOADER_RESOURCE_PATH)
                 .newInstance(loaderId, RoutesLoader.class)
                 .orElseThrow(() -> new RuntimeException("Error creating instance of loader: " + loaderId));
+
+            LOGGER.info("Found loader {} for language {} from service definition", loader, loaderId);
         } catch (NoFactoryAvailableException e) {
             throw new IllegalArgumentException("Unable to find loader for: " + loaderId, e);
         }
+
+        return loader;
     }
 }

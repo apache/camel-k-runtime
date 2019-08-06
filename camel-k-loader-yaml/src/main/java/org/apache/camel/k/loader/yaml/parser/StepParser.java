@@ -19,21 +19,21 @@ package org.apache.camel.k.loader.yaml.parser;
 import java.io.IOException;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.NoFactoryAvailableException;
-import org.apache.camel.k.loader.yaml.Yaml;
 import org.apache.camel.util.ObjectHelper;
 
 public interface StepParser {
-    String RESOURCE_PATH = "META-INF/services/org/apache/camel/k/loader/yaml-parser/";
+    String SERVICE_LOCATION = "META-INF/services/org/apache/camel/k/loader/yaml-parser/";
 
     @SuppressWarnings("unchecked")
     static <T extends StepParser> T lookup(CamelContext camelContext, Class<T> type, String stepId) throws NoFactoryAvailableException {
         T converter = camelContext.getRegistry().lookupByNameAndType(stepId, type);
         if (converter == null) {
             converter = camelContext.adapt(ExtendedCamelContext.class)
-                .getFactoryFinder(RESOURCE_PATH)
+                .getFactoryFinder(SERVICE_LOCATION)
                 .newInstance(stepId, type)
                 .orElseThrow(() -> new RuntimeException("No handler for step with id: " + stepId));
         }
@@ -42,11 +42,13 @@ public interface StepParser {
     }
 
     class Context {
+        private final ObjectMapper mapper;
         private final CamelContext camelContext;
         private final JsonNode node;
 
-        public Context(CamelContext camelContext, JsonNode node) {
+        public Context(CamelContext camelContext, ObjectMapper mapper, JsonNode node) {
             this.camelContext = camelContext;
+            this.mapper = mapper;
             this.node = node;
         }
 
@@ -62,6 +64,10 @@ public interface StepParser {
             return node;
         }
 
+        public ObjectMapper mapper() {
+            return mapper;
+        }
+
         public <T> T node(Class<T> type) {
             ObjectHelper.notNull(node, "node");
             ObjectHelper.notNull(type, "type");
@@ -69,7 +75,7 @@ public interface StepParser {
             final T definition;
 
             try {
-                definition = Yaml.MAPPER.reader().forType(type).readValue(node);
+                definition = mapper.reader().forType(type).readValue(node);
             } catch (IOException e) {
                 throw new IllegalStateException(e);
             }
@@ -84,6 +90,7 @@ public interface StepParser {
         public static Context of(Context context, JsonNode step) {
             return new Context(
                 context.camelContext,
+                context.mapper,
                 step
             );
         }

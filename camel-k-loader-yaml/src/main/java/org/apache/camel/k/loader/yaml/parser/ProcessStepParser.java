@@ -16,9 +16,11 @@
  */
 package org.apache.camel.k.loader.yaml.parser;
 
+import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.model.ProcessDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 
+@YAMLStepParser("process")
 public class ProcessStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

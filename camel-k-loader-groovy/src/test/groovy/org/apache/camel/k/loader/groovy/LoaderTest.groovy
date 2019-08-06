@@ -17,7 +17,7 @@
 package org.apache.camel.k.loader.groovy
 
 import org.apache.camel.impl.DefaultCamelContext
-import org.apache.camel.k.Source
+import org.apache.camel.k.Sources
 import org.apache.camel.k.support.RuntimeSupport
 import org.apache.camel.model.FromDefinition
 import org.apache.camel.model.ToDefinition
@@ -28,7 +28,7 @@ class LoaderTest extends Specification {
     def "load routes"() {
         given:
             def context = new DefaultCamelContext()
-            def source = Source.create("classpath:routes.groovy")
+            def source = Sources.fromURI("classpath:routes.groovy")
 
         when:
             def loader = RuntimeSupport.loaderFor(context, source)
@@ -51,7 +51,7 @@ class LoaderTest extends Specification {
     def "load routes with endpoint dsl"() {
         given:
             def context = new DefaultCamelContext()
-            def source = Source.create("classpath:routes-with-endpoint-dsl.groovy")
+            def source = Sources.fromURI("classpath:routes-with-endpoint-dsl.groovy")
 
         when:
             def loader = RuntimeSupport.loaderFor(context, source)

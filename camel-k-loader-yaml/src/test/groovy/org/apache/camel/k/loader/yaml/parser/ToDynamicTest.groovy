@@ -40,7 +40,7 @@ class ToDynamicTest extends TestSupport {
         given:
             def node = TextNode.valueOf('seda://test')
             def camelContext = new DefaultCamelContext()
-            def stepContext = new StepParser.Context(camelContext, node)
+            def stepContext = new StepParser.Context(camelContext, MAPPER, node)
         when:
             def processor = new ToDynamicStepParser().toProcessor(stepContext)
         then:

@@ -21,12 +21,14 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
+import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.k.loader.yaml.model.Step;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.rest.RestBindingMode;
 import org.apache.camel.model.rest.RestDefinition;
 import org.apache.camel.util.ObjectHelper;
 
+@YAMLStepParser("rest")
 public class RestStepParser implements StartStepParser {
     @Override
     public ProcessorDefinition<?> toStartProcessor(Context context) {
@@ -55,7 +57,7 @@ public class RestStepParser implements StartStepParser {
         );
     }
 
-    public static final class Definition {
+    public static final class Definition implements Step.Definition {
         @JsonProperty
         public String id;
 

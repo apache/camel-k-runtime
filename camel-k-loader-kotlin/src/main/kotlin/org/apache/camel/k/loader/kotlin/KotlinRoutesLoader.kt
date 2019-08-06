@@ -21,7 +21,6 @@ import org.apache.camel.builder.endpoint.EndpointRouteBuilder
 import org.apache.camel.k.RoutesLoader
 import org.apache.camel.k.Source
 import org.apache.camel.k.loader.kotlin.dsl.IntegrationConfiguration
-import org.apache.camel.k.support.URIResolver
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.InputStreamReader
@@ -54,7 +53,7 @@ class KotlinRoutesLoader : RoutesLoader {
                 val host = BasicJvmScriptingHost(compiler = compiler, evaluator = evaluator)
                 val config = createJvmCompilationConfigurationFromTemplate<IntegrationConfiguration>()
 
-                URIResolver.resolve(context, source).use { `is` ->
+                source.resolveAsInputStream(camelContext).use { `is` ->
                     val result = host.eval(
                         InputStreamReader(`is`).readText().toScriptSource(),
                         config,

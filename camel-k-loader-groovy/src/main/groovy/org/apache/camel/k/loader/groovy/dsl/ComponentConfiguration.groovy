@@ -38,7 +38,7 @@ class ComponentConfiguration {
         } else if (args.length == 1) {
             value = args[0]
         } else {
-            throw new IllegalArgumentException("Unable to set property \"" + name + "\" on component \"" + name + "\"")
+            throw new IllegalArgumentException("Unable to set property '${name}' on component '${component.class.name}'")
         }
 
         if (value instanceof Closure<?>) {
@@ -51,13 +51,25 @@ class ComponentConfiguration {
             }
         }
 
-        if (!PropertyBindingSupport.build().withCamelContext(component.camelContext).withTarget(component).withProperty(name, value).bind()) {
+        boolean bound = PropertyBindingSupport.build()
+            .withCamelContext(component.camelContext)
+            .withTarget(component)
+            .withProperty(name, value)
+            .bind()
+
+        if (!bound) {
             throw new MissingMethodException(name, this.component.class, args as Object[])
         }
     }
 
     def propertyMissing(String name, value) {
-        if (!PropertyBindingSupport.build().withCamelContext(component.camelContext).withTarget(component).withProperty(name, value).bind()) {
+        boolean bound = PropertyBindingSupport.build()
+            .withCamelContext(component.camelContext)
+            .withTarget(component)
+            .withProperty(name, value)
+            .bind()
+
+        if (!bound) {
             throw new MissingPropertyException(name, this.component.class)
         }
     }

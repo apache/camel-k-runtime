@@ -16,20 +16,25 @@
  */
 package org.apache.camel.k.loader.yaml.parser;
 
+import org.apache.camel.k.annotation.yaml.YAMLStepParser;
+import org.apache.camel.k.loader.yaml.model.Step;
 import org.apache.camel.model.MarshalDefinition;
 import org.apache.camel.model.ProcessorDefinition;
+import org.apache.camel.reifier.MarshalReifier;
+import org.apache.camel.reifier.ProcessorReifier;
 
+@YAMLStepParser("marshal")
 public class MarshalStepParser implements ProcessorStepParser {
-    @Override
-    public ProcessorDefinition<?> toProcessor(Context context) {
-        Definition definition = context.node(Definition.class);
-
-        // TODO: this should be removed once we can register custom
-        //       reifiers or register custom processor factory
-        return StepParserSupport.adaptProcessorToSuper(context.camelContext(), definition);
+    static {
+        ProcessorReifier.registerReifier(Definition.class, MarshalReifier::new);
     }
 
-    public static final class Definition extends MarshalDefinition implements HasDataFormat {
+    @Override
+    public ProcessorDefinition<?> toProcessor(Context context) {
+        return context.node(Definition.class);
+    }
+
+    public static final class Definition extends MarshalDefinition implements HasDataFormat, Step.Definition {
     }
 }
 

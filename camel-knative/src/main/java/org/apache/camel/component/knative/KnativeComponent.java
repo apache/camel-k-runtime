@@ -130,7 +130,6 @@ public class KnativeComponent extends DefaultComponent {
         // set properties from the endpoint uri
         PropertyBindingSupport.bindProperties(getCamelContext(), conf, parameters);
 
-
         return new KnativeEndpoint(uri, this, Knative.Type.valueOf(type), target, conf);
     }
 
@@ -154,9 +153,15 @@ public class KnativeComponent extends DefaultComponent {
                     KnativeEnvironment.mandatoryLoadFromResource(getCamelContext(), this.environmentPath)
                 );
             } else if (envConfig != null) {
-                conf.setEnvironment(
-                    KnativeEnvironment.mandatoryLoadFromSerializedString(getCamelContext(), envConfig)
-                );
+                if (envConfig.startsWith("file:") || envConfig.startsWith("classpath:")) {
+                    conf.setEnvironment(
+                        KnativeEnvironment.mandatoryLoadFromResource(getCamelContext(), envConfig)
+                    );
+                } else {
+                    conf.setEnvironment(
+                        KnativeEnvironment.mandatoryLoadFromSerializedString(getCamelContext(), envConfig)
+                    );
+                }
             } else {
                 throw new IllegalStateException("Cannot load Knative configuration from file or env variable");
             }

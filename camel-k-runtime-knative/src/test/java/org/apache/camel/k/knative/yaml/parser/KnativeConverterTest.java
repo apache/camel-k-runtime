@@ -22,6 +22,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.k.RoutesLoader;
 import org.apache.camel.k.Source;
+import org.apache.camel.k.Sources;
 import org.apache.camel.k.loader.yaml.YamlRoutesLoader;
 import org.apache.camel.k.support.RuntimeSupport;
 import org.apache.camel.model.FromDefinition;
@@ -34,11 +35,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class KnativeConverterTest {
 
-
     @Test
     public void testLoadRoutes() throws Exception {
         DefaultCamelContext context = new DefaultCamelContext();
-        Source source = Source.create("classpath:route.yaml");
+        Source source = Sources.fromURI("classpath:route.yaml");
         RoutesLoader loader = RuntimeSupport.loaderFor(context, source);
         RouteBuilder builder = loader.load(context, source);
 

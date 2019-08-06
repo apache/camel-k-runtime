@@ -22,6 +22,7 @@ import org.apache.camel.k.Constants;
 import org.apache.camel.k.RoutesLoader;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
+import org.apache.camel.k.Sources;
 import org.apache.camel.k.support.RuntimeSupport;
 import org.apache.camel.util.ObjectHelper;
 import org.slf4j.Logger;
@@ -61,7 +62,7 @@ public class RoutesConfigurer extends AbstractPhaseListener {
             final RouteBuilder builder;
 
             try {
-                source = Source.create(route);
+                source = Sources.fromURI(route);
                 loader = RuntimeSupport.loaderFor(runtime.getCamelContext(), source);
                 builder = loader.load(runtime.getCamelContext(), source);
             } catch (Exception e) {

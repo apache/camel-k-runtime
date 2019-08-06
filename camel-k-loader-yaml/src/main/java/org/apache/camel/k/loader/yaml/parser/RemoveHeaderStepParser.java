@@ -17,16 +17,25 @@
 package org.apache.camel.k.loader.yaml.parser;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import org.apache.camel.k.annotation.yaml.YAMLStepParser;
+import org.apache.camel.k.loader.yaml.model.Step;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.RemoveHeaderDefinition;
+import org.apache.camel.reifier.ProcessorReifier;
+import org.apache.camel.reifier.RemoveHeaderReifier;
 
+@YAMLStepParser("remove-header")
 public class RemoveHeaderStepParser implements ProcessorStepParser {
+    static {
+        ProcessorReifier.registerReifier(Definition.class, RemoveHeaderReifier::new);
+    }
+
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {
         return context.node(Definition.class);
     }
 
-    public static final class Definition extends RemoveHeaderDefinition {
+    public static final class Definition extends RemoveHeaderDefinition implements Step.Definition {
         @JsonAlias("name")
         public void setHeaderName(String headerName) {
             super.setHeaderName(headerName);

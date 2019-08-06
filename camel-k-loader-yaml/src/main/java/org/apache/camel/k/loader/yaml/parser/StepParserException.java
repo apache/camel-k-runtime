@@ -31,6 +31,7 @@ public class StepParserException extends RuntimeException {
         this.processor = processor.getShortName();
         this.properties = Arrays.asList(properties);
     }
+
     public StepParserException(String message, String... properties) {
         super(message);
 

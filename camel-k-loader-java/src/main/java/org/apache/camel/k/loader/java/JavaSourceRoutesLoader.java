@@ -27,7 +27,6 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.k.RoutesLoader;
 import org.apache.camel.k.Source;
-import org.apache.camel.k.support.URIResolver;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.joor.Reflect;
@@ -40,7 +39,7 @@ public class JavaSourceRoutesLoader implements RoutesLoader {
 
     @Override
     public RouteBuilder load(CamelContext camelContext, Source source) throws Exception {
-        try (InputStream is = URIResolver.resolve(camelContext, source)) {
+        try (InputStream is = source.resolveAsInputStream(camelContext)) {
             final String content = IOUtils.toString(is, StandardCharsets.UTF_8);
             final String name = determineQualifiedName(source, content);
             final Reflect compiled = Reflect.compile(name, content);

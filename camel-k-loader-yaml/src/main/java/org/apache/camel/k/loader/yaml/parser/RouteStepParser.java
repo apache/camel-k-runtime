@@ -21,10 +21,14 @@ import java.util.Optional;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.JsonNode;
+
+import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.k.loader.yaml.model.Node;
+import org.apache.camel.k.loader.yaml.model.Step;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.RouteDefinition;
 
+@YAMLStepParser("route")
 public class RouteStepParser implements StartStepParser {
     @Override
     public ProcessorDefinition<?> toStartProcessor(Context context) {
@@ -47,7 +51,7 @@ public class RouteStepParser implements StartStepParser {
         return root;
     }
 
-    public static final class Definition {
+    public static final class Definition implements Step.Definition {
         private String id;
         private String group;
         private Node root;

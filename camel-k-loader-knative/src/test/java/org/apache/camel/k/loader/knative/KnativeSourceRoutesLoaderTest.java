@@ -28,6 +28,7 @@ import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.k.RoutesLoader;
 import org.apache.camel.k.Source;
+import org.apache.camel.k.Sources;
 import org.apache.camel.k.support.RuntimeSupport;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.model.RouteDefinition;
@@ -79,7 +80,7 @@ public class KnativeSourceRoutesLoaderTest {
         context.setStreamCaching(true);
         context.addComponent("knative", component);
 
-        Source source = Source.create(uri);
+        Source source = Sources.fromURI(uri);
         RoutesLoader loader = RuntimeSupport.loaderFor(context, source);
         RouteBuilder builder = loader.load(context, source);
 
@@ -138,7 +139,7 @@ public class KnativeSourceRoutesLoaderTest {
         context.setStreamCaching(true);
         context.addComponent("knative", component);
 
-        Source source = Source.create("classpath:routes.java?name=MyRoutes.java&loader=knative-source");
+        Source source = Sources.fromURI("classpath:routes.java?name=MyRoutes.java&loader=knative-source");
         RoutesLoader loader = RuntimeSupport.loaderFor(context, source);
         RouteBuilder builder = loader.load(context, source);
 

@@ -17,7 +17,7 @@
 package org.apache.camel.k.loader.kotlin
 
 import org.apache.camel.impl.DefaultCamelContext
-import org.apache.camel.k.Source
+import org.apache.camel.k.Sources
 import org.apache.camel.k.support.RuntimeSupport
 import org.apache.camel.model.ProcessDefinition
 import org.apache.camel.model.ToDefinition
@@ -29,7 +29,7 @@ class LoaderTest {
     @Test
     fun `load routes`() {
         var context = DefaultCamelContext()
-        var source = Source.create("classpath:routes.kts")
+        var source = Sources.fromURI("classpath:routes.kts")
         val loader = RuntimeSupport.loaderFor(context, source)
         val builder = loader.load(context, source)
 
@@ -49,7 +49,7 @@ class LoaderTest {
     @Test
     fun `load routes with endpoint dsl`() {
         var context = DefaultCamelContext()
-        var source = Source.create("classpath:routes-with-endpoint-dsl.kts")
+        var source = Sources.fromURI("classpath:routes-with-endpoint-dsl.kts")
         val loader = RuntimeSupport.loaderFor(context, source)
         val builder = loader.load(context, source)
 

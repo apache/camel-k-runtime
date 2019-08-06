@@ -36,7 +36,6 @@ public class CatalogProcessor3x implements CatalogProcessor {
         "grpc",
         "jetty",
         "netty-http",
-        "netty4-http",
         "rest",
         "restlet",
         "servlet",
