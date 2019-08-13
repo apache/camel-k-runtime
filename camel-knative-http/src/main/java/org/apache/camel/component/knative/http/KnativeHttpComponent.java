@@ -17,94 +17,188 @@
 package org.apache.camel.component.knative.http;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import io.undertow.predicate.Predicate;
-import io.undertow.server.HttpHandler;
+import io.vertx.core.Vertx;
+import io.vertx.core.VertxOptions;
+import io.vertx.core.http.HttpServerOptions;
+import io.vertx.ext.web.client.WebClientOptions;
 import org.apache.camel.Endpoint;
 import org.apache.camel.spi.Metadata;
 import org.apache.camel.spi.annotations.Component;
 import org.apache.camel.support.DefaultComponent;
 import org.apache.camel.support.IntrospectionSupport;
+import org.apache.camel.util.ObjectHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Component("knative-http")
 public class KnativeHttpComponent extends DefaultComponent {
     private static final Logger LOGGER = LoggerFactory.getLogger(KnativeHttpComponent.class);
-    private final Map<KnativeHttp.HostKey, KnativeHttpDispatcher> registry;
+
+    private final Map<KnativeHttp.ServerKey, KnativeHttpConsumerDispatcher> registry;
 
     @Metadata(label = "advanced")
-    private KnativeHttp.HostOptions hostOptions;
+    private Vertx vertx;
+    @Metadata(label = "advanced")
+    private VertxOptions vertxOptions;
+    @Metadata(label = "advanced")
+    private HttpServerOptions vertxHttpServerOptions;
+    @Metadata(label = "advanced")
+    private WebClientOptions vertxHttpClientOptions;
+
+    private boolean localVertx;
+    private ExecutorService executor;
 
     public KnativeHttpComponent() {
         this.registry = new ConcurrentHashMap<>();
+        this.localVertx = false;
+    }
+
+    @Override
+    protected void doInit() throws Exception {
+        super.doInit();
+
+        this.executor = getCamelContext().getExecutorServiceManager().newSingleThreadExecutor(this, "knative-http-component");
+
+        if (this.vertx == null) {
+            Set<Vertx> instances = getCamelContext().getRegistry().findByType(Vertx.class);
+            if (instances.size() == 1) {
+                this.vertx = instances.iterator().next();
+            }
+        }
+
+        if (this.vertx == null) {
+            VertxOptions options = ObjectHelper.supplyIfEmpty(this.vertxOptions, VertxOptions::new);
+
+            this.vertx = Vertx.vertx(options);
+            this.localVertx = true;
+        }
+    }
+
+    @Override
+    protected void doShutdown() throws Exception {
+        super.doShutdown();
+
+        if (this.vertx != null && this.localVertx) {
+            Future<?> future = this.executor.submit(
+                () -> {
+                    CountDownLatch latch = new CountDownLatch(1);
+
+                    this.vertx.close(result -> {
+                        try {
+                            if (result.failed()) {
+                                LOGGER.warn("Failed to close Vert.x HttpServer reason: {}",
+                                    result.cause().getMessage()
+                                );
+
+                                throw new RuntimeException(result.cause());
+                            }
+
+                            LOGGER.info("Vert.x HttpServer stopped");
+                        } finally {
+                            latch.countDown();
+                        }
+                    });
+
+                    try {
+                        latch.await();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            );
+
+            try {
+                future.get();
+            } finally {
+                this.vertx = null;
+                this.localVertx = false;
+            }
+        }
+
+        if (this.executor != null) {
+            getCamelContext().getExecutorServiceManager().shutdownNow(this.executor);
+        }
     }
 
     @Override
     protected Endpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters) throws Exception {
-        final Pattern pattern = Pattern.compile("([0-9a-zA-Z][\\w\\.-]+):(\\d+)\\/?(.*)");
-        final Matcher matcher = pattern.matcher(remaining);
-
+        Matcher matcher = KnativeHttp.ENDPOINT_PATTERN.matcher(remaining);
         if (!matcher.find()) {
             throw new IllegalArgumentException("Bad URI: " + remaining);
         }
 
-        final String host;
-        final int port;
-        final String path;
+        KnativeHttpEndpoint ep = new KnativeHttpEndpoint(uri, this);
+        ep.setHeaderFilter(IntrospectionSupport.extractProperties(parameters, "filter.", true));
 
         switch (matcher.groupCount()) {
         case 1:
-            host = matcher.group(1);
-            port = 8080;
-            path = "/";
+            ep.setHost(matcher.group(1));
+            ep.setPort(KnativeHttp.DEFAULT_PORT);
+            ep.setPath(KnativeHttp.DEFAULT_PATH);
             break;
         case 2:
-            host = matcher.group(1);
-            port = Integer.parseInt(matcher.group(2));
-            path = "/";
+            ep.setHost(matcher.group(1));
+            ep.setPort(Integer.parseInt(matcher.group(2)));
+            ep.setPath(KnativeHttp.DEFAULT_PATH);
             break;
         case 3:
-            host = matcher.group(1);
-            port = Integer.parseInt(matcher.group(2));
-            path = "/" + matcher.group(3);
+            ep.setHost(matcher.group(1));
+            ep.setPort(Integer.parseInt(matcher.group(2)));
+            ep.setPath(KnativeHttp.DEFAULT_PATH + matcher.group(3));
             break;
         default:
             throw new IllegalArgumentException("Bad URI: " + remaining);
         }
-
-        KnativeHttpEndpoint ep = new KnativeHttpEndpoint(uri, this);
-        ep.setHost(host);
-        ep.setPort(port);
-        ep.setPath(path);
-        ep.setHeaderFilter(IntrospectionSupport.extractProperties(parameters, "filter.", true));
 
         setProperties(ep, parameters);
 
         return ep;
     }
 
-    public KnativeHttp.HostOptions getHostOptions() {
-        return hostOptions;
+    public Vertx getVertx() {
+        return vertx;
     }
 
-    public void setHostOptions(KnativeHttp.HostOptions hostOptions) {
-        this.hostOptions = hostOptions;
+    public void setVertx(Vertx vertx) {
+        this.vertx = vertx;
     }
 
-    public void bind(KnativeHttp.HostKey key, HttpHandler handler, Predicate predicate) {
-        getUndertow(key).bind(handler, predicate);
+    public VertxOptions getVertxOptions() {
+        return vertxOptions;
     }
 
-    public void unbind(KnativeHttp.HostKey key, HttpHandler handler) {
-        getUndertow(key).unbind(handler);
-
+    public void setVertxOptions(VertxOptions vertxOptions) {
+        this.vertxOptions = vertxOptions;
     }
 
-    private KnativeHttpDispatcher getUndertow(KnativeHttp.HostKey key) {
-        return registry.computeIfAbsent(key, k -> new KnativeHttpDispatcher(k, hostOptions));
+    public HttpServerOptions getVertxHttpServerOptions() {
+        return vertxHttpServerOptions;
+    }
+
+    public void setVertxHttpServerOptions(HttpServerOptions vertxHttpServerOptions) {
+        this.vertxHttpServerOptions = vertxHttpServerOptions;
+    }
+
+    public WebClientOptions getVertxHttpClientOptions() {
+        return vertxHttpClientOptions;
+    }
+
+    public void setVertxHttpClientOptions(WebClientOptions vertxHttpClientOptions) {
+        this.vertxHttpClientOptions = vertxHttpClientOptions;
+    }
+
+    KnativeHttpConsumerDispatcher getDispatcher(KnativeHttp.ServerKey key) {
+        return registry.computeIfAbsent(key, k -> new KnativeHttpConsumerDispatcher(executor, vertx, k, vertxHttpServerOptions));
+    }
+
+    ExecutorService getExecutorService() {
+        return this.executor;
     }
 }

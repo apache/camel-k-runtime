@@ -31,7 +31,6 @@ import org.apache.camel.component.knative.http.KnativeHttpEndpoint;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.component.properties.PropertiesComponent;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.support.DefaultHeaderFilterStrategy;
 import org.apache.camel.test.AvailablePortFinder;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -348,7 +347,6 @@ public class KnativeComponentTest {
         context.start();
 
         MockEndpoint mock = context.getEndpoint("mock:ce", MockEndpoint.class);
-        mock.expectedMessageCount(1);
         mock.expectedHeaderReceived("CE-CloudEventsVersion", "0.1");
         mock.expectedHeaderReceived("CE-EventType", "org.apache.camel.event");
         mock.expectedHeaderReceived("CE-Source", "knative://endpoint/myEndpoint");
@@ -356,13 +354,9 @@ public class KnativeComponentTest {
         mock.expectedMessagesMatches(e -> e.getIn().getHeaders().containsKey("CE-EventTime"));
         mock.expectedMessagesMatches(e -> e.getIn().getHeaders().containsKey("CE-EventID"));
         mock.expectedBodiesReceived("test");
+        mock.expectedMessageCount(1);
 
-        context.createProducerTemplate().send(
-            "direct:source",
-            e -> {
-                e.getIn().setBody("test");
-            }
-        );
+        context.createProducerTemplate().sendBody("direct:source", "test");
 
         mock.assertIsSatisfied();
     }
@@ -403,7 +397,6 @@ public class KnativeComponentTest {
         context.start();
 
         MockEndpoint mock = context.getEndpoint("mock:ce", MockEndpoint.class);
-        mock.expectedMessageCount(1);
         mock.expectedHeaderReceived("CE-CloudEventsVersion", "0.1");
         mock.expectedHeaderReceived("CE-EventType", "org.apache.camel.event");
         mock.expectedHeaderReceived("CE-EventID", "myEventID");
@@ -411,6 +404,7 @@ public class KnativeComponentTest {
         mock.expectedHeaderReceived(Exchange.CONTENT_TYPE, "text/plain");
         mock.expectedMessagesMatches(e -> e.getIn().getHeaders().containsKey("CE-EventTime"));
         mock.expectedBodiesReceived("test");
+        mock.expectedMessageCount(1);
 
         context.createProducerTemplate().send(
             "direct:source",
@@ -467,7 +461,6 @@ public class KnativeComponentTest {
         context.start();
 
         MockEndpoint mock = context.getEndpoint("mock:ce", MockEndpoint.class);
-        mock.expectedMessageCount(1);
         mock.expectedHeaderReceived("CE-CloudEventsVersion", "0.1");
         mock.expectedHeaderReceived("CE-EventType", "org.apache.camel.event");
         mock.expectedHeaderReceived("CE-EventID", "myEventID");
@@ -475,6 +468,7 @@ public class KnativeComponentTest {
         mock.expectedHeaderReceived(Exchange.CONTENT_TYPE, "text/plain");
         mock.expectedMessagesMatches(e -> e.getIn().getHeaders().containsKey("CE-EventTime"));
         mock.expectedBodiesReceived("test");
+        mock.expectedMessageCount(1);
 
         context.createProducerTemplate().send(
             "direct:source",
@@ -553,22 +547,22 @@ public class KnativeComponentTest {
         context.start();
 
         MockEndpoint mock1 = context.getEndpoint("mock:ce1", MockEndpoint.class);
-        mock1.expectedMessageCount(1);
         mock1.expectedMessagesMatches(e -> e.getIn().getHeaders().containsKey("CE-EventTime"));
         mock1.expectedHeaderReceived("CE-CloudEventsVersion", "0.1");
         mock1.expectedHeaderReceived("CE-EventType", "org.apache.camel.event");
         mock1.expectedHeaderReceived("CE-EventID", "myEventID1");
         mock1.expectedHeaderReceived("CE-Source", "CE1");
         mock1.expectedBodiesReceived("test");
+        mock1.expectedMessageCount(1);
 
         MockEndpoint mock2 = context.getEndpoint("mock:ce2", MockEndpoint.class);
-        mock2.expectedMessageCount(1);
         mock2.expectedMessagesMatches(e -> e.getIn().getHeaders().containsKey("CE-EventTime"));
         mock2.expectedHeaderReceived("CE-CloudEventsVersion", "0.1");
         mock2.expectedHeaderReceived("CE-EventType", "org.apache.camel.event");
         mock2.expectedHeaderReceived("CE-EventID", "myEventID2");
         mock2.expectedHeaderReceived("CE-Source", "CE2");
         mock2.expectedBodiesReceived("test");
+        mock2.expectedMessageCount(1);
 
         context.createProducerTemplate().send(
             "direct:source",
@@ -595,113 +589,5 @@ public class KnativeComponentTest {
 
         mock1.assertIsSatisfied();
         mock2.assertIsSatisfied();
-    }
-
-    @Test
-    void testDefaultHeadersFilter() throws Exception {
-        final int port = AvailablePortFinder.getNextAvailable();
-
-        KnativeEnvironment env = new KnativeEnvironment(Arrays.asList(
-            new KnativeEnvironment.KnativeServiceDefinition(
-                Knative.Type.endpoint,
-                Knative.Protocol.http,
-                "myEndpoint",
-                "localhost",
-                port,
-                KnativeSupport.mapOf(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
-                    Knative.CONTENT_TYPE, "text/plain"
-                ))
-        ));
-
-        KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
-        component.setCloudEventsSpecVersion(CloudEventsProcessors.v01.getVersion());
-        component.setEnvironment(env);
-
-        context.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                from("direct:source")
-                    .setHeader("CamelHeader")
-                        .constant("CamelHeaderValue")
-                    .setHeader("MyHeader")
-                        .constant("MyHeaderValue")
-                    .to("knative:endpoint/myEndpoint")
-                    .to("mock:source");
-
-                fromF("undertow:http://localhost:%d", port)
-                    .setBody().constant("test");
-            }
-        });
-
-        context.start();
-
-        MockEndpoint mock = context.getEndpoint("mock:source", MockEndpoint.class);
-        mock.expectedMessageCount(1);
-
-        context.createProducerTemplate().sendBody("direct:source", "test");
-
-        mock.assertIsSatisfied();
-
-
-        assertThat(mock.getExchanges().get(0).getMessage().getHeaders()).doesNotContainKey("CamelHeader");
-        assertThat(mock.getExchanges().get(0).getMessage().getHeaders()).containsEntry("MyHeader", "MyHeaderValue");
-    }
-
-    @Test
-    void testCustomHeadersFilter() throws Exception {
-        final int port = AvailablePortFinder.getNextAvailable();
-
-        KnativeEnvironment env = new KnativeEnvironment(Arrays.asList(
-            new KnativeEnvironment.KnativeServiceDefinition(
-                Knative.Type.endpoint,
-                Knative.Protocol.http,
-                "myEndpoint",
-                "localhost",
-                port,
-                KnativeSupport.mapOf(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
-                    Knative.CONTENT_TYPE, "text/plain"
-                ))
-        ));
-
-        KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
-        component.setCloudEventsSpecVersion(CloudEventsProcessors.v01.getVersion());
-        component.setEnvironment(env);
-
-        DefaultHeaderFilterStrategy hfs = new DefaultHeaderFilterStrategy();
-        hfs.setOutFilterPattern("(?i)(My)[\\.|a-z|A-z|0-9]*");
-        hfs.setInFilterPattern("(?i)(My)[\\.|a-z|A-z|0-9]*");
-
-
-        context.getRegistry().bind("myFilterStrategy", hfs);
-
-        context.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                from("direct:source")
-                    .setHeader("CamelHeader")
-                        .constant("CamelHeaderValue")
-                    .setHeader("MyHeader")
-                        .constant("MyHeaderValue")
-                    .to("knative:endpoint/myEndpoint?transport.headerFilterStrategy=#myFilterStrategy")
-                    .to("mock:source");
-
-                fromF("undertow:http://localhost:%d?headerFilterStrategy=#myFilterStrategy", port)
-                    .setBody().constant("test");
-            }
-        });
-
-        context.start();
-
-        MockEndpoint mock = context.getEndpoint("mock:source", MockEndpoint.class);
-        mock.expectedMessageCount(1);
-
-        context.createProducerTemplate().sendBody("direct:source", "test");
-
-        mock.assertIsSatisfied();
-
-        assertThat(mock.getExchanges().get(0).getMessage().getHeaders()).doesNotContainKey("MyHeader");
-        assertThat(mock.getExchanges().get(0).getMessage().getHeaders()).containsEntry("CamelHeader", "CamelHeaderValue");
     }
 }

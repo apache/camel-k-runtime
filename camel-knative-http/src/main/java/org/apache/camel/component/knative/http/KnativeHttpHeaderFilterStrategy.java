@@ -19,12 +19,11 @@ package org.apache.camel.component.knative.http;
 import org.apache.camel.support.DefaultHeaderFilterStrategy;
 
 public class KnativeHttpHeaderFilterStrategy extends DefaultHeaderFilterStrategy {
-
     public KnativeHttpHeaderFilterStrategy() {
         initialize();
     }
 
-    protected void initialize() {
+    protected final void initialize() {
         getOutFilter().add("content-length");
         getOutFilter().add("content-type");
         getOutFilter().add("host");
