@@ -16,44 +16,40 @@
  */
 package org.apache.camel.component.knative.http;
 
-import java.net.URI;
-import java.nio.ByteBuffer;
+import java.util.Map;
 
-import io.undertow.client.ClientRequest;
-import io.undertow.client.UndertowClient;
-import io.undertow.protocols.ssl.UndertowXnioSsl;
-import io.undertow.server.DefaultByteBufferPool;
-import io.undertow.util.HeaderMap;
-import io.undertow.util.Headers;
-import io.undertow.util.Methods;
+import io.vertx.core.MultiMap;
+import io.vertx.core.Vertx;
+import io.vertx.core.buffer.Buffer;
+import io.vertx.core.http.HttpHeaders;
+import io.vertx.ext.web.client.HttpResponse;
+import io.vertx.ext.web.client.WebClient;
+import io.vertx.ext.web.client.WebClientOptions;
 import org.apache.camel.AsyncCallback;
 import org.apache.camel.Exchange;
-import org.apache.camel.TypeConverter;
+import org.apache.camel.InvalidPayloadException;
+import org.apache.camel.Message;
+import org.apache.camel.http.common.HttpOperationFailedException;
 import org.apache.camel.support.DefaultAsyncProducer;
-import org.apache.camel.support.jsse.SSLContextParameters;
-import org.apache.camel.util.URISupport;
+import org.apache.camel.support.DefaultMessage;
+import org.apache.camel.support.ExchangeHelper;
+import org.apache.camel.support.MessageHelper;
+import org.apache.camel.util.ObjectHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xnio.OptionMap;
-import org.xnio.Xnio;
-import org.xnio.XnioWorker;
-import org.xnio.ssl.XnioSsl;
 
 public class KnativeHttpProducer extends DefaultAsyncProducer {
     private static final Logger LOGGER = LoggerFactory.getLogger(KnativeHttpProducer.class);
 
-    private final OptionMap options;
-    private final KnativeHttpBinding binding;
+    private final Vertx vertx;
+    private final WebClientOptions clientOptions;
+    private WebClient client;
 
-    private UndertowClient client;
-    private DefaultByteBufferPool pool;
-    private XnioSsl ssl;
-    private XnioWorker worker;
-
-    public KnativeHttpProducer(KnativeHttpEndpoint endpoint, OptionMap options) {
+    public KnativeHttpProducer(KnativeHttpEndpoint endpoint, Vertx vertx, WebClientOptions clientOptions) {
         super(endpoint);
-        this.options = options;
-        this.binding = new KnativeHttpBinding(endpoint.getHeaderFilterStrategy());
+
+        this.vertx = ObjectHelper.notNull(vertx, "vertx");
+        this.clientOptions = ObjectHelper.supplyIfEmpty(clientOptions, WebClientOptions::new);
     }
 
     @Override
@@ -62,70 +58,98 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
     }
 
     @Override
-    public boolean process(final Exchange camelExchange, final AsyncCallback callback) {
-        final KnativeHttpEndpoint endpoint = getEndpoint();
-        final URI uri = endpoint.getHttpURI();
-        final String pathAndQuery = URISupport.pathAndQueryOf(uri);
+    public boolean process(Exchange exchange, AsyncCallback callback) {
+        final byte[] payload;
 
-        final ClientRequest request = new ClientRequest();
-        request.setMethod(Methods.POST);
-        request.setPath(pathAndQuery);
-        request.getRequestHeaders().put(Headers.HOST, uri.getHost());
+        try {
+            payload = exchange.getMessage().getMandatoryBody(byte[].class);
+        } catch (InvalidPayloadException e) {
+            exchange.setException(e);
+            callback.done(true);
 
-        final Object body = binding.toHttpRequest(request, camelExchange.getIn());
-        final TypeConverter tc = endpoint.getCamelContext().getTypeConverter();
-        final ByteBuffer bodyAsByte = tc.tryConvertTo(ByteBuffer.class, body);
-
-        // As tryConvertTo is used to convert the body, we should do null check
-        // or the call bodyAsByte.remaining() may throw an NPE
-        if (body != null && bodyAsByte != null) {
-            request.getRequestHeaders().put(Headers.CONTENT_LENGTH, bodyAsByte.remaining());
+            return true;
         }
 
-        // when connect succeeds or fails UndertowClientCallback will
-        // get notified on a I/O thread run by Xnio worker. The writing
-        // of request and reading of response is performed also in the
-        // callback
-        client.connect(
-            new KnativeHttpClientCallback(camelExchange, callback, getEndpoint(), request, bodyAsByte),
-            uri,
-            worker,
-            ssl,
-            pool,
-            options);
+        KnativeHttpEndpoint endpoint = getEndpoint();
+        Message message = exchange.getMessage();
 
-        // the call above will proceed on Xnio I/O thread we will
-        // notify the exchange asynchronously when the HTTP exchange
-        // ends with success or failure from UndertowClientCallback
+        MultiMap headers = MultiMap.caseInsensitiveMultiMap();
+        headers.add(HttpHeaders.HOST, endpoint.getHost());
+        headers.add(HttpHeaders.CONTENT_LENGTH, Integer.toString(payload.length));
+
+        String contentType = MessageHelper.getContentType(message);
+        if (contentType != null) {
+            headers.add(HttpHeaders.CONTENT_TYPE, contentType);
+        }
+
+        for (Map.Entry<String, Object> entry : message.getHeaders().entrySet()) {
+            if (!endpoint.getHeaderFilterStrategy().applyFilterToCamelHeaders(entry.getKey(), entry.getValue(), exchange)) {
+                headers.add(entry.getKey(), entry.getValue().toString());
+            }
+        }
+
+        client.post(endpoint.getPort(), endpoint.getHost(), endpoint.getPath())
+            .putHeaders(headers)
+            .sendBuffer(Buffer.buffer(payload), response -> {
+                HttpResponse<Buffer> result = response.result();
+
+                Message answer = new DefaultMessage(exchange.getContext());
+                answer.setHeader(Exchange.HTTP_RESPONSE_CODE, result.statusCode());
+
+                for (Map.Entry<String, String> entry : result.headers().entries()) {
+                    if (!endpoint.getHeaderFilterStrategy().applyFilterToExternalHeaders(entry.getKey(), entry.getValue(), exchange)) {
+                        KnativeHttpSupport.appendHeader(message.getHeaders(), entry.getKey(), entry.getValue());
+                    }
+                }
+
+                exchange.setMessage(answer);
+
+                if (response.failed() && endpoint.getThrowExceptionOnFailure()) {
+                    Exception cause = new HttpOperationFailedException(
+                        getURI(),
+                        result.statusCode(),
+                        result.statusMessage(),
+                        null,
+                        KnativeHttpSupport.asStringMap(answer.getHeaders()),
+                        ExchangeHelper.convertToType(exchange, String.class, answer.getBody())
+                    );
+
+                    exchange.setException(cause);
+                }
+
+                callback.done(false);
+            });
+
         return false;
     }
 
     @Override
-    protected void doStart() throws Exception {
-        super.doStart();
+    protected void doInit() throws Exception {
+        super.doInit();
 
-        final Xnio xnio = Xnio.getInstance();
-
-        pool = new DefaultByteBufferPool(true, 17 * 1024);
-        worker = xnio.createWorker(options);
-
-        SSLContextParameters sslContext = getEndpoint().getSslContextParameters();
-        if (sslContext != null) {
-            ssl = new UndertowXnioSsl(xnio, options, sslContext.createSSLContext(getEndpoint().getCamelContext()));
-        }
-
-        client = UndertowClient.getInstance();
-
-        LOGGER.debug("Created worker: {} with options: {}", worker, options);
+        this.client = WebClient.create(vertx, clientOptions);
     }
 
     @Override
     protected void doStop() throws Exception {
         super.doStop();
 
-        if (worker != null && !worker.isShutdown()) {
-            LOGGER.debug("Shutting down worker: {}", worker);
-            worker.shutdown();
+        if (this.client != null) {
+            LOGGER.debug("Shutting down client: {}", client);
+            this.client.close();
+            this.client = null;
         }
+    }
+
+    private String getURI() {
+        String p = getEndpoint().getPath();
+
+        if (p == null) {
+            p = KnativeHttp.DEFAULT_PATH;
+        } else if (!p.startsWith("/")) {
+            p = "/" + p;
+        }
+
+        return String.format("http://%s:%d%s", getEndpoint().getHost(), getEndpoint().getPort(), p);
     }
 }

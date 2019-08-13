@@ -17,7 +17,6 @@
 package org.apache.camel.component.knative.http;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.CamelExecutionException;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
@@ -29,7 +28,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class KnativeHttpTest {
 
@@ -51,7 +49,7 @@ public class KnativeHttpTest {
     }
 
     @AfterEach
-    public void after() throws Exception {
+    public void after() {
         if (this.context != null) {
             this.context.stop();
         }
@@ -65,150 +63,164 @@ public class KnativeHttpTest {
 
     @Test
     void testWithPaths() throws Exception {
-        context.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                fromF("knative-http:0.0.0.0:%d/a/1", port)
-                    .routeId("r1")
-                    .setBody().simple("${routeId}")
-                    .convertBodyTo(String.class)
-                    .to("mock:r1");
-                fromF("knative-http:0.0.0.0:%d/a/2", port)
-                    .routeId("r2")
-                    .setBody().simple("${routeId}")
-                    .convertBodyTo(String.class)
-                    .to("mock:r2");
-                from("direct:start")
-                    .toD("undertow:http://localhost:" + port + "/a/${body}");
-                }
-            }
-        );
+        RouteBuilder.addRoutes(context, b -> {
+            b.fromF("knative-http:0.0.0.0:%d/a/1", port)
+                .routeId("r1")
+                .setBody().simple("${routeId}")
+                .to("mock:r1");
+            b.fromF("knative-http:0.0.0.0:%d/a/2", port)
+                .routeId("r2")
+                .setBody().simple("${routeId}")
+                .to("mock:r2");
 
-        MockEndpoint m1 = context.getEndpoint("mock:r1", MockEndpoint.class);
-        m1.expectedMessageCount(1);
-        m1.expectedBodiesReceived("r1");
+            b.from("direct:start")
+                .toD("undertow:http://localhost:" + port + "/a/${body}");
+        });
 
-        MockEndpoint m2 = context.getEndpoint("mock:r2", MockEndpoint.class);
-        m2.expectedMessageCount(1);
-        m2.expectedBodiesReceived("r2");
-
+        context.getEndpoint("mock:r1", MockEndpoint.class).expectedMessageCount(1);
+        context.getEndpoint("mock:r2", MockEndpoint.class).expectedMessageCount(1);
         context.start();
 
-        assertThat(
-            template.requestBody("direct:start", "1", String.class)
-        ).isEqualTo("r1");
-        assertThat(
-            template.requestBody("direct:start", "2", String.class)
-        ).isEqualTo("r2");
+        assertThat(template.requestBody("direct:start", "1", String.class)).isEqualTo("r1");
+        assertThat(template.requestBody("direct:start", "2", String.class)).isEqualTo("r2");
 
-        m1.assertIsSatisfied();
-        m2.assertIsSatisfied();
+        MockEndpoint.assertIsSatisfied(context);
     }
 
     @Test
     void testWithFilters() throws Exception {
-        context.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                fromF("knative-http:0.0.0.0:%d?filter.MyHeader=h1", port)
-                    .routeId("r1")
-                    .setBody().simple("${routeId}")
-                    .convertBodyTo(String.class)
-                    .to("mock:r1");
-                fromF("knative-http:0.0.0.0:%d?filter.myheader=h2", port)
-                    .routeId("r2")
-                    .setBody().simple("${routeId}")
-                    .convertBodyTo(String.class)
-                    .to("mock:r2");
-                fromF("knative-http:0.0.0.0:%d?filter.myheader=t.*", port)
-                    .routeId("r3")
-                    .setBody().simple("${routeId}")
-                    .convertBodyTo(String.class)
-                    .to("mock:r3");
-                from("direct:start")
-                    .setHeader("MyHeader").body()
-                    .toF("undertow:http://localhost:%d", port);
-                }
-            }
-        );
+        RouteBuilder.addRoutes(context, b -> {
+            b.fromF("knative-http:0.0.0.0:%d?filter.MyHeader=h1", port)
+                .routeId("r1")
+                .setBody().simple("${routeId}")
+                .to("mock:r1");
+            b.fromF("knative-http:0.0.0.0:%d?filter.myheader=h2", port)
+                .routeId("r2")
+                .setBody().simple("${routeId}")
+                .to("mock:r2");
+            b.fromF("knative-http:0.0.0.0:%d?filter.myheader=t.*", port)
+                .routeId("r3")
+                .setBody().simple("${routeId}")
+                .to("mock:r3");
 
-        MockEndpoint m1 = context.getEndpoint("mock:r1", MockEndpoint.class);
-        m1.expectedMessageCount(1);
-        m1.expectedBodiesReceived("r1");
+            b.from("direct:start")
+                .setHeader("MyHeader").body()
+                .toF("undertow:http://localhost:%d", port);
+        });
 
-        MockEndpoint m2 = context.getEndpoint("mock:r2", MockEndpoint.class);
-        m2.expectedMessageCount(1);
-        m2.expectedBodiesReceived("r2");
-
+        context.getEndpoint("mock:r1", MockEndpoint.class).expectedMessageCount(1);
+        context.getEndpoint("mock:r2", MockEndpoint.class).expectedMessageCount(1);
         context.start();
 
-        assertThat(
-            template.requestBody("direct:start", "h1", String.class)
-        ).isEqualTo("r1");
-        assertThat(
-            template.requestBody("direct:start", "h2", String.class)
-        ).isEqualTo("r2");
-        assertThat(
-            template.requestBody("direct:start", "t1", String.class)
-        ).isEqualTo("r3");
-        assertThat(
-            template.requestBody("direct:start", "t2", String.class)
-        ).isEqualTo("r3");
+        assertThat(template.requestBody("direct:start", "h1", String.class)).isEqualTo("r1");
+        assertThat(template.requestBody("direct:start", "h2", String.class)).isEqualTo("r2");
+        assertThat(template.requestBody("direct:start", "t1", String.class)).isEqualTo("r3");
+        assertThat(template.requestBody("direct:start", "t2", String.class)).isEqualTo("r3");
 
-        m1.assertIsSatisfied();
-        m2.assertIsSatisfied();
+        MockEndpoint.assertIsSatisfied(context);
     }
 
     @Test
     void testWithRexFilters() throws Exception {
-        context.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                fromF("knative-http:0.0.0.0:%d?filter.MyHeader=h.*", port)
-                    .routeId("r1")
-                    .setBody().simple("${routeId}")
-                    .convertBodyTo(String.class);
-                from("direct:start")
-                    .setHeader("MyHeader").body()
-                    .toF("undertow:http://localhost:%d", port);
-                }
-            }
-        );
+        RouteBuilder.addRoutes(context, b -> {
+            b.fromF("knative-http:0.0.0.0:%d?filter.MyHeader=h.*", port)
+                .routeId("r1")
+                .setBody().simple("${routeId}");
+
+            b.from("direct:start")
+                .setHeader("MyHeader").body()
+                .toF("undertow:http://localhost:%d", port);
+        });
 
         context.start();
 
-        assertThat(
-            template.requestBody("direct:start", "h1", String.class)
-        ).isEqualTo("r1");
-        assertThatThrownBy(
-            () -> template.requestBody("direct:start", "t1", String.class)
-        ).isInstanceOf(CamelExecutionException.class).hasCauseExactlyInstanceOf(HttpOperationFailedException.class);
+        assertThat(template.requestBody("direct:start", "h1", String.class)).isEqualTo("r1");
+        assertThat(template.request("direct:start", e -> e.getMessage().setBody("t1"))).satisfies(e -> {
+            assertThat(e.isFailed()).isTrue();
+            assertThat(e.getException()).isInstanceOf(HttpOperationFailedException.class);
+        });
+    }
+
+    @Test
+    void testRemoveConsumer() throws Exception {
+        RouteBuilder.addRoutes(context, b -> {
+            b.fromF("knative-http:0.0.0.0:%d?filter.h=h1", port)
+                .routeId("r1")
+                .setBody().simple("${routeId}");
+            b.fromF("knative-http:0.0.0.0:%d?filter.h=h2", port)
+                .routeId("r2")
+                .setBody().simple("${routeId}");
+        });
+        RouteBuilder.addRoutes(context, b -> {
+            b.from("direct:start")
+                .setHeader("h").body()
+                .toF("undertow:http://localhost:%d", port);
+        });
+
+        context.start();
+
+        assertThat(template.requestBody("direct:start", "h1", String.class)).isEqualTo("r1");
+        assertThat(template.requestBody("direct:start", "h2", String.class)).isEqualTo("r2");
+
+        context.getRouteController().stopRoute("r2");
+
+        assertThat(template.request("direct:start", e -> e.getMessage().setBody("h2"))).satisfies(e -> {
+            assertThat(e.isFailed()).isTrue();
+            assertThat(e.getException()).isInstanceOf(HttpOperationFailedException.class);
+        });
+    }
+
+    @Test
+    void testAddConsumer() throws Exception {
+        RouteBuilder.addRoutes(context, b -> {
+            b.fromF("knative-http:0.0.0.0:%d?filter.h=h1", port)
+                .routeId("r1")
+                .setBody().simple("${routeId}");
+        });
+        RouteBuilder.addRoutes(context, b -> {
+            b.from("direct:start")
+                .setHeader("h").body()
+                .toF("undertow:http://localhost:%d", port);
+        });
+
+        context.start();
+
+        assertThat(template.requestBody("direct:start", "h1", String.class)).isEqualTo("r1");
+        assertThat(template.request("direct:start", e -> e.getMessage().setBody("h2"))).satisfies(e -> {
+            assertThat(e.isFailed()).isTrue();
+            assertThat(e.getException()).isInstanceOf(HttpOperationFailedException.class);
+        });
+
+        RouteBuilder.addRoutes(context, b -> {
+            b.fromF("knative-http:0.0.0.0:%d?filter.h=h2", port)
+                .routeId("r2")
+                .setBody().simple("${routeId}");
+        });
+
+        assertThat(template.requestBody("direct:start", "h1", String.class)).isEqualTo("r1");
+        assertThat(template.requestBody("direct:start", "h2", String.class)).isEqualTo("r2");
     }
 
     @Test
     void testInvokeEndpoint() throws Exception {
-        context.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                fromF("undertow:http://0.0.0.0:%d", port)
-                    .routeId("endpoint")
-                    .setBody().simple("${routeId}")
-                    .convertBodyTo(String.class)
-                    .to("mock:endpoint");
-                from("direct:start")
-                    .toF("knative-http:0.0.0.0:%d", port);
-                }
-            }
-        );
+        RouteBuilder.addRoutes(context, b -> {
+            b.fromF("undertow:http://0.0.0.0:%d", port)
+                .routeId("endpoint")
+                .setBody().simple("${routeId}")
+                .to("mock:endpoint");
+
+            b.from("direct:start")
+                .toF("knative-http:0.0.0.0:%d", port);
+        });
 
         MockEndpoint mock = context.getEndpoint("mock:endpoint", MockEndpoint.class);
-        mock.expectedMessageCount(1);
         mock.expectedBodiesReceived("endpoint");
         mock.expectedHeaderReceived("Host", "0.0.0.0");
+        mock.expectedMessageCount(1);
 
         context.start();
 
-        template.requestBody("direct:start", "1", String.class);
+        template.sendBody("direct:start", "1");
 
         mock.assertIsSatisfied();
     }

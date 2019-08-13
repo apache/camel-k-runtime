@@ -16,7 +16,6 @@
  */
 package org.apache.camel.component.knative.http;
 
-import java.net.URI;
 import java.util.Map;
 
 import org.apache.camel.Consumer;
@@ -27,10 +26,9 @@ import org.apache.camel.spi.Metadata;
 import org.apache.camel.spi.UriEndpoint;
 import org.apache.camel.spi.UriParam;
 import org.apache.camel.spi.UriPath;
+import org.apache.camel.support.AsyncProcessorConverterHelper;
 import org.apache.camel.support.DefaultEndpoint;
 import org.apache.camel.support.jsse.SSLContextParameters;
-import org.apache.camel.util.ObjectHelper;
-import org.xnio.OptionMap;
 
 @UriEndpoint(
     firstVersion = "3.0.0",
@@ -65,12 +63,6 @@ public class KnativeHttpEndpoint extends DefaultEndpoint {
         this.headerFilterStrategy = new KnativeHttpHeaderFilterStrategy();
     }
 
-    // **********************************
-    //
-    // Properties
-    //
-    // **********************************
-
     public String getHost() {
         return host;
     }
@@ -93,6 +85,10 @@ public class KnativeHttpEndpoint extends DefaultEndpoint {
 
     public void setPath(String path) {
         this.path = path;
+
+        if (!this.path.startsWith("/")) {
+            this.path = "/" + path;
+        }
     }
 
     public HeaderFilterStrategy getHeaderFilterStrategy() {
@@ -127,25 +123,9 @@ public class KnativeHttpEndpoint extends DefaultEndpoint {
         this.throwExceptionOnFailure = throwExceptionOnFailure;
     }
 
-    public KnativeHttp.HostKey getHostKey() {
-        return new KnativeHttp.HostKey(host, port, null);
+    public KnativeHttp.ServerKey getServerKey() {
+        return new KnativeHttp.ServerKey(host, port);
     }
-
-    public URI getHttpURI() {
-        String uri = "http://" + host + ":" + port;
-
-        if (ObjectHelper.isNotEmpty(path)) {
-            uri += path;
-        }
-
-        return URI.create(uri);
-    }
-
-    // **********************************
-    //
-    // Impl
-    //
-    // **********************************
 
     @Override
     public KnativeHttpComponent getComponent() {
@@ -154,11 +134,11 @@ public class KnativeHttpEndpoint extends DefaultEndpoint {
 
     @Override
     public Producer createProducer() throws Exception {
-        return new KnativeHttpProducer(this, OptionMap.EMPTY);
+        return new KnativeHttpProducer(this, getComponent().getVertx(), getComponent().getVertxHttpClientOptions());
     }
 
     @Override
     public Consumer createConsumer(Processor processor) throws Exception {
-        return new KnativeHttpConsumer(this, processor);
+        return new KnativeHttpConsumer(this, AsyncProcessorConverterHelper.convert(processor));
     }
 }

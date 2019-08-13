@@ -96,7 +96,6 @@ public class CloudEventsV01Test {
         context.start();
 
         MockEndpoint mock = context.getEndpoint("mock:ce", MockEndpoint.class);
-        mock.expectedMessageCount(1);
         mock.expectedHeaderReceived("CE-CloudEventsVersion", CloudEventsProcessors.v01.getVersion());
         mock.expectedHeaderReceived("CE-EventType", "org.apache.camel.custom-event");
         mock.expectedHeaderReceived("CE-Source", "knative://endpoint/myEndpoint");
@@ -104,6 +103,7 @@ public class CloudEventsV01Test {
         mock.expectedMessagesMatches(e -> e.getIn().getHeaders().containsKey("CE-EventTime"));
         mock.expectedMessagesMatches(e -> e.getIn().getHeaders().containsKey("CE-EventID"));
         mock.expectedBodiesReceived("test");
+        mock.expectedMessageCount(1);
 
         context.createProducerTemplate().send(
             "direct:source",
@@ -166,7 +166,6 @@ public class CloudEventsV01Test {
         context.start();
 
         MockEndpoint mock = context.getEndpoint("mock:ce", MockEndpoint.class);
-        mock.expectedMessageCount(1);
         mock.expectedHeaderReceived("CE-CloudEventsVersion", CloudEventsProcessors.v01.getVersion());
         mock.expectedHeaderReceived("CE-EventType", "org.apache.camel.event");
         mock.expectedHeaderReceived("CE-Source", "knative://endpoint/myEndpoint");
@@ -174,9 +173,9 @@ public class CloudEventsV01Test {
         mock.expectedMessagesMatches(e -> e.getIn().getHeaders().containsKey("CE-EventTime"));
         mock.expectedMessagesMatches(e -> e.getIn().getHeaders().containsKey("CE-EventID"));
         mock.expectedBodiesReceived("test");
+        mock.expectedMessageCount(1);
 
         MockEndpoint mock2 = context.getEndpoint("mock:ce2", MockEndpoint.class);
-        mock2.expectedMessageCount(1);
         mock2.expectedHeaderReceived("CE-CloudEventsVersion", CloudEventsProcessors.v01.getVersion());
         mock2.expectedHeaderReceived("CE-EventType", "my.type");
         mock2.expectedHeaderReceived("CE-Source", "knative://endpoint/myEndpoint2?cloudEventsType=my.type");
@@ -184,6 +183,7 @@ public class CloudEventsV01Test {
         mock2.expectedMessagesMatches(e -> e.getIn().getHeaders().containsKey("CE-EventTime"));
         mock2.expectedMessagesMatches(e -> e.getIn().getHeaders().containsKey("CE-EventID"));
         mock2.expectedBodiesReceived("test2");
+        mock2.expectedMessageCount(1);
 
         context.createProducerTemplate().send(
             "direct:source",
@@ -238,7 +238,6 @@ public class CloudEventsV01Test {
         context.start();
 
         MockEndpoint mock = context.getEndpoint("mock:ce", MockEndpoint.class);
-        mock.expectedMessageCount(1);
         mock.expectedHeaderReceived("CE-CloudEventsVersion", CloudEventsProcessors.v01.getVersion());
         mock.expectedHeaderReceived("CE-EventType", "org.apache.camel.event");
         mock.expectedHeaderReceived("CE-EventID", "myEventID");
@@ -246,6 +245,7 @@ public class CloudEventsV01Test {
         mock.expectedHeaderReceived(Exchange.CONTENT_TYPE, Knative.MIME_STRUCTURED_CONTENT_MODE);
         mock.expectedMessagesMatches(e -> e.getIn().getHeaders().containsKey("CE-EventTime"));
         mock.expectedBodiesReceived("test");
+        mock.expectedMessageCount(1);
 
         context.createProducerTemplate().send(
             "direct:source",
@@ -301,7 +301,6 @@ public class CloudEventsV01Test {
         context.start();
 
         MockEndpoint mock = context.getEndpoint("mock:ce", MockEndpoint.class);
-        mock.expectedMessageCount(1);
         mock.expectedHeaderReceived("CE-CloudEventsVersion", CloudEventsProcessors.v01.getVersion());
         mock.expectedHeaderReceived("CE-EventType", "org.apache.camel.event");
         mock.expectedHeaderReceived("CE-EventID", "myEventID");
@@ -309,6 +308,7 @@ public class CloudEventsV01Test {
         mock.expectedHeaderReceived(Exchange.CONTENT_TYPE, "text/plain");
         mock.expectedMessagesMatches(e -> e.getIn().getHeaders().containsKey("CE-EventTime"));
         mock.expectedBodiesReceived("test");
+        mock.expectedMessageCount(1);
 
         context.createProducerTemplate().send(
             "direct:source",
@@ -387,22 +387,22 @@ public class CloudEventsV01Test {
         context.start();
 
         MockEndpoint mock1 = context.getEndpoint("mock:ce1", MockEndpoint.class);
-        mock1.expectedMessageCount(1);
         mock1.expectedMessagesMatches(e -> e.getIn().getHeaders().containsKey("CE-EventTime"));
         mock1.expectedHeaderReceived("CE-CloudEventsVersion", CloudEventsProcessors.v01.getVersion());
         mock1.expectedHeaderReceived("CE-EventType", "org.apache.camel.event");
         mock1.expectedHeaderReceived("CE-EventID", "myEventID1");
         mock1.expectedHeaderReceived("CE-Source", "CE1");
         mock1.expectedBodiesReceived("test");
+        mock1.expectedMessageCount(1);
 
         MockEndpoint mock2 = context.getEndpoint("mock:ce2", MockEndpoint.class);
-        mock2.expectedMessageCount(1);
         mock2.expectedMessagesMatches(e -> e.getIn().getHeaders().containsKey("CE-EventTime"));
         mock2.expectedHeaderReceived("CE-CloudEventsVersion", CloudEventsProcessors.v01.getVersion());
         mock2.expectedHeaderReceived("CE-EventType", "org.apache.camel.event");
         mock2.expectedHeaderReceived("CE-EventID", "myEventID2");
         mock2.expectedHeaderReceived("CE-Source", "CE2");
         mock2.expectedBodiesReceived("test");
+        mock2.expectedMessageCount(1);
 
         context.createProducerTemplate().send(
             "direct:source",
