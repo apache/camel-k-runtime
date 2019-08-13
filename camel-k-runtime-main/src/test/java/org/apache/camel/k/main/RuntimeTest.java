@@ -28,7 +28,7 @@ import org.apache.camel.util.ObjectHelper;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class RuntimeTest {
     @Disabled
