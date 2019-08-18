@@ -53,7 +53,7 @@
         <jaxb-api.version>2.3.0</jaxb-api.version>
         <jaxb-core.version>2.3.0.1</jaxb-core.version>
         <immutables.version>2.7.5</immutables.version>
-        <semver4j.version>2.2.0</semver4j.version>
+        <semver4j.version>3.0.0</semver4j.version>
         <undertow.version>1.4.26.Final</undertow.version>
         <graalvm.version>19.1.1</graalvm.version>
         <gmavenplus-plugin.version>1.7.1</gmavenplus-plugin.version>
