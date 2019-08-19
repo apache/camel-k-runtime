@@ -71,19 +71,19 @@ public class KnativeSourceRoutesLoader implements RoutesLoader {
                 //      builder. Maybe, we should add builder lifecycle events.
                 List<RouteDefinition> definitions = builder.configureRoutes(context).getRoutes();
 
-                if (definitions.size() > 1) {
-                    throw new IllegalArgumentException("Cannot determine route top enrich");
+                if (definitions.size() == 1) {
+                    final String sink = context.resolvePropertyPlaceholders("{{env:KNATIVE_SINK:sink}}");
+                    final String uri = String.format("knative://endpoint/%s", sink);
+                    final RouteDefinition definition = definitions.get(0);
+
+                    LOGGER.info("Add sink:{} to route:{}", uri, definition.getId());
+
+                    // assuming that route is linear like there's no content based routing
+                    // or ant other EIP that would branch the flow
+                    definition.getOutputs().add(new ToDefinition(uri));
+                } else {
+                   LOGGER.warn("Cannot determine route to enrich. the knative enpoint need to explicitly be defined");
                 }
-
-                final String sink = context.resolvePropertyPlaceholders("{{env:KNATIVE_SYNC:sink}}");
-                final String uri = String.format("knative://endpoint/%s", sink);
-                final RouteDefinition definition = definitions.get(0);
-
-                LOGGER.info("Add sink:{} to route:{}", uri,  definition.getId());
-
-                // assuming that route is linear like there's no content based routing
-                // or ant other EIP that would branch the flow
-                definition.getOutputs().add(new ToDefinition(uri));
 
                 //TODO: this is needed for java language because by default
                 //      camel main inspects route builders to detect beans
