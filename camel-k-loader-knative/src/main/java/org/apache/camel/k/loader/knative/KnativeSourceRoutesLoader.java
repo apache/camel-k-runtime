@@ -82,7 +82,7 @@ public class KnativeSourceRoutesLoader implements RoutesLoader {
                     // or ant other EIP that would branch the flow
                     definition.getOutputs().add(new ToDefinition(uri));
                 } else {
-                   LOGGER.warn("Cannot determine route to enrich. the knative enpoint need to explicitly be defined");
+                    LOGGER.warn("Cannot determine route to enrich. the knative enpoint need to explicitly be defined");
                 }
 
                 //TODO: this is needed for java language because by default
