@@ -67,6 +67,11 @@
             <artifactId>kotlin-scripting-jvm-host</artifactId>
             <version>${kotlin.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-scripting-compiler</artifactId>
+            <version>${kotlin.version}</version>
+        </dependency>
 
         <!-- ******************************* -->
         <!-- test deps :: camel              -->
