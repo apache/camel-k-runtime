@@ -1,4 +1,4 @@
 moduleName=camel-k-loader-groovy
-moduleVersion=0.0.3-SNAPSHOT
-extensionClasses=org.apache.camel.k.loader.groovy.extension.LogComponentExtension
+moduleVersion=1.0.0
+extensionClasses=org.apache.camel.k.loader.groovy.extension.LogComponentExtension,org.apache.camel.k.loader.groovy.extension.ExpressionClauseExtensions
 #staticExtensionClasses=support.StaticStringExtension
