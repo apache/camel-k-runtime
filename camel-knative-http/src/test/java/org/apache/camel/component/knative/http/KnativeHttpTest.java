@@ -210,19 +210,24 @@ public class KnativeHttpTest {
                 .to("mock:endpoint");
 
             b.from("direct:start")
-                .toF("knative-http:0.0.0.0:%d", port);
+                .toF("knative-http:0.0.0.0:%d", port)
+                .to("mock:start");
         });
 
-        MockEndpoint mock = context.getEndpoint("mock:endpoint", MockEndpoint.class);
-        mock.expectedBodiesReceived("endpoint");
-        mock.expectedHeaderReceived("Host", "0.0.0.0");
-        mock.expectedMessageCount(1);
+        MockEndpoint mock1 = context.getEndpoint("mock:endpoint", MockEndpoint.class);
+        mock1.expectedHeaderReceived("Host", "0.0.0.0");
+        mock1.expectedMessageCount(1);
+
+        MockEndpoint mock2 = context.getEndpoint("mock:start", MockEndpoint.class);
+        mock2.expectedBodiesReceived("endpoint");
+        mock2.expectedMessageCount(1);
 
         context.start();
 
         template.sendBody("direct:start", "1");
 
-        mock.assertIsSatisfied();
+        mock1.assertIsSatisfied();
+        mock2.assertIsSatisfied();
     }
 }
 
