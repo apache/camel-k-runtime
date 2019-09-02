@@ -118,7 +118,7 @@ public final class KnativeHttpConsumerDispatcher {
                                 throw new RuntimeException(result.cause());
                             }
 
-                            LOGGER.info("Vert.x HttpServer started on {}:{}", key.getPort(), key.getHost());
+                            LOGGER.info("Vert.x HttpServer started on {}:{}", key.getHost(), key.getPort());
                         } finally {
                             latch.countDown();
                         }

@@ -590,4 +590,59 @@ public class KnativeComponentTest {
         mock1.assertIsSatisfied();
         mock2.assertIsSatisfied();
     }
+
+    @Test
+    void testReply() throws Exception {
+        final int port = AvailablePortFinder.getNextAvailable();
+
+        KnativeEnvironment env = new KnativeEnvironment(Arrays.asList(
+            new KnativeEnvironment.KnativeServiceDefinition(
+                Knative.Type.endpoint,
+                Knative.Protocol.http,
+                "from",
+                "localhost",
+                port,
+                KnativeSupport.mapOf(
+                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.CONTENT_TYPE, "text/plain"
+                )),
+            new KnativeEnvironment.KnativeServiceDefinition(
+                Knative.Type.endpoint,
+                Knative.Protocol.http,
+                "to",
+                "localhost",
+                port,
+                KnativeSupport.mapOf(
+                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.CONTENT_TYPE, "text/plain"
+                ))
+            )
+        );
+
+        KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
+        component.setCloudEventsSpecVersion(CloudEventsProcessors.v01.getVersion());
+        component.setEnvironment(env);
+
+        context.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("knative:endpoint/from")
+                    .convertBodyTo(String.class)
+                    .setBody().constant("consumer");
+                from("direct:source")
+                    .to("knative://endpoint/to")
+                    .log("${body}")
+                    .to("mock:to");
+            }
+        });
+
+        MockEndpoint mock = context.getEndpoint("mock:to", MockEndpoint.class);
+        mock.expectedBodiesReceived("consumer");
+        mock.expectedMessageCount(1);
+
+        context.start();
+        context.createProducerTemplate().sendBody("direct:source", "");
+
+        mock.assertIsSatisfied();
+    }
 }

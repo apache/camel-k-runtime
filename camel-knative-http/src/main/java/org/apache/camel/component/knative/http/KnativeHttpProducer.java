@@ -26,15 +26,15 @@ import io.vertx.ext.web.client.HttpResponse;
 import io.vertx.ext.web.client.WebClient;
 import io.vertx.ext.web.client.WebClientOptions;
 import org.apache.camel.AsyncCallback;
+import org.apache.camel.CamelException;
 import org.apache.camel.Exchange;
 import org.apache.camel.InvalidPayloadException;
 import org.apache.camel.Message;
-import org.apache.camel.http.common.HttpOperationFailedException;
 import org.apache.camel.support.DefaultAsyncProducer;
 import org.apache.camel.support.DefaultMessage;
-import org.apache.camel.support.ExchangeHelper;
 import org.apache.camel.support.MessageHelper;
 import org.apache.camel.util.ObjectHelper;
+import org.apache.camel.util.URISupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -104,14 +104,11 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
 
                 exchange.setMessage(answer);
 
-                if (response.failed() && endpoint.getThrowExceptionOnFailure()) {
-                    Exception cause = new HttpOperationFailedException(
-                        getURI(),
-                        result.statusCode(),
-                        result.statusMessage(),
-                        null,
-                        KnativeHttpSupport.asStringMap(answer.getHeaders()),
-                        ExchangeHelper.convertToType(exchange, String.class, answer.getBody())
+                if (response.succeeded()) {
+                    answer.setBody(result.body().getBytes());
+                } else if (response.failed() && endpoint.getThrowExceptionOnFailure()) {
+                    Exception cause = new CamelException(
+                        "HTTP operation failed invoking " + URISupport.sanitizeUri(getURI()) + " with statusCode: " + result.statusCode()
                     );
 
                     exchange.setException(cause);
