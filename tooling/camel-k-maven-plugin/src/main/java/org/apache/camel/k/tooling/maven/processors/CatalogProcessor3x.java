@@ -335,7 +335,7 @@ public class CatalogProcessor3x implements CatalogProcessor {
         //
         // ************************
 
-        artifacts.computeIfPresent("camel-http4", (key, artifact) -> {
+        artifacts.computeIfPresent("camel-http", (key, artifact) -> {
             artifact.addDependency("org.apache.camel", "camel-file");
             return artifact;
         });

@@ -23,15 +23,16 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.spi.annotations.Component;
 import org.apache.camel.support.DefaultComponent;
-import org.apache.camel.support.IntrospectionSupport;
 import org.apache.camel.support.PropertyBindingSupport;
+import org.apache.camel.util.ObjectHelper;
+import org.apache.camel.util.PropertiesHelper;
 import org.apache.camel.util.StringHelper;
 
 @Component("knative")
 public class KnativeComponent extends DefaultComponent {
     public static final String CONFIGURATION_ENV_VARIABLE = "CAMEL_KNATIVE_CONFIGURATION";
 
-    private final KnativeConfiguration configuration;
+    private KnativeConfiguration configuration;
     private String environmentPath;
 
     public KnativeComponent() {
@@ -50,6 +51,17 @@ public class KnativeComponent extends DefaultComponent {
     //
     // ************************
 
+    public KnativeConfiguration getConfiguration() {
+        return configuration;
+    }
+
+    /**
+     * Set the configuration.
+     */
+    public void setConfiguration(KnativeConfiguration configuration) {
+        this.configuration = ObjectHelper.notNull(configuration, "configuration");
+    }
+
     public String getEnvironmentPath() {
         return environmentPath;
     }
@@ -59,10 +71,6 @@ public class KnativeComponent extends DefaultComponent {
      */
     public void setEnvironmentPath(String environmentPath) {
         this.environmentPath = environmentPath;
-    }
-
-    public KnativeConfiguration getConfiguration() {
-        return configuration;
     }
 
     public KnativeEnvironment getEnvironment() {
@@ -116,7 +124,7 @@ public class KnativeComponent extends DefaultComponent {
         final KnativeConfiguration conf = getKnativeConfiguration();
 
         conf.getTransportOptions().putAll(
-            IntrospectionSupport.extractProperties(parameters, "transport.", true)
+            PropertiesHelper.extractProperties(parameters, "transport.", true)
         );
 
         // set properties from the endpoint uri

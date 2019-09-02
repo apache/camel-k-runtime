@@ -34,7 +34,6 @@ import org.apache.camel.k.Constants;
 import org.apache.camel.k.ContextCustomizer;
 import org.apache.camel.k.RoutesLoader;
 import org.apache.camel.k.Source;
-import org.apache.camel.spi.FactoryFinder;
 import org.apache.camel.util.ObjectHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -114,7 +113,10 @@ public final class RuntimeSupport {
         ContextCustomizer customizer = context.getRegistry().lookupByNameAndType(customizerId, ContextCustomizer.class);
         if (customizer == null) {
             try {
-                customizer = (ContextCustomizer) context.adapt(ExtendedCamelContext.class).getFactoryFinder(Constants.CONTEXT_CUSTOMIZER_RESOURCE_PATH).newInstance(customizerId);
+                customizer = context.adapt(ExtendedCamelContext.class)
+                    .getFactoryFinder(Constants.CONTEXT_CUSTOMIZER_RESOURCE_PATH)
+                    .newInstance(customizerId, ContextCustomizer.class)
+                    .orElseThrow(() -> new RuntimeException("Error creating instance for customizer: " + customizerId));
             } catch (NoFactoryAvailableException e) {
                 throw new RuntimeException(e);
             }
@@ -177,16 +179,13 @@ public final class RuntimeSupport {
     }
 
     public static RoutesLoader lookupLoaderFromResource(CamelContext context, String loaderId) {
-        final FactoryFinder finder;
-        final RoutesLoader loader;
-
         try {
-            finder = context.adapt(ExtendedCamelContext.class).getFactoryFinder(Constants.ROUTES_LOADER_RESOURCE_PATH);
-            loader = (RoutesLoader)finder.newInstance(loaderId);
+            return context.adapt(ExtendedCamelContext.class)
+                .getFactoryFinder(Constants.ROUTES_LOADER_RESOURCE_PATH)
+                .newInstance(loaderId, RoutesLoader.class)
+                .orElseThrow(() -> new RuntimeException("Error creating instance of loader: " + loaderId));
         } catch (NoFactoryAvailableException e) {
             throw new IllegalArgumentException("Unable to find loader for: " + loaderId, e);
         }
-
-        return loader;
     }
 }

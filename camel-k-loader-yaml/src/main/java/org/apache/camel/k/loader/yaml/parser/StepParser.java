@@ -32,10 +32,10 @@ public interface StepParser {
     static <T extends StepParser> T lookup(CamelContext camelContext, Class<T> type, String stepId) throws NoFactoryAvailableException {
         T converter = camelContext.getRegistry().lookupByNameAndType(stepId, type);
         if (converter == null) {
-            converter = (T) camelContext.adapt(ExtendedCamelContext.class).getFactoryFinder(RESOURCE_PATH).newInstance(stepId);
-        }
-        if (converter == null) {
-            throw new IllegalStateException("No handler for step with id: " + stepId);
+            converter = camelContext.adapt(ExtendedCamelContext.class)
+                .getFactoryFinder(RESOURCE_PATH)
+                .newInstance(stepId, type)
+                .orElseThrow(() -> new RuntimeException("No handler for step with id: " + stepId));
         }
 
         return converter;

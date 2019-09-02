@@ -16,8 +16,7 @@
  */
 package org.apache.camel.k.loader.groovy.dsl
 
-
-import org.apache.camel.support.IntrospectionSupport
+import org.apache.camel.ExtendedCamelContext
 import org.apache.camel.support.PropertyBindingSupport
 
 class ComponentConfiguration {
@@ -49,20 +48,23 @@ class ComponentConfiguration {
             }
         }
 
-        if (!PropertyBindingSupport.bindProperty(component.camelContext, component, name, value)) {
+        if (!PropertyBindingSupport.build().withCamelContext(component.camelContext).withTarget(component).withProperty(name, value).bind()) {
             throw new MissingMethodException(name, this.component.class, args as Object[])
         }
     }
 
     def propertyMissing(String name, value) {
-        if (!PropertyBindingSupport.bindProperty(component.camelContext, component, name, value,)) {
+        if (!PropertyBindingSupport.build().withCamelContext(component.camelContext).withTarget(component).withProperty(name, value).bind()) {
             throw new MissingMethodException(name, this.component.class, value)
         }
     }
 
     def propertyMissing(String name) {
-        def properties = IntrospectionSupport.getProperties(component, properties, null, false)
+        def props = new HashMap<String, Object>()
+        def context = component.getCamelContext().adapt(ExtendedCamelContext.class)
 
-        return properties[name]
+        context.getBeanIntrospection().getProperties(component, props, null, false)
+
+        return props[name]
     }
 }
