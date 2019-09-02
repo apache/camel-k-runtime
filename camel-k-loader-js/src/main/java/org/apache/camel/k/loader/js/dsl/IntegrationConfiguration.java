@@ -30,7 +30,7 @@ import org.apache.camel.model.rest.RestConfigurationDefinition;
 import org.apache.camel.model.rest.RestDefinition;
 import org.apache.camel.spi.Registry;
 
-public class IntegrationConfiguration extends BuilderSupport implements EndpointBuilderFactory {
+public class IntegrationConfiguration extends BuilderSupport implements EndpointBuilderFactory, ProcessorSupport {
     public final Registry registry;
     public final Components components;
     public final EndpointRouteBuilder builder;

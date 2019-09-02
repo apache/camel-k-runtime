@@ -24,6 +24,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.regex.Matcher;
 
+import static java.lang.Integer.*;
+
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
 import io.vertx.core.http.HttpServerOptions;
@@ -32,8 +34,8 @@ import org.apache.camel.Endpoint;
 import org.apache.camel.spi.Metadata;
 import org.apache.camel.spi.annotations.Component;
 import org.apache.camel.support.DefaultComponent;
-import org.apache.camel.support.IntrospectionSupport;
 import org.apache.camel.util.ObjectHelper;
+import org.apache.camel.util.PropertiesHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -135,7 +137,7 @@ public class KnativeHttpComponent extends DefaultComponent {
         }
 
         KnativeHttpEndpoint ep = new KnativeHttpEndpoint(uri, this);
-        ep.setHeaderFilter(IntrospectionSupport.extractProperties(parameters, "filter.", true));
+        ep.setHeaderFilter(PropertiesHelper.extractProperties(parameters, "filter.", true));
 
         switch (matcher.groupCount()) {
         case 1:
@@ -145,12 +147,12 @@ public class KnativeHttpComponent extends DefaultComponent {
             break;
         case 2:
             ep.setHost(matcher.group(1));
-            ep.setPort(Integer.parseInt(matcher.group(2)));
+            ep.setPort(parseInt(matcher.group(2)));
             ep.setPath(KnativeHttp.DEFAULT_PATH);
             break;
         case 3:
             ep.setHost(matcher.group(1));
-            ep.setPort(Integer.parseInt(matcher.group(2)));
+            ep.setPort(parseInt(matcher.group(2)));
             ep.setPath(KnativeHttp.DEFAULT_PATH + matcher.group(3));
             break;
         default:

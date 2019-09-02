@@ -20,8 +20,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.impl.engine.AbstractCamelContext;
 import org.apache.camel.k.RoutesLoader;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.support.RuntimeSupport;
@@ -90,7 +90,7 @@ public class KnativeSourceRoutesLoader implements RoutesLoader {
                 //      to be registered to the camel registry but as the
                 //      original builder is masked by this wrapping builder,
                 //      beans can't be automatically discovered
-                context.adapt(AbstractCamelContext.class)
+                context.adapt(ExtendedCamelContext.class)
                     .getBeanPostProcessor()
                     .postProcessBeforeInitialization(builder, builder.getClass().getName());
 

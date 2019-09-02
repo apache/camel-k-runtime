@@ -108,11 +108,9 @@ public class IntegrationTest {
         runtime.addListener(Runtime.Phase.Started, r -> {
             ProducerTemplate template = r.getCamelContext().createProducerTemplate();
 
-            String a = template.requestBody("direct:arrow", "", String.class);
-            assertThat(a).isEqualTo("arrow");
-
-            String f = template.requestBody("direct:function", "", String.class);
-            assertThat(f).isEqualTo("function");
+            assertThat(template.requestBody("direct:arrow", "")).isEqualTo("arrow");
+            assertThat(template.requestBody("direct:wrapper", "")).isEqualTo("wrapper");
+            assertThat(template.requestBody("direct:function", "")).isEqualTo("function");
 
             runtime.stop();
         });

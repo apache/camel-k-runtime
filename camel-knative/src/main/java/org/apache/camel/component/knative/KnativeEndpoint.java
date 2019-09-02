@@ -30,7 +30,6 @@ import org.apache.camel.cloud.ServiceDefinition;
 import org.apache.camel.component.knative.ce.CloudEventsProcessors;
 import org.apache.camel.processor.Pipeline;
 import org.apache.camel.spi.UriEndpoint;
-import org.apache.camel.spi.UriParam;
 import org.apache.camel.spi.UriPath;
 import org.apache.camel.support.DefaultEndpoint;
 import org.apache.camel.support.service.ServiceHelper;
@@ -52,7 +51,6 @@ public class KnativeEndpoint extends DefaultEndpoint implements DelegateEndpoint
     @UriPath(description = "The Knative name")
     private final String name;
 
-    @UriParam
     private final KnativeConfiguration configuration;
 
     private final KnativeEnvironment environment;

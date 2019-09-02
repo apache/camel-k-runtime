@@ -16,15 +16,17 @@
  */
 package org.apache.camel.k.loader.yaml.parser;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.k.loader.yaml.model.Step;
 import org.apache.camel.model.OutputNode;
 import org.apache.camel.model.ProcessorDefinition;
-import org.apache.camel.support.IntrospectionSupport;
+import org.apache.camel.spi.BeanIntrospection;
 import org.apache.camel.support.PropertyBindingSupport;
 import org.apache.camel.util.ObjectHelper;
 
@@ -51,9 +53,12 @@ public final class StepParserSupport {
         }
 
         final T answer = context.getInjector().newInstance(type);
-        final Map<String, Object> properties = IntrospectionSupport.getNonNullProperties(instance);
+        final Map<String, Object> properties = new HashMap<>();
+        final BeanIntrospection introspection = context.adapt(ExtendedCamelContext.class).getBeanIntrospection();
 
-        PropertyBindingSupport.bindProperties(context, answer, properties);
+        if (introspection.getProperties(instance, properties, null, false)) {
+            PropertyBindingSupport.build().withCamelContext(context).withTarget(answer).withProperties(properties).bind();
+        }
 
         return answer;
     }

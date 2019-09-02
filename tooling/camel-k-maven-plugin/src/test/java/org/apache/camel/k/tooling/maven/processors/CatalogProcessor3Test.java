@@ -78,7 +78,7 @@ public class CatalogProcessor3Test extends AbstractCataloProcessorTest {
         CatalogProcessor processor = new CatalogProcessor3x();
         CamelCatalog catalog = versionCamelCatalog("3.0.0");
         Map<String, CamelArtifact> artifactMap = new HashMap<>();
-        artifactMap.put("camel-http4", new CamelArtifact());
+        artifactMap.put("camel-http", new CamelArtifact());
 
         assertThat(processor.accepts(catalog)).isTrue();
         processor.process(new MavenProject(), catalog, artifactMap);
@@ -121,7 +121,7 @@ public class CatalogProcessor3Test extends AbstractCataloProcessorTest {
             );
         });
 
-        assertThat(artifactMap.get("camel-http4")).satisfies(a -> {
+        assertThat(artifactMap.get("camel-http")).satisfies(a -> {
             assertThat(a.getDependencies()).anyMatch(
                 d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-file")
             );
@@ -133,7 +133,7 @@ public class CatalogProcessor3Test extends AbstractCataloProcessorTest {
         CatalogProcessor processor = new CatalogProcessor3x();
         CamelCatalog catalog = versionCamelCatalog("3.0.0");
         Map<String, CamelArtifact> artifactMap = new HashMap<>();
-        artifactMap.put("camel-http4", new CamelArtifact());
+        artifactMap.put("camel-http", new CamelArtifact());
 
         assertThat(processor.accepts(catalog)).isTrue();
         processor.process(new MavenProject(), catalog, artifactMap);

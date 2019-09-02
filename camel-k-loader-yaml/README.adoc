@@ -172,7 +172,7 @@ import org.apache.camel.k.loader.yaml.parser.ProcessorStepParser;public class Ac
 
         // create the definition
         ToDefinition to = new ToDefinition()
-        to.setUri(String.format("http4://%s:%d/fixed/path"), definition.host, definition.port)
+        to.setUri(String.format("http://%s:%d/fixed/path"), definition.host, definition.port)
 
         return to;
     }

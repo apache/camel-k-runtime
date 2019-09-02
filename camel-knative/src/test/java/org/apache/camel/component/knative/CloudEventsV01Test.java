@@ -294,7 +294,7 @@ public class CloudEventsV01Test {
                     .to("mock:ce");
 
                 from("direct:source")
-                    .toF("http4://localhost:%d/a/path", port);
+                    .toF("http://localhost:%d/a/path", port);
             }
         });
 
@@ -380,7 +380,7 @@ public class CloudEventsV01Test {
                         .constant("POST")
                     .setHeader(Exchange.HTTP_QUERY)
                         .simple("filter.headerName=CE-Source&filter.headerValue=${header.FilterVal}")
-                    .toD("http4://localhost:" + port);
+                    .toD("http://localhost:" + port);
             }
         });
 

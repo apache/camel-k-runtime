@@ -25,7 +25,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
@@ -41,6 +40,7 @@ public final class PropertiesSupport {
     private PropertiesSupport() {
     }
 
+    @SuppressWarnings("unchecked")
     public static boolean bindProperties(CamelContext context, Object target, String prefix) {
         final PropertiesComponent component = context.getComponent("properties", PropertiesComponent.class);
         final Properties properties = component.loadProperties();
@@ -49,12 +49,13 @@ public final class PropertiesSupport {
             return false;
         }
 
-        Map<String, Object> props = new HashMap<>();
-        for (String key : properties.stringPropertyNames()) {
-            props.put(key, properties.get(key));
-        }
-
-        return PropertyBindingSupport.bindProperties(context, target, props, prefix);
+        return PropertyBindingSupport.build()
+            .withCamelContext(context)
+            .withTarget(target)
+            .withProperties((Map)properties)
+            .withOptionPrefix(prefix)
+            .withRemoveParameters(false)
+            .bind();
     }
 
     public static Properties loadProperties() {
