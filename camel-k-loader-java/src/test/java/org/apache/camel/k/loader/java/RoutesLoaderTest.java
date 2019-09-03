@@ -23,10 +23,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.k.RoutesLoader;
-import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
-import org.apache.camel.k.listener.RoutesConfigurer;
-import org.apache.camel.k.main.ApplicationRuntime;
 import org.apache.camel.k.support.RuntimeSupport;
 import org.apache.camel.model.ProcessDefinition;
 import org.apache.camel.model.RouteDefinition;
@@ -90,30 +87,6 @@ public class RoutesLoaderTest {
 
         assertThat(context.getRestConfigurations()).hasSize(1);
         assertThat(context.getRestConfigurations().iterator().next()).hasFieldOrPropertyWithValue("component", "restlet");
-    }
-
-    @Test
-    public void testLoadJavaClassWithBeans() throws Exception {
-        ApplicationRuntime runtime = new ApplicationRuntime();
-        runtime.addListener(RoutesConfigurer.forRoutes("classpath:" + MyRoutesWithBeans.class.getName() + ".class"));
-        runtime.addListener(Runtime.Phase.Started, r ->  runtime.stop());
-        runtime.run();
-
-        assertThat(runtime.getRegistry().lookupByName("my-bean")).isInstanceOfSatisfying(MyBean.class, b -> {
-            assertThat(b).hasFieldOrPropertyWithValue("name", "my-bean-name");
-        });
-    }
-
-    @Test
-    public void testLoadJavaSourceWithBeans() throws Exception {
-        ApplicationRuntime runtime = new ApplicationRuntime();
-        runtime.addListener(RoutesConfigurer.forRoutes("classpath:MyRoutesWithBeans.java"));
-        runtime.addListener(Runtime.Phase.Started, r ->  runtime.stop());
-        runtime.run();
-
-        assertThat(runtime.getRegistry().lookupByName("my-bean")).isInstanceOfSatisfying(MyBean.class, b -> {
-            assertThat(b).hasFieldOrPropertyWithValue("name", "my-bean-name");
-        });
     }
 
     @ParameterizedTest
