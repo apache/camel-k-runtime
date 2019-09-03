@@ -20,112 +20,90 @@ import org.apache.camel.Predicate
 import org.apache.camel.Processor
 import org.apache.camel.component.log.LogComponent
 import org.apache.camel.component.seda.SedaComponent
+import org.apache.camel.impl.DefaultCamelContext
 import org.apache.camel.k.Runtime
-import org.apache.camel.k.listener.RoutesConfigurer
-import org.apache.camel.k.main.ApplicationRuntime
+import org.apache.camel.k.listener.RoutesConfigurer.forRoutes
 import org.apache.camel.model.ModelCamelContext
 import org.apache.camel.processor.FatalFallbackErrorHandler
-import org.apache.camel.spi.ExchangeFormatter
 import org.apache.camel.support.DefaultHeaderFilterStrategy
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import java.util.concurrent.atomic.AtomicInteger
-import java.util.concurrent.atomic.AtomicReference
 import javax.sql.DataSource
 
 class IntegrationTest {
     @Test
     fun `load integration with rest`() {
-        var runtime = ApplicationRuntime()
-        runtime.addListener(RoutesConfigurer.forRoutes("classpath:routes-with-rest.kts"))
-        runtime.addListener(Runtime.Phase.Started) { runtime.stop() }
-        runtime.run()
+        val context = DefaultCamelContext()
+        val runtime = Runtime.of(context)
 
-        assertThat(runtime.camelContext.restConfiguration.host).isEqualTo("my-host")
-        assertThat(runtime.camelContext.restConfiguration.port).isEqualTo(9192)
-        assertThat(runtime.camelContext.getRestConfiguration("undertow", false).host).isEqualTo("my-undertow-host")
-        assertThat(runtime.camelContext.getRestConfiguration("undertow", false).port).isEqualTo(9193)
-        assertThat(runtime.camelContext.adapt(ModelCamelContext::class.java).restDefinitions.size).isEqualTo(1)
-        assertThat(runtime.camelContext.adapt(ModelCamelContext::class.java).restDefinitions[0].path).isEqualTo("/my/path")
+        forRoutes("classpath:routes-with-rest.kts").accept(Runtime.Phase.ConfigureRoutes, runtime)
+
+        assertThat(context.restConfiguration.host).isEqualTo("my-host")
+        assertThat(context.restConfiguration.port).isEqualTo(9192)
+        assertThat(context.getRestConfiguration("undertow", false).host).isEqualTo("my-undertow-host")
+        assertThat(context.getRestConfiguration("undertow", false).port).isEqualTo(9193)
+        assertThat(context.adapt(ModelCamelContext::class.java).restDefinitions.size).isEqualTo(1)
+        assertThat(context.adapt(ModelCamelContext::class.java).restDefinitions[0].path).isEqualTo("/my/path")
     }
 
     @Test
     fun `load integration with beans`() {
-        var runtime = ApplicationRuntime()
-        runtime.addListener(RoutesConfigurer.forRoutes("classpath:routes-with-beans.kts"))
-        runtime.addListener(Runtime.Phase.Started) { runtime.stop() }
-        runtime.run()
+        val context = DefaultCamelContext()
+        val runtime = Runtime.of(context)
 
-        assertThat(runtime.camelContext.registry.findByType(DataSource::class.java)).hasSize(1)
-        assertThat(runtime.camelContext.registry.lookupByName("dataSource")).isInstanceOf(DataSource::class.java)
-        assertThat(runtime.camelContext.registry.findByType(DefaultHeaderFilterStrategy::class.java)).hasSize(1)
-        assertThat(runtime.camelContext.registry.lookupByName("filterStrategy")).isInstanceOf(DefaultHeaderFilterStrategy::class.java)
-        assertThat(runtime.camelContext.registry.lookupByName("myProcessor")).isInstanceOf(Processor::class.java)
-        assertThat(runtime.camelContext.registry.lookupByName("myPredicate")).isInstanceOf(Predicate::class.java)
+        forRoutes("classpath:routes-with-beans.kts").accept(Runtime.Phase.ConfigureRoutes, runtime)
+
+        assertThat(context.registry.findByType(DataSource::class.java)).hasSize(1)
+        assertThat(context.registry.lookupByName("dataSource")).isInstanceOf(DataSource::class.java)
+        assertThat(context.registry.findByType(DefaultHeaderFilterStrategy::class.java)).hasSize(1)
+        assertThat(context.registry.lookupByName("filterStrategy")).isInstanceOf(DefaultHeaderFilterStrategy::class.java)
+        assertThat(context.registry.lookupByName("myProcessor")).isInstanceOf(Processor::class.java)
+        assertThat(context.registry.lookupByName("myPredicate")).isInstanceOf(Predicate::class.java)
     }
 
     @Test
     fun `load integration with binding`() {
-        var runtime = ApplicationRuntime()
-        runtime.addListener(RoutesConfigurer.forRoutes("classpath:routes-with-bindings.kts"))
-        runtime.addListener(Runtime.Phase.Started) { runtime.stop() }
-        runtime.run()
+        val context = DefaultCamelContext()
+        val runtime = Runtime.of(context)
 
-        assertThat(runtime.camelContext.registry.lookupByName("my-entry")).isEqualTo("myRegistryEntry1")
-        assertThat(runtime.camelContext.registry.lookupByName("my-proc")).isInstanceOf(Processor::class.java)
+        forRoutes("classpath:routes-with-bindings.kts").accept(Runtime.Phase.ConfigureRoutes, runtime)
+
+        assertThat(context.registry.lookupByName("my-entry")).isEqualTo("myRegistryEntry1")
+        assertThat(context.registry.lookupByName("my-proc")).isInstanceOf(Processor::class.java)
     }
 
     @Test
     fun `load integration with component configuration`() {
-        val sedaSize = AtomicInteger()
-        val sedaConsumers = AtomicInteger()
-        val mySedaSize = AtomicInteger()
-        val mySedaConsumers = AtomicInteger()
-        val format = AtomicReference<ExchangeFormatter>()
+        val context = DefaultCamelContext()
+        val runtime = Runtime.of(context)
 
-        var runtime = ApplicationRuntime()
-        runtime.addListener(RoutesConfigurer.forRoutes("classpath:routes-with-component-configuration.kts"))
-        runtime.addListener(Runtime.Phase.Started) {
-            val seda = runtime.camelContext.getComponent("seda", SedaComponent::class.java)
-            val mySeda = runtime.camelContext.getComponent("mySeda", SedaComponent::class.java)
-            val log = runtime.camelContext.getComponent("log", LogComponent::class.java)
+        forRoutes("classpath:routes-with-component-configuration.kts").accept(Runtime.Phase.ConfigureRoutes, runtime)
 
-            sedaSize.set(seda!!.queueSize)
-            sedaConsumers.set(seda.concurrentConsumers)
-            mySedaSize.set(mySeda!!.queueSize)
-            mySedaConsumers.set(mySeda.concurrentConsumers)
-            format.set(log!!.exchangeFormatter)
+        val seda = context.getComponent("seda", SedaComponent::class.java)
+        val mySeda = context.getComponent("mySeda", SedaComponent::class.java)
+        val log = context.getComponent("log", LogComponent::class.java)
 
-            runtime.stop()
-        }
-
-        runtime.run()
-
-        assertThat(sedaSize.get()).isEqualTo(1234)
-        assertThat(sedaConsumers.get()).isEqualTo(12)
-        assertThat(mySedaSize.get()).isEqualTo(4321)
-        assertThat(mySedaConsumers.get()).isEqualTo(21)
-        assertThat(format.get()).isNotNull
+        assertThat(seda.queueSize).isEqualTo(1234)
+        assertThat(seda.concurrentConsumers).isEqualTo(12)
+        assertThat(mySeda.queueSize).isEqualTo(4321)
+        assertThat(mySeda.concurrentConsumers).isEqualTo(21)
+        assertThat(log.exchangeFormatter).isNotNull
     }
 
     @Test
     fun `load integration with error handler`() {
-        var onExceptions = mutableListOf<Processor>()
+        val context = DefaultCamelContext()
+        val runtime = Runtime.of(context)
 
-        var runtime = ApplicationRuntime()
-        runtime.addListener(RoutesConfigurer.forRoutes("classpath:routes-with-error-handler.kts"))
-        runtime.addListener(Runtime.Phase.Started) {
-            assertThat(it.camelContext.routes).hasSize(1)
-            assertThat(it.camelContext.routes[0].routeContext.getOnException("my-on-exception")).isNotNull
+        forRoutes("classpath:routes-with-error-handler.kts").accept(Runtime.Phase.ConfigureRoutes, runtime)
 
-            onExceptions.add(it.camelContext.routes[0].routeContext.getOnException("my-on-exception"))
+        context.start()
 
-            runtime.stop()
+        try {
+            assertThat(context.routes).hasSize(1)
+            assertThat(context.routes[0].routeContext.getOnException("my-on-exception")).isInstanceOf(FatalFallbackErrorHandler::class.java)
+        } finally {
+            context.stop()
         }
-
-        runtime.run()
-
-        assertThat(onExceptions).hasSize(1)
-        assertThat(onExceptions).first().isInstanceOf(FatalFallbackErrorHandler::class.java)
     }
 }
