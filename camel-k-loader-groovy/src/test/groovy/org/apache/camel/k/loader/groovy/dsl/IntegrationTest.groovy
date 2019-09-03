@@ -20,9 +20,9 @@ import org.apache.camel.Predicate
 import org.apache.camel.Processor
 import org.apache.camel.component.log.LogComponent
 import org.apache.camel.component.seda.SedaComponent
+import org.apache.camel.impl.DefaultCamelContext
 import org.apache.camel.k.Runtime
-import org.apache.camel.k.listener.RoutesConfigurer
-import org.apache.camel.k.main.ApplicationRuntime
+import org.apache.camel.model.ModelCamelContext
 import org.apache.camel.processor.FatalFallbackErrorHandler
 import org.apache.camel.processor.SendProcessor
 import org.apache.camel.processor.channel.DefaultChannel
@@ -31,114 +31,92 @@ import org.apache.camel.support.DefaultHeaderFilterStrategy
 import spock.lang.Specification
 
 import javax.sql.DataSource
-import java.util.concurrent.atomic.AtomicInteger
-import java.util.concurrent.atomic.AtomicReference
+
+import static org.apache.camel.k.listener.RoutesConfigurer.forRoutes
 
 class IntegrationTest extends Specification {
+
+    private ModelCamelContext context
+    private Runtime runtime
+
+    def setup() {
+        this.context = new DefaultCamelContext()
+        this.runtime = Runtime.of(context)
+    }
+
+
+    def cleanup() {
+        if (this.context != null) {
+            this.context.stop()
+        }
+    }
+
     def "load integration with rest"()  {
         when:
-            def runtime = new ApplicationRuntime()
-            runtime.addListener(RoutesConfigurer.forRoutes('classpath:routes-with-rest.groovy'))
-            runtime.addListener(Runtime.Phase.Started, { runtime.stop() })
-            runtime.run()
+            forRoutes('classpath:routes-with-rest.groovy').accept(Runtime.Phase.ConfigureRoutes, runtime)
 
         then:
-            runtime.camelContext.restConfiguration.host == 'my-host'
-            runtime.camelContext.restConfiguration.port == 9192
-            runtime.camelContext.getRestConfiguration('undertow', false).host == 'my-undertow-host'
-            runtime.camelContext.getRestConfiguration('undertow', false).port == 9193
-            runtime.camelContext.restDefinitions.size() == 1
-            runtime.camelContext.restDefinitions[0].path == '/my/path'
+            context.restConfiguration.host == 'my-host'
+            context.restConfiguration.port == 9192
+            context.getRestConfiguration('undertow', false).host == 'my-undertow-host'
+            context.getRestConfiguration('undertow', false).port == 9193
+            context.restDefinitions.size() == 1
+            context.restDefinitions[0].path == '/my/path'
     }
 
     def "load integration with beans"()  {
         when:
-            def runtime = new ApplicationRuntime()
-            runtime.addListener(RoutesConfigurer.forRoutes('classpath:routes-with-beans.groovy'))
-            runtime.addListener(Runtime.Phase.Started, { runtime.stop() })
-            runtime.run()
+            forRoutes('classpath:routes-with-beans.groovy').accept(Runtime.Phase.ConfigureRoutes, runtime)
 
         then:
-            runtime.camelContext.registry.findByType(DataSource).size() == 1
-            runtime.camelContext.registry.lookupByName('dataSource') instanceof DataSource
-            runtime.camelContext.registry.findByType(HeaderFilterStrategy).size() == 1
-            runtime.camelContext.registry.lookupByName('filterStrategy') instanceof DefaultHeaderFilterStrategy
+            context.registry.findByType(DataSource).size() == 1
+            context.registry.lookupByName('dataSource') instanceof DataSource
+            context.registry.findByType(HeaderFilterStrategy).size() == 1
+            context.registry.lookupByName('filterStrategy') instanceof DefaultHeaderFilterStrategy
 
-            runtime.camelContext.registry.lookupByName('myProcessor') instanceof Processor
-            runtime.camelContext.registry.lookupByName('myPredicate') instanceof Predicate
+            context.registry.lookupByName('myProcessor') instanceof Processor
+            context.registry.lookupByName('myPredicate') instanceof Predicate
     }
 
     def "load integration with bindings"()  {
         when:
-            def runtime = new ApplicationRuntime()
-            runtime.addListener(RoutesConfigurer.forRoutes('classpath:routes-with-bindings.groovy'))
-            runtime.addListener(Runtime.Phase.Started, { runtime.stop() })
-            runtime.run()
+            forRoutes('classpath:routes-with-bindings.groovy').accept(Runtime.Phase.ConfigureRoutes, runtime)
 
         then:
-            runtime.camelContext.registry.lookupByName('myEntry1') == 'myRegistryEntry1'
-            runtime.camelContext.registry.lookupByName('myEntry2') == 'myRegistryEntry2'
-            runtime.camelContext.registry.lookupByName('myEntry3') instanceof Processor
+            context.registry.lookupByName('myEntry1') == 'myRegistryEntry1'
+            context.registry.lookupByName('myEntry2') == 'myRegistryEntry2'
+            context.registry.lookupByName('myEntry3') instanceof Processor
     }
 
     def "load integration with component configuration"()  {
-        given:
-            def sedaSize = new AtomicInteger()
-            def sedaConsumers = new AtomicInteger()
-            def mySedaSize = new AtomicInteger()
-            def mySedaConsumers = new AtomicInteger()
-            def format = new AtomicReference()
-
         when:
-            def runtime = new ApplicationRuntime()
-            runtime.addListener(RoutesConfigurer.forRoutes('classpath:routes-with-component-configuration.groovy'))
-            runtime.addListener(Runtime.Phase.Started, {
-                def seda = it.camelContext.getComponent('seda', SedaComponent)
-                def mySeda = it.camelContext.getComponent('mySeda', SedaComponent)
-                def log = it.camelContext.getComponent('log', LogComponent)
+            forRoutes('classpath:routes-with-component-configuration.groovy').accept(Runtime.Phase.ConfigureRoutes, runtime)
 
-                assert seda != null
-                assert mySeda != null
-                assert log != null
-
-                sedaSize = seda.queueSize
-                sedaConsumers = seda.concurrentConsumers
-                mySedaSize = mySeda.queueSize
-                mySedaConsumers = mySeda.concurrentConsumers
-                format = log.exchangeFormatter
-
-                runtime.stop()
-            })
-
-            runtime.run()
         then:
-            sedaSize == 1234
-            sedaConsumers == 12
-            mySedaSize == 4321
-            mySedaConsumers == 21
-            format != null
+            with(context.getComponent('seda', SedaComponent)) {
+                queueSize == 1234
+                concurrentConsumers == 12
+            }
+            with(context.getComponent('mySeda', SedaComponent)) {
+                queueSize == 4321
+                concurrentConsumers == 21
+            }
+            with(context.getComponent('log', LogComponent)) {
+                exchangeFormatter != null
+            }
     }
 
     def "load integration with error handler"()  {
-        given:
-            def onExceptions = []
         when:
-            def runtime = new ApplicationRuntime()
-            runtime.addListener(RoutesConfigurer.forRoutes('classpath:routes-with-error-handler.groovy'))
-            runtime.addListener(Runtime.Phase.Started, {
-                it.camelContext.routes?.size() == 1
-                it.camelContext.routes[0].routeContext.getOnException('my-on-exception') != null
+            forRoutes('classpath:routes-with-error-handler.groovy').accept(Runtime.Phase.ConfigureRoutes, runtime)
 
-                onExceptions << it.camelContext.routes[0].routeContext.getOnException('my-on-exception')
-
-                runtime.stop()
-            })
-            runtime.run()
+            context.start()
         then:
-            onExceptions.size() == 1
-            onExceptions[0] instanceof FatalFallbackErrorHandler
+            context.routes?.size() == 1
+            context.routes[0].routeContext.getOnException('my-on-exception') != null
+            context.routes[0].routeContext.getOnException('my-on-exception') instanceof FatalFallbackErrorHandler
 
-            def eh = onExceptions[0] as FatalFallbackErrorHandler
+            def eh = context.routes[0].routeContext.getOnException('my-on-exception')  as FatalFallbackErrorHandler
             def ch = eh.processor as DefaultChannel
 
             ch.output instanceof SendProcessor
