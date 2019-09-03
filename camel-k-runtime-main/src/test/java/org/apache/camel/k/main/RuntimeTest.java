@@ -66,7 +66,7 @@ public class RuntimeTest {
 
     @Test
     void testLoadRouteAndRest() throws Exception {
-            runtime.addListener(new ContextConfigurer());
+        runtime.addListener(new ContextConfigurer());
         runtime.addListener(RoutesConfigurer.forRoutes("classpath:routes.xml", "classpath:rests.xml"));
         runtime.addListener(Runtime.Phase.Started, r -> {
             CamelContext context = r.getCamelContext();
