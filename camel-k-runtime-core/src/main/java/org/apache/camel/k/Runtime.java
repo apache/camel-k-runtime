@@ -16,6 +16,7 @@
  */
 package org.apache.camel.k;
 
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.camel.CamelContext;
@@ -39,6 +40,13 @@ public interface Runtime extends HasCamelContext {
         pc.setOverrideProperties(properties);
 
         getRegistry().bind("properties", pc);
+    }
+
+    default void setProperties(Map<String, String> properties) {
+        Properties p = new Properties();
+        p.putAll(properties);
+
+        setProperties(p);
     }
 
     default void addRoutes(RoutesBuilder builder) {

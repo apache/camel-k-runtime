@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.apache.camel.k.main;
 
 import org.apache.camel.BindToRegistry;
 import org.apache.camel.builder.RouteBuilder;
@@ -27,7 +28,7 @@ public class MyRoutesWithBeans extends RouteBuilder {
     }
 
     @BindToRegistry("my-bean")
-    public org.apache.camel.k.loader.java.MyBean createMyBean() {
-        return new org.apache.camel.k.loader.java.MyBean("my-bean-name");
+    public org.apache.camel.k.main.MyBean createMyBean() {
+        return new org.apache.camel.k.main.MyBean("my-bean-name");
     }
 }

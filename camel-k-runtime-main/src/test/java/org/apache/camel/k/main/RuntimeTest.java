@@ -24,57 +24,96 @@ import org.apache.camel.k.Runtime;
 import org.apache.camel.k.listener.ContextConfigurer;
 import org.apache.camel.k.listener.RoutesConfigurer;
 import org.apache.camel.model.ModelCamelContext;
+import org.apache.camel.util.CollectionHelper;
 import org.apache.camel.util.ObjectHelper;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class RuntimeTest {
-    @Disabled
-    @Test
-    void testLoadMultipleRoutes() throws Exception {
-        ApplicationRuntime runtime = new ApplicationRuntime();
+    private ApplicationRuntime runtime;
 
-        try {
-            runtime.addListener(new ContextConfigurer());
-            runtime.addListener(RoutesConfigurer.forRoutes("classpath:r1.js", "classpath:r2.mytype?language=js"));
-            runtime.addListener(Runtime.Phase.Started, r -> {
-                CamelContext context = r.getCamelContext();
-                List<Route> routes = context.getRoutes();
+    @BeforeEach
+    public void setUp() {
+        runtime = new ApplicationRuntime();
+    }
 
-                assertThat(routes).hasSize(2);
-                assertThat(routes).anyMatch(p -> ObjectHelper.equal("r1", p.getId()));
-                assertThat(routes).anyMatch(p -> ObjectHelper.equal("r2", p.getId()));
-
-                runtime.stop();
-            });
-
-            runtime.run();
-        } finally {
+    @AfterEach
+    public void cleanUp() throws Exception {
+        if (runtime != null) {
             runtime.stop();
         }
     }
+    @Test
+    void testLoadMultipleRoutes() throws Exception {
+        runtime.addListener(new ContextConfigurer());
+        runtime.addListener(RoutesConfigurer.forRoutes("classpath:r1.js", "classpath:r2.mytype?language=js"));
+        runtime.addListener(Runtime.Phase.Started, r -> {
+            CamelContext context = r.getCamelContext();
+            List<Route> routes = context.getRoutes();
 
-    @Disabled
+            assertThat(routes).hasSize(2);
+            assertThat(routes).anyMatch(p -> ObjectHelper.equal("r1", p.getId()));
+            assertThat(routes).anyMatch(p -> ObjectHelper.equal("r2", p.getId()));
+
+            runtime.stop();
+        });
+
+        runtime.run();
+    }
+
     @Test
     void testLoadRouteAndRest() throws Exception {
-        ApplicationRuntime runtime = new ApplicationRuntime();
-        try {
             runtime.addListener(new ContextConfigurer());
-            runtime.addListener(RoutesConfigurer.forRoutes("classpath:routes.xml", "classpath:rests.xml"));
-            runtime.addListener(Runtime.Phase.Started, r -> {
-                CamelContext context = r.getCamelContext();
+        runtime.addListener(RoutesConfigurer.forRoutes("classpath:routes.xml", "classpath:rests.xml"));
+        runtime.addListener(Runtime.Phase.Started, r -> {
+            CamelContext context = r.getCamelContext();
 
-                assertThat(context.adapt(ModelCamelContext.class).getRouteDefinitions()).isNotEmpty();
-                assertThat(context.adapt(ModelCamelContext.class).getRestDefinitions()).isNotEmpty();
+            assertThat(context.adapt(ModelCamelContext.class).getRouteDefinitions()).isNotEmpty();
+            assertThat(context.adapt(ModelCamelContext.class).getRestDefinitions()).isNotEmpty();
 
-                runtime.stop();
-            });
-
-            runtime.run();
-        } finally {
             runtime.stop();
-        }
+        });
+
+        runtime.run();
+    }
+
+    @Test
+    void testLoadRouteWithExpression() throws Exception {
+        runtime.setProperties(CollectionHelper.mapOf(
+            "the.body", "10"
+        ));
+
+        runtime.addListener(new ContextConfigurer());
+        runtime.addListener(RoutesConfigurer.forRoutes("classpath:routes-with-expression.xml"));
+        runtime.addListener(Runtime.Phase.Started, r -> runtime.stop());
+        runtime.run();
+    }
+
+
+    @Test
+    public void testLoadJavaClassWithBeans() throws Exception {
+        ApplicationRuntime runtime = new ApplicationRuntime();
+        runtime.addListener(RoutesConfigurer.forRoutes("classpath:" + MyRoutesWithBeans.class.getName() + ".class"));
+        runtime.addListener(Runtime.Phase.Started, r ->  runtime.stop());
+        runtime.run();
+
+        assertThat(runtime.getRegistry().lookupByName("my-bean")).isInstanceOfSatisfying(MyBean.class, b -> {
+            assertThat(b).hasFieldOrPropertyWithValue("name", "my-bean-name");
+        });
+    }
+
+    @Test
+    public void testLoadJavaSourceWithBeans() throws Exception {
+        ApplicationRuntime runtime = new ApplicationRuntime();
+        runtime.addListener(RoutesConfigurer.forRoutes("classpath:MyRoutesWithBeans.java"));
+        runtime.addListener(Runtime.Phase.Started, r ->  runtime.stop());
+        runtime.run();
+
+        assertThat(runtime.getRegistry().lookupByName("my-bean")).isInstanceOfSatisfying(MyBean.class, b -> {
+            assertThat(b).hasFieldOrPropertyWithValue("name", "my-bean-name");
+        });
     }
 }
