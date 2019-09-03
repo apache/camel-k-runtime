@@ -14,21 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.loader.java;
+package org.apache.camel.k.main;
 
-import org.apache.camel.BindToRegistry;
-import org.apache.camel.builder.RouteBuilder;
+public class MyBean {
+    private final String name;
 
-public class MyRoutesWithBeans extends RouteBuilder {
-    @Override
-    public void configure() throws Exception {
-        from("direct:start")
-            .bean("my-bean", "getName")
-            .to("log:info");
+    public MyBean(String name) {
+        this.name = name;
     }
 
-    @BindToRegistry("my-bean")
-    public org.apache.camel.k.loader.java.MyBean createMyBean() {
-        return new org.apache.camel.k.loader.java.MyBean("my-bean-name");
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }
