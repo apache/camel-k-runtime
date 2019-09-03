@@ -25,19 +25,19 @@ class LogExtensionTest extends Specification {
 
     def "invoke extension method - formatter"()  {
         given:
-        def ctx = new DefaultCamelContext()
+            def ctx = new DefaultCamelContext()
 
         when:
-        def log = new LogComponent()
-        log.formatter {
-            "body: $it.in.body"
-        }
+            def log = new LogComponent()
+            log.formatter {
+                "body: $it.in.body"
+            }
 
-        def ex = new DefaultExchange(ctx)
-        ex.in.body = 'hello'
-        def result = log.exchangeFormatter.format(ex)
+            def ex = new DefaultExchange(ctx)
+            ex.in.body = 'hello'
+            def result = log.exchangeFormatter.format(ex)
 
         then:
-        result == 'body: hello'
+            result == 'body: hello'
     }
 }
