@@ -103,7 +103,7 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
                         }
                     }
 
-                    if (result.body() != null){
+                    if (result.body() != null) {
                         answer.setBody(result.body().getBytes());
                     }
 
