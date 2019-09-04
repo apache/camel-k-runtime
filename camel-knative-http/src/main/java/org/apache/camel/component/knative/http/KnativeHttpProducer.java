@@ -103,7 +103,9 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
                         }
                     }
 
-                    answer.setBody(result.body().getBytes());
+                    if (result.body() != null){
+                        answer.setBody(result.body().getBytes());
+                    }
 
                     if (result.statusCode() < 200 || result.statusCode() >= 300) {
                         String exceptionMessage = String.format(
