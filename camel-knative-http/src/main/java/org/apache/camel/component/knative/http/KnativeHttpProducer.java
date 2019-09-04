@@ -91,27 +91,41 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
         client.post(endpoint.getPort(), endpoint.getHost(), endpoint.getPath())
             .putHeaders(headers)
             .sendBuffer(Buffer.buffer(payload), response -> {
-                HttpResponse<Buffer> result = response.result();
-
-                Message answer = new DefaultMessage(exchange.getContext());
-                answer.setHeader(Exchange.HTTP_RESPONSE_CODE, result.statusCode());
-
-                for (Map.Entry<String, String> entry : result.headers().entries()) {
-                    if (!endpoint.getHeaderFilterStrategy().applyFilterToExternalHeaders(entry.getKey(), entry.getValue(), exchange)) {
-                        KnativeHttpSupport.appendHeader(message.getHeaders(), entry.getKey(), entry.getValue());
-                    }
-                }
-
-                exchange.setMessage(answer);
-
                 if (response.succeeded()) {
-                    answer.setBody(result.body().getBytes());
-                } else if (response.failed() && endpoint.getThrowExceptionOnFailure()) {
-                    Exception cause = new CamelException(
-                        "HTTP operation failed invoking " + URISupport.sanitizeUri(getURI()) + " with statusCode: " + result.statusCode()
-                    );
+                    HttpResponse<Buffer> result = response.result();
 
-                    exchange.setException(cause);
+                    Message answer = new DefaultMessage(exchange.getContext());
+                    answer.setHeader(Exchange.HTTP_RESPONSE_CODE, result.statusCode());
+
+                    for (Map.Entry<String, String> entry : result.headers().entries()) {
+                        if (!endpoint.getHeaderFilterStrategy().applyFilterToExternalHeaders(entry.getKey(), entry.getValue(), exchange)) {
+                            KnativeHttpSupport.appendHeader(answer.getHeaders(), entry.getKey(), entry.getValue());
+                        }
+                    }
+
+                    answer.setBody(result.body().getBytes());
+
+                    if (result.statusCode() < 200 || result.statusCode() >= 300) {
+                        String exceptionMessage = String.format(
+                            "HTTP operation failed invoking %s with statusCode: %d, statusMessage: %s",
+                            URISupport.sanitizeUri(getURI()),
+                            result.statusCode(),
+                            result.statusMessage()
+                        );
+
+                        exchange.setException(new CamelException(exceptionMessage));
+                    }
+
+                    answer.setHeader(Exchange.HTTP_RESPONSE_CODE, result.statusCode());
+
+                    exchange.setMessage(answer);
+                } else if (response.failed() && endpoint.getThrowExceptionOnFailure()) {
+                    String exceptionMessage = "HTTP operation failed invoking " + URISupport.sanitizeUri(getURI());
+                    if (response.result() != null) {
+                        exceptionMessage += " with statusCode: " + response.result().statusCode();
+                    }
+
+                    exchange.setException(new CamelException(exceptionMessage));
                 }
 
                 callback.done(false);

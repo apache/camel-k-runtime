@@ -17,6 +17,8 @@
 package org.apache.camel.component.knative.http;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.CamelException;
+import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
@@ -228,6 +230,42 @@ public class KnativeHttpTest {
 
         mock1.assertIsSatisfied();
         mock2.assertIsSatisfied();
+    }
+
+    @Test
+    void testInvokeNotExistingEndpoint() throws Exception {
+        RouteBuilder.addRoutes(context, b -> {
+            b.from("direct:start")
+                .toF("knative-http:0.0.0.0:%d", port)
+                .to("mock:start");
+        });
+
+        context.start();
+
+        Exchange exchange = template.request("direct:start", e -> e.getMessage().setBody(""));
+        assertThat(exchange.isFailed()).isTrue();
+        assertThat(exchange.getException()).isInstanceOf(CamelException.class);
+        assertThat(exchange.getException()).hasMessageStartingWith("HTTP operation failed invoking");
+    }
+
+    @Test
+    void testInvokeEndpointWithError() throws Exception {
+        RouteBuilder.addRoutes(context, b -> {
+            b.from("direct:start")
+                .toF("knative-http:0.0.0.0:%d", port)
+                .to("mock:start");
+            b.fromF("undertow:http://0.0.0.0:%d", port)
+                .routeId("endpoint")
+                .process(e -> { throw new RuntimeException("endpoint error"); });
+        });
+
+        context.start();
+
+        Exchange exchange = template.request("direct:start", e -> e.getMessage().setBody(""));
+        assertThat(exchange.isFailed()).isTrue();
+        assertThat(exchange.getException()).isInstanceOf(CamelException.class);
+        assertThat(exchange.getException()).hasMessageStartingWith("HTTP operation failed invoking");
+        assertThat(exchange.getException()).hasMessageContaining("with statusCode: 500, statusMessage: Internal Server Error");
     }
 }
 
