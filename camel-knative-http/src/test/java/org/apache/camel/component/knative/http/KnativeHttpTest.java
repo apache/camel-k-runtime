@@ -256,7 +256,9 @@ public class KnativeHttpTest {
                 .to("mock:start");
             b.fromF("undertow:http://0.0.0.0:%d", port)
                 .routeId("endpoint")
-                .process(e -> { throw new RuntimeException("endpoint error"); });
+                .process(e -> {
+                    throw new RuntimeException("endpoint error");
+                });
         });
 
         context.start();
