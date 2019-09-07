@@ -18,8 +18,11 @@ package org.apache.camel.k.loader.groovy.dsl
 
 import org.apache.camel.ExtendedCamelContext
 import org.apache.camel.support.PropertyBindingSupport
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 class ComponentConfiguration {
+    private static final Logger LOG = LoggerFactory.getLogger(ComponentConfiguration.class);
     private final org.apache.camel.Component component
 
     ComponentConfiguration(org.apache.camel.Component component) {
@@ -49,13 +52,15 @@ class ComponentConfiguration {
         }
 
         if (!PropertyBindingSupport.build().withCamelContext(component.camelContext).withTarget(component).withProperty(name, value).bind()) {
+            LOG.error("Cannot set the component {} property {} with {}", component.class.getName(), name, value)
             throw new MissingMethodException(name, this.component.class, args as Object[])
         }
     }
 
     def propertyMissing(String name, value) {
         if (!PropertyBindingSupport.build().withCamelContext(component.camelContext).withTarget(component).withProperty(name, value).bind()) {
-            throw new MissingMethodException(name, this.component.class, value)
+            LOG.error("Cannot set the component {} property {} with {}", component.class.getName(), name, value)
+            throw new MissingPropertyException(name, this.component.class)
         }
     }
 
