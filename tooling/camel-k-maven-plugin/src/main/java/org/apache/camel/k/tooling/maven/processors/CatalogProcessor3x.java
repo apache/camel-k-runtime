@@ -43,6 +43,7 @@ public class CatalogProcessor3x implements CatalogProcessor {
         "spark-rest",
         "spring-ws",
         "undertow",
+        "webhook",
         "websocket"
     );
 
