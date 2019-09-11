@@ -25,7 +25,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.k.RoutesLoader;
 import org.apache.camel.k.Source;
-import org.apache.camel.k.loader.yaml.model.Route;
+import org.apache.camel.k.loader.yaml.model.Step;
 import org.apache.camel.k.loader.yaml.parser.StartStepParser;
 import org.apache.camel.k.loader.yaml.parser.StepParser;
 import org.apache.camel.k.support.URIResolver;
@@ -55,29 +55,22 @@ public class YamlRoutesLoader implements RoutesLoader {
                 final List<RestDefinition> rests = new ArrayList<>();
 
                 try {
-                    for (Route route : Yaml.MAPPER.readValue(is, Route[].class)) {
-                        Route.Definition definition = route.getDefinition();
+                    for (Step step : Yaml.MAPPER.readValue(is, Step[].class)) {
+                        final StepParser.Context context = new StepParser.Context(camelContext, step.node);
+                        final ProcessorDefinition<?> root = StartStepParser.invoke(context, step.id);
 
-                        if (definition != null) {
-                            StepParser.Context context = new StepParser.Context(camelContext, definition.getData());
-                            ProcessorDefinition<?> root = StartStepParser.invoke(context, definition.getType());
+                        if (root == null) {
+                            throw new IllegalStateException("No route definition");
+                        }
+                        if (!(root instanceof RouteDefinition)) {
+                            throw new IllegalStateException("Root definition should be of type RouteDefinition");
+                        }
 
-                            if (root == null) {
-                                throw new IllegalStateException("No route definition");
-                            }
-                            if (!(root instanceof RouteDefinition)) {
-                                throw new IllegalStateException("Root definition should be of type RouteDefinition");
-                            }
-
-                            RouteDefinition r = (RouteDefinition) root;
-                            if (r.getRestDefinition() == null) {
-                                routes.add(r);
-                            } else {
-                                rests.add(r.getRestDefinition());
-                            }
-
-                            route.getId().ifPresent(root::routeId);
-                            route.getGroup().ifPresent(root::routeGroup);
+                        RouteDefinition r = (RouteDefinition) root;
+                        if (r.getRestDefinition() == null) {
+                            routes.add(r);
+                        } else {
+                            rests.add(r.getRestDefinition());
                         }
                     }
 
