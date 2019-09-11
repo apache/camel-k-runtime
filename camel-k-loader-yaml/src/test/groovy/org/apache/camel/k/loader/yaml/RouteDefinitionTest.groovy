@@ -29,29 +29,56 @@ import java.nio.charset.StandardCharsets
 
 class RouteDefinitionTest extends TestSupport {
 
+    def "route with id"() {
+        given:
+            def content = '''
+             - route:
+                 id: my-route-id    
+                 group: my-route-group 
+                 from:
+                     uri: "direct:start"
+                     steps:
+                       - to:
+                           uri: "log:info"
+            '''.stripMargin('|')
+
+            def camelContext = new DefaultCamelContext()
+            def istream = IOUtils.toInputStream(content, StandardCharsets.UTF_8)
+        when:
+            camelContext.addRoutes(YamlRoutesLoader.builder(istream))
+        then:
+            camelContext.routeDefinitions[0].id == 'my-route-id'
+            camelContext.routeDefinitions[0].group == 'my-route-group'
+            camelContext.routeDefinitions[0].input.endpointUri == 'direct:start'
+
+            with(camelContext.routeDefinitions[0].outputs[0], ToDefinition) {
+                endpointUri == 'log:info'
+            }
+    }
+
     def "route with cbr"() {
         given:
             def content = '''
-                 - from:
-                     uri: "direct:start"
-                     steps:
-                       - choice:
-                           when:
-                             - simple: "${body.startsWith(\\"a\\")}"
-                               steps:
-                                 - to:
-                                     uri: "log:when-a"
-                             - expression:
-                                 simple: "${body.startsWith(\\"b\\")}"
-                               steps:
-                                 - to:
-                                     uri: "log:when-b"
-                           otherwise:
-                             steps:
-                               - to:
-                                   uri: "log:otherwise"
-                       - to:
-                           uri: "log:info"
+             - from:
+                 uri: "direct:start"
+                 steps:
+                   - choice:
+                       when:
+                         - simple: "${body.startsWith(\\"a\\")}"
+                           steps:
+                             - to:
+                                 uri: "log:when-a"
+                         - expression:
+                             simple: "${body.startsWith(\\"b\\")}"
+                           steps:
+                             - to:
+                                 uri: "log:when-b"
+                       otherwise:
+                         steps:
+                           - to:
+                               uri: "log:otherwise"
+                   - to:
+                       uri: "log:info"
             '''.stripMargin('|')
 
             def camelContext = new DefaultCamelContext()
@@ -89,15 +116,15 @@ class RouteDefinitionTest extends TestSupport {
     def "route with split"() {
         given:
             def content = '''
-                 - from:
-                     uri: "direct:start"
-                     steps:
-                       - split: 
-                           tokenizer: ","
-                           steps:
-                             - to: "log:split1"
-                             - to: "log:split2"
-                       - to: "log:info"
+             - from:
+                 uri: "direct:start"
+                 steps:
+                   - split: 
+                       tokenizer: ","
+                       steps:
+                         - to: "log:split1"
+                         - to: "log:split2"
+                   - to: "log:info"
             '''.stripMargin('|')
 
             def camelContext = new DefaultCamelContext()
@@ -131,12 +158,12 @@ class RouteDefinitionTest extends TestSupport {
     def "flow style route with split"() {
         given:
             def content = '''
-                 - from:
-                     uri: "direct:start"
-                     steps:
-                       - split: 
-                           tokenizer: ","
-                       - to: "log:info"
+             - from:
+                 uri: "direct:start"
+                 steps:
+                   - split: 
+                       tokenizer: ","
+                   - to: "log:info"
             '''.stripMargin('|')
 
             def camelContext = new DefaultCamelContext()
@@ -163,15 +190,15 @@ class RouteDefinitionTest extends TestSupport {
     def "route with filter"() {
         given:
             def content = '''
-                 - from:
-                     uri: "direct:start"
-                     steps:
-                       - filter: 
-                           simple: "${body.startsWith(\\"a\\")}"
-                           steps:
-                             - to: "log:filter1"
-                             - to: "log:filter2"
-                       - to: "log:info"
+             - from:
+                 uri: "direct:start"
+                 steps:
+                   - filter: 
+                       simple: "${body.startsWith(\\"a\\")}"
+                       steps:
+                         - to: "log:filter1"
+                         - to: "log:filter2"
+                   - to: "log:info"
             '''.stripMargin('|')
 
             def camelContext = new DefaultCamelContext()
@@ -205,12 +232,12 @@ class RouteDefinitionTest extends TestSupport {
     def "flow style route with filter"() {
         given:
             def content = '''
-                 - from:
-                     uri: "direct:start"
-                     steps:
-                       - filter: 
-                           simple: "${body.startsWith(\\"a\\")}"
-                       - to: "log:info"
+             - from:
+                 uri: "direct:start"
+                 steps:
+                   - filter: 
+                       simple: "${body.startsWith(\\"a\\")}"
+                   - to: "log:info"
             '''.stripMargin('|')
 
             def camelContext = new DefaultCamelContext()
