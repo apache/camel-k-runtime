@@ -22,6 +22,7 @@ import org.apache.camel.component.log.LogComponent
 import org.apache.camel.component.seda.SedaComponent
 import org.apache.camel.impl.DefaultCamelContext
 import org.apache.camel.k.Runtime
+import org.apache.camel.k.listener.RoutesConfigurer
 import org.apache.camel.model.ModelCamelContext
 import org.apache.camel.processor.FatalFallbackErrorHandler
 import org.apache.camel.processor.SendProcessor
@@ -31,6 +32,7 @@ import org.apache.camel.support.DefaultHeaderFilterStrategy
 import spock.lang.Specification
 
 import javax.sql.DataSource
+import java.util.concurrent.atomic.AtomicBoolean
 
 import static org.apache.camel.k.listener.RoutesConfigurer.forRoutes
 
@@ -104,6 +106,24 @@ class IntegrationTest extends Specification {
             with(context.getComponent('log', LogComponent)) {
                 exchangeFormatter != null
             }
+    }
+
+    def "load integration with component error property configuration"()  {
+        when:
+            forRoutes('classpath:routes-with-component-wrong-property-configuration.groovy').accept(Runtime.Phase.ConfigureRoutes, runtime)
+        then:
+            def e =  thrown org.apache.camel.RuntimeCamelException
+            assert e.message.contains("No such property: queueNumber for class: org.apache.camel.component.seda.SedaComponent")
+
+    }
+
+    def "load integration with component error method configuration"()  {
+        when:
+        forRoutes('classpath:routes-with-component-wrong-method-configuration.groovy').accept(Runtime.Phase.ConfigureRoutes, runtime)
+        then:
+        def e =  thrown org.apache.camel.RuntimeCamelException
+        assert e.message.contains("No signature of method: org.apache.camel.component.seda.SedaComponent.queueNumber()")
+
     }
 
     def "load integration with error handler"()  {
