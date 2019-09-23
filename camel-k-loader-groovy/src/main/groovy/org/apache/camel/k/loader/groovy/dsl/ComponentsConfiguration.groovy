@@ -18,7 +18,6 @@ package org.apache.camel.k.loader.groovy.dsl
 
 import org.apache.camel.CamelContext
 import org.apache.camel.Component
-import org.apache.camel.support.PropertyBindingSupport
 
 class ComponentsConfiguration {
     private final CamelContext context
@@ -29,8 +28,8 @@ class ComponentsConfiguration {
 
     def component(String name, @DelegatesTo(ComponentConfiguration) Closure<?> callable) {
         def component = context.getComponent(name, true, false)
-
-        callable.resolveStrategy = Closure.DELEGATE_FIRST
+        // Just make sure the closure context is belong to component
+        callable.resolveStrategy = Closure.DELEGATE_ONLY
         callable.delegate = new ComponentConfiguration(component)
         callable.call()
     }
