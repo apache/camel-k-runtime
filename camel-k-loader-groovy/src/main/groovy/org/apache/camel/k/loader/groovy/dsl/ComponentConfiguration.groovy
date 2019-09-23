@@ -52,14 +52,12 @@ class ComponentConfiguration {
         }
 
         if (!PropertyBindingSupport.build().withCamelContext(component.camelContext).withTarget(component).withProperty(name, value).bind()) {
-            LOG.error("Cannot set the component {} property {}", component.class.getName(), name)
             throw new MissingMethodException(name, this.component.class, args as Object[])
         }
     }
 
     def propertyMissing(String name, value) {
         if (!PropertyBindingSupport.build().withCamelContext(component.camelContext).withTarget(component).withProperty(name, value).bind()) {
-            LOG.error("Cannot set the component {} property {}", component.class.getName(), name)
             throw new MissingPropertyException(name, this.component.class)
         }
     }

@@ -14,11 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import org.apache.camel.component.seda.SedaComponent
 
 context {
     components {
-        mySeda(SedaComponent) {
+        seda {
             // a wrong property name
             queueNumber = 33
         }
