@@ -27,6 +27,7 @@ import org.apache.camel.model.InterceptSendToEndpointDefinition
 import org.apache.camel.model.OnCompletionDefinition
 import org.apache.camel.model.OnExceptionDefinition
 import org.apache.camel.model.RouteDefinition
+import org.apache.camel.model.rest.RestDefinition
 import org.apache.camel.spi.Registry
 
 class IntegrationConfiguration extends BuilderSupport implements Support, EndpointBuilderFactory {
@@ -58,6 +59,18 @@ class IntegrationConfiguration extends BuilderSupport implements Support, Endpoi
         callable.resolveStrategy = Closure.DELEGATE_FIRST
         callable.delegate = new RestConfiguration(builder)
         callable.call()
+    }
+
+    RestDefinition rest() {
+        return builder.rest()
+    }
+
+    RestConfiguration restConfiguration() {
+        builder.restConfiguration();
+    }
+
+    RestDefinition rest(String path) {
+        return builder.rest(path)
     }
 
     RouteDefinition from(String endpoint) {
