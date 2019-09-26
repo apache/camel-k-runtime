@@ -26,9 +26,10 @@ import org.immutables.value.Value;
 
 @Value.Immutable
 @JsonDeserialize(builder = CamelCatalogSpec.Builder.class)
-@JsonPropertyOrder({ "version", "artifacts" })
+@JsonPropertyOrder({ "version", "runtimeVersion", "artifacts" })
 public interface CamelCatalogSpec {
     String getVersion();
+    String getRuntimeVersion();
 
     @Value.Default
     default SortedMap<String, CamelArtifact> getArtifacts() {
