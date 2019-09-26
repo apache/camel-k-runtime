@@ -20,11 +20,9 @@ import org.apache.camel.builder.RouteBuilder
 import org.apache.camel.model.rest.RestConfigurationDefinition
 import org.apache.camel.model.rest.RestDefinition
 
-class RestConfiguration {
-    private final RouteBuilder builder
-
+class RestConfiguration extends RestVerbConfiguration {
     RestConfiguration(RouteBuilder builder) {
-        this.builder = builder
+        super(builder, null)
     }
 
     def configuration(@DelegatesTo(RestConfigurationDefinition) Closure<?> callable) {
@@ -41,7 +39,7 @@ class RestConfiguration {
 
     def path(String path, @DelegatesTo(RestDefinition) Closure<?> callable) {
         callable.resolveStrategy = Closure.DELEGATE_FIRST
-        callable.delegate = builder.rest(path)
+        callable.delegate = new RestVerbConfiguration(builder, path)
         callable.call()
     }
 }

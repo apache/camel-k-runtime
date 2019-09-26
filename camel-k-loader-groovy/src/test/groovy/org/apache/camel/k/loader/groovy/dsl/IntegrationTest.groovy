@@ -22,8 +22,9 @@ import org.apache.camel.component.log.LogComponent
 import org.apache.camel.component.seda.SedaComponent
 import org.apache.camel.impl.DefaultCamelContext
 import org.apache.camel.k.Runtime
-import org.apache.camel.k.listener.RoutesConfigurer
 import org.apache.camel.model.ModelCamelContext
+import org.apache.camel.model.rest.GetVerbDefinition
+import org.apache.camel.model.rest.PostVerbDefinition
 import org.apache.camel.processor.FatalFallbackErrorHandler
 import org.apache.camel.processor.SendProcessor
 import org.apache.camel.processor.channel.DefaultChannel
@@ -32,7 +33,6 @@ import org.apache.camel.support.DefaultHeaderFilterStrategy
 import spock.lang.Specification
 
 import javax.sql.DataSource
-import java.util.concurrent.atomic.AtomicBoolean
 
 import static org.apache.camel.k.listener.RoutesConfigurer.forRoutes
 
@@ -62,8 +62,36 @@ class IntegrationTest extends Specification {
             context.restConfiguration.port == 9192
             context.getRestConfiguration('undertow', false).host == 'my-undertow-host'
             context.getRestConfiguration('undertow', false).port == 9193
-            context.restDefinitions.size() == 1
-            context.restDefinitions[0].path == '/my/path'
+
+            context.restDefinitions.size() == 2
+
+            with(context.restDefinitions.find {it.path == '/my/path'}) {
+                verbs.size() == 1
+
+                with(verbs.first(), GetVerbDefinition) {
+                    uri == '/get'
+                    consumes == 'application/json'
+                    produces == 'application/json'
+
+                    with(to) {
+                        endpointUri == 'direct:get'
+                    }
+                }
+            }
+
+            with(context.restDefinitions.find {it.path == '/post'}) {
+                verbs.size() == 1
+
+                with(verbs.first(), PostVerbDefinition) {
+                    uri == null
+                    consumes == 'application/json'
+                    produces == 'application/json'
+
+                    with(to) {
+                        endpointUri == 'direct:post'
+                    }
+                }
+            }
     }
 
     def "load integration with beans"()  {
