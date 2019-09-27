@@ -17,6 +17,7 @@
 package org.apache.camel.k.tooling.maven;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -25,6 +26,7 @@ import java.nio.file.Paths;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Properties;
 import java.util.ServiceLoader;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -69,7 +71,7 @@ public class GenerateCatalogMojo extends AbstractMojo {
     @Parameter(property = "catalog.path", defaultValue = "${project.build.directory}")
     private String outputPath;
 
-    @Parameter(property = "catalog.file", defaultValue = "camel-catalog-${catalog.version}.yaml")
+    @Parameter(property = "catalog.file", defaultValue = "camel-catalog-${camel.version}-${runtime.version}.yaml")
     private String outputFile;
 
     // ********************
@@ -116,26 +118,35 @@ public class GenerateCatalogMojo extends AbstractMojo {
             // apiVersion: camel.apache.org/v1alpha1
             // kind: CamelCatalog
             // metadata:
-            //   name: catalog-x.y.z
+            //   name: catalog-x.y.z-a.b.c
             //   labels:
             //     app: "camel-k"
             //     camel.apache.org/catalog.version: x.y.x
             //     camel.apache.org/catalog.loader.version: x.y.z
+            //     camel.apache.org/runtime.version: x.y.x
             // spec:
             //   version:
+            //   runtimeVersion:
             // status:
             //   artifacts:
             //
             try (Writer writer = Files.newBufferedWriter(output, StandardCharsets.UTF_8)) {
+                String catalogName = String.format("camel-catalog-%s-%s",
+                    catalog.getCatalogVersion().toLowerCase(),
+                    getRuntimeVersion().toLowerCase()
+                );
+
                 CamelCatalog cr = new CamelCatalog.Builder()
                     .metadata(new ObjectMeta.Builder()
-                        .name("camel-catalog-" + catalog.getCatalogVersion().toLowerCase())
+                        .name(catalogName)
                         .putLabels("app", "camel-k")
                         .putLabels("camel.apache.org/catalog.version", catalog.getCatalogVersion())
                         .putLabels("camel.apache.org/catalog.loader.version", catalog.getLoadedVersion())
+                        .putLabels("camel.apache.org/runtime.version", getRuntimeVersion())
                         .build())
                     .spec(new CamelCatalogSpec.Builder()
                         .version(catalog.getCatalogVersion())
+                        .runtimeVersion(getRuntimeVersion())
                         .artifacts(artifacts)
                         .build())
                     .build();
@@ -151,6 +162,8 @@ public class GenerateCatalogMojo extends AbstractMojo {
                 writer.write(
                     GenerateSupport.getResourceAsString("/catalog-license.txt")
                 );
+
+                getLog().info("Writing catalog file to: " + output);
 
                 // write catalog data
                 ObjectMapper mapper = new ObjectMapper(factory);
@@ -236,5 +249,43 @@ public class GenerateCatalogMojo extends AbstractMojo {
                 return artifact;
             });
         }
+    }
+
+    public synchronized String getRuntimeVersion() {
+        String version = null;
+
+        // try to load from maven properties first
+        try {
+
+            InputStream is = getClass().getResourceAsStream(
+                "/META-INF/maven/org.apache.camel.k/camel-k-maven-plugin/pom.properties"
+            );
+
+            if (is != null) {
+                Properties p = new Properties();
+                p.load(is);
+                version = p.getProperty("version", "");
+            }
+        } catch (Exception e) {
+            // ignore
+        }
+
+        // fallback to using Java API
+        if (version == null) {
+            Package aPackage = getClass().getPackage();
+            if (aPackage != null) {
+                version = aPackage.getImplementationVersion();
+                if (version == null) {
+                    version = aPackage.getSpecificationVersion();
+                }
+            }
+        }
+
+        if (version == null) {
+            // we could not compute the version so use a blank
+            throw new IllegalStateException("Unable to determine runtime version");
+        }
+
+        return version;
     }
 }

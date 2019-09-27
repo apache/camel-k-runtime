@@ -14,28 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.tooling.maven.model.crd;
+def catalogVersion = '3.0.0-RC1'
+def runtimeVersion = '1.0.2-SNAPSHOT'
 
-import java.util.Collections;
-import java.util.SortedMap;
+def source  = new File(basedir, "camel-catalog-${catalogVersion}-${runtimeVersion}.yaml")
+def catalog = new org.yaml.snakeyaml.Yaml().load(new FileInputStream(source))
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import org.apache.camel.k.tooling.maven.model.CamelArtifact;
-import org.immutables.value.Value;
-
-@Value.Immutable
-@JsonDeserialize(builder = CamelCatalogSpec.Builder.class)
-@JsonPropertyOrder({ "version", "runtimeVersion", "artifacts" })
-public interface CamelCatalogSpec {
-    String getVersion();
-    String getRuntimeVersion();
-
-    @Value.Default
-    default SortedMap<String, CamelArtifact> getArtifacts() {
-        return Collections.emptySortedMap();
-    }
-
-    class Builder extends ImmutableCamelCatalogSpec.Builder {
-    }
-}
+assert catalog.spec.version == catalogVersion
+assert catalog.spec.runtimeVersion == runtimeVersion
+assert catalog.metadata.labels['camel.apache.org/catalog.version'] == catalogVersion
+assert catalog.metadata.labels['camel.apache.org/runtime.version'] == runtimeVersion
