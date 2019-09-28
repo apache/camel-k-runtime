@@ -16,36 +16,41 @@
  */
 package org.apache.camel.k.tooling.maven.processors;
 
-import java.io.IOException;
-
 import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.TypeSpec;
 import org.apache.camel.k.tooling.maven.GenerateYamlSupportClasses;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class GenerateYamlSupportClassesTest {
-    @Disabled
     @Test
-    public void testGenerateHasDataFormat() throws IOException {
-        JavaFile.builder("org.apache.camel.k.loader.yaml.parser", new GenerateYamlSupportClasses().generateHasDataFormat())
-            .indent("    ")
-            .build()
-            .writeTo(System.out);
+    public void testGenerateHasDataFormat() {
+        final TypeSpec spec = new GenerateYamlSupportClasses().generateHasDataFormat();
+        final JavaFile file = JavaFile.builder("org.apache.camel.k.loader.yaml.parser", spec).build();
+
+        assertThat(file.packageName).isEqualTo("org.apache.camel.k.loader.yaml.parser");
+        assertThat(spec.name).isEqualTo("HasDataFormat");
+        assertThat(spec.methodSpecs).isNotEmpty();
     }
-    @Disabled
+
     @Test
-    public void testGenerateHasExpression() throws IOException {
-        JavaFile.builder("org.apache.camel.k.loader.yaml.parser", new GenerateYamlSupportClasses().generateHasExpression())
-            .indent("    ")
-            .build()
-            .writeTo(System.out);
+    public void testGenerateHasExpression() {
+        final TypeSpec spec = new GenerateYamlSupportClasses().generateHasExpression();
+        final JavaFile file = JavaFile.builder("org.apache.camel.k.loader.yaml.parser", spec).build();
+
+        assertThat(file.packageName).isEqualTo("org.apache.camel.k.loader.yaml.parser");
+        assertThat(spec.name).isEqualTo("HasExpression");
+        assertThat(spec.methodSpecs).isNotEmpty();
     }
-    @Disabled
+
     @Test
-    public void testGenerateJacksonModule() throws IOException {
-        JavaFile.builder("org.apache.camel.k.loader.yaml.parser", new GenerateYamlSupportClasses().generateJacksonModule())
-            .indent("    ")
-            .build()
-            .writeTo(System.out);
+    public void testGenerateJacksonModule() {
+        final TypeSpec spec = new GenerateYamlSupportClasses().generateJacksonModule();
+        final JavaFile file = JavaFile.builder("org.apache.camel.k.loader.yaml", spec).build();
+
+        assertThat(file.packageName).isEqualTo("org.apache.camel.k.loader.yaml");
+        assertThat(spec.name).isEqualTo("YamlModule");
+        assertThat(spec.methodSpecs).isNotEmpty();
     }
 }
