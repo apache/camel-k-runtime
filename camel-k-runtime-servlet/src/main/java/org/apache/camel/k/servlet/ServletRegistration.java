@@ -24,9 +24,9 @@ import javax.servlet.Servlet;
 /**
  * An helper class used to register servlets.
  *
- * <pre>
+ * <pre>{@code
  * public class WebhookCustomizer implements ContextCustomizer {
- *     @Override
+ *     {@literal @}Override
  *     public void apply(CamelContext camelContext, Runtime.Registry registry) {
  *         registry.bind(
  *             "webhook-servlet",
@@ -34,7 +34,7 @@ import javax.servlet.Servlet;
  *         );
  *     }
  * }
- * <pre>
+ * }</pre>
  */
 public final class ServletRegistration {
     private final Servlet servlet;
