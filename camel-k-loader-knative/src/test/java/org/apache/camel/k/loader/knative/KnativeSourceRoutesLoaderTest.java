@@ -23,7 +23,8 @@ import java.util.stream.Stream;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.knative.KnativeComponent;
-import org.apache.camel.component.knative.KnativeEnvironment;
+import org.apache.camel.component.knative.spi.Knative;
+import org.apache.camel.component.knative.spi.KnativeEnvironment;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.k.RoutesLoader;
@@ -72,7 +73,7 @@ public class KnativeSourceRoutesLoaderTest {
 
         KnativeComponent component = new KnativeComponent();
         component.setEnvironment(KnativeEnvironment.on(
-            KnativeEnvironment.httpEndpoint("sink", "localhost", port)
+            KnativeEnvironment.endpoint(Knative.EndpointKind.sink, "sink", "localhost", port)
         ));
 
         CamelContext context = new DefaultCamelContext();
@@ -131,7 +132,7 @@ public class KnativeSourceRoutesLoaderTest {
 
         KnativeComponent component = new KnativeComponent();
         component.setEnvironment(KnativeEnvironment.on(
-            KnativeEnvironment.httpEndpoint("sink", "localhost", port)
+            KnativeEnvironment.endpoint(Knative.EndpointKind.source, "sink", "localhost", port)
         ));
 
         CamelContext context = new DefaultCamelContext();

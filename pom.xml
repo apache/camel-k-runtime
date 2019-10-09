@@ -202,7 +202,6 @@
     <modules>
         <module>tooling</module>
 
-        <module>camel-knative-http</module>
         <module>camel-knative</module>
 
         <module>camel-k-runtime-core</module>
@@ -284,6 +283,11 @@
             </dependency>
 
             <!-- components -->
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-knative-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-knative</artifactId>

@@ -104,6 +104,11 @@
             <!-- camel-k -->
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-knative-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-knative</artifactId>
                 <version>${project.version}</version>
             </dependency>
