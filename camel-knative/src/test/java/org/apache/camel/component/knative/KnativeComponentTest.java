@@ -46,6 +46,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.apache.camel.component.knative.KnativeEnvironment.mandatoryLoadFromResource;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class KnativeComponentTest {
 
@@ -358,6 +360,49 @@ public class KnativeComponentTest {
         assertThat(e2.getEndpoint()).isInstanceOfSatisfying(KnativeHttpEndpoint.class, endpoint -> {
             assertThat(endpoint.getEndpointUri()).isEqualTo("knative-http://localhost:9001?filter.ce-type=myEventType&filter.ceAuthorName=Someone");
         });
+    }
+
+    @Test
+    void testFailForUnknownProperties() throws Exception {
+        context.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("knative:endpoint/from?aproperty=test")
+                    .log("${body}");
+            }
+        });
+
+        assertThrows(Exception.class, context::start);
+    }
+
+    @Test
+    void testDoNotFailForKnownButUnusedProperties() throws Exception {
+        KnativeEnvironment env = KnativeEnvironment.on(
+            new KnativeEnvironment.KnativeServiceDefinition(
+                Knative.Type.endpoint,
+                Knative.Protocol.http,
+                "from",
+                "localhost",
+                9001,
+                Collections.emptyMap())
+        );
+
+        KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
+        component.setEnvironment(env);
+
+        context.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("knative:endpoint/from?kind=InMemoryChannel&apiVersion=messaging.knative.dev/v1")
+                    .log("${body}");
+            }
+        });
+
+        try {
+            context.start();
+        } catch (Exception e) {
+            fail("Should not reach this point", e);
+        }
     }
 
     // ***************************************

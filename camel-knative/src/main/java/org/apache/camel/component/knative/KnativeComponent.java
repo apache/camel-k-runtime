@@ -130,6 +130,20 @@ public class KnativeComponent extends DefaultComponent {
             PropertiesHelper.extractProperties(parameters, "filter.", true)
         );
 
+        if (remaining.startsWith("channel/") || remaining.startsWith("endpoint/")) {
+            //
+            // Remove this known properties for channels and endpoints so that the
+            // component does not fails even though those options are not uses by
+            // the component but are needed by camel-k
+            //
+            // For more info see:
+            //
+            //     https://github.com/apache/camel-k-runtime/issues/150
+            //
+            parameters.remove("kind");
+            parameters.remove("apiVersion");
+        }
+
         // set properties from the endpoint uri
         PropertyBindingSupport.bindProperties(getCamelContext(), conf, parameters);
 
