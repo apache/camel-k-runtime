@@ -24,7 +24,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.knative.ce.CloudEventsProcessors;
+import org.apache.camel.component.knative.ce.v01.CloudEventV01;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.test.AvailablePortFinder;
@@ -79,7 +79,7 @@ public class CloudEventsV01Test {
         ));
 
         KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
-        component.setCloudEventsSpecVersion(CloudEventsProcessors.v01.getVersion());
+        component.setCloudEventsSpecVersion(CloudEventV01.VERSION);
         component.setEnvironment(env);
 
         context.addRoutes(new RouteBuilder() {
@@ -96,7 +96,7 @@ public class CloudEventsV01Test {
         context.start();
 
         MockEndpoint mock = context.getEndpoint("mock:ce", MockEndpoint.class);
-        mock.expectedHeaderReceived("CE-CloudEventsVersion", CloudEventsProcessors.v01.getVersion());
+        mock.expectedHeaderReceived("CE-CloudEventsVersion", CloudEventV01.VERSION);
         mock.expectedHeaderReceived("CE-EventType", "org.apache.camel.custom-event");
         mock.expectedHeaderReceived("CE-Source", "knative://endpoint/myEndpoint");
         mock.expectedHeaderReceived(Exchange.CONTENT_TYPE, "text/plain");
@@ -143,7 +143,7 @@ public class CloudEventsV01Test {
         ));
 
         KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
-        component.setCloudEventsSpecVersion(CloudEventsProcessors.v01.getVersion());
+        component.setCloudEventsSpecVersion(CloudEventV01.VERSION);
         component.setEnvironment(env);
 
         context.addRoutes(new RouteBuilder() {
@@ -166,7 +166,7 @@ public class CloudEventsV01Test {
         context.start();
 
         MockEndpoint mock = context.getEndpoint("mock:ce", MockEndpoint.class);
-        mock.expectedHeaderReceived("CE-CloudEventsVersion", CloudEventsProcessors.v01.getVersion());
+        mock.expectedHeaderReceived("CE-CloudEventsVersion", CloudEventV01.VERSION);
         mock.expectedHeaderReceived("CE-EventType", "org.apache.camel.event");
         mock.expectedHeaderReceived("CE-Source", "knative://endpoint/myEndpoint");
         mock.expectedHeaderReceived(Exchange.CONTENT_TYPE, "text/plain");
@@ -176,7 +176,7 @@ public class CloudEventsV01Test {
         mock.expectedMessageCount(1);
 
         MockEndpoint mock2 = context.getEndpoint("mock:ce2", MockEndpoint.class);
-        mock2.expectedHeaderReceived("CE-CloudEventsVersion", CloudEventsProcessors.v01.getVersion());
+        mock2.expectedHeaderReceived("CE-CloudEventsVersion", CloudEventV01.VERSION);
         mock2.expectedHeaderReceived("CE-EventType", "my.type");
         mock2.expectedHeaderReceived("CE-Source", "knative://endpoint/myEndpoint2?cloudEventsType=my.type");
         mock2.expectedHeaderReceived(Exchange.CONTENT_TYPE, "text/plain");
@@ -221,7 +221,7 @@ public class CloudEventsV01Test {
         ));
 
         KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
-        component.setCloudEventsSpecVersion(CloudEventsProcessors.v01.getVersion());
+        component.setCloudEventsSpecVersion(CloudEventV01.VERSION);
         component.setEnvironment(env);
 
         context.addRoutes(new RouteBuilder() {
@@ -238,7 +238,7 @@ public class CloudEventsV01Test {
         context.start();
 
         MockEndpoint mock = context.getEndpoint("mock:ce", MockEndpoint.class);
-        mock.expectedHeaderReceived("CE-CloudEventsVersion", CloudEventsProcessors.v01.getVersion());
+        mock.expectedHeaderReceived("CE-CloudEventsVersion", CloudEventV01.VERSION);
         mock.expectedHeaderReceived("CE-EventType", "org.apache.camel.event");
         mock.expectedHeaderReceived("CE-EventID", "myEventID");
         mock.expectedHeaderReceived("CE-Source", "/somewhere");
@@ -252,7 +252,7 @@ public class CloudEventsV01Test {
             e -> {
                 e.getIn().setHeader(Exchange.CONTENT_TYPE, Knative.MIME_STRUCTURED_CONTENT_MODE);
                 e.getIn().setBody(new ObjectMapper().writeValueAsString(KnativeSupport.mapOf(
-                    "cloudEventsVersion", CloudEventsProcessors.v01.getVersion(),
+                    "cloudEventsVersion", CloudEventV01.VERSION,
                     "eventType", "org.apache.camel.event",
                     "eventID", "myEventID",
                     "eventTime", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now()),
@@ -284,7 +284,7 @@ public class CloudEventsV01Test {
         ));
 
         KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
-        component.setCloudEventsSpecVersion(CloudEventsProcessors.v01.getVersion());
+        component.setCloudEventsSpecVersion(CloudEventV01.VERSION);
         component.setEnvironment(env);
 
         context.addRoutes(new RouteBuilder() {
@@ -301,7 +301,7 @@ public class CloudEventsV01Test {
         context.start();
 
         MockEndpoint mock = context.getEndpoint("mock:ce", MockEndpoint.class);
-        mock.expectedHeaderReceived("CE-CloudEventsVersion", CloudEventsProcessors.v01.getVersion());
+        mock.expectedHeaderReceived("CE-CloudEventsVersion", CloudEventV01.VERSION);
         mock.expectedHeaderReceived("CE-EventType", "org.apache.camel.event");
         mock.expectedHeaderReceived("CE-EventID", "myEventID");
         mock.expectedHeaderReceived("CE-Source", "/somewhere");
@@ -314,7 +314,7 @@ public class CloudEventsV01Test {
             "direct:source",
             e -> {
                 e.getIn().setHeader(Exchange.CONTENT_TYPE, "text/plain");
-                e.getIn().setHeader("CE-CloudEventsVersion", CloudEventsProcessors.v01.getVersion());
+                e.getIn().setHeader("CE-CloudEventsVersion", CloudEventV01.VERSION);
                 e.getIn().setHeader("CE-EventType", "org.apache.camel.event");
                 e.getIn().setHeader("CE-EventID", "myEventID");
                 e.getIn().setHeader("CE-EventTime", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now()));
@@ -358,7 +358,7 @@ public class CloudEventsV01Test {
         ));
 
         KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
-        component.setCloudEventsSpecVersion(CloudEventsProcessors.v01.getVersion());
+        component.setCloudEventsSpecVersion(CloudEventV01.VERSION);
         component.setEnvironment(env);
 
         context.addRoutes(new RouteBuilder() {
@@ -388,7 +388,7 @@ public class CloudEventsV01Test {
 
         MockEndpoint mock1 = context.getEndpoint("mock:ce1", MockEndpoint.class);
         mock1.expectedMessagesMatches(e -> e.getIn().getHeaders().containsKey("CE-EventTime"));
-        mock1.expectedHeaderReceived("CE-CloudEventsVersion", CloudEventsProcessors.v01.getVersion());
+        mock1.expectedHeaderReceived("CE-CloudEventsVersion", CloudEventV01.VERSION);
         mock1.expectedHeaderReceived("CE-EventType", "org.apache.camel.event");
         mock1.expectedHeaderReceived("CE-EventID", "myEventID1");
         mock1.expectedHeaderReceived("CE-Source", "CE1");
@@ -397,7 +397,7 @@ public class CloudEventsV01Test {
 
         MockEndpoint mock2 = context.getEndpoint("mock:ce2", MockEndpoint.class);
         mock2.expectedMessagesMatches(e -> e.getIn().getHeaders().containsKey("CE-EventTime"));
-        mock2.expectedHeaderReceived("CE-CloudEventsVersion", CloudEventsProcessors.v01.getVersion());
+        mock2.expectedHeaderReceived("CE-CloudEventsVersion", CloudEventV01.VERSION);
         mock2.expectedHeaderReceived("CE-EventType", "org.apache.camel.event");
         mock2.expectedHeaderReceived("CE-EventID", "myEventID2");
         mock2.expectedHeaderReceived("CE-Source", "CE2");
@@ -408,7 +408,7 @@ public class CloudEventsV01Test {
             "direct:source",
             e -> {
                 e.getIn().setHeader("FilterVal", "CE1");
-                e.getIn().setHeader("CE-CloudEventsVersion", CloudEventsProcessors.v01.getVersion());
+                e.getIn().setHeader("CE-CloudEventsVersion", CloudEventV01.VERSION);
                 e.getIn().setHeader("CE-EventType", "org.apache.camel.event");
                 e.getIn().setHeader("CE-EventID", "myEventID1");
                 e.getIn().setHeader("CE-EventTime", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now()));
@@ -419,7 +419,7 @@ public class CloudEventsV01Test {
             "direct:source",
             e -> {
                 e.getIn().setHeader("FilterVal", "CE2");
-                e.getIn().setHeader("CE-CloudEventsVersion", CloudEventsProcessors.v01.getVersion());
+                e.getIn().setHeader("CE-CloudEventsVersion", CloudEventV01.VERSION);
                 e.getIn().setHeader("CE-EventType", "org.apache.camel.event");
                 e.getIn().setHeader("CE-EventID", "myEventID2");
                 e.getIn().setHeader("CE-EventTime", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now()));

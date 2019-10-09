@@ -26,8 +26,9 @@ import org.apache.camel.Endpoint;
 import org.apache.camel.Processor;
 import org.apache.camel.Producer;
 import org.apache.camel.RuntimeCamelException;
-import org.apache.camel.cloud.ServiceDefinition;
-import org.apache.camel.component.knative.ce.CloudEventsProcessors;
+import org.apache.camel.component.knative.ce.CloudEvent;
+import org.apache.camel.component.knative.ce.v01.CloudEventV01;
+import org.apache.camel.component.knative.ce.v02.CloudEventV02;
 import org.apache.camel.processor.Pipeline;
 import org.apache.camel.spi.UriEndpoint;
 import org.apache.camel.spi.UriPath;
@@ -54,6 +55,7 @@ public class KnativeEndpoint extends DefaultEndpoint implements DelegateEndpoint
     private final KnativeEnvironment environment;
     private final KnativeEnvironment.KnativeServiceDefinition service;
     private final Endpoint endpoint;
+    private final CloudEvent cloudEvent;
 
     public KnativeEndpoint(String uri, KnativeComponent component, Knative.Type targetType, String remaining, KnativeConfiguration configuration) {
         super(uri, component);
@@ -63,11 +65,12 @@ public class KnativeEndpoint extends DefaultEndpoint implements DelegateEndpoint
         this.configuration = configuration;
         this.environment =  this.configuration.getEnvironment();
         this.service = this.environment.lookupServiceOrDefault(targetType, remaining);
+        this.cloudEvent = forSpecVersion(configuration.getCloudEventsSpecVersion());
 
         switch (service.getProtocol()) {
         case http:
         case https:
-            this.endpoint = http(component.getCamelContext(), service, configuration.getTransportOptions());
+            this.endpoint = http(component.getCamelContext());
             break;
         default:
             throw new IllegalArgumentException("unsupported protocol: " + this.service.getProtocol());
@@ -93,8 +96,11 @@ public class KnativeEndpoint extends DefaultEndpoint implements DelegateEndpoint
 
     @Override
     public Producer createProducer() throws Exception {
-        final String version = configuration.getCloudEventsSpecVersion();
-        final Processor ceProcessor = CloudEventsProcessors.forSpecversion(version).producerProcessor(this);
+        if (type == Knative.Type.event) {
+            throw new UnsupportedOperationException("knative `events` are supported only as consumer");
+        }
+
+        final Processor ceProcessor = cloudEvent.producer(this);
         final Processor ceConverter = new KnativeConversionProcessor(configuration.isJsonSerializationEnabled());
 
         return new KnativeProducer(this, ceProcessor, ceConverter, endpoint.createProducer());
@@ -102,8 +108,7 @@ public class KnativeEndpoint extends DefaultEndpoint implements DelegateEndpoint
 
     @Override
     public Consumer createConsumer(Processor processor) throws Exception {
-        final String version = configuration.getCloudEventsSpecVersion();
-        final Processor ceProcessor = CloudEventsProcessors.forSpecversion(version).consumerProcessor(this);
+        final Processor ceProcessor = cloudEvent.consumer(this);
         final Processor pipeline = Pipeline.newInstance(getCamelContext(), ceProcessor, processor);
         final Consumer consumer = endpoint.createConsumer(pipeline);
 
@@ -144,18 +149,18 @@ public class KnativeEndpoint extends DefaultEndpoint implements DelegateEndpoint
     //
     // *****************************
 
-    private static Endpoint http(CamelContext context, ServiceDefinition definition, Map<String, Object> transportOptions) {
+    private Endpoint http(CamelContext context) {
         try {
             String scheme = Knative.HTTP_COMPONENT;
-            String host = definition.getHost();
-            int port = definition.getPort();
+            String host = service.getHost();
+            int port = service.getPort();
 
             if (port == -1) {
                 port = Knative.DEFAULT_HTTP_PORT;
             }
             if (ObjectHelper.isEmpty(host)) {
-                String name = definition.getName();
-                String zone = definition.getMetadata().get(Knative.SERVICE_META_ZONE);
+                String name = service.getName();
+                String zone = service.getMetadata().get(Knative.SERVICE_META_ZONE);
 
                 if (ObjectHelper.isNotEmpty(zone)) {
                     try {
@@ -174,7 +179,7 @@ public class KnativeEndpoint extends DefaultEndpoint implements DelegateEndpoint
             ObjectHelper.notNull(host, Knative.SERVICE_META_HOST);
 
             String uri = String.format("%s:%s:%s", scheme, host, port);
-            String path = definition.getMetadata().get(Knative.SERVICE_META_PATH);
+            String path = service.getMetadata().get(Knative.SERVICE_META_PATH);
             if (path != null) {
                 if (!path.startsWith("/")) {
                     uri += "/";
@@ -183,14 +188,20 @@ public class KnativeEndpoint extends DefaultEndpoint implements DelegateEndpoint
                 uri += path;
             }
 
-            final String filterKey = definition.getMetadata().get(Knative.FILTER_HEADER_NAME);
-            final String filterVal = definition.getMetadata().get(Knative.FILTER_HEADER_VALUE);
+            final String filterKey = service.getMetadata().get(Knative.FILTER_HEADER_NAME);
+            final String filterVal = service.getMetadata().get(Knative.FILTER_HEADER_VALUE);
             final Map<String, Object> parameters = new HashMap<>();
 
-            parameters.putAll(transportOptions);
+            parameters.putAll(configuration.getTransportOptions());
 
+            for (Map.Entry<String, Object> entry: configuration.getFilters().entrySet()) {
+                parameters.put("filter." + entry.getKey(), entry.getValue().toString());
+            }
             if (ObjectHelper.isNotEmpty(filterKey) && ObjectHelper.isNotEmpty(filterVal)) {
                 parameters.put("filter." + filterKey, filterVal);
+            }
+            if (service.getType() == Knative.Type.event) {
+                parameters.put("filter." + cloudEvent.attributes().type(), this.name);
             }
 
             uri = URISupport.appendParametersToURI(uri, parameters);
@@ -198,6 +209,17 @@ public class KnativeEndpoint extends DefaultEndpoint implements DelegateEndpoint
             return context.getEndpoint(uri);
         } catch (Exception e) {
             throw RuntimeCamelException.wrapRuntimeCamelException(e);
+        }
+    }
+
+    private CloudEvent forSpecVersion(String version) {
+        switch (version) {
+        case CloudEventV01.VERSION:
+            return new CloudEventV01();
+        case CloudEventV02.VERSION:
+            return new CloudEventV02();
+        default:
+            throw new IllegalArgumentException("Unable to find processors for spec version: " +  version);
         }
     }
 }

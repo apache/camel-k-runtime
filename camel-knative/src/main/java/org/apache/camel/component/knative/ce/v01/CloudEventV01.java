@@ -14,14 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.component.knative.ce;
+package org.apache.camel.component.knative.ce.v01;
 
 import java.io.InputStream;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
-import java.util.function.Function;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
@@ -30,12 +29,52 @@ import org.apache.camel.component.knative.Knative;
 import org.apache.camel.component.knative.KnativeEndpoint;
 import org.apache.camel.component.knative.KnativeEnvironment;
 import org.apache.camel.component.knative.KnativeSupport;
+import org.apache.camel.component.knative.ce.CloudEvent;
 import org.apache.commons.lang3.StringUtils;
 
 import static org.apache.camel.util.ObjectHelper.ifNotEmpty;
 
-final class V01 {
-    public static final Function<KnativeEndpoint, Processor> PRODUCER = (KnativeEndpoint endpoint) -> {
+public final class CloudEventV01 implements CloudEvent {
+    public static final String VERSION = "0.1";
+    public static final Attributes ATTRIBUTES = new Attributes() {
+        @Override
+        public String id() {
+            return "CE-EventID";
+        }
+
+        @Override
+        public String source() {
+            return "CE-Source";
+        }
+
+        @Override
+        public String spec() {
+            return "CE-CloudEventsVersion";
+        }
+
+        @Override
+        public String type() {
+            return "CE-EventType";
+        }
+
+        @Override
+        public String time() {
+            return "CE-EventTime";
+        }
+    };
+
+    @Override
+    public String version() {
+        return VERSION;
+    }
+
+    @Override
+    public Attributes attributes() {
+        return ATTRIBUTES;
+    }
+
+    @Override
+    public Processor producer(KnativeEndpoint endpoint) {
         KnativeEnvironment.KnativeServiceDefinition service = endpoint.getService();
         String uri = endpoint.getEndpointUri();
 
@@ -44,25 +83,27 @@ final class V01 {
             if (eventType == null) {
                 eventType = endpoint.getConfiguration().getCloudEventsType();
             }
+
             final String contentType = service.getMetadata().get(Knative.CONTENT_TYPE);
             final ZonedDateTime created = exchange.getCreated().toInstant().atZone(ZoneId.systemDefault());
             final String eventTime = DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(created);
             final Map<String, Object> headers = exchange.getIn().getHeaders();
 
-            headers.putIfAbsent("CE-CloudEventsVersion", "0.1");
-            headers.putIfAbsent("CE-EventType", eventType);
-            headers.putIfAbsent("CE-EventID", exchange.getExchangeId());
-            headers.putIfAbsent("CE-EventTime", eventTime);
-            headers.putIfAbsent("CE-Source", uri);
+            headers.putIfAbsent(ATTRIBUTES.id(), exchange.getExchangeId());
+            headers.putIfAbsent(ATTRIBUTES.source(), uri);
+            headers.putIfAbsent(ATTRIBUTES.spec(), VERSION);
+            headers.putIfAbsent(ATTRIBUTES.type(), eventType);
+            headers.putIfAbsent(ATTRIBUTES.time(), eventTime);
             headers.putIfAbsent(Exchange.CONTENT_TYPE, contentType);
 
             // Always remove host so it's always computed from the URL and not inherited from the exchange
             headers.remove("Host");
         };
-    };
+    }
 
     @SuppressWarnings("unchecked")
-    public static final Function<KnativeEndpoint, Processor> CONSUMER = (KnativeEndpoint endpoint) -> {
+    @Override
+    public Processor consumer(KnativeEndpoint endpoint) {
         return exchange -> {
             if (!KnativeSupport.hasStructuredContent(exchange)) {
                 //
@@ -99,8 +140,5 @@ final class V01 {
                 });
             }
         };
-    };
-
-    private V01() {
     }
 }

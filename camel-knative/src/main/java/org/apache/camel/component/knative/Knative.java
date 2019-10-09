@@ -42,7 +42,8 @@ public final class Knative {
 
     public enum Type {
         endpoint,
-        channel
+        channel,
+        event
     }
 
     public enum Protocol {

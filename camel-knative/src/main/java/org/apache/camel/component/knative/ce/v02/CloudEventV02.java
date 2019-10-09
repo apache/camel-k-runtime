@@ -14,14 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.component.knative.ce;
+package org.apache.camel.component.knative.ce.v02;
 
 import java.io.InputStream;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
-import java.util.function.Function;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
@@ -30,12 +29,52 @@ import org.apache.camel.component.knative.Knative;
 import org.apache.camel.component.knative.KnativeEndpoint;
 import org.apache.camel.component.knative.KnativeEnvironment;
 import org.apache.camel.component.knative.KnativeSupport;
+import org.apache.camel.component.knative.ce.CloudEvent;
 import org.apache.commons.lang3.StringUtils;
 
 import static org.apache.camel.util.ObjectHelper.ifNotEmpty;
 
-final class V02 {
-    public static final Function<KnativeEndpoint, Processor> PRODUCER = (KnativeEndpoint endpoint) -> {
+public final class CloudEventV02 implements CloudEvent {
+    public static final String VERSION = "0.2";
+    public static final Attributes ATTRIBUTES = new Attributes() {
+        @Override
+        public String id() {
+            return "ce-id";
+        }
+
+        @Override
+        public String source() {
+            return "ce-source";
+        }
+
+        @Override
+        public String spec() {
+            return "ce-specversion";
+        }
+
+        @Override
+        public String type() {
+            return "ce-type";
+        }
+
+        @Override
+        public String time() {
+            return "ce-time";
+        }
+    };
+
+    @Override
+    public String version() {
+        return VERSION;
+    }
+
+    @Override
+    public Attributes attributes() {
+        return ATTRIBUTES;
+    }
+
+    @Override
+    public Processor producer(KnativeEndpoint endpoint) {
         KnativeEnvironment.KnativeServiceDefinition service = endpoint.getService();
         String uri = endpoint.getEndpointUri();
 
@@ -44,25 +83,27 @@ final class V02 {
             if (eventType == null) {
                 eventType = endpoint.getConfiguration().getCloudEventsType();
             }
+
             final String contentType = service.getMetadata().get(Knative.CONTENT_TYPE);
             final ZonedDateTime created = exchange.getCreated().toInstant().atZone(ZoneId.systemDefault());
             final String eventTime = DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(created);
             final Map<String, Object> headers = exchange.getIn().getHeaders();
 
-            headers.putIfAbsent("ce-specversion", "0.2");
-            headers.putIfAbsent("ce-type", eventType);
-            headers.putIfAbsent("ce-id", exchange.getExchangeId());
-            headers.putIfAbsent("ce-time", eventTime);
-            headers.putIfAbsent("ce-source", uri);
+            headers.putIfAbsent(ATTRIBUTES.id(), exchange.getExchangeId());
+            headers.putIfAbsent(ATTRIBUTES.source(), uri);
+            headers.putIfAbsent(ATTRIBUTES.spec(), VERSION);
+            headers.putIfAbsent(ATTRIBUTES.type(), eventType);
+            headers.putIfAbsent(ATTRIBUTES.time(), eventTime);
             headers.putIfAbsent(Exchange.CONTENT_TYPE, contentType);
 
             // Always remove host so it's always computed from the URL and not inherited from the exchange
             headers.remove("Host");
         };
-    };
+    }
 
     @SuppressWarnings("unchecked")
-    public static final Function<KnativeEndpoint, Processor> CONSUMER = (KnativeEndpoint endpoint) -> {
+    @Override
+    public Processor consumer(KnativeEndpoint endpoint) {
         return exchange -> {
             if (!KnativeSupport.hasStructuredContent(exchange)) {
                 //
@@ -82,7 +123,7 @@ final class V02 {
                 final Message message = exchange.getIn();
                 final Map<String, Object> ce = Knative.MAPPER.readValue(is, Map.class);
 
-                ifNotEmpty(ce.remove("contentType"), val -> message.setHeader(Exchange.CONTENT_TYPE, val));
+                ifNotEmpty(ce.remove("contenttype"), val -> message.setHeader(Exchange.CONTENT_TYPE, val));
                 ifNotEmpty(ce.remove("data"), val -> message.setBody(val));
 
                 //
@@ -99,8 +140,5 @@ final class V02 {
                 });
             }
         };
-    };
-
-    private V02() {
     }
 }

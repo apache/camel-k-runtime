@@ -37,6 +37,9 @@ public class KnativeConfiguration implements Cloneable {
     @UriParam(prefix = "transport.")
     private Map<String, Object> transportOptions;
 
+    @UriParam(prefix = "filter.")
+    private Map<String, Object> filters;
+
     public KnativeConfiguration() {
     }
 
@@ -100,6 +103,18 @@ public class KnativeConfiguration implements Cloneable {
      */
     public void setTransportOptions(Map<String, Object> transportOptions) {
         this.transportOptions = transportOptions;
+    }
+
+    public Map<String, Object> getFilters() {
+        return filters;
+    }
+
+    /**
+     * Set the filters.
+     */
+    public KnativeConfiguration setFilters(Map<String, Object> filters) {
+        this.filters = filters;
+        return this;
     }
 
     // ************************

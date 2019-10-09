@@ -126,6 +126,9 @@ public class KnativeComponent extends DefaultComponent {
         conf.getTransportOptions().putAll(
             PropertiesHelper.extractProperties(parameters, "transport.", true)
         );
+        conf.getFilters().putAll(
+            PropertiesHelper.extractProperties(parameters, "filter.", true)
+        );
 
         // set properties from the endpoint uri
         PropertyBindingSupport.bindProperties(getCamelContext(), conf, parameters);
@@ -144,6 +147,9 @@ public class KnativeComponent extends DefaultComponent {
 
         if (conf.getTransportOptions() == null) {
             conf.setTransportOptions(new HashMap<>());
+        }
+        if (conf.getFilters() == null) {
+            conf.setFilters(new HashMap<>());
         }
 
         if (conf.getEnvironment() == null) {
