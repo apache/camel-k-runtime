@@ -39,9 +39,9 @@ import org.slf4j.LoggerFactory;
 
 @Component("knative")
 public class KnativeComponent extends DefaultComponent {
-    private static final Logger LOGGER = LoggerFactory.getLogger(KnativeComponent.class);
-
     public static final String CONFIGURATION_ENV_VARIABLE = "CAMEL_KNATIVE_CONFIGURATION";
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(KnativeComponent.class);
 
     private KnativeConfiguration configuration;
     private String environmentPath;
