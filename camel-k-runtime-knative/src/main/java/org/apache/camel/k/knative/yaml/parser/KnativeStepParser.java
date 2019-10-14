@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.apache.camel.component.knative.Knative;
+import org.apache.camel.component.knative.spi.Knative;
 import org.apache.camel.k.loader.yaml.parser.ProcessorStepParser;
 import org.apache.camel.k.loader.yaml.parser.StartStepParser;
 import org.apache.camel.k.loader.yaml.parser.StepParserSupport;

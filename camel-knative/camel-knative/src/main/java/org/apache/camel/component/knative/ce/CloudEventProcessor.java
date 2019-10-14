@@ -14,17 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.quarkus.knative.deployment;
+package org.apache.camel.component.knative.ce;
 
-import io.quarkus.deployment.annotations.BuildProducer;
-import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.substrate.ReflectiveClassBuildItem;
+import org.apache.camel.Processor;
+import org.apache.camel.component.knative.KnativeEndpoint;
+import org.apache.camel.component.knative.spi.CloudEvent;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
 
-public class DeploymentProcessor {
-    @BuildStep
-    void registerReflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, KnativeEnvironment.class));
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, KnativeEnvironment.KnativeServiceDefinition.class));
-    }
+public interface CloudEventProcessor {
+    CloudEvent cloudEvent();
+    Processor consumer(KnativeEndpoint endpoint, KnativeEnvironment.KnativeServiceDefinition service);
+    Processor producer(KnativeEndpoint endpoint, KnativeEnvironment.KnativeServiceDefinition service);
 }
