@@ -15,25 +15,27 @@
 # limitations under the License.
 #
 
-- id: "flow-1"
-  group: "routes"
-  from:
-    uri: "netty-http:localhost:8080"
-    steps:
-      - convert-body:
-          type: "java.lang.String"
-      - to:
-          uri: "log:info"
-- id: "flow-2"
-  group: "routes"
-  from:
-    uri: "timer:tick"
-    parameters:
-      period: "5s"
-    steps:
-      - set-body:
-          simple: "${exchangeProperty.CamelTimerName} -> ${exchangeProperty.CamelTimerCounter}"
-      - to:
-          uri: "log:tick"
-      - log:
-          message: "{{message}}"
+- route:
+    id: "flow-1"
+    group: "routes"
+    from:
+      uri: "netty-http:localhost:8080"
+      steps:
+        - convert-body:
+            type: "java.lang.String"
+        - to:
+            uri: "log:info"
+- route:
+    id: "flow-2"
+    group: "routes"
+    from:
+      uri: "timer:tick"
+      parameters:
+        period: "5s"
+      steps:
+        - set-body:
+            simple: "${exchangeProperty.CamelTimerName} -> ${exchangeProperty.CamelTimerCounter}"
+        - to:
+            uri: "log:tick"
+        - log:
+            message: "{{message}}"

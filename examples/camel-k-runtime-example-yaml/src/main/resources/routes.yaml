@@ -15,91 +15,94 @@
 # limitations under the License.
 #
 
-- id: "rest"
-  group: "routes"
-  rest:
-    verb: "post"
-    uri: "/api/route"
-    accepts: "text/plain"
-    binding-mode: "off"
-    steps:
-      - convert-body:
-          type: "java.lang.String"
-      - to:
-          uri: "log:in"
-      - choice:
-          when:
-            - simple: "${body.contains(\",\")}"
-              steps:
-                - split:
-                    tokenize: ","
-                    steps:
-                      - set-body:
-                          simple: "${body.toUpperCase()}"
-                      - to:
-                          uri: "log:contains-1"
-            - simple: "${body.contains(\";\")}"
-              steps:
-                - split:
-                    tokenize: ";"
-                    steps:
-                      - set-body:
-                          simple: "${body.toLowerCase()}"
-                      - to:
-                          uri: "log:contains2"
-      - marshal:
-          json: {}
-      - convert-body:
-          type: "java.lang.String"
-      - to:
-          uri: "log:out"
-- id: "flow"
-  group: "routes"
-  rest:
-    verb: "post"
-    uri: "/api/flow"
-    accepts: "text/plain"
-    binding-mode: "off"
-    steps:
-      - convert-body:
-          type: "java.lang.String"
-      - to:
-          uri: "log:in"
-      - filter:
-          simple: "${body.contains(\",\")}"
-      - split:
-          tokenize: ";"
-      - set-body:
-          simple: "${body.toLowerCase()}"
-      - to:
-          uri: "log:out"
-- id: "rest+flow"
-  group: "routes"
-  rest:
-    verb: "post"
-    uri: "/api/floute"
-    accepts: "text/plain"
-    binding-mode: "off"
-    steps:
-      - convert-body:
-          type: "java.lang.String"
-      - to:
-          uri: "log:in"
-      - choice:
-          when:
-            - simple: "${body.contains(\",\")}"
-              steps:
-                - split:
-                    tokenize: ","
-                - set-body:
-                    simple: "${body.toUpperCase()}"
-                - to:
-                    uri: "log:contains-1"
-            - simple: "${body.contains(\";\")}"
-              steps:
-                - split:
-                    tokenize: ";"
-                - set-body:
-                    simple: "${body.toLowerCase()}"
-                - to:
-                    uri: "log:contains2"
+- route:
+    id: "rest"
+    group: "routes"
+    rest:
+      verb: "post"
+      uri: "/api/route"
+      accepts: "text/plain"
+      binding-mode: "off"
+      steps:
+        - convert-body:
+            type: "java.lang.String"
+        - to:
+            uri: "log:in"
+        - choice:
+            when:
+              - simple: "${body.contains(\",\")}"
+                steps:
+                  - split:
+                      tokenize: ","
+                      steps:
+                        - set-body:
+                            simple: "${body.toUpperCase()}"
+                        - to:
+                            uri: "log:contains-1"
+              - simple: "${body.contains(\";\")}"
+                steps:
+                  - split:
+                      tokenize: ";"
+                      steps:
+                        - set-body:
+                            simple: "${body.toLowerCase()}"
+                        - to:
+                            uri: "log:contains2"
+        - marshal:
+            json: {}
+        - convert-body:
+            type: "java.lang.String"
+        - to:
+            uri: "log:out"
+- route:
+    id: "flow"
+    group: "routes"
+    rest:
+      verb: "post"
+      uri: "/api/flow"
+      accepts: "text/plain"
+      binding-mode: "off"
+      steps:
+        - convert-body:
+            type: "java.lang.String"
+        - to:
+            uri: "log:in"
+        - filter:
+            simple: "${body.contains(\",\")}"
+        - split:
+            tokenize: ";"
+        - set-body:
+            simple: "${body.toLowerCase()}"
+        - to:
+            uri: "log:out"
+- route:
+    id: "rest+flow"
+    group: "routes"
+    rest:
+      verb: "post"
+      uri: "/api/floute"
+      accepts: "text/plain"
+      binding-mode: "off"
+      steps:
+        - convert-body:
+            type: "java.lang.String"
+        - to:
+            uri: "log:in"
+        - choice:
+            when:
+              - simple: "${body.contains(\",\")}"
+                steps:
+                  - split:
+                      tokenize: ","
+                  - set-body:
+                      simple: "${body.toUpperCase()}"
+                  - to:
+                      uri: "log:contains-1"
+              - simple: "${body.contains(\";\")}"
+                steps:
+                  - split:
+                      tokenize: ";"
+                  - set-body:
+                      simple: "${body.toLowerCase()}"
+                  - to:
+                      uri: "log:contains2"

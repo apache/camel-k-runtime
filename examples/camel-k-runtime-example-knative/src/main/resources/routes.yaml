@@ -15,14 +15,15 @@
 # limitations under the License.
 #
 
-- id: "knative"
-  group: "routes"
-  from:
-    uri: "knative:endpoint/from"
-    steps:
-      - convert-body:
-          type: "java.lang.String"
-      - to:
-          uri: "log:knative"
-      - set-body:
-          constant: "Hello from camel-k (native)"
+- route:
+    id: "knative"
+    group: "routes"
+    from:
+      uri: "knative:endpoint/from"
+      steps:
+        - convert-body:
+            type: "java.lang.String"
+        - to:
+            uri: "log:knative"
+        - set-body:
+            constant: "Hello from camel-k (native)"

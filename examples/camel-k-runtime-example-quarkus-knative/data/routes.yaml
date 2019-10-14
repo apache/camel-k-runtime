@@ -15,18 +15,19 @@
 # limitations under the License.
 #
 
-- id: "knative"
-  group: "routes"
-  from:
-    uri: "knative://endpoint/source"
-    steps:
-      - convert-body:
-          type: "java.lang.String"
-      - choice:
-          when:
-            - simple: "${body} >= 100"
+- route:
+    id: "knative"
+    group: "routes"
+    from:
+      uri: "knative://endpoint/source"
+      steps:
+        - convert-body:
+            type: "java.lang.String"
+        - choice:
+            when:
+              - simple: "${body} >= 100"
+                steps:
+                  - to: "log:when"
+            otherwise:
               steps:
-                - to: "log:when"
-          otherwise:
-            steps:
-              - to: "log:otherwise"
+                - to: "log:otherwise"
