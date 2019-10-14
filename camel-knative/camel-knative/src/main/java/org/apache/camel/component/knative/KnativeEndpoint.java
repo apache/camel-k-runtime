@@ -28,7 +28,6 @@ import org.apache.camel.component.knative.ce.CloudEventProcessor;
 import org.apache.camel.component.knative.ce.CloudEventProcessors;
 import org.apache.camel.component.knative.spi.Knative;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
-import org.apache.camel.component.knative.spi.KnativeTransport;
 import org.apache.camel.processor.Pipeline;
 import org.apache.camel.spi.UriEndpoint;
 import org.apache.camel.spi.UriParam;
@@ -52,15 +51,13 @@ public class KnativeEndpoint extends DefaultEndpoint {
     @UriParam
     private KnativeConfiguration configuration;
 
-    private final KnativeTransport transport;
     private final CloudEventProcessor cloudEvent;
 
-    public KnativeEndpoint(String uri, KnativeComponent component, Knative.Type type, String name, KnativeTransport transport, KnativeConfiguration configuration) {
+    public KnativeEndpoint(String uri, KnativeComponent component, Knative.Type type, String name, KnativeConfiguration configuration) {
         super(uri, component);
 
         this.type = type;
         this.name = name;
-        this.transport = transport;
         this.configuration = configuration;
         this.cloudEvent = CloudEventProcessors.fromSpecVersion(configuration.getCloudEventsSpecVersion());
     }
@@ -75,7 +72,7 @@ public class KnativeEndpoint extends DefaultEndpoint {
         final KnativeEnvironment.KnativeServiceDefinition service = lookupServiceDefinition(Knative.EndpointKind.sink);
         final Processor ceProcessor = cloudEvent.producer(this, service);
         final Processor ceConverter = new KnativeConversionProcessor(configuration.isJsonSerializationEnabled());
-        final Producer producer = transport.createProducer(this, service);
+        final Producer producer = getComponent().getTransport().createProducer(this, service);
 
         PropertyBindingSupport.build()
             .withCamelContext(getCamelContext())
@@ -92,7 +89,7 @@ public class KnativeEndpoint extends DefaultEndpoint {
         final KnativeEnvironment.KnativeServiceDefinition service = lookupServiceDefinition(Knative.EndpointKind.source);
         final Processor ceProcessor = cloudEvent.consumer(this, service);
         final Processor pipeline = Pipeline.newInstance(getCamelContext(), ceProcessor, processor);
-        final Consumer consumer = transport.createConsumer(this, service, pipeline);
+        final Consumer consumer = getComponent().getTransport().createConsumer(this, service, pipeline);
 
         PropertyBindingSupport.build()
             .withCamelContext(getCamelContext())

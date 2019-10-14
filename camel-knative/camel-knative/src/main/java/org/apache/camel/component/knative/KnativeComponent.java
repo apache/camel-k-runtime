@@ -34,9 +34,13 @@ import org.apache.camel.support.service.ServiceHelper;
 import org.apache.camel.util.ObjectHelper;
 import org.apache.camel.util.PropertiesHelper;
 import org.apache.camel.util.StringHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Component("knative")
 public class KnativeComponent extends DefaultComponent {
+    private static final Logger LOGGER = LoggerFactory.getLogger(KnativeComponent.class);
+
     public static final String CONFIGURATION_ENV_VARIABLE = "CAMEL_KNATIVE_CONFIGURATION";
 
     private KnativeConfiguration configuration;
@@ -157,6 +161,8 @@ public class KnativeComponent extends DefaultComponent {
 
     @Override
     protected void doInit() throws Exception {
+        super.doInit();
+
         if (transport == null) {
             this.transport = getCamelContext().getRegistry().lookupByNameAndType(protocol.name(), KnativeTransport.class);
 
@@ -166,14 +172,24 @@ public class KnativeComponent extends DefaultComponent {
                     .getFactoryFinder(Knative.KNATIVE_TRANSPORT_RESOURCE_PATH)
                     .newInstance(protocol.name(), KnativeTransport.class)
                     .orElseThrow(() -> new RuntimeException("Error creating knative transport for protocol: " + protocol.name()));
+            }
 
-                CamelContextAware.trySetCamelContext(transport, getCamelContext());
+            if (this.transport instanceof CamelContextAware) {
+                CamelContextAware camelContextAware = (CamelContextAware)this.transport;
+
+                if (camelContextAware.getCamelContext() == null) {
+                    camelContextAware.setCamelContext(getCamelContext());
+                }
             }
         }
+
+        LOGGER.info("found knative transport: {} for protocol: {}", transport, protocol.name());
     }
 
     @Override
     protected void doStart() throws Exception {
+        super.doStart();
+
         if (this.transport != null && managedTransport) {
             ServiceHelper.startService(this.transport);
         }
@@ -181,6 +197,8 @@ public class KnativeComponent extends DefaultComponent {
 
     @Override
     protected void doStop() throws Exception {
+        super.doStop();
+
         if (this.transport != null && managedTransport) {
             ServiceHelper.stopService(this.transport);
         }
@@ -216,7 +234,7 @@ public class KnativeComponent extends DefaultComponent {
             conf.setServiceName(name);
         }
 
-        return new KnativeEndpoint(uri, this, Knative.Type.valueOf(type), name, this.transport, conf);
+        return new KnativeEndpoint(uri, this, Knative.Type.valueOf(type), name, conf);
     }
 
     // ************************
