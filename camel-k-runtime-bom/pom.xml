@@ -257,28 +257,6 @@
                 <artifactId>camel-k-loader-knative</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
-            <!-- legacy -->
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-runtime-groovy</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-runtime-kotlin</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-runtime-yaml</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-runtime-jvm</artifactId>
-                <version>${project.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 

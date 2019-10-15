@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.camel.catalog.CamelCatalog;
+import org.apache.camel.k.tooling.maven.model.Artifact;
 import org.apache.camel.k.tooling.maven.model.CamelArtifact;
 import org.apache.camel.k.tooling.maven.model.CatalogProcessor;
 import org.apache.maven.project.MavenProject;
@@ -129,7 +130,7 @@ public class CatalogProcessor3Test extends AbstractCataloProcessorTest {
     }
 
     @Test
-    public void testLegacyArtifactsEnrichment() {
+    public void testArtifactsDoNotContainVersion() {
         CatalogProcessor processor = new CatalogProcessor3x();
         CamelCatalog catalog = versionCamelCatalog("3.0.0");
         Map<String, CamelArtifact> artifactMap = new HashMap<>();
@@ -138,21 +139,12 @@ public class CatalogProcessor3Test extends AbstractCataloProcessorTest {
         assertThat(processor.accepts(catalog)).isTrue();
         processor.process(new MavenProject(), catalog, artifactMap);
 
+        for (Map.Entry<String, CamelArtifact> artifact: artifactMap.entrySet()) {
+            assertThat(artifact.getValue().getVersion()).isNull();
 
-        assertThat(artifactMap.get("camel-k-runtime-jvm")).satisfies(a -> {
-            assertThat(a.getDependencies()).anyMatch(
-                d -> d.getGroupId().equals("org.apache.camel.k") && d.getArtifactId().equals("camel-k-runtime-main")
-            );
-        });
-        assertThat(artifactMap.get("camel-k-runtime-groovy")).satisfies(a -> {
-            assertThat(a.getDependencies()).anyMatch(
-                d -> d.getGroupId().equals("org.apache.camel.k") && d.getArtifactId().equals("camel-k-loader-groovy")
-            );
-        });
-        assertThat(artifactMap.get("camel-k-runtime-kotlin")).satisfies(a -> {
-            assertThat(a.getDependencies()).anyMatch(
-                d -> d.getGroupId().equals("org.apache.camel.k") && d.getArtifactId().equals("camel-k-loader-kotlin")
-            );
-        });
+            for (Artifact dependency: artifact.getValue().getDependencies()) {
+                assertThat(dependency.getVersion()).isNull();
+            }
+        }
     }
 }
