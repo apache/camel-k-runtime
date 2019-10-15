@@ -92,7 +92,6 @@ public class CatalogProcessor3x implements CatalogProcessor {
             CamelArtifact artifact = new CamelArtifact();
             artifact.setGroupId("org.apache.camel.k");
             artifact.setArtifactId("camel-k-runtime-main");
-            artifact.setVersion(project.getVersion());
             artifact.addDependency("org.apache.camel", "camel-core-engine");
             artifact.addDependency("org.apache.camel", "camel-main");
             artifact.addDependency("org.apache.camel", "camel-properties");
@@ -110,7 +109,6 @@ public class CatalogProcessor3x implements CatalogProcessor {
             CamelArtifact artifact = new CamelArtifact();
             artifact.setGroupId("org.apache.camel.k");
             artifact.setArtifactId("camel-k-loader-groovy");
-            artifact.setVersion(project.getVersion());
             artifact.addDependency("org.apache.camel", "camel-endpointdsl");
             artifact.addDependency("org.apache.camel", "camel-groovy");
 
@@ -127,7 +125,6 @@ public class CatalogProcessor3x implements CatalogProcessor {
             CamelArtifact artifact = new CamelArtifact();
             artifact.setGroupId("org.apache.camel.k");
             artifact.setArtifactId("camel-k-loader-kotlin");
-            artifact.setVersion(project.getVersion());
             artifact.addDependency("org.apache.camel", "camel-endpointdsl");
 
             artifacts.put(artifact.getArtifactId(), artifact);
@@ -143,7 +140,6 @@ public class CatalogProcessor3x implements CatalogProcessor {
             CamelArtifact artifact = new CamelArtifact();
             artifact.setGroupId("org.apache.camel.k");
             artifact.setArtifactId("camel-k-loader-js");
-            artifact.setVersion(project.getVersion());
             artifact.addDependency("org.apache.camel", "camel-endpointdsl");
 
             artifacts.put(artifact.getArtifactId(), artifact);
@@ -159,7 +155,6 @@ public class CatalogProcessor3x implements CatalogProcessor {
             CamelArtifact artifact = new CamelArtifact();
             artifact.setGroupId("org.apache.camel.k");
             artifact.setArtifactId("camel-k-loader-xml");
-            artifact.setVersion(project.getVersion());
 
             artifacts.put(artifact.getArtifactId(), artifact);
         }
@@ -174,7 +169,6 @@ public class CatalogProcessor3x implements CatalogProcessor {
             CamelArtifact artifact = new CamelArtifact();
             artifact.setGroupId("org.apache.camel.k");
             artifact.setArtifactId("camel-k-loader-java");
-            artifact.setVersion(project.getVersion());
             artifact.addDependency("org.apache.camel", "camel-endpointdsl");
 
             artifacts.put(artifact.getArtifactId(), artifact);
@@ -190,7 +184,6 @@ public class CatalogProcessor3x implements CatalogProcessor {
             CamelArtifact artifact = new CamelArtifact();
             artifact.setGroupId("org.apache.camel.k");
             artifact.setArtifactId("camel-k-loader-knative");
-            artifact.setVersion(project.getVersion());
 
             artifacts.put(artifact.getArtifactId(), artifact);
         }
@@ -205,7 +198,6 @@ public class CatalogProcessor3x implements CatalogProcessor {
             CamelArtifact artifact = new CamelArtifact();
             artifact.setGroupId("org.apache.camel.k");
             artifact.setArtifactId("camel-knative");
-            artifact.setVersion(project.getVersion());
             artifact.createScheme("knative").setHttp(true);
             artifact.addDependency("org.apache.camel", "camel-cloud");
             artifact.addDependency("org.apache.camel.k", "camel-knative-api");

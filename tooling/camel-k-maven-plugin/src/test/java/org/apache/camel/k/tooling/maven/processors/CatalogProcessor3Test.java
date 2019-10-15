@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.camel.catalog.CamelCatalog;
+import org.apache.camel.k.tooling.maven.model.Artifact;
 import org.apache.camel.k.tooling.maven.model.CamelArtifact;
 import org.apache.camel.k.tooling.maven.model.CatalogProcessor;
 import org.apache.maven.project.MavenProject;
@@ -126,5 +127,24 @@ public class CatalogProcessor3Test extends AbstractCataloProcessorTest {
                 d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-file")
             );
         });
+    }
+
+    @Test
+    public void testArtifactsDoNotContainVersion() {
+        CatalogProcessor processor = new CatalogProcessor3x();
+        CamelCatalog catalog = versionCamelCatalog("3.0.0");
+        Map<String, CamelArtifact> artifactMap = new HashMap<>();
+        artifactMap.put("camel-http", new CamelArtifact());
+
+        assertThat(processor.accepts(catalog)).isTrue();
+        processor.process(new MavenProject(), catalog, artifactMap);
+
+        for (Map.Entry<String, CamelArtifact> artifact: artifactMap.entrySet()) {
+            assertThat(artifact.getValue().getVersion()).isNull();
+
+            for (Artifact dependency: artifact.getValue().getDependencies()) {
+                assertThat(dependency.getVersion()).isNull();
+            }
+        }
     }
 }
