@@ -16,11 +16,60 @@
  */
 package org.apache.camel.component.knative.spi;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Objects;
 
 public enum CloudEvents implements CloudEvent {
-    V01(new CloudEventV01()),
-    V02(new CloudEventV02());
+    //
+    // V0.1 - https://github.com/cloudevents/spec/blob/v0.1/spec.md
+    //
+    V01(new CloudEventImpl(
+        "0.1",
+        Arrays.asList(
+            Attribute.simple("type", "CE-EventType", "eventType"),
+            Attribute.simple("type.version", "CE-EventTypeVersion", "eventTypeVersion"),
+            Attribute.simple("version", "CE-CloudEventsVersion", "cloudEventsVersion"),
+            Attribute.simple("source", "CE-Source", "source"),
+            Attribute.simple("id", "CE-EventID", "eventID"),
+            Attribute.simple("time", "CE-EventTime", "eventTime"),
+            Attribute.simple("schema.url", "CE-SchemaURL", "schemaURL"),
+            Attribute.simple("content.type", "ContentType", "contentType"),
+            Attribute.simple("extensions", "CE-Extensions", "extensions")
+        )
+    )),
+    //
+    // V0.2 - https://github.com/cloudevents/spec/blob/v0.2/spec.md
+    //
+    V02(new CloudEventImpl(
+        "0.2",
+        Arrays.asList(
+            Attribute.simple("type", "ce-type", "type"),
+            Attribute.simple("version", "ce-specversion", "specversion"),
+            Attribute.simple("source", "ce-source", "source"),
+            Attribute.simple("id", "ce-id", "id"),
+            Attribute.simple("time", "ce-time", "time"),
+            Attribute.simple("schema.url", "ce-schemaurl", "schemaurl"),
+            Attribute.simple("content.type", "Content-Type", "contenttype")
+        )
+    )),
+    //
+    // V0.3 - https://github.com/cloudevents/spec/blob/v0.3/spec.md
+    //
+    V03(new CloudEventImpl(
+        "0.3",
+        Arrays.asList(
+            Attribute.simple("id", "ce-id", "id"),
+            Attribute.simple("source", "ce-source", "source"),
+            Attribute.simple("version", "ce-specversion", "specversion"),
+            Attribute.simple("type", "ce-type", "type"),
+            Attribute.simple("data.content.encoding", "ce-datacontentencoding", "datacontentencoding"),
+            Attribute.simple("data.content.type", "ce-datacontenttype", "datacontenttype"),
+            Attribute.simple("schema.url", "ce-schemaurl", "schemaurl"),
+            Attribute.simple("subject", "ce-subject", "subject"),
+            Attribute.simple("time", "ce-time", "time")
+        )
+    ));
 
     private final CloudEvent instance;
 
@@ -34,7 +83,7 @@ public enum CloudEvents implements CloudEvent {
     }
 
     @Override
-    public Attributes attributes() {
+    public Collection<Attribute> attributes() {
         return instance.attributes();
     }
 
@@ -46,6 +95,26 @@ public enum CloudEvents implements CloudEvent {
         }
 
         throw new IllegalArgumentException("Unable to find an implementation fo CloudEvents spec: " + version);
+    }
+
+    private static class CloudEventImpl implements CloudEvent {
+        private final String version;
+        private final Collection<Attribute> attributes;
+
+        public CloudEventImpl(String version, Collection<Attribute> attributes) {
+            this.version = version;
+            this.attributes = attributes;
+        }
+
+        @Override
+        public String version() {
+            return version;
+        }
+
+        @Override
+        public Collection<Attribute> attributes() {
+            return attributes;
+        }
     }
 }
 

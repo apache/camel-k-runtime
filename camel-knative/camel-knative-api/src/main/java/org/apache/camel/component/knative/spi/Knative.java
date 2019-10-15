@@ -30,6 +30,7 @@ public final class Knative {
     public static final String KNATIVE_API_VERSION = "knative.apiVersion";
     public static final String CONTENT_TYPE = "content.type";
     public static final String MIME_STRUCTURED_CONTENT_MODE = "application/cloudevents+json";
+    public static final String MIME_BATCH_CONTENT_MODE = "application/cloudevents-batch+json";
     public static final String CAMEL_ENDPOINT_KIND = "camel.endpoint.kind";
 
     public static final String SERVICE_META_HOST = "service.host";
