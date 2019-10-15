@@ -127,32 +127,4 @@ public class CatalogProcessor3Test extends AbstractCataloProcessorTest {
             );
         });
     }
-
-    @Test
-    public void testLegacyArtifactsEnrichment() {
-        CatalogProcessor processor = new CatalogProcessor3x();
-        CamelCatalog catalog = versionCamelCatalog("3.0.0");
-        Map<String, CamelArtifact> artifactMap = new HashMap<>();
-        artifactMap.put("camel-http", new CamelArtifact());
-
-        assertThat(processor.accepts(catalog)).isTrue();
-        processor.process(new MavenProject(), catalog, artifactMap);
-
-
-        assertThat(artifactMap.get("camel-k-runtime-jvm")).satisfies(a -> {
-            assertThat(a.getDependencies()).anyMatch(
-                d -> d.getGroupId().equals("org.apache.camel.k") && d.getArtifactId().equals("camel-k-runtime-main")
-            );
-        });
-        assertThat(artifactMap.get("camel-k-runtime-groovy")).satisfies(a -> {
-            assertThat(a.getDependencies()).anyMatch(
-                d -> d.getGroupId().equals("org.apache.camel.k") && d.getArtifactId().equals("camel-k-loader-groovy")
-            );
-        });
-        assertThat(artifactMap.get("camel-k-runtime-kotlin")).satisfies(a -> {
-            assertThat(a.getDependencies()).anyMatch(
-                d -> d.getGroupId().equals("org.apache.camel.k") && d.getArtifactId().equals("camel-k-loader-kotlin")
-            );
-        });
-    }
 }

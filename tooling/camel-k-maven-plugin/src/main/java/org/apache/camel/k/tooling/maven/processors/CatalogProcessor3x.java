@@ -268,59 +268,6 @@ public class CatalogProcessor3x implements CatalogProcessor {
 
         // ************************
         //
-        // legacy
-        //
-        // ************************
-
-        {
-            CamelArtifact artifact = new CamelArtifact();
-            artifact.setGroupId("org.apache.camel.k");
-            artifact.setArtifactId("camel-k-runtime-jvm");
-            artifact.setVersion(project.getVersion());
-            artifact.addDependency("org.apache.camel.k", "camel-k-runtime-main");
-            artifact.addDependency("org.apache.camel.k", "camel-k-loader-js");
-            artifact.addDependency("org.apache.camel.k", "camel-k-loader-xml");
-            artifact.addDependency("org.apache.camel.k", "camel-k-loader-java");
-            artifact.addDependency("org.apache.camel", "camel-core-engine");
-            artifact.addDependency("org.apache.camel", "camel-main");
-            artifact.addDependency("org.apache.camel", "camel-properties");
-
-            artifacts.put(artifact.getArtifactId(), artifact);
-        }
-
-        {
-            CamelArtifact artifact = new CamelArtifact();
-            artifact.setGroupId("org.apache.camel.k");
-            artifact.setArtifactId("camel-k-runtime-groovy");
-            artifact.setVersion(project.getVersion());
-            artifact.addDependency("org.apache.camel.k", "camel-k-loader-groovy");
-            artifact.addDependency("org.apache.camel", "camel-groovy");
-
-            artifacts.put(artifact.getArtifactId(), artifact);
-        }
-
-        {
-            CamelArtifact artifact = new CamelArtifact();
-            artifact.setGroupId("org.apache.camel.k");
-            artifact.setArtifactId("camel-k-runtime-kotlin");
-            artifact.setVersion(project.getVersion());
-            artifact.addDependency("org.apache.camel.k", "camel-k-loader-kotlin");
-
-            artifacts.put(artifact.getArtifactId(), artifact);
-        }
-
-        {
-            CamelArtifact artifact = new CamelArtifact();
-            artifact.setGroupId("org.apache.camel.k");
-            artifact.setArtifactId("camel-k-runtime-yaml");
-            artifact.setVersion(project.getVersion());
-            artifact.addDependency("org.apache.camel.k", "camel-k-loader-yaml");
-
-            artifacts.put(artifact.getArtifactId(), artifact);
-        }
-
-        // ************************
-        //
         //
         //
         // ************************
