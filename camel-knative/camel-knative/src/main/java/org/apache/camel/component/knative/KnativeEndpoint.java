@@ -81,7 +81,7 @@ public class KnativeEndpoint extends DefaultEndpoint {
             .withTarget(producer)
             .bind();
 
-        return new KnativeProducer(this, ceProcessor, ceConverter, producer);
+        return new KnativeProducer(this, ceProcessor, ceConverter, e -> e.getMessage().removeHeader("Host"), producer);
     }
 
     @Override
@@ -159,7 +159,7 @@ public class KnativeEndpoint extends DefaultEndpoint {
 
         if (service.get().getType() == Knative.Type.event) {
             metadata.put(Knative.KNATIVE_EVENT_TYPE, serviceName);
-            metadata.put(Knative.KNATIVE_FILTER_PREFIX + cloudEvent.cloudEvent().attributes().type(), serviceName);
+            metadata.put(Knative.KNATIVE_FILTER_PREFIX + cloudEvent.cloudEvent().mandatoryAttribute("type").id(), serviceName);
         }
 
         return new KnativeEnvironment.KnativeServiceDefinition(

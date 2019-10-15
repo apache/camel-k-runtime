@@ -91,7 +91,8 @@ public class KnativeHttpTest {
     private static Stream<Arguments> provideCloudEventsImplementations() {
         return Stream.of(
             Arguments.of(CloudEvents.V01),
-            Arguments.of(CloudEvents.V02)
+            Arguments.of(CloudEvents.V02),
+            Arguments.of(CloudEvents.V03)
         );
     }
 
@@ -129,12 +130,12 @@ public class KnativeHttpTest {
         context.start();
 
         MockEndpoint mock = context.getEndpoint("mock:ce", MockEndpoint.class);
-        mock.expectedHeaderReceived(ce.attributes().spec(), ce.version());
-        mock.expectedHeaderReceived(ce.attributes().type(), "org.apache.camel.event");
-        mock.expectedHeaderReceived(ce.attributes().source(), "knative://endpoint/myEndpoint");
+        mock.expectedHeaderReceived(ce.mandatoryAttribute("version").id(), ce.version());
+        mock.expectedHeaderReceived(ce.mandatoryAttribute("type").id(), "org.apache.camel.event");
+        mock.expectedHeaderReceived(ce.mandatoryAttribute("source").id(), "knative://endpoint/myEndpoint");
         mock.expectedHeaderReceived(Exchange.CONTENT_TYPE, "text/plain");
-        mock.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(ce.attributes().time()));
-        mock.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(ce.attributes().id()));
+        mock.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(ce.mandatoryAttribute("time").id()));
+        mock.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(ce.mandatoryAttribute("id").id()));
         mock.expectedBodiesReceived("test");
         mock.expectedMessageCount(1);
 
@@ -176,12 +177,12 @@ public class KnativeHttpTest {
         context.start();
 
         MockEndpoint mock = context.getEndpoint("mock:ce", MockEndpoint.class);
-        mock.expectedHeaderReceived(ce.attributes().spec(), ce.version());
-        mock.expectedHeaderReceived(ce.attributes().type(), "org.apache.camel.event");
-        mock.expectedHeaderReceived(ce.attributes().id(), "myEventID");
-        mock.expectedHeaderReceived(ce.attributes().source(), "/somewhere");
+        mock.expectedHeaderReceived(ce.mandatoryAttribute("version").id(), ce.version());
+        mock.expectedHeaderReceived(ce.mandatoryAttribute("type").id(), "org.apache.camel.event");
+        mock.expectedHeaderReceived(ce.mandatoryAttribute("id").id(), "myEventID");
+        mock.expectedHeaderReceived(ce.mandatoryAttribute("source").id(), "/somewhere");
         mock.expectedHeaderReceived(Exchange.CONTENT_TYPE, "text/plain");
-        mock.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(ce.attributes().time()));
+        mock.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(ce.mandatoryAttribute("time").id()));
         mock.expectedBodiesReceived("test");
         mock.expectedMessageCount(1);
 
@@ -190,7 +191,7 @@ public class KnativeHttpTest {
             e -> {
                 e.getMessage().setHeader(Exchange.CONTENT_TYPE, Knative.MIME_STRUCTURED_CONTENT_MODE);
 
-                if (Objects.equals(ce.version(), ce.version())) {
+                if (Objects.equals(CloudEvents.V01.version(), ce.version())) {
                     e.getMessage().setBody(new ObjectMapper().writeValueAsString(KnativeSupport.mapOf(
                         "cloudEventsVersion", ce.version(),
                         "eventType", "org.apache.camel.event",
@@ -200,8 +201,7 @@ public class KnativeHttpTest {
                         "contentType", "text/plain",
                         "data", "test"
                     )));
-                }
-                if (Objects.equals(CloudEvents.V02.version(), ce.version())) {
+                } else if (Objects.equals(CloudEvents.V02.version(), ce.version())) {
                     e.getMessage().setBody(new ObjectMapper().writeValueAsString(KnativeSupport.mapOf(
                         "specversion", ce.version(),
                         "type", "org.apache.camel.event",
@@ -211,6 +211,18 @@ public class KnativeHttpTest {
                         "contenttype", "text/plain",
                         "data", "test"
                     )));
+                } else if (Objects.equals(CloudEvents.V03.version(), ce.version())) {
+                    e.getMessage().setBody(new ObjectMapper().writeValueAsString(KnativeSupport.mapOf(
+                        "specversion", ce.version(),
+                        "type", "org.apache.camel.event",
+                        "id", "myEventID",
+                        "time", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now()),
+                        "source", "/somewhere",
+                        "datacontenttype", "text/plain",
+                        "data", "test"
+                    )));
+                } else {
+                    throw new IllegalArgumentException("Unknown CloudEvent spec: " + ce.version());
                 }
             }
         );
@@ -252,12 +264,12 @@ public class KnativeHttpTest {
         context.start();
 
         MockEndpoint mock = context.getEndpoint("mock:ce", MockEndpoint.class);
-        mock.expectedHeaderReceived(ce.attributes().spec(), ce.version());
-        mock.expectedHeaderReceived(ce.attributes().type(), "org.apache.camel.event");
-        mock.expectedHeaderReceived(ce.attributes().id(), "myEventID");
-        mock.expectedHeaderReceived(ce.attributes().source(), "/somewhere");
+        mock.expectedHeaderReceived(ce.mandatoryAttribute("version").id(), ce.version());
+        mock.expectedHeaderReceived(ce.mandatoryAttribute("type").id(), "org.apache.camel.event");
+        mock.expectedHeaderReceived(ce.mandatoryAttribute("id").id(), "myEventID");
+        mock.expectedHeaderReceived(ce.mandatoryAttribute("source").id(), "/somewhere");
         mock.expectedHeaderReceived(Exchange.CONTENT_TYPE, "text/plain");
-        mock.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(ce.attributes().time()));
+        mock.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(ce.mandatoryAttribute("time").id()));
         mock.expectedBodiesReceived("test");
         mock.expectedMessageCount(1);
 
@@ -265,11 +277,11 @@ public class KnativeHttpTest {
             "direct:source",
             e -> {
                 e.getMessage().setHeader(Exchange.CONTENT_TYPE, "text/plain");
-                e.getMessage().setHeader(ce.attributes().spec(), ce.version());
-                e.getMessage().setHeader(ce.attributes().type(), "org.apache.camel.event");
-                e.getMessage().setHeader(ce.attributes().id(), "myEventID");
-                e.getMessage().setHeader(ce.attributes().time(), DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now()));
-                e.getMessage().setHeader(ce.attributes().source(), "/somewhere");
+                e.getMessage().setHeader(ce.mandatoryAttribute("version").id(), ce.version());
+                e.getMessage().setHeader(ce.mandatoryAttribute("type").id(), "org.apache.camel.event");
+                e.getMessage().setHeader(ce.mandatoryAttribute("id").id(), "myEventID");
+                e.getMessage().setHeader(ce.mandatoryAttribute("time").id(), DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now()));
+                e.getMessage().setHeader(ce.mandatoryAttribute("source").id(), "/somewhere");
                 e.getMessage().setBody("test");
             }
         );
@@ -289,7 +301,7 @@ public class KnativeHttpTest {
                 KnativeSupport.mapOf(
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain",
-                    Knative.KNATIVE_FILTER_PREFIX + ce.attributes().source(), "CE1"
+                    Knative.KNATIVE_FILTER_PREFIX + ce.mandatoryAttribute("source").id(), "CE1"
                 )),
             KnativeEnvironment.endpoint(
                 Knative.EndpointKind.source,
@@ -299,7 +311,7 @@ public class KnativeHttpTest {
                 KnativeSupport.mapOf(
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain",
-                    Knative.KNATIVE_FILTER_PREFIX + ce.attributes().source(), "CE2"
+                    Knative.KNATIVE_FILTER_PREFIX + ce.mandatoryAttribute("source").id(), "CE2"
                 ))
         );
 
@@ -331,41 +343,41 @@ public class KnativeHttpTest {
         context.start();
 
         MockEndpoint mock1 = context.getEndpoint("mock:ce1", MockEndpoint.class);
-        mock1.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(ce.attributes().time()));
-        mock1.expectedHeaderReceived(ce.attributes().spec(), ce.version());
-        mock1.expectedHeaderReceived(ce.attributes().type(), "org.apache.camel.event");
-        mock1.expectedHeaderReceived(ce.attributes().id(), "myEventID1");
-        mock1.expectedHeaderReceived(ce.attributes().source(), "CE1");
+        mock1.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(ce.mandatoryAttribute("time").id()));
+        mock1.expectedHeaderReceived(ce.mandatoryAttribute("version").id(), ce.version());
+        mock1.expectedHeaderReceived(ce.mandatoryAttribute("type").id(), "org.apache.camel.event");
+        mock1.expectedHeaderReceived(ce.mandatoryAttribute("id").id(), "myEventID1");
+        mock1.expectedHeaderReceived(ce.mandatoryAttribute("source").id(), "CE1");
         mock1.expectedBodiesReceived("test");
         mock1.expectedMessageCount(1);
 
         MockEndpoint mock2 = context.getEndpoint("mock:ce2", MockEndpoint.class);
-        mock2.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(ce.attributes().time()));
-        mock2.expectedHeaderReceived(ce.attributes().spec(), ce.version());
-        mock2.expectedHeaderReceived(ce.attributes().type(), "org.apache.camel.event");
-        mock2.expectedHeaderReceived(ce.attributes().id(), "myEventID2");
-        mock2.expectedHeaderReceived(ce.attributes().source(), "CE2");
+        mock2.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(ce.mandatoryAttribute("time").id()));
+        mock2.expectedHeaderReceived(ce.mandatoryAttribute("version").id(), ce.version());
+        mock2.expectedHeaderReceived(ce.mandatoryAttribute("type").id(), "org.apache.camel.event");
+        mock2.expectedHeaderReceived(ce.mandatoryAttribute("id").id(), "myEventID2");
+        mock2.expectedHeaderReceived(ce.mandatoryAttribute("source").id(), "CE2");
         mock2.expectedBodiesReceived("test");
         mock2.expectedMessageCount(1);
 
         context.createProducerTemplate().send(
             "direct:source",
             e -> {
-                e.getMessage().setHeader(ce.attributes().spec(), ce.version());
-                e.getMessage().setHeader(ce.attributes().type(), "org.apache.camel.event");
-                e.getMessage().setHeader(ce.attributes().id(), "myEventID1");
-                e.getMessage().setHeader(ce.attributes().time(), DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now()));
-                e.getMessage().setHeader(ce.attributes().source(), "CE1");
+                e.getMessage().setHeader(ce.mandatoryAttribute("version").id(), ce.version());
+                e.getMessage().setHeader(ce.mandatoryAttribute("type").id(), "org.apache.camel.event");
+                e.getMessage().setHeader(ce.mandatoryAttribute("id").id(), "myEventID1");
+                e.getMessage().setHeader(ce.mandatoryAttribute("time").id(), DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now()));
+                e.getMessage().setHeader(ce.mandatoryAttribute("source").id(), "CE1");
             }
         );
         context.createProducerTemplate().send(
             "direct:source",
             e -> {
-                e.getMessage().setHeader(ce.attributes().spec(), ce.version());
-                e.getMessage().setHeader(ce.attributes().type(), "org.apache.camel.event");
-                e.getMessage().setHeader(ce.attributes().id(), "myEventID2");
-                e.getMessage().setHeader(ce.attributes().time(), DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now()));
-                e.getMessage().setHeader(ce.attributes().source(), "CE2");
+                e.getMessage().setHeader(ce.mandatoryAttribute("version").id(), ce.version());
+                e.getMessage().setHeader(ce.mandatoryAttribute("type").id(), "org.apache.camel.event");
+                e.getMessage().setHeader(ce.mandatoryAttribute("id").id(), "myEventID2");
+                e.getMessage().setHeader(ce.mandatoryAttribute("time").id(), DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now()));
+                e.getMessage().setHeader(ce.mandatoryAttribute("source").id(), "CE2");
             }
         );
 
@@ -385,7 +397,7 @@ public class KnativeHttpTest {
                 KnativeSupport.mapOf(
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain",
-                    Knative.KNATIVE_FILTER_PREFIX + ce.attributes().source(), "CE[01234]"
+                    Knative.KNATIVE_FILTER_PREFIX + ce.mandatoryAttribute("source").id(), "CE[01234]"
                 )),
             KnativeEnvironment.endpoint(
                 Knative.EndpointKind.source,
@@ -395,7 +407,7 @@ public class KnativeHttpTest {
                 KnativeSupport.mapOf(
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain",
-                    Knative.KNATIVE_FILTER_PREFIX + ce.attributes().source(), "CE[56789]"
+                    Knative.KNATIVE_FILTER_PREFIX + ce.mandatoryAttribute("source").id(), "CE[56789]"
                 ))
         );
 
@@ -427,41 +439,41 @@ public class KnativeHttpTest {
         context.start();
 
         MockEndpoint mock1 = context.getEndpoint("mock:ce1", MockEndpoint.class);
-        mock1.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(ce.attributes().time()));
-        mock1.expectedHeaderReceived(ce.attributes().spec(), ce.version());
-        mock1.expectedHeaderReceived(ce.attributes().type(), "org.apache.camel.event");
-        mock1.expectedHeaderReceived(ce.attributes().id(), "myEventID1");
-        mock1.expectedHeaderReceived(ce.attributes().source(), "CE0");
+        mock1.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(ce.mandatoryAttribute("time").id()));
+        mock1.expectedHeaderReceived(ce.mandatoryAttribute("version").id(), ce.version());
+        mock1.expectedHeaderReceived(ce.mandatoryAttribute("type").id(), "org.apache.camel.event");
+        mock1.expectedHeaderReceived(ce.mandatoryAttribute("id").id(), "myEventID1");
+        mock1.expectedHeaderReceived(ce.mandatoryAttribute("source").id(), "CE0");
         mock1.expectedBodiesReceived("test");
         mock1.expectedMessageCount(1);
 
         MockEndpoint mock2 = context.getEndpoint("mock:ce2", MockEndpoint.class);
-        mock2.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(ce.attributes().time()));
-        mock2.expectedHeaderReceived(ce.attributes().spec(), ce.version());
-        mock2.expectedHeaderReceived(ce.attributes().type(), "org.apache.camel.event");
-        mock2.expectedHeaderReceived(ce.attributes().id(), "myEventID2");
-        mock2.expectedHeaderReceived(ce.attributes().source(), "CE5");
+        mock2.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(ce.mandatoryAttribute("time").id()));
+        mock2.expectedHeaderReceived(ce.mandatoryAttribute("version").id(), ce.version());
+        mock2.expectedHeaderReceived(ce.mandatoryAttribute("type").id(), "org.apache.camel.event");
+        mock2.expectedHeaderReceived(ce.mandatoryAttribute("id").id(), "myEventID2");
+        mock2.expectedHeaderReceived(ce.mandatoryAttribute("source").id(), "CE5");
         mock2.expectedBodiesReceived("test");
         mock2.expectedMessageCount(1);
 
         context.createProducerTemplate().send(
             "direct:source",
             e -> {
-                e.getMessage().setHeader(ce.attributes().spec(), ce.version());
-                e.getMessage().setHeader(ce.attributes().type(), "org.apache.camel.event");
-                e.getMessage().setHeader(ce.attributes().id(), "myEventID1");
-                e.getMessage().setHeader(ce.attributes().time(), DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now()));
-                e.getMessage().setHeader(ce.attributes().source(), "CE0");
+                e.getMessage().setHeader(ce.mandatoryAttribute("version").id(), ce.version());
+                e.getMessage().setHeader(ce.mandatoryAttribute("type").id(), "org.apache.camel.event");
+                e.getMessage().setHeader(ce.mandatoryAttribute("id").id(), "myEventID1");
+                e.getMessage().setHeader(ce.mandatoryAttribute("time").id(), DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now()));
+                e.getMessage().setHeader(ce.mandatoryAttribute("source").id(), "CE0");
             }
         );
         context.createProducerTemplate().send(
             "direct:source",
             e -> {
-                e.getMessage().setHeader(ce.attributes().spec(), ce.version());
-                e.getMessage().setHeader(ce.attributes().type(), "org.apache.camel.event");
-                e.getMessage().setHeader(ce.attributes().id(), "myEventID2");
-                e.getMessage().setHeader(ce.attributes().time(), DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now()));
-                e.getMessage().setHeader(ce.attributes().source(), "CE5");
+                e.getMessage().setHeader(ce.mandatoryAttribute("version").id(), ce.version());
+                e.getMessage().setHeader(ce.mandatoryAttribute("type").id(), "org.apache.camel.event");
+                e.getMessage().setHeader(ce.mandatoryAttribute("id").id(), "myEventID2");
+                e.getMessage().setHeader(ce.mandatoryAttribute("time").id(), DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now()));
+                e.getMessage().setHeader(ce.mandatoryAttribute("source").id(), "CE5");
             }
         );
 
@@ -508,41 +520,41 @@ public class KnativeHttpTest {
         context.start();
 
         MockEndpoint mock1 = context.getEndpoint("mock:ce1", MockEndpoint.class);
-        mock1.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(ce.attributes().time()));
-        mock1.expectedHeaderReceived(ce.attributes().spec(), ce.version());
-        mock1.expectedHeaderReceived(ce.attributes().type(), "event1");
-        mock1.expectedHeaderReceived(ce.attributes().id(), "myEventID1");
-        mock1.expectedHeaderReceived(ce.attributes().source(), "CE1");
+        mock1.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(ce.mandatoryAttribute("time").id()));
+        mock1.expectedHeaderReceived(ce.mandatoryAttribute("version").id(), ce.version());
+        mock1.expectedHeaderReceived(ce.mandatoryAttribute("type").id(), "event1");
+        mock1.expectedHeaderReceived(ce.mandatoryAttribute("id").id(), "myEventID1");
+        mock1.expectedHeaderReceived(ce.mandatoryAttribute("source").id(), "CE1");
         mock1.expectedBodiesReceived("test");
         mock1.expectedMessageCount(1);
 
         MockEndpoint mock2 = context.getEndpoint("mock:ce2", MockEndpoint.class);
-        mock2.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(ce.attributes().time()));
-        mock2.expectedHeaderReceived(ce.attributes().spec(), ce.version());
-        mock2.expectedHeaderReceived(ce.attributes().type(), "event2");
-        mock2.expectedHeaderReceived(ce.attributes().id(), "myEventID2");
-        mock2.expectedHeaderReceived(ce.attributes().source(), "CE2");
+        mock2.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(ce.mandatoryAttribute("time").id()));
+        mock2.expectedHeaderReceived(ce.mandatoryAttribute("version").id(), ce.version());
+        mock2.expectedHeaderReceived(ce.mandatoryAttribute("type").id(), "event2");
+        mock2.expectedHeaderReceived(ce.mandatoryAttribute("id").id(), "myEventID2");
+        mock2.expectedHeaderReceived(ce.mandatoryAttribute("source").id(), "CE2");
         mock2.expectedBodiesReceived("test");
         mock2.expectedMessageCount(1);
 
         context.createProducerTemplate().send(
             "direct:source",
             e -> {
-                e.getMessage().setHeader(ce.attributes().spec(), ce.version());
-                e.getMessage().setHeader(ce.attributes().type(), "event1");
-                e.getMessage().setHeader(ce.attributes().id(), "myEventID1");
-                e.getMessage().setHeader(ce.attributes().time(), DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now()));
-                e.getMessage().setHeader(ce.attributes().source(), "CE1");
+                e.getMessage().setHeader(ce.mandatoryAttribute("version").id(), ce.version());
+                e.getMessage().setHeader(ce.mandatoryAttribute("type").id(), "event1");
+                e.getMessage().setHeader(ce.mandatoryAttribute("id").id(), "myEventID1");
+                e.getMessage().setHeader(ce.mandatoryAttribute("time").id(), DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now()));
+                e.getMessage().setHeader(ce.mandatoryAttribute("source").id(), "CE1");
             }
         );
         context.createProducerTemplate().send(
             "direct:source",
             e -> {
-                e.getMessage().setHeader(ce.attributes().spec(), ce.version());
-                e.getMessage().setHeader(ce.attributes().type(), "event2");
-                e.getMessage().setHeader(ce.attributes().id(), "myEventID2");
-                e.getMessage().setHeader(ce.attributes().time(), DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now()));
-                e.getMessage().setHeader(ce.attributes().source(), "CE2");
+                e.getMessage().setHeader(ce.mandatoryAttribute("version").id(), ce.version());
+                e.getMessage().setHeader(ce.mandatoryAttribute("type").id(), "event2");
+                e.getMessage().setHeader(ce.mandatoryAttribute("id").id(), "myEventID2");
+                e.getMessage().setHeader(ce.mandatoryAttribute("time").id(), DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now()));
+                e.getMessage().setHeader(ce.mandatoryAttribute("source").id(), "CE2");
             }
         );
 
@@ -862,11 +874,11 @@ public class KnativeHttpTest {
         context.start();
 
         MockEndpoint mock = context.getEndpoint("mock:ce", MockEndpoint.class);
-        mock.expectedHeaderReceived(ce.attributes().spec(), ce.version());
-        mock.expectedHeaderReceived(ce.attributes().type(), "myEvent");
+        mock.expectedHeaderReceived(ce.mandatoryAttribute("version").id(), ce.version());
+        mock.expectedHeaderReceived(ce.mandatoryAttribute("type").id(), "myEvent");
         mock.expectedHeaderReceived(Exchange.CONTENT_TYPE, "text/plain");
-        mock.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(ce.attributes().time()));
-        mock.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(ce.attributes().id()));
+        mock.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(ce.mandatoryAttribute("time").id()));
+        mock.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(ce.mandatoryAttribute("id").id()));
         mock.expectedBodiesReceived("test");
         mock.expectedMessageCount(1);
 
@@ -922,11 +934,11 @@ public class KnativeHttpTest {
         context.start();
 
         MockEndpoint mock = context.getEndpoint("mock:ce", MockEndpoint.class);
-        mock.expectedHeaderReceived(ce.attributes().spec(), ce.version());
-        mock.expectedHeaderReceived(ce.attributes().type(), "myEvent");
+        mock.expectedHeaderReceived(ce.mandatoryAttribute("version").id(), ce.version());
+        mock.expectedHeaderReceived(ce.mandatoryAttribute("type").id(), "myEvent");
         mock.expectedHeaderReceived(Exchange.CONTENT_TYPE, "text/plain");
-        mock.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(ce.attributes().time()));
-        mock.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(ce.attributes().id()));
+        mock.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(ce.mandatoryAttribute("time").id()));
+        mock.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(ce.mandatoryAttribute("id").id()));
         mock.expectedBodiesReceived("test");
         mock.expectedMessageCount(1);
 
@@ -980,12 +992,12 @@ public class KnativeHttpTest {
         context.start();
 
         MockEndpoint mock = context.getEndpoint("mock:ce", MockEndpoint.class);
-        mock.expectedHeaderReceived(ce.attributes().spec(), ce.version());
-        mock.expectedHeaderReceived(ce.attributes().type(), "org.apache.camel.event");
-        mock.expectedHeaderReceived(ce.attributes().id(), "myEventID");
-        mock.expectedHeaderReceived(ce.attributes().source(), "/somewhere");
+        mock.expectedHeaderReceived(ce.mandatoryAttribute("version").id(), ce.version());
+        mock.expectedHeaderReceived(ce.mandatoryAttribute("type").id(), "org.apache.camel.event");
+        mock.expectedHeaderReceived(ce.mandatoryAttribute("id").id(), "myEventID");
+        mock.expectedHeaderReceived(ce.mandatoryAttribute("source").id(), "/somewhere");
         mock.expectedHeaderReceived(Exchange.CONTENT_TYPE, "text/plain");
-        mock.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(ce.attributes().time()));
+        mock.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(ce.mandatoryAttribute("time").id()));
         mock.expectedBodiesReceived("test");
         mock.expectedMessageCount(1);
 
@@ -993,11 +1005,11 @@ public class KnativeHttpTest {
             "direct:source",
             e -> {
                 e.getMessage().setHeader(Exchange.CONTENT_TYPE, "text/plain");
-                e.getMessage().setHeader(ce.attributes().spec(), ce.version());
-                e.getMessage().setHeader(ce.attributes().type(), "org.apache.camel.event");
-                e.getMessage().setHeader(ce.attributes().id(), "myEventID");
-                e.getMessage().setHeader(ce.attributes().time(), DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now()));
-                e.getMessage().setHeader(ce.attributes().source(), "/somewhere");
+                e.getMessage().setHeader(ce.mandatoryAttribute("version").id(), ce.version());
+                e.getMessage().setHeader(ce.mandatoryAttribute("type").id(), "org.apache.camel.event");
+                e.getMessage().setHeader(ce.mandatoryAttribute("id").id(), "myEventID");
+                e.getMessage().setHeader(ce.mandatoryAttribute("time").id(), DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now()));
+                e.getMessage().setHeader(ce.mandatoryAttribute("source").id(), "/somewhere");
                 e.getMessage().setBody("test");
             }
         );

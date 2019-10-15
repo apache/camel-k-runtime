@@ -16,15 +16,73 @@
  */
 package org.apache.camel.component.knative.spi;
 
-public interface CloudEvent {
-    String version();
-    Attributes attributes();
+import java.util.Collection;
+import java.util.Objects;
+import java.util.Optional;
 
-    interface Attributes {
+public interface CloudEvent {
+    /**
+     * The CloudEvent spec version.
+     */
+    String version();
+
+    /**
+     * List of supported attributes.
+     */
+    Collection<Attribute> attributes();
+
+    /**
+     * Find attribute by id.
+     */
+    default Optional<Attribute> attribute(String id) {
+        return attributes().stream()
+            .filter(a -> Objects.equals(id, a.id()))
+            .findFirst();
+    }
+
+    /**
+     * Mandatory find attribute by id.
+     */
+    default Attribute mandatoryAttribute(String id) {
+        return attributes().stream()
+            .filter(a -> Objects.equals(id, a.id()))
+            .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Unable to find attribute with id: " + id));
+    }
+
+    interface Attribute {
+        /**
+         * The ID of the attributes, can be used to look it up.
+         */
         String id();
-        String source();
-        String spec();
-        String type();
-        String time();
+
+        /**
+         * The name of the http header.
+         */
+        String http();
+
+        /**
+         * The name of the json field.
+         */
+        String json();
+
+        static Attribute simple(String id, String http, String json) {
+            return new Attribute() {
+                @Override
+                public String id() {
+                    return id;
+                }
+
+                @Override
+                public String http() {
+                    return http;
+                }
+
+                @Override
+                public String json() {
+                    return json;
+                }
+            };
+        }
     }
 }

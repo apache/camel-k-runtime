@@ -16,16 +16,108 @@
  */
 package org.apache.camel.component.knative.ce;
 
+import java.util.Map;
 import java.util.Objects;
 
+import org.apache.camel.Exchange;
+import org.apache.camel.Message;
 import org.apache.camel.Processor;
 import org.apache.camel.component.knative.KnativeEndpoint;
 import org.apache.camel.component.knative.spi.CloudEvent;
+import org.apache.camel.component.knative.spi.CloudEvents;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
+import org.apache.commons.lang3.StringUtils;
+
+import static org.apache.camel.util.ObjectHelper.ifNotEmpty;
 
 public enum CloudEventProcessors implements CloudEventProcessor {
-    V01(new CloudEventV01Processor()),
-    V02(new CloudEventV02Processor());
+    V01(new AbstractCloudEventProcessor(CloudEvents.V01) {
+        @Override
+        protected void decodeStructuredContent(Exchange exchange, Map<String, Object> content) {
+            final CloudEvent ce = cloudEvent();
+            final Message message = exchange.getIn();
+
+            // body
+            ifNotEmpty(content.remove("data"), message::setBody);
+
+            ifNotEmpty(content.remove(ce.mandatoryAttribute("content.type").json()), val -> {
+                message.setHeader(Exchange.CONTENT_TYPE, val);
+            });
+
+            //
+            // Map extensions to standard camel headers
+            //
+            ifNotEmpty(content.remove("extensions"), val -> {
+                if (val instanceof Map) {
+                    ((Map<String, Object>) val).forEach(message::setHeader);
+                }
+            });
+
+            for (CloudEvent.Attribute attribute: ce.attributes()) {
+                ifNotEmpty(content.remove(attribute.json()), val -> {
+                    message.setHeader(attribute.id(), val);
+                });
+            }
+        }
+    }),
+    V02(new AbstractCloudEventProcessor(CloudEvents.V02) {
+        @Override
+        protected void decodeStructuredContent(Exchange exchange, Map<String, Object> content) {
+            final CloudEvent ce = cloudEvent();
+            final Message message = exchange.getIn();
+
+            // body
+            ifNotEmpty(content.remove("data"), message::setBody);
+
+            ifNotEmpty(content.remove(ce.mandatoryAttribute("content.type").json()), val -> {
+                message.setHeader(Exchange.CONTENT_TYPE, val);
+            });
+
+            for (CloudEvent.Attribute attribute: ce.attributes()) {
+                ifNotEmpty(content.remove(attribute.json()), val -> {
+                    message.setHeader(attribute.id(), val);
+                });
+            }
+
+            //
+            // Map every remaining field as it is (extensions).
+            //
+            content.forEach((key, val) -> {
+                message.setHeader(StringUtils.lowerCase(key), val);
+            });
+
+        }
+    }),
+    V03(new AbstractCloudEventProcessor(CloudEvents.V03) {
+        @Override
+        protected void decodeStructuredContent(Exchange exchange, Map<String, Object> content) {
+            final CloudEvent ce = cloudEvent();
+            final Message message = exchange.getIn();
+
+            // body
+            ifNotEmpty(content.remove("data"), message::setBody);
+
+            ifNotEmpty(content.remove(ce.mandatoryAttribute("data.content.type").json()), val -> {
+                message.setHeader(Exchange.CONTENT_TYPE, val);
+            });
+            ifNotEmpty(content.remove(ce.mandatoryAttribute("data.content.encoding").json()), val -> {
+                message.setBody(val);
+            });
+
+            for (CloudEvent.Attribute attribute: ce.attributes()) {
+                ifNotEmpty(content.remove(attribute.json()), val -> {
+                    message.setHeader(attribute.id(), val);
+                });
+            }
+
+            //
+            // Map every remaining field as it is (extensions).
+            //
+            content.forEach((key, val) -> {
+                message.setHeader(StringUtils.lowerCase(key), val);
+            });
+        }
+    });
 
     private final CloudEventProcessor instance;
 

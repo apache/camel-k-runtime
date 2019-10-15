@@ -32,8 +32,8 @@ public class KnativeConfiguration implements Cloneable {
     private String serviceName;
     @UriParam(defaultValue = "false")
     private boolean jsonSerializationEnabled;
-    @UriParam(defaultValue = "0.2", enums = "0.1,0.2")
-    private String cloudEventsSpecVersion = CloudEvents.V02.version();
+    @UriParam(defaultValue = "0.3", enums = "0.1,0.2,0.3")
+    private String cloudEventsSpecVersion = CloudEvents.V03.version();
     @UriParam(defaultValue = "org.apache.camel.event")
     private String cloudEventsType = "org.apache.camel.event";
     @UriParam(prefix = "transport.")
