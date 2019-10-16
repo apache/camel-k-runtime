@@ -1017,5 +1017,77 @@ public class KnativeHttpTest {
         mock.assertIsSatisfied();
     }
 
+    @ParameterizedTest
+    @MethodSource("provideCloudEventsImplementations")
+    void testWrongMethod(CloudEvent ce) throws Exception {
+        KnativeEnvironment env = KnativeEnvironment.on(
+            KnativeEnvironment.endpoint(
+                Knative.EndpointKind.source,
+                "myEndpoint",
+                "localhost",
+                port,
+                KnativeSupport.mapOf(
+                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.CONTENT_TYPE, "text/plain"
+                ))
+        );
+
+        KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
+        component.setCloudEventsSpecVersion(ce.version());
+        component.setEnvironment(env);
+
+        context.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("knative:endpoint/myEndpoint")
+                    .to("mock:ce");
+                from("direct:start")
+                    .toF("undertow:http://localhost:%d", port);
+            }
+        });
+
+        context.start();
+
+        Exchange exchange = template.request("direct:start", e -> e.getMessage().setBody(null));
+        assertThat(exchange.isFailed()).isTrue();
+        assertThat(exchange.getException()).isInstanceOf(CamelException.class);
+        assertThat(exchange.getException()).hasMessageStartingWith("HTTP operation failed invoking");
+        assertThat(exchange.getException()).hasMessageEndingWith("with statusCode: 405");
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideCloudEventsImplementations")
+    void testNoBody(CloudEvent ce) throws Exception {
+        KnativeEnvironment env = KnativeEnvironment.on(
+            KnativeEnvironment.endpoint(
+                Knative.EndpointKind.sink,
+                "myEndpoint",
+                "localhost",
+                port,
+                KnativeSupport.mapOf(
+                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.CONTENT_TYPE, "text/plain"
+                ))
+        );
+
+        KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
+        component.setCloudEventsSpecVersion(ce.version());
+        component.setEnvironment(env);
+
+        context.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start")
+                    .to("knative:endpoint/myEndpoint");
+            }
+        });
+
+        context.start();
+
+        Exchange exchange = template.request("direct:start", e -> e.getMessage().setBody(null));
+        assertThat(exchange.isFailed()).isTrue();
+        assertThat(exchange.getException()).isInstanceOf(IllegalArgumentException.class);
+        assertThat(exchange.getException()).hasMessage("body must not be null");
+    }
 }
 
