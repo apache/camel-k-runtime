@@ -24,6 +24,8 @@ import org.apache.camel.impl.DefaultCamelContext
 import org.apache.camel.k.Runtime
 import org.apache.camel.k.listener.RoutesConfigurer.forRoutes
 import org.apache.camel.model.ModelCamelContext
+import org.apache.camel.model.rest.GetVerbDefinition
+import org.apache.camel.model.rest.PostVerbDefinition
 import org.apache.camel.processor.FatalFallbackErrorHandler
 import org.apache.camel.support.DefaultHeaderFilterStrategy
 import org.assertj.core.api.Assertions.assertThat
@@ -42,8 +44,29 @@ class IntegrationTest {
         assertThat(context.restConfiguration.port).isEqualTo(9192)
         assertThat(context.getRestConfiguration("undertow", false).host).isEqualTo("my-undertow-host")
         assertThat(context.getRestConfiguration("undertow", false).port).isEqualTo(9193)
-        assertThat(context.adapt(ModelCamelContext::class.java).restDefinitions.size).isEqualTo(1)
-        assertThat(context.adapt(ModelCamelContext::class.java).restDefinitions[0].path).isEqualTo("/my/path")
+        assertThat(context.adapt(ModelCamelContext::class.java).restDefinitions.size).isEqualTo(2)
+
+        with(context.adapt(ModelCamelContext::class.java).restDefinitions.find { it.path == "/my/path" }) {
+            assertThat(this?.verbs).hasSize(1)
+
+            with(this?.verbs?.get(0) as GetVerbDefinition) {
+                assertThat(uri).isEqualTo("/get")
+                assertThat(consumes).isEqualTo("application/json")
+                assertThat(produces).isEqualTo("application/json")
+                assertThat(to).hasFieldOrPropertyWithValue("endpointUri", "direct:get")
+            }
+        }
+
+        with(context.adapt(ModelCamelContext::class.java).restDefinitions.find { it.path == "/post" }) {
+            assertThat(this?.verbs).hasSize(1)
+
+            with(this?.verbs?.get(0) as PostVerbDefinition) {
+                assertThat(uri).isNull()
+                assertThat(consumes).isEqualTo("application/json")
+                assertThat(produces).isEqualTo("application/json")
+                assertThat(to).hasFieldOrPropertyWithValue("endpointUri", "direct:post")
+            }
+        }
     }
 
     @Test
