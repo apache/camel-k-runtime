@@ -69,6 +69,13 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
 
     @Override
     public boolean process(Exchange exchange, AsyncCallback callback) {
+        if (exchange.getMessage().getBody() == null) {
+            exchange.setException(new IllegalArgumentException("body must not be null"));
+            callback.done(true);
+
+            return true;
+        }
+
         final byte[] payload;
 
         try {

@@ -25,6 +25,7 @@ import java.util.concurrent.ExecutorService;
 
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
+import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerOptions;
 import io.vertx.core.http.HttpServerRequest;
@@ -167,6 +168,15 @@ public final class KnativeHttpConsumerDispatcher {
 
         @Override
         public void handle(HttpServerRequest request) {
+            if (request.method() != HttpMethod.POST) {
+                HttpServerResponse response = request.response();
+                response.setStatusCode(405);
+                response.putHeader(Exchange.CONTENT_TYPE, "text/plain");
+                response.end("Unsupported method: " + request.method());
+
+                return;
+            }
+
             LOGGER.debug("received exchange on path: {}, headers: {}",
                 request.path(),
                 request.headers()
