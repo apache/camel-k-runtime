@@ -18,7 +18,6 @@ package org.apache.camel.k.loader.groovy.dsl
 
 import org.apache.camel.builder.RouteBuilder
 import org.apache.camel.model.rest.RestConfigurationDefinition
-import org.apache.camel.model.rest.RestDefinition
 
 class RestConfiguration extends RestVerbConfiguration {
     RestConfiguration(RouteBuilder builder) {
@@ -37,7 +36,7 @@ class RestConfiguration extends RestVerbConfiguration {
         callable.call()
     }
 
-    def path(String path, @DelegatesTo(RestDefinition) Closure<?> callable) {
+    def path(String path, @DelegatesTo(RestVerbConfiguration) Closure<?> callable) {
         callable.resolveStrategy = Closure.DELEGATE_FIRST
         callable.delegate = new RestVerbConfiguration(builder, path)
         callable.call()

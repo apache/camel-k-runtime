@@ -22,6 +22,7 @@ import org.apache.camel.builder.endpoint.EndpointBuilderFactory
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder
 import org.apache.camel.k.loader.kotlin.KotlinCompilationConfiguration
 import org.apache.camel.model.*
+import org.apache.camel.model.rest.RestDefinition
 import org.apache.camel.spi.Registry
 import kotlin.script.experimental.annotations.KotlinScript
 
@@ -30,16 +31,20 @@ abstract class IntegrationConfiguration(
         private val registry : Registry,
         private val builder : EndpointRouteBuilder) : BuilderSupport(builder.context), Support, EndpointBuilderFactory {
 
+    fun rest(): RestDefinition {
+        return builder.rest()
+    }
+
     fun rest(block: RestConfiguration.() -> Unit) {
         RestConfiguration(builder).block()
     }
 
     fun beans(block: BeansConfiguration.() -> Unit) {
-        BeansConfiguration(context = context).block()
+        BeansConfiguration(context).block()
     }
 
     fun context(block: ContextConfiguration.() -> Unit) {
-        ContextConfiguration(context = context, registry = registry).block()
+        ContextConfiguration(context, registry).block()
     }
 
     fun from(uri: String): RouteDefinition {

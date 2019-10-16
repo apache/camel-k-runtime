@@ -11,6 +11,18 @@ rest {
     }
 
     path("/my/path") {
+        get("/get") {
+            consumes("application/json")
+            produces("application/json")
+            to("direct:get")
+        }
+    }
+
+    post {
+        path("/post")
+        consumes("application/json")
+        produces("application/json")
+        to("direct:post")
     }
 }
 

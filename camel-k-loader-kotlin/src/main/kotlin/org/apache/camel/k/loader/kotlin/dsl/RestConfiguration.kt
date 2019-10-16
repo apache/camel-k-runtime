@@ -18,9 +18,9 @@ package org.apache.camel.k.loader.kotlin.dsl
 
 import org.apache.camel.builder.RouteBuilder
 import org.apache.camel.model.rest.RestConfigurationDefinition
-import org.apache.camel.model.rest.RestDefinition
 
-class RestConfiguration(val builder: RouteBuilder) {
+class RestConfiguration(
+        private val builder: RouteBuilder) : RestVerbConfiguration(builder, builder.rest()) {
 
     fun configuration(block: RestConfigurationDefinition.() -> Unit) {
         val delegate = builder.restConfiguration()
@@ -32,8 +32,7 @@ class RestConfiguration(val builder: RouteBuilder) {
         delegate.block()
     }
 
-    fun path(path: String, block: RestDefinition.() -> Unit) {
-        val delegate = builder.rest(path)
-        delegate.block()
+    fun path(path: String, block: RestVerbConfiguration.() -> Unit) {
+        RestVerbConfiguration(builder, path).block()
     }
 }
