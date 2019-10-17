@@ -24,7 +24,6 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 import io.vertx.core.buffer.Buffer;
-import io.vertx.core.http.HttpHeaders;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
@@ -99,21 +98,24 @@ public class KnativeHttpConsumer extends DefaultConsumer implements KnativeHttp.
                     getAsyncProcessor().process(exchange, doneSync -> {
                         try {
                             HttpServerResponse response = toHttpResponse(request, exchange.getMessage());
-                            Buffer body = computeResponseBody(exchange.getMessage());
+                            Buffer body = null;
 
-                            // set the content type in the response.
-                            String contentType = MessageHelper.getContentType(exchange.getMessage());
-                            if (contentType != null) {
-                                // set content-type
-                                response.putHeader(Exchange.CONTENT_TYPE, contentType);
+                            if (request.response().getStatusCode() != 204) {
+                                body = computeResponseBody(exchange.getMessage());
+
+                                // set the content type in the response.
+                                String contentType = MessageHelper.getContentType(exchange.getMessage());
+                                if (contentType != null) {
+                                    // set content-type
+                                    response.putHeader(Exchange.CONTENT_TYPE, contentType);
+                                }
                             }
 
-                            if (body == null) {
-                                request.response().setStatusCode(204);
-                                request.response().putHeader(HttpHeaders.CONTENT_TYPE, "text/plain");
-                                request.response().end("No response available");
-                            } else {
+                            if (body != null) {
                                 request.response().end(body);
+                            } else {
+                                request.response().setStatusCode(204);
+                                request.response().end();
                             }
                         } catch (Exception e) {
                             getExceptionHandler().handleException(e);
@@ -214,9 +216,9 @@ public class KnativeHttpConsumer extends DefaultConsumer implements KnativeHttp.
             ExchangeHelper.setFailureHandled(message.getExchange());
         }
 
-        return Buffer.buffer(
-            message.getExchange().getContext().getTypeConverter().mandatoryConvertTo(byte[].class, body)
-        );
+        return body != null
+            ? Buffer.buffer(message.getExchange().getContext().getTypeConverter().mandatoryConvertTo(byte[].class, body))
+            : null;
     }
 
 }
