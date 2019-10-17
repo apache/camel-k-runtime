@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 def catalogVersion = '3.0.0-RC1'
-def runtimeVersion = '1.0.2-SNAPSHOT'
+def runtimeVersion = '1.0.4'
 
 def source  = new File(basedir, "camel-catalog-${catalogVersion}-${runtimeVersion}.yaml")
 def catalog = new org.yaml.snakeyaml.Yaml().load(new FileInputStream(source))
