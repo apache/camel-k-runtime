@@ -38,6 +38,7 @@
         <camel.version>3.0.0-RC1</camel.version>
         <camel-quarkus.version>0.2.0</camel-quarkus.version>
         <catalog.version>${camel.version}</catalog.version>
+        <quarkus.catalog.version>0.2.1-SNAPSHOT</quarkus.catalog.version>
         <junit.version>5.5.2</junit.version>
         <joor.version>0.9.12</joor.version>
         <commons-io.version>2.6</commons-io.version>
