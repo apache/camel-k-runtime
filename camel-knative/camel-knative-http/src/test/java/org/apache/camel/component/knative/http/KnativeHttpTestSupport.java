@@ -16,6 +16,9 @@
  */
 package org.apache.camel.component.knative.http;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.knative.KnativeComponent;
 import org.apache.camel.component.knative.spi.CloudEvent;
@@ -26,10 +29,13 @@ public final class KnativeHttpTestSupport {
     }
 
     public static KnativeComponent configureKnativeComponent(CamelContext context, CloudEvent ce, KnativeEnvironment.KnativeServiceDefinition... definitions) {
-        KnativeEnvironment env = KnativeEnvironment.on(definitions);
+        return configureKnativeComponent(context, ce, Arrays.asList(definitions));
+    }
+
+    public static KnativeComponent configureKnativeComponent(CamelContext context, CloudEvent ce, List<KnativeEnvironment.KnativeServiceDefinition> definitions) {
         KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
         component.setCloudEventsSpecVersion(ce.version());
-        component.setEnvironment(env);
+        component.setEnvironment(new KnativeEnvironment(definitions));
 
         return component;
     }

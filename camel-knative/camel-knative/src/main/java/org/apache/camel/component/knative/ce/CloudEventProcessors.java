@@ -32,6 +32,7 @@ import static org.apache.camel.util.ObjectHelper.ifNotEmpty;
 
 public enum CloudEventProcessors implements CloudEventProcessor {
     V01(new AbstractCloudEventProcessor(CloudEvents.V01) {
+        @SuppressWarnings("unchecked")
         @Override
         protected void decodeStructuredContent(Exchange exchange, Map<String, Object> content) {
             final CloudEvent ce = cloudEvent();
