@@ -22,6 +22,7 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.undertow.Undertow;
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelException;
 import org.apache.camel.Exchange;
@@ -31,7 +32,6 @@ import org.apache.camel.component.knative.KnativeComponent;
 import org.apache.camel.component.knative.spi.CloudEvent;
 import org.apache.camel.component.knative.spi.CloudEvents;
 import org.apache.camel.component.knative.spi.Knative;
-import org.apache.camel.component.knative.spi.KnativeEnvironment;
 import org.apache.camel.component.knative.spi.KnativeSupport;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.http.common.HttpOperationFailedException;
@@ -44,6 +44,10 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import static org.apache.camel.component.knative.http.KnativeHttpTestSupport.configureKnativeComponent;
+import static org.apache.camel.component.knative.spi.KnativeEnvironment.channel;
+import static org.apache.camel.component.knative.spi.KnativeEnvironment.endpoint;
+import static org.apache.camel.component.knative.spi.KnativeEnvironment.event;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class KnativeHttpTest {
@@ -99,8 +103,10 @@ public class KnativeHttpTest {
     @ParameterizedTest
     @MethodSource("provideCloudEventsImplementations")
     void testInvokeEndpoint(CloudEvent ce) throws Exception {
-        KnativeEnvironment env = KnativeEnvironment.on(
-            KnativeEnvironment.endpoint(
+        configureKnativeComponent(
+            context,
+            ce,
+            endpoint(
                 Knative.EndpointKind.sink,
                 "myEndpoint",
                 "localhost",
@@ -111,11 +117,6 @@ public class KnativeHttpTest {
                     Knative.CONTENT_TYPE, "text/plain"
                 ))
         );
-
-        KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
-        component.setProtocol(Knative.Protocol.http);
-        component.setCloudEventsSpecVersion(ce.version());
-        component.setEnvironment(env);
 
         context.addRoutes(new RouteBuilder() {
             @Override
@@ -147,8 +148,10 @@ public class KnativeHttpTest {
     @ParameterizedTest
     @MethodSource("provideCloudEventsImplementations")
     void testConsumeStructuredContent(CloudEvent ce) throws Exception {
-        KnativeEnvironment env = KnativeEnvironment.on(
-            KnativeEnvironment.endpoint(
+        configureKnativeComponent(
+            context,
+            ce,
+            endpoint(
                 Knative.EndpointKind.source,
                 "myEndpoint",
                 "localhost",
@@ -159,10 +162,6 @@ public class KnativeHttpTest {
                     Knative.CONTENT_TYPE, "text/plain"
                 ))
         );
-
-        KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
-        component.setCloudEventsSpecVersion(ce.version());
-        component.setEnvironment(env);
 
         context.addRoutes(new RouteBuilder() {
             @Override
@@ -233,8 +232,10 @@ public class KnativeHttpTest {
     @ParameterizedTest
     @MethodSource("provideCloudEventsImplementations")
     void testConsumeContent(CloudEvent ce) throws Exception {
-        KnativeEnvironment env = KnativeEnvironment.on(
-            KnativeEnvironment.endpoint(
+        configureKnativeComponent(
+            context,
+            ce,
+            endpoint(
                 Knative.EndpointKind.source,
                 "myEndpoint",
                 "localhost",
@@ -245,10 +246,6 @@ public class KnativeHttpTest {
                     Knative.CONTENT_TYPE, "text/plain"
                 ))
         );
-
-        KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
-        component.setCloudEventsSpecVersion(ce.version());
-        component.setEnvironment(env);
 
         context.addRoutes(new RouteBuilder() {
             @Override
@@ -292,8 +289,10 @@ public class KnativeHttpTest {
     @ParameterizedTest
     @MethodSource("provideCloudEventsImplementations")
     void testConsumeContentWithFilter(CloudEvent ce) throws Exception {
-        KnativeEnvironment env = KnativeEnvironment.on(
-            KnativeEnvironment.endpoint(
+        configureKnativeComponent(
+            context,
+            ce,
+            endpoint(
                 Knative.EndpointKind.source,
                 "ep1",
                 "localhost",
@@ -303,7 +302,7 @@ public class KnativeHttpTest {
                     Knative.CONTENT_TYPE, "text/plain",
                     Knative.KNATIVE_FILTER_PREFIX + ce.mandatoryAttribute("source").id(), "CE1"
                 )),
-            KnativeEnvironment.endpoint(
+            endpoint(
                 Knative.EndpointKind.source,
                 "ep2",
                 "localhost",
@@ -314,10 +313,6 @@ public class KnativeHttpTest {
                     Knative.KNATIVE_FILTER_PREFIX + ce.mandatoryAttribute("source").id(), "CE2"
                 ))
         );
-
-        KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
-        component.setCloudEventsSpecVersion(ce.version());
-        component.setEnvironment(env);
 
         context.addRoutes(new RouteBuilder() {
             @Override
@@ -388,8 +383,10 @@ public class KnativeHttpTest {
     @ParameterizedTest
     @MethodSource("provideCloudEventsImplementations")
     void testConsumeContentWithRegExFilter(CloudEvent ce) throws Exception {
-        KnativeEnvironment env = KnativeEnvironment.on(
-            KnativeEnvironment.endpoint(
+        configureKnativeComponent(
+            context,
+            ce,
+            endpoint(
                 Knative.EndpointKind.source,
                 "ep1",
                 "localhost",
@@ -399,7 +396,7 @@ public class KnativeHttpTest {
                     Knative.CONTENT_TYPE, "text/plain",
                     Knative.KNATIVE_FILTER_PREFIX + ce.mandatoryAttribute("source").id(), "CE[01234]"
                 )),
-            KnativeEnvironment.endpoint(
+            endpoint(
                 Knative.EndpointKind.source,
                 "ep2",
                 "localhost",
@@ -410,10 +407,6 @@ public class KnativeHttpTest {
                     Knative.KNATIVE_FILTER_PREFIX + ce.mandatoryAttribute("source").id(), "CE[56789]"
                 ))
         );
-
-        KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
-        component.setCloudEventsSpecVersion(ce.version());
-        component.setEnvironment(env);
 
         context.addRoutes(new RouteBuilder() {
             @Override
@@ -484,17 +477,15 @@ public class KnativeHttpTest {
     @ParameterizedTest
     @MethodSource("provideCloudEventsImplementations")
     void testConsumeEventContent(CloudEvent ce) throws Exception {
-        KnativeEnvironment env = KnativeEnvironment.on(
-            KnativeEnvironment.event(
+        configureKnativeComponent(
+            context,
+            ce,
+            event(
                 Knative.EndpointKind.source,
                 "default",
                 "localhost",
                 port)
         );
-
-        KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
-        component.setCloudEventsSpecVersion(ce.version());
-        component.setEnvironment(env);
 
         context.addRoutes(new RouteBuilder() {
             @Override
@@ -565,8 +556,10 @@ public class KnativeHttpTest {
     @ParameterizedTest
     @MethodSource("provideCloudEventsImplementations")
     void testReply(CloudEvent ce) throws Exception {
-        KnativeEnvironment env = KnativeEnvironment.on(
-            KnativeEnvironment.endpoint(
+        configureKnativeComponent(
+            context,
+            ce,
+            endpoint(
                 Knative.EndpointKind.source,
                 "from",
                 "localhost",
@@ -575,7 +568,7 @@ public class KnativeHttpTest {
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 )),
-            KnativeEnvironment.endpoint(
+            endpoint(
                 Knative.EndpointKind.sink,
                 "to",
                 "localhost",
@@ -585,10 +578,6 @@ public class KnativeHttpTest {
                     Knative.CONTENT_TYPE, "text/plain"
                 ))
         );
-
-        KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
-        component.setCloudEventsSpecVersion(ce.version());
-        component.setEnvironment(env);
 
         context.addRoutes(new RouteBuilder() {
             @Override
@@ -617,10 +606,10 @@ public class KnativeHttpTest {
     @ParameterizedTest
     @MethodSource("provideCloudEventsImplementations")
     void testInvokeServiceWithoutHost(CloudEvent ce) throws Exception {
-        KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
-        component.setCloudEventsSpecVersion(ce.version());
-        component.setEnvironment(KnativeEnvironment.on(
-            KnativeEnvironment.endpoint(
+        configureKnativeComponent(
+            context,
+            ce,
+            endpoint(
                 Knative.EndpointKind.sink,
                 "test",
                 "",
@@ -630,7 +619,7 @@ public class KnativeHttpTest {
                     Knative.CONTENT_TYPE, "text/plain"
                 )
             )
-        ));
+        );
 
         RouteBuilder.addRoutes(context, b -> {
             b.from("direct:start")
@@ -649,10 +638,10 @@ public class KnativeHttpTest {
     @ParameterizedTest
     @MethodSource("provideCloudEventsImplementations")
     void testInvokeNotExistingEndpoint(CloudEvent ce) throws Exception {
-        KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
-        component.setCloudEventsSpecVersion(ce.version());
-        component.setEnvironment(KnativeEnvironment.on(
-            KnativeEnvironment.endpoint(
+        configureKnativeComponent(
+            context,
+            ce,
+            endpoint(
                 Knative.EndpointKind.sink,
                 "test",
                 "localhost",
@@ -662,7 +651,7 @@ public class KnativeHttpTest {
                     Knative.CONTENT_TYPE, "text/plain"
                 )
             )
-        ));
+        );
 
         RouteBuilder.addRoutes(context, b -> {
             b.from("direct:start")
@@ -681,10 +670,10 @@ public class KnativeHttpTest {
     @ParameterizedTest
     @MethodSource("provideCloudEventsImplementations")
     void testRemoveConsumer(CloudEvent ce) throws Exception {
-        KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
-        component.setCloudEventsSpecVersion(ce.version());
-        component.setEnvironment(KnativeEnvironment.on(
-            KnativeEnvironment.endpoint(
+        configureKnativeComponent(
+            context,
+            ce,
+            endpoint(
                 Knative.EndpointKind.source,
                 "ep1",
                 "localhost",
@@ -695,7 +684,7 @@ public class KnativeHttpTest {
                     Knative.KNATIVE_FILTER_PREFIX + "h", "h1"
                 )
             ),
-            KnativeEnvironment.endpoint(
+            endpoint(
                 Knative.EndpointKind.source,
                 "ep2",
                 "localhost",
@@ -706,7 +695,7 @@ public class KnativeHttpTest {
                     Knative.KNATIVE_FILTER_PREFIX + "h", "h2"
                 )
             )
-        ));
+        );
 
         RouteBuilder.addRoutes(context, b -> {
             b.from("knative:endpoint/ep1")
@@ -738,10 +727,10 @@ public class KnativeHttpTest {
     @ParameterizedTest
     @MethodSource("provideCloudEventsImplementations")
     void testAddConsumer(CloudEvent ce) throws Exception {
-        KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
-        component.setCloudEventsSpecVersion(ce.version());
-        component.setEnvironment(KnativeEnvironment.on(
-            KnativeEnvironment.endpoint(
+        configureKnativeComponent(
+            context,
+            ce,
+            endpoint(
                 Knative.EndpointKind.source,
                 "ep1",
                 "localhost",
@@ -752,7 +741,7 @@ public class KnativeHttpTest {
                     Knative.KNATIVE_FILTER_PREFIX + "h", "h1"
                 )
             ),
-            KnativeEnvironment.endpoint(
+            endpoint(
                 Knative.EndpointKind.source,
                 "ep2",
                 "localhost",
@@ -763,7 +752,7 @@ public class KnativeHttpTest {
                     Knative.KNATIVE_FILTER_PREFIX + "h", "h2"
                 )
             )
-        ));
+        );
 
         RouteBuilder.addRoutes(context, b -> {
             b.from("knative:endpoint/ep1")
@@ -797,10 +786,10 @@ public class KnativeHttpTest {
     @ParameterizedTest
     @MethodSource("provideCloudEventsImplementations")
     void testInvokeEndpointWithError(CloudEvent ce) throws Exception {
-        KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
-        component.setCloudEventsSpecVersion(ce.version());
-        component.setEnvironment(KnativeEnvironment.on(
-            KnativeEnvironment.endpoint(
+        configureKnativeComponent(
+            context,
+            ce,
+            endpoint(
                 Knative.EndpointKind.sink,
                 "ep",
                 "localhost",
@@ -810,7 +799,7 @@ public class KnativeHttpTest {
                     Knative.CONTENT_TYPE, "text/plain"
                 )
             )
-        ));
+        );
 
         RouteBuilder.addRoutes(context, b -> {
             b.from("direct:start")
@@ -835,8 +824,10 @@ public class KnativeHttpTest {
     @ParameterizedTest
     @MethodSource("provideCloudEventsImplementations")
     void testEvents(CloudEvent ce) throws Exception {
-        KnativeEnvironment env = KnativeEnvironment.on(
-            KnativeEnvironment.event(
+        configureKnativeComponent(
+            context,
+            ce,
+            event(
                 Knative.EndpointKind.sink,
                 "default",
                 "localhost",
@@ -845,7 +836,7 @@ public class KnativeHttpTest {
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 )),
-            KnativeEnvironment.event(
+            event(
                 Knative.EndpointKind.source,
                 "default",
                 "localhost",
@@ -855,11 +846,6 @@ public class KnativeHttpTest {
                     Knative.CONTENT_TYPE, "text/plain"
                 ))
         );
-
-        KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
-        component.setProtocol(Knative.Protocol.http);
-        component.setCloudEventsSpecVersion(ce.version());
-        component.setEnvironment(env);
 
         context.addRoutes(new RouteBuilder() {
             @Override
@@ -890,8 +876,10 @@ public class KnativeHttpTest {
     @ParameterizedTest
     @MethodSource("provideCloudEventsImplementations")
     void testEventsWithTypeAndVersion(CloudEvent ce) throws Exception {
-        KnativeEnvironment env = KnativeEnvironment.on(
-            KnativeEnvironment.event(
+        configureKnativeComponent(
+            context,
+            ce,
+            event(
                 Knative.EndpointKind.sink,
                 "default",
                 "localhost",
@@ -902,7 +890,7 @@ public class KnativeHttpTest {
                     Knative.KNATIVE_KIND, "MyObject",
                     Knative.KNATIVE_API_VERSION, "v1"
                 )),
-            KnativeEnvironment.event(
+            event(
                 Knative.EndpointKind.source,
                 "default",
                 "localhost",
@@ -914,11 +902,6 @@ public class KnativeHttpTest {
                     Knative.KNATIVE_API_VERSION, "v2"
                 ))
         );
-
-        KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
-        component.setProtocol(Knative.Protocol.http);
-        component.setCloudEventsSpecVersion(ce.version());
-        component.setEnvironment(env);
 
         context.addRoutes(new RouteBuilder() {
             @Override
@@ -950,8 +933,10 @@ public class KnativeHttpTest {
     @ParameterizedTest
     @MethodSource("provideCloudEventsImplementations")
     void testConsumeContentWithTypeAndVersion(CloudEvent ce) throws Exception {
-        KnativeEnvironment env = KnativeEnvironment.on(
-            KnativeEnvironment.endpoint(
+        configureKnativeComponent(
+            context,
+            ce,
+            endpoint(
                 Knative.EndpointKind.source,
                 "myEndpoint",
                 "localhost",
@@ -962,7 +947,7 @@ public class KnativeHttpTest {
                     Knative.KNATIVE_KIND, "MyObject",
                     Knative.KNATIVE_API_VERSION, "v1"
                 )),
-            KnativeEnvironment.endpoint(
+            endpoint(
                 Knative.EndpointKind.source,
                 "myEndpoint",
                 "localhost",
@@ -974,10 +959,6 @@ public class KnativeHttpTest {
                     Knative.KNATIVE_API_VERSION, "v2"
                 ))
         );
-
-        KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
-        component.setCloudEventsSpecVersion(ce.version());
-        component.setEnvironment(env);
 
         context.addRoutes(new RouteBuilder() {
             @Override
@@ -1020,8 +1001,10 @@ public class KnativeHttpTest {
     @ParameterizedTest
     @MethodSource("provideCloudEventsImplementations")
     void testWrongMethod(CloudEvent ce) throws Exception {
-        KnativeEnvironment env = KnativeEnvironment.on(
-            KnativeEnvironment.endpoint(
+        configureKnativeComponent(
+            context,
+            ce,
+            endpoint(
                 Knative.EndpointKind.source,
                 "myEndpoint",
                 "localhost",
@@ -1031,10 +1014,6 @@ public class KnativeHttpTest {
                     Knative.CONTENT_TYPE, "text/plain"
                 ))
         );
-
-        KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
-        component.setCloudEventsSpecVersion(ce.version());
-        component.setEnvironment(env);
 
         context.addRoutes(new RouteBuilder() {
             @Override
@@ -1058,8 +1037,10 @@ public class KnativeHttpTest {
     @ParameterizedTest
     @MethodSource("provideCloudEventsImplementations")
     void testNoBody(CloudEvent ce) throws Exception {
-        KnativeEnvironment env = KnativeEnvironment.on(
-            KnativeEnvironment.endpoint(
+        configureKnativeComponent(
+            context,
+            ce,
+            endpoint(
                 Knative.EndpointKind.sink,
                 "myEndpoint",
                 "localhost",
@@ -1069,10 +1050,6 @@ public class KnativeHttpTest {
                     Knative.CONTENT_TYPE, "text/plain"
                 ))
         );
-
-        KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
-        component.setCloudEventsSpecVersion(ce.version());
-        component.setEnvironment(env);
 
         context.addRoutes(new RouteBuilder() {
             @Override
@@ -1088,6 +1065,77 @@ public class KnativeHttpTest {
         assertThat(exchange.isFailed()).isTrue();
         assertThat(exchange.getException()).isInstanceOf(IllegalArgumentException.class);
         assertThat(exchange.getException()).hasMessage("body must not be null");
+    }
+
+
+
+    @ParameterizedTest
+    @MethodSource("provideCloudEventsImplementations")
+    void testNoContent(CloudEvent ce) throws Exception {
+        final int messagesPort = AvailablePortFinder.getNextAvailable();
+        final int wordsPort = AvailablePortFinder.getNextAvailable();
+
+        configureKnativeComponent(
+            context,
+            ce,
+            channel(
+                Knative.EndpointKind.source,
+                "messages",
+                "localhost",
+                messagesPort,
+                KnativeSupport.mapOf(
+                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.CONTENT_TYPE, "text/plain"
+                )),
+            channel(
+                Knative.EndpointKind.sink,
+                "messages",
+                "localhost",
+                messagesPort,
+                KnativeSupport.mapOf(
+                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.CONTENT_TYPE, "text/plain"
+                )),
+            channel(
+                Knative.EndpointKind.sink,
+                "words",
+                "localhost",
+                wordsPort,
+                KnativeSupport.mapOf(
+                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.CONTENT_TYPE, "text/plain"
+                ))
+        );
+
+        Undertow server = Undertow.builder()
+            .addHttpListener(wordsPort, "localhost")
+            .setHandler(exchange -> {
+                exchange.setStatusCode(204);
+                exchange.getResponseSender().send("");
+            })
+            .build();
+
+        try {
+            server.start();
+
+            context.addRoutes(new RouteBuilder() {
+                @Override
+                public void configure() throws Exception {
+                    from("knative:channel/messages")
+                        .transform().simple("transformed ${body}")
+                        .log("${body}")
+                        .to("knative:channel/words");
+                }
+            });
+
+            context.start();
+
+            Exchange exchange = template.request("knative:channel/messages", e -> e.getMessage().setBody("message"));
+            assertThat(exchange.getMessage().getHeaders()).containsEntry(Exchange.HTTP_RESPONSE_CODE, 204);
+            assertThat(exchange.getMessage().getBody()).isNull();
+        } finally {
+            server.stop();
+        }
     }
 }
 
