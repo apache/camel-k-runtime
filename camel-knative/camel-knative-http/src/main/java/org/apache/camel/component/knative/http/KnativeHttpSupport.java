@@ -70,11 +70,19 @@ public final  class KnativeHttpSupport {
             }
 
             for (Map.Entry<String, String> entry : filters.entrySet()) {
-                String ref = entry.getValue();
-                String val = v.getHeader(entry.getKey());
+                final List<String> values = v.headers().getAll(entry.getKey());
+                final String ref = entry.getValue();
 
-                if (val == null) {
+                if (values.isEmpty()) {
                     return false;
+                }
+
+                String val = values.get(values.size() - 1);
+                int idx = val.lastIndexOf(',');
+
+                if (values.size() == 1 && idx != -1) {
+                    val = val.substring(idx + 1);
+                    val = val.trim();
                 }
 
                 boolean matches = Objects.equals(ref, val) || val.matches(ref);

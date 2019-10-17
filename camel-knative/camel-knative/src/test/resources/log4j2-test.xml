@@ -30,7 +30,7 @@
       <!--
       <AppenderRef ref="STDOUT"/>
       -->
-      <AppenderRef ref="STDOUT"/>
+      <AppenderRef ref="NONE"/>
     </Root>
   </Loggers>
 

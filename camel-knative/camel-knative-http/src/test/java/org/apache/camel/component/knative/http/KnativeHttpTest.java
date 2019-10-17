@@ -18,7 +18,11 @@ package org.apache.camel.component.knative.http;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.Random;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,6 +36,7 @@ import org.apache.camel.component.knative.KnativeComponent;
 import org.apache.camel.component.knative.spi.CloudEvent;
 import org.apache.camel.component.knative.spi.CloudEvents;
 import org.apache.camel.component.knative.spi.Knative;
+import org.apache.camel.component.knative.spi.KnativeEnvironment;
 import org.apache.camel.component.knative.spi.KnativeSupport;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.http.common.HttpOperationFailedException;
@@ -1067,8 +1072,6 @@ public class KnativeHttpTest {
         assertThat(exchange.getException()).hasMessage("body must not be null");
     }
 
-
-
     @ParameterizedTest
     @MethodSource("provideCloudEventsImplementations")
     void testNoContent(CloudEvent ce) throws Exception {
@@ -1135,6 +1138,57 @@ public class KnativeHttpTest {
             assertThat(exchange.getMessage().getBody()).isNull();
         } finally {
             server.stop();
+        }
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideCloudEventsImplementations")
+    void testOrdering(CloudEvent ce) throws Exception {
+        List<KnativeEnvironment.KnativeServiceDefinition> hops = new Random()
+            .ints(0, 100)
+            .distinct()
+            .limit(10)
+            .mapToObj(i -> endpoint(
+                Knative.EndpointKind.source,
+                "channel-" + i,
+                "localhost",
+                port,
+                KnativeSupport.mapOf(Knative.KNATIVE_FILTER_PREFIX + "MyHeader", "channel-" + i)))
+            .collect(Collectors.toList());
+
+        configureKnativeComponent(context, ce, hops);
+
+        context.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("direct:start")
+                    .routeId("undertow")
+                    .toF("undertow:http://localhost:%d", port)
+                    .convertBodyTo(String.class);
+
+                for (KnativeEnvironment.KnativeServiceDefinition definition: hops) {
+                    fromF("knative:endpoint/%s", definition.getName())
+                        .routeId(definition.getName())
+                        .setBody().constant(definition.getName());
+                }
+            }
+        });
+
+        context.start();
+
+        List<String> hopsDone = new ArrayList<>();
+        for (KnativeEnvironment.KnativeServiceDefinition definition: hops) {
+            hopsDone.add(definition.getName());
+
+            Exchange result = template.request(
+                "direct:start",
+                e -> {
+                    e.getMessage().setHeader("MyHeader", hopsDone);
+                    e.getMessage().setBody(definition.getName());
+                }
+            );
+
+            assertThat(result.getMessage().getBody()).isEqualTo(definition.getName());
         }
     }
 }
