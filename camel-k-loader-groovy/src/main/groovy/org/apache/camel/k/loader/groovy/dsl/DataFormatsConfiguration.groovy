@@ -16,52 +16,51 @@
  */
 package org.apache.camel.k.loader.groovy.dsl
 
-import groovy.util.logging.Slf4j
 import org.apache.camel.CamelContext
-import org.apache.camel.Component
+import org.apache.camel.spi.DataFormat
 
-@Slf4j
-class ComponentsConfiguration {
+class DataFormatsConfiguration {
     private final CamelContext context
 
-    ComponentsConfiguration(CamelContext context) {
+    DataFormatsConfiguration(CamelContext context) {
         this.context = context
     }
 
-    def component(String name, Closure<?> callable) {
-        def target = context.getComponent(name, true, false)
+    def dataFormat(String name, Closure<?> callable) {
+        def target = context.resolveDataFormat(name)
         if (target == null) {
-            throw new IllegalArgumentException("Unable to find a component with name: ${name}")
+            throw new IllegalArgumentException("Unable to find a dataformat with name: ${name}")
         }
 
         // Just make sure the closure context is belong to component
         callable.resolveStrategy = Closure.DELEGATE_ONLY
         callable.delegate = new BeanConfiguration(context, target)
         callable.call()
+
+        // let's the camel context be aware of the new dataformat
+        context.registry.bind(name, DataFormat.class, target)
     }
 
-    def component(String name, Class<? extends Component> type, Closure <?> callable) {
-        def target = context.getComponent(name, true, false)
+    def dataFormat(String name, Class<? extends DataFormat> type, Closure <?> callable) {
+        def target = context.registry.lookupByNameAndType(name, type)
         def bind = false
 
-        if (target != null && !type.isInstance(target)) {
-            throw new IllegalArgumentException("Type mismatch, expected: ${type} , got: ${target.class}")
-        }
-
-        // if the component is not found, let's create a new one. This is
-        // equivalent to create a new named component, useful to create
-        // multiple instances of the same component but with different setup
+        // if the dataformat is not found, let's create a new one. This is
+        // equivalent to create a new named dataformat, useful to create
+        // multiple instances of the same dataformat but with different setup
         if (target == null) {
             target = context.injector.newInstance(type)
+
             bind = true
         }
 
-        // Just make sure the closure context is belong to component
+        // Just make sure the closure context is belong to dataformat
         callable.resolveStrategy = Closure.DELEGATE_ONLY
         callable.delegate = new BeanConfiguration(context, target)
         callable.call()
 
         if (bind) {
+            // let's the camel context be aware of the new dataformat
             context.registry.bind(name, type, target)
         }
     }
@@ -74,15 +73,15 @@ class ComponentsConfiguration {
                 def clos = args[0]
 
                 if (clos instanceof Closure) {
-                    return component(name, clos)
+                    return dataFormat(name, clos)
                 }
             }
             if (args.length == 2) {
                 def type = args[0]
                 def clos = args[1]
 
-                if (type instanceof Class && Component.class.isAssignableFrom(type) && clos instanceof Closure) {
-                    return component(name, type, clos)
+                if (type instanceof Class && DataFormat.class.isAssignableFrom(type) && clos instanceof Closure) {
+                    return dataFormat(name,type, clos)
                 }
             }
         }

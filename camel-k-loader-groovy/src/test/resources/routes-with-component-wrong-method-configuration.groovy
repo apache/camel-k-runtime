@@ -16,7 +16,7 @@
  */
 import org.apache.camel.component.seda.SedaComponent
 
-context {
+camel {
     components {
         mySeda(SedaComponent) {
             // a wrong method name

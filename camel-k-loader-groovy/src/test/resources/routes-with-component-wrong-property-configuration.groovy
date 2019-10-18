@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-context {
+camel {
     components {
         seda {
             // a wrong property name

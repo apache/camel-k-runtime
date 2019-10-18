@@ -16,17 +16,19 @@
  */
 package org.apache.camel.k.loader.groovy.dsl
 
+import groovy.util.logging.Slf4j
+import org.apache.camel.CamelContext
 import org.apache.camel.ExtendedCamelContext
 import org.apache.camel.support.PropertyBindingSupport
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 
-class ComponentConfiguration {
-    private static final Logger LOG = LoggerFactory.getLogger(ComponentConfiguration.class);
-    private final org.apache.camel.Component component
+@Slf4j
+class BeanConfiguration {
+    private final CamelContext context
+    private final Object target
 
-    ComponentConfiguration(org.apache.camel.Component component) {
-        this.component = component
+    BeanConfiguration(CamelContext camelContext, Object target) {
+        this.context = camelContext
+        this.target = target
     }
 
     def methodMissing(String name, arguments) {
@@ -38,13 +40,13 @@ class ComponentConfiguration {
         } else if (args.length == 1) {
             value = args[0]
         } else {
-            throw new IllegalArgumentException("Unable to set property '${name}' on component '${component.class.name}'")
+            throw new IllegalArgumentException("Unable to set property '${name}' on target '${target.class.name}'")
         }
 
         if (value instanceof Closure<?>) {
-            def m = this.component.metaClass.getMetaMethod(name, Closure.class)
+            def m = this.target.metaClass.getMetaMethod(name, Closure.class)
             if (m) {
-                m.invoke(component, args)
+                m.invoke(target, args)
 
                 // done
                 return
@@ -52,33 +54,34 @@ class ComponentConfiguration {
         }
 
         boolean bound = PropertyBindingSupport.build()
-            .withCamelContext(component.camelContext)
-            .withTarget(component)
+            .withCamelContext(context)
+            .withTarget(target)
             .withProperty(name, value)
             .bind()
 
         if (!bound) {
-            throw new MissingMethodException(name, this.component.class, args as Object[])
+            throw new MissingMethodException(name, this.target.class, args as Object[])
         }
     }
 
     def propertyMissing(String name, value) {
         boolean bound = PropertyBindingSupport.build()
-            .withCamelContext(component.camelContext)
-            .withTarget(component)
+            .withCamelContext(context)
+            .withTarget(target)
             .withProperty(name, value)
             .bind()
 
         if (!bound) {
-            throw new MissingPropertyException(name, this.component.class)
+            throw new MissingPropertyException(name, this.target.class)
         }
     }
 
     def propertyMissing(String name) {
         def props = new HashMap<String, Object>()
-        def context = component.getCamelContext().adapt(ExtendedCamelContext.class)
 
-        context.getBeanIntrospection().getProperties(component, props, null, false)
+        context.adapt(ExtendedCamelContext.class)
+            .getBeanIntrospection()
+            .getProperties(target, props, null, false)
 
         return props[name]
     }

@@ -14,26 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.loader.groovy.dsl
 
-import org.apache.camel.CamelContext
+import org.apache.camel.component.jackson.JacksonDataFormat
 
-class ContextConfiguration {
-    private final CamelContext context
-
-    ContextConfiguration(CamelContext context) {
-        this.context = context
-    }
-
-    def registry(@DelegatesTo(RegistryConfiguration) Closure<?> callable) {
-        callable.resolveStrategy = Closure.DELEGATE_FIRST
-        callable.delegate = new RegistryConfiguration(this.context.registry)
-        callable.call()
-    }
-
-    def components(@DelegatesTo(ComponentsConfiguration) Closure<?> callable) {
-        callable.resolveStrategy = Closure.DELEGATE_FIRST
-        callable.delegate = new ComponentsConfiguration(context)
-        callable.call()
+camel {
+    dataFormats {
+        dataFormat("json-jackson") {
+            unmarshalType = Map.class
+            prettyPrint = true
+        }
+        dataFormat("my-jackson", JacksonDataFormat) {
+            unmarshalType = String.class
+            prettyPrint = false
+        }
     }
 }
+
+
+from('timer:tick')
+    .to('log:info')

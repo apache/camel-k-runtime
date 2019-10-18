@@ -49,9 +49,9 @@ class IntegrationConfiguration extends BuilderSupport implements Support, Endpoi
         callable.call()
     }
 
-    def context(@DelegatesTo(ContextConfiguration) Closure<?> callable) {
+    def camel(@DelegatesTo(CamelConfiguration) Closure<?> callable) {
         callable.resolveStrategy = Closure.DELEGATE_FIRST
-        callable.delegate = new ContextConfiguration(context)
+        callable.delegate = new CamelConfiguration(context)
         callable.call()
     }
 

@@ -14,30 +14,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import org.apache.camel.component.seda.SedaComponent
 
-context {
-    components {
-        seda {
-            // set value as method
-            queueSize 1234
+import org.apache.camel.language.bean.BeanLanguage
 
-            // set value as property
-            concurrentConsumers = 12
+camel {
+
+    languages {
+        bean {
+            beanType = String.class
+            method = "toUpperCase"
         }
-
-        mySeda(SedaComponent) {
-            // set value as method
-            queueSize 4321
-
-            // set value as property
-            concurrentConsumers = 21
-        }
-
-        log {
-            formatter {
-                'body ==> ' + it.in.body
-            }
+        myBean(BeanLanguage) {
+            beanType = String.class
+            method = "toLowerCase"
         }
     }
 }
