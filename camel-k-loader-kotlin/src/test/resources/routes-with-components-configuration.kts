@@ -14,37 +14,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-rest {
-    configuration {
-        host = "my-host"
-        port = "9192"
-    }
+import org.apache.camel.Exchange
+import org.apache.camel.component.log.LogComponent
+import org.apache.camel.component.seda.SedaComponent
 
-    configuration("undertow") {
-        host = "my-undertow-host"
-        port = "9193"
-    }
-
-    path("/my/path") {
-        get("/get") {
-            consumes("application/json")
-            produces("application/json")
-            to("direct:get")
+camel {
+    components {
+        component<LogComponent>("log") {
+            setExchangeFormatter {
+                e: Exchange -> "" + e.getIn().body
+            }
         }
-    }
 
-    post {
-        path("/post")
-        consumes("application/json")
-        produces("application/json")
-        to("direct:post")
+        component<SedaComponent>("seda") {
+            queueSize = 1234
+            concurrentConsumers = 12
+        }
+
+        component<SedaComponent>("mySeda") {
+            queueSize = 4321
+            concurrentConsumers = 21
+        }
     }
 }
 
-
-
 from("timer:tick")
-    .process().message {
-        m -> m.headers["MyHeader"] = "MyHeaderValue"
-    }
     .to("log:info")

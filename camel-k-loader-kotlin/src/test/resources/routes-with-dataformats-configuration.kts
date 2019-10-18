@@ -14,37 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-rest {
-    configuration {
-        host = "my-host"
-        port = "9192"
-    }
+import org.apache.camel.component.jackson.JacksonDataFormat
 
-    configuration("undertow") {
-        host = "my-undertow-host"
-        port = "9193"
-    }
+camel {
+    dataFormats {
+        dataFormat<JacksonDataFormat>("json-jackson") {
+            unmarshalType = Map::class.java
+            isPrettyPrint = true
+        }
 
-    path("/my/path") {
-        get("/get") {
-            consumes("application/json")
-            produces("application/json")
-            to("direct:get")
+        dataFormat<JacksonDataFormat>("my-jackson") {
+            unmarshalType = String::class.java
+            isPrettyPrint = false
         }
     }
-
-    post {
-        path("/post")
-        consumes("application/json")
-        produces("application/json")
-        to("direct:post")
-    }
 }
-
-
-
-from("timer:tick")
-    .process().message {
-        m -> m.headers["MyHeader"] = "MyHeaderValue"
-    }
-    .to("log:info")
