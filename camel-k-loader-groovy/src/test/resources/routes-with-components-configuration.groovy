@@ -28,7 +28,7 @@ camel {
 
         mySeda(SedaComponent) {
             // set value as method
-            queueSize = 4321
+            queueSize 4321
 
             // set value as property
             concurrentConsumers = 21
