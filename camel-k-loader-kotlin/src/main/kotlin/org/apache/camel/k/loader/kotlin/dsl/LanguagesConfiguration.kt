@@ -17,26 +17,19 @@
 package org.apache.camel.k.loader.kotlin.dsl
 
 import org.apache.camel.CamelContext
-import org.apache.camel.Component
+import org.apache.camel.spi.Language
 
-class ComponentsConfiguration(val context: CamelContext) {
-    inline fun <reified T : Component> component(name: String, block: T.() -> Unit) : T {
-        var target = context.getComponent(name, true, false)
+class LanguagesConfiguration(val context: CamelContext) {
+    inline fun <reified T : Language> language(name: String, block: T.() -> Unit) : T {
+        var target = context.registry.lookupByNameAndType(name, T::class.java)
         var bind = false
 
-        if (target != null && target !is T) {
-            throw IllegalArgumentException("Type mismatch, expected: " + T::class.java + ", got: " + target.javaClass)
-        }
-
-        // if the component is not found, let's create a new one. This is
-        // equivalent to create a new named component, useful to create
-        // multiple instances of the same component but with different setup
         if (target == null) {
             target = context.injector.newInstance(T::class.java)
             bind = true
         }
 
-        block.invoke(target as T)
+        block.invoke(target)
 
         if (bind) {
             context.registry.bind(name, T::class.java, target)

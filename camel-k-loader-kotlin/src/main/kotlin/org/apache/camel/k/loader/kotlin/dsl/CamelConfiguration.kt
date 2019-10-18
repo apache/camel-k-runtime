@@ -1,4 +1,4 @@
-/*
+/**
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -14,37 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-rest {
-    configuration {
-        host = "my-host"
-        port = "9192"
+package org.apache.camel.k.loader.kotlin.dsl
+
+import org.apache.camel.CamelContext
+
+class CamelConfiguration (
+        private val context: CamelContext) {
+
+    fun components(block: ComponentsConfiguration.() -> Unit): ComponentsConfiguration {
+        val delegate = ComponentsConfiguration(context)
+        delegate.block()
+        return delegate
     }
 
-    configuration("undertow") {
-        host = "my-undertow-host"
-        port = "9193"
+    fun languages(block: LanguagesConfiguration.() -> Unit): LanguagesConfiguration {
+        val delegate = LanguagesConfiguration(context)
+        delegate.block()
+        return delegate
     }
 
-    path("/my/path") {
-        get("/get") {
-            consumes("application/json")
-            produces("application/json")
-            to("direct:get")
-        }
-    }
-
-    post {
-        path("/post")
-        consumes("application/json")
-        produces("application/json")
-        to("direct:post")
+    fun dataFormats(block: DataFormatsConfiguration.() -> Unit): DataFormatsConfiguration {
+        val delegate = DataFormatsConfiguration(context)
+        delegate.block()
+        return delegate
     }
 }
-
-
-
-from("timer:tick")
-    .process().message {
-        m -> m.headers["MyHeader"] = "MyHeaderValue"
-    }
-    .to("log:info")

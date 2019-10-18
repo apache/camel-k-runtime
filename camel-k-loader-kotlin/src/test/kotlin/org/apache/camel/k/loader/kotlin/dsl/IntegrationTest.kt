@@ -18,11 +18,13 @@ package org.apache.camel.k.loader.kotlin.dsl
 
 import org.apache.camel.Predicate
 import org.apache.camel.Processor
+import org.apache.camel.component.jackson.JacksonDataFormat
 import org.apache.camel.component.log.LogComponent
 import org.apache.camel.component.seda.SedaComponent
 import org.apache.camel.impl.DefaultCamelContext
 import org.apache.camel.k.Runtime
 import org.apache.camel.k.listener.RoutesConfigurer.forRoutes
+import org.apache.camel.language.bean.BeanLanguage
 import org.apache.camel.model.ModelCamelContext
 import org.apache.camel.model.rest.GetVerbDefinition
 import org.apache.camel.model.rest.PostVerbDefinition
@@ -85,22 +87,11 @@ class IntegrationTest {
     }
 
     @Test
-    fun `load integration with binding`() {
+    fun `load integration with components configuration`() {
         val context = DefaultCamelContext()
         val runtime = Runtime.of(context)
 
-        forRoutes("classpath:routes-with-bindings.kts").accept(Runtime.Phase.ConfigureRoutes, runtime)
-
-        assertThat(context.registry.lookupByName("my-entry")).isEqualTo("myRegistryEntry1")
-        assertThat(context.registry.lookupByName("my-proc")).isInstanceOf(Processor::class.java)
-    }
-
-    @Test
-    fun `load integration with component configuration`() {
-        val context = DefaultCamelContext()
-        val runtime = Runtime.of(context)
-
-        forRoutes("classpath:routes-with-component-configuration.kts").accept(Runtime.Phase.ConfigureRoutes, runtime)
+        forRoutes("classpath:routes-with-components-configuration.kts").accept(Runtime.Phase.ConfigureRoutes, runtime)
 
         val seda = context.getComponent("seda", SedaComponent::class.java)
         val mySeda = context.getComponent("mySeda", SedaComponent::class.java)
@@ -111,6 +102,38 @@ class IntegrationTest {
         assertThat(mySeda.queueSize).isEqualTo(4321)
         assertThat(mySeda.concurrentConsumers).isEqualTo(21)
         assertThat(log.exchangeFormatter).isNotNull
+    }
+
+    @Test
+    fun `load integration with languages configuration`() {
+        val context = DefaultCamelContext()
+        val runtime = Runtime.of(context)
+
+        forRoutes("classpath:routes-with-languages-configuration.kts").accept(Runtime.Phase.ConfigureRoutes, runtime)
+
+        val bean = context.resolveLanguage("bean") as BeanLanguage
+        assertThat(bean.beanType).isEqualTo(String::class.java)
+        assertThat(bean.method).isEqualTo("toUpperCase")
+
+        val mybean = context.resolveLanguage("my-bean") as BeanLanguage
+        assertThat(mybean.beanType).isEqualTo(String::class.java)
+        assertThat(mybean.method).isEqualTo("toLowerCase")
+    }
+
+    @Test
+    fun `load integration with dataformats configuration`() {
+        val context = DefaultCamelContext()
+        val runtime = Runtime.of(context)
+
+        forRoutes("classpath:routes-with-dataformats-configuration.kts").accept(Runtime.Phase.ConfigureRoutes, runtime)
+
+        val jackson = context.resolveDataFormat("json-jackson") as JacksonDataFormat
+        assertThat(jackson.unmarshalType).isEqualTo(Map::class.java)
+        assertThat(jackson.isPrettyPrint).isTrue()
+
+        val myjackson = context.resolveDataFormat("my-jackson") as JacksonDataFormat
+        assertThat(myjackson.unmarshalType).isEqualTo(String::class.java)
+        assertThat(myjackson.isPrettyPrint).isFalse()
     }
 
     @Test

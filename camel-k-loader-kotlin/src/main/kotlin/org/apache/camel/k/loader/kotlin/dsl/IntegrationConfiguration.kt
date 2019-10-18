@@ -43,8 +43,8 @@ abstract class IntegrationConfiguration(
         BeansConfiguration(context).block()
     }
 
-    fun context(block: ContextConfiguration.() -> Unit) {
-        ContextConfiguration(context, registry).block()
+    fun camel(block: CamelConfiguration.() -> Unit) {
+        CamelConfiguration(context).block()
     }
 
     fun from(uri: String): RouteDefinition {

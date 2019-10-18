@@ -1,4 +1,4 @@
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -14,24 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.loader.kotlin.dsl
+import org.apache.camel.language.bean.BeanLanguage
 
-import org.apache.camel.CamelContext
-import org.apache.camel.spi.Registry
-
-class ContextConfiguration (
-        private val context: CamelContext,
-        private val registry: Registry) {
-
-    fun registry(block: RegistryConfiguration.() -> Unit): RegistryConfiguration {
-        val delegate = RegistryConfiguration(registry)
-        delegate.block()
-        return delegate
-    }
-
-    fun components(block: ComponentsConfiguration.() -> Unit): ComponentsConfiguration {
-        val delegate = ComponentsConfiguration(context)
-        delegate.block()
-        return delegate
+camel {
+    languages {
+        language<BeanLanguage>("bean") {
+            beanType = String::class.java
+            method = "toUpperCase"
+        }
+        language<BeanLanguage>("my-bean") {
+            beanType = String::class.java
+            method = "toLowerCase"
+        }
     }
 }
