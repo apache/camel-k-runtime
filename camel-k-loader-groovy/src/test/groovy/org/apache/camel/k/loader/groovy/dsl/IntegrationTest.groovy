@@ -18,10 +18,12 @@ package org.apache.camel.k.loader.groovy.dsl
 
 import org.apache.camel.Predicate
 import org.apache.camel.Processor
+import org.apache.camel.component.jackson.JacksonDataFormat
 import org.apache.camel.component.log.LogComponent
 import org.apache.camel.component.seda.SedaComponent
 import org.apache.camel.impl.DefaultCamelContext
 import org.apache.camel.k.Runtime
+import org.apache.camel.language.bean.BeanLanguage
 import org.apache.camel.model.ModelCamelContext
 import org.apache.camel.model.rest.GetVerbDefinition
 import org.apache.camel.model.rest.PostVerbDefinition
@@ -108,19 +110,9 @@ class IntegrationTest extends Specification {
             context.registry.lookupByName('myPredicate') instanceof Predicate
     }
 
-    def "load integration with bindings"()  {
+    def "load integration with components configuration"()  {
         when:
-            forRoutes('classpath:routes-with-bindings.groovy').accept(Runtime.Phase.ConfigureRoutes, runtime)
-
-        then:
-            context.registry.lookupByName('myEntry1') == 'myRegistryEntry1'
-            context.registry.lookupByName('myEntry2') == 'myRegistryEntry2'
-            context.registry.lookupByName('myEntry3') instanceof Processor
-    }
-
-    def "load integration with component configuration"()  {
-        when:
-            forRoutes('classpath:routes-with-component-configuration.groovy').accept(Runtime.Phase.ConfigureRoutes, runtime)
+            forRoutes('classpath:routes-with-components-configuration.groovy').accept(Runtime.Phase.ConfigureRoutes, runtime)
 
         then:
             with(context.getComponent('seda', SedaComponent)) {
@@ -133,6 +125,36 @@ class IntegrationTest extends Specification {
             }
             with(context.getComponent('log', LogComponent)) {
                 exchangeFormatter != null
+            }
+    }
+
+    def "load integration with languages configuration"()  {
+        when:
+            forRoutes('classpath:routes-with-languages-configuration.groovy').accept(Runtime.Phase.ConfigureRoutes, runtime)
+
+        then:
+            with(context.resolveLanguage('bean'), BeanLanguage) {
+                beanType == String.class
+                method == "toUpperCase"
+            }
+            with(context.resolveLanguage('myBean'), BeanLanguage) {
+                beanType == String.class
+                method == "toLowerCase"
+            }
+    }
+
+    def "load integration with dataformats configuration"()  {
+        when:
+            forRoutes('classpath:routes-with-dataformats-configuration.groovy').accept(Runtime.Phase.ConfigureRoutes, runtime)
+
+        then:
+            with(context.resolveDataFormat('json-jackson'), JacksonDataFormat) {
+                unmarshalType == Map.class
+                prettyPrint == true
+            }
+            with(context.resolveDataFormat('my-jackson'), JacksonDataFormat) {
+                unmarshalType == String.class
+                prettyPrint == false
             }
     }
 
