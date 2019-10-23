@@ -29,8 +29,8 @@
     <Logger name="io.netty" level="INFO"/>
     <Logger name="io.netty.handler.logging" level="DEBUG"/>
     <Root level="INFO">
-      <AppenderRef ref="STDOUT"/>
-
+      <!--<AppenderRef ref="STDOUT"/>-->
+      <AppenderRef ref="NONE"/>
     </Root>
   </Loggers>
 
