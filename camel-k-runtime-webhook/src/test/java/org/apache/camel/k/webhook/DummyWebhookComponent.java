@@ -1,4 +1,4 @@
-package org.apache.camel.k.main;
+package org.apache.camel.k.webhook;
 
 import java.util.Collections;
 import java.util.List;

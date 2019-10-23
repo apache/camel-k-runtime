@@ -34,7 +34,6 @@ import org.apache.camel.k.Constants;
 import org.apache.camel.k.ContextCustomizer;
 import org.apache.camel.k.RoutesLoader;
 import org.apache.camel.k.Source;
-import org.apache.camel.k.WebhookAction;
 import org.apache.camel.util.ObjectHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -207,33 +206,6 @@ public final class RuntimeSupport {
         }
 
         return loader;
-    }
-
-    // *********************************
-    //
-    // Helpers - Webhook
-    //
-    // *********************************
-
-    /**
-     * Check if a webhook action needs to be executed instead of normally starting the Camel context.
-     */
-    public static WebhookAction webhookAction(CamelContext context) {
-        String webhookActionString = System.getenv().getOrDefault(Constants.ENV_CAMEL_K_WEBHOOK_ACTION, "");
-        if (ObjectHelper.isEmpty(webhookActionString)) {
-            PropertiesComponent component = context.getComponent("properties", PropertiesComponent.class);
-            Properties properties = component.loadProperties();
-
-            if (properties != null) {
-                webhookActionString = properties.getProperty(Constants.PROPERTY_CAMEL_K_WEBHOOK_ACTION, "");
-            }
-        }
-
-        if (ObjectHelper.isNotEmpty(webhookActionString)) {
-            return WebhookAction.valueOf(webhookActionString.toUpperCase());
-        }
-
-        return null;
     }
 
 }

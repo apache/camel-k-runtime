@@ -117,21 +117,4 @@ public class RuntimeTest {
         });
     }
 
-    @Test
-    void testLoadRoutesWithInactiveWebhookPolicy() throws Exception {
-        runtime.addListener(new ContextConfigurer());
-        runtime.addListener(RoutesConfigurer.forRoutes("classpath:r1.js"));
-        runtime.getCamelContext().addRoutePolicyFactory(new WebhookRoutePolicyFactory());
-        runtime.addListener(Runtime.Phase.Started, r -> {
-            CamelContext context = r.getCamelContext();
-            List<Route> routes = context.getRoutes();
-
-            assertThat(routes).hasSize(1);
-            assertThat(routes).anyMatch(p -> ObjectHelper.equal("r1", p.getId()));
-
-            runtime.stop();
-        });
-
-        runtime.run();
-    }
 }

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.main;
+package org.apache.camel.k.webhook;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -30,8 +30,9 @@ import org.apache.camel.Consumer;
 import org.apache.camel.FailedToCreateRouteException;
 import org.apache.camel.NamedNode;
 import org.apache.camel.Route;
-import org.apache.camel.k.WebhookAction;
+import org.apache.camel.k.listener.ContextConfigurer;
 import org.apache.camel.k.listener.RoutesConfigurer;
+import org.apache.camel.k.main.ApplicationRuntime;
 import org.apache.camel.spi.RoutePolicy;
 import org.apache.camel.spi.RoutePolicyFactory;
 import org.apache.camel.support.RoutePolicySupport;
@@ -51,7 +52,7 @@ public class WebhookTest {
     public void setUp() {
         this.runtime = new ApplicationRuntime();
         runtime.addListener(RoutesConfigurer.forRoutes("classpath:webhook.js"));
-        runtime.getCamelContext().addRoutePolicyFactory(new WebhookRoutePolicyFactory());
+        runtime.addListener(new ContextConfigurer());
     }
 
     @ParameterizedTest
@@ -59,7 +60,8 @@ public class WebhookTest {
     public void testWebhookRegistration(WebhookAction action) throws Exception {
         Properties properties = new Properties();
         properties.setProperty("camel.component.webhook.configuration.webhook-auto-register", "false");
-        properties.setProperty("camel.k.webhook.action", action.name().toLowerCase());
+        properties.setProperty("customizer.webhook.enabled", "true");
+        properties.setProperty("customizer.webhook.action", action.name().toLowerCase());
         runtime.setProperties(properties);
 
         CountDownLatch operation = new CountDownLatch(1);
@@ -123,7 +125,8 @@ public class WebhookTest {
     public void testRegistrationFailure(WebhookAction action) throws Exception {
         Properties properties = new Properties();
         properties.setProperty("camel.component.webhook.configuration.webhook-auto-register", "false");
-        properties.setProperty("camel.k.webhook.action", action.name());
+        properties.setProperty("customizer.webhook.enabled", "true");
+        properties.setProperty("customizer.webhook.action", action.name());
         runtime.setProperties(properties);
 
         DummyWebhookComponent dummy = new DummyWebhookComponent(
@@ -141,7 +144,8 @@ public class WebhookTest {
     @Test
     public void testAutoRegistrationNotDisabled() throws Exception {
         Properties properties = new Properties();
-        properties.setProperty("camel.k.webhook.action", WebhookAction.REGISTER.name());
+        properties.setProperty("customizer.webhook.enabled", "true");
+        properties.setProperty("customizer.webhook.action", WebhookAction.REGISTER.name());
         runtime.setProperties(properties);
 
         DummyWebhookComponent dummy = new DummyWebhookComponent(() -> {

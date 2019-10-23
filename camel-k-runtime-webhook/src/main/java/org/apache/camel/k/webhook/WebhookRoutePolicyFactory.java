@@ -1,4 +1,4 @@
-package org.apache.camel.k.main;
+package org.apache.camel.k.webhook;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.NamedNode;
@@ -6,8 +6,6 @@ import org.apache.camel.Route;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.component.webhook.WebhookCapableEndpoint;
 import org.apache.camel.component.webhook.WebhookEndpoint;
-import org.apache.camel.k.WebhookAction;
-import org.apache.camel.k.support.RuntimeSupport;
 import org.apache.camel.spi.RoutePolicy;
 import org.apache.camel.spi.RoutePolicyFactory;
 import org.apache.camel.support.RoutePolicySupport;
@@ -17,14 +15,16 @@ import org.apache.camel.support.RoutePolicySupport;
  */
 public class WebhookRoutePolicyFactory implements RoutePolicyFactory {
 
-    public WebhookRoutePolicyFactory() {
+    private final WebhookAction action;
+
+    public WebhookRoutePolicyFactory(WebhookAction action) {
+        this.action = action;
     }
 
     @Override
     public RoutePolicy createRoutePolicy(CamelContext camelContext, String routeId, NamedNode route) {
-        WebhookAction webhookAction = RuntimeSupport.webhookAction(camelContext);
-        if (webhookAction != null) {
-            return new WebhookRoutePolicy(camelContext, webhookAction);
+        if (action != null) {
+            return new WebhookRoutePolicy(camelContext, action);
         }
         return null;
     }

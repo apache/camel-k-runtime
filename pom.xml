@@ -219,6 +219,7 @@
         <module>camel-k-runtime-health</module>
         <module>camel-k-runtime-servlet</module>
         <module>camel-k-runtime-knative</module>
+        <module>camel-k-runtime-webhook</module>
         <module>camel-k-runtime-bom</module>
 
         <module>examples</module>
