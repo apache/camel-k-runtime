@@ -29,6 +29,9 @@ public final class Constants {
     public static final String ENV_CAMEL_K_CUSTOMIZERS = "CAMEL_K_CUSTOMIZERS";
     public static final String PROPERTY_CAMEL_K_CUSTOMIZER = "camel.k.customizer";
 
+    public static final String ENV_CAMEL_K_WEBHOOK_ACTION = "CAMEL_K_WEBHOOK_ACTION";
+    public static final String PROPERTY_CAMEL_K_WEBHOOK_ACTION = "camel.k.webhook.action";
+
     public static final String SCHEME_CLASSPATH = "classpath:";
     public static final String SCHEME_FILE = "file:";
     public static final String LOGGING_LEVEL_PREFIX = "logging.level.";

@@ -41,6 +41,7 @@ public final class Application {
         ApplicationRuntime runtime = new ApplicationRuntime();
         runtime.setProperties(PropertiesSupport.loadProperties());
         runtime.addListeners(ServiceLoader.load(Runtime.Listener.class));
+        runtime.getCamelContext().addRoutePolicyFactory(new WebhookRoutePolicyFactory());
         runtime.run();
     }
 }
