@@ -62,9 +62,10 @@ public class WebhookRoutePolicyFactory implements RoutePolicyFactory {
             route.getRouteContext().setAutoStartup(false);
 
             if (route.getEndpoint() instanceof WebhookEndpoint) {
-                WebhookEndpoint webhook = (WebhookEndpoint) route.getEndpoint();
+                WebhookEndpoint webhook = (WebhookEndpoint)route.getEndpoint();
                 if (webhook.getConfiguration() != null && webhook.getConfiguration().isWebhookAutoRegister()) {
-                    throw new IllegalStateException("Webhook auto-register is enabled on endpoint " + webhook + ": it must be disabled when the WebhookRoutePolicy is active");
+                    throw new IllegalStateException(
+                        "Webhook auto-register is enabled on endpoint " + webhook + ": it must be disabled when the WebhookRoutePolicy is active");
                 }
                 executeWebhookAction(webhook.getEndpoint());
             }
@@ -78,22 +79,22 @@ public class WebhookRoutePolicyFactory implements RoutePolicyFactory {
 
         private void executeWebhookAction(WebhookCapableEndpoint endpoint) {
             switch (this.action) {
-                case REGISTER:
-                    try {
-                        endpoint.registerWebhook();
-                    } catch (Exception ex) {
-                        throw new RuntimeCamelException("Unable to register webhook for endpoint " + endpoint, ex);
-                    }
-                    return;
-                case UNREGISTER:
-                    try {
-                        endpoint.unregisterWebhook();
-                    } catch (Exception ex) {
-                        throw new RuntimeCamelException("Unable to unregister webhook for endpoint " + endpoint, ex);
-                    }
-                    return;
-                default:
-                    throw new UnsupportedOperationException("Unsupported webhook action type: " + this.action);
+            case REGISTER:
+                try {
+                    endpoint.registerWebhook();
+                } catch (Exception ex) {
+                    throw new RuntimeCamelException("Unable to register webhook for endpoint " + endpoint, ex);
+                }
+                return;
+            case UNREGISTER:
+                try {
+                    endpoint.unregisterWebhook();
+                } catch (Exception ex) {
+                    throw new RuntimeCamelException("Unable to unregister webhook for endpoint " + endpoint, ex);
+                }
+                return;
+            default:
+                throw new UnsupportedOperationException("Unsupported webhook action type: " + this.action);
             }
         }
     }

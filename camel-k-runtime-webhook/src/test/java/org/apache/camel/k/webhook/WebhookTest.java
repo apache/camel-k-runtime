@@ -68,15 +68,13 @@ public class WebhookTest {
         Map<WebhookAction, AtomicInteger> registerCounters = new HashMap<>();
         Arrays.stream(WebhookAction.values()).forEach(v -> registerCounters.put(v, new AtomicInteger()));
 
-        DummyWebhookComponent dummy = new DummyWebhookComponent(
-                () -> {
-                    registerCounters.get(WebhookAction.REGISTER).incrementAndGet();
-                    operation.countDown();
-                },
-                () -> {
-                    registerCounters.get(WebhookAction.UNREGISTER).incrementAndGet();
-                    operation.countDown();
-                }
+        DummyWebhookComponent dummy = new DummyWebhookComponent(() -> {
+            registerCounters.get(WebhookAction.REGISTER).incrementAndGet();
+            operation.countDown();
+        }, () -> {
+            registerCounters.get(WebhookAction.UNREGISTER).incrementAndGet();
+            operation.countDown();
+        }
         );
         runtime.getCamelContext().addComponent("dummy", dummy);
 
@@ -129,14 +127,11 @@ public class WebhookTest {
         properties.setProperty("customizer.webhook.action", action.name());
         runtime.setProperties(properties);
 
-        DummyWebhookComponent dummy = new DummyWebhookComponent(
-                () -> {
-                    throw new RuntimeException("dummy error");
-                },
-                () -> {
-                    throw new RuntimeException("dummy error");
-                }
-        );
+        DummyWebhookComponent dummy = new DummyWebhookComponent(() -> {
+            throw new RuntimeException("dummy error");
+        }, () -> {
+            throw new RuntimeException("dummy error");
+        });
         runtime.getCamelContext().addComponent("dummy", dummy);
         Assertions.assertThrows(FailedToCreateRouteException.class, runtime::run);
     }

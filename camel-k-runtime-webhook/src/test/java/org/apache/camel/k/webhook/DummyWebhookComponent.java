@@ -41,8 +41,6 @@ public class DummyWebhookComponent extends DefaultComponent {
         this.onUnregister = onUnregister;
     }
 
-
-
     @Override
     protected Endpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters) throws Exception {
         return new DummyWebhookComponent.DummyWebhookEndpoint();
