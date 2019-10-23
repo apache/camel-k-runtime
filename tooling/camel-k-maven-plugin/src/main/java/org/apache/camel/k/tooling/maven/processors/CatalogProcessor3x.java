@@ -240,6 +240,21 @@ public class CatalogProcessor3x implements CatalogProcessor {
 
         // ************************
         //
+        // camel-k-runtime-webhook
+        //
+        // ************************
+
+        {
+            CamelArtifact artifact = new CamelArtifact();
+            artifact.setGroupId("org.apache.camel.k");
+            artifact.setArtifactId("camel-k-runtime-webhook");
+            artifact.addDependency("org.apache.camel", "camel-webhook");
+
+            artifacts.put(artifact.getArtifactId(), artifact);
+        }
+
+        // ************************
+        //
         // camel-k-runtime-knative
         //
         // ************************
