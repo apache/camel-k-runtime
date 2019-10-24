@@ -41,14 +41,14 @@ public enum CloudEventProcessors implements CloudEventProcessor {
             // body
             ifNotEmpty(content.remove("data"), message::setBody);
 
-            ifNotEmpty(content.remove(ce.mandatoryAttribute("content.type").json()), val -> {
+            ifNotEmpty(content.remove(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_CONTENT_TYPE).json()), val -> {
                 message.setHeader(Exchange.CONTENT_TYPE, val);
             });
 
             //
             // Map extensions to standard camel headers
             //
-            ifNotEmpty(content.remove("extensions"), val -> {
+            ifNotEmpty(content.remove(CloudEvent.CAMEL_CLOUD_EVENT_EXTENSIONS), val -> {
                 if (val instanceof Map) {
                     ((Map<String, Object>) val).forEach(message::setHeader);
                 }
@@ -70,7 +70,7 @@ public enum CloudEventProcessors implements CloudEventProcessor {
             // body
             ifNotEmpty(content.remove("data"), message::setBody);
 
-            ifNotEmpty(content.remove(ce.mandatoryAttribute("content.type").json()), val -> {
+            ifNotEmpty(content.remove(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_CONTENT_TYPE).json()), val -> {
                 message.setHeader(Exchange.CONTENT_TYPE, val);
             });
 
@@ -98,11 +98,11 @@ public enum CloudEventProcessors implements CloudEventProcessor {
             // body
             ifNotEmpty(content.remove("data"), message::setBody);
 
-            ifNotEmpty(content.remove(ce.mandatoryAttribute("data.content.type").json()), val -> {
+            ifNotEmpty(content.remove(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_DATA_CONTENT_TYPE).json()), val -> {
                 message.setHeader(Exchange.CONTENT_TYPE, val);
             });
-            ifNotEmpty(content.remove(ce.mandatoryAttribute("data.content.encoding").json()), val -> {
-                message.setBody(val);
+            ifNotEmpty(content.remove(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_DATA_CONTENT_ENCODING).json()), val -> {
+                message.setHeader(Exchange.CONTENT_ENCODING, val);
             });
 
             for (CloudEvent.Attribute attribute: ce.attributes()) {

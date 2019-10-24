@@ -26,6 +26,7 @@ import org.apache.camel.Processor;
 import org.apache.camel.Producer;
 import org.apache.camel.component.knative.ce.CloudEventProcessor;
 import org.apache.camel.component.knative.ce.CloudEventProcessors;
+import org.apache.camel.component.knative.spi.CloudEvent;
 import org.apache.camel.component.knative.spi.Knative;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
 import org.apache.camel.processor.Pipeline;
@@ -159,7 +160,7 @@ public class KnativeEndpoint extends DefaultEndpoint {
 
         if (service.get().getType() == Knative.Type.event) {
             metadata.put(Knative.KNATIVE_EVENT_TYPE, serviceName);
-            metadata.put(Knative.KNATIVE_FILTER_PREFIX + cloudEvent.cloudEvent().mandatoryAttribute("type").id(), serviceName);
+            metadata.put(Knative.KNATIVE_FILTER_PREFIX + cloudEvent.cloudEvent().mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).http(), serviceName);
         }
 
         return new KnativeEnvironment.KnativeServiceDefinition(

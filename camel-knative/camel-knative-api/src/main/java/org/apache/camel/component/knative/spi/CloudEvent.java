@@ -20,7 +20,22 @@ import java.util.Collection;
 import java.util.Objects;
 import java.util.Optional;
 
+import org.apache.camel.Exchange;
+
 public interface CloudEvent {
+    String CAMEL_CLOUD_EVENT_ID = "CamelCloudEventID";
+    String CAMEL_CLOUD_EVENT_SOURCE = "CamelCloudEventSource";
+    String CAMEL_CLOUD_EVENT_VERSION = "CamelCloudEventVersion";
+    String CAMEL_CLOUD_EVENT_TYPE = "CamelCloudEventType";
+    String CAMEL_CLOUD_EVENT_TYPE_VERSION = "CamelCloudEventTypeVersion";
+    String CAMEL_CLOUD_EVENT_DATA_CONTENT_TYPE = "CamelCloudEventDataContentType";
+    String CAMEL_CLOUD_EVENT_DATA_CONTENT_ENCODING = "CamelCloudEventDataContentEncoding";
+    String CAMEL_CLOUD_EVENT_SCHEMA_URL = "CamelCloudEventSchemaURL";
+    String CAMEL_CLOUD_EVENT_SUBJECT = "CamelCloudEventSubject";
+    String CAMEL_CLOUD_EVENT_TIME = "CamelCloudEventTime";
+    String CAMEL_CLOUD_EVENT_EXTENSIONS = "CamelCloudEventExtensions";
+    String CAMEL_CLOUD_EVENT_CONTENT_TYPE = Exchange.CONTENT_TYPE;
+
     /**
      * The CloudEvent spec version.
      */
