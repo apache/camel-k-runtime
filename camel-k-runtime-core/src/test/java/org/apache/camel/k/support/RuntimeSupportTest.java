@@ -21,7 +21,6 @@ import java.util.Properties;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Ordered;
-import org.apache.camel.component.properties.PropertiesComponent;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.engine.ExplicitCamelContextNameStrategy;
 import org.apache.camel.k.Constants;
@@ -34,9 +33,7 @@ public class RuntimeSupportTest {
 
     @Test
     public void testLoadCustomizersWithPropertiesFlags() {
-        PropertiesComponent pc = new PropertiesComponent();
         CamelContext context = new DefaultCamelContext();
-        context.addComponent("properties", pc);
 
         NameCustomizer customizer = new NameCustomizer("from-registry");
         context.getRegistry().bind("name", customizer);
@@ -48,7 +45,7 @@ public class RuntimeSupportTest {
 
         Properties properties = new Properties();
         properties.setProperty("customizer.name.enabled", "true");
-        pc.setInitialProperties(properties);
+        context.getPropertiesComponent().setInitialProperties(properties);
 
         customizers = RuntimeSupport.configureContextCustomizers(context);
         assertThat(context.getName()).isEqualTo("from-registry");
@@ -57,9 +54,7 @@ public class RuntimeSupportTest {
 
     @Test
     public void testLoadCustomizersWithList() {
-        PropertiesComponent pc = new PropertiesComponent();
         CamelContext context = new DefaultCamelContext();
-        context.addComponent("properties", pc);
 
         NameCustomizer customizer = new NameCustomizer("from-registry");
         context.getRegistry().bind("name", customizer);
@@ -71,7 +66,7 @@ public class RuntimeSupportTest {
 
         Properties properties = new Properties();
         properties.setProperty(Constants.PROPERTY_CAMEL_K_CUSTOMIZER, "name");
-        pc.setInitialProperties(properties);
+        context.getPropertiesComponent().setInitialProperties(properties);
 
         customizers = RuntimeSupport.configureContextCustomizers(context);
         assertThat(context.getName()).isEqualTo("from-registry");
@@ -80,9 +75,7 @@ public class RuntimeSupportTest {
 
     @Test
     public void testLoadCustomizers() {
-        PropertiesComponent pc = new PropertiesComponent();
         CamelContext context = new DefaultCamelContext();
-        context.addComponent("properties", pc);
         context.getRegistry().bind("converters", (ContextCustomizer) (camelContext) -> camelContext.setLoadTypeConverters(false));
 
         List<ContextCustomizer> customizers = RuntimeSupport.configureContextCustomizers(context);
@@ -93,14 +86,14 @@ public class RuntimeSupportTest {
 
         Properties properties = new Properties();
         properties.setProperty("customizer.name.enabled", "true");
-        pc.setInitialProperties(properties);
+        context.getPropertiesComponent().setInitialProperties(properties);
 
         customizers = RuntimeSupport.configureContextCustomizers(context);
         assertThat(context.getName()).isEqualTo("default");
         assertThat(customizers).hasSize(1);
 
         properties.setProperty("customizer.converters.enabled", "true");
-        pc.setInitialProperties(properties);
+        context.getPropertiesComponent().setInitialProperties(properties);
 
         customizers = RuntimeSupport.configureContextCustomizers(context);
         assertThat(context.getName()).isEqualTo("default");
@@ -110,10 +103,8 @@ public class RuntimeSupportTest {
 
     @Test
     public void testLoadCustomizerOrder() {
-        PropertiesComponent pc = new PropertiesComponent();
         DefaultCamelContext context = new DefaultCamelContext();
         context.setName("camel");
-        context.addComponent("properties", pc);
         context.getRegistry().bind("c1", new ContextCustomizer() {
             @Override
             public int getOrder() {
@@ -147,7 +138,8 @@ public class RuntimeSupportTest {
         properties.setProperty("customizer.c1.enabled", "true");
         properties.setProperty("customizer.c2.enabled", "true");
         properties.setProperty("customizer.c3.enabled", "true");
-        pc.setInitialProperties(properties);
+
+        context.getPropertiesComponent().setInitialProperties(properties);
 
         List<ContextCustomizer> customizers = RuntimeSupport.configureContextCustomizers(context);
         assertThat(customizers).hasSize(3);

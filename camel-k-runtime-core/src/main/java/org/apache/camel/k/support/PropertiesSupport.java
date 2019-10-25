@@ -33,8 +33,8 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.component.properties.PropertiesComponent;
 import org.apache.camel.k.Constants;
+import org.apache.camel.spi.PropertiesComponent;
 import org.apache.camel.support.PropertyBindingSupport;
 import org.apache.camel.util.ObjectHelper;
 import org.apache.commons.io.FilenameUtils;
@@ -45,7 +45,7 @@ public final class PropertiesSupport {
 
     @SuppressWarnings("unchecked")
     public static boolean bindProperties(CamelContext context, Object target, String prefix) {
-        final PropertiesComponent component = context.getComponent("properties", PropertiesComponent.class);
+        final PropertiesComponent component = context.getPropertiesComponent();
         final Properties properties = component.loadProperties(k -> k.startsWith(prefix));
 
         return PropertyBindingSupport.build()
@@ -66,7 +66,7 @@ public final class PropertiesSupport {
 
     public static Properties loadProperties(String conf, String confd) {
         final Properties properties = new Properties();
-        final Collection<String> locations = resolvePropertiesLocation(conf, confd);
+        final Collection<String> locations = resolvePropertiesLocations(conf, confd);
 
         try {
             for (String location: locations) {
@@ -81,7 +81,14 @@ public final class PropertiesSupport {
         return properties;
     }
 
-    public static Collection<String> resolvePropertiesLocation(String conf, String confd) {
+    public static Collection<String> resolvePropertiesLocations() {
+        return resolvePropertiesLocations(
+            System.getProperty(Constants.PROPERTY_CAMEL_K_CONF, System.getenv(Constants.ENV_CAMEL_K_CONF)),
+            System.getProperty(Constants.PROPERTY_CAMEL_K_CONF_D, System.getenv(Constants.ENV_CAMEL_K_CONF_D))
+        );
+    }
+
+    public static Collection<String> resolvePropertiesLocations(String conf, String confd) {
         final Set<String> locations = new LinkedHashSet<>();
 
         // Main location

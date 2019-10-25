@@ -14,17 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.loader.xml.quarkus.deployment;
+package org.apache.camel.k.core.quarkus;
 
-import io.quarkus.deployment.annotations.BuildProducer;
-import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.substrate.ReflectiveClassBuildItem;
-import org.apache.camel.converter.jaxp.XmlConverter;
+import io.quarkus.runtime.annotations.Recorder;
 
-public class DeploymentProcessor {
-    @BuildStep
-    void registerReflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, XmlConverter.class));
-    }
+@Recorder
+public class RuntimeRecorder {
 }
-

@@ -93,7 +93,7 @@
                     <systemProperties>
                         <systemProperty>
                             <key>camel.k.conf</key>
-                            <value>${project.basedir}/src/main/resources/application.properties</value>
+                            <value>${project.basedir}/src/main/resources/conf/application.properties</value>
                         </systemProperty>
                         <systemProperty>
                             <key>camel.k.routes</key>

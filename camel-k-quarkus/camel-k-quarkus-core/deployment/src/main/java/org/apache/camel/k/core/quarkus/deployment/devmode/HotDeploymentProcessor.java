@@ -56,8 +56,11 @@ public class HotDeploymentProcessor {
                     path = source;
                 }
 
-                LOGGER.info("Register source for hot deployment: {}", path);
-                items.add(new HotDeploymentWatchedFileBuildItem(path));
+                Path p = Paths.get(path);
+                if (Files.exists(p)) {
+                    LOGGER.info("Register source for hot deployment: {}", p.toAbsolutePath());
+                    items.add(new HotDeploymentWatchedFileBuildItem(p.toAbsolutePath().toString()));
+                }
             }
         }
 

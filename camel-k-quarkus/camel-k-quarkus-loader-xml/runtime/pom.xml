@@ -42,7 +42,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-xml-common</artifactId>
+            <artifactId>camel-quarkus-core-xml</artifactId>
         </dependency>
     </dependencies>
 

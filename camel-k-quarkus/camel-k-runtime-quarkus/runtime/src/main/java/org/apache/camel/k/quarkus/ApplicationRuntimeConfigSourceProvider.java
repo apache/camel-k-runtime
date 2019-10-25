@@ -39,7 +39,7 @@ public class ApplicationRuntimeConfigSourceProvider implements ConfigSourceProvi
         final List<ConfigSource> sources = new ArrayList<>();
 
         try {
-            for (String location : PropertiesSupport.resolvePropertiesLocation(conf, confd)) {
+            for (String location : PropertiesSupport.resolvePropertiesLocations(conf, confd)) {
                 LOGGER.info("Register properties location: {}", location);
 
                 sources.add(

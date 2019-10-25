@@ -16,10 +16,23 @@
  */
 package org.apache.camel.k.core.quarkus.deployment;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ServiceLoader;
+
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.ExecutionTime;
+import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
+import io.quarkus.deployment.builditem.substrate.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.substrate.ServiceProviderBuildItem;
+import org.apache.camel.k.Runtime;
+import org.apache.camel.k.core.quarkus.RuntimeListenerAdapter;
+import org.apache.camel.k.core.quarkus.RuntimeRecorder;
+import org.apache.camel.quarkus.core.deployment.CamelMainListenerBuildItem;
+import org.apache.camel.spi.HasId;
+import org.apache.camel.spi.StreamCachingStrategy;
 import org.jboss.jandex.IndexView;
 
 import static org.apache.camel.k.core.quarkus.deployment.DeploymentSupport.getAllKnownImplementors;
@@ -28,17 +41,82 @@ public class DeploymentProcessor {
     @BuildStep
     void registerServices(
             BuildProducer<ServiceProviderBuildItem> serviceProvider,
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
             CombinedIndexBuildItem combinedIndexBuildItem) {
 
         final IndexView view = combinedIndexBuildItem.getIndex();
         final String serviceType = "org.apache.camel.k.Runtime$Listener";
 
-        getAllKnownImplementors(view, serviceType).forEach(i-> {
+        getAllKnownImplementors(view, serviceType).forEach(i -> {
             serviceProvider.produce(
                 new ServiceProviderBuildItem(
                     serviceType,
                     i.name().toString())
             );
         });
+    }
+
+    @BuildStep
+    void registerStreamCachingClasses(
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
+            CombinedIndexBuildItem combinedIndexBuildItem) {
+
+        final IndexView view = combinedIndexBuildItem.getIndex();
+
+        getAllKnownImplementors(view, StreamCachingStrategy.class).forEach(i-> {
+            reflectiveClass.produce(
+                new ReflectiveClassBuildItem(
+                    true,
+                    true,
+                    i.name().toString())
+            );
+        });
+        getAllKnownImplementors(view, StreamCachingStrategy.Statistics.class).forEach(i-> {
+            reflectiveClass.produce(
+                new ReflectiveClassBuildItem(
+                    true,
+                    true,
+                    i.name().toString())
+            );
+        });
+        getAllKnownImplementors(view, StreamCachingStrategy.SpoolRule.class).forEach(i-> {
+            reflectiveClass.produce(
+                new ReflectiveClassBuildItem(
+                    true,
+                    true,
+                    i.name().toString())
+            );
+        });
+
+        reflectiveClass.produce(
+            new ReflectiveClassBuildItem(
+                true,
+                true,
+                StreamCachingStrategy.SpoolRule.class)
+        );
+    }
+
+    @Record(ExecutionTime.RUNTIME_INIT)
+    @BuildStep
+    CamelMainListenerBuildItem registerListener(RuntimeRecorder recorder) {
+        List<Runtime.Listener> listeners = new ArrayList<>();
+        ServiceLoader.load(Runtime.Listener.class).forEach(listener -> {
+            if (listener instanceof HasId) {
+                String id = ((HasId) listener).getId();
+                if (!id.endsWith(".")) {
+                    id = id + ".";
+                }
+
+                // TODO: this has to be done on quarkus side
+                //PropertiesSupport.bindProperties(getCamelContext(), listener, id);
+            }
+
+            listeners.add(listener);
+        });
+
+        RuntimeListenerAdapter adapter = new RuntimeListenerAdapter();
+        adapter.setListeners(listeners);
+
+        return new CamelMainListenerBuildItem(adapter);
     }
 }

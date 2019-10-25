@@ -29,7 +29,6 @@ import java.util.regex.Pattern;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.NoFactoryAvailableException;
-import org.apache.camel.component.properties.PropertiesComponent;
 import org.apache.camel.k.Constants;
 import org.apache.camel.k.ContextCustomizer;
 import org.apache.camel.k.RoutesLoader;
@@ -71,9 +70,7 @@ public final class RuntimeSupport {
 
     public static Map<String, ContextCustomizer> lookupCustomizers(CamelContext context) {
         Map<String, ContextCustomizer> customizers = new ConcurrentHashMap<>();
-
-        PropertiesComponent component = context.getComponent("properties", PropertiesComponent.class);
-        Properties properties = component.loadProperties();
+        Properties properties = context.getPropertiesComponent().loadProperties(n -> n.startsWith("customizer."));
 
         if (properties != null) {
             //
@@ -118,7 +115,7 @@ public final class RuntimeSupport {
                     .newInstance(customizerId, ContextCustomizer.class)
                     .orElseThrow(() -> new RuntimeException("Error creating instance for customizer: " + customizerId));
 
-                LOGGER.info("Found customizer {} with id {} rom service definition", customizer, customizerId);
+                LOGGER.info("Found customizer {} with id {} from service definition", customizer, customizerId);
             } catch (NoFactoryAvailableException e) {
                 throw new RuntimeException(e);
             }
@@ -134,12 +131,11 @@ public final class RuntimeSupport {
 
         String customizerIDs = System.getenv().getOrDefault(Constants.ENV_CAMEL_K_CUSTOMIZERS, "");
         if (ObjectHelper.isEmpty(customizerIDs)) {
-            PropertiesComponent component = context.getComponent("properties", PropertiesComponent.class);
-            Properties properties = component.getInitialProperties();
-
-            if (properties != null) {
-                customizerIDs = properties.getProperty(Constants.PROPERTY_CAMEL_K_CUSTOMIZER, "");
-            }
+            // TODO: getPropertiesComponent().resolveProperty() throws exception instead
+            //       of returning abd empty optional
+            customizerIDs = context.getPropertiesComponent()
+                .loadProperties(Constants.PROPERTY_CAMEL_K_CUSTOMIZER::equals)
+                .getProperty(Constants.PROPERTY_CAMEL_K_CUSTOMIZER, "");
         }
 
         if  (ObjectHelper.isNotEmpty(customizerIDs)) {

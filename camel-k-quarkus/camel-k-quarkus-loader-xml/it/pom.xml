@@ -142,8 +142,7 @@
                                     <goal>native-image</goal>
                                 </goals>
                                 <configuration>
-                                    <dockerBuild>true</dockerBuild>
-                                    <containerRuntime>docker</containerRuntime>
+                                    <disableReports>true</disableReports>
                                     <enableHttpUrlHandler>true</enableHttpUrlHandler>
                                     <enableJni>true</enableJni>
                                     <enableAllSecurityServices>true</enableAllSecurityServices>

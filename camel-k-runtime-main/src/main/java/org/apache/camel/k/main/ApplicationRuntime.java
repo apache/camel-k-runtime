@@ -20,15 +20,16 @@ import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.Properties;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ProducerTemplate;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.RuntimeCamelException;
-import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.support.PropertiesSupport;
-import org.apache.camel.main.Main;
+import org.apache.camel.main.BaseMainSupport;
 import org.apache.camel.main.MainSupport;
 import org.apache.camel.spi.HasId;
 import org.apache.camel.util.function.ThrowingConsumer;
@@ -38,7 +39,7 @@ import org.slf4j.LoggerFactory;
 public final class ApplicationRuntime implements Runtime {
     private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationRuntime.class);
 
-    private final Main main;
+    private final MainSupport main;
     private final DefaultCamelContext context;
     private final Set<Runtime.Listener> listeners;
 
@@ -49,21 +50,20 @@ public final class ApplicationRuntime implements Runtime {
         this.context.setName("camel-k");
 
         this.main = new MainAdapter();
+        this.main.configure().setXmlRoutes("false");
+        this.main.configure().setXmlRests("false");
         this.main.addMainListener(new MainListenerAdapter());
+
+        this.main.setPropertyPlaceholderLocations(
+            PropertiesSupport.resolvePropertiesLocations().stream()
+                .map(location -> "file:" + location)
+                .collect(Collectors.joining(","))
+        );
     }
 
     @Override
     public CamelContext getCamelContext() {
         return this.context;
-    }
-
-    @Override
-    public void addRoutes(RoutesBuilder builder) {
-        if (builder instanceof RouteBuilder) {
-            this.main.addRouteBuilder((RouteBuilder) builder);
-        } else {
-            Runtime.super.addRoutes(builder);
-        }
     }
 
     public void run() throws Exception {
@@ -72,6 +72,11 @@ public final class ApplicationRuntime implements Runtime {
 
     public void stop()throws Exception {
         this.main.stop();
+    }
+
+    @Override
+    public void addRoutes(RoutesBuilder builder) {
+        this.main.addRoutesBuilder(builder);
     }
 
     @Override
@@ -115,7 +120,7 @@ public final class ApplicationRuntime implements Runtime {
 
     private final class MainListenerAdapter implements org.apache.camel.main.MainListener {
         @Override
-        public void beforeStart(MainSupport main) {
+        public void beforeStart(BaseMainSupport main) {
             invokeListeners(Phase.Starting);
             invokeListeners(Phase.ConfigureRoutes);
         }
@@ -126,17 +131,17 @@ public final class ApplicationRuntime implements Runtime {
         }
 
         @Override
-        public void afterStart(MainSupport main) {
+        public void afterStart(BaseMainSupport main) {
             invokeListeners(Phase.Started);
         }
 
         @Override
-        public void beforeStop(MainSupport main) {
+        public void beforeStop(BaseMainSupport main) {
             invokeListeners(Phase.Stopping);
         }
 
         @Override
-        public void afterStop(MainSupport main) {
+        public void afterStop(BaseMainSupport main) {
             invokeListeners(Phase.Stopped);
         }
 
@@ -151,10 +156,48 @@ public final class ApplicationRuntime implements Runtime {
         }
     }
 
-    private final class MainAdapter extends Main {
+    private final class MainAdapter extends MainSupport {
         @Override
         protected CamelContext createCamelContext() {
             return ApplicationRuntime.this.context;
+        }
+
+        @Override
+        protected void doInit() throws Exception {
+            super.doInit();
+            initCamelContext();
+        }
+
+        @Override
+        protected void doStart() throws Exception {
+            super.doStart();
+            if (getCamelContext() != null) {
+                try {
+                    // if we were veto started then mark as completed
+                    getCamelContext().start();
+                } finally {
+                    if (getCamelContext().isVetoStarted()) {
+                        completed();
+                    }
+                }
+            }
+        }
+
+        @Override
+        protected void doStop() throws Exception {
+            super.doStop();
+            if (getCamelContext() != null) {
+                getCamelContext().stop();
+            }
+        }
+
+        @Override
+        protected ProducerTemplate findOrCreateCamelTemplate() {
+            if (getCamelContext() != null) {
+                return getCamelContext().createProducerTemplate();
+            } else {
+                return null;
+            }
         }
     }
 }

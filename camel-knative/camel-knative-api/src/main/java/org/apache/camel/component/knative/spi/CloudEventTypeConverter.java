@@ -18,7 +18,7 @@ package org.apache.camel.component.knative.spi;
 
 import org.apache.camel.Converter;
 
-@Converter(loader = true)
+@Converter(generateLoader = true)
 public final class CloudEventTypeConverter {
     private CloudEventTypeConverter() {
     }
