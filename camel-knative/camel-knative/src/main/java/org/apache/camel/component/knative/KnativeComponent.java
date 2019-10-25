@@ -226,6 +226,9 @@ public class KnativeComponent extends DefaultComponent {
         conf.getTransportOptions().putAll(
             PropertiesHelper.extractProperties(parameters, "transport.", true)
         );
+        conf.getCeOverride().putAll(
+            PropertiesHelper.extractProperties(parameters, "ce.override.", true)
+        );
 
         // set properties from the endpoint uri
         PropertyBindingSupport.bindProperties(getCamelContext(), conf, parameters);
@@ -251,6 +254,9 @@ public class KnativeComponent extends DefaultComponent {
         }
         if (conf.getFilters() == null) {
             conf.setFilters(new HashMap<>());
+        }
+        if (conf.getCeOverride() == null) {
+            conf.setCeOverride(new HashMap<>());
         }
 
         if (conf.getEnvironment() == null) {

@@ -158,6 +158,19 @@ public class KnativeEndpoint extends DefaultEndpoint {
             }
         }
 
+        for (Map.Entry<String, Object> entry: configuration.getCeOverride().entrySet()) {
+            String key = entry.getKey();
+            Object val = entry.getValue();
+
+            if (val instanceof String) {
+                if (!key.startsWith(Knative.KNATIVE_CE_OVERRIDE_PREFIX)) {
+                    key = Knative.KNATIVE_CE_OVERRIDE_PREFIX + key;
+                }
+
+                metadata.put(key, (String)val);
+            }
+        }
+
         if (service.get().getType() == Knative.Type.event) {
             metadata.put(Knative.KNATIVE_EVENT_TYPE, serviceName);
             metadata.put(Knative.KNATIVE_FILTER_PREFIX + cloudEvent.cloudEvent().mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).http(), serviceName);

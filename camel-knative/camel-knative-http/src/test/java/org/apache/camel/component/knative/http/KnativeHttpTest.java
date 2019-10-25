@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
+import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
@@ -1243,6 +1244,191 @@ public class KnativeHttpTest {
             assertThat(headers.getFirst(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).http())).isEqualTo("org.apache.camel.event");
             assertThat(headers.getFirst(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_ID).http())).isNotNull();
             assertThat(headers.getFirst(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_SOURCE).http())).isEqualTo("knative://endpoint/ep");
+            assertThat(headers.getFirst(Exchange.CONTENT_TYPE)).isEqualTo("text/plain");
+        }  finally {
+            server.stop();
+        }
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideCloudEventsImplementations")
+    void testHeadersOverrideFromEnv(CloudEvent ce) throws Exception {
+        final String typeHeaderKey = ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).http();
+        final String typeHeaderVal = UUID.randomUUID().toString();
+        final String sourceHeaderKey = ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_SOURCE).http();
+        final String sourceHeaderVal = UUID.randomUUID().toString();
+
+        configureKnativeComponent(
+            context,
+            ce,
+            endpoint(
+                Knative.EndpointKind.sink,
+                "ep",
+                "localhost",
+                port,
+                KnativeSupport.mapOf(
+                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.CONTENT_TYPE, "text/plain",
+                    Knative.KNATIVE_CE_OVERRIDE_PREFIX + typeHeaderKey, typeHeaderVal,
+                    Knative.KNATIVE_CE_OVERRIDE_PREFIX + sourceHeaderKey, sourceHeaderVal
+                )
+            )
+        );
+
+        CountDownLatch latch = new CountDownLatch(1);
+        AtomicReference<HttpServerExchange> exchange = new AtomicReference<>();
+
+        Undertow server = Undertow.builder()
+            .addHttpListener(port, "localhost")
+            .setHandler(se -> {
+                exchange.set(se);
+                latch.countDown();
+            })
+            .build();
+
+        RouteBuilder.addRoutes(context, b -> {
+            b.from("direct:start")
+                .to("knative:endpoint/ep");
+        });
+
+        context.start();
+        try {
+            server.start();
+            template.sendBody("direct:start", "");
+
+            latch.await();
+
+            HeaderMap headers = exchange.get().getRequestHeaders();
+
+            assertThat(headers.getFirst(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_VERSION).http())).isEqualTo(ce.version());
+            assertThat(headers.getFirst(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).http())).isEqualTo(typeHeaderVal);
+            assertThat(headers.getFirst(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_ID).http())).isNotNull();
+            assertThat(headers.getFirst(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_SOURCE).http())).isEqualTo(sourceHeaderVal);
+            assertThat(headers.getFirst(Exchange.CONTENT_TYPE)).isEqualTo("text/plain");
+        }  finally {
+            server.stop();
+        }
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideCloudEventsImplementations")
+    void testHeadersOverrideFromURI(CloudEvent ce) throws Exception {
+        final String typeHeaderKey = ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).http();
+        final String typeHeaderVal = UUID.randomUUID().toString();
+        final String sourceHeaderKey = ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_SOURCE).http();
+        final String sourceHeaderVal = UUID.randomUUID().toString();
+
+        configureKnativeComponent(
+            context,
+            ce,
+            endpoint(
+                Knative.EndpointKind.sink,
+                "ep",
+                "localhost",
+                port,
+                KnativeSupport.mapOf(
+                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.CONTENT_TYPE, "text/plain"
+                )
+            )
+        );
+
+        CountDownLatch latch = new CountDownLatch(1);
+        AtomicReference<HttpServerExchange> exchange = new AtomicReference<>();
+
+        Undertow server = Undertow.builder()
+            .addHttpListener(port, "localhost")
+            .setHandler(se -> {
+                exchange.set(se);
+                latch.countDown();
+            })
+            .build();
+
+        RouteBuilder.addRoutes(context, b -> {
+            b.from("direct:start")
+                .toF("knative:endpoint/ep?%s=%s&%s=%s",
+                    Knative.KNATIVE_CE_OVERRIDE_PREFIX + typeHeaderKey, typeHeaderVal,
+                    Knative.KNATIVE_CE_OVERRIDE_PREFIX + sourceHeaderKey, sourceHeaderVal);
+        });
+
+        context.start();
+        try {
+            server.start();
+            template.sendBody("direct:start", "");
+
+            latch.await();
+
+            HeaderMap headers = exchange.get().getRequestHeaders();
+
+            assertThat(headers.getFirst(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_VERSION).http())).isEqualTo(ce.version());
+            assertThat(headers.getFirst(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).http())).isEqualTo(typeHeaderVal);
+            assertThat(headers.getFirst(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_ID).http())).isNotNull();
+            assertThat(headers.getFirst(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_SOURCE).http())).isEqualTo(sourceHeaderVal);
+            assertThat(headers.getFirst(Exchange.CONTENT_TYPE)).isEqualTo("text/plain");
+        }  finally {
+            server.stop();
+        }
+    }
+
+
+
+    @ParameterizedTest
+    @MethodSource("provideCloudEventsImplementations")
+    void testHeadersOverrideFromConf(CloudEvent ce) throws Exception {
+        final String typeHeaderKey = ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).http();
+        final String typeHeaderVal = UUID.randomUUID().toString();
+        final String sourceHeaderKey = ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_SOURCE).http();
+        final String sourceHeaderVal = UUID.randomUUID().toString();
+
+        KnativeComponent component = configureKnativeComponent(
+            context,
+            ce,
+            endpoint(
+                Knative.EndpointKind.sink,
+                "ep",
+                "localhost",
+                port,
+                KnativeSupport.mapOf(
+                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.CONTENT_TYPE, "text/plain"
+                )
+            )
+        );
+
+        component.getConfiguration().setCeOverride(KnativeSupport.mapOf(
+            Knative.KNATIVE_CE_OVERRIDE_PREFIX + typeHeaderKey, typeHeaderVal,
+            Knative.KNATIVE_CE_OVERRIDE_PREFIX + sourceHeaderKey, sourceHeaderVal
+        ));
+
+        CountDownLatch latch = new CountDownLatch(1);
+        AtomicReference<HttpServerExchange> exchange = new AtomicReference<>();
+
+        Undertow server = Undertow.builder()
+            .addHttpListener(port, "localhost")
+            .setHandler(se -> {
+                exchange.set(se);
+                latch.countDown();
+            })
+            .build();
+
+        RouteBuilder.addRoutes(context, b -> {
+            b.from("direct:start")
+                .to("knative:endpoint/ep");
+        });
+
+        context.start();
+        try {
+            server.start();
+            template.sendBody("direct:start", "");
+
+            latch.await();
+
+            HeaderMap headers = exchange.get().getRequestHeaders();
+
+            assertThat(headers.getFirst(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_VERSION).http())).isEqualTo(ce.version());
+            assertThat(headers.getFirst(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).http())).isEqualTo(typeHeaderVal);
+            assertThat(headers.getFirst(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_ID).http())).isNotNull();
+            assertThat(headers.getFirst(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_SOURCE).http())).isEqualTo(sourceHeaderVal);
             assertThat(headers.getFirst(Exchange.CONTENT_TYPE)).isEqualTo("text/plain");
         }  finally {
             server.stop();
