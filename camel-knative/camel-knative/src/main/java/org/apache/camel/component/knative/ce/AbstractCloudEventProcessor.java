@@ -51,21 +51,19 @@ abstract class AbstractCloudEventProcessor implements CloudEventProcessor {
             }
 
             if (!Objects.equals(exchange.getIn().getHeader(Exchange.CONTENT_TYPE), Knative.MIME_STRUCTURED_CONTENT_MODE)) {
-                //
-                // The event is not in the form of Structured Content Mode
-                // then leave it as it is.
-                //
-                // Note that this is true for http binding only.
-                //
-                // More info:
-                //
-                //   https://github.com/cloudevents/spec/blob/master/http-transport-binding.md#32-structured-content-mode
-                //
-                return;
-            }
+                final CloudEvent ce = cloudEvent();
+                final Map<String, Object> headers = exchange.getIn().getHeaders();
 
-            try (InputStream is = exchange.getIn().getBody(InputStream.class)) {
-                decodeStructuredContent(exchange, Knative.MAPPER.readValue(is, Map.class));
+                for (CloudEvent.Attribute attribute: ce.attributes()) {
+                    Object val = headers.remove(attribute.http());
+                    if (val != null) {
+                        headers.put(attribute.id(), val);
+                    }
+                }
+            } else {
+                try (InputStream is = exchange.getIn().getBody(InputStream.class)) {
+                    decodeStructuredContent(exchange, Knative.MAPPER.readValue(is, Map.class));
+                }
             }
         };
     }
@@ -87,11 +85,11 @@ abstract class AbstractCloudEventProcessor implements CloudEventProcessor {
             final String eventTime = DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(created);
             final Map<String, Object> headers = exchange.getIn().getHeaders();
 
-            headers.putIfAbsent(ce.mandatoryAttribute("id").id(), exchange.getExchangeId());
-            headers.putIfAbsent(ce.mandatoryAttribute("source").id(), endpoint.getEndpointUri());
-            headers.putIfAbsent(ce.mandatoryAttribute("version").id(), ce.version());
-            headers.putIfAbsent(ce.mandatoryAttribute("type").id(), eventType);
-            headers.putIfAbsent(ce.mandatoryAttribute("time").id(), eventTime);
+            headers.putIfAbsent(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_ID).http(), exchange.getExchangeId());
+            headers.putIfAbsent(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_SOURCE).http(), endpoint.getEndpointUri());
+            headers.putIfAbsent(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_VERSION).http(), ce.version());
+            headers.putIfAbsent(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).http(), eventType);
+            headers.putIfAbsent(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TIME).http(), eventTime);
             headers.putIfAbsent(Exchange.CONTENT_TYPE, contentType);
         };
     }
