@@ -19,7 +19,6 @@ package org.apache.camel.k.main;
 import java.util.ServiceLoader;
 
 import org.apache.camel.k.Runtime;
-import org.apache.camel.k.support.PropertiesSupport;
 
 public final class Application {
     static {
@@ -27,7 +26,7 @@ public final class Application {
         // Configure the logging subsystem log4j2 using a subset of spring boot
         // conventions:
         //
-        //    logging.level.${nane} = OFF|FATAL|ERROR|WARN|INFO|DEBUG|TRACE|ALL
+        //    logging.level.${name} = OFF|FATAL|ERROR|WARN|INFO|DEBUG|TRACE|ALL
         //
         // We now support setting the logging level only
         //
@@ -39,7 +38,6 @@ public final class Application {
 
     public static void main(String[] args) throws Exception {
         ApplicationRuntime runtime = new ApplicationRuntime();
-        runtime.setProperties(PropertiesSupport.loadProperties());
         runtime.addListeners(ServiceLoader.load(Runtime.Listener.class));
         runtime.run();
     }

@@ -35,10 +35,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <camel.version>3.0.0-RC1</camel.version>
-        <camel-quarkus.version>0.2.0</camel-quarkus.version>
+        <camel.version>3.0.0-RC3</camel.version>
+        <camel-quarkus.version>0.3.0</camel-quarkus.version>
         <catalog.version>${camel.version}</catalog.version>
-        <quarkus.catalog.version>0.2.1-SNAPSHOT</quarkus.catalog.version>
         <junit.version>5.5.2</junit.version>
         <joor.version>0.9.12</joor.version>
         <commons-io.version>2.6</commons-io.version>
@@ -59,8 +58,8 @@
         <semver4j.version>3.1.0</semver4j.version>
         <undertow.version>1.4.26.Final</undertow.version>
         <vertx.version>3.8.1</vertx.version>
-        <graalvm.version>19.1.1</graalvm.version>
-        <quarkus.version>0.21.2</quarkus.version>
+        <graalvm.version>19.2.0.1</graalvm.version>
+        <quarkus.version>0.26.1</quarkus.version>
         <jandex.version>2.1.1.Final</jandex.version>
         <javapoet.version>1.11.1</javapoet.version>
         <auto-service.version>1.0-rc6</auto-service.version>
@@ -239,6 +238,18 @@
                 <enabled>false</enabled>
             </releases>
         </repository>
+
+        <repository>
+            <id>apache.staging</id>
+            <url>https://repository.apache.org/content/repositories/orgapachecamel-1159</url>
+            <name>Apache Snapshot Repo</name>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -250,6 +261,17 @@
             </snapshots>
             <releases>
                 <enabled>false</enabled>
+            </releases>
+        </pluginRepository>
+        <pluginRepository>
+            <id>apache.staging</id>
+            <url>https://repository.apache.org/content/repositories/orgapachecamel-1159</url>
+            <name>Apache Snapshot Repo</name>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
             </releases>
         </pluginRepository>
     </pluginRepositories>
@@ -644,6 +666,18 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+        <profile>
+            <id>docker</id>
+            <activation>
+                <property>
+                    <name>docker</name>
+                </property>
+            </activation>
+            <properties>
+                <native-image.container-runtime>docker</native-image.container-runtime>
+                <native-image.docker-build>true</native-image.docker-build>
+            </properties>
         </profile>
     </profiles>
 </project>

@@ -59,7 +59,6 @@ public class CatalogProcessor3x implements CatalogProcessor {
         "language",
         "log",
         "mock",
-        "properties",
         "ref",
         "seda",
         "stub",
@@ -94,7 +93,6 @@ public class CatalogProcessor3x implements CatalogProcessor {
             artifact.setArtifactId("camel-k-runtime-main");
             artifact.addDependency("org.apache.camel", "camel-core-engine");
             artifact.addDependency("org.apache.camel", "camel-main");
-            artifact.addDependency("org.apache.camel", "camel-properties");
 
             artifacts.put(artifact.getArtifactId(), artifact);
         }

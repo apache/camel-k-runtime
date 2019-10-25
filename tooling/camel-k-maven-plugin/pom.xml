@@ -99,7 +99,7 @@
     <dependency>
       <groupId>org.apache.camel.quarkus</groupId>
       <artifactId>camel-catalog-quarkus</artifactId>
-      <version>${quarkus.catalog.version}</version>
+      <version>${camel-quarkus.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>

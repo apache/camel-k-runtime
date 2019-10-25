@@ -23,7 +23,6 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Ordered;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.RuntimeCamelException;
-import org.apache.camel.component.properties.PropertiesComponent;
 import org.apache.camel.spi.HasCamelContext;
 import org.apache.camel.spi.Registry;
 
@@ -36,10 +35,7 @@ public interface Runtime extends HasCamelContext {
     }
 
     default void setProperties(Properties properties) {
-        PropertiesComponent pc = new PropertiesComponent();
-        pc.setOverrideProperties(properties);
-
-        getRegistry().bind("properties", pc);
+        getCamelContext().getPropertiesComponent().setOverrideProperties(properties);
     }
 
     default void setProperties(Map<String, String> properties) {
