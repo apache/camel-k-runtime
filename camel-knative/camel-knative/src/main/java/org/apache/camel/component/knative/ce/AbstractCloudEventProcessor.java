@@ -91,6 +91,15 @@ abstract class AbstractCloudEventProcessor implements CloudEventProcessor {
             headers.putIfAbsent(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).http(), eventType);
             headers.putIfAbsent(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TIME).http(), eventTime);
             headers.putIfAbsent(Exchange.CONTENT_TYPE, contentType);
+
+            for (Map.Entry<String, String> entry: service.getMetadata().entrySet()) {
+                if (entry.getKey().startsWith(Knative.KNATIVE_CE_OVERRIDE_PREFIX)) {
+                    final String key = entry.getKey().substring(Knative.KNATIVE_CE_OVERRIDE_PREFIX.length());
+                    final String val = entry.getValue();
+
+                    headers.put(key, val);
+                }
+            }
         };
     }
 }

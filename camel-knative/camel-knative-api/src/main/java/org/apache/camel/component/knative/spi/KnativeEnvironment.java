@@ -80,7 +80,7 @@ public class KnativeEnvironment {
             // {
             //     "services": [
             //         {
-            //              "type": "channel|endpoint",
+            //              "type": "channel|endpoint|event",
             //              "name": "",
             //              "host": "",
             //              "port": "",
@@ -91,6 +91,7 @@ public class KnativeEnvironment {
             //                  "knative.kind": "",
             //                  "knative.apiVersion": "",
             //                  "camel.endpoint.kind": "source|sink",
+            //                  "ce.override.ce-type": "something",
             //              }
             //         },
             //     ]

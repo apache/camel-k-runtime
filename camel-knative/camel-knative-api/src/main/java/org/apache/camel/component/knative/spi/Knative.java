@@ -24,6 +24,7 @@ public final class Knative {
 
     public static final String KNATIVE_TRANSPORT_RESOURCE_PATH = "META-INF/services/org/apache/camel/knative/transport/";
     public static final String KNATIVE_FILTER_PREFIX = "filter.";
+    public static final String KNATIVE_CE_OVERRIDE_PREFIX = "ce.override.";
     public static final String KNATIVE_TYPE = "knative.type";
     public static final String KNATIVE_EVENT_TYPE = "knative.event.type";
     public static final String KNATIVE_KIND = "knative.kind";
