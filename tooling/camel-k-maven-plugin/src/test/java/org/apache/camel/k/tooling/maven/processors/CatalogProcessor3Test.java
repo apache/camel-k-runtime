@@ -97,6 +97,11 @@ public class CatalogProcessor3Test extends AbstractCataloProcessorTest {
                 d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-servlet")
             );
         });
+        assertThat(artifactMap.get("camel-k-runtime-webhook")).satisfies(a -> {
+            assertThat(a.getDependencies()).anyMatch(
+                d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-webhook")
+            );
+        });
 
         assertThat(artifactMap.get("camel-k-runtime-knative")).satisfies(a -> {
             assertThat(a.getDependencies()).anyMatch(

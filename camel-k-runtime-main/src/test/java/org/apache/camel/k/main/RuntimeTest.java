@@ -116,4 +116,5 @@ public class RuntimeTest {
             assertThat(b).hasFieldOrPropertyWithValue("name", "my-bean-name");
         });
     }
+
 }

@@ -36,7 +36,7 @@ public final class Application {
 
     private Application() {
     }
-    
+
     public static void main(String[] args) throws Exception {
         ApplicationRuntime runtime = new ApplicationRuntime();
         runtime.setProperties(PropertiesSupport.loadProperties());
