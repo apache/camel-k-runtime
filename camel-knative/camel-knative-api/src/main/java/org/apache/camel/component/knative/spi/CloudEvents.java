@@ -34,7 +34,7 @@ public enum CloudEvents implements CloudEvent {
             Attribute.simple(CloudEvent.CAMEL_CLOUD_EVENT_ID, "CE-EventID", "eventID"),
             Attribute.simple(CloudEvent.CAMEL_CLOUD_EVENT_TIME, "CE-EventTime", "eventTime"),
             Attribute.simple(CloudEvent.CAMEL_CLOUD_EVENT_SCHEMA_URL, "CE-SchemaURL", "schemaURL"),
-            Attribute.simple(CloudEvent.CAMEL_CLOUD_EVENT_CONTENT_TYPE, "ContentType", "contentType"),
+            Attribute.simple(CloudEvent.CAMEL_CLOUD_EVENT_CONTENT_TYPE, "Content-Type", "contentType"),
             Attribute.simple(CloudEvent.CAMEL_CLOUD_EVENT_EXTENSIONS, "CE-Extensions", "extensions")
         )
     )),
