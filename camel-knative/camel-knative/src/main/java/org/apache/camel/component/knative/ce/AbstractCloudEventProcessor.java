@@ -22,6 +22,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Supplier;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
@@ -55,7 +56,7 @@ abstract class AbstractCloudEventProcessor implements CloudEventProcessor {
                 final Map<String, Object> headers = exchange.getIn().getHeaders();
 
                 for (CloudEvent.Attribute attribute: ce.attributes()) {
-                    Object val = headers.remove(attribute.http());
+                    Object val = headers.get(attribute.http());
                     if (val != null) {
                         headers.put(attribute.id(), val);
                     }
@@ -75,22 +76,30 @@ abstract class AbstractCloudEventProcessor implements CloudEventProcessor {
         final CloudEvent ce = cloudEvent();
 
         return exchange -> {
-            String eventType = service.getMetadata().get(Knative.KNATIVE_EVENT_TYPE);
-            if (eventType == null) {
-                eventType = endpoint.getConfiguration().getCloudEventsType();
+            final String contentType = service.getMetadata().get(Knative.CONTENT_TYPE);
+            final Map<String, Object> headers = exchange.getMessage().getHeaders();
+
+            for (CloudEvent.Attribute attribute: ce.attributes()) {
+                Object value = headers.get(attribute.id());
+                if (value != null) {
+                    headers.putIfAbsent(attribute.http(), value);
+                }
             }
 
-            final String contentType = service.getMetadata().get(Knative.CONTENT_TYPE);
-            final ZonedDateTime created = exchange.getCreated().toInstant().atZone(ZoneId.systemDefault());
-            final String eventTime = DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(created);
-            final Map<String, Object> headers = exchange.getIn().getHeaders();
-
-            headers.putIfAbsent(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_ID).http(), exchange.getExchangeId());
-            headers.putIfAbsent(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_SOURCE).http(), endpoint.getEndpointUri());
-            headers.putIfAbsent(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_VERSION).http(), ce.version());
-            headers.putIfAbsent(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).http(), eventType);
-            headers.putIfAbsent(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TIME).http(), eventTime);
             headers.putIfAbsent(Exchange.CONTENT_TYPE, contentType);
+
+            setCloudEventHeader(headers, CloudEvent.CAMEL_CLOUD_EVENT_ID, exchange::getExchangeId);
+            setCloudEventHeader(headers, CloudEvent.CAMEL_CLOUD_EVENT_SOURCE, endpoint::getEndpointUri);
+            setCloudEventHeader(headers, CloudEvent.CAMEL_CLOUD_EVENT_VERSION, ce::version);
+            setCloudEventHeader(headers, CloudEvent.CAMEL_CLOUD_EVENT_TYPE, () -> {
+                return service.getMetadata().getOrDefault(Knative.KNATIVE_EVENT_TYPE, endpoint.getConfiguration().getCloudEventsType());
+            });
+            setCloudEventHeader(headers, CloudEvent.CAMEL_CLOUD_EVENT_TIME, () -> {
+                final ZonedDateTime created = exchange.getCreated().toInstant().atZone(ZoneId.systemDefault());
+                final String eventTime = DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(created);
+
+                return eventTime;
+            });
 
             for (Map.Entry<String, String> entry: service.getMetadata().entrySet()) {
                 if (entry.getKey().startsWith(Knative.KNATIVE_CE_OVERRIDE_PREFIX)) {
@@ -101,5 +110,9 @@ abstract class AbstractCloudEventProcessor implements CloudEventProcessor {
                 }
             }
         };
+    }
+
+    protected void setCloudEventHeader(Map<String, Object> headers, String id, Supplier<Object> supplier) {
+        headers.putIfAbsent(cloudEvent().mandatoryAttribute(id).http(), supplier.get());
     }
 }
