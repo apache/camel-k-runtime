@@ -16,29 +16,17 @@
  */
 package org.apache.camel.k.tooling.maven.model.crd;
 
-import java.util.Collections;
-import java.util.Optional;
-import java.util.SortedMap;
-
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import org.apache.camel.k.tooling.maven.model.CamelArtifact;
 import org.immutables.value.Value;
 
 @Value.Immutable
-@JsonDeserialize(builder = CamelCatalogSpec.Builder.class)
-@JsonPropertyOrder({ "version", "runtimeVersion", "runtimeProvider", "artifacts" })
-public interface CamelCatalogSpec {
-    String getVersion();
-    String getRuntimeVersion();
+@JsonDeserialize(builder = QuarkusRuntimeProvider.Builder.class)
+@JsonPropertyOrder({ "camelQuarkusVersion", "quarkusVersion" })
+public interface QuarkusRuntimeProvider {
+    String getCamelQuarkusVersion();
+    String getQuarkusVersion();
 
-    Optional<RuntimeProvider> getRuntimeProvider();
-
-    @Value.Default
-    default SortedMap<String, CamelArtifact> getArtifacts() {
-        return Collections.emptySortedMap();
-    }
-
-    class Builder extends ImmutableCamelCatalogSpec.Builder {
+    class Builder extends ImmutableQuarkusRuntimeProvider.Builder {
     }
 }
