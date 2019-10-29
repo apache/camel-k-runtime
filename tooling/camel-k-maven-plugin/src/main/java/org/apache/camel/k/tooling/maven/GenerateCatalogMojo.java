@@ -150,10 +150,19 @@ public class GenerateCatalogMojo extends AbstractMojo {
             //   artifacts:
             //
             try (Writer writer = Files.newBufferedWriter(output, StandardCharsets.UTF_8)) {
-                String catalogName = String.format("camel-catalog-%s-%s",
-                    catalog.getCatalogVersion().toLowerCase(),
-                    getRuntimeVersion().toLowerCase()
-                );
+                String catalogName;
+                if ("quarkus".equals(runtime)) {
+                    catalogName = String.format("camel-%s-catalog-%s-%s",
+                        runtime,
+                        getVersionFor("/META-INF/maven/org.apache.camel.quarkus/camel-catalog-quarkus/pom.properties"),
+                        getRuntimeVersion().toLowerCase()
+                    );
+                } else {
+                    catalogName = String.format("camel-catalog-%s-%s",
+                        catalog.getCatalogVersion().toLowerCase(),
+                        getRuntimeVersion().toLowerCase()
+                    );
+                }
 
                 ObjectMeta.Builder labels = new ObjectMeta.Builder()
                     .name(catalogName)
