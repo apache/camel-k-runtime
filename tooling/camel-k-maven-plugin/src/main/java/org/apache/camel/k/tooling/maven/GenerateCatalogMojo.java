@@ -37,6 +37,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+
 import org.apache.camel.catalog.DefaultCamelCatalog;
 import org.apache.camel.k.tooling.maven.model.CamelArtifact;
 import org.apache.camel.k.tooling.maven.model.CatalogComponentDefinition;
@@ -46,6 +48,8 @@ import org.apache.camel.k.tooling.maven.model.CatalogProcessor;
 import org.apache.camel.k.tooling.maven.model.CatalogSupport;
 import org.apache.camel.k.tooling.maven.model.crd.CamelCatalog;
 import org.apache.camel.k.tooling.maven.model.crd.CamelCatalogSpec;
+import org.apache.camel.k.tooling.maven.model.crd.QuarkusRuntimeProvider;
+import org.apache.camel.k.tooling.maven.model.crd.RuntimeProvider;
 import org.apache.camel.k.tooling.maven.model.k8s.ObjectMeta;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
@@ -74,7 +78,7 @@ public class GenerateCatalogMojo extends AbstractMojo {
     @Parameter(property = "catalog.file", defaultValue = "camel-catalog-${camel.version}-${runtime.version}.yaml")
     private String outputFile;
 
-    @Parameter(property = "catalog.runtime", defaultValue = "default")
+    @Parameter(property = "catalog.runtime", defaultValue = "")
     private String runtime;
 
     // ********************
@@ -99,14 +103,13 @@ public class GenerateCatalogMojo extends AbstractMojo {
 
         final SortedMap<String, CamelArtifact> artifacts = new TreeMap<>();
         final org.apache.camel.catalog.CamelCatalog catalog = new DefaultCamelCatalog();
-        String version = "";
+        if (runtime == null) {
+            runtime = "";
+        }
         switch (runtime) {
             case "quarkus":
                 catalog.setRuntimeProvider(new org.apache.camel.catalog.quarkus.QuarkusRuntimeProvider());
-                version = getVersionFor("/META-INF/maven/org.apache.camel.quarkus/camel-catalog-quarkus/pom.properties");
                 break;
-            case "default":
-                version = catalog.getCatalogVersion();
             case "":
                 break;
             default:
@@ -152,20 +155,35 @@ public class GenerateCatalogMojo extends AbstractMojo {
                     getRuntimeVersion().toLowerCase()
                 );
 
+                ObjectMeta.Builder labels = new ObjectMeta.Builder()
+                    .name(catalogName)
+                    .putLabels("app", "camel-k")
+                    .putLabels("camel.apache.org/catalog.version", catalog.getCatalogVersion())
+                    .putLabels("camel.apache.org/catalog.loader.version", catalog.getLoadedVersion())
+                    .putLabels("camel.apache.org/runtime.version", getRuntimeVersion());
+                if (runtime != "") {
+                    labels.putLabels("camel.apache.org/runtime.provider", runtime);
+                }
+
+                CamelCatalogSpec.Builder catalogSpec = new CamelCatalogSpec.Builder()
+                .version(catalog.getCatalogVersion())
+                .runtimeVersion(getRuntimeVersion())
+                .artifacts(artifacts);
+
+                if ("quarkus".equals(runtime)) {
+                    String camelQuarkusVersion = getVersionFor("/META-INF/maven/org.apache.camel.quarkus/camel-catalog-quarkus/pom.properties");
+                    String quarkusVersion = getVersionFor("/META-INF/maven/io.quarkus/quarkus-core/pom.properties");
+                    catalogSpec.runtimeProvider(new RuntimeProvider.Builder()
+                    .quarkus(new QuarkusRuntimeProvider.Builder()
+                        .camelQuarkusVersion(camelQuarkusVersion)
+                        .quarkusVersion(quarkusVersion)
+                        .build())
+                    .build());
+                }
+
                 CamelCatalog cr = new CamelCatalog.Builder()
-                    .metadata(new ObjectMeta.Builder()
-                        .name(catalogName)
-                        .putLabels("app", "camel-k")
-                        .putLabels("camel.apache.org/catalog.version", version)
-                        .putLabels("camel.apache.org/catalog.loader.version", catalog.getLoadedVersion())
-                        .putLabels("camel.apache.org/runtime.provider", runtime.length() == 0 ? "default" : runtime)
-                        .putLabels("camel.apache.org/runtime.version", getRuntimeVersion())
-                        .build())
-                    .spec(new CamelCatalogSpec.Builder()
-                        .version(catalog.getCatalogVersion())
-                        .runtimeVersion(getRuntimeVersion())
-                        .artifacts(artifacts)
-                        .build())
+                    .metadata(labels.build())
+                    .spec(catalogSpec.build())
                     .build();
 
                 YAMLFactory factory = new YAMLFactory()
@@ -184,6 +202,7 @@ public class GenerateCatalogMojo extends AbstractMojo {
 
                 // write catalog data
                 ObjectMapper mapper = new ObjectMapper(factory);
+                mapper.registerModule(new Jdk8Module());
                 mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
                 mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
                 mapper.writeValue(writer, cr);
