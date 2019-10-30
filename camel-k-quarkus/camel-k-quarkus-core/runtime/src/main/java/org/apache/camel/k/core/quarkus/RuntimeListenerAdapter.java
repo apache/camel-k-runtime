@@ -49,115 +49,37 @@ public class RuntimeListenerAdapter implements MainListener {
 
     @Override
     public void beforeStart(BaseMainSupport main) {
-        final Runtime runtime = new Runtime() {
-            @Override
-            public CamelContext getCamelContext() {
-                return main.getCamelContext();
-            }
-
-            @Override
-            public void addRoutes(RoutesBuilder builder) {
-                try {
-                    // TODO: the before start event is fired in the wrong
-                    //       phase in camek-quarkus so routes have to be
-                    //       added directly to the registry, eplace with:
-                    //           main.addRoutesBuilder(builder)
-                    //       when fixed.
-                    main.getCamelContext().addRoutes(builder);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        };
-
-        invokeListeners(runtime, Runtime.Phase.Starting);
-        invokeListeners(runtime, Runtime.Phase.ConfigureRoutes);
+        invokeListeners(listeners, on(main), Runtime.Phase.Starting);
+        invokeListeners(listeners, on(main), Runtime.Phase.ConfigureRoutes);
     }
 
     @Override
     public void configure(CamelContext context) {
-        invokeListeners(Runtime.of(context), Runtime.Phase.ConfigureContext);
+        invokeListeners(listeners, on(context), Runtime.Phase.ConfigureContext);
     }
 
     @Override
     public void afterStart(BaseMainSupport main) {
-        final Runtime runtime = new Runtime() {
-            @Override
-            public CamelContext getCamelContext() {
-                return main.getCamelContext();
-            }
-
-            @Override
-            public void addRoutes(RoutesBuilder builder) {
-                try {
-                    // TODO: the before start event is fired in the wrong
-                    //       phase in camek-quarkus so routes have to be
-                    //       added directly to the registry, eplace with:
-                    //           main.addRoutesBuilder(builder)
-                    //       when fixed.
-                    main.getCamelContext().addRoutes(builder);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        };
-
-        invokeListeners(runtime, Runtime.Phase.Started);
+        invokeListeners(listeners, on(main), Runtime.Phase.Started);
     }
 
     @Override
     public void beforeStop(BaseMainSupport main) {
-        final Runtime runtime = new Runtime() {
-            @Override
-            public CamelContext getCamelContext() {
-                return main.getCamelContext();
-            }
-
-            @Override
-            public void addRoutes(RoutesBuilder builder) {
-                try {
-                    // TODO: the before start event is fired in the wrong
-                    //       phase in camek-quarkus so routes have to be
-                    //       added directly to the registry, eplace with:
-                    //           main.addRoutesBuilder(builder)
-                    //       when fixed.
-                    main.getCamelContext().addRoutes(builder);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        };
-
-        invokeListeners(runtime, Runtime.Phase.Stopping);
+        invokeListeners(listeners, on(main), Runtime.Phase.Stopping);
     }
 
     @Override
     public void afterStop(BaseMainSupport main) {
-        final Runtime runtime = new Runtime() {
-            @Override
-            public CamelContext getCamelContext() {
-                return main.getCamelContext();
-            }
-
-            @Override
-            public void addRoutes(RoutesBuilder builder) {
-                try {
-                    // TODO: the before start event is fired in the wrong
-                    //       phase in camek-quarkus so routes have to be
-                    //       added directly to the registry, eplace with:
-                    //           main.addRoutesBuilder(builder)
-                    //       when fixed.
-                    main.getCamelContext().addRoutes(builder);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        };
-
-        invokeListeners(runtime, Runtime.Phase.Stopped);
+        invokeListeners(listeners, on(main), Runtime.Phase.Stopped);
     }
 
-    private void invokeListeners(Runtime runtime, Runtime.Phase phase) {
+    // ************************
+    //
+    // Helpers
+    //
+    // ************************
+
+    private static void invokeListeners(List<Runtime.Listener> listeners, Runtime runtime, Runtime.Phase phase) {
         listeners.stream()
             .sorted(Comparator.comparingInt(Runtime.Listener::getOrder))
             .forEach(l -> {
@@ -165,5 +87,23 @@ public class RuntimeListenerAdapter implements MainListener {
                     LOGGER.info("Listener {} executed in phase {}", l, phase);
                 }
             });
+    }
+
+    private static Runtime on(CamelContext context) {
+        return Runtime.on(context);
+    }
+
+    private static Runtime on(BaseMainSupport main) {
+        return new Runtime() {
+            @Override
+            public CamelContext getCamelContext() {
+                return main.getCamelContext();
+            }
+
+            @Override
+            public void addRoutes(RoutesBuilder builder) {
+                main.addRoutesBuilder(builder);
+            }
+        };
     }
 }

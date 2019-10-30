@@ -36,7 +36,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <camel.version>3.0.0-RC3</camel.version>
-        <camel-quarkus.version>0.3.0</camel-quarkus.version>
+        <camel-quarkus.version>0.3.1</camel-quarkus.version>
         <catalog.version>${camel.version}</catalog.version>
         <junit.version>5.5.2</junit.version>
         <joor.version>0.9.12</joor.version>
@@ -59,7 +59,7 @@
         <undertow.version>1.4.26.Final</undertow.version>
         <vertx.version>3.8.3</vertx.version>
         <graalvm.version>19.2.0.1</graalvm.version>
-        <quarkus.version>0.26.1</quarkus.version>
+        <quarkus.version>0.27.0</quarkus.version>
         <jandex.version>2.1.1.Final</jandex.version>
         <javapoet.version>1.11.1</javapoet.version>
         <auto-service.version>1.0-rc6</auto-service.version>
@@ -238,18 +238,6 @@
                 <enabled>false</enabled>
             </releases>
         </repository>
-
-        <repository>
-            <id>apache.staging</id>
-            <url>https://repository.apache.org/content/repositories/orgapachecamel-1159</url>
-            <name>Apache Snapshot Repo</name>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -261,17 +249,6 @@
             </snapshots>
             <releases>
                 <enabled>false</enabled>
-            </releases>
-        </pluginRepository>
-        <pluginRepository>
-            <id>apache.staging</id>
-            <url>https://repository.apache.org/content/repositories/orgapachecamel-1159</url>
-            <name>Apache Snapshot Repo</name>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
             </releases>
         </pluginRepository>
     </pluginRepositories>

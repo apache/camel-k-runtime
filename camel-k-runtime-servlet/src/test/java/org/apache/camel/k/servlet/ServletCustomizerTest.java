@@ -31,7 +31,7 @@ public class ServletCustomizerTest {
 
     @Test
     public void testServletConfigurer() {
-        Runtime runtime = Runtime.of(new DefaultCamelContext());
+        Runtime runtime = Runtime.on(new DefaultCamelContext());
 
         ServletRegistrationContextCustomizer servletRegistrationCustomizer = new ServletRegistrationContextCustomizer("/webhook/*", "webhook-servlet");
         servletRegistrationCustomizer.apply(runtime.getCamelContext());

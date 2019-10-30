@@ -173,13 +173,13 @@ public class KnativeComponent extends DefaultComponent {
                     .newInstance(protocol.name(), KnativeTransport.class)
                     .orElseThrow(() -> new RuntimeException("Error creating knative transport for protocol: " + protocol.name()));
             }
+        }
 
-            if (this.transport instanceof CamelContextAware) {
-                CamelContextAware camelContextAware = (CamelContextAware)this.transport;
+        if (this.transport instanceof CamelContextAware) {
+            CamelContextAware camelContextAware = (CamelContextAware)this.transport;
 
-                if (camelContextAware.getCamelContext() == null) {
-                    camelContextAware.setCamelContext(getCamelContext());
-                }
+            if (camelContextAware.getCamelContext() == null) {
+                camelContextAware.setCamelContext(getCamelContext());
             }
         }
 

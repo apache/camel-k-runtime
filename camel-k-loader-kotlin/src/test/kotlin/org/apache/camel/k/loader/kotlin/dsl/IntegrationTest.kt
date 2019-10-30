@@ -38,7 +38,7 @@ class IntegrationTest {
     @Test
     fun `load integration with rest`() {
         val context = DefaultCamelContext()
-        val runtime = Runtime.of(context)
+        val runtime = Runtime.on(context)
 
         forRoutes("classpath:routes-with-rest.kts").accept(Runtime.Phase.ConfigureRoutes, runtime)
 
@@ -74,7 +74,7 @@ class IntegrationTest {
     @Test
     fun `load integration with beans`() {
         val context = DefaultCamelContext()
-        val runtime = Runtime.of(context)
+        val runtime = Runtime.on(context)
 
         forRoutes("classpath:routes-with-beans.kts").accept(Runtime.Phase.ConfigureRoutes, runtime)
 
@@ -89,7 +89,7 @@ class IntegrationTest {
     @Test
     fun `load integration with components configuration`() {
         val context = DefaultCamelContext()
-        val runtime = Runtime.of(context)
+        val runtime = Runtime.on(context)
 
         forRoutes("classpath:routes-with-components-configuration.kts").accept(Runtime.Phase.ConfigureRoutes, runtime)
 
@@ -107,7 +107,7 @@ class IntegrationTest {
     @Test
     fun `load integration with languages configuration`() {
         val context = DefaultCamelContext()
-        val runtime = Runtime.of(context)
+        val runtime = Runtime.on(context)
 
         forRoutes("classpath:routes-with-languages-configuration.kts").accept(Runtime.Phase.ConfigureRoutes, runtime)
 
@@ -123,7 +123,7 @@ class IntegrationTest {
     @Test
     fun `load integration with dataformats configuration`() {
         val context = DefaultCamelContext()
-        val runtime = Runtime.of(context)
+        val runtime = Runtime.on(context)
 
         forRoutes("classpath:routes-with-dataformats-configuration.kts").accept(Runtime.Phase.ConfigureRoutes, runtime)
 
@@ -139,7 +139,7 @@ class IntegrationTest {
     @Test
     fun `load integration with error handler`() {
         val context = DefaultCamelContext()
-        val runtime = Runtime.of(context)
+        val runtime = Runtime.on(context)
 
         forRoutes("classpath:routes-with-error-handler.kts").accept(Runtime.Phase.ConfigureRoutes, runtime)
 
