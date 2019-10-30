@@ -107,13 +107,13 @@ public class GenerateCatalogMojo extends AbstractMojo {
             runtime = "";
         }
         switch (runtime) {
-            case "quarkus":
-                catalog.setRuntimeProvider(new org.apache.camel.catalog.quarkus.QuarkusRuntimeProvider());
-                break;
-            case "":
-                break;
-            default:
-                throw new IllegalArgumentException("catalog.runtime parameter value [" + runtime + "] is not supported!");
+        case "quarkus":
+            catalog.setRuntimeProvider(new org.apache.camel.catalog.quarkus.QuarkusRuntimeProvider());
+            break;
+        case "":
+            break;
+        default:
+            throw new IllegalArgumentException("catalog.runtime parameter value [" + runtime + "] is not supported!");
         }
 
         try {
@@ -170,7 +170,7 @@ public class GenerateCatalogMojo extends AbstractMojo {
                     .putLabels("camel.apache.org/catalog.version", catalog.getCatalogVersion())
                     .putLabels("camel.apache.org/catalog.loader.version", catalog.getLoadedVersion())
                     .putLabels("camel.apache.org/runtime.version", getRuntimeVersion());
-                if (runtime != "") {
+                if (!"".equals(runtime)) {
                     labels.putLabels("camel.apache.org/runtime.provider", runtime);
                 }
 
