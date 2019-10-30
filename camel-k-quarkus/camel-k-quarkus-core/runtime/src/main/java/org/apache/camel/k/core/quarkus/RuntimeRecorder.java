@@ -16,8 +16,19 @@
  */
 package org.apache.camel.k.core.quarkus;
 
+import java.util.List;
+
+import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
+import org.apache.camel.k.Runtime;
+import org.apache.camel.main.MainListener;
 
 @Recorder
 public class RuntimeRecorder {
+    public RuntimeValue<MainListener> createMainListener(List<Runtime.Listener> listeners) {
+        RuntimeListenerAdapter adapter = new RuntimeListenerAdapter();
+        adapter.setListeners(listeners);
+
+        return new RuntimeValue<>(adapter);
+    }
 }

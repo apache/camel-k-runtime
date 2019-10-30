@@ -44,7 +44,7 @@ public class IntegrationTest {
     @BeforeEach
     public void setUp() {
         this.context = new DefaultCamelContext();
-        this.runtime = Runtime.of(context);
+        this.runtime = Runtime.on(context);
     }
 
     @AfterEach

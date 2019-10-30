@@ -32,7 +32,7 @@ public class HealthCustomizerTest {
 
     @Test
     public void testServletConfigurer() {
-        Runtime runtime = Runtime.of(new DefaultCamelContext());
+        Runtime runtime = Runtime.on(new DefaultCamelContext());
 
         HealthContextCustomizer healthCustomizer = new HealthContextCustomizer();
         healthCustomizer.apply(runtime.getCamelContext());

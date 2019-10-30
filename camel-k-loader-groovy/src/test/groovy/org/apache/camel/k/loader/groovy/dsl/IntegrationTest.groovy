@@ -45,7 +45,7 @@ class IntegrationTest extends Specification {
 
     def setup() {
         this.context = new DefaultCamelContext()
-        this.runtime = Runtime.of(context)
+        this.runtime = Runtime.on(context)
     }
 
 

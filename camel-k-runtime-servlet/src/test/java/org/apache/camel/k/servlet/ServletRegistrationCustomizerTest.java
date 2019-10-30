@@ -31,7 +31,7 @@ public class ServletRegistrationCustomizerTest {
 
     @Test
     public void testServletRegistrationConfigurer() {
-        Runtime runtime = Runtime.of(new DefaultCamelContext());
+        Runtime runtime = Runtime.on(new DefaultCamelContext());
 
         ServletRegistrationContextCustomizer servletRegistrationCustomizer = new ServletRegistrationContextCustomizer();
         servletRegistrationCustomizer.apply(runtime.getCamelContext());

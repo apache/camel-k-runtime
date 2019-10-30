@@ -123,6 +123,10 @@ public class KnativeHttpConsumer extends DefaultConsumer implements KnativeHttp.
                     });
                 } catch (Exception e) {
                     getExceptionHandler().handleException(e);
+
+                    request.response().setStatusCode(500);
+                    request.response().putHeader(Exchange.CONTENT_TYPE, "text/plain");
+                    request.response().end(e.getMessage());
                 } finally {
                     doneUoW(exchange);
                 }

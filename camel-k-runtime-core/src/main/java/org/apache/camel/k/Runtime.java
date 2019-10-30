@@ -78,7 +78,7 @@ public interface Runtime extends HasCamelContext {
      * @param camelContext the camel context
      * @return the runtime
      */
-    static Runtime of(CamelContext camelContext) {
+    static Runtime on(CamelContext camelContext) {
         return () -> camelContext;
     }
 
@@ -88,7 +88,7 @@ public interface Runtime extends HasCamelContext {
      * @param provider the camel context provider
      * @return the runtime
      */
-    static Runtime of(HasCamelContext provider) {
+    static Runtime on(HasCamelContext provider) {
         return () -> provider.getCamelContext();
     }
 }

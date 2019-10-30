@@ -25,10 +25,9 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
-import io.quarkus.deployment.builditem.substrate.ReflectiveClassBuildItem;
-import io.quarkus.deployment.builditem.substrate.ServiceProviderBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 import org.apache.camel.k.Runtime;
-import org.apache.camel.k.core.quarkus.RuntimeListenerAdapter;
 import org.apache.camel.k.core.quarkus.RuntimeRecorder;
 import org.apache.camel.quarkus.core.deployment.CamelMainListenerBuildItem;
 import org.apache.camel.spi.HasId;
@@ -96,7 +95,7 @@ public class DeploymentProcessor {
         );
     }
 
-    @Record(ExecutionTime.RUNTIME_INIT)
+    @Record(ExecutionTime.STATIC_INIT)
     @BuildStep
     CamelMainListenerBuildItem registerListener(RuntimeRecorder recorder) {
         List<Runtime.Listener> listeners = new ArrayList<>();
@@ -107,16 +106,13 @@ public class DeploymentProcessor {
                     id = id + ".";
                 }
 
-                // TODO: this has to be done on quarkus side
+                // TODO: this has to be done at runtime
                 //PropertiesSupport.bindProperties(getCamelContext(), listener, id);
             }
 
             listeners.add(listener);
         });
 
-        RuntimeListenerAdapter adapter = new RuntimeListenerAdapter();
-        adapter.setListeners(listeners);
-
-        return new CamelMainListenerBuildItem(adapter);
+        return new CamelMainListenerBuildItem(recorder.createMainListener(listeners));
     }
 }

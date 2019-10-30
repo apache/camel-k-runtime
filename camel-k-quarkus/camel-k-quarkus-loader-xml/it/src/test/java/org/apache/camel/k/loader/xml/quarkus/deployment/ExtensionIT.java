@@ -16,8 +16,8 @@
  */
 package org.apache.camel.k.loader.xml.quarkus.deployment;
 
-import io.quarkus.test.junit.SubstrateTest;
+import io.quarkus.test.junit.NativeImageTest;
 
-@SubstrateTest
+@NativeImageTest
 public class ExtensionIT extends ExtensionTest {
 }

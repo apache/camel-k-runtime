@@ -29,34 +29,25 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-http-common</artifactId>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-vertx</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-runtime-core</artifactId>
+            <artifactId>camel-k-quarkus-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-core-cloud</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
             <artifactId>camel-k-runtime-knative</artifactId>
         </dependency>
-
         <dependency>
-            <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-quarkus-core</artifactId>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-http-common</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-core-cloud</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-vertx</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>com.oracle.substratevm</groupId>
             <artifactId>svm</artifactId>

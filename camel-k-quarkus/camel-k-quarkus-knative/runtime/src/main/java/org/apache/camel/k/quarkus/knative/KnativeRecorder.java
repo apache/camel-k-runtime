@@ -14,10 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.loader.js.quarkus.deployment;
+package org.apache.camel.k.quarkus.knative;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.runtime.RuntimeValue;
+import io.quarkus.runtime.annotations.Recorder;
+import io.vertx.core.Vertx;
+import org.apache.camel.component.knative.KnativeComponent;
+import org.apache.camel.component.knative.http.KnativeHttpTransport;
 
-@NativeImageTest
-public class ExtensionIT extends ExtensionTest {
+@Recorder
+public class KnativeRecorder {
+    public RuntimeValue<KnativeComponent> createKnativeComponent(RuntimeValue<Vertx> vertx) {
+        KnativeHttpTransport transport = new KnativeHttpTransport();
+        transport.setVertx(vertx.getValue());
+
+        KnativeComponent component = new KnativeComponent();
+        component.setTransport(transport);
+
+        return new RuntimeValue<>(component);
+    }
 }
