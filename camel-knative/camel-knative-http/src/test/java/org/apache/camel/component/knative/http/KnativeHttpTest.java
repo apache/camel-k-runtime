@@ -26,7 +26,6 @@ import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.undertow.Undertow;
@@ -51,8 +50,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.EnumSource;
 
 import static org.apache.camel.component.knative.http.KnativeHttpTestSupport.configureKnativeComponent;
 import static org.apache.camel.component.knative.spi.KnativeEnvironment.channel;
@@ -102,16 +100,8 @@ public class KnativeHttpTest {
 
     }
 
-    private static Stream<Arguments> provideCloudEventsImplementations() {
-        return Stream.of(
-            Arguments.of(CloudEvents.V01),
-            Arguments.of(CloudEvents.V02),
-            Arguments.of(CloudEvents.V03)
-        );
-    }
-
     @ParameterizedTest
-    @MethodSource("provideCloudEventsImplementations")
+    @EnumSource(CloudEvents.class)
     void testInvokeEndpoint(CloudEvent ce) throws Exception {
         configureKnativeComponent(
             context,
@@ -156,7 +146,7 @@ public class KnativeHttpTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideCloudEventsImplementations")
+    @EnumSource(CloudEvents.class)
     void testConsumeStructuredContent(CloudEvent ce) throws Exception {
         configureKnativeComponent(
             context,
@@ -240,7 +230,7 @@ public class KnativeHttpTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideCloudEventsImplementations")
+    @EnumSource(CloudEvents.class)
     void testConsumeContent(CloudEvent ce) throws Exception {
         configureKnativeComponent(
             context,
@@ -301,7 +291,7 @@ public class KnativeHttpTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideCloudEventsImplementations")
+    @EnumSource(CloudEvents.class)
     void testConsumeContentWithFilter(CloudEvent ce) throws Exception {
         configureKnativeComponent(
             context,
@@ -395,7 +385,7 @@ public class KnativeHttpTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideCloudEventsImplementations")
+    @EnumSource(CloudEvents.class)
     void testConsumeContentWithRegExFilter(CloudEvent ce) throws Exception {
         configureKnativeComponent(
             context,
@@ -489,7 +479,7 @@ public class KnativeHttpTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideCloudEventsImplementations")
+    @EnumSource(CloudEvents.class)
     void testConsumeEventContent(CloudEvent ce) throws Exception {
         configureKnativeComponent(
             context,
@@ -568,7 +558,7 @@ public class KnativeHttpTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideCloudEventsImplementations")
+    @EnumSource(CloudEvents.class)
     void testReply(CloudEvent ce) throws Exception {
         configureKnativeComponent(
             context,
@@ -618,7 +608,7 @@ public class KnativeHttpTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideCloudEventsImplementations")
+    @EnumSource(CloudEvents.class)
     void testInvokeServiceWithoutHost(CloudEvent ce) throws Exception {
         configureKnativeComponent(
             context,
@@ -650,7 +640,7 @@ public class KnativeHttpTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideCloudEventsImplementations")
+    @EnumSource(CloudEvents.class)
     void testInvokeNotExistingEndpoint(CloudEvent ce) throws Exception {
         configureKnativeComponent(
             context,
@@ -682,7 +672,7 @@ public class KnativeHttpTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideCloudEventsImplementations")
+    @EnumSource(CloudEvents.class)
     void testRemoveConsumer(CloudEvent ce) throws Exception {
         configureKnativeComponent(
             context,
@@ -739,7 +729,7 @@ public class KnativeHttpTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideCloudEventsImplementations")
+    @EnumSource(CloudEvents.class)
     void testAddConsumer(CloudEvent ce) throws Exception {
         configureKnativeComponent(
             context,
@@ -798,7 +788,7 @@ public class KnativeHttpTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideCloudEventsImplementations")
+    @EnumSource(CloudEvents.class)
     void testInvokeEndpointWithError(CloudEvent ce) throws Exception {
         configureKnativeComponent(
             context,
@@ -836,7 +826,7 @@ public class KnativeHttpTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideCloudEventsImplementations")
+    @EnumSource(CloudEvents.class)
     void testEvents(CloudEvent ce) throws Exception {
         configureKnativeComponent(
             context,
@@ -888,7 +878,7 @@ public class KnativeHttpTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideCloudEventsImplementations")
+    @EnumSource(CloudEvents.class)
     void testEventsWithTypeAndVersion(CloudEvent ce) throws Exception {
         configureKnativeComponent(
             context,
@@ -944,7 +934,7 @@ public class KnativeHttpTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideCloudEventsImplementations")
+    @EnumSource(CloudEvents.class)
     void testConsumeContentWithTypeAndVersion(CloudEvent ce) throws Exception {
         configureKnativeComponent(
             context,
@@ -1012,7 +1002,7 @@ public class KnativeHttpTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideCloudEventsImplementations")
+    @EnumSource(CloudEvents.class)
     void testWrongMethod(CloudEvent ce) throws Exception {
         configureKnativeComponent(
             context,
@@ -1048,7 +1038,7 @@ public class KnativeHttpTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideCloudEventsImplementations")
+    @EnumSource(CloudEvents.class)
     void testNoBody(CloudEvent ce) throws Exception {
         configureKnativeComponent(
             context,
@@ -1081,7 +1071,7 @@ public class KnativeHttpTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideCloudEventsImplementations")
+    @EnumSource(CloudEvents.class)
     void testNoContent(CloudEvent ce) throws Exception {
         final int messagesPort = AvailablePortFinder.getNextAvailable();
         final int wordsPort = AvailablePortFinder.getNextAvailable();
@@ -1150,7 +1140,7 @@ public class KnativeHttpTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideCloudEventsImplementations")
+    @EnumSource(CloudEvents.class)
     void testOrdering(CloudEvent ce) throws Exception {
         List<KnativeEnvironment.KnativeServiceDefinition> hops = new Random()
             .ints(0, 100)
@@ -1201,7 +1191,7 @@ public class KnativeHttpTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideCloudEventsImplementations")
+    @EnumSource(CloudEvents.class)
     void testHeaders(CloudEvent ce) throws Exception {
         configureKnativeComponent(
             context,
@@ -1254,7 +1244,7 @@ public class KnativeHttpTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideCloudEventsImplementations")
+    @EnumSource(CloudEvents.class)
     void testHeadersOverrideFromEnv(CloudEvent ce) throws Exception {
         final String typeHeaderKey = ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).http();
         final String typeHeaderVal = UUID.randomUUID().toString();
@@ -1314,7 +1304,7 @@ public class KnativeHttpTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideCloudEventsImplementations")
+    @EnumSource(CloudEvents.class)
     void testHeadersOverrideFromURI(CloudEvent ce) throws Exception {
         final String typeHeaderKey = ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).http();
         final String typeHeaderVal = UUID.randomUUID().toString();
@@ -1374,7 +1364,7 @@ public class KnativeHttpTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideCloudEventsImplementations")
+    @EnumSource(CloudEvents.class)
     void testHeadersOverrideFromConf(CloudEvent ce) throws Exception {
         final String typeHeaderKey = ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).http();
         final String typeHeaderVal = UUID.randomUUID().toString();
@@ -1437,7 +1427,7 @@ public class KnativeHttpTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideCloudEventsImplementations")
+    @EnumSource(CloudEvents.class)
     void testHeadersOverrideFromRouteWithCamelHeader(CloudEvent ce) throws Exception {
         configureKnativeComponent(
             context,
@@ -1491,7 +1481,7 @@ public class KnativeHttpTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideCloudEventsImplementations")
+    @EnumSource(CloudEvents.class)
     void testHeadersOverrideFromRouteWithCEHeader(CloudEvent ce) throws Exception {
         configureKnativeComponent(
             context,
