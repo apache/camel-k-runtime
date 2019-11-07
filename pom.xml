@@ -43,7 +43,7 @@
         <commons-io.version>2.6</commons-io.version>
         <commons-lang.version>3.9</commons-lang.version>
         <commons-collections4.version>4.4</commons-collections4.version>
-        <commons-text.version>1.7</commons-text.version>
+        <commons-text.version>1.8</commons-text.version>
         <commons-dbcp2.version>2.7.0</commons-dbcp2.version>
         <assertj.version>3.14.0</assertj.version>
         <log4j2.version>2.12.1</log4j2.version>
