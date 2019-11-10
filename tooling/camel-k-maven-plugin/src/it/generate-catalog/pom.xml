@@ -29,8 +29,8 @@
 
     <properties>
         <catalog.path>${project.basedir}</catalog.path>
-        <camel.version>3.0.0-RC1</camel.version>
-        <runtime.version>1.0.4</runtime.version>
+        <camel.version>3.0.0-RC3</camel.version>
+        <runtime.version>1.0.5</runtime.version>
     </properties>
 
     <build>
