@@ -39,19 +39,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class RoutesLoaderTest {
     @Test
-    public void testLoaderFromRegistry() throws Exception {
-        RoutesLoader myLoader = new JavaClassRoutesLoader();
-        CamelContext camelContext = new DefaultCamelContext();
-        camelContext.getRegistry().bind("my-loader", myLoader);
-
-        Source source = Sources.fromURI("classpath:" + MyRoutes.class.getName() + ".class");
-        RoutesLoader loader = RuntimeSupport.loaderFor(camelContext, source);
-
-        assertThat(loader).isInstanceOf(JavaClassRoutesLoader.class);
-        assertThat(loader).isSameAs(myLoader);
-    }
-
-    @Test
     public void testLoadJavaWithNestedClass() throws Exception {
         CamelContext context = new DefaultCamelContext();
 
@@ -111,7 +98,6 @@ public class RoutesLoaderTest {
 
     static Stream<Arguments> parameters() {
         return Stream.of(
-            Arguments.arguments("classpath:" + MyRoutes.class.getName() + ".class", JavaClassRoutesLoader.class),
             Arguments.arguments("classpath:MyRoutes.java", JavaSourceRoutesLoader.class),
             Arguments.arguments("classpath:MyRoutesWithNameOverride.java?name=MyRoutes.java", JavaSourceRoutesLoader.class),
             Arguments.arguments("classpath:MyRoutesWithPackage.java", JavaSourceRoutesLoader.class),

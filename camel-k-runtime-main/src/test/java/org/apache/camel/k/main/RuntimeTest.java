@@ -92,19 +92,6 @@ public class RuntimeTest {
         runtime.run();
     }
 
-
-    @Test
-    public void testLoadJavaClassWithBeans() throws Exception {
-        ApplicationRuntime runtime = new ApplicationRuntime();
-        runtime.addListener(RoutesConfigurer.forRoutes("classpath:" + MyRoutesWithBeans.class.getName() + ".class"));
-        runtime.addListener(Runtime.Phase.Started, r ->  runtime.stop());
-        runtime.run();
-
-        assertThat(runtime.getRegistry().lookupByName("my-bean")).isInstanceOfSatisfying(MyBean.class, b -> {
-            assertThat(b).hasFieldOrPropertyWithValue("name", "my-bean-name");
-        });
-    }
-
     @Test
     public void testLoadJavaSourceWithBeans() throws Exception {
         ApplicationRuntime runtime = new ApplicationRuntime();
