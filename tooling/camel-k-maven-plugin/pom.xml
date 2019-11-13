@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.apache.camel.k</groupId>
     <artifactId>camel-k-tooling</artifactId>
-    <version>1.0.7</version>
+    <version>1.0.8-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
