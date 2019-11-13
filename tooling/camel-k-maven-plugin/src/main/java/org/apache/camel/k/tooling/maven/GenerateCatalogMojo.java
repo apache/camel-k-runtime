@@ -152,7 +152,7 @@ public class GenerateCatalogMojo extends AbstractMojo {
             try (Writer writer = Files.newBufferedWriter(output, StandardCharsets.UTF_8)) {
                 String catalogName;
                 if ("quarkus".equals(runtime)) {
-                    catalogName = String.format("camel-%s-catalog-%s-%s",
+                    catalogName = String.format("camel-catalog-%s-%s-%s",
                         runtime,
                         getVersionFor("/META-INF/maven/org.apache.camel.quarkus/camel-catalog-quarkus/pom.properties"),
                         getRuntimeVersion().toLowerCase()
