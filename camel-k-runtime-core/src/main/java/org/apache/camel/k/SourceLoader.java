@@ -18,10 +18,9 @@ package org.apache.camel.k;
 
 import java.util.List;
 
-import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 
-public interface RoutesLoader {
+public interface SourceLoader {
     /**
      * Provides a list of the languages supported by this loader.
      *
@@ -32,10 +31,10 @@ public interface RoutesLoader {
     /**
      * Creates a camel {@link RouteBuilder} from the given resource.
      *
-     * @param context the camel runtime.
+     * @param runtime the runtime.
      * @param source the source to load.
      * @return the RouteBuilder.
      * @throws Exception
      */
-    RouteBuilder load(CamelContext context, Source source) throws Exception;
+    void load(Runtime runtime, Source source) throws Exception;
 }

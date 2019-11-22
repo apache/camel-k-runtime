@@ -80,6 +80,11 @@ public final class ApplicationRuntime implements Runtime {
     }
 
     @Override
+    public void addConfiguration(Object configuration) {
+        this.main.addConfiguration(configuration);
+    }
+
+    @Override
     public void setProperties(Properties properties) {
         this.main.setOverrideProperties(properties);
     }

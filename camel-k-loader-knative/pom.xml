@@ -38,6 +38,17 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.camel.k</groupId>
+            <artifactId>camel-k-apt</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.k</groupId>
+            <artifactId>camel-k-annotations</artifactId>
+            <optional>true</optional>
+        </dependency>
+
         <!-- ****************************** -->
         <!--                                -->
         <!-- TESTS                          -->

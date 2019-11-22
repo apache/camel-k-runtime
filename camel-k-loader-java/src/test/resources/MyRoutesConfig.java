@@ -14,15 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.annotation;
+import org.apache.camel.BindToRegistry;
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
+import org.apache.camel.builder.RouteBuilder;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+public class MyRoutesConfig {
+    @BindToRegistry
+    public static MyProcessor myProcessor() {
+        return new MyProcessor();
+    }
 
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.SOURCE)
-public @interface Loader {
-    String[] value();
+    public static class MyProcessor implements Processor {
+        @Override
+        public void process(Exchange exchange) throws Exception {
+        }
+    }
 }

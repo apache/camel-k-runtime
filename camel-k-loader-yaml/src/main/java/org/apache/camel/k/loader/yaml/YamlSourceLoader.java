@@ -31,8 +31,9 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.k.RoutesLoader;
+import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
+import org.apache.camel.k.SourceLoader;
 import org.apache.camel.k.annotation.Loader;
 import org.apache.camel.k.loader.yaml.model.Step;
 import org.apache.camel.k.loader.yaml.parser.StartStepParser;
@@ -46,10 +47,10 @@ import org.apache.camel.model.rest.RestsDefinition;
 
 
 @Loader("yaml")
-public class YamlRoutesLoader implements RoutesLoader {
+public class YamlSourceLoader implements SourceLoader {
     private final ObjectMapper mapper;
 
-    public YamlRoutesLoader() {
+    public YamlSourceLoader() {
         YAMLFactory yamlFactory = new YAMLFactory()
             .configure(YAMLGenerator.Feature.MINIMIZE_QUOTES, true)
             .configure(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID, false);
@@ -71,8 +72,10 @@ public class YamlRoutesLoader implements RoutesLoader {
     }
 
     @Override
-    public RouteBuilder load(CamelContext camelContext, Source source) throws Exception {
-        return builder(source.resolveAsInputStream(camelContext));
+    public void load(Runtime runtime, Source source) throws Exception {
+        runtime.addRoutes(
+            builder(source.resolveAsInputStream(runtime.getCamelContext()))
+        );
     }
 
     final ObjectMapper mapper() {

@@ -17,11 +17,10 @@
 package org.apache.camel.k.listener;
 
 import org.apache.camel.RuntimeCamelException;
-import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.k.Constants;
-import org.apache.camel.k.RoutesLoader;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
+import org.apache.camel.k.SourceLoader;
 import org.apache.camel.k.Sources;
 import org.apache.camel.k.support.RuntimeSupport;
 import org.apache.camel.util.ObjectHelper;
@@ -58,24 +57,18 @@ public class RoutesConfigurer extends AbstractPhaseListener {
             }
 
             final Source source;
-            final RoutesLoader loader;
-            final RouteBuilder builder;
+            final SourceLoader loader;
 
             try {
                 source = Sources.fromURI(route);
                 loader = RuntimeSupport.loaderFor(runtime.getCamelContext(), source);
-                builder = loader.load(runtime.getCamelContext(), source);
+
+                loader.load(runtime, source);
             } catch (Exception e) {
                 throw RuntimeCamelException.wrapRuntimeCamelException(e);
             }
 
-            if (builder == null) {
-                throw new IllegalStateException("Unable to load route from: " + route);
-            }
-
             LOGGER.info("Loading routes from: {}", route);
-
-            runtime.addRoutes(builder);
         }
     }
 

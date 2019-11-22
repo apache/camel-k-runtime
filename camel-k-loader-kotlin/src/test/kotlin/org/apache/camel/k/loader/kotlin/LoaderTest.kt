@@ -16,27 +16,35 @@
  */
 package org.apache.camel.k.loader.kotlin
 
+import org.apache.camel.CamelContext
+import org.apache.camel.RoutesBuilder
+import org.apache.camel.builder.RouteBuilder
 import org.apache.camel.impl.DefaultCamelContext
+import org.apache.camel.k.Runtime
 import org.apache.camel.k.Sources
 import org.apache.camel.k.support.RuntimeSupport
 import org.apache.camel.model.ProcessDefinition
 import org.apache.camel.model.ToDefinition
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import java.util.*
 
 class LoaderTest {
 
     @Test
     fun `load routes`() {
-        var context = DefaultCamelContext()
+        var runtime = TestRuntime()
         var source = Sources.fromURI("classpath:routes.kts")
-        val loader = RuntimeSupport.loaderFor(context, source)
-        val builder = loader.load(context, source)
+        val loader = RuntimeSupport.loaderFor(runtime.camelContext, source)
 
-        assertThat(loader).isInstanceOf(KotlinRoutesLoader::class.java)
-        assertThat(builder).isNotNull
+        loader.load(runtime, source)
 
-        builder.context = context
+        assertThat(loader).isInstanceOf(KotlinSourceLoader::class.java)
+        assertThat(runtime.builders).hasSize(1)
+        assertThat(runtime.builders[0]).isInstanceOf(RouteBuilder::class.java)
+
+        var builder = runtime.builders[0] as RouteBuilder
+        builder.context = runtime.camelContext
         builder.configure()
 
         val routes = builder.routeCollection.routes
@@ -48,15 +56,18 @@ class LoaderTest {
 
     @Test
     fun `load routes with endpoint dsl`() {
-        var context = DefaultCamelContext()
+        var runtime = TestRuntime()
         var source = Sources.fromURI("classpath:routes-with-endpoint-dsl.kts")
-        val loader = RuntimeSupport.loaderFor(context, source)
-        val builder = loader.load(context, source)
+        val loader = RuntimeSupport.loaderFor(runtime.camelContext, source)
 
-        assertThat(loader).isInstanceOf(KotlinRoutesLoader::class.java)
-        assertThat(builder).isNotNull
+        loader.load(runtime, source)
 
-        builder.context = context
+        assertThat(loader).isInstanceOf(KotlinSourceLoader::class.java)
+        assertThat(runtime.builders).hasSize(1)
+        assertThat(runtime.builders[0]).isInstanceOf(RouteBuilder::class.java)
+
+        var builder = runtime.builders[0] as RouteBuilder
+        builder.context = runtime.camelContext
         builder.configure()
 
         val routes = builder.routeCollection.routes
@@ -65,6 +76,23 @@ class LoaderTest {
         assertThat(routes[0].outputs[0]).isInstanceOfSatisfying(ToDefinition::class.java) {
             assertThat(it.endpointUri).isEqualTo("log:info")
         }
+    }
 
+    internal class TestRuntime : Runtime {
+        private val context: CamelContext
+        val builders: MutableList<RoutesBuilder>
+
+        init {
+            this.context = DefaultCamelContext()
+            this.builders = ArrayList()
+        }
+
+        override fun getCamelContext(): CamelContext {
+            return this.context
+        }
+
+        override fun addRoutes(builder: RoutesBuilder) {
+            this.builders.add(builder)
+        }
     }
 }

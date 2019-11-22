@@ -23,33 +23,39 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.camel.CamelContext;
-import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.k.RoutesLoader;
+import org.apache.camel.RoutesBuilder;
+import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
+import org.apache.camel.k.SourceLoader;
+import org.apache.camel.k.annotation.Loader;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.joor.Reflect;
 
-public class JavaSourceRoutesLoader implements RoutesLoader {
+@Loader("java")
+public class JavaSourceLoader implements SourceLoader {
     @Override
     public List<String> getSupportedLanguages() {
         return Collections.singletonList("java");
     }
 
     @Override
-    public RouteBuilder load(CamelContext camelContext, Source source) throws Exception {
-        try (InputStream is = source.resolveAsInputStream(camelContext)) {
+    public void load(Runtime runtime, Source source) throws Exception {
+        try (InputStream is = source.resolveAsInputStream(runtime.getCamelContext())) {
             final String content = IOUtils.toString(is, StandardCharsets.UTF_8);
             final String name = determineQualifiedName(source, content);
             final Reflect compiled = Reflect.compile(name, content);
+            final Object instance = compiled.create().get();
 
-            RouteBuilder rb =  compiled.create().get();
-            return rb;
+            if (instance instanceof RoutesBuilder) {
+                runtime.addRoutes((RoutesBuilder)instance);
+            } else {
+                runtime.addConfiguration(instance);
+            }
         }
     }
 
-    private static String determineQualifiedName(Source source, String content) throws Exception {
+    private static String determineQualifiedName(Source source, String content) {
         String name = source.getName();
         name = StringUtils.removeEnd(name, ".java");
 

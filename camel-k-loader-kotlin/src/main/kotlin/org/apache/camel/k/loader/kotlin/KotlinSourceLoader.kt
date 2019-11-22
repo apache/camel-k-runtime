@@ -16,10 +16,11 @@
  */
 package org.apache.camel.k.loader.kotlin
 
-import org.apache.camel.CamelContext
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder
-import org.apache.camel.k.RoutesLoader
+import org.apache.camel.k.Runtime
 import org.apache.camel.k.Source
+import org.apache.camel.k.SourceLoader
+import org.apache.camel.k.annotation.Loader
 import org.apache.camel.k.loader.kotlin.dsl.IntegrationConfiguration
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -33,9 +34,10 @@ import kotlin.script.experimental.jvmhost.BasicJvmScriptingHost
 import kotlin.script.experimental.jvmhost.JvmScriptCompiler
 import kotlin.script.experimental.jvmhost.createJvmCompilationConfigurationFromTemplate
 
-class KotlinRoutesLoader : RoutesLoader {
+@Loader("kts")
+class KotlinSourceLoader : SourceLoader {
     companion object {
-        val LOGGER : Logger = LoggerFactory.getLogger(KotlinRoutesLoader::class.java)
+        val LOGGER : Logger = LoggerFactory.getLogger(KotlinSourceLoader::class.java)
     }
 
     override fun getSupportedLanguages(): List<String> {
@@ -43,8 +45,8 @@ class KotlinRoutesLoader : RoutesLoader {
     }
 
     @Throws(Exception::class)
-    override fun load(camelContext: CamelContext, source: Source): EndpointRouteBuilder? {
-        return object : EndpointRouteBuilder() {
+    override fun load(runtime: Runtime, source: Source) {
+        var builder = object : EndpointRouteBuilder() {
             @Throws(Exception::class)
             override fun configure() {
                 val builder = this
@@ -52,6 +54,7 @@ class KotlinRoutesLoader : RoutesLoader {
                 val evaluator = BasicJvmScriptEvaluator()
                 val host = BasicJvmScriptingHost(compiler = compiler, evaluator = evaluator)
                 val config = createJvmCompilationConfigurationFromTemplate<IntegrationConfiguration>()
+                val camelContext = runtime.camelContext
 
                 source.resolveAsInputStream(camelContext).use { `is` ->
                     val result = host.eval(
@@ -75,5 +78,7 @@ class KotlinRoutesLoader : RoutesLoader {
                 }
             }
         }
+
+        runtime.addRoutes(builder)
     }
 }
