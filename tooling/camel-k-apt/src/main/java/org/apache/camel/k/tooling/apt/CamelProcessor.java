@@ -53,10 +53,14 @@ public class CamelProcessor extends AbstractProcessor {
         for (TypeElement annotation : annotations) {
             Set<? extends Element> ae = roundEnv.getElementsAnnotatedWith(annotation);
             for (Element element: ae) {
-                on(element, Loader.class, (e, a) -> service(
-                    output("META-INF/services/org/apache/camel/k/loader/%s", a.value()),
-                    e
-                ));
+                on(element, Loader.class, (e, a) -> {
+                    for (String loader: a.value()) {
+                        service(
+                            output("META-INF/services/org/apache/camel/k/loader/%s", loader),
+                            e
+                        );
+                    }
+                });
                 on(element, YAMLStepParser.class, (e, a) -> {
                     for (String id: a.value()) {
                         service(

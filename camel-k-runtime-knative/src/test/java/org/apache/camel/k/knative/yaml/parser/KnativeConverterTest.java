@@ -16,14 +16,17 @@
  */
 package org.apache.camel.k.knative.yaml.parser;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.CamelContext;
+import org.apache.camel.RoutesBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.k.RoutesLoader;
+import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
+import org.apache.camel.k.SourceLoader;
 import org.apache.camel.k.Sources;
-import org.apache.camel.k.loader.yaml.YamlRoutesLoader;
+import org.apache.camel.k.loader.yaml.YamlSourceLoader;
 import org.apache.camel.k.support.RuntimeSupport;
 import org.apache.camel.model.FromDefinition;
 import org.apache.camel.model.ProcessorDefinition;
@@ -37,17 +40,18 @@ public class KnativeConverterTest {
 
     @Test
     public void testLoadRoutes() throws Exception {
-        DefaultCamelContext context = new DefaultCamelContext();
+        TestRuntime runtime = new TestRuntime();
         Source source = Sources.fromURI("classpath:route.yaml");
-        RoutesLoader loader = RuntimeSupport.loaderFor(context, source);
-        RouteBuilder builder = loader.load(context, source);
+        SourceLoader loader = RuntimeSupport.loaderFor(runtime.camelContext, source);
 
-        assertThat(loader).isInstanceOf(YamlRoutesLoader.class);
-        assertThat(builder).isNotNull();
+        loader.load(runtime, source);
 
-        context.addRoutes(builder);
+        assertThat(loader).isInstanceOf(YamlSourceLoader.class);
+        assertThat(runtime.builders).hasSize(1);
 
-        List<RouteDefinition> routes = context.getRouteDefinitions();
+        runtime.camelContext.addRoutes(runtime.builders.get(0));
+
+        List<RouteDefinition> routes = runtime.camelContext.getRouteDefinitions();
         assertThat(routes).hasSize(1);
 
         // definition
@@ -89,5 +93,25 @@ public class KnativeConverterTest {
             .isInstanceOfSatisfying(ToDefinition.class, t-> {
                 assertThat(t.getEndpointUri()).isEqualTo("knative:endpoint/to");
             });
+    }
+
+    static class TestRuntime implements Runtime {
+        private final DefaultCamelContext camelContext;
+        private final List<RoutesBuilder> builders;
+
+        public TestRuntime() {
+            this.camelContext = new DefaultCamelContext();
+            this.builders = new ArrayList<>();
+        }
+
+        @Override
+        public CamelContext getCamelContext() {
+            return this.camelContext;
+        }
+
+        @Override
+        public void addRoutes(RoutesBuilder builder) {
+            this.builders.add(builder);
+        }
     }
 }

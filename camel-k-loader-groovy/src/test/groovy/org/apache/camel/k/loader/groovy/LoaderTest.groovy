@@ -16,7 +16,11 @@
  */
 package org.apache.camel.k.loader.groovy
 
+import org.apache.camel.CamelContext
+import org.apache.camel.RoutesBuilder
+import org.apache.camel.builder.RouteBuilder
 import org.apache.camel.impl.DefaultCamelContext
+import org.apache.camel.k.Runtime
 import org.apache.camel.k.Sources
 import org.apache.camel.k.support.RuntimeSupport
 import org.apache.camel.model.FromDefinition
@@ -27,52 +31,76 @@ class LoaderTest extends Specification {
 
     def "load routes"() {
         given:
-            def context = new DefaultCamelContext()
+            def runtime = new TestRuntime()
             def source = Sources.fromURI("classpath:routes.groovy")
 
         when:
-            def loader = RuntimeSupport.loaderFor(context, source)
-            def builder = loader.load(context, source)
+            def loader = RuntimeSupport.loaderFor(runtime.camelContext, source)
+            loader.load(runtime, source)
 
         then:
-            loader instanceof GroovyRoutesLoader
-            builder != null
+            loader instanceof GroovySourceLoader
+            runtime.builders.size() == 1
+            runtime.builders[0] instanceof RouteBuilder
 
-            builder.setContext(context)
-            builder.configure()
+            with(runtime.builders[0], RouteBuilder) {
+                it.setContext(runtime.camelContext)
+                it.configure()
 
-            def routes = builder.routeCollection.routes
+                def routes = it.routeCollection.routes
 
-            routes.size() == 1
-            routes[0].outputs[0] instanceof ToDefinition
-            routes[0].input.endpointUri == 'timer:tick'
+                routes.size() == 1
+                routes[0].outputs[0] instanceof ToDefinition
+                routes[0].input.endpointUri == 'timer:tick'
+            }
     }
 
     def "load routes with endpoint dsl"() {
         given:
-            def context = new DefaultCamelContext()
+            def runtime = new TestRuntime()
             def source = Sources.fromURI("classpath:routes-with-endpoint-dsl.groovy")
 
         when:
-            def loader = RuntimeSupport.loaderFor(context, source)
-            def builder = loader.load(context, source)
+            def loader = RuntimeSupport.loaderFor(runtime.camelContext, source)
+            loader.load(runtime, source)
 
         then:
-            loader instanceof GroovyRoutesLoader
-            builder != null
+            loader instanceof GroovySourceLoader
+            runtime.builders.size() == 1
 
-            builder.setContext(context)
-            builder.configure()
+            with(runtime.builders[0], RouteBuilder) {
+                it.setContext(runtime.camelContext)
+                it.configure()
 
-            def routes = builder.routeCollection.routes
+                def routes = it.routeCollection.routes
+                routes.size() == 1
 
-            routes.size() == 1
-
-            with(routes[0].input, FromDefinition) {
-                it.endpointUri == 'timer:tick?period=1s'
+                with(routes[0].input, FromDefinition) {
+                    it.endpointUri == 'timer:tick?period=1s'
+                }
+                with(routes[0].outputs[0], ToDefinition) {
+                    it.endpointUri == 'log:info'
+                }
             }
-            with(routes[0].outputs[0], ToDefinition) {
-                it.endpointUri == 'log:info'
-            }
+    }
+
+    static class TestRuntime implements Runtime {
+        private final CamelContext camelContext
+        private final List<RoutesBuilder> builders
+
+        TestRuntime() {
+            this.camelContext = new DefaultCamelContext()
+            this.builders = new ArrayList<>()
+        }
+
+        @Override
+        CamelContext getCamelContext() {
+            return this.camelContext
+        }
+
+        @Override
+        void addRoutes(RoutesBuilder builder) {
+            this.builders.add(builder)
+        }
     }
 }

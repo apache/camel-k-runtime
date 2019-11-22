@@ -16,13 +16,17 @@
  */
 package org.apache.camel.k.loader.js;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import org.apache.camel.CamelContext;
+import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.k.RoutesLoader;
+import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
+import org.apache.camel.k.SourceLoader;
 import org.apache.camel.k.Sources;
 import org.apache.camel.k.support.RuntimeSupport;
 import org.apache.camel.model.RouteDefinition;
@@ -36,15 +40,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class RoutesLoaderTest {
     @ParameterizedTest
     @MethodSource("parameters")
-    public void testLoaders(String location, Class<? extends RoutesLoader> type) throws Exception {
+    public void testLoaders(String location, Class<? extends SourceLoader> type) throws Exception {
+        TestRuntime runtime = new TestRuntime();
         Source source = Sources.fromURI(location);
-        RoutesLoader loader = RuntimeSupport.loaderFor(new DefaultCamelContext(), source);
-        RouteBuilder builder = loader.load(new DefaultCamelContext(), source);
+        SourceLoader loader = RuntimeSupport.loaderFor(new DefaultCamelContext(), source);
+
+        loader.load(runtime, source);
 
         assertThat(loader).isInstanceOf(type);
-        assertThat(builder).isNotNull();
+        assertThat(runtime.builders).hasSize(1);
+        assertThat(runtime.builders).first().isInstanceOf(RouteBuilder.class);
 
-        builder.setContext(new DefaultCamelContext());
+        RouteBuilder builder = (RouteBuilder)runtime.builders.get(0);
+        builder.setContext(runtime.getCamelContext());
         builder.configure();
 
         List<RouteDefinition> routes = builder.getRouteCollection().getRoutes();
@@ -55,10 +63,30 @@ public class RoutesLoaderTest {
 
     static Stream<Arguments> parameters() {
         return Stream.of(
-            Arguments.arguments("classpath:routes.js", JavaScriptRoutesLoader.class),
-            Arguments.arguments("classpath:routes-with-endpoint-dsl.js", JavaScriptRoutesLoader.class),
-            Arguments.arguments("classpath:routes-compressed.js.gz.b64?language=js&compression=true", JavaScriptRoutesLoader.class),
-            Arguments.arguments("classpath:routes.mytype?language=js", JavaScriptRoutesLoader.class)
+            Arguments.arguments("classpath:routes.js", JavaScriptSourceLoader.class),
+            Arguments.arguments("classpath:routes-with-endpoint-dsl.js", JavaScriptSourceLoader.class),
+            Arguments.arguments("classpath:routes-compressed.js.gz.b64?language=js&compression=true", JavaScriptSourceLoader.class),
+            Arguments.arguments("classpath:routes.mytype?language=js", JavaScriptSourceLoader.class)
         );
+    }
+
+    static class TestRuntime implements Runtime {
+        private final CamelContext camelContext;
+        private final List<RoutesBuilder> builders;
+
+        public TestRuntime() {
+            this.camelContext = new DefaultCamelContext();
+            this.builders = new ArrayList<>();
+        }
+
+        @Override
+        public CamelContext getCamelContext() {
+            return this.camelContext;
+        }
+
+        @Override
+        public void addRoutes(RoutesBuilder builder) {
+            this.builders.add(builder);
+        }
     }
 }

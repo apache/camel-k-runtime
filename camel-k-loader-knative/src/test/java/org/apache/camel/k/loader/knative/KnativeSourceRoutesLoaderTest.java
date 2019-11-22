@@ -16,19 +16,22 @@
  */
 package org.apache.camel.k.loader.knative;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.knative.KnativeComponent;
 import org.apache.camel.component.knative.spi.Knative;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.k.RoutesLoader;
+import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
+import org.apache.camel.k.SourceLoader;
 import org.apache.camel.k.Sources;
 import org.apache.camel.k.support.RuntimeSupport;
 import org.apache.camel.model.ModelCamelContext;
@@ -76,20 +79,23 @@ public class KnativeSourceRoutesLoaderTest {
             KnativeEnvironment.endpoint(Knative.EndpointKind.sink, "sink", "localhost", port)
         ));
 
-        CamelContext context = new DefaultCamelContext();
+        TestRuntime runtime = new TestRuntime();
+
+        CamelContext context = runtime.getCamelContext();
         context.disableJMX();
         context.setStreamCaching(true);
         context.addComponent("knative", component);
 
         Source source = Sources.fromURI(uri);
-        RoutesLoader loader = RuntimeSupport.loaderFor(context, source);
-        RouteBuilder builder = loader.load(context, source);
+        SourceLoader loader = RuntimeSupport.loaderFor(context, source);
 
-        assertThat(loader).isInstanceOf(KnativeSourceRoutesLoader.class);
-        assertThat(builder).isNotNull();
+        loader.load(runtime, source);
+
+        assertThat(loader).isInstanceOf(KnativeSourceLoader.class);
+        assertThat(runtime.builders).hasSize(1);
 
         try {
-            context.addRoutes(builder);
+            context.addRoutes(runtime.builders.get(0));
             context.addRoutes(new RouteBuilder() {
                 @Override
                 public void configure() throws Exception {
@@ -135,25 +141,48 @@ public class KnativeSourceRoutesLoaderTest {
             KnativeEnvironment.endpoint(Knative.EndpointKind.source, "sink", "localhost", port)
         ));
 
-        CamelContext context = new DefaultCamelContext();
+        TestRuntime runtime = new TestRuntime();
+
+        CamelContext context = runtime.getCamelContext();
         context.disableJMX();
         context.setStreamCaching(true);
         context.addComponent("knative", component);
 
         Source source = Sources.fromURI("classpath:routes.java?name=MyRoutes.java&loader=knative-source");
-        RoutesLoader loader = RuntimeSupport.loaderFor(context, source);
-        RouteBuilder builder = loader.load(context, source);
+        SourceLoader loader = RuntimeSupport.loaderFor(context, source);
 
-        assertThat(loader).isInstanceOf(KnativeSourceRoutesLoader.class);
-        assertThat(builder).isNotNull();
+        loader.load(runtime, source);
+
+        assertThat(loader).isInstanceOf(KnativeSourceLoader.class);
+        assertThat(runtime.builders).hasSize(1);
 
         try {
-            context.addRoutes(builder);
+            context.addRoutes(runtime.builders.get(0));
             context.start();
 
             assertThat(context.getRegistry().lookupByName("my-bean")).isInstanceOfSatisfying(String.class, "my-bean-string"::equals);
         } finally {
             context.stop();
+        }
+    }
+
+    static class TestRuntime implements Runtime {
+        private final CamelContext camelContext;
+        private final List<RoutesBuilder> builders;
+
+        public TestRuntime() {
+            this.camelContext = new DefaultCamelContext();
+            this.builders = new ArrayList<>();
+        }
+
+        @Override
+        public CamelContext getCamelContext() {
+            return this.camelContext;
+        }
+
+        @Override
+        public void addRoutes(RoutesBuilder builder) {
+            this.builders.add(builder);
         }
     }
 }

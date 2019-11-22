@@ -31,8 +31,8 @@ import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.NoFactoryAvailableException;
 import org.apache.camel.k.Constants;
 import org.apache.camel.k.ContextCustomizer;
-import org.apache.camel.k.RoutesLoader;
 import org.apache.camel.k.Source;
+import org.apache.camel.k.SourceLoader;
 import org.apache.camel.util.ObjectHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -153,7 +153,7 @@ public final class RuntimeSupport {
     //
     // *********************************
 
-    public static RoutesLoader loaderFor(CamelContext context, Source source) {
+    public static SourceLoader loaderFor(CamelContext context, Source source) {
         return source.getLoader().map(
             loaderId -> lookupLoaderById(context, loaderId)
         ).orElseGet(
@@ -162,10 +162,10 @@ public final class RuntimeSupport {
     }
 
 
-    public static RoutesLoader lookupLoaderById(CamelContext context, String loaderId) {
+    public static SourceLoader lookupLoaderById(CamelContext context, String loaderId) {
         LOGGER.info("Looking up loader for id: {}", loaderId);
 
-        RoutesLoader loader = context.getRegistry().findByTypeWithName(RoutesLoader.class).get(loaderId);
+        SourceLoader loader = context.getRegistry().findByTypeWithName(SourceLoader.class).get(loaderId);
         if (loader != null) {
             LOGGER.info("Found loader {} with id {} from the registry", loader, loaderId);
             return loader;
@@ -174,10 +174,10 @@ public final class RuntimeSupport {
         return lookupLoaderFromResource(context, loaderId);
     }
 
-    public static RoutesLoader lookupLoaderByLanguage(CamelContext context, String loaderId) {
+    public static SourceLoader lookupLoaderByLanguage(CamelContext context, String loaderId) {
         LOGGER.info("Looking up loader for language: {}", loaderId);
 
-        for (RoutesLoader loader: context.getRegistry().findByType(RoutesLoader.class)) {
+        for (SourceLoader loader: context.getRegistry().findByType(SourceLoader.class)) {
             if (loader.getSupportedLanguages().contains(loaderId)) {
                 LOGGER.info("Found loader {} for language {} from the registry", loader, loaderId);
                 return loader;
@@ -187,13 +187,13 @@ public final class RuntimeSupport {
         return lookupLoaderFromResource(context, loaderId);
     }
 
-    public static RoutesLoader lookupLoaderFromResource(CamelContext context, String loaderId) {
-        RoutesLoader loader;
+    public static SourceLoader lookupLoaderFromResource(CamelContext context, String loaderId) {
+        SourceLoader loader;
 
         try {
             loader = context.adapt(ExtendedCamelContext.class)
                 .getFactoryFinder(Constants.ROUTES_LOADER_RESOURCE_PATH)
-                .newInstance(loaderId, RoutesLoader.class)
+                .newInstance(loaderId, SourceLoader.class)
                 .orElseThrow(() -> new RuntimeException("Error creating instance of loader: " + loaderId));
 
             LOGGER.info("Found loader {} for language {} from service definition", loader, loaderId);

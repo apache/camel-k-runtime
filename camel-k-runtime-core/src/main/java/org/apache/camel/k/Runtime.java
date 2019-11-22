@@ -53,6 +53,10 @@ public interface Runtime extends HasCamelContext {
         }
     }
 
+    default void addConfiguration(Object configuration) {
+        throw new UnsupportedOperationException();
+    }
+
     enum Phase {
         Starting,
         ConfigureContext,

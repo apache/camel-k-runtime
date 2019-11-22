@@ -29,7 +29,7 @@ import java.nio.charset.StandardCharsets
 
 @Slf4j
 class TestSupport extends Specification {
-    static def MAPPER = new YamlRoutesLoader().mapper()
+    static def MAPPER = new YamlSourceLoader().mapper()
 
     static StepParser.Context stepContext(String content) {
         def node = MAPPER.readTree(content.stripMargin())
@@ -45,7 +45,7 @@ class TestSupport extends Specification {
     static CamelContext startContext(String content) {
         def context = new DefaultCamelContext()
         def istream = IOUtils.toInputStream(content.stripMargin(), StandardCharsets.UTF_8)
-        def builder = new YamlRoutesLoader().builder(istream)
+        def builder = new YamlSourceLoader().builder(istream)
 
         context.disableJMX()
         context.setStreamCaching(true)

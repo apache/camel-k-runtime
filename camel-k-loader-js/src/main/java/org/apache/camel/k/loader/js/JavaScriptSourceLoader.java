@@ -22,17 +22,20 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
-import org.apache.camel.k.RoutesLoader;
+import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
+import org.apache.camel.k.SourceLoader;
+import org.apache.camel.k.annotation.Loader;
 import org.apache.camel.k.loader.js.dsl.IntegrationConfiguration;
 import org.apache.camel.support.LifecycleStrategySupport;
 import org.apache.commons.io.IOUtils;
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.Value;
 
-public class JavaScriptRoutesLoader implements RoutesLoader {
+@Loader("js")
+public class JavaScriptSourceLoader implements SourceLoader {
     private static final String LANGUAGE_ID = "js";
 
     @Override
@@ -41,8 +44,8 @@ public class JavaScriptRoutesLoader implements RoutesLoader {
     }
 
     @Override
-    public RouteBuilder load(CamelContext camelContext, Source source) throws Exception {
-        return new EndpointRouteBuilder() {
+    public void load(Runtime runtime, Source source) throws Exception {
+        RoutesBuilder builder = new EndpointRouteBuilder() {
             @Override
             public void configure() throws Exception {
                 final Context context = Context.newBuilder("js").allowAllAccess(true).build();
@@ -70,5 +73,7 @@ public class JavaScriptRoutesLoader implements RoutesLoader {
                 }
             }
         };
+
+        runtime.addRoutes(builder);
     }
 }

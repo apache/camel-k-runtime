@@ -16,17 +16,19 @@
  */
 package org.apache.camel.k.loader.java;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.k.RoutesLoader;
+import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
+import org.apache.camel.k.SourceLoader;
 import org.apache.camel.k.Sources;
 import org.apache.camel.k.support.RuntimeSupport;
-import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.model.ProcessDefinition;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.model.SetBodyDefinition;
@@ -41,16 +43,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class RoutesLoaderTest {
     @Test
     public void testLoadJavaWithNestedClass() throws Exception {
-        CamelContext context = new DefaultCamelContext();
-
+        TestRuntime runtime = new TestRuntime();
         Source source = Sources.fromURI("classpath:MyRoutesWithNestedClass.java");
-        RoutesLoader loader = RuntimeSupport.loaderFor(new DefaultCamelContext(), source);
-        RouteBuilder builder = loader.load(context, source);
+        SourceLoader loader = RuntimeSupport.loaderFor(runtime.camelContext, source);
 
-        assertThat(loader).isInstanceOf(JavaSourceRoutesLoader.class);
-        assertThat(builder).isNotNull();
+        loader.load(runtime, source);
 
-        builder.setContext(context);
+        assertThat(loader).isInstanceOf(JavaSourceLoader.class);
+        assertThat(runtime.builders).hasSize(1);
+        assertThat(runtime.builders).first().isInstanceOf(RouteBuilder.class);
+
+        RouteBuilder builder = (RouteBuilder)runtime.builders.get(0);
+        builder.setContext(runtime.getCamelContext());
         builder.configure();
 
         List<RouteDefinition> routes = builder.getRouteCollection().getRoutes();
@@ -63,35 +67,50 @@ public class RoutesLoaderTest {
 
     @Test
     public void testLoadJavaWithRestConfiguration() throws Exception {
-        CamelContext context = new DefaultCamelContext();
-
+        TestRuntime runtime = new TestRuntime();
         Source source = Sources.fromURI("classpath:MyRoutesWithRestConfiguration.java");
-        RoutesLoader loader = RuntimeSupport.loaderFor(new DefaultCamelContext(), source);
-        RouteBuilder builder = loader.load(context, source);
+        SourceLoader loader = RuntimeSupport.loaderFor(runtime.camelContext, source);
 
-        assertThat(loader).isInstanceOf(JavaSourceRoutesLoader.class);
-        assertThat(builder).isNotNull();
+        loader.load(runtime, source);
 
-        context.addRoutes(builder);
+        assertThat(loader).isInstanceOf(JavaSourceLoader.class);
+        assertThat(runtime.builders).hasSize(1);
+        assertThat(runtime.builders).first().isInstanceOf(RouteBuilder.class);
 
-        assertThat(context.getRestConfigurations()).hasSize(1);
-        assertThat(context.getRestConfigurations().iterator().next()).hasFieldOrPropertyWithValue("component", "restlet");
+        runtime.getCamelContext().addRoutes(runtime.builders.get(0));
+
+        assertThat(runtime.getCamelContext().getRestConfigurations()).hasSize(1);
+        assertThat(runtime.getCamelContext().getRestConfigurations().iterator().next()).hasFieldOrPropertyWithValue("component", "restlet");
+    }
+
+    @Test
+    public void testLoadJavaConfiguration() throws Exception {
+        TestRuntime runtime = new TestRuntime();
+        Source source = Sources.fromURI("classpath:MyRoutesConfig.java");
+        SourceLoader loader = RuntimeSupport.loaderFor(runtime.camelContext, source);
+
+        loader.load(runtime, source);
+
+        assertThat(loader).isInstanceOf(JavaSourceLoader.class);
+        assertThat(runtime.builders).isEmpty();
+        assertThat(runtime.configurations).hasSize(1);
     }
 
     @Test
     public void testLoadJavaWithModel() throws Exception {
-        CamelContext context = new DefaultCamelContext();
-
+        TestRuntime runtime = new TestRuntime();
         Source source = Sources.fromURI("classpath:MyRoutesWithModel.java");
-        RoutesLoader loader = RuntimeSupport.loaderFor(new DefaultCamelContext(), source);
-        RouteBuilder builder = loader.load(context, source);
+        SourceLoader loader = RuntimeSupport.loaderFor(runtime.camelContext, source);
 
-        assertThat(loader).isInstanceOf(JavaSourceRoutesLoader.class);
-        assertThat(builder).isNotNull();
+        loader.load(runtime, source);
 
-        context.addRoutes(builder);
+        assertThat(loader).isInstanceOf(JavaSourceLoader.class);
+        assertThat(runtime.builders).hasSize(1);
+        assertThat(runtime.builders).first().isInstanceOf(RouteBuilder.class);
 
-        assertThat(context.adapt(ModelCamelContext.class).getRestDefinitions()).first().satisfies(definition -> {
+        runtime.getCamelContext().addRoutes(runtime.builders.get(0));
+
+        assertThat(runtime.camelContext.getRestDefinitions()).first().satisfies(definition -> {
             assertThat(definition.getVerbs()).first().satisfies(verb -> {
                 assertThat(verb).hasFieldOrPropertyWithValue("outType", "org.apache.camel.k.loader.java.model.EmployeeDTO");
             });
@@ -100,15 +119,19 @@ public class RoutesLoaderTest {
 
     @ParameterizedTest
     @MethodSource("parameters")
-    public void testLoaders(String location, Class<? extends RoutesLoader> type) throws Exception {
+    public void testLoaders(String location, Class<? extends SourceLoader> type) throws Exception {
+        TestRuntime runtime = new TestRuntime();
         Source source = Sources.fromURI(location);
-        RoutesLoader loader = RuntimeSupport.loaderFor(new DefaultCamelContext(), source);
-        RouteBuilder builder = loader.load(new DefaultCamelContext(), source);
+        SourceLoader loader = RuntimeSupport.loaderFor(runtime.camelContext, source);
+
+        loader.load(runtime, source);
 
         assertThat(loader).isInstanceOf(type);
-        assertThat(builder).isNotNull();
+        assertThat(runtime.builders).hasSize(1);
+        assertThat(runtime.builders).first().isInstanceOf(RouteBuilder.class);
 
-        builder.setContext(new DefaultCamelContext());
+        RouteBuilder builder = (RouteBuilder)runtime.builders.get(0);
+        builder.setContext(runtime.getCamelContext());
         builder.configure();
 
         List<RouteDefinition> routes = builder.getRouteCollection().getRoutes();
@@ -119,10 +142,38 @@ public class RoutesLoaderTest {
 
     static Stream<Arguments> parameters() {
         return Stream.of(
-            Arguments.arguments("classpath:MyRoutes.java", JavaSourceRoutesLoader.class),
-            Arguments.arguments("classpath:MyRoutesWithNameOverride.java?name=MyRoutes.java", JavaSourceRoutesLoader.class),
-            Arguments.arguments("classpath:MyRoutesWithPackage.java", JavaSourceRoutesLoader.class),
-            Arguments.arguments("classpath:MyRoutesWithEndpointDsl.java", JavaSourceRoutesLoader.class)
+            Arguments.arguments("classpath:MyRoutes.java", JavaSourceLoader.class),
+            Arguments.arguments("classpath:MyRoutesWithNameOverride.java?name=MyRoutes.java", JavaSourceLoader.class),
+            Arguments.arguments("classpath:MyRoutesWithPackage.java", JavaSourceLoader.class),
+            Arguments.arguments("classpath:MyRoutesWithEndpointDsl.java", JavaSourceLoader.class)
         );
     }
+
+    static class TestRuntime implements Runtime {
+        private final DefaultCamelContext camelContext;
+        private final List<RoutesBuilder> builders;
+        private final List<Object> configurations;
+
+        public TestRuntime() {
+            this.camelContext = new DefaultCamelContext();
+            this.builders = new ArrayList<>();
+            this.configurations = new ArrayList<>();
+        }
+
+        @Override
+        public CamelContext getCamelContext() {
+            return this.camelContext;
+        }
+
+        @Override
+        public void addRoutes(RoutesBuilder builder) {
+            this.builders.add(builder);
+        }
+
+        @Override
+        public void addConfiguration(Object configuration) {
+            this.configurations.add(configuration);
+        }
+    }
 }
+

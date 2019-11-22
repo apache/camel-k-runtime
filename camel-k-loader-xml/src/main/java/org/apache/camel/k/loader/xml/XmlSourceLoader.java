@@ -21,18 +21,20 @@ import java.util.Collections;
 import java.util.List;
 import javax.xml.bind.UnmarshalException;
 
-import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.k.RoutesLoader;
+import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
+import org.apache.camel.k.SourceLoader;
+import org.apache.camel.k.annotation.Loader;
 import org.apache.camel.model.ModelHelper;
 import org.apache.camel.model.RoutesDefinition;
 import org.apache.camel.model.rest.RestsDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class XmlRoutesLoader implements RoutesLoader {
-    private static final Logger LOGGER = LoggerFactory.getLogger(XmlRoutesLoader.class);
+@Loader("xml")
+public class XmlSourceLoader implements SourceLoader {
+    private static final Logger LOGGER = LoggerFactory.getLogger(XmlSourceLoader.class);
 
     @Override
     public List<String> getSupportedLanguages() {
@@ -40,8 +42,8 @@ public class XmlRoutesLoader implements RoutesLoader {
     }
 
     @Override
-    public RouteBuilder load(CamelContext camelContext, Source source) throws Exception {
-        return new RouteBuilder() {
+    public void load(Runtime runtime, Source source) throws Exception {
+        RouteBuilder builder = new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 try (InputStream is = source.resolveAsInputStream(getContext())) {
@@ -71,5 +73,7 @@ public class XmlRoutesLoader implements RoutesLoader {
                 }
             }
         };
+
+        runtime.addRoutes(builder);
     }
 }

@@ -45,7 +45,7 @@ class RouteDefinitionTest extends TestSupport {
             def camelContext = new DefaultCamelContext()
             def istream = IOUtils.toInputStream(content, StandardCharsets.UTF_8)
         when:
-            camelContext.addRoutes(new YamlRoutesLoader().builder(istream))
+            camelContext.addRoutes(new YamlSourceLoader().builder(istream))
         then:
             camelContext.routeDefinitions[0].id == 'my-route-id'
             camelContext.routeDefinitions[0].group == 'my-route-group'
@@ -84,7 +84,7 @@ class RouteDefinitionTest extends TestSupport {
             def camelContext = new DefaultCamelContext()
             def istream = IOUtils.toInputStream(content, StandardCharsets.UTF_8)
         when:
-            camelContext.addRoutes(new YamlRoutesLoader().builder(istream))
+            camelContext.addRoutes(new YamlSourceLoader().builder(istream))
         then:
             camelContext.routeDefinitions[0].input.endpointUri == 'direct:start'
 
@@ -130,7 +130,7 @@ class RouteDefinitionTest extends TestSupport {
             def camelContext = new DefaultCamelContext()
             def istream = IOUtils.toInputStream(content, StandardCharsets.UTF_8)
         when:
-            camelContext.addRoutes(new YamlRoutesLoader().builder(istream))
+            camelContext.addRoutes(new YamlSourceLoader().builder(istream))
         then:
             camelContext.routeDefinitions[0].input.endpointUri == 'direct:start'
             camelContext.routeDefinitions[0].outputs.size() == 2
@@ -169,7 +169,7 @@ class RouteDefinitionTest extends TestSupport {
             def camelContext = new DefaultCamelContext()
             def istream = IOUtils.toInputStream(content, StandardCharsets.UTF_8)
         when:
-            camelContext.addRoutes(new YamlRoutesLoader().builder(istream))
+            camelContext.addRoutes(new YamlSourceLoader().builder(istream))
         then:
             camelContext.routeDefinitions[0].input.endpointUri == 'direct:start'
             camelContext.routeDefinitions[0].outputs.size() == 1
@@ -204,7 +204,7 @@ class RouteDefinitionTest extends TestSupport {
             def camelContext = new DefaultCamelContext()
             def istream = IOUtils.toInputStream(content, StandardCharsets.UTF_8)
         when:
-            camelContext.addRoutes(new YamlRoutesLoader().builder(istream))
+            camelContext.addRoutes(new YamlSourceLoader().builder(istream))
         then:
             camelContext.routeDefinitions[0].input.endpointUri == 'direct:start'
             camelContext.routeDefinitions[0].outputs.size() == 2
@@ -243,7 +243,7 @@ class RouteDefinitionTest extends TestSupport {
             def camelContext = new DefaultCamelContext()
             def istream = IOUtils.toInputStream(content, StandardCharsets.UTF_8)
         when:
-            camelContext.addRoutes(new YamlRoutesLoader().builder(istream))
+            camelContext.addRoutes(new YamlSourceLoader().builder(istream))
         then:
             camelContext.routeDefinitions[0].input.endpointUri == 'direct:start'
             camelContext.routeDefinitions[0].outputs.size() == 1

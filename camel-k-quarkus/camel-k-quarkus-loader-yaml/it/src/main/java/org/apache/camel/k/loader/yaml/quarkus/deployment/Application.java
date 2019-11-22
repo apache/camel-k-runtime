@@ -30,11 +30,11 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Consume;
-import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.k.RoutesLoader;
+import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
+import org.apache.camel.k.SourceLoader;
 import org.apache.camel.k.Sources;
-import org.apache.camel.k.loader.yaml.YamlRoutesLoader;
+import org.apache.camel.k.loader.yaml.YamlSourceLoader;
 
 @Path("/test")
 @ApplicationScoped
@@ -48,10 +48,9 @@ public class Application {
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject loadRoutes(@PathParam("name") String name, String code) throws Exception {
         final Source source = Sources.fromBytes(name, "yaml", null, code.getBytes(StandardCharsets.UTF_8));
-        final RoutesLoader loader = new YamlRoutesLoader();
-        final RouteBuilder routes = loader.load(context, source);
+        final SourceLoader loader = new YamlSourceLoader();
 
-        context.addRoutes(routes);
+        loader.load(Runtime.on(context), source);
 
         return Json.createObjectBuilder()
             .add("components", extractComponents())

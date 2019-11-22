@@ -17,7 +17,6 @@
 package org.apache.camel.k.core.quarkus;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -41,10 +40,6 @@ public class RuntimeListenerAdapter implements MainListener {
     public void setListeners(List<Runtime.Listener> listeners) {
         this.listeners.clear();
         this.listeners.addAll(listeners);
-    }
-
-    public List<Runtime.Listener> getListeners() {
-        return Collections.unmodifiableList(listeners);
     }
 
     @Override
@@ -103,6 +98,11 @@ public class RuntimeListenerAdapter implements MainListener {
             @Override
             public void addRoutes(RoutesBuilder builder) {
                 main.addRoutesBuilder(builder);
+            }
+
+            @Override
+            public void addConfiguration(Object configuration) {
+                main.addConfiguration(configuration);
             }
         };
     }
