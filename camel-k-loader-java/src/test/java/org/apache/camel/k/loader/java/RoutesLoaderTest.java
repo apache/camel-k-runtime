@@ -26,6 +26,7 @@ import org.apache.camel.k.RoutesLoader;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.Sources;
 import org.apache.camel.k.support.RuntimeSupport;
+import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.model.ProcessDefinition;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.model.SetBodyDefinition;
@@ -75,6 +76,26 @@ public class RoutesLoaderTest {
 
         assertThat(context.getRestConfigurations()).hasSize(1);
         assertThat(context.getRestConfigurations().iterator().next()).hasFieldOrPropertyWithValue("component", "restlet");
+    }
+
+    @Test
+    public void testLoadJavaWithModel() throws Exception {
+        CamelContext context = new DefaultCamelContext();
+
+        Source source = Sources.fromURI("classpath:MyRoutesWithModel.java");
+        RoutesLoader loader = RuntimeSupport.loaderFor(new DefaultCamelContext(), source);
+        RouteBuilder builder = loader.load(context, source);
+
+        assertThat(loader).isInstanceOf(JavaSourceRoutesLoader.class);
+        assertThat(builder).isNotNull();
+
+        context.addRoutes(builder);
+
+        assertThat(context.adapt(ModelCamelContext.class).getRestDefinitions()).first().satisfies(definition -> {
+            assertThat(definition.getVerbs()).first().satisfies(verb -> {
+                assertThat(verb).hasFieldOrPropertyWithValue("outType", "org.apache.camel.k.loader.java.model.EmployeeDTO");
+            });
+        });
     }
 
     @ParameterizedTest
