@@ -18,27 +18,13 @@ package org.apache.camel.k.loader.yaml
 
 
 import org.apache.camel.component.mock.MockEndpoint
+import org.apache.camel.processor.aggregate.UseLatestAggregationStrategy
 
-class RouteTest extends TestSupport {
+class RoutesTest extends TestSupport {
 
-    def 'test split'() {
+    def 'split'() {
         setup:
-            def context = startContext('''
-                - from:
-                    uri: "direct:route"
-                    steps:
-                      - split:
-                          tokenize: ","
-                          steps:
-                            - to: "mock:split"
-                      - to: "mock:route"
-                - from:
-                    uri: "direct:flow"
-                    steps:
-                      - split:
-                          tokenize: ","
-                      - to: "mock:flow"
-            ''')
+            def context = startContext()
 
             mockEndpoint(context,'mock:split') {
                 expectedMessageCount = 3
@@ -63,35 +49,20 @@ class RouteTest extends TestSupport {
             context?.stop()
     }
 
-    def 'test filter'() {
+    def 'filter'() {
         setup:
-            def context = startContext('''
-                - from:
-                    uri: "direct:route"
-                    steps:
-                      - filter:
-                          simple: "${body.startsWith(\\"a\\")}"
-                          steps:
-                            - to: "mock:filter"
-                      - to: "mock:route"
-                - from:
-                    uri: "direct:flow"
-                    steps:
-                      - filter:
-                          simple: "${body.startsWith(\\"a\\")}"
-                      - to: "mock:flow"
-            ''')
+            def context = startContext()
 
             mockEndpoint(context, 'mock:route') {
-                expectedMessageCount = 2
+                expectedMessageCount 2
                 expectedBodiesReceived 'a', 'b'
             }
             mockEndpoint(context, 'mock:filter') {
-                expectedMessageCount = 1
+                expectedMessageCount 1
                 expectedBodiesReceived 'a'
             }
             mockEndpoint(context,'mock:flow') {
-                expectedMessageCount = 1
+                expectedMessageCount 1
                 expectedBodiesReceived 'a'
             }
         when:
@@ -100,6 +71,29 @@ class RouteTest extends TestSupport {
                 sendBody('direct:route', 'b')
                 sendBody('direct:flow', 'a')
                 sendBody('direct:flow', 'b')
+            }
+        then:
+            MockEndpoint.assertIsSatisfied(context)
+        cleanup:
+            context?.stop()
+    }
+
+    def 'aggregator'() {
+        setup:
+            def context = startContext([
+                'aggregatorStrategy': new UseLatestAggregationStrategy()
+            ])
+
+            mockEndpoint(context, 'mock:route') {
+                expectedMessageCount 2
+                expectedBodiesReceived '2', '4'
+            }
+        when:
+            context.createProducerTemplate().with {
+                sendBodyAndHeader('direct:route', '1', 'StockSymbol', 1)
+                sendBodyAndHeader('direct:route', '2', 'StockSymbol', 1)
+                sendBodyAndHeader('direct:route', '3', 'StockSymbol', 2)
+                sendBodyAndHeader('direct:route', '4', 'StockSymbol', 2)
             }
         then:
             MockEndpoint.assertIsSatisfied(context)
