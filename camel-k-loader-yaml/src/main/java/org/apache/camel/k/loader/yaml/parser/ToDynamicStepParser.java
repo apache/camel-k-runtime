@@ -24,18 +24,23 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.k.loader.yaml.model.Step;
 import org.apache.camel.model.ProcessorDefinition;
-import org.apache.camel.model.ToDefinition;
 import org.apache.camel.model.ToDynamicDefinition;
+import org.apache.camel.reifier.ProcessorReifier;
+import org.apache.camel.reifier.ToDynamicReifier;
 import org.apache.camel.util.URISupport;
 
 @YAMLStepParser("tod")
 public class ToDynamicStepParser implements ProcessorStepParser {
-    @Override
-    public ProcessorDefinition<?> toProcessor(Context context) {
-        return new ToDynamicDefinition(context.node(Definition.class).getEndpointUri());
+    static {
+        ProcessorReifier.registerReifier(Definition.class, ToDynamicReifier::new);
     }
 
-    public static final class Definition extends ToDefinition implements Step.Definition {
+    @Override
+    public ProcessorDefinition<?> toProcessor(Context context) {
+        return context.node(Definition.class);
+    }
+
+    public static final class Definition extends ToDynamicDefinition implements Step.Definition {
         public Map<String, Object> parameters;
 
         public Definition() {
@@ -47,7 +52,7 @@ public class ToDynamicStepParser implements ProcessorStepParser {
 
         @JsonIgnore
         public String getEndpointUri() {
-            String answer = uri;
+            String answer = getUri();
 
             if (parameters != null) {
                 try {
