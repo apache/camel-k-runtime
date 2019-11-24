@@ -29,10 +29,12 @@ class FilterTest extends TestSupport {
         when:
             def processor = new FilterStepParser().toProcessor(stepContext)
         then:
-            def p = processor as FilterDefinition
-
-            p.expression.language == 'simple'
-            p.expression.expression == '${body}'
+            with (processor, FilterDefinition) {
+                with (expression) {
+                    language == 'simple'
+                    expression == '${body}'
+                }
+            }
     }
 
     def "definition with expression block"() {
@@ -44,9 +46,11 @@ class FilterTest extends TestSupport {
         when:
             def processor = new FilterStepParser().toProcessor(stepContext)
         then:
-            with(processor, FilterDefinition) {
-                expression.language == 'simple'
-                expression.expression == '${body}'
+            with (processor, FilterDefinition) {
+                with (expression) {
+                    language == 'simple'
+                    expression == '${body}'
+                }
             }
     }
 
