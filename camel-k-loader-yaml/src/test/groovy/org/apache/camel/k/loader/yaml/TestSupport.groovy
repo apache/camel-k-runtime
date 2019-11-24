@@ -43,9 +43,29 @@ class TestSupport extends Specification {
     }
 
     static CamelContext startContext(String content) {
+        return startContext(content, [:])
+    }
+
+    static CamelContext startContext(String content, Map<String, Object> beans) {
+        return startContext(
+                IOUtils.toInputStream(content.stripMargin(), StandardCharsets.UTF_8),
+                beans
+        )
+    }
+
+    static CamelContext startContext(InputStream content) {
+        return startContext(content, [:])
+    }
+
+    static CamelContext startContext(InputStream content, Map<String, Object> beans) {
         def context = new DefaultCamelContext()
-        def istream = IOUtils.toInputStream(content.stripMargin(), StandardCharsets.UTF_8)
-        def builder = new YamlSourceLoader().builder(istream)
+        def builder = new YamlSourceLoader().builder(content)
+
+        if (beans) {
+            beans.each {
+                k, v -> context.registry.bind(k, v)
+            }
+        }
 
         context.disableJMX()
         context.setStreamCaching(true)
@@ -53,6 +73,20 @@ class TestSupport extends Specification {
         context.start()
 
         return context
+    }
+
+    CamelContext startContext() {
+        return startContext([:])
+    }
+
+    CamelContext startContext(Map<String, Object> beans) {
+        def name = specificationContext.currentIteration.name.replace(' ', '_')
+        def path = "/routes/${specificationContext.currentSpec.name}_${name}.yaml"
+
+        return startContext(
+                TestSupport.class.getResourceAsStream(path) as InputStream,
+                beans
+        )
     }
 
     static MockEndpoint mockEndpoint(

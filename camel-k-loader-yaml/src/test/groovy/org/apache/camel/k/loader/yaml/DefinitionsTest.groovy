@@ -27,7 +27,7 @@ import org.apache.commons.io.IOUtils
 
 import java.nio.charset.StandardCharsets
 
-class RouteDefinitionTest extends TestSupport {
+class DefinitionsTest extends TestSupport {
 
     def "route with id"() {
         given:
