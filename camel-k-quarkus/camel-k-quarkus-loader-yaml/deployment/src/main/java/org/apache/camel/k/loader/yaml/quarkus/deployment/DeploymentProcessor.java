@@ -16,23 +16,30 @@
  */
 package org.apache.camel.k.loader.yaml.quarkus.deployment;
 
+import java.util.stream.Collectors;
+
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.apache.camel.k.loader.yaml.YamlSourceLoader;
 import org.apache.camel.k.loader.yaml.model.Node;
 import org.apache.camel.k.loader.yaml.model.Step;
 import org.apache.camel.k.loader.yaml.parser.HasDataFormat;
 import org.apache.camel.k.loader.yaml.parser.HasExpression;
-import org.apache.camel.k.loader.yaml.support.ProcessorDefinitionMixIn;
 import org.apache.camel.model.DataFormatDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.language.ExpressionDefinition;
+import org.jboss.jandex.AnnotationInstance;
+import org.jboss.jandex.AnnotationTarget;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
 
 public class DeploymentProcessor {
+    public static final DotName YAML_STEP_PARSER_ANNOTATION = DotName.createSimple("org.apache.camel.k.annotation.yaml.YAMLStepParser");
+    public static final DotName YAML_STEP_DEFINITION_ANNOTATION = DotName.createSimple("org.apache.camel.k.annotation.yaml.YAMLNodeDefinition");
+
     @BuildStep
     void registerReflectiveClasses(
             BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
@@ -40,9 +47,13 @@ public class DeploymentProcessor {
 
         IndexView view = combinedIndexBuildItem.getIndex();
 
-        for (ClassInfo ci : getAllKnownImplementors(view, Step.Definition.class)) {
+        for (ClassInfo ci : getAnnotated(view, YAML_STEP_PARSER_ANNOTATION)) {
             reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, ci.name().toString()));
         }
+        for (ClassInfo ci : getAnnotated(view, YAML_STEP_DEFINITION_ANNOTATION)) {
+            reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, ci.name().toString()));
+        }
+
         for (ClassInfo ci : getAllKnownImplementors(view, Step.Deserializer.class)) {
             reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, ci.name().toString()));
         }
@@ -57,29 +68,51 @@ public class DeploymentProcessor {
         }
 
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, Step.Deserializer.class));
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, Step.Definition.class));
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, HasExpression.class));
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, HasDataFormat.class));
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, Node.class));
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, "javax.xml.namespace.QName"));
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, ProcessorDefinitionMixIn.class));
+        reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, YamlSourceLoader.ProcessorDefinitionMixIn.class));
 
 
     }
 
     private static Iterable<ClassInfo> getAllKnownImplementors(IndexView view, String name) {
-        return view.getAllKnownImplementors(DotName.createSimple(name));
+        return getAllKnownImplementors(view, DotName.createSimple(name));
     }
 
     private static Iterable<ClassInfo> getAllKnownImplementors(IndexView view, Class<?> type) {
-        return view.getAllKnownImplementors(DotName.createSimple(type.getName()));
+        return getAllKnownImplementors(view, DotName.createSimple(type.getName()));
+    }
+
+    private static Iterable<ClassInfo> getAllKnownImplementors(IndexView view, DotName type) {
+        return view.getAllKnownImplementors(type);
     }
 
     private static Iterable<ClassInfo> getAllKnownSubclasses(IndexView view, String name) {
-        return view.getAllKnownSubclasses(DotName.createSimple(name));
+        return getAllKnownSubclasses(view, DotName.createSimple(name));
     }
 
     private static Iterable<ClassInfo> getAllKnownSubclasses(IndexView view, Class<?> type) {
-        return view.getAllKnownSubclasses(DotName.createSimple(type.getName()));
+        return getAllKnownSubclasses(view, DotName.createSimple(type.getName()));
+    }
+
+    private static Iterable<ClassInfo> getAllKnownSubclasses(IndexView view, DotName type) {
+        return view.getAllKnownSubclasses(type);
+    }
+
+    private static Iterable<ClassInfo> getAnnotated(IndexView view, String name) {
+        return getAnnotated(view, DotName.createSimple(name));
+    }
+
+    private static Iterable<ClassInfo> getAnnotated(IndexView view, Class<?> type) {
+        return getAnnotated(view, DotName.createSimple(type.getName()));
+    }
+
+    private static Iterable<ClassInfo> getAnnotated(IndexView view, DotName type) {
+        return view.getAnnotations(type).stream()
+            .map(AnnotationInstance::target)
+            .filter(t -> t.kind() == AnnotationTarget.Kind.CLASS)
+            .map(AnnotationTarget::asClass)
+            .collect(Collectors.toList());
     }
 }

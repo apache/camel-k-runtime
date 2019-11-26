@@ -21,8 +21,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import org.apache.camel.reifier.ProcessorReifier;
+
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface YAMLStepParser {
-    String[] value();
+public @interface YAMLNodeDefinition {
+    Class<? extends ProcessorReifier>[] reifiers() default {};
 }

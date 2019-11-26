@@ -14,15 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.annotation.yaml;
+package org.apache.camel.k.loader.yaml.parser;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import org.apache.camel.k.annotation.yaml.YAMLNodeDefinition;
+import org.apache.camel.k.annotation.yaml.YAMLStepParser;
+import org.apache.camel.model.ProcessorDefinition;
+import org.apache.camel.model.UnmarshalDefinition;
+import org.apache.camel.reifier.UnmarshalReifier;
 
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface YAMLStepParser {
-    String[] value();
+@YAMLStepParser("unmarshal")
+public class UnmarshalStepParser implements ProcessorStepParser {
+    @Override
+    public ProcessorDefinition<?> toProcessor(Context context) {
+        return context.node(Definition.class);
+    }
+
+    @YAMLNodeDefinition(reifiers = UnmarshalReifier.class)
+    public static final class Definition extends UnmarshalDefinition implements HasDataFormat {
+    }
 }
+
