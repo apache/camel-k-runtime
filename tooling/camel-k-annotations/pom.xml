@@ -27,4 +27,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>camel-k-annotations</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-core-engine</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
 </project>
