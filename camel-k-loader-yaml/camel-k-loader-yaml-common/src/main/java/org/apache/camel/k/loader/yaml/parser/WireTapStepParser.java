@@ -36,6 +36,7 @@ import org.apache.camel.util.URISupport;
 
 @YAMLStepParser("wiretap")
 public class WireTapStepParser implements ProcessorStepParser {
+    @SuppressWarnings("unchecked")
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {
         Definition definition = context.node(Definition.class);
