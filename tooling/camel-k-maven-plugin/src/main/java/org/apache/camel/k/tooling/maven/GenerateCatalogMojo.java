@@ -247,6 +247,8 @@ public class GenerateCatalogMojo extends AbstractMojo {
                     .filter(Objects::nonNull)
                     .forEach(artifact::createScheme);
 
+                artifact.addJavaType(definition.getJavaType());
+
                 return artifact;
             });
         }
@@ -268,6 +270,7 @@ public class GenerateCatalogMojo extends AbstractMojo {
                 }
 
                 artifact.addLanguage(definition.getName());
+                artifact.addJavaType(definition.getJavaType());
 
                 return artifact;
             });
@@ -290,6 +293,7 @@ public class GenerateCatalogMojo extends AbstractMojo {
                 }
 
                 artifact.addDataformats(definition.getName());
+                artifact.addJavaType(definition.getJavaType());
 
                 return artifact;
             });

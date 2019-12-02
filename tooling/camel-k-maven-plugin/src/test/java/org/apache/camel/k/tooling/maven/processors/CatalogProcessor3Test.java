@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CatalogProcessor3Test extends AbstractCataloProcessorTest {
+public class CatalogProcessor3Test extends AbstractCatalogProcessorTest {
     @Test
     public void testAcceptHyphen() {
         CatalogProcessor3x cp3 = new CatalogProcessor3x();

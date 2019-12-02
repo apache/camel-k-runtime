@@ -30,6 +30,7 @@ public final class CatalogComponentDefinition {
     private String artifactId;
     private String version;
     private String alternativeSchemes;
+    private String javaType;
 
     public Stream<String> getSchemes() {
         String schemeIDs = StringUtils.trimToEmpty(alternativeSchemes);
@@ -78,6 +79,14 @@ public final class CatalogComponentDefinition {
 
     public void setAlternativeSchemes(String alternativeSchemes) {
         this.alternativeSchemes = alternativeSchemes;
+    }
+
+    public String getJavaType() {
+        return javaType;
+    }
+
+    public void setJavaType(String javaType) {
+        this.javaType = javaType;
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
