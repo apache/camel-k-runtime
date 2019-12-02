@@ -26,6 +26,7 @@ public final class CatalogDataFormatDefinition {
     private String groupId;
     private String artifactId;
     private String version;
+    private String javaType;
 
     public String getName() {
         return name;
@@ -57,6 +58,14 @@ public final class CatalogDataFormatDefinition {
 
     public void setVersion(String version) {
         this.version = version;
+    }
+
+    public String getJavaType() {
+        return javaType;
+    }
+
+    public void setJavaType(String javaType) {
+        this.javaType = javaType;
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)

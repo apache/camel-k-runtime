@@ -27,6 +27,7 @@ public class CamelArtifact extends Artifact {
     private List<String> dataformats;
     private List<Artifact> dependencies;
     private List<Artifact> exclusions;
+    private List<String> javaTypes;
 
     public CamelArtifact() {
         this.schemes = new ArrayList<>();
@@ -34,6 +35,7 @@ public class CamelArtifact extends Artifact {
         this.dataformats = new ArrayList<>();
         this.dependencies = new ArrayList<>();
         this.exclusions = new ArrayList<>();
+        this.javaTypes = new ArrayList<>();
     }
 
     public void setSchemes(List<CamelScheme> schemes) {
@@ -149,6 +151,20 @@ public class CamelArtifact extends Artifact {
         artifact.setArtifactId(artifactId);
 
         addExclusion(artifact);
+    }
+
+    public List<String> getJavaTypes() {
+        return javaTypes;
+    }
+
+    public void setJavaTypes(List<String> javaTypes) {
+        this.javaTypes = javaTypes;
+    }
+
+    public void addJavaType(String javaType) {
+        if (!this.javaTypes.contains(javaType)) {
+            this.javaTypes.add(javaType);
+        }
     }
 
     @Override

@@ -19,7 +19,7 @@ package org.apache.camel.k.tooling.maven.processors;
 import org.apache.camel.catalog.CamelCatalog;
 import org.apache.camel.catalog.DefaultCamelCatalog;
 
-public abstract class AbstractCataloProcessorTest {
+public abstract class AbstractCatalogProcessorTest {
     protected CamelCatalog versionCamelCatalog(String version) {
         return new DefaultCamelCatalog() {
             @Override
