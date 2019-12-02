@@ -37,6 +37,9 @@ import org.apache.camel.support.DefaultEndpoint;
 import org.apache.camel.support.PropertyBindingSupport;
 
 
+/**
+ * This component allows to interact with KNative events.
+ */
 @UriEndpoint(
     firstVersion = "3.0.0",
     scheme = "knative",
