@@ -556,6 +556,7 @@
                     </executions>
                     <configuration>
                         <additionalOptions>${javadoc.opts}</additionalOptions>
+                        <source>8</source>
                     </configuration>
                 </plugin>
                 <!-- We want to sign the artifact, the POM, and all attached artifacts -->
