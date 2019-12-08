@@ -24,8 +24,8 @@ import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.vertx.deployment.VertxBuildItem;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
 import org.apache.camel.k.quarkus.knative.KnativeRecorder;
-import org.apache.camel.quarkus.core.CamelServiceFilter;
 import org.apache.camel.quarkus.core.deployment.CamelRuntimeBeanBuildItem;
+import org.apache.camel.quarkus.core.deployment.CamelServiceFilter;
 import org.apache.camel.quarkus.core.deployment.CamelServiceFilterBuildItem;
 
 public class DeploymentProcessor {
