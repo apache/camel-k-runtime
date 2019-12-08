@@ -19,6 +19,7 @@ package org.apache.camel.k.tooling.maven;
 
 import java.io.IOException;
 import java.nio.file.Paths;
+
 import javax.lang.model.element.Modifier;
 
 import com.fasterxml.jackson.core.Version;

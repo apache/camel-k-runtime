@@ -35,8 +35,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <camel.version>3.0.0-RC3</camel.version>
-        <camel-quarkus.version>0.4.0</camel-quarkus.version>
+        <camel.version>3.0.0</camel.version>
+        <camel-quarkus.version>1.0.0-M1</camel-quarkus.version>
         <catalog.version>${camel.version}</catalog.version>
         <junit.version>5.5.2</junit.version>
         <joor.version>0.9.12</joor.version>
@@ -60,8 +60,8 @@
         <undertow.version>1.4.26.Final</undertow.version>
         <vertx.version>3.8.3</vertx.version>
         <graalvm.version>19.2.1</graalvm.version>
-        <quarkus.version>1.0.0.CR1</quarkus.version>
-        <jandex.version>2.1.1.Final</jandex.version>
+        <quarkus.version>1.0.1.Final</quarkus.version>
+        <jandex.version>2.1.2.Final</jandex.version>
         <javapoet.version>1.11.1</javapoet.version>
         <auto-service.version>1.0-rc6</auto-service.version>
         <gmavenplus-plugin.version>1.7.1</gmavenplus-plugin.version>
@@ -73,14 +73,14 @@
         <directory-maven-plugin.version>0.3.1</directory-maven-plugin.version>
         <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
         <mycila-license.version>3.0</mycila-license.version>
-        <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
-        <maven-checkstyle.version>7.6.1</maven-checkstyle.version>
+        <maven-checkstyle-plugin.version>3.1.0</maven-checkstyle-plugin.version>
+        <maven-checkstyle.version>8.26</maven-checkstyle.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <maven-deploy-plugin.version>3.0.0-M1</maven-deploy-plugin.version>
         <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
         <maven-source-plugin.version>3.1.0</maven-source-plugin.version>
         <maven-assembly-plugin.version>3.1.1</maven-assembly-plugin.version>
-        <jandex-maven-plugin.version>1.0.6</jandex-maven-plugin.version>
+        <jandex-maven-plugin.version>1.0.7</jandex-maven-plugin.version>
         <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
     </properties>
 

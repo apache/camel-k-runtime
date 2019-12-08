@@ -19,6 +19,7 @@ package org.apache.camel.k.loader.xml;
 import java.io.InputStream;
 import java.util.Collections;
 import java.util.List;
+
 import javax.xml.bind.UnmarshalException;
 
 import org.apache.camel.builder.RouteBuilder;

@@ -17,6 +17,7 @@
 package org.apache.camel.k.core.quarkus.deployment;
 
 import java.util.ServiceLoader;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;

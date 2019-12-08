@@ -38,7 +38,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
-
 import org.apache.camel.catalog.DefaultCamelCatalog;
 import org.apache.camel.k.tooling.maven.model.CamelArtifact;
 import org.apache.camel.k.tooling.maven.model.CatalogComponentDefinition;

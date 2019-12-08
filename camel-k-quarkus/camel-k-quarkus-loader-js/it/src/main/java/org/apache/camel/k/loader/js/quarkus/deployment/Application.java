@@ -17,6 +17,7 @@
 package org.apache.camel.k.loader.js.quarkus.deployment;
 
 import java.nio.charset.StandardCharsets;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.Json;
