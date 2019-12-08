@@ -76,7 +76,7 @@ public class RuntimeSupportTest {
     @Test
     public void testLoadCustomizers() {
         CamelContext context = new DefaultCamelContext();
-        context.getRegistry().bind("converters", (ContextCustomizer) (camelContext) -> camelContext.setLoadTypeConverters(false));
+        context.getRegistry().bind("converters", (ContextCustomizer)camelContext -> camelContext.setLoadTypeConverters(false));
 
         List<ContextCustomizer> customizers = RuntimeSupport.configureContextCustomizers(context);
         assertThat(context.getName()).isNotEqualTo("from-registry");

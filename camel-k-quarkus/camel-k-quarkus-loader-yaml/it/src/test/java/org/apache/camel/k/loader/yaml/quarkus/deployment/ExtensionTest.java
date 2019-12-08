@@ -19,6 +19,7 @@ package org.apache.camel.k.loader.yaml.quarkus.deployment;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+
 import javax.ws.rs.core.MediaType;
 
 import io.quarkus.test.junit.QuarkusTest;

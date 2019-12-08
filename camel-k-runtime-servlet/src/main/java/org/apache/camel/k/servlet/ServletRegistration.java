@@ -19,6 +19,7 @@ package org.apache.camel.k.servlet;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
+
 import javax.servlet.Servlet;
 
 /**
