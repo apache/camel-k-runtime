@@ -16,8 +16,10 @@
  */
 package org.apache.camel.k.main;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -31,6 +33,9 @@ import org.apache.camel.k.Runtime;
 import org.apache.camel.k.support.PropertiesSupport;
 import org.apache.camel.main.BaseMainSupport;
 import org.apache.camel.main.MainSupport;
+import org.apache.camel.main.RoutesCollector;
+import org.apache.camel.model.RoutesDefinition;
+import org.apache.camel.model.rest.RestsDefinition;
 import org.apache.camel.spi.HasId;
 import org.apache.camel.util.function.ThrowingConsumer;
 import org.slf4j.Logger;
@@ -52,6 +57,7 @@ public final class ApplicationRuntime implements Runtime {
         this.main = new MainAdapter();
         this.main.configure().setXmlRoutes("false");
         this.main.configure().setXmlRests("false");
+        this.main.setRoutesCollector(new NoRoutesCollector());
         this.main.addMainListener(new MainListenerAdapter());
 
         this.main.setPropertyPlaceholderLocations(
@@ -203,6 +209,23 @@ public final class ApplicationRuntime implements Runtime {
             } else {
                 return null;
             }
+        }
+    }
+
+    private static final class NoRoutesCollector implements RoutesCollector {
+        @Override
+        public List<RoutesBuilder> collectRoutesFromRegistry(CamelContext camelContext, String excludePattern, String includePattern) {
+            return Collections.emptyList();
+        }
+
+        @Override
+        public List<RoutesDefinition> collectXmlRoutesFromDirectory(CamelContext camelContext, String directory) throws Exception {
+            return Collections.emptyList();
+        }
+
+        @Override
+        public List<RestsDefinition> collectXmlRestsFromDirectory(CamelContext camelContext, String directory) throws Exception {
+            return Collections.emptyList();
         }
     }
 }
