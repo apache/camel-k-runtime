@@ -92,7 +92,8 @@ public class KnativeEndpoint extends DefaultEndpoint {
     public Consumer createConsumer(Processor processor) throws Exception {
         final KnativeEnvironment.KnativeServiceDefinition service = lookupServiceDefinition(Knative.EndpointKind.source);
         final Processor ceProcessor = cloudEvent.consumer(this, service);
-        final Processor pipeline = Pipeline.newInstance(getCamelContext(), ceProcessor, processor);
+        final Processor replyProcessor = new KnativeReplyProcessor(this, service, cloudEvent, configuration.isReplyWithCloudEvent());
+        final Processor pipeline = Pipeline.newInstance(getCamelContext(), ceProcessor, processor, replyProcessor);
         final Consumer consumer = getComponent().getTransport().createConsumer(this, service, pipeline);
 
         PropertyBindingSupport.build()
