@@ -35,6 +35,7 @@ import org.apache.camel.Processor;
 import org.apache.camel.Producer;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
 import org.apache.camel.component.knative.spi.KnativeTransport;
+import org.apache.camel.component.knative.spi.KnativeTransportConfiguration;
 import org.apache.camel.support.service.ServiceSupport;
 import org.apache.camel.util.ObjectHelper;
 import org.slf4j.Logger;
@@ -198,12 +199,17 @@ public class KnativeHttpTransport extends ServiceSupport implements CamelContext
     // *****************************
 
     @Override
-    public Producer createProducer(Endpoint endpoint, KnativeEnvironment.KnativeServiceDefinition service) {
+    public Producer createProducer(Endpoint endpoint, KnativeTransportConfiguration config, KnativeEnvironment.KnativeServiceDefinition service) {
         return new KnativeHttpProducer(this, endpoint, service, vertx, vertxHttpClientOptions);
     }
 
     @Override
-    public Consumer createConsumer(Endpoint endpoint, KnativeEnvironment.KnativeServiceDefinition service, Processor processor) {
-        return new KnativeHttpConsumer(this, endpoint, service, processor);
+    public Consumer createConsumer(Endpoint endpoint, KnativeTransportConfiguration config, KnativeEnvironment.KnativeServiceDefinition service, Processor processor) {
+        Processor next = processor;
+        if (config.isRemoveCloudEventHeadersInReply()) {
+            next = KnativeHttpSupport.withoutCloudEventHeaders(processor, config.getCloudEvent());
+        }
+        return new KnativeHttpConsumer(this, endpoint, service, next);
     }
+
 }

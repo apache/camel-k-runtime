@@ -48,7 +48,7 @@ public class KnativeConfiguration implements Cloneable {
     @UriParam(label = "advanced")
     private String kind;
     @UriParam(label = "consumer", defaultValue = "false")
-    private boolean replyWithCloudEvent = false;
+    private boolean replyWithCloudEvent;
 
     public KnativeConfiguration() {
     }

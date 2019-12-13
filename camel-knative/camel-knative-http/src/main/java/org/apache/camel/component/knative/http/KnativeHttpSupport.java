@@ -24,11 +24,16 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import io.vertx.core.http.HttpServerRequest;
+import org.apache.camel.AsyncCallback;
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
+import org.apache.camel.component.knative.spi.CloudEvent;
 import org.apache.camel.component.knative.spi.Knative;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
+import org.apache.camel.support.processor.DelegateAsyncProcessor;
 import org.apache.camel.util.ObjectHelper;
 
-public final  class KnativeHttpSupport {
+public final class KnativeHttpSupport {
     private KnativeHttpSupport() {
     }
 
@@ -94,4 +99,23 @@ public final  class KnativeHttpSupport {
             return true;
         };
     }
+
+    /**
+     * Removes cloud event headers at the end of the processing.
+     */
+    public static Processor withoutCloudEventHeaders(Processor delegate, CloudEvent ce) {
+        return new DelegateAsyncProcessor(delegate) {
+            @Override
+            public boolean process(Exchange exchange, AsyncCallback callback) {
+                return processor.process(exchange, doneSync -> {
+                    // remove CloudEvent headers
+                    for (CloudEvent.Attribute attr : ce.attributes()) {
+                        exchange.getMessage().removeHeader(attr.http());
+                    }
+                    callback.done(doneSync);
+                });
+            }
+        };
+    }
+
 }
