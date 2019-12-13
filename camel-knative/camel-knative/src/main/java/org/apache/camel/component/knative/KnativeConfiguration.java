@@ -47,6 +47,8 @@ public class KnativeConfiguration implements Cloneable {
     private String apiVersion;
     @UriParam(label = "advanced")
     private String kind;
+    @UriParam(label = "consumer", defaultValue = "false")
+    private boolean replyWithCloudEvent = false;
 
     public KnativeConfiguration() {
     }
@@ -77,6 +79,23 @@ public class KnativeConfiguration implements Cloneable {
      */
     public void setServiceName(String serviceName) {
         this.serviceName = serviceName;
+    }
+
+    public boolean isReplyWithCloudEvent() {
+        return replyWithCloudEvent;
+    }
+
+    /**
+     * Transforms the reply into a cloud event that will be processed by the caller.
+     *
+     * When listening to events from a Knative Broker, if this flag is enabled, replies will
+     * be published to the same Broker where the request comes from (beware that if you don't
+     * change the "type" of the received message, you may create a loop and receive your same reply).
+     *
+     * When this flag is disabled, CloudEvent headers are removed from the reply.
+     */
+    public void setReplyWithCloudEvent(boolean replyWithCloudEvent) {
+        this.replyWithCloudEvent = replyWithCloudEvent;
     }
 
     @Deprecated

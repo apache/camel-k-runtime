@@ -589,7 +589,9 @@ public class KnativeHttpTest {
                 from("knative:endpoint/from")
                     .convertBodyTo(String.class)
                     .setBody()
-                        .constant("consumer");
+                        .constant("consumer")
+                    .setHeader(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).http())
+                        .constant("custom");
                 from("direct:source")
                     .to("knative://endpoint/to")
                     .log("${body}")
@@ -599,6 +601,60 @@ public class KnativeHttpTest {
 
         MockEndpoint mock = context.getEndpoint("mock:to", MockEndpoint.class);
         mock.expectedBodiesReceived("consumer");
+        mock.expectedHeaderReceived(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).http(), null);
+        mock.expectedMessageCount(1);
+
+        context.start();
+        context.createProducerTemplate().sendBody("direct:source", "");
+
+        mock.assertIsSatisfied();
+    }
+
+    @ParameterizedTest
+    @EnumSource(CloudEvents.class)
+    void testReplyCloudEventHeaders(CloudEvent ce) throws Exception {
+        configureKnativeComponent(
+            context,
+            ce,
+            endpoint(
+                Knative.EndpointKind.source,
+                "from",
+                "localhost",
+                port,
+                KnativeSupport.mapOf(
+                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.CONTENT_TYPE, "text/plain"
+                )),
+            endpoint(
+                Knative.EndpointKind.sink,
+                "to",
+                "localhost",
+                port,
+                KnativeSupport.mapOf(
+                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.CONTENT_TYPE, "text/plain"
+                ))
+        );
+
+        context.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                from("knative:endpoint/from?replyWithCloudEvent=true")
+                    .convertBodyTo(String.class)
+                    .setBody()
+                        .constant("consumer")
+                    .setHeader(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).http())
+                        .constant("custom");
+                from("direct:source")
+                    .to("knative://endpoint/to")
+                    .log("${body}")
+                    .to("mock:to");
+            }
+        });
+
+        MockEndpoint mock = context.getEndpoint("mock:to", MockEndpoint.class);
+        mock.expectedBodiesReceived("consumer");
+        mock.expectedHeaderReceived(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).http(), "custom");
         mock.expectedMessageCount(1);
 
         context.start();
