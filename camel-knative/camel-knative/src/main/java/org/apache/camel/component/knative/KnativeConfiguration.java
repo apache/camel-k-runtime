@@ -31,6 +31,7 @@ public class KnativeConfiguration implements Cloneable {
     @UriParam
     private String serviceName;
     @UriParam(defaultValue = "false")
+    @Deprecated
     private boolean jsonSerializationEnabled;
     @UriParam(defaultValue = "0.3", enums = "0.1,0.2,0.3")
     private String cloudEventsSpecVersion = CloudEvents.V03.version();
@@ -78,6 +79,7 @@ public class KnativeConfiguration implements Cloneable {
         this.serviceName = serviceName;
     }
 
+    @Deprecated
     public boolean isJsonSerializationEnabled() {
         return jsonSerializationEnabled;
     }
@@ -85,6 +87,7 @@ public class KnativeConfiguration implements Cloneable {
     /**
      * Enables automatic serialization to JSON of the produced events.
      */
+    @Deprecated
     public void setJsonSerializationEnabled(boolean jsonSerializationEnabled) {
         this.jsonSerializationEnabled = jsonSerializationEnabled;
     }
