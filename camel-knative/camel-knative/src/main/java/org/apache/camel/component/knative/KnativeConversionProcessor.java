@@ -23,6 +23,7 @@ import org.apache.camel.component.knative.spi.Knative;
 /**
  * Converts objects prior to serializing them to external endpoints or channels
  */
+@Deprecated
 public class KnativeConversionProcessor implements Processor {
 
     private boolean enabled;
