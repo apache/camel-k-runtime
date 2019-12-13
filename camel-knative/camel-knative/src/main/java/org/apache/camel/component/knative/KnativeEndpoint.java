@@ -29,13 +29,13 @@ import org.apache.camel.component.knative.ce.CloudEventProcessors;
 import org.apache.camel.component.knative.spi.CloudEvent;
 import org.apache.camel.component.knative.spi.Knative;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
+import org.apache.camel.component.knative.spi.KnativeTransportConfiguration;
 import org.apache.camel.processor.Pipeline;
 import org.apache.camel.spi.UriEndpoint;
 import org.apache.camel.spi.UriParam;
 import org.apache.camel.spi.UriPath;
 import org.apache.camel.support.DefaultEndpoint;
 import org.apache.camel.support.PropertyBindingSupport;
-
 
 /**
  * This component allows to interact with KNative events.
@@ -76,7 +76,7 @@ public class KnativeEndpoint extends DefaultEndpoint {
         final KnativeEnvironment.KnativeServiceDefinition service = lookupServiceDefinition(Knative.EndpointKind.sink);
         final Processor ceProcessor = cloudEvent.producer(this, service);
         final Processor ceConverter = new KnativeConversionProcessor(configuration.isJsonSerializationEnabled());
-        final Producer producer = getComponent().getTransport().createProducer(this, service);
+        final Producer producer = getComponent().getTransport().createProducer(this, createTransportConfiguration(), service);
 
         PropertyBindingSupport.build()
             .withCamelContext(getCamelContext())
@@ -94,7 +94,7 @@ public class KnativeEndpoint extends DefaultEndpoint {
         final Processor ceProcessor = cloudEvent.consumer(this, service);
         final Processor replyProcessor = new KnativeReplyProcessor(this, service, cloudEvent, configuration.isReplyWithCloudEvent());
         final Processor pipeline = Pipeline.newInstance(getCamelContext(), ceProcessor, processor, replyProcessor);
-        final Consumer consumer = getComponent().getTransport().createConsumer(this, service, pipeline);
+        final Consumer consumer = getComponent().getTransport().createConsumer(this, createTransportConfiguration(), service, pipeline);
 
         PropertyBindingSupport.build()
             .withCamelContext(getCamelContext())
@@ -149,7 +149,7 @@ public class KnativeEndpoint extends DefaultEndpoint {
         Map<String, String> metadata = new HashMap<>();
         metadata.putAll(service.get().getMetadata());
 
-        for (Map.Entry<String, Object> entry: configuration.getFilters().entrySet()) {
+        for (Map.Entry<String, Object> entry : configuration.getFilters().entrySet()) {
             String key = entry.getKey();
             Object val = entry.getValue();
 
@@ -162,7 +162,7 @@ public class KnativeEndpoint extends DefaultEndpoint {
             }
         }
 
-        for (Map.Entry<String, Object> entry: configuration.getCeOverride().entrySet()) {
+        for (Map.Entry<String, Object> entry : configuration.getCeOverride().entrySet()) {
             String key = entry.getKey();
             Object val = entry.getValue();
 
@@ -210,5 +210,12 @@ public class KnativeEndpoint extends DefaultEndpoint {
                 return true;
             })
             .findFirst();
+    }
+
+    private KnativeTransportConfiguration createTransportConfiguration() {
+        return new KnativeTransportConfiguration(
+            this.cloudEvent.cloudEvent(),
+            !this.configuration.isReplyWithCloudEvent()
+        );
     }
 }

@@ -27,21 +27,25 @@ public interface KnativeTransport extends Service {
      * Create a camel {@link Producer} in place of the original endpoint for a specific protocol.
      *
      * @param endpoint the endpoint for which the producer should be created
+     * @param configuration the general transport configuration
      * @param service the service definition containing information about how make reach the target service.
      * @return
      */
     Producer createProducer(
         Endpoint endpoint,
+        KnativeTransportConfiguration configuration,
         KnativeEnvironment.KnativeServiceDefinition service);
 
     /**
      * Create a camel {@link Consumer} in place of the original endpoint for a specific protocol.
      *
      * @param endpoint the endpoint for which the consumer should be created.
+     * @param configuration the general transport configuration
      * @param service the service definition containing information about how make the route reachable from knative.
      * @return
      */
     Consumer createConsumer(
         Endpoint endpoint,
+        KnativeTransportConfiguration configuration,
         KnativeEnvironment.KnativeServiceDefinition service, Processor processor);
 }

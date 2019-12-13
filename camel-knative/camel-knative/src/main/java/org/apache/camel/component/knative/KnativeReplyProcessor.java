@@ -19,7 +19,6 @@ package org.apache.camel.component.knative;
 import org.apache.camel.AsyncCallback;
 import org.apache.camel.Exchange;
 import org.apache.camel.component.knative.ce.CloudEventProcessor;
-import org.apache.camel.component.knative.spi.CloudEvent;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
 import org.apache.camel.support.processor.DelegateAsyncProcessor;
 
@@ -32,7 +31,8 @@ public class KnativeReplyProcessor extends DelegateAsyncProcessor {
 
     private final CloudEventProcessor cloudEventProcessor;
 
-    public KnativeReplyProcessor(KnativeEndpoint endpoint, KnativeEnvironment.KnativeServiceDefinition service, CloudEventProcessor cloudEventProcessor, boolean cloudEventEnabled) {
+    public KnativeReplyProcessor(KnativeEndpoint endpoint, KnativeEnvironment.KnativeServiceDefinition service, CloudEventProcessor cloudEventProcessor,
+                                 boolean cloudEventEnabled) {
         super(cloudEventEnabled ? cloudEventProcessor.producer(endpoint, service) : null);
 
         this.cloudEventEnabled = cloudEventEnabled;
@@ -46,10 +46,6 @@ public class KnativeReplyProcessor extends DelegateAsyncProcessor {
             return processor.process(exchange, callback);
         }
 
-        // remove CloudEvent headers
-        for (CloudEvent.Attribute attr : cloudEventProcessor.cloudEvent().attributes()) {
-            exchange.getMessage().removeHeader(attr.http());
-        }
         callback.done(true);
         return true;
     }
