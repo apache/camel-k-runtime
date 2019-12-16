@@ -32,8 +32,10 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.joor.Reflect;
 
-@Loader("java")
+@Loader(value = "java")
 public class JavaSourceLoader implements SourceLoader {
+    private static final Pattern PACKAGE_PATTERN = Pattern.compile("^\\s*package\\s+([a-zA-Z][\\.\\w]*)\\s*;.*$", Pattern.MULTILINE);
+
     @Override
     public List<String> getSupportedLanguages() {
         return Collections.singletonList("java");
@@ -56,11 +58,8 @@ public class JavaSourceLoader implements SourceLoader {
     }
 
     private static String determineQualifiedName(Source source, String content) {
-        String name = source.getName();
-        name = StringUtils.removeEnd(name, ".java");
-
-        Pattern pattern = Pattern.compile("^\\s*package\\s+([a-zA_Z_][\\.\\w]*)\\s*;.*");
-        Matcher matcher = pattern.matcher(content);
+        String name = StringUtils.removeEnd(source.getName(), ".java");
+        Matcher matcher = PACKAGE_PATTERN.matcher(content);
 
         if (matcher.find()) {
             name = matcher.group(1) + "." + name;
