@@ -169,10 +169,10 @@ class IntegrationTest extends Specification {
 
     def "load integration with component error method configuration"()  {
         when:
-        forRoutes('classpath:routes-with-component-wrong-method-configuration.groovy').accept(Runtime.Phase.ConfigureRoutes, runtime)
+            forRoutes('classpath:routes-with-component-wrong-method-configuration.groovy').accept(Runtime.Phase.ConfigureRoutes, runtime)
         then:
-        def e =  thrown org.apache.camel.RuntimeCamelException
-        assert e.message.contains("No signature of method: org.apache.camel.component.seda.SedaComponent.queueNumber()")
+            def e =  thrown org.apache.camel.RuntimeCamelException
+            assert e.message.contains("No signature of method: org.apache.camel.component.seda.SedaComponent.queueNumber()")
 
     }
 
@@ -190,6 +190,16 @@ class IntegrationTest extends Specification {
             def ch = eh.processor as DefaultChannel
 
             ch.output instanceof SendProcessor
+    }
+
+    // Test groovy eip extension, relates to https://issues.apache.org/jira/browse/CAMEL-14300
+    def "load integration with eip"()  {
+        when:
+            forRoutes('classpath:routes-with-eip.groovy').accept(Runtime.Phase.ConfigureRoutes, runtime)
+
+            context.start()
+        then:
+            1 == 1
     }
 }
 
