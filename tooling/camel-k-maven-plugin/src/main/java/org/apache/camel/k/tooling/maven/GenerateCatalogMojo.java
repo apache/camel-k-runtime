@@ -153,7 +153,7 @@ public class GenerateCatalogMojo extends AbstractMojo {
                 if ("quarkus".equals(runtime)) {
                     catalogName = String.format("camel-catalog-%s-%s-%s",
                         runtime,
-                        getVersionFor("/META-INF/maven/org.apache.camel.quarkus/camel-catalog-quarkus/pom.properties"),
+                        getVersionFor("/META-INF/maven/org.apache.camel.quarkus/camel-catalog-quarkus/pom.properties").toLowerCase(),
                         getRuntimeVersion().toLowerCase()
                     );
                 } else {
