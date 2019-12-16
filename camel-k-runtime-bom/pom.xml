@@ -28,7 +28,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.camel.k</groupId>
     <artifactId>camel-k-runtime-bom</artifactId>
-    <version>1.0.8</version>
+    <version>1.0.9-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -57,7 +57,7 @@
         <connection>scm:git:http://gitbox.apache.org/repos/asf/camel-k-runtime.git</connection>
         <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/camel-k-runtime.git</developerConnection>
         <url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary</url>
-        <tag>camel-k-runtime-parent-1.0.8</tag>
+        <tag>camel-k-runtime-parent-0.3.2</tag>
     </scm>
 
     <repositories>
