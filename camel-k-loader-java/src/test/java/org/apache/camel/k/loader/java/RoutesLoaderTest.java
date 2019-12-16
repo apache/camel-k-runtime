@@ -145,6 +145,8 @@ public class RoutesLoaderTest {
             Arguments.arguments("classpath:MyRoutes.java", JavaSourceLoader.class),
             Arguments.arguments("classpath:MyRoutesWithNameOverride.java?name=MyRoutes.java", JavaSourceLoader.class),
             Arguments.arguments("classpath:MyRoutesWithPackage.java", JavaSourceLoader.class),
+            Arguments.arguments("classpath:MyRoutesWithPackageAndComment.java", JavaSourceLoader.class),
+            Arguments.arguments("classpath:MyRoutesWithPackageAndLineComment.java", JavaSourceLoader.class),
             Arguments.arguments("classpath:MyRoutesWithEndpointDsl.java", JavaSourceLoader.class)
         );
     }
