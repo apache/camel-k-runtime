@@ -133,7 +133,7 @@ public class GenerateCatalogMojo extends AbstractMojo {
             });
 
             //
-            // apiVersion: camel.apache.org/v1alpha1
+            // apiVersion: camel.apache.org/v1
             // kind: CamelCatalog
             // metadata:
             //   name: catalog-x.y.z-a.b.c
