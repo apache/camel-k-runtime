@@ -31,10 +31,6 @@
     <version>1.0.9-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <properties>
-        <log4j2.version>2.12.0</log4j2.version>
-    </properties>
-
     <developers>
         <developer>
             <name>The Apache Camel Team</name>
@@ -207,6 +203,36 @@
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-quarkus-loader-js-deployment</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-quarkus-loader-java</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-quarkus-loader-java-deployment</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-quarkus-loader-groovy</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-quarkus-loader-groovy-deployment</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-quarkus-loader-kotlin</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-quarkus-loader-kotlin-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

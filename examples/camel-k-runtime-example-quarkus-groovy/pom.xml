@@ -26,7 +26,7 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>camel-k-runtime-example-quarkus-js</artifactId>
+    <artifactId>camel-k-runtime-example-quarkus-groovy</artifactId>
 
     <properties>
         <noDeps>true</noDeps>
@@ -52,7 +52,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-quarkus-loader-js</artifactId>
+            <artifactId>camel-k-quarkus-loader-groovy</artifactId>
         </dependency>
 
         <dependency>
@@ -108,68 +108,11 @@
                     </arguments>
                     <environmentVariables>
                         <CAMEL_K_CONF>${project.basedir}/data/application.properties</CAMEL_K_CONF>
-                        <CAMEL_K_ROUTES>file:${project.basedir}/data/routes.js</CAMEL_K_ROUTES>
+                        <CAMEL_K_ROUTES>file:${project.basedir}/data/routes.groovy</CAMEL_K_ROUTES>
                     </environmentVariables>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>native</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-                <property>
-                    <name>native</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>io.quarkus</groupId>
-                        <artifactId>quarkus-maven-plugin</artifactId>
-                        <version>${quarkus.version}</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>native-image</goal>
-                                </goals>
-                                <configuration>
-                                    <finalName>${project.artifactId}</finalName>
-                                    <enableHttpUrlHandler>true</enableHttpUrlHandler>
-                                    <enableJni>true</enableJni>
-                                    <disableReports>true</disableReports>
-                                    <additionalBuildArgs>
-                                        <additionalBuildArg>--language:js</additionalBuildArg>
-                                    </additionalBuildArgs>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <version>${exec-maven-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <executable>${project.build.directory}/${project.artifactId}-runner</executable>
-                            <workingDirectory>${project.basedir}</workingDirectory>
-                            <environmentVariables>
-                                <CAMEL_K_CONF>${project.basedir}/data/application.properties</CAMEL_K_CONF>
-                                <CAMEL_K_ROUTES>file:${project.basedir}/data/routes.js</CAMEL_K_ROUTES>
-                            </environmentVariables>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
 </project>

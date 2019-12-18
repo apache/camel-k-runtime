@@ -20,19 +20,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.apache.camel.k</groupId>
-        <artifactId>camel-k-runtime-parent</artifactId>
+        <artifactId>camel-k-quarkus-loader-java-parent</artifactId>
         <version>1.0.9-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <packaging>pom</packaging>
 
-    <artifactId>camel-k-quarkus</artifactId>
+    <artifactId>camel-k-quarkus-loader-java-deployment</artifactId>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-bom</artifactId>
+                <artifactId>camel-quarkus-bom-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
@@ -40,19 +39,33 @@
         </dependencies>
     </dependencyManagement>
 
-    <modules>
-        <module>camel-k-quarkus-loader-xml</module>
-        <module>camel-k-quarkus-loader-js</module>
-        <module>camel-k-quarkus-loader-yaml</module>
-        <module>camel-k-quarkus-loader-knative</module>
-        <module>camel-k-quarkus-loader-java</module>
-        <module>camel-k-quarkus-loader-groovy</module>
-        <module>camel-k-quarkus-loader-kotlin</module>
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.camel.k</groupId>
+            <artifactId>camel-k-quarkus-loader-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.k</groupId>
+            <artifactId>camel-k-quarkus-core-deployment</artifactId>
+        </dependency>
+    </dependencies>
 
-        <module>camel-k-quarkus-core</module>
-        <module>camel-k-quarkus-knative</module>
-
-        <module>camel-k-runtime-quarkus</module>
-    </modules>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>io.quarkus</groupId>
+                            <artifactId>quarkus-extension-processor</artifactId>
+                            <version>${quarkus.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

@@ -30,6 +30,7 @@
 
     <properties>
         <noDeps>true</noDeps>
+        <quarkus.camel.main.routes-discovery.enabled>false</quarkus.camel.main.routes-discovery.enabled>
     </properties>
 
     <dependencyManagement>
