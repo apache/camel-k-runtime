@@ -27,7 +27,7 @@ import org.immutables.value.Value;
 public interface CamelCatalog {
     @Value.Default
     default String getApiVersion() {
-        return "camel.apache.org/v1alpha1";
+        return "camel.apache.org/v1";
     }
 
     @Value.Default
