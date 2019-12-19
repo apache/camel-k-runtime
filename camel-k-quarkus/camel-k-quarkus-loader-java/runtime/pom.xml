@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.apache.camel.k</groupId>
         <artifactId>camel-k-quarkus-loader-java-parent</artifactId>
-        <version>1.0.9-SNAPSHOT</version>
+        <version>1.0.9</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
