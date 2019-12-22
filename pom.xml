@@ -36,7 +36,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <camel.version>3.0.0</camel.version>
-        <camel-quarkus.version>1.0.0-M1</camel-quarkus.version>
+        <camel-quarkus.version>1.0.0-M2</camel-quarkus.version>
         <catalog.version>${camel.version}</catalog.version>
         <junit.version>5.5.2</junit.version>
         <joor.version>0.9.12</joor.version>
@@ -60,7 +60,7 @@
         <undertow.version>1.4.26.Final</undertow.version>
         <vertx.version>3.8.3</vertx.version>
         <graalvm.version>19.2.1</graalvm.version>
-        <quarkus.version>1.0.1.Final</quarkus.version>
+        <quarkus.version>1.1.0.Final</quarkus.version>
         <jandex.version>2.1.2.Final</jandex.version>
         <javapoet.version>1.11.1</javapoet.version>
         <auto-service.version>1.0-rc6</auto-service.version>
