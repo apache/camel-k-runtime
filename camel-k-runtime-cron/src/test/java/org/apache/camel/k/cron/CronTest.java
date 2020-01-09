@@ -16,7 +16,6 @@
  */
 package org.apache.camel.k.cron;
 
-import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
@@ -25,10 +24,9 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.k.listener.ContextConfigurer;
 import org.apache.camel.k.listener.RoutesConfigurer;
-import org.apache.camel.k.loader.js.JavaScriptSourceLoader;
 import org.apache.camel.k.main.ApplicationRuntime;
 import org.apache.camel.support.LifecycleStrategySupport;
-import org.junit.jupiter.api.Test;
+import org.junit.After;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -37,16 +35,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CronTest {
 
+    @After
+    public void unsetSystemProperties() {
+        System.clearProperty("camel.k.cron.override");
+    }
+
     @ParameterizedTest
     @MethodSource("parameters")
-    public void testCronTimerActivation(String routes, String customizer) throws Exception {
+    public void testCronTimerActivation(String routes, String cronOverride) throws Exception {
         ApplicationRuntime runtime = new ApplicationRuntime();
         runtime.addListener(RoutesConfigurer.forRoutes(routes));
         runtime.addListener(new ContextConfigurer());
+        runtime.addListener(new CronRuntimeListener());
 
-        Properties properties = new Properties();
-        properties.setProperty("customizer." + customizer + ".enabled", "true");
-        runtime.setProperties(properties);
+        System.setProperty("camel.k.cron.override", cronOverride);
 
         // To check auto-termination of Camel context
         CountDownLatch termination = new CountDownLatch(1);
@@ -70,8 +72,9 @@ public class CronTest {
 
     static Stream<Arguments> parameters() {
         return Stream.of(
-            Arguments.arguments("classpath:routes-timer.js", "cron-timer"),
-            Arguments.arguments("classpath:routes-quartz.js", "cron-quartz")
+            Arguments.arguments("classpath:routes-timer.js", "timer"),
+            Arguments.arguments("classpath:routes-quartz.js", "quartz"),
+            Arguments.arguments("classpath:routes-quartz.js", "timer,quartz")
         );
     }
 
