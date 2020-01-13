@@ -57,6 +57,14 @@ public interface Runtime extends HasCamelContext {
         throw new UnsupportedOperationException();
     }
 
+    /**
+     * Lifecycle method used to stops the entire integration.
+     */
+    default void stop() throws Exception {
+        // Stopping the Camel context in default config is enough to tear down the integration
+        getCamelContext().stop();
+    }
+
     enum Phase {
         Starting,
         ConfigureContext,
