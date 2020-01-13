@@ -76,7 +76,8 @@ public final class ApplicationRuntime implements Runtime {
         this.main.run();
     }
 
-    public void stop()throws Exception {
+    @Override
+    public void stop() throws Exception {
         this.main.stop();
     }
 

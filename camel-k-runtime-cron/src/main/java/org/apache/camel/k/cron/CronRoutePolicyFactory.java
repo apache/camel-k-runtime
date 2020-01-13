@@ -20,6 +20,8 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.NamedNode;
 import org.apache.camel.Route;
+import org.apache.camel.RuntimeCamelException;
+import org.apache.camel.k.Runtime;
 import org.apache.camel.spi.RoutePolicy;
 import org.apache.camel.spi.RoutePolicyFactory;
 import org.apache.camel.support.RoutePolicySupport;
@@ -31,7 +33,10 @@ import org.slf4j.LoggerFactory;
  */
 public class CronRoutePolicyFactory implements RoutePolicyFactory {
 
-    public CronRoutePolicyFactory() {
+    private Runtime runtime;
+
+    public CronRoutePolicyFactory(Runtime runtime) {
+        this.runtime = runtime;
     }
 
     @Override
@@ -39,9 +44,9 @@ public class CronRoutePolicyFactory implements RoutePolicyFactory {
         return new CronRoutePolicy(camelContext);
     }
 
-    private static class CronRoutePolicy extends RoutePolicySupport {
+    private class CronRoutePolicy extends RoutePolicySupport {
 
-        private static final Logger LOG = LoggerFactory.getLogger(CronRoutePolicy.class);
+        private final Logger logger = LoggerFactory.getLogger(CronRoutePolicy.class);
 
         private final CamelContext context;
 
@@ -51,8 +56,16 @@ public class CronRoutePolicyFactory implements RoutePolicyFactory {
 
         @Override
         public void onExchangeDone(Route route, Exchange exchange) {
-            LOG.info("Context shutdown started by cron policy");
-            context.getExecutorServiceManager().newThread("terminator", context::stop).start();
+            logger.info("Context shutdown started by cron policy");
+            context.getExecutorServiceManager().newThread("terminator", this::stopRuntime).start();
+        }
+
+        private void stopRuntime() {
+            try {
+                runtime.stop();
+            } catch (Exception e) {
+                throw new RuntimeCamelException(e);
+            }
         }
 
     }

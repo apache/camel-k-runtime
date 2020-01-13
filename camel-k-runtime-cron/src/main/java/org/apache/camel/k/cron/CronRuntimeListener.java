@@ -51,7 +51,7 @@ public class CronRuntimeListener extends AbstractPhaseListener {
         }
 
         // Add the cron route policy if there's at least one component to override
-        runtime.getCamelContext().addRoutePolicyFactory(new CronRoutePolicyFactory());
+        runtime.getCamelContext().addRoutePolicyFactory(new CronRoutePolicyFactory(runtime));
 
         // Override components
         overrideCron(runtime, components.split(",", -1));
