@@ -23,14 +23,117 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: mvn install
+      run: |
+        ./mvnw -V -B \
+          -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
+          clean install
+    - name: Save Cache
+      uses: actions/cache@v1
+      with:
+        path: ~/.m2/repository
+        key: mvn-${{ github.sha }}
+        restore-keys: |
+          mvn-${{ github.sha }}
+  build-alternative-jvm:
+    runs-on: ubuntu-latest
+    needs: build
     strategy:
       matrix:
-        java: [ '1.8', '11' ]
+        java: [ '11' , '12' ]
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Set up JDK ${{ matrix.java }}
       uses: actions/setup-java@v1
       with:
         java-version: ${{ matrix.java }}
-    - name: mvn install
-      run: ./mvnw -V -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean install
+    - name: Build on ${{ matrix.java }}
+      run: |
+        ./mvnw -V -B \
+          -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
+          clean install
+  build-quarkus-core:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set Up Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Restore Cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: mvn-${{ github.sha }}
+          restore-keys: |
+            mvn-${{ github.sha }}
+      - name: Integration Tests
+        run: |
+          ./mvnw -V -B \
+            -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
+            -Dnative \
+            -Ddocker \
+            -DskipTests \
+            -pl :camel-k-quarkus-core-it \
+            clean install
+  build-quarkus-loaders-markup:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set Up Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Restore Cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: mvn-${{ github.sha }}
+          restore-keys: |
+            mvn-${{ github.sha }}
+      - name: Integration Tests
+        run: |
+          ./mvnw -V -B \
+            -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
+            -Dnative \
+            -Ddocker \
+            -DskipTests \
+            -pl :camel-k-quarkus-loader-xml-it \
+            -pl :camel-k-quarkus-loader-yaml-it \
+            clean install
+  build-quarkus-loaders-js:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set Up Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Restore Cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: mvn-${{ github.sha }}
+          restore-keys: |
+            mvn-${{ github.sha }}
+      - name: Integration Tests
+        run: |
+          ./mvnw -V -B \
+            -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
+            -Dnative \
+            -Ddocker \
+            -DskipTests \
+            -pl :camel-k-quarkus-loader-js-it \
+            clean install
