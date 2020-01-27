@@ -35,7 +35,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <camel.version>3.0.1</camel.version>
+        <camel.version>3.1.0-SNAPSHOT</camel.version>
         <camel-quarkus.version>1.0.0-M3</camel-quarkus.version>
         <catalog.version>${camel.version}</catalog.version>
         <junit.version>5.6.0</junit.version>
@@ -215,7 +215,6 @@
         <module>camel-k-loader-js</module>
         <module>camel-k-loader-xml</module>
         <module>camel-k-loader-java</module>
-        <module>camel-k-loader-knative</module>
 
         <module>camel-k-runtime-cron</module>
         <module>camel-k-runtime-knative</module>
@@ -464,11 +463,6 @@
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-loader-java</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-loader-knative</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

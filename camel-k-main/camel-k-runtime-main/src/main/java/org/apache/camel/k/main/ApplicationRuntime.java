@@ -134,6 +134,10 @@ public final class ApplicationRuntime implements Runtime {
         @Override
         public void beforeStart(BaseMainSupport main) {
             invokeListeners(Phase.Starting);
+        }
+
+        @Override
+        public void beforeConfigure(BaseMainSupport main) {
             invokeListeners(Phase.ConfigureRoutes);
         }
 

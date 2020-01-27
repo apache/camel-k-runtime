@@ -82,8 +82,8 @@ public class YamlSourceLoader implements SourceLoader {
     }
 
     @Override
-    public void load(Runtime runtime, Source source) throws Exception {
-        runtime.addRoutes(
+    public Result load(Runtime runtime, Source source) throws Exception {
+        return Result.on(
             builder(source.resolveAsInputStream(runtime.getCamelContext()))
         );
     }

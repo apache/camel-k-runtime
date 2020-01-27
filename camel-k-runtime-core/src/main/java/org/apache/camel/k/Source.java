@@ -17,6 +17,7 @@
 package org.apache.camel.k;
 
 import java.io.InputStream;
+import java.util.List;
 import java.util.Optional;
 
 import org.apache.camel.CamelContext;
@@ -25,5 +26,6 @@ public interface Source {
     String getName();
     String getLanguage();
     Optional<String> getLoader();
+    List<String> getInterceptors();
     InputStream resolveAsInputStream(CamelContext ctx);
 }

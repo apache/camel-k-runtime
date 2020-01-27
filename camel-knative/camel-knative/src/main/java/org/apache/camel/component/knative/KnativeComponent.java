@@ -107,6 +107,9 @@ public class KnativeComponent extends DefaultComponent {
         return configuration.getCloudEventsSpecVersion();
     }
 
+    /**
+     * Set the version of the cloudevents spec.
+     */
     public void setCloudEventsSpecVersion(String cloudEventSpecVersion) {
         configuration.setCloudEventsSpecVersion(cloudEventSpecVersion);
     }

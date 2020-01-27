@@ -157,9 +157,8 @@ public class KnativeConfiguration implements Cloneable {
     /**
      * The version of the k8s resource referenced by the endpoint.
      */
-    public KnativeConfiguration setApiVersion(String apiVersion) {
+    public void setApiVersion(String apiVersion) {
         this.apiVersion = apiVersion;
-        return this;
     }
 
     public String getKind() {
@@ -169,9 +168,8 @@ public class KnativeConfiguration implements Cloneable {
     /**
      * The type of the k8s resource referenced by the endpoint.
      */
-    public KnativeConfiguration setKind(String kind) {
+    public void setKind(String kind) {
         this.kind = kind;
-        return this;
     }
 
     // ************************

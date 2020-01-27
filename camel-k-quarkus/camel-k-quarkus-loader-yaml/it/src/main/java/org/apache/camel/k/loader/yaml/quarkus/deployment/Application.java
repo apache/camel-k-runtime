@@ -48,10 +48,13 @@ public class Application {
     @Consume(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject loadRoutes(@PathParam("name") String name, String code) throws Exception {
+        final Runtime runtime = Runtime.on(context);
         final Source source = Sources.fromBytes(name, "yaml", null, code.getBytes(StandardCharsets.UTF_8));
         final SourceLoader loader = new YamlSourceLoader();
+        final SourceLoader.Result result = loader.load(Runtime.on(context), source);
 
-        loader.load(Runtime.on(context), source);
+        result.builder().ifPresent(runtime::addRoutes);
+        result.configuration().ifPresent(runtime::addConfiguration);
 
         return Json.createObjectBuilder()
             .add("components", extractComponents())

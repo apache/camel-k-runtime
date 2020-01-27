@@ -22,7 +22,7 @@ import org.apache.camel.builder.RouteBuilder
 import org.apache.camel.impl.DefaultCamelContext
 import org.apache.camel.k.Runtime
 import org.apache.camel.k.Sources
-import org.apache.camel.k.support.RuntimeSupport
+import org.apache.camel.k.listener.RoutesConfigurer
 import org.apache.camel.model.ProcessDefinition
 import org.apache.camel.model.ToDefinition
 import org.assertj.core.api.Assertions.assertThat
@@ -35,9 +35,7 @@ class LoaderTest {
     fun `load routes`() {
         var runtime = TestRuntime()
         var source = Sources.fromURI("classpath:routes.kts")
-        val loader = RuntimeSupport.loaderFor(runtime.camelContext, source)
-
-        loader.load(runtime, source)
+        val loader = RoutesConfigurer.load(runtime, source)
 
         assertThat(loader).isInstanceOf(KotlinSourceLoader::class.java)
         assertThat(runtime.builders).hasSize(1)
@@ -58,9 +56,7 @@ class LoaderTest {
     fun `load routes with endpoint dsl`() {
         var runtime = TestRuntime()
         var source = Sources.fromURI("classpath:routes-with-endpoint-dsl.kts")
-        val loader = RuntimeSupport.loaderFor(runtime.camelContext, source)
-
-        loader.load(runtime, source)
+        val loader = RoutesConfigurer.load(runtime, source)
 
         assertThat(loader).isInstanceOf(KotlinSourceLoader::class.java)
         assertThat(runtime.builders).hasSize(1)

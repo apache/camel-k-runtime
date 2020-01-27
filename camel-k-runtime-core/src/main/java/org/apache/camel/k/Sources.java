@@ -18,7 +18,11 @@ package org.apache.camel.k;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -31,12 +35,16 @@ import org.apache.camel.util.ObjectHelper;
 import org.apache.camel.util.URISupport;
 import org.apache.commons.lang3.StringUtils;
 
-public final class Sources {
+public final class  Sources {
     private Sources() {
     }
 
     public static Source fromURI(String uri) throws Exception {
         return new URI(uri);
+    }
+
+    public static Source fromBytes(String name, String language, String loader, List<String> interceptors, byte[] content) {
+        return new InMemory(name, language, loader, interceptors, content);
     }
 
     public static Source fromBytes(String name, String language, String loader, byte[] content) {
@@ -51,12 +59,22 @@ public final class Sources {
         private final String name;
         private final String language;
         private final String loader;
+        private final List<String> interceptors;
         private final byte[] content;
 
         public InMemory(String name, String language, String loader, byte[] content) {
             this.name = name;
             this.language = language;
             this.loader = loader;
+            this.interceptors = Collections.emptyList();
+            this.content = content;
+        }
+
+        public InMemory(String name, String language, String loader, List<String> interceptors, byte[] content) {
+            this.name = name;
+            this.language = language;
+            this.loader = loader;
+            this.interceptors = new ArrayList<>(interceptors);
             this.content = content;
         }
 
@@ -76,6 +94,11 @@ public final class Sources {
         }
 
         @Override
+        public List<String> getInterceptors() {
+            return interceptors;
+        }
+
+        @Override
         public InputStream resolveAsInputStream(CamelContext ctx) {
             if (content == null) {
                 throw new IllegalArgumentException("No content defined");
@@ -90,12 +113,13 @@ public final class Sources {
         private final String name;
         private final String language;
         private final String loader;
+        private final List<String> interceptors;
         private final boolean compressed;
 
         private URI(String uri) throws Exception {
             final String location = StringUtils.substringBefore(uri, "?");
 
-            if (!location.startsWith(Constants.SCHEME_CLASSPATH) && !location.startsWith(Constants.SCHEME_FILE)) {
+            if (!location.startsWith(Constants.SCHEME_PREFIX_CLASSPATH) && !location.startsWith(Constants.SCHEME_PREFIX_FILE)) {
                 throw new IllegalArgumentException("No valid resource format, expected scheme:path, found " + uri);
             }
 
@@ -104,7 +128,7 @@ public final class Sources {
             final String languageName = (String) params.get("language");
             final String compression = (String) params.get("compression");
             final String loader = (String) params.get("loader");
-
+            final String interceptors = (String) params.get("interceptors");
 
             String language = languageName;
             if (ObjectHelper.isEmpty(language)) {
@@ -129,6 +153,7 @@ public final class Sources {
             this.name = name;
             this.language = language;
             this.loader = loader;
+            this.interceptors = interceptors != null ? Arrays.asList(interceptors.split(",", -1)) : Collections.emptyList();
             this.compressed = Boolean.valueOf(compression);
         }
 
@@ -145,6 +170,11 @@ public final class Sources {
         @Override
         public Optional<String> getLoader() {
             return Optional.ofNullable(loader);
+        }
+
+        @Override
+        public List<String> getInterceptors() {
+            return interceptors;
         }
 
         @Override

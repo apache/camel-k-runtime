@@ -28,7 +28,7 @@ import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceLoader;
 import org.apache.camel.k.Sources;
-import org.apache.camel.k.support.RuntimeSupport;
+import org.apache.camel.k.listener.RoutesConfigurer;
 import org.apache.camel.model.ProcessDefinition;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.model.SetBodyDefinition;
@@ -45,9 +45,7 @@ public class RoutesLoaderTest {
     public void testLoadJavaWithNestedClass() throws Exception {
         TestRuntime runtime = new TestRuntime();
         Source source = Sources.fromURI("classpath:MyRoutesWithNestedClass.java");
-        SourceLoader loader = RuntimeSupport.loaderFor(runtime.camelContext, source);
-
-        loader.load(runtime, source);
+        SourceLoader loader = RoutesConfigurer.load(runtime, source);
 
         assertThat(loader).isInstanceOf(JavaSourceLoader.class);
         assertThat(runtime.builders).hasSize(1);
@@ -69,9 +67,7 @@ public class RoutesLoaderTest {
     public void testLoadJavaWithRestConfiguration() throws Exception {
         TestRuntime runtime = new TestRuntime();
         Source source = Sources.fromURI("classpath:MyRoutesWithRestConfiguration.java");
-        SourceLoader loader = RuntimeSupport.loaderFor(runtime.camelContext, source);
-
-        loader.load(runtime, source);
+        SourceLoader loader = RoutesConfigurer.load(runtime, source);
 
         assertThat(loader).isInstanceOf(JavaSourceLoader.class);
         assertThat(runtime.builders).hasSize(1);
@@ -87,9 +83,7 @@ public class RoutesLoaderTest {
     public void testLoadJavaConfiguration() throws Exception {
         TestRuntime runtime = new TestRuntime();
         Source source = Sources.fromURI("classpath:MyRoutesConfig.java");
-        SourceLoader loader = RuntimeSupport.loaderFor(runtime.camelContext, source);
-
-        loader.load(runtime, source);
+        SourceLoader loader = RoutesConfigurer.load(runtime, source);
 
         assertThat(loader).isInstanceOf(JavaSourceLoader.class);
         assertThat(runtime.builders).isEmpty();
@@ -100,9 +94,7 @@ public class RoutesLoaderTest {
     public void testLoadJavaWithModel() throws Exception {
         TestRuntime runtime = new TestRuntime();
         Source source = Sources.fromURI("classpath:MyRoutesWithModel.java");
-        SourceLoader loader = RuntimeSupport.loaderFor(runtime.camelContext, source);
-
-        loader.load(runtime, source);
+        SourceLoader loader = RoutesConfigurer.load(runtime, source);
 
         assertThat(loader).isInstanceOf(JavaSourceLoader.class);
         assertThat(runtime.builders).hasSize(1);
@@ -122,9 +114,7 @@ public class RoutesLoaderTest {
     public void testLoaders(String location, Class<? extends SourceLoader> type) throws Exception {
         TestRuntime runtime = new TestRuntime();
         Source source = Sources.fromURI(location);
-        SourceLoader loader = RuntimeSupport.loaderFor(runtime.camelContext, source);
-
-        loader.load(runtime, source);
+        SourceLoader loader = RoutesConfigurer.load(runtime, source);
 
         assertThat(loader).isInstanceOf(type);
         assertThat(runtime.builders).hasSize(1);

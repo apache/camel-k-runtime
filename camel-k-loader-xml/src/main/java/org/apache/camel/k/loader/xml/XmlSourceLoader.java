@@ -43,7 +43,7 @@ public class XmlSourceLoader implements SourceLoader {
     }
 
     @Override
-    public void load(Runtime runtime, Source source) throws Exception {
+    public Result load(Runtime runtime, Source source) throws Exception {
         RouteBuilder builder = new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -75,6 +75,6 @@ public class XmlSourceLoader implements SourceLoader {
             }
         };
 
-        runtime.addRoutes(builder);
+        return Result.on(builder);
     }
 }
