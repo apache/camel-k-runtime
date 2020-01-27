@@ -45,8 +45,8 @@ public class WireTapStepParser implements ProcessorStepParser {
         ObjectHelper.ifNotEmpty(definition.processorRef, answer::setNewExchangeProcessorRef);
         ObjectHelper.ifNotEmpty(definition.executorServiceRef, answer::setExecutorServiceRef);
         ObjectHelper.ifNotEmpty(definition.onPrepareRef, answer::onPrepareRef);
-        ObjectHelper.ifNotEmpty(definition.copy, answer::setCopy);
-        ObjectHelper.ifNotEmpty(definition.dynamicUri, answer::setDynamicUri);
+        ObjectHelper.ifNotEmpty(definition.copy, answer::copy);
+        ObjectHelper.ifNotEmpty(definition.dynamicUri, answer::dynamicUri);
 
         if (definition.newExchange != null) {
             answer.setNewExchangeExpression(definition.newExchange);

@@ -44,7 +44,6 @@
         <module>camel-k-quarkus-loader-xml</module>
         <module>camel-k-quarkus-loader-js</module>
         <module>camel-k-quarkus-loader-yaml</module>
-        <module>camel-k-quarkus-loader-knative</module>
         <module>camel-k-quarkus-loader-java</module>
         <module>camel-k-quarkus-loader-groovy</module>
         <module>camel-k-quarkus-loader-kotlin</module>

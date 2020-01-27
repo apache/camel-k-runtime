@@ -22,7 +22,7 @@ import org.apache.camel.builder.RouteBuilder
 import org.apache.camel.impl.DefaultCamelContext
 import org.apache.camel.k.Runtime
 import org.apache.camel.k.Sources
-import org.apache.camel.k.support.RuntimeSupport
+import org.apache.camel.k.listener.RoutesConfigurer
 import org.apache.camel.model.FromDefinition
 import org.apache.camel.model.ToDefinition
 import spock.lang.Specification
@@ -35,8 +35,7 @@ class LoaderTest extends Specification {
             def source = Sources.fromURI("classpath:routes.groovy")
 
         when:
-            def loader = RuntimeSupport.loaderFor(runtime.camelContext, source)
-            loader.load(runtime, source)
+            def loader = RoutesConfigurer.load(runtime, source)
 
         then:
             loader instanceof GroovySourceLoader
@@ -61,8 +60,7 @@ class LoaderTest extends Specification {
             def source = Sources.fromURI("classpath:routes-with-endpoint-dsl.groovy")
 
         when:
-            def loader = RuntimeSupport.loaderFor(runtime.camelContext, source)
-            loader.load(runtime, source)
+            def loader = RoutesConfigurer.load(runtime, source)
 
         then:
             loader instanceof GroovySourceLoader

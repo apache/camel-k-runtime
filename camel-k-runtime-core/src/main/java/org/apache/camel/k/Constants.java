@@ -35,10 +35,18 @@ public final class Constants {
     public static final String ENV_CAMEL_K_MOUNT_PATH_SECRETS = "CAMEL_K_MOUNT_PATH_SECRETS";
     public static final String PROPERTY_CAMEL_K_MOUNT_PATH_SECRETS = "camel.k.mount-path.secrets";
 
-    public static final String SCHEME_CLASSPATH = "classpath:";
-    public static final String SCHEME_FILE = "file:";
+    public static final String SCHEME_REF = "ref";
+    public static final String SCHEME_PREFIX_REF = SCHEME_REF + ":";
+    public static final String SCHEME_CLASS = "class";
+    public static final String SCHEME_PREFIX_CLASS = SCHEME_CLASS + ":";
+    public static final String SCHEME_CLASSPATH = "classpath";
+    public static final String SCHEME_PREFIX_CLASSPATH = SCHEME_CLASSPATH + ":";
+    public static final String SCHEME_FILE = "file";
+    public static final String SCHEME_PREFIX_FILE = SCHEME_FILE + ":";
+
     public static final String LOGGING_LEVEL_PREFIX = "logging.level.";
-    public static final String ROUTES_LOADER_RESOURCE_PATH = "META-INF/services/org/apache/camel/k/loader/";
+    public static final String SOURCE_LOADER_RESOURCE_PATH = "META-INF/services/org/apache/camel/k/loader/";
+    public static final String SOURCE_LOADER_INTERCEPTOR_RESOURCE_PATH = "META-INF/services/org/apache/camel/k/loader/interceptor/";
     public static final String CONTEXT_CUSTOMIZER_RESOURCE_PATH = "META-INF/services/org/apache/camel/k/customizer/";
 
     public static final String ENABLE_CUSTOMIZER_PATTERN = "customizer.([\\w][\\w-]*).enabled";

@@ -43,9 +43,7 @@ public class RoutesLoaderTest {
     public void testLoaders(String location, Class<? extends SourceLoader> type) throws Exception {
         TestRuntime runtime = new TestRuntime();
         Source source = Sources.fromURI(location);
-        SourceLoader loader = RuntimeSupport.loaderFor(new DefaultCamelContext(), source);
-
-        loader.load(runtime, source);
+        SourceLoader loader = runtime.load(source);
 
         assertThat(loader).isInstanceOf(type);
         assertThat(runtime.builders).hasSize(1);
@@ -84,6 +82,16 @@ public class RoutesLoaderTest {
         @Override
         public void addRoutes(RoutesBuilder builder) {
             this.builders.add(builder);
+        }
+
+        public SourceLoader load(Source source) throws Exception {
+            SourceLoader loader = RuntimeSupport.loaderFor(camelContext, source);
+            SourceLoader.Result result = loader.load(this, source);
+
+            result.builder().ifPresent(this::addRoutes);
+            result.configuration().ifPresent(this::addConfiguration);
+
+            return loader;
         }
     }
 }

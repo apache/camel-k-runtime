@@ -16,6 +16,7 @@
  */
 package org.apache.camel.k.loader.groovy
 
+
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder
 import org.apache.camel.k.Runtime
 import org.apache.camel.k.Source
@@ -31,7 +32,7 @@ class GroovySourceLoader implements SourceLoader {
     }
 
     @Override
-    void load(Runtime runtime, Source source) throws Exception {
+    Result load(Runtime runtime, Source source) throws Exception {
         def builder = new EndpointRouteBuilder() {
             @Override
             void configure() throws Exception {
@@ -58,6 +59,6 @@ class GroovySourceLoader implements SourceLoader {
             }
         }
 
-        runtime.addRoutes(builder)
+        return Result.on(builder)
     }
 }

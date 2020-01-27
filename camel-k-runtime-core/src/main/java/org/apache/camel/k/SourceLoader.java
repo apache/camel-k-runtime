@@ -17,8 +17,10 @@
 package org.apache.camel.k;
 
 import java.util.List;
+import java.util.Optional;
 
-import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.RoutesBuilder;
+import org.apache.camel.util.ObjectHelper;
 
 public interface SourceLoader {
     /**
@@ -29,12 +31,81 @@ public interface SourceLoader {
     List<String> getSupportedLanguages();
 
     /**
-     * Creates a camel {@link RouteBuilder} from the given resource.
+     * Creates a camel {@link RoutesBuilder} from the given resource.
      *
      * @param runtime the runtime.
      * @param source the source to load.
-     * @return the RouteBuilder.
+     * @return the RoutesBuilder.
      * @throws Exception
      */
-    void load(Runtime runtime, Source source) throws Exception;
+    Result load(Runtime runtime, Source source) throws Exception;
+
+    /**
+     * Represent the result of the process of loading a {@link Source}.
+     */
+    interface Result {
+        /**
+         * A {@RoutesBuilder} containing routes to be added to the {@link org.apache.camel.CamelContext}.
+         */
+        Optional<RoutesBuilder> builder();
+
+        /**
+         * A configuration class that can be used to customize the {@link org.apache.camel.CamelContext}.
+         */
+        Optional<Object> configuration();
+
+        /**
+         * Construct an instance of {@link Result} for the given {@link RoutesBuilder}.
+         */
+        static Result on(RoutesBuilder target) {
+            ObjectHelper.notNull(target, "target");
+
+            return new Result() {
+                @Override
+                public Optional<RoutesBuilder> builder() {
+                    return Optional.of(target);
+                }
+
+                @Override
+                public Optional<Object> configuration() {
+                    return Optional.empty();
+                }
+            };
+        }
+
+        /**
+         * Construct an instance of {@link Result} by determining the type of hte given target object..
+         */
+        static Result on(Object target) {
+            ObjectHelper.notNull(target, "target");
+
+            return new Result() {
+                @Override
+                public Optional<RoutesBuilder> builder() {
+                    return target instanceof RoutesBuilder
+                        ? Optional.of((RoutesBuilder)target)
+                        : Optional.empty();
+                }
+
+                @Override
+                public Optional<Object> configuration() {
+                    return target instanceof RoutesBuilder
+                        ? Optional.empty()
+                        : Optional.of(target);
+                }
+            };
+        }
+    }
+
+    interface Interceptor {
+        /**
+         * Invoked before the source is materialized top a RoutesBuilder.
+         */
+        void beforeLoad(SourceLoader loader, Source source);
+
+        /**
+         * Invoked after the source is materialized and before is added to the runtime.
+         */
+        Result afterLoad(SourceLoader loader, Source source, Result result);
+    }
 }

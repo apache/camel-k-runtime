@@ -26,8 +26,8 @@ import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceLoader;
 import org.apache.camel.k.Sources;
+import org.apache.camel.k.listener.RoutesConfigurer;
 import org.apache.camel.k.loader.yaml.YamlSourceLoader;
-import org.apache.camel.k.support.RuntimeSupport;
 import org.apache.camel.model.FromDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.RouteDefinition;
@@ -42,9 +42,7 @@ public class KnativeConverterTest {
     public void testLoadRoutes() throws Exception {
         TestRuntime runtime = new TestRuntime();
         Source source = Sources.fromURI("classpath:route.yaml");
-        SourceLoader loader = RuntimeSupport.loaderFor(runtime.camelContext, source);
-
-        loader.load(runtime, source);
+        SourceLoader loader = RoutesConfigurer.load(runtime, source);
 
         assertThat(loader).isInstanceOf(YamlSourceLoader.class);
         assertThat(runtime.builders).hasSize(1);

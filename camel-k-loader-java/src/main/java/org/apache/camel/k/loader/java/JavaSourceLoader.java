@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.camel.RoutesBuilder;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceLoader;
@@ -42,18 +41,14 @@ public class JavaSourceLoader implements SourceLoader {
     }
 
     @Override
-    public void load(Runtime runtime, Source source) throws Exception {
+    public Result load(Runtime runtime, Source source) throws Exception {
         try (InputStream is = source.resolveAsInputStream(runtime.getCamelContext())) {
             final String content = IOUtils.toString(is, StandardCharsets.UTF_8);
             final String name = determineQualifiedName(source, content);
             final Reflect compiled = Reflect.compile(name, content);
             final Object instance = compiled.create().get();
 
-            if (instance instanceof RoutesBuilder) {
-                runtime.addRoutes((RoutesBuilder)instance);
-            } else {
-                runtime.addConfiguration(instance);
-            }
+            return Result.on(instance);
         }
     }
 

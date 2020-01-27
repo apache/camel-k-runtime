@@ -16,6 +16,8 @@
  */
 package org.apache.camel.k.listener;
 
+import java.util.List;
+
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.k.Constants;
 import org.apache.camel.k.Runtime;
@@ -56,14 +58,8 @@ public class RoutesConfigurer extends AbstractPhaseListener {
                 continue;
             }
 
-            final Source source;
-            final SourceLoader loader;
-
             try {
-                source = Sources.fromURI(route);
-                loader = RuntimeSupport.loaderFor(runtime.getCamelContext(), source);
-
-                loader.load(runtime, source);
+                load(runtime, Sources.fromURI(route));
             } catch (Exception e) {
                 throw RuntimeCamelException.wrapRuntimeCamelException(e);
             }
@@ -79,5 +75,28 @@ public class RoutesConfigurer extends AbstractPhaseListener {
                 load(runtime, routes);
             }
         };
+    }
+
+    public static SourceLoader load(Runtime runtime, Source source) {
+        final List<SourceLoader.Interceptor> interceptors = RuntimeSupport.loadInterceptors(runtime.getCamelContext(), source);
+        final SourceLoader loader = RuntimeSupport.loaderFor(runtime.getCamelContext(), source);
+
+        try {
+            for (SourceLoader.Interceptor interceptor: interceptors) {
+                interceptor.beforeLoad(loader, source);
+            }
+
+            SourceLoader.Result result = loader.load(runtime, source);
+            for (SourceLoader.Interceptor interceptor: interceptors) {
+                result = interceptor.afterLoad(loader, source, result);
+            }
+
+            result.builder().ifPresent(runtime::addRoutes);
+            result.configuration().ifPresent(runtime::addConfiguration);
+        } catch (Exception e) {
+            throw RuntimeCamelException.wrapRuntimeCamelException(e);
+        }
+
+        return loader;
     }
 }

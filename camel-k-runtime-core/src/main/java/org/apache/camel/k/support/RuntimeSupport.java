@@ -19,16 +19,21 @@ package org.apache.camel.k.support;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.NoFactoryAvailableException;
+import org.apache.camel.RoutesBuilder;
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.builder.RouteBuilderLifecycleStrategy;
 import org.apache.camel.k.Constants;
 import org.apache.camel.k.ContextCustomizer;
 import org.apache.camel.k.Source;
@@ -192,7 +197,7 @@ public final class RuntimeSupport {
 
         try {
             loader = context.adapt(ExtendedCamelContext.class)
-                .getFactoryFinder(Constants.ROUTES_LOADER_RESOURCE_PATH)
+                .getFactoryFinder(Constants.SOURCE_LOADER_RESOURCE_PATH)
                 .newInstance(loaderId, SourceLoader.class)
                 .orElseThrow(() -> new RuntimeException("Error creating instance of loader: " + loaderId));
 
@@ -202,6 +207,80 @@ public final class RuntimeSupport {
         }
 
         return loader;
+    }
+
+    // *********************************
+    //
+    // Helpers - Interceptors
+    //
+    // *********************************
+
+    public static List<SourceLoader.Interceptor> loadInterceptors(CamelContext context, Source source) {
+        ExtendedCamelContext ecc = context.adapt(ExtendedCamelContext.class);
+        List<SourceLoader.Interceptor> answer = new ArrayList<>();
+
+        for (String id : source.getInterceptors()) {
+            try {
+                // first check the registry
+                SourceLoader.Interceptor interceptor = ecc.getRegistry()
+                    .lookupByNameAndType(id, SourceLoader.Interceptor.class);
+
+                if (interceptor == null) {
+                    // then try with factory finder
+                    interceptor = ecc.getFactoryFinder(Constants.SOURCE_LOADER_INTERCEPTOR_RESOURCE_PATH)
+                        .newInstance(id, SourceLoader.Interceptor.class)
+                        .orElseThrow(() -> new IllegalArgumentException("Unable to find source loader interceptor for: " + id));
+
+                    LOGGER.info("Found source loader interceptor {} from service definition", id);
+                } else {
+                    LOGGER.info("Found source loader interceptor {} from registry", id);
+                }
+
+                PropertiesSupport.bindProperties(context, interceptor, "loader.interceptor." + id + ".");
+
+                answer.add(interceptor);
+            } catch (Exception e) {
+                throw new IllegalArgumentException("Unable to find source loader interceptor for: " + id, e);
+            }
+        }
+
+        return answer;
+    }
+
+    public static Optional<RoutesBuilder> beforeConfigure(Optional<RoutesBuilder> builder, Consumer<RouteBuilder> consumer) {
+        return builder.map(b -> {
+            if (b instanceof RouteBuilder) {
+                RouteBuilder.class.cast(b).addLifecycleInterceptor(beforeConfigure(consumer));
+            }
+            return b;
+        });
+    }
+
+    public static RouteBuilderLifecycleStrategy beforeConfigure(Consumer<RouteBuilder> consumer) {
+        return new RouteBuilderLifecycleStrategy() {
+            @Override
+            public void beforeConfigure(RouteBuilder builder) {
+                consumer.accept(builder);
+            }
+        };
+    }
+
+    public static Optional<RoutesBuilder> afterConfigure(Optional<RoutesBuilder> builder, Consumer<RouteBuilder> consumer) {
+        return builder.map(b -> {
+            if (b instanceof RouteBuilder) {
+                RouteBuilder.class.cast(b).addLifecycleInterceptor(afterConfigure(consumer));
+            }
+            return b;
+        });
+    }
+
+    public static RouteBuilderLifecycleStrategy afterConfigure(Consumer<RouteBuilder> consumer) {
+        return new RouteBuilderLifecycleStrategy() {
+            @Override
+            public void afterConfigure(RouteBuilder builder) {
+                consumer.accept(builder);
+            }
+        };
     }
 
 }

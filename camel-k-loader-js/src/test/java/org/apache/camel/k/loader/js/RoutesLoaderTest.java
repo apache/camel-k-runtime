@@ -28,7 +28,7 @@ import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceLoader;
 import org.apache.camel.k.Sources;
-import org.apache.camel.k.support.RuntimeSupport;
+import org.apache.camel.k.listener.RoutesConfigurer;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.model.ToDefinition;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -43,9 +43,7 @@ public class RoutesLoaderTest {
     public void testLoaders(String location, Class<? extends SourceLoader> type) throws Exception {
         TestRuntime runtime = new TestRuntime();
         Source source = Sources.fromURI(location);
-        SourceLoader loader = RuntimeSupport.loaderFor(new DefaultCamelContext(), source);
-
-        loader.load(runtime, source);
+        SourceLoader loader = RoutesConfigurer.load(runtime, source);
 
         assertThat(loader).isInstanceOf(type);
         assertThat(runtime.builders).hasSize(1);

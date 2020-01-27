@@ -27,7 +27,6 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 
 import javax.annotation.processing.AbstractProcessor;
-import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedSourceVersion;
@@ -37,16 +36,16 @@ import javax.lang.model.element.TypeElement;
 import javax.tools.FileObject;
 import javax.tools.StandardLocation;
 
-import com.google.auto.service.AutoService;
 import org.apache.camel.k.annotation.Loader;
+import org.apache.camel.k.annotation.LoaderInterceptor;
 import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 
 @SupportedAnnotationTypes({
     "org.apache.camel.k.annotation.Loader",
+    "org.apache.camel.k.annotation.LoaderInterceptor",
     "org.apache.camel.k.annotation.yaml.YAMLStepParser"
 })
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
-@AutoService(Processor.class)
 public class CamelProcessor extends AbstractProcessor {
 
     @Override
@@ -55,12 +54,18 @@ public class CamelProcessor extends AbstractProcessor {
             Set<? extends Element> ae = roundEnv.getElementsAnnotatedWith(annotation);
             for (Element element: ae) {
                 on(element, Loader.class, (e, a) -> {
-                    for (String loader: a.value()) {
+                    for (String id: a.value()) {
                         service(
-                            output("META-INF/services/org/apache/camel/k/loader/%s", loader),
+                            output("META-INF/services/org/apache/camel/k/loader/%s", id),
                             e
                         );
                     }
+                });
+                on(element, LoaderInterceptor.class, (e, a) -> {
+                    service(
+                        output("META-INF/services/org/apache/camel/k/loader/interceptor/%s", a.value()),
+                        e
+                    );
                 });
                 on(element, YAMLStepParser.class, (e, a) -> {
                     for (String id: a.value()) {

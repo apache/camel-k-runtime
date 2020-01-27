@@ -45,7 +45,7 @@ class KotlinSourceLoader : SourceLoader {
     }
 
     @Throws(Exception::class)
-    override fun load(runtime: Runtime, source: Source) {
+    override fun load(runtime: Runtime, source: Source): SourceLoader.Result {
         var builder = object : EndpointRouteBuilder() {
             @Throws(Exception::class)
             override fun configure() {
@@ -79,6 +79,6 @@ class KotlinSourceLoader : SourceLoader {
             }
         }
 
-        runtime.addRoutes(builder)
+        return SourceLoader.Result.on(builder)
     }
 }

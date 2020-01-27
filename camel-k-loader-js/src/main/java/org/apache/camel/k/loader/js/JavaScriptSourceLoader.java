@@ -44,7 +44,7 @@ public class JavaScriptSourceLoader implements SourceLoader {
     }
 
     @Override
-    public void load(Runtime runtime, Source source) throws Exception {
+    public Result load(Runtime runtime, Source source) throws Exception {
         RoutesBuilder builder = new EndpointRouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -74,6 +74,6 @@ public class JavaScriptSourceLoader implements SourceLoader {
             }
         };
 
-        runtime.addRoutes(builder);
+        return Result.on(builder);
     }
 }

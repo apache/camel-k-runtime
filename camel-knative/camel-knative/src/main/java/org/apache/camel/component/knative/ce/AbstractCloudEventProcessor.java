@@ -17,6 +17,7 @@
 package org.apache.camel.component.knative.ce;
 
 import java.io.InputStream;
+import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -95,7 +96,7 @@ abstract class AbstractCloudEventProcessor implements CloudEventProcessor {
                 return service.getMetadata().getOrDefault(Knative.KNATIVE_EVENT_TYPE, endpoint.getConfiguration().getCloudEventsType());
             });
             setCloudEventHeader(headers, CloudEvent.CAMEL_CLOUD_EVENT_TIME, () -> {
-                final ZonedDateTime created = exchange.getCreated().toInstant().atZone(ZoneId.systemDefault());
+                final ZonedDateTime created = ZonedDateTime.ofInstant(Instant.ofEpochMilli(exchange.getCreated()), ZoneId.systemDefault());
                 final String eventTime = DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(created);
 
                 return eventTime;

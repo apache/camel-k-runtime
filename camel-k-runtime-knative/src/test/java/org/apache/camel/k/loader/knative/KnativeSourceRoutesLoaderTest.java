@@ -22,6 +22,7 @@ import java.util.UUID;
 import java.util.stream.Stream;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.knative.KnativeComponent;
@@ -33,11 +34,12 @@ import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceLoader;
 import org.apache.camel.k.Sources;
-import org.apache.camel.k.support.RuntimeSupport;
+import org.apache.camel.k.listener.RoutesConfigurer;
+import org.apache.camel.k.loader.java.JavaSourceLoader;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.test.AvailablePortFinder;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -51,18 +53,12 @@ public class KnativeSourceRoutesLoaderTest {
 
     static Stream<Arguments> parameters() {
         return Stream.of(
-            Arguments.arguments("classpath:routes.yaml?loader=knative-source"),
-            Arguments.arguments("classpath:routes.yaml?language=knative-source-yaml"),
-            Arguments.arguments("classpath:routes.xml?loader=knative-source"),
-            Arguments.arguments("classpath:routes.xml?language=knative-source-xml"),
-            Arguments.arguments("classpath:routes.groovy?loader=knative-source"),
-            Arguments.arguments("classpath:routes.groovy?language=knative-source-groovy"),
-            Arguments.arguments("classpath:routes.kts?loader=knative-source"),
-            Arguments.arguments("classpath:routes.kts?language=knative-source-kts"),
-            Arguments.arguments("classpath:routes.js?loader=knative-source"),
-            Arguments.arguments("classpath:routes.js?language=knative-source-js"),
-            Arguments.arguments("classpath:routes.java?name=MyRoutes.java&loader=knative-source"),
-            Arguments.arguments("classpath:routes.java?name=MyRoutes.java&language=knative-source-java")
+            Arguments.arguments("classpath:sources/routes.yaml?interceptors=knative-source"),
+            Arguments.arguments("classpath:sources/routes.xml?interceptors=knative-source"),
+            Arguments.arguments("classpath:sources/routes.groovy?interceptors=knative-source"),
+            Arguments.arguments("classpath:sources/routes.kts?interceptors=knative-source"),
+            Arguments.arguments("classpath:sources/routes.js?interceptors=knative-source"),
+            Arguments.arguments("classpath:sources/routes.java?name=MyRoutes.java&interceptors=knative-source")
         ).sequential();
     }
 
@@ -87,11 +83,9 @@ public class KnativeSourceRoutesLoaderTest {
         context.addComponent("knative", component);
 
         Source source = Sources.fromURI(uri);
-        SourceLoader loader = RuntimeSupport.loaderFor(context, source);
+        SourceLoader loader = RoutesConfigurer.load(runtime, source);
 
-        loader.load(runtime, source);
-
-        assertThat(loader).isInstanceOf(KnativeSourceLoader.class);
+        assertThat(loader.getSupportedLanguages()).contains(source.getLanguage());
         assertThat(runtime.builders).hasSize(1);
 
         try {
@@ -148,16 +142,25 @@ public class KnativeSourceRoutesLoaderTest {
         context.setStreamCaching(true);
         context.addComponent("knative", component);
 
-        Source source = Sources.fromURI("classpath:routes.java?name=MyRoutes.java&loader=knative-source");
-        SourceLoader loader = RuntimeSupport.loaderFor(context, source);
+        Source source = Sources.fromURI("classpath:sources/routes.java?name=MyRoutes.java&interceptors=knative-source");
+        SourceLoader loader = RoutesConfigurer.load(runtime, source);
 
-        loader.load(runtime, source);
-
-        assertThat(loader).isInstanceOf(KnativeSourceLoader.class);
+        assertThat(loader.getSupportedLanguages()).contains(source.getLanguage());
+        assertThat(loader).isInstanceOf(JavaSourceLoader.class);
         assertThat(runtime.builders).hasSize(1);
 
         try {
-            context.addRoutes(runtime.builders.get(0));
+            RoutesBuilder builder = runtime.builders.get(0);
+
+            context.addRoutes(builder);
+
+            context.adapt(ExtendedCamelContext.class)
+                .getBeanPostProcessor()
+                .postProcessBeforeInitialization(builder, builder.getClass().getName());
+            context.adapt(ExtendedCamelContext.class)
+                .getBeanPostProcessor()
+                .postProcessAfterInitialization(builder, builder.getClass().getName());
+
             context.start();
 
             assertThat(context.getRegistry().lookupByName("my-bean")).isInstanceOfSatisfying(String.class, "my-bean-string"::equals);
