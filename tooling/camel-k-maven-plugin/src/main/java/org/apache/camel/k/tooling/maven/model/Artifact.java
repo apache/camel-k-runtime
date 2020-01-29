@@ -16,53 +16,10 @@
  */
 package org.apache.camel.k.tooling.maven.model;
 
-import java.util.Objects;
+import java.util.Optional;
 
-public class Artifact {
-    private String groupId;
-    private String artifactId;
-    private String version;
-
-    public String getGroupId() {
-        return groupId;
-    }
-
-    public void setGroupId(String groupId) {
-        this.groupId = groupId;
-    }
-
-    public String getArtifactId() {
-        return artifactId;
-    }
-
-    public void setArtifactId(String artifactId) {
-        this.artifactId = artifactId;
-    }
-
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Artifact artifact = (Artifact) o;
-
-        return Objects.equals(groupId, artifact.groupId)
-            && Objects.equals(artifactId, artifact.artifactId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(groupId, artifactId);
-    }
+public interface Artifact {
+    String getGroupId();;
+    String getArtifactId();
+    Optional<String> getVersion();
 }

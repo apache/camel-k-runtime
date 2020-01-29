@@ -24,13 +24,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Comparator;
-import java.util.Map;
-import java.util.Objects;
 import java.util.Properties;
 import java.util.ServiceLoader;
-import java.util.SortedMap;
-import java.util.TreeMap;
-import java.util.regex.Pattern;
+import java.util.function.Consumer;
 import java.util.stream.StreamSupport;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -39,18 +35,15 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import org.apache.camel.catalog.DefaultCamelCatalog;
-import org.apache.camel.k.tooling.maven.model.CamelArtifact;
-import org.apache.camel.k.tooling.maven.model.CatalogComponentDefinition;
-import org.apache.camel.k.tooling.maven.model.CatalogDataFormatDefinition;
-import org.apache.camel.k.tooling.maven.model.CatalogLanguageDefinition;
+import org.apache.camel.catalog.DefaultRuntimeProvider;
+import org.apache.camel.catalog.quarkus.QuarkusRuntimeProvider;
+import org.apache.camel.impl.engine.AbstractCamelContext;
 import org.apache.camel.k.tooling.maven.model.CatalogProcessor;
-import org.apache.camel.k.tooling.maven.model.CatalogSupport;
 import org.apache.camel.k.tooling.maven.model.crd.CamelCatalog;
 import org.apache.camel.k.tooling.maven.model.crd.CamelCatalogSpec;
-import org.apache.camel.k.tooling.maven.model.crd.QuarkusRuntimeProvider;
-import org.apache.camel.k.tooling.maven.model.crd.RuntimeProvider;
+import org.apache.camel.k.tooling.maven.model.crd.RuntimeSpec;
 import org.apache.camel.k.tooling.maven.model.k8s.ObjectMeta;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.camel.quarkus.core.FastCamelContext;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -74,10 +67,10 @@ public class GenerateCatalogMojo extends AbstractMojo {
     @Parameter(property = "catalog.path", defaultValue = "${project.build.directory}")
     private String outputPath;
 
-    @Parameter(property = "catalog.file", defaultValue = "camel-catalog-${camel.version}-${runtime.version}.yaml")
+    @Parameter(property = "catalog.file", defaultValue = "camel-catalog-${runtime.version}.yaml")
     private String outputFile;
 
-    @Parameter(property = "catalog.runtime", defaultValue = "")
+    @Parameter(property = "catalog.runtime", defaultValue = "main")
     private String runtime;
 
     // ********************
@@ -100,48 +93,79 @@ public class GenerateCatalogMojo extends AbstractMojo {
             throw new MojoExecutionException("Exception while generating camel catalog", e);
         }
 
-        final SortedMap<String, CamelArtifact> artifacts = new TreeMap<>();
         final org.apache.camel.catalog.CamelCatalog catalog = new DefaultCamelCatalog();
-        if (runtime == null) {
-            runtime = "";
-        }
-        switch (runtime) {
-        case "quarkus":
-            catalog.setRuntimeProvider(new org.apache.camel.catalog.quarkus.QuarkusRuntimeProvider());
-            break;
-        case "":
-            break;
-        default:
-            throw new IllegalArgumentException("catalog.runtime parameter value [" + runtime + "] is not supported!");
-        }
+        final String runtimeVersion = getVersion(getClass(), "/META-INF/maven/org.apache.camel.k/camel-k-maven-plugin/pom.properties");
+        final String catalogName = String.format("camel-catalog-%s-%s", runtimeVersion.toLowerCase(), runtime);
 
         try {
-            processComponents(catalog, artifacts);
-            processLanguages(catalog, artifacts);
-            processDataFormats(catalog, artifacts);
-
             ServiceLoader<CatalogProcessor> processors = ServiceLoader.load(CatalogProcessor.class);
             Comparator<CatalogProcessor> comparator = Comparator.comparingInt(CatalogProcessor::getOrder);
 
-            //
-            // post process catalog
-            //
+            RuntimeSpec.Builder runtimeSpec = new RuntimeSpec.Builder()
+                .version(runtimeVersion)
+                .provider(runtime);
+
+            getVersion(
+                AbstractCamelContext.class,
+                "org.apache.camel", "camel-base",
+                version -> runtimeSpec.putMetadata("camel.version", version));
+            getVersion(
+                FastCamelContext.class,
+                "io.quarkus", "quarkus-core",
+                version -> runtimeSpec.putMetadata("quarkus.version", version));
+            getVersion(
+                QuarkusRuntimeProvider.class,
+                "org.apache.camel.quarkus", "camel-catalog-quarkus",
+                version -> runtimeSpec.putMetadata("camel-quarkus.version", version));
+
+            switch (runtime) {
+            case "main":
+                catalog.setRuntimeProvider(new DefaultRuntimeProvider());
+                runtimeSpec.applicationClass("org.apache.camel.k.main.Application");
+                runtimeSpec.addDependency("org.apache.camel.k", "camel-k-runtime-main");
+                break;
+            case "quarkus":
+                catalog.setRuntimeProvider(new QuarkusRuntimeProvider());
+                runtimeSpec.applicationClass("io.quarkus.runner.GeneratedMain");
+                runtimeSpec.addDependency("org.apache.camel.k", "camel-k-runtime-quarkus");
+                break;
+            default:
+                throw new IllegalArgumentException("catalog.runtime parameter value [" + runtime + "] is not supported!");
+            }
+
+            CamelCatalogSpec.Builder catalogSpec = new CamelCatalogSpec.Builder()
+                .runtime(runtimeSpec.build());
+
             StreamSupport.stream(processors.spliterator(), false).sorted(comparator).filter(p -> p.accepts(catalog)).forEach(p -> {
                 getLog().info("Executing processor: " + p.getClass().getName());
 
-                p.process(project, catalog, artifacts);
+                p.process(project, catalog, catalogSpec);
             });
+
+            ObjectMeta.Builder metadata = new ObjectMeta.Builder()
+                .name(catalogName)
+                .putLabels("app", "camel-k")
+                .putLabels("camel.apache.org/catalog.version", catalog.getCatalogVersion())
+                .putLabels("camel.apache.org/catalog.loader.version", catalog.getLoadedVersion())
+                .putLabels("camel.apache.org/runtime.version", runtimeVersion)
+                .putLabels("camel.apache.org/runtime.provider", runtime);
+
+            CamelCatalog cr = new CamelCatalog.Builder()
+                .metadata(metadata.build())
+                .spec(catalogSpec.build())
+                .build();
 
             //
             // apiVersion: camel.apache.org/v1
             // kind: CamelCatalog
             // metadata:
-            //   name: catalog-x.y.z-a.b.c
+            //   name: catalog-x.y.z-main
             //   labels:
             //     app: "camel-k"
             //     camel.apache.org/catalog.version: x.y.x
             //     camel.apache.org/catalog.loader.version: x.y.z
             //     camel.apache.org/runtime.version: x.y.x
+            //     camel.apache.org/runtime.provider: main
             // spec:
             //   version:
             //   runtimeVersion:
@@ -149,57 +173,12 @@ public class GenerateCatalogMojo extends AbstractMojo {
             //   artifacts:
             //
             try (Writer writer = Files.newBufferedWriter(output, StandardCharsets.UTF_8)) {
-                String catalogName;
-                if ("quarkus".equals(runtime)) {
-                    catalogName = String.format("camel-catalog-%s-%s-%s",
-                        runtime,
-                        getVersionFor("/META-INF/maven/org.apache.camel.quarkus/camel-catalog-quarkus/pom.properties").toLowerCase(),
-                        getRuntimeVersion().toLowerCase()
-                    );
-                } else {
-                    catalogName = String.format("camel-catalog-%s-%s",
-                        catalog.getCatalogVersion().toLowerCase(),
-                        getRuntimeVersion().toLowerCase()
-                    );
-                }
-
-                ObjectMeta.Builder labels = new ObjectMeta.Builder()
-                    .name(catalogName)
-                    .putLabels("app", "camel-k")
-                    .putLabels("camel.apache.org/catalog.version", catalog.getCatalogVersion())
-                    .putLabels("camel.apache.org/catalog.loader.version", catalog.getLoadedVersion())
-                    .putLabels("camel.apache.org/runtime.version", getRuntimeVersion());
-                if (!"".equals(runtime)) {
-                    labels.putLabels("camel.apache.org/runtime.provider", runtime);
-                }
-
-                CamelCatalogSpec.Builder catalogSpec = new CamelCatalogSpec.Builder()
-                .version(catalog.getCatalogVersion())
-                .runtimeVersion(getRuntimeVersion())
-                .artifacts(artifacts);
-
-                if ("quarkus".equals(runtime)) {
-                    String camelQuarkusVersion = getVersionFor("/META-INF/maven/org.apache.camel.quarkus/camel-catalog-quarkus/pom.properties");
-                    String quarkusVersion = getVersionFor("/META-INF/maven/io.quarkus/quarkus-core/pom.properties");
-                    catalogSpec.runtimeProvider(new RuntimeProvider.Builder()
-                    .quarkus(new QuarkusRuntimeProvider.Builder()
-                        .camelQuarkusVersion(camelQuarkusVersion)
-                        .quarkusVersion(quarkusVersion)
-                        .build())
-                    .build());
-                }
-
-                CamelCatalog cr = new CamelCatalog.Builder()
-                    .metadata(labels.build())
-                    .spec(catalogSpec.build())
-                    .build();
 
                 YAMLFactory factory = new YAMLFactory()
                     .configure(YAMLGenerator.Feature.MINIMIZE_QUOTES, true)
                     .configure(YAMLGenerator.Feature.ALWAYS_QUOTE_NUMBERS_AS_STRINGS, true)
                     .configure(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID, false)
                     .configure(YAMLGenerator.Feature.WRITE_DOC_START_MARKER, false);
-
 
                 // write license header
                 writer.write(
@@ -220,95 +199,29 @@ public class GenerateCatalogMojo extends AbstractMojo {
         }
     }
 
-    private void processComponents(org.apache.camel.catalog.CamelCatalog catalog, Map<String, CamelArtifact> artifacts) {
-        for (String name : catalog.findComponentNames()) {
-            String json = catalog.componentJSonSchema(name);
-
-            if ("rest-swagger".equalsIgnoreCase(name)) {
-                // TODO: workaround for https://issues.apache.org/jira/browse/CAMEL-13588
-                json = json.replaceAll(Pattern.quote("\\h"), "h");
-            }
-
-            CatalogComponentDefinition definition = CatalogSupport.unmarshallComponent(json);
-
-            artifacts.compute(definition.getArtifactId(), (key, artifact) -> {
-                if (artifact == null) {
-                    artifact = new CamelArtifact();
-                    artifact.setGroupId(definition.getGroupId());
-                    artifact.setArtifactId(definition.getArtifactId());
-
-                    Objects.requireNonNull(artifact.getGroupId());
-                    Objects.requireNonNull(artifact.getArtifactId());
-                }
-
-                definition.getSchemes()
-                    .map(StringUtils::trimToNull)
-                    .filter(Objects::nonNull)
-                    .forEach(artifact::createScheme);
-
-                artifact.addJavaType(definition.getJavaType());
-
-                return artifact;
-            });
-        }
+    private static void getVersion(Class<?> clazz, String path, Consumer<String> consumer) {
+        consumer.accept(getVersion(clazz, path));
     }
 
-    private void processLanguages(org.apache.camel.catalog.CamelCatalog catalog, Map<String, CamelArtifact> artifacts) {
-        for (String name : catalog.findLanguageNames()) {
-            String json = catalog.languageJSonSchema(name);
-            CatalogLanguageDefinition definition = CatalogSupport.unmarshallLanguage(json);
-
-            artifacts.compute(definition.getArtifactId(), (key, artifact) -> {
-                if (artifact == null) {
-                    artifact = new CamelArtifact();
-                    artifact.setGroupId(definition.getGroupId());
-                    artifact.setArtifactId(definition.getArtifactId());
-
-                    Objects.requireNonNull(artifact.getGroupId());
-                    Objects.requireNonNull(artifact.getArtifactId());
-                }
-
-                artifact.addLanguage(definition.getName());
-                artifact.addJavaType(definition.getJavaType());
-
-                return artifact;
-            });
-        }
+    private static void getVersion(Class<?> clazz, String groupId, String artifactId, Consumer<String> consumer) {
+        getVersion(
+            clazz,
+            String.format("/META-INF/maven/%s/%s/pom.properties", groupId, artifactId),
+            consumer);
     }
 
-    private void processDataFormats(org.apache.camel.catalog.CamelCatalog catalog, Map<String, CamelArtifact> artifacts) {
-        for (String name : catalog.findDataFormatNames()) {
-            String json = catalog.dataFormatJSonSchema(name);
-            CatalogDataFormatDefinition definition = CatalogSupport.unmarshallDataFormat(json);
-
-            artifacts.compute(definition.getArtifactId(), (key, artifact) -> {
-                if (artifact == null) {
-                    artifact = new CamelArtifact();
-                    artifact.setGroupId(definition.getGroupId());
-                    artifact.setArtifactId(definition.getArtifactId());
-
-                    Objects.requireNonNull(artifact.getGroupId());
-                    Objects.requireNonNull(artifact.getArtifactId());
-                }
-
-                artifact.addDataformats(definition.getName());
-                artifact.addJavaType(definition.getJavaType());
-
-                return artifact;
-            });
-        }
+    private static synchronized String getVersion(Class<?> clazz, String groupId, String artifactId) {
+        return getVersion(
+            clazz,
+            String.format("/META-INF/maven/%s/%s/pom.properties", groupId, artifactId));
     }
 
-    private String getRuntimeVersion() {
-        return getVersionFor("/META-INF/maven/org.apache.camel.k/camel-k-maven-plugin/pom.properties");
-    }
-
-    private synchronized String getVersionFor(String path) {
+    private static synchronized String getVersion(Class<?> clazz, String path) {
         String version = null;
 
         // try to load from maven properties first
         try {
-            InputStream is = getClass().getResourceAsStream(path);
+            InputStream is = clazz.getResourceAsStream(path);
 
             if (is != null) {
                 Properties p = new Properties();
@@ -321,7 +234,7 @@ public class GenerateCatalogMojo extends AbstractMojo {
 
         // fallback to using Java API
         if (version == null) {
-            Package aPackage = getClass().getPackage();
+            Package aPackage = clazz.getPackage();
             if (aPackage != null) {
                 version = aPackage.getImplementationVersion();
                 if (version == null) {

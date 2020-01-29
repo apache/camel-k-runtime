@@ -84,23 +84,26 @@
         </exclusion>
       </exclusions>
     </dependency>
+
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-swagger-rest-dsl-generator</artifactId>
       <version>${camel.version}</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-catalog</artifactId>
       <version>${camel.version}</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.camel.quarkus</groupId>
       <artifactId>camel-catalog-quarkus</artifactId>
       <version>${camel-quarkus.version}</version>
-      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel.quarkus</groupId>
+      <artifactId>camel-quarkus-core</artifactId>
+      <version>${camel-quarkus.version}</version>
     </dependency>
     <dependency>
       <groupId>org.yaml</groupId>

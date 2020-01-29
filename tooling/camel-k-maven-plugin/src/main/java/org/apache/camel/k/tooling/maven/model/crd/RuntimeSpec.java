@@ -14,28 +14,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.tooling.maven.model;
+package org.apache.camel.k.tooling.maven.model.crd;
 
+import java.util.Collections;
+import java.util.Map;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.apache.camel.k.tooling.maven.model.MavenArtifact;
 import org.immutables.value.Value;
 
 @Value.Immutable
-@JsonDeserialize(builder = CamelScheme.Builder.class)
-public interface CamelScheme {
-    String getId();
+@Value.Style(depluralize = true)
+@JsonDeserialize(builder = RuntimeSpec.Builder.class)
+@JsonPropertyOrder({ "version", "runtimeVersion", "artifacts" })
+public interface RuntimeSpec {
+    String getVersion();
+    String getProvider();
+    String getApplicationClass();
 
-    @Value.Auxiliary
     @Value.Default
-    default boolean http() {
-        return false;
+    default Map<String, String> getMetadata() {
+        return Collections.emptyMap();
     }
 
-    @Value.Auxiliary
     @Value.Default
-    default boolean passive() {
-        return false;
+    default Set<MavenArtifact> getDependencies() {
+        return Collections.emptySet();
     }
 
-    class Builder extends ImmutableCamelScheme.Builder {
+    class Builder extends ImmutableRuntimeSpec.Builder {
+        public Builder addDependency(String groupId, String artifactId) {
+            addDependencies(MavenArtifact.from(groupId, artifactId));
+            return this;
+        }
     }
 }

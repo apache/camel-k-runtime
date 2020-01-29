@@ -29,8 +29,10 @@
 
     <properties>
         <catalog.path>${project.basedir}</catalog.path>
-        <camel.version>3.0.0-RC3</camel.version>
-        <runtime.version>1.0.5</runtime.version>
+        <catalog.runtime>quarkus</catalog.runtime>
+        <catalog.file>catalog.yaml</catalog.file>
+
+        <runtime.version>1.0.11-SNAPSHOT</runtime.version>
     </properties>
 
     <build>
@@ -47,13 +49,6 @@
                         </goals>
                     </execution>
                 </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.camel</groupId>
-                        <artifactId>camel-catalog</artifactId>
-                        <version>${camel.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
     </build>

@@ -14,19 +14,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.tooling.maven.model.crd;
+package org.apache.camel.k.tooling.maven.model;
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import org.immutables.value.Value;
+public class CatalogDefinition {
+    private String groupId;
+    private String artifactId;
+    private String version;
 
-@Value.Immutable
-@JsonDeserialize(builder = QuarkusRuntimeProvider.Builder.class)
-@JsonPropertyOrder({ "camelQuarkusVersion", "quarkusVersion" })
-public interface QuarkusRuntimeProvider {
-    String getCamelQuarkusVersion();
-    String getQuarkusVersion();
+    public String getGroupId() {
+        return groupId;
+    }
 
-    class Builder extends ImmutableQuarkusRuntimeProvider.Builder {
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
+
+    public String getArtifactId() {
+        return artifactId;
+    }
+
+    public void setArtifactId(String artifactId) {
+        this.artifactId = artifactId;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 }

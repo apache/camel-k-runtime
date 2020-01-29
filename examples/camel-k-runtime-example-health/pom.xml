@@ -28,29 +28,6 @@
     <artifactId>camel-k-runtime-example-health</artifactId>
 
     <dependencies>
-
-        <!-- ****************************** -->
-        <!--                                -->
-        <!-- RUNTIME                        -->
-        <!--                                -->
-        <!-- ****************************** -->
-
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-core-engine</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-main</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-log</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-servlet</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
             <artifactId>camel-k-runtime-main</artifactId>
@@ -68,9 +45,8 @@
             <artifactId>camel-k-runtime-health</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy</artifactId>
-            <version>${groovy.version}</version>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-log</artifactId>
         </dependency>
     </dependencies>
 

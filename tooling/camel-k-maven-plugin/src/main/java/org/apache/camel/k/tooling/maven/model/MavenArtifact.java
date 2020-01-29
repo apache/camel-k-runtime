@@ -16,26 +16,35 @@
  */
 package org.apache.camel.k.tooling.maven.model;
 
+import java.util.Optional;
+
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.immutables.value.Value;
 
 @Value.Immutable
-@JsonDeserialize(builder = CamelScheme.Builder.class)
-public interface CamelScheme {
-    String getId();
+@JsonDeserialize(builder = MavenArtifact.Builder.class)
+@JsonPropertyOrder({"groupId", "artifactId", "version"})
+public interface MavenArtifact extends Artifact {
+    static MavenArtifact from(String groupId, String artifactId) {
+        return new MavenArtifact() {
+            @Override
+            public String getGroupId() {
+                return groupId;
+            }
 
-    @Value.Auxiliary
-    @Value.Default
-    default boolean http() {
-        return false;
+            @Override
+            public String getArtifactId() {
+                return artifactId;
+            }
+
+            @Override
+            public Optional<String> getVersion() {
+                return Optional.empty();
+            }
+        };
     }
 
-    @Value.Auxiliary
-    @Value.Default
-    default boolean passive() {
-        return false;
-    }
-
-    class Builder extends ImmutableCamelScheme.Builder {
+    class Builder extends ImmutableMavenArtifact.Builder {
     }
 }

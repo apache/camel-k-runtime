@@ -14,20 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.tooling.maven.model.crd;
+def runtimeVersion = '1.0.11-SNAPSHOT'
 
-import java.util.Optional;
+def source  = new File(basedir, "catalog.yaml")
+def catalog = new org.yaml.snakeyaml.Yaml().load(new FileInputStream(source))
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import org.immutables.value.Value;
-
-@Value.Immutable
-@JsonDeserialize(builder = RuntimeProvider.Builder.class)
-@JsonPropertyOrder({ "quarkus" })
-public interface RuntimeProvider {
-    Optional<QuarkusRuntimeProvider> getQuarkus();
-
-    class Builder extends ImmutableRuntimeProvider.Builder {
-    }
-}
+assert catalog.spec.runtime.version == runtimeVersion
+assert catalog.spec.runtime.applicationClass == 'io.quarkus.runner.GeneratedMain'
+assert catalog.metadata.labels['camel.apache.org/runtime.version'] == runtimeVersion

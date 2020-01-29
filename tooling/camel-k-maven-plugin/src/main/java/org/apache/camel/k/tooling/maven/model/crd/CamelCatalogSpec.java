@@ -17,28 +17,39 @@
 package org.apache.camel.k.tooling.maven.model.crd;
 
 import java.util.Collections;
-import java.util.Optional;
-import java.util.SortedMap;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.apache.camel.k.tooling.maven.model.CamelArtifact;
+import org.apache.camel.k.tooling.maven.model.CamelLoader;
 import org.immutables.value.Value;
 
 @Value.Immutable
+@Value.Style(depluralize = true)
 @JsonDeserialize(builder = CamelCatalogSpec.Builder.class)
-@JsonPropertyOrder({ "version", "runtimeVersion", "runtimeProvider", "artifacts" })
+@JsonPropertyOrder({ "runtime", "artifacts" })
 public interface CamelCatalogSpec {
-    String getVersion();
-    String getRuntimeVersion();
-
-    Optional<RuntimeProvider> getRuntimeProvider();
+    RuntimeSpec getRuntime();
 
     @Value.Default
-    default SortedMap<String, CamelArtifact> getArtifacts() {
-        return Collections.emptySortedMap();
+    default Map<String, CamelArtifact> getArtifacts() {
+        return Collections.emptyMap();
+    }
+
+    @Value.Default
+    default Map<String, CamelLoader> getLoaders() {
+        return Collections.emptyMap();
     }
 
     class Builder extends ImmutableCamelCatalogSpec.Builder {
+        public Builder putArtifact(CamelArtifact artifact) {
+            putArtifact(artifact.getArtifactId(), artifact);
+            return this;
+        }
+        public Builder putArtifact(String groupId, String artifactId) {
+            putArtifact(new CamelArtifact.Builder().groupId(groupId).artifactId(artifactId).build());
+            return this;
+        }
     }
 }
