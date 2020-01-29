@@ -16,13 +16,14 @@
  */
 package org.apache.camel.k.tooling.maven.processors;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.camel.catalog.CamelCatalog;
 import org.apache.camel.k.tooling.maven.model.Artifact;
 import org.apache.camel.k.tooling.maven.model.CamelArtifact;
 import org.apache.camel.k.tooling.maven.model.CatalogProcessor;
+import org.apache.camel.k.tooling.maven.model.crd.CamelCatalogSpec;
+import org.apache.camel.k.tooling.maven.model.crd.RuntimeSpec;
 import org.apache.maven.project.MavenProject;
 import org.junit.jupiter.api.Test;
 
@@ -31,29 +32,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CatalogProcessor3Test extends AbstractCatalogProcessorTest {
     @Test
     public void testAcceptHyphen() {
-        CatalogProcessor3x cp3 = new CatalogProcessor3x();
-
         CamelCatalog catalog = versionCamelCatalog("3.0.0.acme-123456");
 
-        assertThat(cp3.accepts(catalog)).isTrue();
+        assertThat(new CatalogProcessor3x().accepts(catalog)).isTrue();
     }
 
     @Test
     public void testAcceptEqualToLower() {
-        CatalogProcessor3x cp3 = new CatalogProcessor3x();
-
         CamelCatalog catalog = versionCamelCatalog("3.0.0");
 
-        assertThat(cp3.accepts(catalog)).isTrue();
+        assertThat(new CatalogProcessor3x().accepts(catalog)).isTrue();
     }
 
     @Test
     public void testAcceptLessThanLower() {
-        CatalogProcessor3x cp3 = new CatalogProcessor3x();
-
         CamelCatalog catalog = versionCamelCatalog("2.17.0");
 
-        assertThat(cp3.accepts(catalog)).isFalse();
+        assertThat(new CatalogProcessor3x().accepts(catalog)).isFalse();
     }
 
     @Test
@@ -62,46 +57,33 @@ public class CatalogProcessor3Test extends AbstractCatalogProcessorTest {
 
         CamelCatalog catalog = versionCamelCatalog("4.0.0");
 
-        assertThat(cp3.accepts(catalog)).isFalse();
+        assertThat(new CatalogProcessor3x().accepts(catalog)).isFalse();
     }
 
     @Test
     public void testAcceptMoreThanHigher() {
-        CatalogProcessor3x cp3 = new CatalogProcessor3x();
-
         CamelCatalog catalog = versionCamelCatalog("5.0.0");
 
-        assertThat(cp3.accepts(catalog)).isFalse();
+        assertThat(new CatalogProcessor3x().accepts(catalog)).isFalse();
     }
 
     @Test
     public void testArtifactsEnrichment() {
         CatalogProcessor processor = new CatalogProcessor3x();
         CamelCatalog catalog = versionCamelCatalog("3.0.0");
-        Map<String, CamelArtifact> artifactMap = new HashMap<>();
-        artifactMap.put("camel-http", new CamelArtifact());
+
+        RuntimeSpec runtime = new RuntimeSpec.Builder().version("1.0.0").provider("main").applicationClass("unknown").build();
+        CamelCatalogSpec.Builder builder = new CamelCatalogSpec.Builder().runtime(runtime);
 
         assertThat(processor.accepts(catalog)).isTrue();
-        processor.process(new MavenProject(), catalog, artifactMap);
+        processor.process(new MavenProject(), catalog, builder);
 
-        assertThat(artifactMap.get("camel-k-runtime-health")).satisfies(a -> {
-            assertThat(a.getDependencies()).anyMatch(
-                d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-servlet")
-            );
-            assertThat(a.getDependencies()).anyMatch(
-                d -> d.getGroupId().equals("org.apache.camel.k") && d.getArtifactId().equals("camel-k-runtime-servlet")
-            );
-        });
-        assertThat(artifactMap.get("camel-k-runtime-servlet")).satisfies(a -> {
-            assertThat(a.getDependencies()).anyMatch(
-                d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-servlet")
-            );
-        });
-        assertThat(artifactMap.get("camel-k-runtime-webhook")).satisfies(a -> {
-            assertThat(a.getDependencies()).anyMatch(
-                d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-webhook")
-            );
-        });
+        CamelCatalogSpec spec = builder.build();
+        Map<String, CamelArtifact> artifactMap = spec.getArtifacts();
+
+        assertThat(artifactMap).containsKeys("camel-k-runtime-health");
+        assertThat(artifactMap).containsKeys("camel-k-runtime-servlet");
+        assertThat(artifactMap).containsKeys("camel-k-runtime-webhook");
 
         assertThat(artifactMap.get("camel-k-runtime-knative")).satisfies(a -> {
             assertThat(a.getDependencies()).anyMatch(
@@ -116,15 +98,6 @@ public class CatalogProcessor3Test extends AbstractCatalogProcessorTest {
             assertThat(a.getDependencies()).anyMatch(
                 d -> d.getGroupId().equals("org.apache.camel.k") && d.getArtifactId().equals("camel-k-loader-yaml")
             );
-            assertThat(a.getDependencies()).anyMatch(
-                d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-cloud")
-            );
-        });
-
-        assertThat(artifactMap.get("camel-knative")).satisfies(a -> {
-            assertThat(a.getDependencies()).anyMatch(
-                d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-cloud")
-            );
         });
 
         assertThat(artifactMap.get("camel-http")).satisfies(a -> {
@@ -138,17 +111,21 @@ public class CatalogProcessor3Test extends AbstractCatalogProcessorTest {
     public void testArtifactsDoNotContainVersion() {
         CatalogProcessor processor = new CatalogProcessor3x();
         CamelCatalog catalog = versionCamelCatalog("3.0.0");
-        Map<String, CamelArtifact> artifactMap = new HashMap<>();
-        artifactMap.put("camel-http", new CamelArtifact());
+
+        RuntimeSpec runtime = new RuntimeSpec.Builder().version("1.0.0").provider("main").applicationClass("unknown").build();
+        CamelCatalogSpec.Builder builder = new CamelCatalogSpec.Builder().runtime(runtime);
 
         assertThat(processor.accepts(catalog)).isTrue();
-        processor.process(new MavenProject(), catalog, artifactMap);
+        processor.process(new MavenProject(), catalog, builder);
+
+        CamelCatalogSpec spec = builder.build();
+        Map<String, CamelArtifact> artifactMap = spec.getArtifacts();
 
         for (Map.Entry<String, CamelArtifact> artifact: artifactMap.entrySet()) {
-            assertThat(artifact.getValue().getVersion()).isNull();
+            assertThat(artifact.getValue().getVersion()).isNotPresent();
 
             for (Artifact dependency: artifact.getValue().getDependencies()) {
-                assertThat(dependency.getVersion()).isNull();
+                assertThat(dependency.getVersion()).isNotPresent();
             }
         }
     }

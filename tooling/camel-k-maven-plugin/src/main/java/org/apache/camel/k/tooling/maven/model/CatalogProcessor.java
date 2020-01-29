@@ -16,9 +16,8 @@
  */
 package org.apache.camel.k.tooling.maven.model;
 
-import java.util.Map;
-
 import org.apache.camel.catalog.CamelCatalog;
+import org.apache.camel.k.tooling.maven.model.crd.CamelCatalogSpec;
 import org.apache.maven.project.MavenProject;
 
 public interface CatalogProcessor {
@@ -34,7 +33,7 @@ public interface CatalogProcessor {
 
     boolean accepts(CamelCatalog catalog);
 
-    void process(MavenProject project, CamelCatalog catalog, Map<String, CamelArtifact> artifacts);
+    void process(MavenProject project, CamelCatalog catalog, CamelCatalogSpec.Builder specBuilder);
 
     default int getOrder() {
         return LOWEST;

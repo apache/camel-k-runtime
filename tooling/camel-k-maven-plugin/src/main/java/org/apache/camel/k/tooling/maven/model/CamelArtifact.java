@@ -16,171 +16,54 @@
  */
 package org.apache.camel.k.tooling.maven.model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.Collections;
+import java.util.Set;
 
-public class CamelArtifact extends Artifact {
-    private List<CamelScheme> schemes;
-    private List<String> languages;
-    private List<String> dataformats;
-    private List<Artifact> dependencies;
-    private List<Artifact> exclusions;
-    private List<String> javaTypes;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.immutables.value.Value;
 
-    public CamelArtifact() {
-        this.schemes = new ArrayList<>();
-        this.languages = new ArrayList<>();
-        this.dataformats = new ArrayList<>();
-        this.dependencies = new ArrayList<>();
-        this.exclusions = new ArrayList<>();
-        this.javaTypes = new ArrayList<>();
+@Value.Immutable
+@Value.Style(depluralize = true)
+@JsonDeserialize(builder = CamelArtifact.Builder.class)
+@JsonPropertyOrder({"groupId", "artifactId", "version"})
+public interface CamelArtifact extends Artifact {
+    @Value.Auxiliary
+    @Value.Default
+    default Set<CamelScheme> getSchemes() {
+        return Collections.emptySet();
     }
 
-    public void setSchemes(List<CamelScheme> schemes) {
-        this.schemes = schemes;
+    @Value.Auxiliary
+    @Value.Default
+    default Set<String> getLanguages() {
+        return Collections.emptySet();
     }
 
-    public void addScheme(CamelScheme scheme) {
-        if (!this.schemes.contains(scheme)) {
-            this.schemes.add(scheme);
-        }
+    @Value.Auxiliary
+    @Value.Default
+    default Set<String> getDataformats() {
+        return Collections.emptySet();
     }
 
-    public List<String> getLanguages() {
-        return languages;
+    @Value.Auxiliary
+    @Value.Default
+    default Set<Artifact> getDependencies() {
+        return Collections.emptySet();
     }
 
-    public void setLanguages(List<String> languages) {
-        this.languages = languages;
+    @Value.Auxiliary
+    @Value.Default
+    default Set<Artifact> getExclusions() {
+        return Collections.emptySet();
     }
 
-    public void addLanguage(String language) {
-        if (!this.languages.contains(language)) {
-            this.languages.add(language);
-        }
+    @Value.Auxiliary
+    @Value.Default
+    default Set<String> getJavaTypes() {
+        return Collections.emptySet();
     }
 
-    public List<String> getDataformats() {
-        return dataformats;
-    }
-
-    public void setDataformats(List<String> dataformats) {
-        this.dataformats = dataformats;
-    }
-
-    public void addDataformats(String dataformat) {
-        if (!this.dataformats.contains(dataformat)) {
-            this.dataformats.add(dataformat);
-        }
-    }
-
-    public List<CamelScheme> getSchemes() {
-        return schemes;
-    }
-
-    public Optional<CamelScheme> getScheme(String id) {
-        return schemes.stream().filter(s -> Objects.equals(s.getId(), id)).findFirst();
-    }
-
-    public CamelScheme createScheme(String id) {
-        for (CamelScheme scheme: schemes) {
-            if (scheme.getId().equals(id)) {
-                return scheme;
-            }
-        }
-
-
-        CamelScheme answer = new CamelScheme();
-        answer.setId(id);
-
-        schemes.add(answer);
-
-        return answer;
-    }
-
-    public List<Artifact> getDependencies() {
-        return dependencies;
-    }
-
-    public void setDependencies(List<Artifact> dependencies) {
-        this.dependencies = dependencies;
-    }
-
-    public void addDependency(Artifact dependency) {
-        if (!this.dependencies.contains(dependency)) {
-            this.dependencies.add(dependency);
-        }
-    }
-
-    public void addDependency(String groupId, String artifactId) {
-        Artifact artifact = new Artifact();
-        artifact.setGroupId(groupId);
-        artifact.setArtifactId(artifactId);
-
-        addDependency(artifact);
-    }
-
-    public void addDependency(String groupId, String artifactId, String version) {
-        Artifact artifact = new Artifact();
-        artifact.setGroupId(groupId);
-        artifact.setArtifactId(artifactId);
-        artifact.setVersion(version);
-
-        addDependency(artifact);
-    }
-
-    public List<Artifact> getExclusions() {
-        return exclusions;
-    }
-
-    public void setExclusions(List<Artifact> exclusions) {
-        this.exclusions = exclusions;
-    }
-
-    public void addExclusion(Artifact exclusion) {
-        if (!this.exclusions.contains(exclusion)) {
-            this.exclusions.add(exclusion);
-        }
-    }
-
-    public void addExclusion(String groupId, String artifactId) {
-        Artifact artifact = new Artifact();
-        artifact.setGroupId(groupId);
-        artifact.setArtifactId(artifactId);
-
-        addExclusion(artifact);
-    }
-
-    public List<String> getJavaTypes() {
-        return javaTypes;
-    }
-
-    public void setJavaTypes(List<String> javaTypes) {
-        this.javaTypes = javaTypes;
-    }
-
-    public void addJavaType(String javaType) {
-        if (!this.javaTypes.contains(javaType)) {
-            this.javaTypes.add(javaType);
-        }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        CamelArtifact artifact = (CamelArtifact) o;
-        return Objects.equals(getArtifactId(), artifact.getArtifactId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getArtifactId());
+    class Builder extends ImmutableCamelArtifact.Builder {
     }
 }

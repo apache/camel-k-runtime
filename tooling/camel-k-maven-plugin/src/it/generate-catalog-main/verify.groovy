@@ -14,13 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-def catalogVersion = '3.0.0-RC3'
-def runtimeVersion = '1.0.5'
+def runtimeVersion = '1.0.11-SNAPSHOT'
 
-def source  = new File(basedir, "camel-catalog-${catalogVersion}-${runtimeVersion}.yaml")
+def source  = new File(basedir, "catalog.yaml")
 def catalog = new org.yaml.snakeyaml.Yaml().load(new FileInputStream(source))
 
-assert catalog.spec.version == catalogVersion
-assert catalog.spec.runtimeVersion == runtimeVersion
-assert catalog.metadata.labels['camel.apache.org/catalog.version'] == catalogVersion
+assert catalog.spec.runtime.version == runtimeVersion
+assert catalog.spec.runtime.applicationClass == 'org.apache.camel.k.main.Application'
 assert catalog.metadata.labels['camel.apache.org/runtime.version'] == runtimeVersion

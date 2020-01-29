@@ -16,26 +16,45 @@
  */
 package org.apache.camel.k.tooling.maven.model;
 
+import java.util.Collections;
+import java.util.Map;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.immutables.value.Value;
 
 @Value.Immutable
-@JsonDeserialize(builder = CamelScheme.Builder.class)
-public interface CamelScheme {
-    String getId();
-
+@Value.Style(depluralize = true)
+@JsonDeserialize(builder = CamelLoader.Builder.class)
+@JsonPropertyOrder({"groupId", "artifactId", "version"})
+public interface CamelLoader extends Artifact {
     @Value.Auxiliary
     @Value.Default
-    default boolean http() {
-        return false;
+    default Set<String> getLanguages() {
+        return Collections.emptySet();
     }
 
     @Value.Auxiliary
     @Value.Default
-    default boolean passive() {
-        return false;
+    default Set<Artifact> getDependencies() {
+        return Collections.emptySet();
     }
 
-    class Builder extends ImmutableCamelScheme.Builder {
+    @Value.Auxiliary
+    @Value.Default
+    default Map<String, String> getMetadata() {
+        return Collections.emptyMap();
+    }
+
+    static Builder fromArtifact(String groupId, String artifactId) {
+        return new Builder().groupId(groupId).artifactId(artifactId);
+    }
+
+    class Builder extends ImmutableCamelLoader.Builder {
+        public Builder addDependency(String groupId, String artifactId) {
+            addDependencies(MavenArtifact.from(groupId, artifactId));
+            return this;
+        }
     }
 }
