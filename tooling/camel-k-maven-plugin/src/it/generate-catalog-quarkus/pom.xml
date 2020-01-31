@@ -32,7 +32,7 @@
         <catalog.runtime>quarkus</catalog.runtime>
         <catalog.file>catalog.yaml</catalog.file>
 
-        <runtime.version>1.0.11-SNAPSHOT</runtime.version>
+        <runtime.version>1.1.0-SNAPSHOT</runtime.version>
     </properties>
 
     <build>
