@@ -17,9 +17,18 @@
 package org.apache.camel.component.knative;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.Consumer;
+import org.apache.camel.Endpoint;
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
+import org.apache.camel.Producer;
 import org.apache.camel.component.knative.spi.Knative;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
+import org.apache.camel.component.knative.spi.KnativeTransport;
+import org.apache.camel.component.knative.spi.KnativeTransportConfiguration;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.support.DefaultConsumer;
+import org.apache.camel.support.DefaultProducer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -63,8 +72,33 @@ public class KnativeComponentTest {
         assertThat(env.stream()).anyMatch(s -> s.getType() == Knative.Type.channel);
         assertThat(env.stream()).anyMatch(s -> s.getType() == Knative.Type.endpoint);
 
-        KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
+        KnativeComponent component = new KnativeComponent();
         component.setEnvironment(env);
+        component.setTransport(new KnativeTransport() {
+            @Override
+            public void start() {
+            }
+
+            @Override
+            public void stop() {
+            }
+
+            @Override
+            public Producer createProducer(Endpoint endpoint, KnativeTransportConfiguration configuration, KnativeEnvironment.KnativeServiceDefinition service) {
+                return new DefaultProducer(endpoint) {
+                    @Override
+                    public void process(Exchange exchange) throws Exception {
+                    }
+                };
+            }
+
+            @Override
+            public Consumer createConsumer(Endpoint endpoint, KnativeTransportConfiguration configuration, KnativeEnvironment.KnativeServiceDefinition service, Processor processor) {
+                return new DefaultConsumer(endpoint, processor);
+            }
+        });
+
+        context.addComponent("knative", component);
 
         //
         // Channels

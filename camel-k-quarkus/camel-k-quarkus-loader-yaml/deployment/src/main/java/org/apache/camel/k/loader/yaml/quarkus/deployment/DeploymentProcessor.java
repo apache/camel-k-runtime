@@ -27,9 +27,11 @@ import org.apache.camel.k.loader.yaml.model.Node;
 import org.apache.camel.k.loader.yaml.model.Step;
 import org.apache.camel.k.loader.yaml.parser.HasDataFormat;
 import org.apache.camel.k.loader.yaml.parser.HasExpression;
+import org.apache.camel.k.loader.yaml.parser.StepParser;
 import org.apache.camel.model.DataFormatDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.language.ExpressionDefinition;
+import org.apache.camel.quarkus.core.deployment.CamelServicePatternBuildItem;
 import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.AnnotationTarget;
 import org.jboss.jandex.ClassInfo;
@@ -39,6 +41,14 @@ import org.jboss.jandex.IndexView;
 public class DeploymentProcessor {
     public static final DotName YAML_STEP_PARSER_ANNOTATION = DotName.createSimple("org.apache.camel.k.annotation.yaml.YAMLStepParser");
     public static final DotName YAML_STEP_DEFINITION_ANNOTATION = DotName.createSimple("org.apache.camel.k.annotation.yaml.YAMLNodeDefinition");
+
+    @BuildStep
+    CamelServicePatternBuildItem servicePatterns() {
+        return new CamelServicePatternBuildItem(
+            CamelServicePatternBuildItem.CamelServiceDestination.REGISTRY,
+            true,
+            StepParser.SERVICE_LOCATION + "/*");
+    }
 
     @BuildStep
     void registerReflectiveClasses(
