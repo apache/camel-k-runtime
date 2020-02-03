@@ -138,7 +138,7 @@ public class KnativeSourceRoutesLoaderTest {
 
         KnativeComponent component = new KnativeComponent();
         component.setEnvironment(KnativeEnvironment.on(
-            KnativeEnvironment.endpoint(Knative.EndpointKind.source, "sink", "localhost", port)
+            KnativeEnvironment.endpoint(Knative.EndpointKind.sink, "sink", "localhost", port)
         ));
 
         TestRuntime runtime = new TestRuntime();

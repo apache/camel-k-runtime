@@ -35,8 +35,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <camel.version>3.0.0</camel.version>
-        <camel-quarkus.version>1.0.0-M2</camel-quarkus.version>
+        <camel.version>3.0.1</camel.version>
+        <camel-quarkus.version>1.0.0-M3</camel-quarkus.version>
         <catalog.version>${camel.version}</catalog.version>
         <junit.version>5.6.0</junit.version>
         <joor.version>0.9.12</joor.version>
@@ -60,7 +60,7 @@
         <undertow.version>1.4.26.Final</undertow.version>
         <vertx.version>3.8.5</vertx.version>
         <graalvm.version>19.2.1</graalvm.version>
-        <quarkus.version>1.1.0.Final</quarkus.version>
+        <quarkus.version>1.2.0.Final</quarkus.version>
         <jandex.version>2.1.2.Final</jandex.version>
         <javapoet.version>1.11.1</javapoet.version>
         <auto-service.version>1.0-rc6</auto-service.version>
@@ -469,6 +469,18 @@
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-loader-knative</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+
+            <!-- graalvm -->
+            <dependency>
+                <groupId>org.graalvm.js</groupId>
+                <artifactId>js</artifactId>
+                <version>${graalvm.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.oracle.substratevm</groupId>
+                <artifactId>svm</artifactId>
+                <version>${graalvm.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

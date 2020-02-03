@@ -27,9 +27,11 @@ import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
+import org.apache.camel.k.Constants;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.core.quarkus.RuntimeRecorder;
 import org.apache.camel.quarkus.core.deployment.CamelMainListenerBuildItem;
+import org.apache.camel.quarkus.core.deployment.CamelServicePatternBuildItem;
 import org.apache.camel.spi.HasId;
 import org.apache.camel.spi.StreamCachingStrategy;
 import org.jboss.jandex.IndexView;
@@ -37,6 +39,15 @@ import org.jboss.jandex.IndexView;
 import static org.apache.camel.k.core.quarkus.deployment.DeploymentSupport.getAllKnownImplementors;
 
 public class DeploymentProcessor {
+    @BuildStep
+    CamelServicePatternBuildItem servicePatterns() {
+        return new CamelServicePatternBuildItem(
+            CamelServicePatternBuildItem.CamelServiceDestination.REGISTRY,
+            true,
+            Constants.ROUTES_LOADER_RESOURCE_PATH + "/*",
+            Constants.CONTEXT_CUSTOMIZER_RESOURCE_PATH  + "/*");
+    }
+
     @BuildStep
     void registerServices(
             BuildProducer<ServiceProviderBuildItem> serviceProvider,
