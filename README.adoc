@@ -1,4 +1,5 @@
-image:https://travis-ci.org/apache/camel-k-runtime.svg?branch=master["Build Status", link="https://travis-ci.org/apache/camel-k-runtime"]
+image:https://github.com/apache/camel-k-runtime/workflows/Build%20PR/badge.svg["Build Status", link="https://github.com/apache/camel-k-runtime/actions?query=workflow%3A%22Build+PR%22"]
+
 
 Apache Camel K Runtime
 ======================
