@@ -35,7 +35,7 @@ class LoopTest extends TestSupport {
                     language == 'constant'
                     expression == '3'
                 }
-                doWhile == true
+                doWhile == 'true'
             }
     }
 
@@ -54,7 +54,7 @@ class LoopTest extends TestSupport {
                     language == 'constant'
                     expression == '3'
                 }
-                doWhile == true
+                doWhile == 'true'
             }
     }
 

@@ -31,7 +31,7 @@ class DelayTest extends TestSupport {
             def processor = new DelayStepParser().toProcessor(stepContext)
         then:
             with(processor, DelayDefinition) {
-                asyncDelayed == true
+                asyncDelayed == 'true'
                 callerRunsWhenRejected == null
                 expression.language == 'simple'
                 expression.expression == '${body}'
@@ -49,7 +49,7 @@ class DelayTest extends TestSupport {
             def processor = new DelayStepParser().toProcessor(stepContext)
         then:
             with(processor, DelayDefinition) {
-                asyncDelayed == true
+                asyncDelayed == 'true'
                 callerRunsWhenRejected == null
                 expression.language == 'simple'
                 expression.expression == '${body}'

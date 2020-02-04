@@ -30,7 +30,7 @@ class ThreadsTest extends TestSupport {
             def processor = new ThreadsStepParser().toProcessor(stepContext)
         then:
             with (processor, ThreadsDefinition) {
-                poolSize == 5
+                poolSize == '5'
             }
     }
 }

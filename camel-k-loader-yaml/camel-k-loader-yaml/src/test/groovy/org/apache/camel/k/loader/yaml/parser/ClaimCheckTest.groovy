@@ -16,9 +16,7 @@
  */
 package org.apache.camel.k.loader.yaml.parser
 
-
 import org.apache.camel.model.ClaimCheckDefinition
-import org.apache.camel.model.ClaimCheckOperation
 
 class ClaimCheckTest extends org.apache.camel.k.loader.yaml.TestSupport {
     def "definition"() {
@@ -32,7 +30,7 @@ class ClaimCheckTest extends org.apache.camel.k.loader.yaml.TestSupport {
             def processor = new ClaimCheckStepParser().toProcessor(stepContext)
         then:
             with(processor, ClaimCheckDefinition) {
-                operation == ClaimCheckOperation.Push
+                operation == 'Push'
                 key == 'foo'
                 filter == 'header:(foo|bar)'
             }

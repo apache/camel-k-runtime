@@ -43,8 +43,8 @@ class ResequenceTest extends TestSupport {
                     expression == '${in.header.seqnum}'
                 }
                 with (streamConfig, StreamResequencerConfig) {
-                    capacity == 5000
-                    timeout == 4000
+                    capacity == '5000'
+                    timeout == '4000'
                 }
 
                 outputs.size() == 2
@@ -72,8 +72,8 @@ class ResequenceTest extends TestSupport {
                     expression == '${in.header.seqnum}'
                 }
                 with (streamConfig, StreamResequencerConfig) {
-                    capacity == 5000
-                    timeout == 4000
+                    capacity == '5000'
+                    timeout == '4000'
                 }
 
                 outputs.size() == 2

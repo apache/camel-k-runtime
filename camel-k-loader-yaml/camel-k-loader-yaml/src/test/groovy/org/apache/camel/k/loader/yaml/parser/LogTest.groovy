@@ -16,7 +16,7 @@
  */
 package org.apache.camel.k.loader.yaml.parser
 
-import org.apache.camel.LoggingLevel
+
 import org.apache.camel.k.loader.yaml.TestSupport
 import org.apache.camel.model.LogDefinition
 
@@ -33,7 +33,7 @@ class LogTest extends TestSupport {
             def processor = new LogStepParser().toProcessor(stepContext)
         then:
             with(processor, LogDefinition) {
-                loggingLevel == LoggingLevel.ERROR
+                loggingLevel == 'ERROR'
                 message == 'test'
                 logName == 'yaml'
             }
