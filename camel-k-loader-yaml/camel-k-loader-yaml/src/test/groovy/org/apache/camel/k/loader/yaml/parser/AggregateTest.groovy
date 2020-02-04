@@ -37,7 +37,7 @@ class AggregateTest extends TestSupport {
         then:
             with(processor, AggregateDefinition) {
                 strategyRef == 'myAppender'
-                completionSize == 10
+                completionSize == '10'
 
                 with(expression, SimpleExpression) {
                     expression ==  '${header.ID}'
@@ -48,7 +48,7 @@ class AggregateTest extends TestSupport {
             }
     }
 
-    def "compact efinition"() {
+    def "compact definition"() {
         given:
             def stepContext = stepContext('''
                  simple: "${header.ID}"
@@ -62,7 +62,7 @@ class AggregateTest extends TestSupport {
         then:
             with(processor, AggregateDefinition) {
                 strategyRef == 'myAppender'
-                completionSize == 10
+                completionSize == '10'
 
                 with(expression, SimpleExpression) {
                     expression ==  '${header.ID}'

@@ -33,8 +33,8 @@ class RecipientListTest extends TestSupport {
             def processor = new RecipientListStepParser().toProcessor(stepContext)
         then:
             with (processor, RecipientListDefinition) {
-                stopOnException == true
-                parallelProcessing == true
+                stopOnException == 'true'
+                parallelProcessing == 'true'
 
                 with(expression, ConstantExpression) {
                     language == 'constant'
@@ -55,8 +55,8 @@ class RecipientListTest extends TestSupport {
             def processor = new RecipientListStepParser().toProcessor(stepContext)
         then:
             with (processor, RecipientListDefinition) {
-                stopOnException == true
-                parallelProcessing == true
+                stopOnException == 'true'
+                parallelProcessing == 'true'
 
                 with(expression, ConstantExpression) {
                     language == 'constant'

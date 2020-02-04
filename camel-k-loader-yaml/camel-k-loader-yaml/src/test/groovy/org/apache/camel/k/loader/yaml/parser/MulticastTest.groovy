@@ -34,8 +34,8 @@ class MulticastTest extends TestSupport {
             def processor = new MulticastStepParser().toProcessor(stepContext)
         then:
             with (processor, MulticastDefinition) {
-                stopOnException == true
-                parallelProcessing == true
+                stopOnException == 'true'
+                parallelProcessing == 'true'
                 outputs.size() == 2
             }
     }
