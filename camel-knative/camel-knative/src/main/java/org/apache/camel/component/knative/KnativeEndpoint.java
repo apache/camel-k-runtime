@@ -75,7 +75,6 @@ public class KnativeEndpoint extends DefaultEndpoint {
     public Producer createProducer() throws Exception {
         final KnativeEnvironment.KnativeServiceDefinition service = lookupServiceDefinition(Knative.EndpointKind.sink);
         final Processor ceProcessor = cloudEvent.producer(this, service);
-        final Processor ceConverter = new KnativeConversionProcessor(configuration.isJsonSerializationEnabled());
         final Producer producer = getComponent().getTransport().createProducer(this, createTransportConfiguration(), service);
 
         PropertyBindingSupport.build()
@@ -85,7 +84,7 @@ public class KnativeEndpoint extends DefaultEndpoint {
             .withTarget(producer)
             .bind();
 
-        return new KnativeProducer(this, ceProcessor, ceConverter, e -> e.getMessage().removeHeader("Host"), producer);
+        return new KnativeProducer(this, ceProcessor, e -> e.getMessage().removeHeader("Host"), producer);
     }
 
     @Override

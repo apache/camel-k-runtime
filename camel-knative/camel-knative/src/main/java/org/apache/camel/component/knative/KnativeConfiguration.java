@@ -30,9 +30,6 @@ public class KnativeConfiguration implements Cloneable {
     private KnativeEnvironment environment;
     @UriParam
     private String serviceName;
-    @UriParam(defaultValue = "false")
-    @Deprecated
-    private boolean jsonSerializationEnabled;
     @UriParam(defaultValue = "0.3", enums = "0.1,0.2,0.3")
     private String cloudEventsSpecVersion = CloudEvents.V03.version();
     @UriParam(defaultValue = "org.apache.camel.event")
@@ -96,19 +93,6 @@ public class KnativeConfiguration implements Cloneable {
      */
     public void setReplyWithCloudEvent(boolean replyWithCloudEvent) {
         this.replyWithCloudEvent = replyWithCloudEvent;
-    }
-
-    @Deprecated
-    public boolean isJsonSerializationEnabled() {
-        return jsonSerializationEnabled;
-    }
-
-    /**
-     * Enables automatic serialization to JSON of the produced events.
-     */
-    @Deprecated
-    public void setJsonSerializationEnabled(boolean jsonSerializationEnabled) {
-        this.jsonSerializationEnabled = jsonSerializationEnabled;
     }
 
     public String getCloudEventsSpecVersion() {
