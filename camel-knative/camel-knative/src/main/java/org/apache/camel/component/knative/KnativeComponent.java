@@ -103,16 +103,6 @@ public class KnativeComponent extends DefaultComponent {
         configuration.setEnvironment(environment);
     }
 
-    @Deprecated
-    public boolean isJsonSerializationEnabled() {
-        return configuration.isJsonSerializationEnabled();
-    }
-
-    @Deprecated
-    public void setJsonSerializationEnabled(boolean jsonSerializationEnabled) {
-        configuration.setJsonSerializationEnabled(jsonSerializationEnabled);
-    }
-
     public String getCloudEventsSpecVersion() {
         return configuration.getCloudEventsSpecVersion();
     }
