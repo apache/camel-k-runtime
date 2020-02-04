@@ -16,13 +16,12 @@
  */
 package org.apache.camel.k.listener;
 
-import javax.xml.bind.JAXBException;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.model.Model;
-import org.apache.camel.model.ModelHelper;
+import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.model.RoutesDefinition;
+import org.apache.camel.model.rest.RestDefinition;
 import org.apache.camel.model.rest.RestsDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,15 +43,15 @@ public class RoutesDumper extends AbstractPhaseListener {
         RestsDefinition rests = new RestsDefinition();
         rests.setRests(context.getExtension(Model.class).getRestDefinitions());
 
-        try {
-            if (LOGGER.isDebugEnabled() && !routes.getRoutes().isEmpty()) {
-                LOGGER.debug("Routes: \n{}", ModelHelper.dumpModelAsXml(context, routes));
+        if (LOGGER.isDebugEnabled() && !routes.getRoutes().isEmpty()) {
+            for (RouteDefinition definition: routes.getRoutes()) {
+                LOGGER.debug("Routes: {}", definition);
             }
-            if (LOGGER.isDebugEnabled() && !rests.getRests().isEmpty()) {
-                LOGGER.debug("Rests: \n{}", ModelHelper.dumpModelAsXml(context, rests));
+        }
+        if (LOGGER.isDebugEnabled() && !rests.getRests().isEmpty()) {
+            for (RestDefinition definition: rests.getRests()) {
+                LOGGER.debug("Rest: {}", definition);
             }
-        } catch (JAXBException e) {
-            throw new IllegalArgumentException(e);
         }
     }
 }
