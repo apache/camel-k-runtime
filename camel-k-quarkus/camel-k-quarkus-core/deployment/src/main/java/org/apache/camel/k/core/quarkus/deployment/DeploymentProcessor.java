@@ -44,7 +44,7 @@ public class DeploymentProcessor {
         return new CamelServicePatternBuildItem(
             CamelServicePatternBuildItem.CamelServiceDestination.REGISTRY,
             true,
-            Constants.ROUTES_LOADER_RESOURCE_PATH + "/*",
+            Constants.SOURCE_LOADER_RESOURCE_PATH + "/*",
             Constants.CONTEXT_CUSTOMIZER_RESOURCE_PATH  + "/*");
     }
 
