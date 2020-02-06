@@ -22,14 +22,15 @@ import java.util.List;
 
 import javax.xml.bind.UnmarshalException;
 
+import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceLoader;
 import org.apache.camel.k.annotation.Loader;
-import org.apache.camel.model.ModelHelper;
 import org.apache.camel.model.RoutesDefinition;
 import org.apache.camel.model.rest.RestsDefinition;
+import org.apache.camel.spi.XMLRoutesDefinitionLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,12 +48,17 @@ public class XmlSourceLoader implements SourceLoader {
         RouteBuilder builder = new RouteBuilder() {
             @Override
             public void configure() throws Exception {
+                final ExtendedCamelContext context = getContext().adapt(ExtendedCamelContext.class);
+                final XMLRoutesDefinitionLoader loader = context.getXMLRoutesDefinitionLoader();
+
                 try (InputStream is = source.resolveAsInputStream(getContext())) {
                     try {
-                        RoutesDefinition definition = ModelHelper.loadRoutesDefinition(getContext(), is);
-                        LOGGER.debug("Loaded {} routes from {}", definition.getRoutes().size(), source);
-
-                        setRouteCollection(definition);
+                        Object result = loader.loadRoutesDefinition(getContext(), is);
+                        if (result instanceof RoutesDefinition) {
+                            RoutesDefinition definitions = (RoutesDefinition)result;
+                            LOGGER.debug("Loaded {} routes from {}", definitions.getRoutes().size(), source);
+                            setRouteCollection(definitions);
+                        }
                     } catch (IllegalArgumentException e) {
                         // ignore
                     } catch (UnmarshalException e) {
@@ -62,10 +68,12 @@ public class XmlSourceLoader implements SourceLoader {
 
                 try (InputStream is = source.resolveAsInputStream(getContext())) {
                     try {
-                        RestsDefinition definition = ModelHelper.loadRestsDefinition(getContext(), is);
-                        LOGGER.debug("Loaded {} rests from {}", definition.getRests().size(), source);
-
-                        setRestCollection(definition);
+                        Object result = loader.loadRestsDefinition(getContext(), is);
+                        if (result instanceof RestsDefinition) {
+                            RestsDefinition definitions = (RestsDefinition)result;
+                            LOGGER.debug("Loaded {} rests from {}", definitions.getRests().size(), source);
+                            setRestCollection(definitions);
+                        }
                     } catch (IllegalArgumentException e) {
                         // ignore
                     } catch (UnmarshalException e) {

@@ -35,8 +35,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <camel.version>3.1.0-SNAPSHOT</camel.version>
-        <camel-quarkus.version>1.0.0-M3</camel-quarkus.version>
+        <camel.version>3.1.0</camel.version>
+        <camel-quarkus.version>1.0.0-M4</camel-quarkus.version>
         <catalog.version>${camel.version}</catalog.version>
         <junit.version>5.6.0</junit.version>
         <joor.version>0.9.12</joor.version>
@@ -48,7 +48,7 @@
         <assertj.version>3.15.0</assertj.version>
         <log4j2.version>2.13.0</log4j2.version>
         <slf4j.version>1.7.30</slf4j.version>
-        <groovy.version>2.5.9</groovy.version>
+        <groovy.version>3.0.1</groovy.version>
         <kotlin.version>1.3.61</kotlin.version>
         <snakeyaml.version>1.25</snakeyaml.version>
         <spock.version>1.3-groovy-2.5</spock.version>
@@ -59,8 +59,8 @@
         <semver4j.version>3.1.0</semver4j.version>
         <undertow.version>1.4.26.Final</undertow.version>
         <vertx.version>3.8.5</vertx.version>
-        <graalvm.version>19.2.1</graalvm.version>
-        <quarkus.version>1.2.0.Final</quarkus.version>
+        <graalvm.version>19.3.1</graalvm.version>
+        <quarkus.version>1.3.0.Alpha2</quarkus.version>
         <jandex.version>2.1.2.Final</jandex.version>
         <javapoet.version>1.11.1</javapoet.version>
         <auto-service.version>1.0-rc6</auto-service.version>
@@ -473,7 +473,7 @@
                 <version>${graalvm.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.oracle.substratevm</groupId>
+                <groupId>org.graalvm.nativeimage</groupId>
                 <artifactId>svm</artifactId>
                 <version>${graalvm.version}</version>
             </dependency>

@@ -76,12 +76,12 @@ public class RuntimeSupportTest {
     @Test
     public void testLoadCustomizers() {
         CamelContext context = new DefaultCamelContext();
-        context.getRegistry().bind("converters", (ContextCustomizer)camelContext -> camelContext.setLoadTypeConverters(false));
+        context.getRegistry().bind("converters", (ContextCustomizer)camelContext -> camelContext.setLoadTypeConverters(true));
 
         List<ContextCustomizer> customizers = RuntimeSupport.configureContextCustomizers(context);
         assertThat(context.getName()).isNotEqualTo("from-registry");
         assertThat(context.getName()).isNotEqualTo("default");
-        assertThat(context.isLoadTypeConverters()).isTrue();
+        assertThat(context.isLoadTypeConverters()).isFalse();
         assertThat(customizers).hasSize(0);
 
         Properties properties = new Properties();
@@ -97,7 +97,7 @@ public class RuntimeSupportTest {
 
         customizers = RuntimeSupport.configureContextCustomizers(context);
         assertThat(context.getName()).isEqualTo("default");
-        assertThat(context.isLoadTypeConverters()).isFalse();
+        assertThat(context.isLoadTypeConverters()).isTrue();
         assertThat(customizers).hasSize(2);
     }
 

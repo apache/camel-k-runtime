@@ -14,13 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.core.quarkus.deployment.devmode;
+package org.apache.camel.k.core.quarkus.devmode;
 
-import io.quarkus.deployment.devmode.HotReplacementContext;
-
-public class HotReplacementSetup implements io.quarkus.deployment.devmode.HotReplacementSetup {
+public class HotReplacementSetup implements io.quarkus.dev.spi.HotReplacementSetup {
     @Override
-    public void setupHotDeployment(HotReplacementContext context) {
+    public void setupHotDeployment(io.quarkus.dev.spi.HotReplacementContext context) {
         //TODO: TBD
     }
 }

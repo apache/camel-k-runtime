@@ -92,7 +92,7 @@
     </dependency>
     <dependency>
       <groupId>org.apache.camel</groupId>
-      <artifactId>camel-catalog</artifactId>
+      <artifactId>camel-core-catalog</artifactId>
       <version>${camel.version}</version>
     </dependency>
     <dependency>
@@ -227,6 +227,8 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-invoker-plugin</artifactId>
         <configuration>
+          <pomIncludes>generate-catalog-main/pom.xml</pomIncludes>
+          <!-- TODO: enable quarkus tests-->
           <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
           <cloneClean>true</cloneClean>
           <postBuildHookScript>verify</postBuildHookScript>

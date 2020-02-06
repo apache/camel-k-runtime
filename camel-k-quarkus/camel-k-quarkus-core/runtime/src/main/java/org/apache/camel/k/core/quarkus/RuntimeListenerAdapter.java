@@ -45,6 +45,10 @@ public class RuntimeListenerAdapter implements MainListener {
     @Override
     public void beforeStart(BaseMainSupport main) {
         invokeListeners(listeners, on(main), Runtime.Phase.Starting);
+    }
+
+    @Override
+    public void beforeConfigure(BaseMainSupport main) {
         invokeListeners(listeners, on(main), Runtime.Phase.ConfigureRoutes);
     }
 

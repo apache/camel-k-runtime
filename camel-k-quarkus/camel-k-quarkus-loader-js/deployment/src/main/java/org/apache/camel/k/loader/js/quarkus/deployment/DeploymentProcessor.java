@@ -39,7 +39,6 @@ import org.apache.camel.Exchange;
 import org.apache.camel.NamedNode;
 import org.apache.camel.builder.DataFormatClause;
 import org.apache.camel.builder.ExpressionClause;
-import org.apache.camel.converter.jaxp.XmlConverter;
 import org.apache.camel.k.loader.js.dsl.Components;
 import org.apache.camel.k.loader.js.dsl.IntegrationConfiguration;
 import org.apache.camel.k.loader.js.dsl.ProcessorSupport;
@@ -47,7 +46,6 @@ import org.apache.camel.model.Block;
 import org.apache.camel.model.FromDefinition;
 import org.apache.camel.model.NoOutputDefinition;
 import org.apache.camel.model.OptionalIdentifiedDefinition;
-import org.apache.camel.model.OtherAttributesAware;
 import org.apache.camel.model.ProcessDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.RouteDefinition;
@@ -97,12 +95,10 @@ public class DeploymentProcessor {
         ExpressionClause.class,
         Exchange.class,
         JsonLibrary.class,
-        XmlConverter.class,
         NamedNode.class,
         OptionalIdentifiedDefinition.class,
         NamespaceAware.class,
         Block.class,
-        OtherAttributesAware.class,
         RestSecurityDefinition.class,
         ValidatorDefinition.class,
         TransformerDefinition.class,
@@ -139,6 +135,7 @@ public class DeploymentProcessor {
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, Components.class));
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, IntegrationConfiguration.class));
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, ProcessorSupport.class));
+        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, "org.apache.camel.converter.jaxp.XmlConverter"));
     }
 }
 
