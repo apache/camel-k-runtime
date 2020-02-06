@@ -16,6 +16,7 @@
  */
 package org.apache.camel.k;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
@@ -25,6 +26,8 @@ import org.apache.camel.RoutesBuilder;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.spi.HasCamelContext;
 import org.apache.camel.spi.Registry;
+
+import static org.apache.camel.util.CollectionHelper.mapOf;
 
 public interface Runtime extends HasCamelContext {
     /**
@@ -43,6 +46,12 @@ public interface Runtime extends HasCamelContext {
         p.putAll(properties);
 
         setProperties(p);
+    }
+
+    default void setProperties(String key, String value, String... keyVals) {
+        setProperties(
+            mapOf(HashMap::new, key, value, keyVals)
+        );
     }
 
     default void addRoutes(RoutesBuilder builder) {

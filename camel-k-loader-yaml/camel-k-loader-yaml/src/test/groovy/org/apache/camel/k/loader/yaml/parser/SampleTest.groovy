@@ -30,7 +30,7 @@ class SampleTest extends TestSupport {
             def processor = new SampleStepParser().toProcessor(stepContext)
         then:
             with (processor, SamplingDefinition) {
-                messageFrequency == 5
+                messageFrequency == "5"
             }
     }
 }

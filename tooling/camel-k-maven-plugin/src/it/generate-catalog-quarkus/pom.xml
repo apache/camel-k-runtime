@@ -31,8 +31,6 @@
         <catalog.path>${project.basedir}</catalog.path>
         <catalog.runtime>quarkus</catalog.runtime>
         <catalog.file>catalog.yaml</catalog.file>
-
-        <runtime.version>1.1.1-SNAPSHOT</runtime.version>
     </properties>
 
     <build>
@@ -40,7 +38,7 @@
             <plugin>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-maven-plugin</artifactId>
-                <version>${runtime.version}</version>
+                <version>@project.version@</version>
                 <executions>
                     <execution>
                         <id>generate-catalog</id>

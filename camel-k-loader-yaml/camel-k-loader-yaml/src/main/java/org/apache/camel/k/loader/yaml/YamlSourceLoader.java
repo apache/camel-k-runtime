@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -44,7 +43,6 @@ import org.apache.camel.k.loader.yaml.parser.StartStepParser;
 import org.apache.camel.k.loader.yaml.parser.StepParser;
 import org.apache.camel.model.Block;
 import org.apache.camel.model.OptionalIdentifiedDefinition;
-import org.apache.camel.model.OtherAttributesAware;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.model.RoutesDefinition;
@@ -146,10 +144,7 @@ public class YamlSourceLoader implements SourceLoader {
      */
     public abstract static class ProcessorDefinitionMixIn<Type extends ProcessorDefinition<Type>>
         extends OptionalIdentifiedDefinition<Type>
-        implements Block, OtherAttributesAware {
-
-        @JsonIgnore
-        public abstract <Result> Type setBody(Supplier<Result> supplier);
+        implements Block {
 
         @JsonIgnore
         public abstract <Result> Type setBody(Function<Exchange, Result> function);
