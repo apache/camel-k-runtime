@@ -110,6 +110,8 @@
                     </environmentVariables>
                     <systemPropertyVariables>
                         <root>${project.basedir}</root>
+                        <camel.k.mount-path.configmaps>${project.basedir}/src/test/resources/configmaps</camel.k.mount-path.configmaps>
+                        <camel.k.mount-path.secrets>${project.basedir}/src/test/resources/secrets</camel.k.mount-path.secrets>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>

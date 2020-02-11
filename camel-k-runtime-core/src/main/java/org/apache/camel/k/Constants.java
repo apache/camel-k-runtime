@@ -29,6 +29,12 @@ public final class Constants {
     public static final String ENV_CAMEL_K_CUSTOMIZERS = "CAMEL_K_CUSTOMIZERS";
     public static final String PROPERTY_CAMEL_K_CUSTOMIZER = "camel.k.customizer";
 
+    public static final String ENV_CAMEL_K_MOUNT_PATH_CONFIGMAPS = "CAMEL_K_MOUNT_PATH_CONFIGMAPS";
+    public static final String PROPERTY_CAMEL_K_MOUNT_PATH_CONFIGMAPS = "camel.k.mount-path.configmaps";
+
+    public static final String ENV_CAMEL_K_MOUNT_PATH_SECRETS = "CAMEL_K_MOUNT_PATH_SECRETS";
+    public static final String PROPERTY_CAMEL_K_MOUNT_PATH_SECRETS = "camel.k.mount-path.secrets";
+
     public static final String SCHEME_CLASSPATH = "classpath:";
     public static final String SCHEME_FILE = "file:";
     public static final String LOGGING_LEVEL_PREFIX = "logging.level.";
