@@ -216,12 +216,14 @@
         <module>camel-k-loader-java</module>
         <module>camel-k-loader-knative</module>
 
+        <module>camel-k-runtime-bom</module>
+
         <module>camel-k-runtime-cron</module>
         <module>camel-k-runtime-health</module>
-        <module>camel-k-runtime-servlet</module>
         <module>camel-k-runtime-knative</module>
+        <module>camel-k-runtime-master</module>
+        <module>camel-k-runtime-servlet</module>
         <module>camel-k-runtime-webhook</module>
-        <module>camel-k-runtime-bom</module>
 
         <module>examples</module>
         <module>distribution</module>
