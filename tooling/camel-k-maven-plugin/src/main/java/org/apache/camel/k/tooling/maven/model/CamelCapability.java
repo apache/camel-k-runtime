@@ -17,7 +17,6 @@
 package org.apache.camel.k.tooling.maven.model;
 
 import java.util.Collections;
-import java.util.Map;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -33,12 +32,6 @@ public interface CamelCapability {
     @Value.Default
     default Set<Artifact> getDependencies() {
         return Collections.emptySet();
-    }
-
-    @Value.Auxiliary
-    @Value.Default
-    default Map<String, String> getMetadata() {
-        return Collections.emptyMap();
     }
 
     static CamelCapability forArtifact(String groupId, String artifactId) {
