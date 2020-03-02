@@ -9,6 +9,17 @@ mvn clean exec:java
 ```
 while it is running (from another terminal) you can access the rest camel route exposed through the servlet with:
 ```bash
-curl http://localhost:8080/health
+curl http://localhost:8082/health
 ```
-if the camel context has started properly that should get `OK`.
+if the camel context has started properly that should get:
+```json
+{
+    "checks": [
+        {
+            "name": "route:my-route",
+            "status": "UP"
+        }
+    ],
+    "status": "UP"
+}
+```

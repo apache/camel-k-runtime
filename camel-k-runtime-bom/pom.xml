@@ -135,7 +135,7 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-runtime-servlet</artifactId>
+                <artifactId>camel-k-runtime-inspector</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
