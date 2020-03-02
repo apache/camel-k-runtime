@@ -14,8 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.apache.camel.k.inspector;
 
-from('netty-http:http:0.0.0.0:8080//test')
-    .routeId('my-route')
-    .convertBodyTo(String.class)
-    .to('log:info')
+import java.util.function.Consumer;
+
+import io.vertx.ext.web.Router;
+
+/**
+ * Marker interface to easily lookup Vertx customizer from the
+ * camel {@link org.apache.camel.spi.Registry}.
+ */
+@FunctionalInterface
+public interface InspectorCustomizer extends Consumer<Router> {
+}

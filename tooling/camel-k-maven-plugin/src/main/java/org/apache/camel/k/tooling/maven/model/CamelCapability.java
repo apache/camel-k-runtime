@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.tooling.maven.model.crd;
+package org.apache.camel.k.tooling.maven.model;
 
 import java.util.Collections;
 import java.util.Map;
@@ -22,35 +22,30 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import org.apache.camel.k.tooling.maven.model.CamelCapability;
-import org.apache.camel.k.tooling.maven.model.MavenArtifact;
 import org.immutables.value.Value;
 
 @Value.Immutable
 @Value.Style(depluralize = true)
-@JsonDeserialize(builder = RuntimeSpec.Builder.class)
-@JsonPropertyOrder({ "version", "runtimeVersion", "artifacts" })
-public interface RuntimeSpec {
-    String getVersion();
-    String getProvider();
-    String getApplicationClass();
+@JsonDeserialize(builder = CamelCapability.Builder.class)
+@JsonPropertyOrder({"groupId", "artifactId", "version"})
+public interface CamelCapability {
+    @Value.Auxiliary
+    @Value.Default
+    default Set<Artifact> getDependencies() {
+        return Collections.emptySet();
+    }
 
+    @Value.Auxiliary
     @Value.Default
     default Map<String, String> getMetadata() {
         return Collections.emptyMap();
     }
 
-    @Value.Default
-    default Set<MavenArtifact> getDependencies() {
-        return Collections.emptySet();
+    static CamelCapability forArtifact(String groupId, String artifactId) {
+        return new Builder().addDependency(groupId, artifactId).build();
     }
 
-    @Value.Default
-    default Map<String, CamelCapability> getCapabilities() {
-        return Collections.emptyMap();
-    }
-
-    class Builder extends ImmutableRuntimeSpec.Builder {
+    class Builder extends ImmutableCamelCapability.Builder {
         public Builder addDependency(String groupId, String artifactId) {
             addDependencies(MavenArtifact.from(groupId, artifactId));
             return this;

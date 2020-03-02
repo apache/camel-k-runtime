@@ -64,6 +64,7 @@
         <jandex.version>2.1.2.Final</jandex.version>
         <javapoet.version>1.11.1</javapoet.version>
         <auto-service.version>1.0-rc6</auto-service.version>
+        <rest-assured.version>4.2.0</rest-assured.version>
         <gmavenplus-plugin.version>1.7.1</gmavenplus-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
@@ -205,7 +206,7 @@
         <module>camel-knative</module>
 
         <module>camel-k-runtime-core</module>
-        <module>camel-k-runtime-main</module>
+        <module>camel-k-main</module>
         <module>camel-k-quarkus</module>
 
         <module>camel-k-loader-groovy</module>
@@ -216,14 +217,12 @@
         <module>camel-k-loader-java</module>
         <module>camel-k-loader-knative</module>
 
-        <module>camel-k-runtime-bom</module>
-
         <module>camel-k-runtime-cron</module>
-        <module>camel-k-runtime-health</module>
         <module>camel-k-runtime-knative</module>
         <module>camel-k-runtime-master</module>
-        <module>camel-k-runtime-servlet</module>
         <module>camel-k-runtime-webhook</module>
+
+        <module>camel-k-runtime-bom</module>
 
         <module>examples</module>
         <module>distribution</module>
@@ -320,7 +319,7 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-runtime-servlet</artifactId>
+                <artifactId>camel-k-runtime-inspector</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

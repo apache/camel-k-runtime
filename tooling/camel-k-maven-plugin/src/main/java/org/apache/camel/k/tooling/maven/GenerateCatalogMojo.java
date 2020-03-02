@@ -38,6 +38,7 @@ import org.apache.camel.catalog.DefaultCamelCatalog;
 import org.apache.camel.catalog.DefaultRuntimeProvider;
 import org.apache.camel.catalog.quarkus.QuarkusRuntimeProvider;
 import org.apache.camel.impl.engine.AbstractCamelContext;
+import org.apache.camel.k.tooling.maven.model.CamelCapability;
 import org.apache.camel.k.tooling.maven.model.CatalogProcessor;
 import org.apache.camel.k.tooling.maven.model.crd.CamelCatalog;
 import org.apache.camel.k.tooling.maven.model.crd.CamelCatalogSpec;
@@ -85,7 +86,6 @@ public class GenerateCatalogMojo extends AbstractMojo {
             if (Files.notExists(output.getParent())) {
                 Files.createDirectories(output.getParent());
             }
-
             if (Files.exists(output)) {
                 Files.delete(output);
             }
@@ -123,11 +123,29 @@ public class GenerateCatalogMojo extends AbstractMojo {
                 catalog.setRuntimeProvider(new DefaultRuntimeProvider());
                 runtimeSpec.applicationClass("org.apache.camel.k.main.Application");
                 runtimeSpec.addDependency("org.apache.camel.k", "camel-k-runtime-main");
+                runtimeSpec.putCapability(
+                    "health",
+                    CamelCapability.forArtifact("org.apache.camel.k", "camel-k-runtime-health"));
+                runtimeSpec.putCapability(
+                    "rest",
+                    new CamelCapability.Builder()
+                        .addDependency("org.apache.camel", "camel-rest")
+                        .addDependency("org.apache.camel", "camel-undertow")
+                        .build());
                 break;
             case "quarkus":
                 catalog.setRuntimeProvider(new QuarkusRuntimeProvider());
                 runtimeSpec.applicationClass("io.quarkus.runner.GeneratedMain");
                 runtimeSpec.addDependency("org.apache.camel.k", "camel-k-runtime-quarkus");
+                runtimeSpec.putCapability(
+                    "health",
+                    CamelCapability.forArtifact("org.apache.camel.quarkus", "camel-quarkus-microprofile-health"));
+                runtimeSpec.putCapability(
+                    "rest",
+                    new CamelCapability.Builder()
+                        .addDependency("org.apache.camel.quarkus", "camel-quarkus-rest")
+                        .addDependency("org.apache.camel.quarkus", "camel-quarkus-platform-http")
+                        .build());
                 break;
             default:
                 throw new IllegalArgumentException("catalog.runtime parameter value [" + runtime + "] is not supported!");

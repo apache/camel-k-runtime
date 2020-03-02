@@ -14,11 +14,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-def runtimeVersion = '1.1.0-SNAPSHOT'
+def runtimeVersion = '1.1.1-SNAPSHOT'
 
 def source  = new File(basedir, "catalog.yaml")
 def catalog = new org.yaml.snakeyaml.Yaml().load(new FileInputStream(source))
 
 assert catalog.spec.runtime.version == runtimeVersion
 assert catalog.spec.runtime.applicationClass == 'org.apache.camel.k.main.Application'
+
+assert catalog.spec.runtime.capabilities['health'].dependencies[0].groupId == 'org.apache.camel.k'
+assert catalog.spec.runtime.capabilities['health'].dependencies[0].artifactId == 'camel-k-runtime-health'
+assert catalog.spec.runtime.capabilities['rest'].dependencies[0].groupId == 'org.apache.camel'
+assert catalog.spec.runtime.capabilities['rest'].dependencies[0].artifactId == 'camel-rest'
+assert catalog.spec.runtime.capabilities['rest'].dependencies[1].groupId == 'org.apache.camel'
+assert catalog.spec.runtime.capabilities['rest'].dependencies[1].artifactId == 'camel-undertow'
+
 assert catalog.metadata.labels['camel.apache.org/runtime.version'] == runtimeVersion

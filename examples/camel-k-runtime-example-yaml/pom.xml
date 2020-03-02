@@ -34,10 +34,6 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-runtime-servlet</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.k</groupId>
             <artifactId>camel-k-loader-yaml</artifactId>
         </dependency>
         <dependency>
