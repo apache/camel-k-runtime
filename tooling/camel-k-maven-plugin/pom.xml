@@ -87,7 +87,7 @@
 
     <dependency>
       <groupId>org.apache.camel</groupId>
-      <artifactId>camel-swagger-rest-dsl-generator</artifactId>
+      <artifactId>camel-openapi-rest-dsl-generator</artifactId>
       <version>${camel.version}</version>
     </dependency>
     <dependency>
@@ -123,6 +123,7 @@
       <groupId>com.fasterxml.jackson.dataformat</groupId>
       <artifactId>jackson-dataformat-yaml</artifactId>
     </dependency>
+
 
     <dependency>
       <groupId>org.apache.commons</groupId>
@@ -203,7 +204,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-plugin-plugin</artifactId>
-        <version>3.5.2</version>
+        <version>3.6.0</version>
         <configuration>
           <mojoDependencies />
         </configuration>
@@ -227,8 +228,12 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-invoker-plugin</artifactId>
         <configuration>
-          <pomIncludes>generate-catalog-main/pom.xml</pomIncludes>
-          <!-- TODO: enable quarkus tests-->
+          <pomIncludes>
+            <pomInclude>generate-catalog-main/pom.xml</pomInclude>
+            <pomInclude>generate-catalog-quarkus/pom.xml</pomInclude>
+            <pomInclude>generate-rest-dsl-from-v3/pom.xml</pomInclude>
+            <pomInclude>generate-rest-dsl-from-v2/pom.xml</pomInclude>
+          </pomIncludes>
           <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
           <cloneClean>true</cloneClean>
           <postBuildHookScript>verify</postBuildHookScript>

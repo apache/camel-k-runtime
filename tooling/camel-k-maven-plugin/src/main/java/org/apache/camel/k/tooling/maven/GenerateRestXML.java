@@ -16,17 +16,23 @@
  */
 package org.apache.camel.k.tooling.maven;
 
+import java.io.FileInputStream;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import io.swagger.models.Swagger;
-import io.swagger.parser.SwaggerParser;
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import io.apicurio.datamodels.Library;
+import io.apicurio.datamodels.openapi.models.OasDocument;
 import org.apache.camel.CamelContext;
-import org.apache.camel.generator.swagger.RestDslXmlGenerator;
+import org.apache.camel.generator.openapi.RestDslXmlGenerator;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -42,6 +48,8 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
     threadSafe = true,
     requiresProject = false)
 public class GenerateRestXML extends AbstractMojo {
+    private static final String[] YAML_EXTENSIONS = { "yaml", "yml" };
+
     @Parameter(property = "openapi.spec")
     private String inputFile;
     @Parameter(property = "dsl.out")
@@ -58,13 +66,21 @@ public class GenerateRestXML extends AbstractMojo {
             throw new MojoExecutionException("Unable to read the input file: " + inputFile);
         }
 
-        final SwaggerParser sparser = new SwaggerParser();
-        final Swagger swagger = sparser.read(inputFile);
-        if (swagger == null) {
-            throw new MojoExecutionException("Unable to read the swagger file: " + inputFile);
-        }
-
         try {
+            JsonFactory factory = FilenameUtils.isExtension(inputFile, YAML_EXTENSIONS) ? new YAMLFactory() : null;
+
+            ObjectMapper mapper = new ObjectMapper(factory);
+            mapper.findAndRegisterModules();
+
+            FileInputStream fis = new FileInputStream(inputFile);
+
+            JsonNode node = mapper.readTree(fis);
+            OasDocument document = (OasDocument) Library.readDocument(node);
+
+            if (document == null) {
+                throw new MojoExecutionException("Unable to read the OpenAPI file: " + inputFile);
+            }
+
             final Writer writer;
 
             if (outputFile != null) {
@@ -83,10 +99,13 @@ public class GenerateRestXML extends AbstractMojo {
             }
 
             final CamelContext context = new DefaultCamelContext();
-            final String dsl = RestDslXmlGenerator.toXml(swagger).generate(context);
+            final String dsl = RestDslXmlGenerator.toXml(document).generate(context);
 
-            writer.write(dsl);
-            writer.close();
+            try {
+                writer.write(dsl);
+            } finally {
+                writer.close();
+            }
         } catch (Exception e) {
             throw new MojoExecutionException("Exception while generating rest xml", e);
         }
