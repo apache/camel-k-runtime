@@ -38,7 +38,6 @@ import org.apache.camel.spi.RoutePolicyFactory;
 import org.apache.camel.support.RoutePolicySupport;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
@@ -56,7 +55,6 @@ public class WebhookTest {
         runtime.addListener(new ContextConfigurer());
     }
 
-    @Disabled("https://github.com/apache/camel-k-runtime/issues/236")
     @ParameterizedTest
     @EnumSource(WebhookAction.class)
     public void testWebhookRegistration(WebhookAction action) throws Exception {
