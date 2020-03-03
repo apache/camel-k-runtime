@@ -25,7 +25,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>camel-k-runtime-example-yaml</artifactId>
+    <artifactId>camel-k-runtime-example-groovy</artifactId>
 
     <dependencies>
         <dependency>
@@ -34,23 +34,11 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-loader-yaml</artifactId>
+            <artifactId>camel-k-loader-groovy</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-log</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-undertow</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-rest</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-jackson</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -78,11 +66,11 @@
                     <systemProperties>
                         <systemProperty>
                             <key>camel.k.conf</key>
-                            <value>${project.basedir}/src/main/resources/conf/application.properties</value>
+                            <value>${project.basedir}/data/application.properties</value>
                         </systemProperty>
                         <systemProperty>
                             <key>camel.k.routes</key>
-                            <value>file:${project.basedir}/src/main/resources/routes.yaml</value>
+                            <value>file:${project.basedir}/data/routes.groovy</value>
                         </systemProperty>
                     </systemProperties>
                 </configuration>

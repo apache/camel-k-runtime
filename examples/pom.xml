@@ -34,6 +34,7 @@
 
     <modules>
         <module>camel-k-runtime-example-health</module>
+        <module>camel-k-runtime-example-groovy</module>
         <module>camel-k-runtime-example-yaml</module>
         <module>camel-k-runtime-example-knative</module>
         <module>camel-k-runtime-example-quarkus-js</module>
