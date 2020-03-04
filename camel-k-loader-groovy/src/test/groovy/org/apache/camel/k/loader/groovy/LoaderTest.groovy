@@ -100,5 +100,9 @@ class LoaderTest extends Specification {
         void addRoutes(RoutesBuilder builder) {
             this.builders.add(builder)
         }
+
+        @Override
+        void setPropertiesLocations(Collection<String> locations) {
+        }
     }
 }

@@ -18,9 +18,12 @@ package org.apache.camel.k.main;
 
 import java.util.Properties;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.seda.SedaComponent;
+import org.apache.camel.component.properties.PropertiesComponent;
+import org.apache.camel.k.Constants;
 import org.apache.camel.k.ContextCustomizer;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.listener.ContextConfigurer;
@@ -33,21 +36,42 @@ public class PropertiesTest {
 
     @Test
     public void testLoadProperties() throws Exception {
-        Properties properties = PropertiesSupport.loadProperties("src/test/resources/conf.properties", "src/test/resources/conf.d");
+        System.setProperty(Constants.PROPERTY_CAMEL_K_CONF, "src/test/resources/conf.properties");
+        System.setProperty(Constants.PROPERTY_CAMEL_K_CONF_D, "src/test/resources/conf.d");
 
-        ApplicationRuntime runtime = new ApplicationRuntime();
-        runtime.setProperties(properties);
-        runtime.addListener(new ContextConfigurer());
-        runtime.addListener(Runtime.Phase.Started, r -> {
-            CamelContext context = r.getCamelContext();
-            assertThat(context.resolvePropertyPlaceholders("{{root.key}}")).isEqualTo("root.value");
-            assertThat(context.resolvePropertyPlaceholders("{{001.key}}")).isEqualTo("001.value");
-            assertThat(context.resolvePropertyPlaceholders("{{002.key}}")).isEqualTo("002.value");
-            assertThat(context.resolvePropertyPlaceholders("{{a.key}}")).isEqualTo("a.002");
-            runtime.stop();
-        });
+        try {
+            ApplicationRuntime runtime = new ApplicationRuntime();
+            runtime.setInitialProperties(PropertiesSupport.loadApplicationProperties());
+            runtime.setPropertiesLocations(PropertiesSupport.resolveUserPropertiesLocations());
+            runtime.addListener(new ContextConfigurer());
+            runtime.addListener(Runtime.Phase.Started, r -> {
+                final CamelContext context = r.getCamelContext();
+                final PropertiesComponent pc = (PropertiesComponent)context.getPropertiesComponent();
 
-        runtime.run();
+                assertThat(pc.getInitialProperties()).containsExactlyEntriesOf(PropertiesSupport.loadApplicationProperties());
+                assertThat(pc.getInitialProperties().getProperty("root.key")).isEqualTo("root.value");
+                assertThat(pc.getInitialProperties().getProperty("a.key")).isEqualTo("a.root");
+
+                assertThat(pc.getLocations()).hasSameElementsAs(
+                    PropertiesSupport.resolveUserPropertiesLocations().stream()
+                        .map(location -> "file:" + location)
+                        .distinct()
+                        .sorted()
+                        .collect(Collectors.toList())
+                );
+
+                assertThat(pc.resolveProperty("root.key")).get().isEqualTo("root.value");
+                assertThat(pc.resolveProperty("001.key")).get().isEqualTo("001.value");
+                assertThat(pc.resolveProperty("002.key")).get().isEqualTo("002.value");
+                assertThat(pc.resolveProperty("a.key")).get().isEqualTo("a.002");
+                runtime.stop();
+            });
+
+            runtime.run();
+        } finally {
+            System.getProperties().remove(Constants.PROPERTY_CAMEL_K_CONF);
+            System.getProperties().remove(Constants.PROPERTY_CAMEL_K_CONF_D);
+        }
     }
 
     @Test

@@ -57,19 +57,36 @@ public final class PropertiesSupport {
             .bind();
     }
 
-    public static Properties loadProperties() {
-        return loadProperties(
-            System.getProperty(Constants.PROPERTY_CAMEL_K_CONF, System.getenv(Constants.ENV_CAMEL_K_CONF)),
-            System.getProperty(Constants.PROPERTY_CAMEL_K_CONF_D, System.getenv(Constants.ENV_CAMEL_K_CONF_D))
-        );
+    public static String resolveApplicationPropertiesLocation() {
+        return System.getProperty(Constants.PROPERTY_CAMEL_K_CONF, System.getenv(Constants.ENV_CAMEL_K_CONF));
     }
 
-    public static Properties loadProperties(String conf, String confd) {
+    public static Properties loadApplicationProperties() {
+        final String conf = resolveApplicationPropertiesLocation();
         final Properties properties = new Properties();
-        final Collection<String> locations = resolvePropertiesLocations(conf, confd);
 
         try {
-            for (String location: locations) {
+            if (ObjectHelper.isNotEmpty(conf)) {
+                try (Reader reader = Files.newBufferedReader(Paths.get(conf))) {
+                    properties.load(reader);
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return properties;
+    }
+
+    public static String resolveUserPropertiesLocation() {
+        return System.getProperty(Constants.PROPERTY_CAMEL_K_CONF_D, System.getenv(Constants.ENV_CAMEL_K_CONF_D));
+    }
+
+    public static Properties loadUserProperties() {
+        final Properties properties = new Properties();
+
+        try {
+            for (String location: resolveUserPropertiesLocations()) {
                 try (Reader reader = Files.newBufferedReader(Paths.get(location))) {
                     properties.load(reader);
                 }
@@ -81,24 +98,22 @@ public final class PropertiesSupport {
         return properties;
     }
 
-    public static Collection<String> resolvePropertiesLocations() {
-        return resolvePropertiesLocations(
-            System.getProperty(Constants.PROPERTY_CAMEL_K_CONF, System.getenv(Constants.ENV_CAMEL_K_CONF)),
-            System.getProperty(Constants.PROPERTY_CAMEL_K_CONF_D, System.getenv(Constants.ENV_CAMEL_K_CONF_D))
-        );
+    public static Properties loadProperties() {
+        final Properties app = loadApplicationProperties();
+        final Properties usr = loadUserProperties();
+
+        app.putAll(usr);
+
+        return app;
     }
 
-    public static Collection<String> resolvePropertiesLocations(String conf, String confd) {
+    public static Collection<String> resolveUserPropertiesLocations() {
+        final String conf = resolveUserPropertiesLocation();
         final Set<String> locations = new LinkedHashSet<>();
 
-        // Main location
-        if (ObjectHelper.isNotEmpty(conf)) {
-            locations.add(conf);
-        }
-
         // Additional locations
-        if (ObjectHelper.isNotEmpty(confd)) {
-            Path root = Paths.get(confd);
+        if (ObjectHelper.isNotEmpty(conf)) {
+            Path root = Paths.get(conf);
             FileVisitor<Path> visitor = new SimpleFileVisitor<Path>() {
                 @Override
                 public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {

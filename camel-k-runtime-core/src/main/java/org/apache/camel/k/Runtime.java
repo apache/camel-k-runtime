@@ -16,6 +16,8 @@
  */
 package org.apache.camel.k;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -35,6 +37,23 @@ public interface Runtime extends HasCamelContext {
      */
     default Registry getRegistry() {
         return getCamelContext().getRegistry();
+    }
+
+    default void setInitialProperties(Properties properties) {
+        getCamelContext().getPropertiesComponent().setInitialProperties(properties);
+    }
+
+    default void setInitialProperties(Map<String, String> properties) {
+        Properties p = new Properties();
+        p.putAll(properties);
+
+        setInitialProperties(p);
+    }
+
+    default void setInitialProperties(String key, String value, String... keyVals) {
+        setInitialProperties(
+            mapOf(HashMap::new, key, value, keyVals)
+        );
     }
 
     default void setProperties(Properties properties) {
@@ -64,6 +83,12 @@ public interface Runtime extends HasCamelContext {
 
     default void addConfiguration(Object configuration) {
         throw new UnsupportedOperationException();
+    }
+
+    void setPropertiesLocations(Collection<String> locations);
+
+    default void setPropertiesLocations(String... locations) {
+        setPropertiesLocations(Arrays.asList(locations));
     }
 
     /**
@@ -100,7 +125,16 @@ public interface Runtime extends HasCamelContext {
      * @return the runtime
      */
     static Runtime on(CamelContext camelContext) {
-        return () -> camelContext;
+        return new Runtime() {
+            @Override
+            public void setPropertiesLocations(Collection<String> locations) {
+            }
+
+            @Override
+            public CamelContext getCamelContext() {
+                return camelContext;
+            }
+        };
     }
 
     /**
@@ -110,6 +144,15 @@ public interface Runtime extends HasCamelContext {
      * @return the runtime
      */
     static Runtime on(HasCamelContext provider) {
-        return () -> provider.getCamelContext();
+        return new Runtime() {
+            @Override
+            public void setPropertiesLocations(Collection<String> locations) {
+            }
+
+            @Override
+            public CamelContext getCamelContext() {
+                return provider.getCamelContext();
+            }
+        };
     }
 }

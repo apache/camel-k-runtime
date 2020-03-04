@@ -119,36 +119,36 @@ public class GenerateCatalogMojo extends AbstractMojo {
                 version -> runtimeSpec.putMetadata("camel-quarkus.version", version));
 
             switch (runtime) {
-            case "main":
-                catalog.setRuntimeProvider(new DefaultRuntimeProvider());
-                runtimeSpec.applicationClass("org.apache.camel.k.main.Application");
-                runtimeSpec.addDependency("org.apache.camel.k", "camel-k-runtime-main");
-                runtimeSpec.putCapability(
-                    "health",
-                    CamelCapability.forArtifact("org.apache.camel.k", "camel-k-runtime-health"));
-                runtimeSpec.putCapability(
-                    "rest",
-                    new CamelCapability.Builder()
-                        .addDependency("org.apache.camel", "camel-rest")
-                        .addDependency("org.apache.camel", "camel-undertow")
-                        .build());
-                break;
-            case "quarkus":
-                catalog.setRuntimeProvider(new QuarkusRuntimeProvider());
-                runtimeSpec.applicationClass("io.quarkus.runner.GeneratedMain");
-                runtimeSpec.addDependency("org.apache.camel.k", "camel-k-runtime-quarkus");
-                runtimeSpec.putCapability(
-                    "health",
-                    CamelCapability.forArtifact("org.apache.camel.quarkus", "camel-quarkus-microprofile-health"));
-                runtimeSpec.putCapability(
-                    "rest",
-                    new CamelCapability.Builder()
-                        .addDependency("org.apache.camel.quarkus", "camel-quarkus-rest")
-                        .addDependency("org.apache.camel.quarkus", "camel-quarkus-platform-http")
-                        .build());
-                break;
-            default:
-                throw new IllegalArgumentException("catalog.runtime parameter value [" + runtime + "] is not supported!");
+                case "main":
+                    catalog.setRuntimeProvider(new DefaultRuntimeProvider());
+                    runtimeSpec.applicationClass("org.apache.camel.k.main.Application");
+                    runtimeSpec.addDependency("org.apache.camel.k", "camel-k-runtime-main");
+                    runtimeSpec.putCapability(
+                        "health",
+                        CamelCapability.forArtifact("org.apache.camel.k", "camel-k-runtime-health"));
+                    runtimeSpec.putCapability(
+                        "rest",
+                        new CamelCapability.Builder()
+                            .addDependency("org.apache.camel", "camel-rest")
+                            .addDependency("org.apache.camel", "camel-undertow")
+                            .build());
+                    break;
+                case "quarkus":
+                    catalog.setRuntimeProvider(new QuarkusRuntimeProvider());
+                    runtimeSpec.applicationClass("io.quarkus.runner.GeneratedMain");
+                    runtimeSpec.addDependency("org.apache.camel.k", "camel-k-runtime-quarkus");
+                    runtimeSpec.putCapability(
+                        "health",
+                        CamelCapability.forArtifact("org.apache.camel.quarkus", "camel-quarkus-microprofile-health"));
+                    runtimeSpec.putCapability(
+                        "rest",
+                        new CamelCapability.Builder()
+                            .addDependency("org.apache.camel.quarkus", "camel-quarkus-rest")
+                            .addDependency("org.apache.camel.quarkus", "camel-quarkus-platform-http")
+                            .build());
+                    break;
+                default:
+                    throw new IllegalArgumentException("catalog.runtime parameter value [" + runtime + "] is not supported!");
             }
 
             CamelCatalogSpec.Builder catalogSpec = new CamelCatalogSpec.Builder()

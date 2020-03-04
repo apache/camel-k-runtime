@@ -81,6 +81,10 @@
                             <value>${project.basedir}/src/main/resources/conf/application.properties</value>
                         </systemProperty>
                         <systemProperty>
+                            <key>camel.k.conf.d</key>
+                            <value>${project.basedir}/src/main/resources/conf.d</value>
+                        </systemProperty>
+                        <systemProperty>
                             <key>camel.k.routes</key>
                             <value>file:${project.basedir}/src/main/resources/routes.yaml</value>
                         </systemProperty>
