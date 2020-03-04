@@ -90,5 +90,8 @@ class LoaderTest {
         override fun addRoutes(builder: RoutesBuilder) {
             this.builders.add(builder)
         }
+
+        override fun setPropertiesLocations(locations: MutableCollection<String>?) {
+        }
     }
 }

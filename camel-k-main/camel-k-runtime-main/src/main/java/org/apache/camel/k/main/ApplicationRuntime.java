@@ -16,6 +16,7 @@
  */
 package org.apache.camel.k.main;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashSet;
@@ -59,12 +60,6 @@ public final class ApplicationRuntime implements Runtime {
         this.main.configure().setXmlRests("false");
         this.main.setRoutesCollector(new NoRoutesCollector());
         this.main.addMainListener(new MainListenerAdapter());
-
-        this.main.setPropertyPlaceholderLocations(
-            PropertiesSupport.resolvePropertiesLocations().stream()
-                .map(location -> "file:" + location)
-                .collect(Collectors.joining(","))
-        );
     }
 
     @Override
@@ -92,8 +87,24 @@ public final class ApplicationRuntime implements Runtime {
     }
 
     @Override
+    public void setInitialProperties(Properties properties) {
+        this.main.setInitialProperties(properties);
+    }
+
+    @Override
     public void setProperties(Properties properties) {
         this.main.setOverrideProperties(properties);
+    }
+
+    @Override
+    public void setPropertiesLocations(Collection<String> locations) {
+        this.main.setPropertyPlaceholderLocations(
+            locations.stream()
+                .map(location -> location.startsWith("file:") ? location : "file:" + location)
+                .distinct()
+                .sorted()
+                .collect(Collectors.joining(","))
+        );
     }
 
     public void addListeners(Iterable<Runtime.Listener> listeners) {

@@ -17,8 +17,11 @@
 package org.apache.camel.k.core.quarkus;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Properties;
+import java.util.stream.Collectors;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
@@ -107,6 +110,27 @@ public class RuntimeListenerAdapter implements MainListener {
             @Override
             public void addConfiguration(Object configuration) {
                 main.addConfiguration(configuration);
+            }
+
+            @Override
+            public void setInitialProperties(Properties properties) {
+                main.setInitialProperties(properties);
+            }
+
+            @Override
+            public void setProperties(Properties properties) {
+                main.setOverrideProperties(properties);
+            }
+
+            @Override
+            public void setPropertiesLocations(Collection<String> locations) {
+                main.setPropertyPlaceholderLocations(
+                    locations.stream()
+                        .map(location -> location.startsWith("file:") ? location : "file:" + location)
+                        .distinct()
+                        .sorted()
+                        .collect(Collectors.joining(","))
+                );
             }
         };
     }

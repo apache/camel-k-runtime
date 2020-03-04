@@ -112,6 +112,7 @@
                     </arguments>
                     <environmentVariables>
                         <CAMEL_K_CONF>${project.basedir}/data/application.properties</CAMEL_K_CONF>
+                        <CAMEL_K_CONF_D>${project.basedir}/data/conf.d</CAMEL_K_CONF_D>
                         <CAMEL_K_ROUTES>file:${project.basedir}/data/routes.yaml</CAMEL_K_ROUTES>
                     </environmentVariables>
                 </configuration>
@@ -164,6 +165,7 @@
                             <workingDirectory>${project.basedir}</workingDirectory>
                             <environmentVariables>
                                 <CAMEL_K_CONF>${project.basedir}/data/application.properties</CAMEL_K_CONF>
+                                <CAMEL_K_CONF_D>${project.basedir}/data/conf.d</CAMEL_K_CONF_D>
                                 <CAMEL_K_ROUTES>file:${project.basedir}/data/routes.yaml</CAMEL_K_ROUTES>
                             </environmentVariables>
                         </configuration>

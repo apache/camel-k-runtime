@@ -106,3 +106,17 @@
                       simple: "${body.toLowerCase()}"
                   - to:
                       uri: "log:contains2"
+- route:
+    id: "tick"
+    group: "routes"
+    from:
+      uri: "timer:tick"
+      parameters:
+        period: "5s"
+      steps:
+        - set-body:
+            simple: "${exchangeProperty.CamelTimerName} -> ${exchangeProperty.CamelTimerCounter}"
+        - to:
+            uri: "log:tick"
+        - log:
+            message: "${properties:message}"

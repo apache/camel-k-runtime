@@ -38,4 +38,4 @@
         - to:
             uri: "log:tick"
         - log:
-            message: "{{message}}"
+            message: "${properties:message}"

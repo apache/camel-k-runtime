@@ -17,6 +17,7 @@
 package org.apache.camel.k.loader.js;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -85,6 +86,10 @@ public class RoutesLoaderTest {
         @Override
         public void addRoutes(RoutesBuilder builder) {
             this.builders.add(builder);
+        }
+
+        @Override
+        public void setPropertiesLocations(Collection<String> locations) {
         }
     }
 }

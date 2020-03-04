@@ -79,22 +79,22 @@ public class WebhookRoutePolicyFactory implements RoutePolicyFactory {
 
         private void executeWebhookAction(WebhookCapableEndpoint endpoint) {
             switch (this.action) {
-            case REGISTER:
-                try {
-                    endpoint.registerWebhook();
-                } catch (Exception ex) {
-                    throw new RuntimeCamelException("Unable to register webhook for endpoint " + endpoint, ex);
-                }
-                return;
-            case UNREGISTER:
-                try {
-                    endpoint.unregisterWebhook();
-                } catch (Exception ex) {
-                    throw new RuntimeCamelException("Unable to unregister webhook for endpoint " + endpoint, ex);
-                }
-                return;
-            default:
-                throw new UnsupportedOperationException("Unsupported webhook action type: " + this.action);
+                case REGISTER:
+                    try {
+                        endpoint.registerWebhook();
+                    } catch (Exception ex) {
+                        throw new RuntimeCamelException("Unable to register webhook for endpoint " + endpoint, ex);
+                    }
+                    return;
+                case UNREGISTER:
+                    try {
+                        endpoint.unregisterWebhook();
+                    } catch (Exception ex) {
+                        throw new RuntimeCamelException("Unable to unregister webhook for endpoint " + endpoint, ex);
+                    }
+                    return;
+                default:
+                    throw new UnsupportedOperationException("Unsupported webhook action type: " + this.action);
             }
         }
     }

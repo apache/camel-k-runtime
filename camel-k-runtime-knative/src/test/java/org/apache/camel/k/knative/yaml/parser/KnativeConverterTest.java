@@ -17,6 +17,7 @@
 package org.apache.camel.k.knative.yaml.parser;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.apache.camel.CamelContext;
@@ -110,6 +111,10 @@ public class KnativeConverterTest {
         @Override
         public void addRoutes(RoutesBuilder builder) {
             this.builders.add(builder);
+        }
+
+        @Override
+        public void setPropertiesLocations(Collection<String> locations) {
         }
     }
 }

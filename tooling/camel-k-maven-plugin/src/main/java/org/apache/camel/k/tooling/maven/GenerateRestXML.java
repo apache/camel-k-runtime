@@ -47,8 +47,11 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
     requiresDependencyResolution = ResolutionScope.COMPILE,
     threadSafe = true,
     requiresProject = false)
-public class GenerateRestXML extends AbstractMojo {
-    private static final String[] YAML_EXTENSIONS = { "yaml", "yml" };
+class GenerateRestXML extends AbstractMojo {
+    private static final String[] YAML_EXTENSIONS = {
+        "yaml",
+        "yml"
+    };
 
     @Parameter(property = "openapi.spec")
     private String inputFile;
