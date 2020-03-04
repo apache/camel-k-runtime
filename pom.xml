@@ -696,8 +696,8 @@
                 </property>
             </activation>
             <properties>
-                <native-image.container-runtime>docker</native-image.container-runtime>
-                <native-image.docker-build>true</native-image.docker-build>
+                <quarkus.native.container-build>true</quarkus.native.container-build>
+                <quarkus.native.container-runtime>docker</quarkus.native.container-runtime>
             </properties>
         </profile>
     </profiles>
