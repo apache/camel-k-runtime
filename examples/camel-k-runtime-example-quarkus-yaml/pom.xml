@@ -145,26 +145,12 @@
                     <name>native</name>
                 </property>
             </activation>
+            <properties>
+                <quarkus.package.output-name>${project.artifactId}</quarkus.package.output-name>
+                <quarkus.package.type>native</quarkus.package.type>
+            </properties>
             <build>
                 <plugins>
-                    <plugin>
-                        <groupId>io.quarkus</groupId>
-                        <artifactId>quarkus-maven-plugin</artifactId>
-                        <version>${quarkus.version}</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>native-image</goal>
-                                </goals>
-                                <configuration>
-                                    <finalName>${project.artifactId}</finalName>
-                                    <enableHttpUrlHandler>true</enableHttpUrlHandler>
-                                    <enableJni>true</enableJni>
-                                    <disableReports>true</disableReports>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
