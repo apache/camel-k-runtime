@@ -16,7 +16,7 @@
     "firstVersion": "3.0.0",
     "groupId": "org.apache.camel.k",
     "artifactId": "camel-knative",
-    "version": "1.1.1-SNAPSHOT"
+    "version": "1.2.0-SNAPSHOT"
   },
   "componentProperties": {
     "cloudEventsSpecVersion": { "kind": "property", "displayName": "Cloud Events Spec Version", "group": "common", "required": false, "type": "string", "javaType": "java.lang.String", "deprecated": false, "secret": false, "description": "Set the version of the cloudevents spec." },
