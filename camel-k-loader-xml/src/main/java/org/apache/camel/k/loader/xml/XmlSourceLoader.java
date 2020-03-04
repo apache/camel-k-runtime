@@ -20,8 +20,6 @@ import java.io.InputStream;
 import java.util.Collections;
 import java.util.List;
 
-import javax.xml.bind.UnmarshalException;
-
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.k.Runtime;
@@ -31,6 +29,7 @@ import org.apache.camel.k.annotation.Loader;
 import org.apache.camel.model.RoutesDefinition;
 import org.apache.camel.model.rest.RestsDefinition;
 import org.apache.camel.spi.XMLRoutesDefinitionLoader;
+import org.apache.camel.xml.io.XmlPullParserException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,7 +60,7 @@ public class XmlSourceLoader implements SourceLoader {
                         }
                     } catch (IllegalArgumentException e) {
                         // ignore
-                    } catch (UnmarshalException e) {
+                    } catch (XmlPullParserException e) {
                         LOGGER.debug("Unable to load RoutesDefinition: {}", e.getMessage());
                     }
                 }
@@ -76,7 +75,7 @@ public class XmlSourceLoader implements SourceLoader {
                         }
                     } catch (IllegalArgumentException e) {
                         // ignore
-                    } catch (UnmarshalException e) {
+                    } catch (XmlPullParserException e) {
                         LOGGER.debug("Unable to load RestsDefinition: {}", e.getMessage());
                     }
                 }

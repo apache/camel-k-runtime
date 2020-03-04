@@ -33,10 +33,6 @@
             <artifactId>camel-k-quarkus-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-core-xml</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.apache.camel.k</groupId>
             <artifactId>camel-k-loader-xml</artifactId>
         </dependency>

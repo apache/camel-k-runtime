@@ -42,6 +42,7 @@
         <module>camel-k-runtime-example-quarkus-knative</module>
         <module>camel-k-runtime-example-quarkus-groovy</module>
         <module>camel-k-runtime-example-quarkus-java</module>
+        <module>camel-k-runtime-example-quarkus-xml</module>
     </modules>
 
     <build>
