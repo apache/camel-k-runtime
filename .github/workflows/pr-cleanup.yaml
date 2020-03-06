@@ -1,0 +1,17 @@
+name: Cleanup Previous Runs
+
+on:
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '*/5 * * * *'
+
+jobs:
+  cleanup-prs:
+    if: github.repository == 'apache/camel-k-runtime'
+    name: "Cleanup Previous Runs"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: n1hility/cancel-previous-runs@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          workflow: ci-actions.yml
