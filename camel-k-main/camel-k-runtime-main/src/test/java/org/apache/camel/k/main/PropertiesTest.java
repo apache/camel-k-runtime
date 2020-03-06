@@ -21,8 +21,8 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.component.seda.SedaComponent;
 import org.apache.camel.component.properties.PropertiesComponent;
+import org.apache.camel.component.seda.SedaComponent;
 import org.apache.camel.k.Constants;
 import org.apache.camel.k.ContextCustomizer;
 import org.apache.camel.k.Runtime;
