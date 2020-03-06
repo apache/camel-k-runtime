@@ -23,14 +23,104 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 8
+      uses: joschi/setup-jdk@v1
+      with:
+        java-version: openjdk8
+    - name: mvn install
+      run: ./mvnw -V -B -ntp clean install
+    - name: Save Cache
+      uses: actions/cache@v1
+      with:
+        path: ~/.m2/repository
+        key: maven-${{ github.sha }}
+        restore-keys: |
+          maven-${{ github.sha }}
+  build-additional-jvm:
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        java: [ '1.8', '11' ]
+        java:
+          - openjdk11
+          - openjdk12
     steps:
-    - uses: actions/checkout@v1
-    - name: Set up JDK ${{ matrix.java }}
-      uses: actions/setup-java@v1
-      with:
-        java-version: ${{ matrix.java }}
-    - name: mvn install
-      run: ./mvnw -V -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean install
+      - uses: actions/checkout@v2
+      - name: Set up JDK - ${{ matrix.java }}
+        uses: joschi/setup-jdk@v1
+        with:
+          java-version: ${{ matrix.java }}
+      - name: Build on ${{ matrix.java }}
+        run: |
+          ./mvnw -V -B -ntp clean install
+  build-native:
+    runs-on: ubuntu-latest
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        native-image-project:
+          - :camel-k-quarkus-core-it
+          - :camel-k-quarkus-loader-xml-it
+          - :camel-k-quarkus-loader-yaml-it
+          - :camel-k-runtime-example-quarkus-xml
+          - :camel-k-runtime-example-quarkus-yaml
+          - :camel-k-runtime-example-quarkus-knative
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up JDK 8
+        uses: joschi/setup-jdk@v1
+        with:
+          java-version: openjdk8
+      - name: Restore Cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: maven-${{ github.sha }}
+          restore-keys: |
+            maven-${{ github.sha }}
+      - name: Integration Test - ${{ matrix.native-image-project }}
+        run: |
+          ./mvnw -V -B -ntp -nsu clean install \
+            -Dnative \
+            -Dnative-image.xmx=6g \
+            -Ddocker \
+            -pl ${{ matrix.native-image-project }}
+#
+# JS build disabled as fails for OOM
+# relates to: https://github.com/oracle/graal/issues/2129
+#
+#   build-native-js:
+#     runs-on: ubuntu-latest
+#     needs: build
+#     strategy:
+#       fail-fast: false
+#       matrix:
+#         native-image-project:
+#           - :camel-k-quarkus-loader-js-it
+#           - :camel-k-runtime-example-quarkus-js
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v2
+#       - name: Set up JDK 8
+#         uses: joschi/setup-jdk@v1
+#         with:
+#           java-version: openjdk8
+#       - name: Restore Cache
+#         uses: actions/cache@v1
+#         with:
+#           path: ~/.m2/repository
+#           key: maven-${{ github.sha }}
+#           restore-keys: |
+#             maven-${{ github.sha }}
+#       - name: Examples - ${{ matrix.native-image-project }}
+#         run: |
+#           ./mvnw -V -B -ntp -nsu clean package \
+#             -Dnative \
+#             -Dnative-image.xmx=6g \
+#             -Ddocker \
+#             -DskipTests \
+#             -pl ${{ matrix.native-image-project }}
+
