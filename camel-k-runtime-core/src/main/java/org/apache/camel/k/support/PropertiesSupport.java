@@ -65,9 +65,15 @@ public final class PropertiesSupport {
         final String conf = resolveApplicationPropertiesLocation();
         final Properties properties = new Properties();
 
+        if (ObjectHelper.isEmpty(conf)) {
+            return properties;
+        }
+
         try {
-            if (ObjectHelper.isNotEmpty(conf)) {
-                try (Reader reader = Files.newBufferedReader(Paths.get(conf))) {
+            Path confPath = Paths.get(conf);
+
+            if (Files.exists(confPath)) {
+                try (Reader reader = Files.newBufferedReader(confPath)) {
                     properties.load(reader);
                 }
             }
