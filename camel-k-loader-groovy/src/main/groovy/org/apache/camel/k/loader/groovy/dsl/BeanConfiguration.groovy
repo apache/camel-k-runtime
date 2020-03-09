@@ -32,7 +32,7 @@ class BeanConfiguration {
     }
 
     def methodMissing(String name, arguments) {
-        final Object value
+        Object value = null
         final Object[] args = arguments as Object[]
 
         if (args == null) {
