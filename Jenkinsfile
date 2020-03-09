@@ -21,7 +21,7 @@ def LOCAL_REPOSITORY = env.LOCAL_REPOSITORY ?: '/home/jenkins/jenkins-slave/mave
 def AGENT_LABEL = env.AGENT_LABEL ?: 'ubuntu'
 def JDK_NAME = env.JDK_NAME ?: 'JDK 1.8 (latest)'
 
-def MAVEN_PARAMS = "-U -B -e -fae -V -Dmaven.repo.local=${LOCAL_REPOSITORY}"
+def MAVEN_PARAMS = "-U -e -fae -ntp -V -Dmaven.repo.local=${LOCAL_REPOSITORY}"
 
 pipeline {
 
@@ -43,7 +43,7 @@ pipeline {
     stages {
         stage('Test & Install') {
             steps {
-                sh "./mvnw $MAVEN_PARAMS clean install -Dcheckstyle.failOnViolation=true -Psourcecheck -f pom.xml -Dnative -Dnative-image.docker-build=true"
+                sh "./mvnw $MAVEN_PARAMS clean install -Dcheckstyle.failOnViolation=true -Psourcecheck -f pom.xml -Dnative -Ddocker"
             }
         }
 
