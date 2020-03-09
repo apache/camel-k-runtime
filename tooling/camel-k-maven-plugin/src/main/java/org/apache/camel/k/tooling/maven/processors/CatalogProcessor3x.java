@@ -115,7 +115,6 @@ public class CatalogProcessor3x implements CatalogProcessor {
         specBuilder.putArtifact("org.apache.camel.k", "camel-k-loader-js");
         specBuilder.putArtifact("org.apache.camel.k", "camel-k-loader-xml");
         specBuilder.putArtifact("org.apache.camel.k", "camel-k-loader-java");
-        specBuilder.putArtifact("org.apache.camel.k", "camel-k-loader-knative");
 
         specBuilder.putArtifact(
             new CamelArtifact.Builder()
@@ -153,7 +152,6 @@ public class CatalogProcessor3x implements CatalogProcessor {
                 .groupId("org.apache.camel.k")
                 .artifactId("camel-k-runtime-knative")
                 .addDependencies(MavenArtifact.from("org.apache.camel.k", "camel-k-loader-yaml"))
-                .addDependencies(MavenArtifact.from("org.apache.camel.k", "camel-k-loader-knative"))
                 .addDependencies(MavenArtifact.from("org.apache.camel.k", "camel-knative-api"))
                 .addDependencies(MavenArtifact.from("org.apache.camel.k", "camel-knative"))
                 .addDependencies(MavenArtifact.from("org.apache.camel.k", "camel-knative-http"))
@@ -218,13 +216,6 @@ public class CatalogProcessor3x implements CatalogProcessor {
                     .putMetadata("native", "false")
                     .build()
             );
-            specBuilder.putLoader(
-                "knative-source",
-                CamelLoader.fromArtifact("org.apache.camel.k", "camel-k-quarkus-loader-knative")
-                    .addDependency("org.apache.camel.k", "camel-k-quarkus-knative")
-                    .putMetadata("native", "true")
-                    .build()
-            );
         } else {
             specBuilder.putLoader(
                 "yaml",
@@ -262,13 +253,6 @@ public class CatalogProcessor3x implements CatalogProcessor {
                     .addLanguage("java")
                     .build()
             );
-            specBuilder.putLoader(
-                "knative-source",
-                CamelLoader.fromArtifact("org.apache.camel.k", "camel-k-loader-knative")
-                    .addDependency("org.apache.camel.k", "camel-k-runtime-knative")
-                    .build()
-            );
-
         }
     }
     private static void processComponents(org.apache.camel.catalog.CamelCatalog catalog, Map<String, CamelArtifact> artifacts) {
