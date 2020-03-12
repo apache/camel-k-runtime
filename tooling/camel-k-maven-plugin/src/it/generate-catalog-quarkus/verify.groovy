@@ -30,3 +30,9 @@ assert catalog.spec.runtime.capabilities['rest'].dependencies[1].groupId == 'org
 assert catalog.spec.runtime.capabilities['rest'].dependencies[1].artifactId == 'camel-quarkus-platform-http'
 
 assert catalog.metadata.labels['camel.apache.org/runtime.version'] == runtimeVersion
+
+assert catalog.spec.artifacts['camel-knative'].dependencies.size == 1
+assert catalog.spec.artifacts['camel-knative'].dependencies[0].groupId == 'org.apache.camel.k'
+assert catalog.spec.artifacts['camel-knative'].dependencies[0].artifactId == 'camel-k-quarkus-knative'
+assert catalog.spec.artifacts['camel-knative'].schemes.size == 1
+assert catalog.spec.artifacts['camel-knative'].schemes[0].id == 'knative'

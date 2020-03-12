@@ -24,6 +24,7 @@ import java.util.Objects;
 
 import com.vdurmont.semver4j.Semver;
 import org.apache.camel.catalog.CamelCatalog;
+import org.apache.camel.catalog.DefaultRuntimeProvider;
 import org.apache.camel.catalog.quarkus.QuarkusRuntimeProvider;
 import org.apache.camel.k.tooling.maven.model.CamelArtifact;
 import org.apache.camel.k.tooling.maven.model.CamelLoader;
@@ -151,10 +152,16 @@ public class CatalogProcessor3x implements CatalogProcessor {
             new CamelArtifact.Builder()
                 .groupId("org.apache.camel.k")
                 .artifactId("camel-k-runtime-knative")
-                .addDependencies(MavenArtifact.from("org.apache.camel.k", "camel-k-loader-yaml"))
-                .addDependencies(MavenArtifact.from("org.apache.camel.k", "camel-knative-api"))
-                .addDependencies(MavenArtifact.from("org.apache.camel.k", "camel-knative"))
-                .addDependencies(MavenArtifact.from("org.apache.camel.k", "camel-knative-http"))
+                .addDependencies(
+                    () -> catalog.getRuntimeProvider() instanceof DefaultRuntimeProvider,
+                    MavenArtifact.from("org.apache.camel.k", "camel-k-loader-yaml"),
+                    MavenArtifact.from("org.apache.camel.k", "camel-knative-api"),
+                    MavenArtifact.from("org.apache.camel.k", "camel-knative"),
+                    MavenArtifact.from("org.apache.camel.k", "camel-knative-http"))
+                .addDependencies(
+                    () -> catalog.getRuntimeProvider() instanceof QuarkusRuntimeProvider,
+                    MavenArtifact.from("org.apache.camel.k", "camel-k-quarkus-knative"),
+                    MavenArtifact.from("org.apache.camel.k", "camel-k-quarkus-loader-yaml"))
                 .build()
         );
 
@@ -166,8 +173,14 @@ public class CatalogProcessor3x implements CatalogProcessor {
                     .id("knative")
                     .http(true)
                     .build())
-                .addDependencies(MavenArtifact.from("org.apache.camel.k", "camel-knative-api"))
-                .addDependencies(MavenArtifact.from("org.apache.camel.k", "camel-knative-http"))
+                .addDependencies(
+                    () -> catalog.getRuntimeProvider() instanceof DefaultRuntimeProvider,
+                    MavenArtifact.from("org.apache.camel.k", "camel-knative-api"),
+                    MavenArtifact.from("org.apache.camel.k", "camel-knative"),
+                    MavenArtifact.from("org.apache.camel.k", "camel-knative-http"))
+                .addDependencies(
+                    () -> catalog.getRuntimeProvider() instanceof QuarkusRuntimeProvider,
+                    MavenArtifact.from("org.apache.camel.k", "camel-k-quarkus-knative"))
                 .build()
         );
     }

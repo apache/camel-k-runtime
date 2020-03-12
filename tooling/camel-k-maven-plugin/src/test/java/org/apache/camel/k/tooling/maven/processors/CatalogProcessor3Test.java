@@ -53,8 +53,6 @@ public class CatalogProcessor3Test extends AbstractCatalogProcessorTest {
 
     @Test
     public void testAcceptEqualToHigher() {
-        CatalogProcessor3x cp3 = new CatalogProcessor3x();
-
         CamelCatalog catalog = versionCamelCatalog("4.0.0");
 
         assertThat(new CatalogProcessor3x().accepts(catalog)).isFalse();
@@ -87,7 +85,7 @@ public class CatalogProcessor3Test extends AbstractCatalogProcessorTest {
 
         assertThat(artifactMap.get("camel-k-runtime-knative")).satisfies(a -> {
             assertThat(a.getDependencies()).anyMatch(
-                d -> d.getGroupId().equals("org.apache.camel.k") && d.getArtifactId().equals("camel-knative")
+                d -> d.getGroupId().equals("org.apache.camel.k") && d.getArtifactId().equals("camel-knative-api")
             );
             assertThat(a.getDependencies()).anyMatch(
                 d -> d.getGroupId().equals("org.apache.camel.k") && d.getArtifactId().equals("camel-knative")
