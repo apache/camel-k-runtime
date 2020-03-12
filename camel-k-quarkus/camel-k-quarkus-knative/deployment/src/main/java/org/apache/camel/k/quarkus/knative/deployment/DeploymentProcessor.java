@@ -21,7 +21,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import io.quarkus.vertx.deployment.VertxBuildItem;
+import io.quarkus.vertx.core.deployment.CoreVertxBuildItem;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
 import org.apache.camel.k.quarkus.knative.KnativeRecorder;
 import org.apache.camel.quarkus.core.deployment.CamelRuntimeBeanBuildItem;
@@ -41,7 +41,7 @@ public class DeploymentProcessor {
 
     @Record(ExecutionTime.RUNTIME_INIT)
     @BuildStep
-    CamelRuntimeBeanBuildItem knativeComponent(KnativeRecorder recorder, VertxBuildItem vertx) {
+    CamelRuntimeBeanBuildItem knativeComponent(KnativeRecorder recorder, CoreVertxBuildItem vertx) {
         return new CamelRuntimeBeanBuildItem(
             "knative",
             "org.apache.camel.component.knative.KnativeComponent",
