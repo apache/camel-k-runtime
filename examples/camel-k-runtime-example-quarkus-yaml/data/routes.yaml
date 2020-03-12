@@ -19,7 +19,7 @@
     id: "flow-1"
     group: "routes"
     from:
-      uri: "netty-http:localhost:8080"
+      uri: "platform-http://hello"
       steps:
         - convert-body:
             type: "java.lang.String"
