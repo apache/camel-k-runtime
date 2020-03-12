@@ -16,6 +16,8 @@
  */
 package org.apache.camel.k.quarkus.knative;
 
+import java.util.function.Supplier;
+
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import io.vertx.core.Vertx;
@@ -24,9 +26,9 @@ import org.apache.camel.component.knative.http.KnativeHttpTransport;
 
 @Recorder
 public class KnativeRecorder {
-    public RuntimeValue<KnativeComponent> createKnativeComponent(RuntimeValue<Vertx> vertx) {
+    public RuntimeValue<KnativeComponent> createKnativeComponent(Supplier<Vertx> vertx) {
         KnativeHttpTransport transport = new KnativeHttpTransport();
-        transport.setVertx(vertx.getValue());
+        transport.setVertx(vertx.get());
 
         KnativeComponent component = new KnativeComponent();
         component.setTransport(transport);
