@@ -115,7 +115,7 @@ public class GenerateCatalogMojo extends AbstractMojo {
                 version -> runtimeSpec.putMetadata("quarkus.version", version));
             getVersion(
                 QuarkusRuntimeProvider.class,
-                "org.apache.camel.quarkus", "camel-catalog-quarkus",
+                "org.apache.camel.quarkus", "camel-quarkus-catalog",
                 version -> runtimeSpec.putMetadata("camel-quarkus.version", version));
 
             switch (runtime) {
