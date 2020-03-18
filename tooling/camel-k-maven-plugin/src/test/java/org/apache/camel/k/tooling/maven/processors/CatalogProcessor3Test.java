@@ -80,7 +80,7 @@ public class CatalogProcessor3Test extends AbstractCatalogProcessorTest {
         Map<String, CamelArtifact> artifactMap = spec.getArtifacts();
 
         assertThat(artifactMap).containsKeys("camel-k-runtime-health");
-        assertThat(artifactMap).containsKeys("camel-k-runtime-inspector");
+        assertThat(artifactMap).containsKeys("camel-k-runtime-http");
         assertThat(artifactMap).containsKeys("camel-k-runtime-webhook");
 
         assertThat(artifactMap.get("camel-k-runtime-knative")).satisfies(a -> {

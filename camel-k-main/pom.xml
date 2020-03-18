@@ -31,7 +31,7 @@
     <modules>
         <module>camel-k-runtime-main</module>
         <module>camel-k-runtime-health</module>
-        <module>camel-k-runtime-inspector</module>
+        <module>camel-k-runtime-http</module>
     </modules>
 
 </project>

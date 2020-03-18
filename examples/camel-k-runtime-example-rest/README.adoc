@@ -1,0 +1,58 @@
+Rest Apache Camel K Runtime example
+======================================
+
+This repository contains an Apache Camel-K Runtime application that expose a `rest` endpoint and and `/health` endpoint to gather Camel context status.
+
+In order to run it:
+[code,shell]
+----
+mvn clean exec:java
+----
+
+while it is running (from another terminal) you can access to:
+
+* health info with:
++
+[code,shell]
+----
+http http://localhost:8080/health
+----
++
+if the camel context has started properly that should get:
++
+[code,json]
+----
+{
+    "checks": [
+        {
+            "name": "context",
+            "status": "UP"
+        },
+        {
+            "name": "route:route1",
+            "status": "UP"
+        },
+        {
+            "name": "route:route2",
+            "status": "UP"
+        }
+    ],
+    "status": "UP"
+}
+----
+
+* rest endpoint info with:
++
+[code,shell]
+----
+http POST http://localhost:8080/rest a=b
+----
++
+if the route has started properly that should get:
++
+[code,json]
+----
+{
+    "A": "B"
+}
+----

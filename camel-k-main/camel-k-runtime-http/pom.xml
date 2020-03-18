@@ -25,7 +25,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>camel-k-runtime-health</artifactId>
+    <artifactId>camel-k-runtime-http</artifactId>
 
     <dependencies>
 
@@ -40,12 +40,12 @@
             <artifactId>camel-core-engine</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-runtime-core</artifactId>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-platform-http</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-runtime-http</artifactId>
+            <artifactId>camel-k-runtime-core</artifactId>
         </dependency>
 
         <dependency>
@@ -63,16 +63,6 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-direct</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-mock</artifactId>
             <scope>test</scope>
         </dependency>
 
@@ -101,6 +91,7 @@
             <version>${assertj.version}</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>

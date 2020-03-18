@@ -133,7 +133,7 @@ public class GenerateCatalogMojo extends AbstractMojo {
                         "rest",
                         new CamelCapability.Builder()
                             .addDependency("org.apache.camel", "camel-rest")
-                            .addDependency("org.apache.camel", "camel-undertow")
+                            .addDependency("org.apache.camel.k", "camel-k-runtime-http")
                             .build());
                     break;
                 case "quarkus":
