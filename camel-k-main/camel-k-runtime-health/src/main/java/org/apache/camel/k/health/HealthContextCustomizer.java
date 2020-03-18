@@ -23,6 +23,8 @@ import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
+import io.vertx.ext.web.Route;
+import io.vertx.ext.web.Router;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Ordered;
 import org.apache.camel.health.HealthCheck;
@@ -33,7 +35,7 @@ import org.apache.camel.impl.health.AbstractHealthCheck;
 import org.apache.camel.impl.health.ContextHealthCheck;
 import org.apache.camel.impl.health.RoutesHealthCheckRepository;
 import org.apache.camel.k.ContextCustomizer;
-import org.apache.camel.k.inspector.InspectorCustomizer;
+import org.apache.camel.k.http.PlatformHttpRouter;
 
 public class HealthContextCustomizer implements ContextCustomizer {
     public static final String DEFAULT_PATH = "/health";
@@ -83,7 +85,7 @@ public class HealthContextCustomizer implements ContextCustomizer {
 
     @Override
     public int getOrder() {
-        return Ordered.HIGHEST;
+        return Ordered.LOWEST;
     }
 
     @Override
@@ -105,14 +107,15 @@ public class HealthContextCustomizer implements ContextCustomizer {
             throw new RuntimeException(e);
         }
 
-        camelContext.getRegistry().bind(
-            "health-route",
-            customizer(camelContext)
+        // add health route
+        addRoute(
+            camelContext,
+            PlatformHttpRouter.lookup(camelContext).get()
         );
     }
 
-    private InspectorCustomizer customizer(CamelContext camelContext) {
-        return router -> router.route(HttpMethod.GET, path).handler(routingContext -> {
+    private Route addRoute(CamelContext camelContext, Router router) {
+        return router.route(HttpMethod.GET, path).handler(routingContext -> {
             int code = 200;
 
             Collection<HealthCheck.Result> results = HealthCheckHelper.invoke(

@@ -21,7 +21,7 @@ import java.net.URL;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.k.Runtime;
-import org.apache.camel.k.inspector.InspectorContextCustomizer;
+import org.apache.camel.k.http.PlatformHttpServiceContextCustomizer;
 import org.apache.camel.test.AvailablePortFinder;
 import org.apache.camel.util.ObjectHelper;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -46,22 +46,22 @@ public class HealthCustomizerTest {
             }
         });
 
-        HealthContextCustomizer healthCustomizer = new HealthContextCustomizer();
-        healthCustomizer.apply(runtime.getCamelContext());
-
-        InspectorContextCustomizer inspectorCustomizer = new InspectorContextCustomizer();
-        inspectorCustomizer.setBindPort(AvailablePortFinder.getNextAvailable());
+        PlatformHttpServiceContextCustomizer phsc = new PlatformHttpServiceContextCustomizer();
+        phsc.setBindPort(AvailablePortFinder.getNextAvailable());
 
         String url;
         if (ObjectHelper.isEmpty(path)) {
-            url = "http://localhost:" + inspectorCustomizer.getBindPort() + HealthContextCustomizer.DEFAULT_PATH;
+            url = "http://localhost:" + phsc.getBindPort() + HealthContextCustomizer.DEFAULT_PATH;
         } else {
-            inspectorCustomizer.setPath(path);
+            phsc.setPath(path);
 
-            url = "http://localhost:" + inspectorCustomizer.getBindPort() + path + HealthContextCustomizer.DEFAULT_PATH;
+            url = "http://localhost:" + phsc.getBindPort() + path + HealthContextCustomizer.DEFAULT_PATH;
         }
 
-        inspectorCustomizer.apply(runtime.getCamelContext());
+        phsc.apply(runtime.getCamelContext());
+
+        HealthContextCustomizer healthCustomizer = new HealthContextCustomizer();
+        healthCustomizer.apply(runtime.getCamelContext());
 
         try {
             runtime.getCamelContext().start();
