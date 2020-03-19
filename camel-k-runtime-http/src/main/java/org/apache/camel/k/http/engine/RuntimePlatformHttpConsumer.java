@@ -45,7 +45,7 @@ import org.apache.camel.TypeConversionException;
 import org.apache.camel.TypeConverter;
 import org.apache.camel.component.platform.http.PlatformHttpEndpoint;
 import org.apache.camel.component.platform.http.spi.Method;
-import org.apache.camel.k.http.PlatformHttpRouter;
+import org.apache.camel.k.http.PlatformHttp;
 import org.apache.camel.spi.HeaderFilterStrategy;
 import org.apache.camel.support.DefaultConsumer;
 import org.apache.camel.support.DefaultMessage;
@@ -75,10 +75,12 @@ public class RuntimePlatformHttpConsumer extends DefaultConsumer {
         super.doStart();
 
         final PlatformHttpEndpoint endpoint = getEndpoint();
-        final PlatformHttpRouter router = PlatformHttpRouter.lookup(endpoint.getCamelContext());
+        final PlatformHttp router = PlatformHttp.lookup(endpoint.getCamelContext());
         final String path = endpoint.getPath();
         final String vertxPathParamPath = PATH_PARAMETER_PATTERN.matcher(path).replaceAll(":$1");
-        final Route newRoute = router.get().route(vertxPathParamPath);
+        final Route newRoute = router.router().route(vertxPathParamPath);
+
+        router.handlers().forEach(newRoute::handler);
 
         final Set<Method> methods = Method.parseList(endpoint.getHttpMethodRestrict());
         if (!methods.equals(Method.getAll())) {

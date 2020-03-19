@@ -16,56 +16,10 @@
  */
 package org.apache.camel.component.knative.http;
 
-import java.util.Objects;
-import java.util.regex.Pattern;
-
-import io.vertx.core.Handler;
-import io.vertx.core.http.HttpServerRequest;
-
 public final class KnativeHttp {
     public static final int DEFAULT_PORT = 8080;
     public static final String DEFAULT_PATH = "/";
-    public static final Pattern ENDPOINT_PATTERN = Pattern.compile("([0-9a-zA-Z][\\w\\.-]+):(\\d+)\\/?(.*)");
 
     private KnativeHttp() {
-    }
-
-    public static final class ServerKey {
-        private final String host;
-        private final int port;
-
-        public ServerKey(String host, int port) {
-            this.host = host;
-            this.port = port;
-        }
-
-        public String getHost() {
-            return host;
-        }
-
-        public int getPort() {
-            return port;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) {
-                return true;
-            }
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-            ServerKey key = (ServerKey) o;
-            return getPort() == key.getPort() && getHost().equals(key.getHost());
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(getHost(), getPort());
-        }
-    }
-
-    public interface PredicatedHandler extends Handler<HttpServerRequest> {
-        boolean canHandle(HttpServerRequest event);
     }
 }

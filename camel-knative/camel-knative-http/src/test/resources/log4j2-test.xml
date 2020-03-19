@@ -26,10 +26,11 @@
   </Appenders>
 
   <Loggers>
+    <Logger name="org.apache.camel.k" level="DEBUG"/>
+    <Logger name="org.apache.camel.component.knative" level="DEBUG"/>
+
     <Root level="INFO">
-      <!--
-      <AppenderRef ref="STDOUT"/>
-      -->
+      <!--<AppenderRef ref="STDOUT"/>-->
       <AppenderRef ref="NONE"/>
     </Root>
   </Loggers>

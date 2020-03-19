@@ -16,6 +16,7 @@
  */
 package org.apache.camel.component.knative;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.camel.RuntimeCamelException;
@@ -126,6 +127,17 @@ public class KnativeConfiguration implements Cloneable {
      */
     public void setTransportOptions(Map<String, Object> transportOptions) {
         this.transportOptions = transportOptions;
+    }
+
+    /**
+     * Add a transport option.
+     */
+    public void addTransportOptions(String key, Object value) {
+        if (this.transportOptions == null) {
+            this.transportOptions = new HashMap<>();
+        }
+
+        this.transportOptions.put(key, value);
     }
 
     public Map<String, Object> getFilters() {

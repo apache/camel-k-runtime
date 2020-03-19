@@ -52,6 +52,9 @@ public class KnativeComponent extends DefaultComponent {
     @Metadata(defaultValue = "http")
     private KnativeTransport transport;
 
+    @Metadata
+    private Map<String, Object> transportOptions;
+
     private boolean managedTransport = true;
 
     public KnativeComponent() {
@@ -62,6 +65,7 @@ public class KnativeComponent extends DefaultComponent {
         super(context);
 
         this.configuration = new KnativeConfiguration();
+        this.configuration.setTransportOptions(new HashMap<>());
     }
 
     // ************************
@@ -114,17 +118,6 @@ public class KnativeComponent extends DefaultComponent {
         configuration.setCloudEventsSpecVersion(cloudEventSpecVersion);
     }
 
-    public Map<String, Object> getTransportOptions() {
-        return configuration.getTransportOptions();
-    }
-
-    /**
-     * Transport options.
-     */
-    public void setTransportOptions(Map<String, Object> transportOptions) {
-        configuration.setTransportOptions(transportOptions);
-    }
-
     public Knative.Protocol getProtocol() {
         return protocol;
     }
@@ -146,6 +139,17 @@ public class KnativeComponent extends DefaultComponent {
      */
     public void setTransport(KnativeTransport transport) {
         this.transport = transport;
+    }
+
+    public Map<String, Object> getTransportOptions() {
+        return configuration.getTransportOptions();
+    }
+
+    /**
+     * Transport options.
+     */
+    public void setTransportOptions(Map<String, Object> transportOptions) {
+        configuration.setTransportOptions(transportOptions);
     }
 
     // ************************
@@ -208,7 +212,7 @@ public class KnativeComponent extends DefaultComponent {
     @Override
     protected Endpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters) throws Exception {
         if (ObjectHelper.isEmpty(remaining)) {
-            throw new IllegalArgumentException("Expecting URI in the forof: 'knative:type/name', got '" + uri + "'");
+            throw new IllegalArgumentException("Expecting URI in the form of: 'knative:type/name', got '" + uri + "'");
         }
 
         final String type = StringHelper.before(remaining, "/");

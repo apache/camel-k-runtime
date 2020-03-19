@@ -124,6 +124,17 @@ public class KnativeEnvironment {
         );
     }
 
+    public static KnativeServiceDefinition sourceEndpoint(String name, Map<String, String> metadata) {
+        return entry(
+            Knative.EndpointKind.source,
+            Knative.Type.endpoint,
+            name,
+            null,
+            -1,
+            metadata
+        );
+    }
+
     public static KnativeServiceDefinition channel(Knative.EndpointKind endpointKind, String name, String host, int port) {
         return entry(
             endpointKind,
@@ -154,6 +165,28 @@ public class KnativeEnvironment {
             host,
             port,
             Collections.emptyMap()
+        );
+    }
+
+    public static KnativeServiceDefinition sourceEvent(String name) {
+        return entry(
+            Knative.EndpointKind.source,
+            Knative.Type.event,
+            name,
+            null,
+            -1,
+            Collections.emptyMap()
+        );
+    }
+
+    public static KnativeServiceDefinition sourceEvent(String name, Map<String, String> metadata) {
+        return entry(
+            Knative.EndpointKind.source,
+            Knative.Type.event,
+            name,
+            null,
+            -1,
+            metadata
         );
     }
 
@@ -198,8 +231,8 @@ public class KnativeEnvironment {
         public KnativeServiceDefinition(
             @JsonProperty(value = "type", required = true) Knative.Type type,
             @JsonProperty(value = "name", required = true) String name,
-            @JsonProperty(value = "host", required = true) String host,
-            @JsonProperty(value = "port", required = true) int port,
+            @JsonProperty(value = "host", required = false) String host,
+            @JsonProperty(value = "port", required = false) int port,
             @JsonProperty(value = "metadata", required = false) Map<String, String> metadata) {
 
             super(

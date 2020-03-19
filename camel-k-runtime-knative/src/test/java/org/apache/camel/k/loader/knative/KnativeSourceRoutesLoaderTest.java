@@ -35,6 +35,7 @@ import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceLoader;
 import org.apache.camel.k.Sources;
+import org.apache.camel.k.http.PlatformHttpServiceContextCustomizer;
 import org.apache.camel.k.listener.RoutesConfigurer;
 import org.apache.camel.k.loader.java.JavaSourceLoader;
 import org.apache.camel.model.ModelCamelContext;
@@ -69,6 +70,7 @@ public class KnativeSourceRoutesLoaderTest {
         LOGGER.info("uri: {}", uri);
 
         final int port = AvailablePortFinder.getNextAvailable();
+        final int platformHttpPort = AvailablePortFinder.getNextAvailable();
         final String data = UUID.randomUUID().toString();
 
         KnativeComponent component = new KnativeComponent();
@@ -173,10 +175,16 @@ public class KnativeSourceRoutesLoaderTest {
     static class TestRuntime implements Runtime {
         private final CamelContext camelContext;
         private final List<RoutesBuilder> builders;
+        private final int platformHttpPort;
 
         public TestRuntime() {
             this.camelContext = new DefaultCamelContext();
             this.builders = new ArrayList<>();
+            this.platformHttpPort = AvailablePortFinder.getNextAvailable();
+
+            PlatformHttpServiceContextCustomizer httpService = new PlatformHttpServiceContextCustomizer();
+            httpService.setBindPort(platformHttpPort);
+            httpService.apply(this.camelContext);
         }
 
         @Override

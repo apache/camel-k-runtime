@@ -31,7 +31,6 @@ import org.apache.camel.component.knative.spi.CloudEvent;
 import org.apache.camel.component.knative.spi.Knative;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
 import org.apache.camel.support.processor.DelegateAsyncProcessor;
-import org.apache.camel.util.ObjectHelper;
 
 public final class KnativeHttpSupport {
     private KnativeHttpSupport() {
@@ -63,13 +62,7 @@ public final class KnativeHttpSupport {
                 e -> e.getValue()
             ));
 
-
-        String path = ObjectHelper.supplyIfEmpty(serviceDefinition.getPath(), () -> KnativeHttp.DEFAULT_PATH);
-
         return v -> {
-            if (!Objects.equals(path, v.path())) {
-                return false;
-            }
             if (filters.isEmpty()) {
                 return true;
             }
