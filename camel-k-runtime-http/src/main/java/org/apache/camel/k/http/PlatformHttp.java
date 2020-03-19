@@ -16,22 +16,47 @@
  */
 package org.apache.camel.k.http;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import io.vertx.core.Handler;
+import io.vertx.core.Vertx;
 import io.vertx.ext.web.Router;
+import io.vertx.ext.web.RoutingContext;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.platform.http.PlatformHttpConstants;
 import org.apache.camel.support.CamelContextHelper;
 
-public class PlatformHttpRouter {
+public class PlatformHttp {
     public static final String PLATFORM_HTTP_ROUTER_NAME = PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME + "-router";
 
+    private final Vertx vertx;
     private final Router router;
+    private final List<Handler<RoutingContext>> handlers;
 
-    public PlatformHttpRouter(Router router) {
+    public PlatformHttp(Vertx vertx, Router router) {
+        this.vertx = vertx;
         this.router = router;
+        this.handlers = Collections.emptyList();
     }
 
-    public Router get() {
+    public PlatformHttp(Vertx vertx, Router router, List<Handler<RoutingContext>> handlers) {
+        this.vertx = vertx;
+        this.router = router;
+        this.handlers = Collections.unmodifiableList(new ArrayList<>(handlers));
+    }
+
+    public Vertx vertx() {
+        return vertx;
+    }
+
+    public Router router() {
         return router;
+    }
+
+    public List<Handler<RoutingContext>> handlers() {
+        return handlers;
     }
 
     // **********************
@@ -40,11 +65,11 @@ public class PlatformHttpRouter {
     //
     // **********************
 
-    public static PlatformHttpRouter lookup(CamelContext camelContext) {
+    public static PlatformHttp lookup(CamelContext camelContext) {
         return CamelContextHelper.mandatoryLookup(
             camelContext,
-            PlatformHttpRouter.PLATFORM_HTTP_ROUTER_NAME,
-            PlatformHttpRouter.class
+            PlatformHttp.PLATFORM_HTTP_ROUTER_NAME,
+            PlatformHttp.class
         );
     }
 }

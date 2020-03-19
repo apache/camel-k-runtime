@@ -27,6 +27,8 @@ import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
+import io.vertx.ext.web.Route;
+import io.vertx.ext.web.RoutingContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
 import org.apache.camel.ExchangePattern;
@@ -35,109 +37,160 @@ import org.apache.camel.NoTypeConversionAvailableException;
 import org.apache.camel.Processor;
 import org.apache.camel.TypeConverter;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
+import org.apache.camel.k.http.PlatformHttp;
 import org.apache.camel.spi.HeaderFilterStrategy;
 import org.apache.camel.support.DefaultConsumer;
 import org.apache.camel.support.DefaultMessage;
 import org.apache.camel.support.ExchangeHelper;
 import org.apache.camel.support.MessageHelper;
+import org.apache.camel.util.ObjectHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class KnativeHttpConsumer extends DefaultConsumer implements KnativeHttp.PredicatedHandler {
+public class KnativeHttpConsumer extends DefaultConsumer {
+    private static final Logger LOGGER = LoggerFactory.getLogger(KnativeHttpConsumer.class);
+
     private final KnativeHttpTransport transport;
     private final Predicate<HttpServerRequest> filter;
-    private final KnativeHttp.ServerKey key;
     private final KnativeEnvironment.KnativeServiceDefinition serviceDefinition;
+    private final PlatformHttp platformHttp;
     private final HeaderFilterStrategy headerFilterStrategy;
 
+    private String basePath;
+    private Route route;
+
     public KnativeHttpConsumer(
-            KnativeHttpTransport transport,
-            Endpoint endpoint,
-            KnativeEnvironment.KnativeServiceDefinition serviceDefinition,
-            Processor processor) {
+        KnativeHttpTransport transport,
+        Endpoint endpoint,
+        KnativeEnvironment.KnativeServiceDefinition serviceDefinition,
+        PlatformHttp platformHttp,
+        Processor processor) {
 
         super(endpoint, processor);
 
         this.transport = transport;
         this.serviceDefinition = serviceDefinition;
+        this.platformHttp = platformHttp;
         this.headerFilterStrategy = new KnativeHttpHeaderFilterStrategy();
-        this.key = new KnativeHttp.ServerKey(serviceDefinition.getHost(), serviceDefinition.getPortOrDefault(KnativeHttp.DEFAULT_PORT));
         this.filter = KnativeHttpSupport.createFilter(serviceDefinition);
+    }
+
+    public String getBasePath() {
+        return basePath;
+    }
+
+    public void setBasePath(String basePath) {
+        this.basePath = basePath;
     }
 
     @Override
     protected void doStart() throws Exception {
-        this.transport.getDispatcher(key).bind(this);
+        if (route == null) {
+            String path = ObjectHelper.supplyIfEmpty(serviceDefinition.getPath(), () -> KnativeHttp.DEFAULT_PATH);
+            if (ObjectHelper.isNotEmpty(basePath)) {
+                path = basePath + path;
+            }
+
+            LOGGER.debug("Creating route for path: {}", path);
+
+            route = platformHttp.router().route(
+                HttpMethod.POST,
+                path
+            );
+
+            // add common handlers
+            platformHttp.handlers().forEach(route::handler);
+
+            route.handler(routingContext -> {
+                LOGGER.debug("Handling {}", routingContext);
+
+                if (filter.test(routingContext.request())) {
+                    handleRequest(routingContext);
+                } else {
+                    LOGGER.debug("Cannot handle request on {}, next", getEndpoint().getEndpointUri());
+                    routingContext.next();
+                }
+            });
+        }
 
         super.doStart();
     }
 
     @Override
     protected void doStop() throws Exception {
-        this.transport.getDispatcher(key).unbind(this);
+        if (route != null) {
+            route.remove();
+        }
 
         super.doStop();
     }
 
     @Override
-    public boolean canHandle(HttpServerRequest request) {
-        return filter.test(request);
+    protected void doSuspend() throws Exception {
+        if (route != null) {
+            route.disable();
+        }
     }
 
     @Override
-    public void handle(HttpServerRequest request) {
-        if (request.method() == HttpMethod.POST) {
-            final Exchange exchange = getEndpoint().createExchange(ExchangePattern.InOut);
-            final Message in = toMessage(request, exchange);
+    protected void doResume() throws Exception {
+        if (route != null) {
+            route.enable();
+        }
+    }
 
-            request.bodyHandler(buffer -> {
-                in.setBody(buffer.getBytes());
+    private void handleRequest(RoutingContext routingContext) {
+        final HttpServerRequest request = routingContext.request();
+        final Exchange exchange = getEndpoint().createExchange(ExchangePattern.InOut);
+        final Message in = toMessage(request, exchange);
 
-                exchange.setIn(in);
+        Buffer payload = routingContext.getBody();
+        if (payload != null) {
+            in.setBody(payload.getBytes());
+        } else {
+            in.setBody(null);
+        }
 
+        exchange.setIn(in);
+
+        try {
+            createUoW(exchange);
+            getAsyncProcessor().process(exchange, doneSync -> {
                 try {
-                    createUoW(exchange);
-                    getAsyncProcessor().process(exchange, doneSync -> {
-                        try {
-                            HttpServerResponse response = toHttpResponse(request, exchange.getMessage());
-                            Buffer body = null;
+                    HttpServerResponse response = toHttpResponse(request, exchange.getMessage());
+                    Buffer body = null;
 
-                            if (request.response().getStatusCode() != 204) {
-                                body = computeResponseBody(exchange.getMessage());
+                    if (request.response().getStatusCode() != 204) {
+                        body = computeResponseBody(exchange.getMessage());
 
-                                // set the content type in the response.
-                                String contentType = MessageHelper.getContentType(exchange.getMessage());
-                                if (contentType != null) {
-                                    // set content-type
-                                    response.putHeader(Exchange.CONTENT_TYPE, contentType);
-                                }
-                            }
-
-                            if (body != null) {
-                                request.response().end(body);
-                            } else {
-                                request.response().setStatusCode(204);
-                                request.response().end();
-                            }
-                        } catch (Exception e) {
-                            getExceptionHandler().handleException(e);
+                        // set the content type in the response.
+                        String contentType = MessageHelper.getContentType(exchange.getMessage());
+                        if (contentType != null) {
+                            // set content-type
+                            response.putHeader(Exchange.CONTENT_TYPE, contentType);
                         }
-                    });
+                    }
+
+                    if (body != null) {
+                        request.response().end(body);
+                    } else {
+                        request.response().setStatusCode(204);
+                        request.response().end();
+                    }
                 } catch (Exception e) {
                     getExceptionHandler().handleException(e);
-
-                    request.response().setStatusCode(500);
-                    request.response().putHeader(Exchange.CONTENT_TYPE, "text/plain");
-                    request.response().end(e.getMessage());
-                } finally {
-                    doneUoW(exchange);
                 }
             });
-        } else {
-            request.response().setStatusCode(405);
-            request.response().putHeader(Exchange.CONTENT_TYPE, "text/plain");
-            request.response().end("Unsupported method");
+        } catch (Exception e) {
+            getExceptionHandler().handleException(e);
 
-            throw new IllegalArgumentException("Unsupported method: " + request.method());
+            request.response().setStatusCode(500);
+            request.response().putHeader(Exchange.CONTENT_TYPE, "text/plain");
+            request.response().end(e.getMessage());
+        } finally {
+            doneUoW(exchange);
         }
+
     }
 
     private Message toMessage(HttpServerRequest request, Exchange exchange) {
@@ -224,5 +277,4 @@ public class KnativeHttpConsumer extends DefaultConsumer implements KnativeHttp.
             ? Buffer.buffer(message.getExchange().getContext().getTypeConverter().mandatoryConvertTo(byte[].class, body))
             : null;
     }
-
 }

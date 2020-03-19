@@ -16,6 +16,7 @@
  */
 package org.apache.camel.k.http;
 
+import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.CountDownLatch;
@@ -33,7 +34,7 @@ import org.apache.camel.support.service.ServiceSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-final class PlatformHttpServer extends ServiceSupport {
+public final class PlatformHttpServer extends ServiceSupport {
     private static final Logger LOGGER = LoggerFactory.getLogger(PlatformHttpServer.class);
 
     private final CamelContext context;
@@ -70,16 +71,12 @@ final class PlatformHttpServer extends ServiceSupport {
         final Router router = Router.router(vertx);
         final Router subRouter = Router.router(vertx);
 
-        router.route()
-            .order(Integer.MIN_VALUE)
-            .handler(ctx -> {
-                ctx.request().resume();
-                createBodyHandler().handle(ctx);
-            });
-
         router.mountSubRouter(configuration.getPath(), subRouter);
 
-        context.getRegistry().bind(PlatformHttpRouter.PLATFORM_HTTP_ROUTER_NAME, new PlatformHttpRouter(subRouter));
+        context.getRegistry().bind(
+            PlatformHttp.PLATFORM_HTTP_ROUTER_NAME,
+            new PlatformHttp(vertx, subRouter, Collections.singletonList(createBodyHandler()))
+        );
 
         //HttpServerOptions options = new HttpServerOptions();
         if (configuration.getSslContextParameters() != null) {

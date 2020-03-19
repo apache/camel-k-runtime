@@ -217,6 +217,7 @@
         <module>camel-k-loader-java</module>
 
         <module>camel-k-runtime-cron</module>
+        <module>camel-k-runtime-http</module>
         <module>camel-k-runtime-knative</module>
         <module>camel-k-runtime-master</module>
         <module>camel-k-runtime-webhook</module>

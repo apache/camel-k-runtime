@@ -71,11 +71,11 @@
                     <systemProperties>
                         <systemProperty>
                             <key>camel.k.conf</key>
-                            <value>${project.basedir}/src/main/resources/application.properties</value>
+                            <value>${project.basedir}/data/application.properties</value>
                         </systemProperty>
                         <systemProperty>
                             <key>camel.k.routes</key>
-                            <value>file:${project.basedir}/src/main/resources/routes.yaml</value>
+                            <value>file:${project.basedir}/data/routes.yaml</value>
                         </systemProperty>
                     </systemProperties>
                 </configuration>

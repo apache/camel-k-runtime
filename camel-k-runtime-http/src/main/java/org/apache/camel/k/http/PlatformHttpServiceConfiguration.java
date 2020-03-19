@@ -30,7 +30,7 @@ public class PlatformHttpServiceConfiguration {
     private String path = DEFAULT_PATH;
     private BigInteger maxBodySize;
 
-    private BodyHandler bodyHandler = new BodyHandler();
+    private BodyHandlerConfiguration bodyHandlerConfiguration = new BodyHandlerConfiguration();
     private SSLContextParameters sslContextParameters;
 
     public String getBindHost() {
@@ -65,12 +65,12 @@ public class PlatformHttpServiceConfiguration {
         this.maxBodySize = maxBodySize;
     }
 
-    public BodyHandler getBodyHandler() {
-        return bodyHandler;
+    public BodyHandlerConfiguration getBodyHandler() {
+        return bodyHandlerConfiguration;
     }
 
-    public void setBodyHandler(BodyHandler bodyHandler) {
-        this.bodyHandler = bodyHandler;
+    public void setBodyHandler(BodyHandlerConfiguration bodyHandler) {
+        this.bodyHandlerConfiguration = bodyHandler;
     }
 
     public SSLContextParameters getSslContextParameters() {
@@ -81,7 +81,7 @@ public class PlatformHttpServiceConfiguration {
         this.sslContextParameters = sslContextParameters;
     }
 
-    public static class BodyHandler {
+    public static class BodyHandlerConfiguration {
         private boolean handleFileUploads = true;
         private String uploadsDirectory = "file-uploads";
         private boolean mergeFormAttributes = true;

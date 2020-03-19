@@ -50,7 +50,7 @@ public class PlatformHttpServiceCustomizerTest {
 
         httpService.apply(runtime.getCamelContext());
 
-        PlatformHttpRouter.lookup(runtime.getCamelContext()).get().route(HttpMethod.GET, "/my/path")
+        PlatformHttp.lookup(runtime.getCamelContext()).router().route(HttpMethod.GET, "/my/path")
             .handler(routingContext -> {
                 JsonObject response = new JsonObject();
                 response.put("status", "UP");
