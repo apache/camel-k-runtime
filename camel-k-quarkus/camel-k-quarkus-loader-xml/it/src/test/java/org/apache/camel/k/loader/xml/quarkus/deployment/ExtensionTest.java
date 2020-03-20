@@ -18,14 +18,13 @@ package org.apache.camel.k.loader.xml.quarkus.deployment;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 
 import javax.ws.rs.core.MediaType;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
-import org.apache.commons.io.IOUtils;
+import org.apache.camel.util.IOHelper;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -37,7 +36,7 @@ public class ExtensionTest {
         String code;
 
         try (InputStream is = ExtensionTest.class.getResourceAsStream("/routes.xml")) {
-            code = IOUtils.toString(is, StandardCharsets.UTF_8);
+            code = IOHelper.loadText(is);
         }
 
         JsonPath p = RestAssured.given()

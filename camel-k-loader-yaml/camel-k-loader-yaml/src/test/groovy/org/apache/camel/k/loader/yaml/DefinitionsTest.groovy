@@ -23,9 +23,6 @@ import org.apache.camel.model.SplitDefinition
 import org.apache.camel.model.ToDefinition
 import org.apache.camel.model.language.SimpleExpression
 import org.apache.camel.model.language.TokenizerExpression
-import org.apache.commons.io.IOUtils
-
-import java.nio.charset.StandardCharsets
 
 class DefinitionsTest extends TestSupport {
 
@@ -43,9 +40,8 @@ class DefinitionsTest extends TestSupport {
             '''.stripMargin('|')
 
             def camelContext = new DefaultCamelContext()
-            def istream = IOUtils.toInputStream(content, StandardCharsets.UTF_8)
         when:
-            camelContext.addRoutes(new YamlSourceLoader().builder(istream))
+            camelContext.addRoutes(new YamlSourceLoader().builder(content))
         then:
             camelContext.routeDefinitions[0].id == 'my-route-id'
             camelContext.routeDefinitions[0].group == 'my-route-group'
@@ -82,9 +78,8 @@ class DefinitionsTest extends TestSupport {
             '''.stripMargin('|')
 
             def camelContext = new DefaultCamelContext()
-            def istream = IOUtils.toInputStream(content, StandardCharsets.UTF_8)
         when:
-            camelContext.addRoutes(new YamlSourceLoader().builder(istream))
+            camelContext.addRoutes(new YamlSourceLoader().builder(content))
         then:
             camelContext.routeDefinitions[0].input.endpointUri == 'direct:start'
 
@@ -128,9 +123,8 @@ class DefinitionsTest extends TestSupport {
             '''.stripMargin('|')
 
             def camelContext = new DefaultCamelContext()
-            def istream = IOUtils.toInputStream(content, StandardCharsets.UTF_8)
         when:
-            camelContext.addRoutes(new YamlSourceLoader().builder(istream))
+            camelContext.addRoutes(new YamlSourceLoader().builder(content))
         then:
             camelContext.routeDefinitions[0].input.endpointUri == 'direct:start'
             camelContext.routeDefinitions[0].outputs.size() == 2
@@ -167,9 +161,8 @@ class DefinitionsTest extends TestSupport {
             '''.stripMargin('|')
 
             def camelContext = new DefaultCamelContext()
-            def istream = IOUtils.toInputStream(content, StandardCharsets.UTF_8)
         when:
-            camelContext.addRoutes(new YamlSourceLoader().builder(istream))
+            camelContext.addRoutes(new YamlSourceLoader().builder(content))
         then:
             camelContext.routeDefinitions[0].input.endpointUri == 'direct:start'
             camelContext.routeDefinitions[0].outputs.size() == 1
@@ -202,9 +195,8 @@ class DefinitionsTest extends TestSupport {
             '''.stripMargin('|')
 
             def camelContext = new DefaultCamelContext()
-            def istream = IOUtils.toInputStream(content, StandardCharsets.UTF_8)
         when:
-            camelContext.addRoutes(new YamlSourceLoader().builder(istream))
+            camelContext.addRoutes(new YamlSourceLoader().builder(content))
         then:
             camelContext.routeDefinitions[0].input.endpointUri == 'direct:start'
             camelContext.routeDefinitions[0].outputs.size() == 2
@@ -241,9 +233,8 @@ class DefinitionsTest extends TestSupport {
             '''.stripMargin('|')
 
             def camelContext = new DefaultCamelContext()
-            def istream = IOUtils.toInputStream(content, StandardCharsets.UTF_8)
         when:
-            camelContext.addRoutes(new YamlSourceLoader().builder(istream))
+            camelContext.addRoutes(new YamlSourceLoader().builder(content))
         then:
             camelContext.routeDefinitions[0].input.endpointUri == 'direct:start'
             camelContext.routeDefinitions[0].outputs.size() == 1

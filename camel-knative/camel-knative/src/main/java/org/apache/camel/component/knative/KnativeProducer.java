@@ -28,7 +28,6 @@ import org.apache.camel.processor.Pipeline;
 import org.apache.camel.support.AsyncProcessorConverterHelper;
 import org.apache.camel.support.DefaultAsyncProducer;
 import org.apache.camel.support.service.ServiceHelper;
-import org.apache.commons.collections4.CollectionUtils;
 
 public class KnativeProducer extends DefaultAsyncProducer {
     final AsyncProcessor processor;
@@ -37,9 +36,11 @@ public class KnativeProducer extends DefaultAsyncProducer {
         super(endpoint);
 
         List<Processor> elements = new ArrayList<>(1 + processors.length);
+        elements.add(processor);
 
-        CollectionUtils.addAll(elements, processor);
-        CollectionUtils.addAll(elements, processors);
+        for (Processor p : processors) {
+            elements.add(p);
+        }
 
         Processor pipeline = Pipeline.newInstance(endpoint.getCamelContext(), elements);
 

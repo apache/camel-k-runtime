@@ -77,9 +77,17 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- ******************************* -->
-        <!-- test deps :: camel              -->
-        <!-- ******************************* -->
+        <!-- ****************************** -->
+        <!--                                -->
+        <!-- TESTS                          -->
+        <!--                                -->
+        <!-- ****************************** -->
+
+        <dependency>
+            <groupId>org.apache.camel.k</groupId>
+            <artifactId>camel-k-test</artifactId>
+            <scope>test</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -117,44 +125,10 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- ******************************* -->
-        <!-- test deps :: misc               -->
-        <!-- ******************************* -->
-
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-dbcp2</artifactId>
             <version>${commons-dbcp2.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- ******************************* -->
-        <!-- test deps                       -->
-        <!-- ******************************* -->
-
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <version>${assertj.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-slf4j-impl</artifactId>
-            <version>${log4j2.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

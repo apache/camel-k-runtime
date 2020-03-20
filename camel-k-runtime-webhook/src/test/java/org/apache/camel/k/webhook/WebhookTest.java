@@ -51,8 +51,8 @@ public class WebhookTest {
     @BeforeEach
     public void setUp() {
         this.runtime = new ApplicationRuntime();
-        runtime.addListener(RoutesConfigurer.forRoutes("classpath:webhook.js"));
-        runtime.addListener(new ContextConfigurer());
+        this.runtime.addListener(RoutesConfigurer.forRoutes("classpath:webhook.js"));
+        this.runtime.addListener(new ContextConfigurer());
     }
 
     @ParameterizedTest
@@ -68,15 +68,18 @@ public class WebhookTest {
         Map<WebhookAction, AtomicInteger> registerCounters = new HashMap<>();
         Arrays.stream(WebhookAction.values()).forEach(v -> registerCounters.put(v, new AtomicInteger()));
 
-        DummyWebhookComponent dummy = new DummyWebhookComponent(() -> {
-            registerCounters.get(WebhookAction.REGISTER).incrementAndGet();
-            operation.countDown();
-        }, () -> {
-            registerCounters.get(WebhookAction.UNREGISTER).incrementAndGet();
-            operation.countDown();
-        }
+        runtime.getCamelContext().addComponent(
+            "dummy",
+            new DummyWebhookComponent(
+            () -> {
+                registerCounters.get(WebhookAction.REGISTER).incrementAndGet();
+                operation.countDown();
+            },
+            () -> {
+                registerCounters.get(WebhookAction.UNREGISTER).incrementAndGet();
+                operation.countDown();
+            })
         );
-        runtime.getCamelContext().addComponent("dummy", dummy);
 
         AtomicBoolean routeStarted = new AtomicBoolean();
         runtime.getCamelContext().addRoutePolicyFactory(new RoutePolicyFactory() {
@@ -127,12 +130,17 @@ public class WebhookTest {
         properties.setProperty("customizer.webhook.action", action.name());
         runtime.setProperties(properties);
 
-        DummyWebhookComponent dummy = new DummyWebhookComponent(() -> {
-            throw new RuntimeException("dummy error");
-        }, () -> {
-            throw new RuntimeException("dummy error");
-        });
-        runtime.getCamelContext().addComponent("dummy", dummy);
+        runtime.getCamelContext().addComponent(
+            "dummy",
+            new DummyWebhookComponent(
+            () -> {
+                throw new RuntimeException("dummy error");
+            },
+            () -> {
+                throw new RuntimeException("dummy error");
+            })
+        );
+
         Assertions.assertThrows(FailedToCreateRouteException.class, runtime::run);
     }
 
@@ -143,10 +151,10 @@ public class WebhookTest {
         properties.setProperty("customizer.webhook.action", WebhookAction.REGISTER.name());
         runtime.setProperties(properties);
 
-        DummyWebhookComponent dummy = new DummyWebhookComponent(() -> {
-        }, () -> {
-        });
-        runtime.getCamelContext().addComponent("dummy", dummy);
+        runtime.getCamelContext().addComponent(
+            "dummy",
+            new DummyWebhookComponent());
+
         Assertions.assertThrows(FailedToCreateRouteException.class, runtime::run);
     }
 

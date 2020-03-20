@@ -16,7 +16,9 @@
  */
 package org.apache.camel.k.loader.yaml;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -88,6 +90,10 @@ public class YamlSourceLoader implements SourceLoader {
 
     final ObjectMapper mapper() {
         return mapper;
+    }
+
+    final RouteBuilder builder(String content) {
+        return builder(new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8)));
     }
 
     final RouteBuilder builder(InputStream is) {

@@ -18,4 +18,5 @@
 from('webhook:dummy')
     .to('log:info')
 
-from('timer:tick').to('log:info')
+from('timer:tick')
+    .to('log:info')
