@@ -76,8 +76,7 @@ public class RoutesLoaderTest {
 
         runtime.getCamelContext().addRoutes(runtime.builders.get(0));
 
-        assertThat(runtime.getCamelContext().getRestConfigurations()).hasSize(1);
-        assertThat(runtime.getCamelContext().getRestConfigurations().iterator().next()).hasFieldOrPropertyWithValue("component", "restlet");
+        assertThat(runtime.getCamelContext().getRestConfiguration()).hasFieldOrPropertyWithValue("component", "restlet");
     }
 
     @Test
