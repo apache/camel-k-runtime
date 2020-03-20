@@ -15,11 +15,13 @@
  * limitations under the License.
  */
 
-def source  = new File(basedir, "document.xml")
-def document = new XmlSlurper().parse(source)
 
-assert document.rest.@path == '/camel/'
-assert document.rest.get.size() == 1
-assert document.rest.get[0].@id == 'greeting-api'
-assert document.rest.get[0].@uri == '/greetings/{name}'
-assert document.rest.get[0].to.@uri == 'direct:greeting-api'
+new File(basedir, "document.xml").withReader {
+    def document = new groovy.util.XmlSlurper().parse(it)
+
+    assert document.rest.@path == '/camel/'
+    assert document.rest.get.size() == 1
+    assert document.rest.get[0].@id == 'greeting-api'
+    assert document.rest.get[0].@uri == '/greetings/{name}'
+    assert document.rest.get[0].to.@uri == 'direct:greeting-api'
+}

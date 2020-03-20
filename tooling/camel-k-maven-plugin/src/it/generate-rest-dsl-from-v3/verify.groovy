@@ -15,14 +15,15 @@
  * limitations under the License.
  */
 
-def source  = new File(basedir, "document.xml")
-def document = new XmlSlurper().parse(source)
+new File(basedir, "document.xml").withReader {
+    def document = new groovy.util.XmlSlurper().parse(it)
 
-assert document.rest.@path == '/v1'
-assert document.rest.get.size() == 2
-assert document.rest.get.find { it.@id == 'listPets' }.@uri == '/pets'
-assert document.rest.get.find { it.@id == 'listPets' }.to.@uri == 'direct:listPets'
-assert document.rest.get.find { it.@id == 'showPetById' }.@uri == '/pets/{petId}'
-assert document.rest.get.find { it.@id == 'showPetById' }.to.@uri == 'direct:showPetById'
-assert document.rest.post.find { it.@id == 'createPets' }.@uri == '/pets'
-assert document.rest.post.find { it.@id == 'createPets' }.to.@uri == 'direct:createPets'
+    assert document.rest.@path == '/v1'
+    assert document.rest.get.size() == 2
+    assert document.rest.get.find { it.@id == 'listPets' }.@uri == '/pets'
+    assert document.rest.get.find { it.@id == 'listPets' }.to.@uri == 'direct:listPets'
+    assert document.rest.get.find { it.@id == 'showPetById' }.@uri == '/pets/{petId}'
+    assert document.rest.get.find { it.@id == 'showPetById' }.to.@uri == 'direct:showPetById'
+    assert document.rest.post.find { it.@id == 'createPets' }.@uri == '/pets'
+    assert document.rest.post.find { it.@id == 'createPets' }.to.@uri == 'direct:createPets'
+}
