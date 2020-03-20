@@ -14,8 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-def runtimeVersion = '1.2.0-SNAPSHOT'
-
 def source  = new File(basedir, "catalog.yaml")
 def catalog = new org.yaml.snakeyaml.Yaml().load(new FileInputStream(source))
 
