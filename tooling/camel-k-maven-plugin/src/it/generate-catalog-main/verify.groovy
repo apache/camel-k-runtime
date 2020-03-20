@@ -14,25 +14,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-def source  = new File(basedir, "catalog.yaml")
-def catalog = new org.yaml.snakeyaml.Yaml().load(new FileInputStream(source))
 
-assert catalog.spec.runtime.version == runtimeVersion
-assert catalog.spec.runtime.applicationClass == 'org.apache.camel.k.main.Application'
+new File(basedir, "catalog.yaml").withReader {
+    def catalog = new groovy.yaml.YamlSlurper().parse(it)
 
-assert catalog.spec.runtime.capabilities['health'].dependencies[0].groupId == 'org.apache.camel.k'
-assert catalog.spec.runtime.capabilities['health'].dependencies[0].artifactId == 'camel-k-runtime-health'
-assert catalog.spec.runtime.capabilities['rest'].dependencies[0].groupId == 'org.apache.camel'
-assert catalog.spec.runtime.capabilities['rest'].dependencies[0].artifactId == 'camel-rest'
-assert catalog.spec.runtime.capabilities['rest'].dependencies[1].groupId == 'org.apache.camel.k'
-assert catalog.spec.runtime.capabilities['rest'].dependencies[1].artifactId == 'camel-k-runtime-http'
+    assert catalog.spec.runtime.version == runtimeVersion
+    assert catalog.spec.runtime.applicationClass == 'org.apache.camel.k.main.Application'
+    assert catalog.spec.runtime.metadata['camel.version'] == camelVersion
+    assert catalog.spec.runtime.metadata['quarkus.version'] == quarkusVersion
+    assert catalog.spec.runtime.metadata['camel-quarkus.version'] == camelQuarkusVersion
 
-assert catalog.metadata.labels['camel.apache.org/runtime.version'] == runtimeVersion
+    assert catalog.spec.runtime.capabilities['health'].dependencies[0].groupId == 'org.apache.camel.k'
+    assert catalog.spec.runtime.capabilities['health'].dependencies[0].artifactId == 'camel-k-runtime-health'
+    assert catalog.spec.runtime.capabilities['rest'].dependencies[0].groupId == 'org.apache.camel'
+    assert catalog.spec.runtime.capabilities['rest'].dependencies[0].artifactId == 'camel-rest'
+    assert catalog.spec.runtime.capabilities['rest'].dependencies[1].groupId == 'org.apache.camel.k'
+    assert catalog.spec.runtime.capabilities['rest'].dependencies[1].artifactId == 'camel-k-runtime-http'
 
-assert catalog.spec.artifacts['camel-knative'].dependencies.size == 3
-assert catalog.spec.artifacts['camel-knative'].dependencies.find { it.groupId == 'org.apache.camel.k' && it.artifactId == 'camel-knative-api'}
-assert catalog.spec.artifacts['camel-knative'].dependencies.find { it.groupId == 'org.apache.camel.k' && it.artifactId == 'camel-knative'}
-assert catalog.spec.artifacts['camel-knative'].dependencies.find { it.groupId == 'org.apache.camel.k' && it.artifactId == 'camel-knative-http'}
+    assert catalog.metadata.labels['camel.apache.org/runtime.version'] == runtimeVersion
 
-assert catalog.spec.artifacts['camel-knative'].schemes.size == 1
-assert catalog.spec.artifacts['camel-knative'].schemes[0].id == 'knative'
+    assert catalog.spec.artifacts['camel-knative'].dependencies.size == 3
+    assert catalog.spec.artifacts['camel-knative'].dependencies.find { it.groupId == 'org.apache.camel.k' && it.artifactId == 'camel-knative-api'}
+    assert catalog.spec.artifacts['camel-knative'].dependencies.find { it.groupId == 'org.apache.camel.k' && it.artifactId == 'camel-knative'}
+    assert catalog.spec.artifacts['camel-knative'].dependencies.find { it.groupId == 'org.apache.camel.k' && it.artifactId == 'camel-knative-http'}
+
+    assert catalog.spec.artifacts['camel-knative'].schemes.size == 1
+    assert catalog.spec.artifacts['camel-knative'].schemes[0].id == 'knative'
+}

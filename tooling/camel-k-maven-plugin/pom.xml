@@ -230,6 +230,9 @@
         <configuration>
           <scriptVariables>
             <runtimeVersion>${project.version}</runtimeVersion>
+            <camelVersion>${camel.version}</camelVersion>
+            <camelQuarkusVersion>${camel-quarkus.version}</camelQuarkusVersion>
+            <quarkusVersion>${quarkus.version}</quarkusVersion>
           </scriptVariables>
           <pomIncludes>
             <pomInclude>generate-catalog-main/pom.xml</pomInclude>
@@ -258,9 +261,24 @@
         </executions>
         <dependencies>
           <dependency>
-            <groupId>org.yaml</groupId>
-            <artifactId>snakeyaml</artifactId>
-            <version>1.25</version>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy</artifactId>
+            <version>${groovy.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-yaml</artifactId>
+            <version>${groovy.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-json</artifactId>
+            <version>${groovy.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-xml</artifactId>
+            <version>${groovy.version}</version>
           </dependency>
         </dependencies>
       </plugin>
