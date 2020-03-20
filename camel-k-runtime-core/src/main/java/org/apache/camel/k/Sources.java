@@ -29,11 +29,11 @@ import java.util.UUID;
 import java.util.zip.GZIPInputStream;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.k.support.StringSupport;
 import org.apache.camel.spi.ClassResolver;
 import org.apache.camel.support.ResourceHelper;
 import org.apache.camel.util.ObjectHelper;
 import org.apache.camel.util.URISupport;
-import org.apache.commons.lang3.StringUtils;
 
 public final class  Sources {
     private Sources() {
@@ -117,13 +117,13 @@ public final class  Sources {
         private final boolean compressed;
 
         private URI(String uri) throws Exception {
-            final String location = StringUtils.substringBefore(uri, "?");
+            final String location = StringSupport.substringBefore(uri, "?");
 
             if (!location.startsWith(Constants.SCHEME_PREFIX_CLASSPATH) && !location.startsWith(Constants.SCHEME_PREFIX_FILE)) {
                 throw new IllegalArgumentException("No valid resource format, expected scheme:path, found " + uri);
             }
 
-            final String query = StringUtils.substringAfter(uri, "?");
+            final String query = StringSupport.substringAfter(uri, "?");
             final Map<String, Object> params = URISupport.parseQuery(query);
             final String languageName = (String) params.get("language");
             final String compression = (String) params.get("compression");
@@ -132,8 +132,8 @@ public final class  Sources {
 
             String language = languageName;
             if (ObjectHelper.isEmpty(language)) {
-                language = StringUtils.substringAfterLast(location, ":");
-                language = StringUtils.substringAfterLast(language, ".");
+                language = StringSupport.substringAfterLast(location, ":");
+                language = StringSupport.substringAfterLast(language, ".");
             }
             if (ObjectHelper.isEmpty(language)) {
                 throw new IllegalArgumentException("Unknown language " + language);
@@ -141,11 +141,11 @@ public final class  Sources {
 
             String name = (String) params.get("name");
             if (name == null) {
-                name = StringUtils.substringAfter(location, ":");
-                name = StringUtils.substringBeforeLast(name, ".");
+                name = StringSupport.substringAfter(location, ":");
+                name = StringSupport.substringBeforeLast(name, ".");
 
                 if (name.contains("/")) {
-                    name = StringUtils.substringAfterLast(name, "/");
+                    name = StringSupport.substringAfterLast(name, "/");
                 }
             }
 
@@ -154,7 +154,7 @@ public final class  Sources {
             this.language = language;
             this.loader = loader;
             this.interceptors = interceptors != null ? Arrays.asList(interceptors.split(",", -1)) : Collections.emptyList();
-            this.compressed = Boolean.valueOf(compression);
+            this.compressed = Boolean.parseBoolean(compression);
         }
 
         @Override

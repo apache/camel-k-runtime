@@ -36,6 +36,15 @@ public class DummyWebhookComponent extends DefaultComponent {
 
     private final Runnable onUnregister;
 
+    public DummyWebhookComponent() {
+        this(
+            () -> {
+            },
+            () -> {
+            }
+        );
+    }
+
     public DummyWebhookComponent(Runnable onRegister, Runnable onUnregister) {
         this.onRegister = onRegister;
         this.onUnregister = onUnregister;

@@ -25,7 +25,7 @@ import org.apache.camel.component.platform.http.PlatformHttpConstants;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.http.engine.RuntimePlatformHttpEngine;
-import org.apache.camel.test.AvailablePortFinder;
+import org.apache.camel.k.test.AvailablePortFinder;
 import org.apache.camel.util.ObjectHelper;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;

@@ -22,7 +22,6 @@ import org.apache.camel.CamelContext
 import org.apache.camel.component.mock.MockEndpoint
 import org.apache.camel.impl.DefaultCamelContext
 import org.apache.camel.k.loader.yaml.parser.StepParser
-import org.apache.commons.io.IOUtils
 import spock.lang.Specification
 
 import java.nio.charset.StandardCharsets
@@ -48,7 +47,7 @@ class TestSupport extends Specification {
 
     static CamelContext startContext(String content, Map<String, Object> beans) {
         return startContext(
-                IOUtils.toInputStream(content.stripMargin(), StandardCharsets.UTF_8),
+                new ByteArrayInputStream(content.stripMargin().getBytes(StandardCharsets.UTF_8)),
                 beans
         )
     }

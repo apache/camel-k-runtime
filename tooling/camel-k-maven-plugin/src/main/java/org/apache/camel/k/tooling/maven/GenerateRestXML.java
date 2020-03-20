@@ -32,7 +32,6 @@ import io.apicurio.datamodels.openapi.models.OasDocument;
 import org.apache.camel.CamelContext;
 import org.apache.camel.generator.openapi.RestDslXmlGenerator;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.commons.io.FilenameUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -70,7 +69,10 @@ class GenerateRestXML extends AbstractMojo {
         }
 
         try {
-            JsonFactory factory = FilenameUtils.isExtension(inputFile, YAML_EXTENSIONS) ? new YAMLFactory() : null;
+            JsonFactory factory = null;
+            if (inputFile.endsWith(".yaml") || inputFile.endsWith(".yml")) {
+                factory = new YAMLFactory();
+            }
 
             ObjectMapper mapper = new ObjectMapper(factory);
             mapper.findAndRegisterModules();
@@ -79,10 +81,6 @@ class GenerateRestXML extends AbstractMojo {
 
             JsonNode node = mapper.readTree(fis);
             OasDocument document = (OasDocument) Library.readDocument(node);
-
-            if (document == null) {
-                throw new MojoExecutionException("Unable to read the OpenAPI file: " + inputFile);
-            }
 
             final Writer writer;
 

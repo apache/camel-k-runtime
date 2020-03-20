@@ -32,6 +32,7 @@
         <module>camel-k-annotations</module>
         <module>camel-k-apt</module>
         <module>camel-k-maven-plugin</module>
+        <module>camel-k-test</module>
     </modules>
 
 </project>

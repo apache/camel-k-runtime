@@ -37,7 +37,6 @@ import org.apache.camel.k.Constants;
 import org.apache.camel.spi.PropertiesComponent;
 import org.apache.camel.support.PropertyBindingSupport;
 import org.apache.camel.util.ObjectHelper;
-import org.apache.commons.io.FilenameUtils;
 
 public final class PropertiesSupport {
     private PropertiesSupport() {
@@ -127,9 +126,7 @@ public final class PropertiesSupport {
                     Objects.requireNonNull(attrs);
 
                     final String path = file.toFile().getAbsolutePath();
-                    final String ext = FilenameUtils.getExtension(path);
-
-                    if (Objects.equals("properties", ext)) {
+                    if (path.endsWith(".properties")) {
                         locations.add(path);
                     }
 

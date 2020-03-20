@@ -22,7 +22,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.http.PlatformHttpServiceContextCustomizer;
-import org.apache.camel.test.AvailablePortFinder;
+import org.apache.camel.k.test.AvailablePortFinder;
 import org.apache.camel.util.ObjectHelper;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;

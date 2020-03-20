@@ -26,7 +26,6 @@ import org.apache.camel.component.knative.KnativeEndpoint;
 import org.apache.camel.component.knative.spi.CloudEvent;
 import org.apache.camel.component.knative.spi.CloudEvents;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
-import org.apache.commons.lang3.StringUtils;
 
 import static org.apache.camel.util.ObjectHelper.ifNotEmpty;
 
@@ -84,7 +83,7 @@ public enum CloudEventProcessors implements CloudEventProcessor {
             // Map every remaining field as it is (extensions).
             //
             content.forEach((key, val) -> {
-                message.setHeader(StringUtils.lowerCase(key), val);
+                message.setHeader(key.toLowerCase(), val);
             });
 
         }
@@ -115,7 +114,7 @@ public enum CloudEventProcessors implements CloudEventProcessor {
             // Map every remaining field as it is (extensions).
             //
             content.forEach((key, val) -> {
-                message.setHeader(StringUtils.lowerCase(key), val);
+                message.setHeader(key.toLowerCase(), val);
             });
         }
     });

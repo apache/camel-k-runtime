@@ -47,7 +47,7 @@ import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.http.base.HttpOperationFailedException;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.k.http.PlatformHttpServiceContextCustomizer;
-import org.apache.camel.test.AvailablePortFinder;
+import org.apache.camel.k.test.AvailablePortFinder;
 import org.apache.camel.util.ObjectHelper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

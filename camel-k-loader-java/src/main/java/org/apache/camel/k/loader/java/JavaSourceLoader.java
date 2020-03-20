@@ -17,7 +17,6 @@
 package org.apache.camel.k.loader.java;
 
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -27,8 +26,8 @@ import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceLoader;
 import org.apache.camel.k.annotation.Loader;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.camel.k.support.StringSupport;
+import org.apache.camel.util.IOHelper;
 import org.joor.Reflect;
 
 @Loader(value = "java")
@@ -43,7 +42,7 @@ public class JavaSourceLoader implements SourceLoader {
     @Override
     public Result load(Runtime runtime, Source source) throws Exception {
         try (InputStream is = source.resolveAsInputStream(runtime.getCamelContext())) {
-            final String content = IOUtils.toString(is, StandardCharsets.UTF_8);
+            final String content = IOHelper.loadText(is);
             final String name = determineQualifiedName(source, content);
             final Reflect compiled = Reflect.compile(name, content);
             final Object instance = compiled.create().get();
@@ -53,7 +52,7 @@ public class JavaSourceLoader implements SourceLoader {
     }
 
     private static String determineQualifiedName(Source source, String content) {
-        String name = StringUtils.removeEnd(source.getName(), ".java");
+        String name = StringSupport.substringBefore(source.getName(), ".java");
         Matcher matcher = PACKAGE_PATTERN.matcher(content);
 
         if (matcher.find()) {
