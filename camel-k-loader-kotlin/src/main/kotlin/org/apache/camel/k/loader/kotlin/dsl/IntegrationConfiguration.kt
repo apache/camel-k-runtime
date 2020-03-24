@@ -23,12 +23,10 @@ import org.apache.camel.builder.endpoint.EndpointRouteBuilder
 import org.apache.camel.k.loader.kotlin.KotlinCompilationConfiguration
 import org.apache.camel.model.*
 import org.apache.camel.model.rest.RestDefinition
-import org.apache.camel.spi.Registry
 import kotlin.script.experimental.annotations.KotlinScript
 
 @KotlinScript(fileExtension = "kts", compilationConfiguration = KotlinCompilationConfiguration::class)
 abstract class IntegrationConfiguration(
-        private val registry : Registry,
         private val builder : EndpointRouteBuilder) : BuilderSupport(builder.context), Support, EndpointBuilderFactory {
 
     fun rest(): RestDefinition {

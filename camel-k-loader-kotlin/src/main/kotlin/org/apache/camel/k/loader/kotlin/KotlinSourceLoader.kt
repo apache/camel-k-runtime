@@ -20,7 +20,6 @@ import org.apache.camel.builder.endpoint.EndpointRouteBuilder
 import org.apache.camel.k.Runtime
 import org.apache.camel.k.Source
 import org.apache.camel.k.SourceLoader
-import org.apache.camel.k.annotation.Loader
 import org.apache.camel.k.loader.kotlin.dsl.IntegrationConfiguration
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -34,7 +33,6 @@ import kotlin.script.experimental.jvmhost.BasicJvmScriptingHost
 import kotlin.script.experimental.jvmhost.JvmScriptCompiler
 import kotlin.script.experimental.jvmhost.createJvmCompilationConfigurationFromTemplate
 
-@Loader("kts")
 class KotlinSourceLoader : SourceLoader {
     companion object {
         val LOGGER : Logger = LoggerFactory.getLogger(KotlinSourceLoader::class.java)
@@ -64,14 +62,14 @@ class KotlinSourceLoader : SourceLoader {
                             //
                             // Arguments used to initialize the script base class
                             //
-                            constructorArgs(camelContext.registry, builder)
+                            constructorArgs(builder)
                         }
                     )
 
                     for (report in result.reports) {
-                        when {
-                            report.severity == ScriptDiagnostic.Severity.ERROR -> LOGGER.error("{}", report.message, report.exception)
-                            report.severity == ScriptDiagnostic.Severity.WARNING -> LOGGER.warn("{}", report.message, report.exception)
+                        when (report.severity) {
+                            ScriptDiagnostic.Severity.ERROR -> LOGGER.error("{}", report.message, report.exception)
+                            ScriptDiagnostic.Severity.WARNING -> LOGGER.warn("{}", report.message, report.exception)
                             else -> LOGGER.info("{}", report.message)
                         }
                     }
