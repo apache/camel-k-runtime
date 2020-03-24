@@ -25,10 +25,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Set up JDK 8
+    - name: Set up JDK 11
       uses: joschi/setup-jdk@v1
       with:
-        java-version: openjdk8
+        java-version: openjdk11
     - name: mvn install
       run: ./mvnw -V -B -ntp clean install
     - name: Save Cache
@@ -43,7 +43,6 @@ jobs:
     strategy:
       matrix:
         java:
-          - openjdk11
           - openjdk12
     steps:
       - uses: actions/checkout@v2
@@ -70,10 +69,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Set up JDK 8
+      - name: Set up JDK 11
         uses: joschi/setup-jdk@v1
         with:
-          java-version: openjdk8
+          java-version: openjdk11
       - name: Restore Cache
         uses: actions/cache@v1
         with:
