@@ -148,6 +148,11 @@
             <artifactId>camel-k-loader-kotlin</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel.k</groupId>
+            <artifactId>camel-k-runtime-knative</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>

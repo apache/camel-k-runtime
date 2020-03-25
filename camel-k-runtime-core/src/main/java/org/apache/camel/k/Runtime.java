@@ -32,6 +32,11 @@ import org.apache.camel.spi.Registry;
 import static org.apache.camel.util.CollectionHelper.mapOf;
 
 public interface Runtime extends HasCamelContext {
+
+    default <T extends CamelContext> T getCamelContext(Class<T> type) {
+        return getCamelContext().adapt(type);
+    }
+
     /**
      * Returns the registry associated to this runtime.
      */

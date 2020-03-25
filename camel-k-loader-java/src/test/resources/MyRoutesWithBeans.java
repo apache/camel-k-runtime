@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import org.apache.camel.BindToRegistry;
 import org.apache.camel.builder.RouteBuilder;
 
@@ -22,13 +21,12 @@ public class MyRoutesWithBeans extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         from("direct:start")
-            .routeId("my-route")
-            .bean("my-bean", "getName")
-            .to("log:info");
+            .setBody().simple("${header[MyHeader]}")
+            .to("log:knative");
     }
 
     @BindToRegistry("my-bean")
-    public org.apache.camel.k.main.MyBean createMyBean() {
-        return new org.apache.camel.k.main.MyBean("my-bean-name");
+    public static String myBean() {
+        return "my-bean-string";
     }
 }
