@@ -16,6 +16,7 @@
  */
 package org.apache.camel.k.loader.kotlin
 
+import org.apache.camel.RuntimeCamelException
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder
 import org.apache.camel.k.Runtime
 import org.apache.camel.k.Source
@@ -23,10 +24,13 @@ import org.apache.camel.k.SourceLoader
 import org.apache.camel.k.loader.kotlin.dsl.IntegrationConfiguration
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import java.io.InputStream
 import java.io.InputStreamReader
+import kotlin.script.experimental.api.ResultValue
 import kotlin.script.experimental.api.ScriptDiagnostic
 import kotlin.script.experimental.api.ScriptEvaluationConfiguration
 import kotlin.script.experimental.api.constructorArgs
+import kotlin.script.experimental.api.valueOrNull
 import kotlin.script.experimental.host.toScriptSource
 import kotlin.script.experimental.jvm.BasicJvmScriptEvaluator
 import kotlin.script.experimental.jvmhost.BasicJvmScriptingHost
@@ -35,7 +39,51 @@ import kotlin.script.experimental.jvmhost.createJvmCompilationConfigurationFromT
 
 class KotlinSourceLoader : SourceLoader {
     companion object {
-        val LOGGER : Logger = LoggerFactory.getLogger(KotlinSourceLoader::class.java)
+        private val LOGGER : Logger = LoggerFactory.getLogger(KotlinSourceLoader::class.java)
+
+        @JvmStatic
+        fun load(inputStream: InputStream): EndpointRouteBuilder {
+            return object : EndpointRouteBuilder() {
+                @Throws(Exception::class)
+                override fun configure() {
+                    load(inputStream, this)
+                }
+            }
+        }
+
+        @JvmStatic
+        fun load(inputStream: InputStream, builder: EndpointRouteBuilder) {
+            val compiler = JvmScriptCompiler()
+            val evaluator = BasicJvmScriptEvaluator()
+            val host = BasicJvmScriptingHost(compiler = compiler, evaluator = evaluator)
+            val config = createJvmCompilationConfigurationFromTemplate<IntegrationConfiguration>()
+
+            val result = host.eval(
+                    InputStreamReader(inputStream).readText().toScriptSource(),
+                    config,
+                    ScriptEvaluationConfiguration {
+                        //
+                        // Arguments used to initialize the script base class
+                        //
+                        constructorArgs(builder)
+                    }
+            )
+
+            // ensure that evaluation errors propagation
+            when(val rv = result.valueOrNull()?.returnValue) {
+                is ResultValue.Error -> throw RuntimeCamelException(rv.error)
+            }
+
+            for (report in result.reports) {
+                when (report.severity) {
+                    ScriptDiagnostic.Severity.FATAL -> LOGGER.error("{}", report.message, report.exception)
+                    ScriptDiagnostic.Severity.ERROR -> LOGGER.error("{}", report.message, report.exception)
+                    ScriptDiagnostic.Severity.WARNING -> LOGGER.warn("{}", report.message, report.exception)
+                    ScriptDiagnostic.Severity.INFO -> LOGGER.info("{}", report.message)
+                    ScriptDiagnostic.Severity.DEBUG -> LOGGER.debug("{}", report.message)
+                }
+            }
+        }
     }
 
     override fun getSupportedLanguages(): List<String> {
@@ -44,39 +92,13 @@ class KotlinSourceLoader : SourceLoader {
 
     @Throws(Exception::class)
     override fun load(runtime: Runtime, source: Source): SourceLoader.Result {
-        var builder = object : EndpointRouteBuilder() {
+        return SourceLoader.Result.on(object : EndpointRouteBuilder() {
             @Throws(Exception::class)
             override fun configure() {
-                val builder = this
-                val compiler = JvmScriptCompiler()
-                val evaluator = BasicJvmScriptEvaluator()
-                val host = BasicJvmScriptingHost(compiler = compiler, evaluator = evaluator)
-                val config = createJvmCompilationConfigurationFromTemplate<IntegrationConfiguration>()
-                val camelContext = runtime.camelContext
-
-                source.resolveAsInputStream(camelContext).use { `is` ->
-                    val result = host.eval(
-                        InputStreamReader(`is`).readText().toScriptSource(),
-                        config,
-                        ScriptEvaluationConfiguration {
-                            //
-                            // Arguments used to initialize the script base class
-                            //
-                            constructorArgs(builder)
-                        }
-                    )
-
-                    for (report in result.reports) {
-                        when (report.severity) {
-                            ScriptDiagnostic.Severity.ERROR -> LOGGER.error("{}", report.message, report.exception)
-                            ScriptDiagnostic.Severity.WARNING -> LOGGER.warn("{}", report.message, report.exception)
-                            else -> LOGGER.info("{}", report.message)
-                        }
-                    }
+                source.resolveAsInputStream(runtime.camelContext).use {
+                    load(it,  this)
                 }
             }
-        }
-
-        return SourceLoader.Result.on(builder)
+        })
     }
 }

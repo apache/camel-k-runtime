@@ -18,14 +18,20 @@ package org.apache.camel.k.loader.kotlin.dsl
 
 import org.apache.camel.CamelContext
 import org.apache.camel.Component
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 class ComponentsConfiguration(val context: CamelContext) {
+    companion object {
+        val LOGGER: Logger = LoggerFactory.getLogger(ComponentsConfiguration::class.java)
+    }
+
     inline fun <reified T : Component> component(name: String, block: T.() -> Unit) : T {
         var target = context.getComponent(name, true, false)
         var bind = false
 
-        if (target != null && target !is T) {
-            throw IllegalArgumentException("Type mismatch, expected: " + T::class.java + ", got: " + target.javaClass)
+        if (target != null && !T::class.java.isInstance(target)) {
+            throw IllegalArgumentException("Type mismatch, expected: ${T::class.java}, got: ${target.javaClass}")
         }
 
         // if the component is not found, let's create a new one. This is

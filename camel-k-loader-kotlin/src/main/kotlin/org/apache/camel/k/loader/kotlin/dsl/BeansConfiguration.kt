@@ -21,13 +21,12 @@ import org.apache.camel.Exchange
 import org.apache.camel.Predicate
 import org.apache.camel.Processor
 import org.apache.camel.builder.endpoint.EndpointBuilderFactory
-import kotlin.reflect.full.createInstance
 
 class BeansConfiguration(
         val context: CamelContext) : EndpointBuilderFactory {
 
     inline fun <reified T : Any> bean(name: String, block: T.() -> Unit) {
-        var bean = T::class.createInstance()
+        val bean = context.injector.newInstance(T::class.java)
         bean.block()
 
         context.registry.bind(name, T::class.java, bean)
