@@ -85,6 +85,13 @@ public class KnativeHttpConsumer extends DefaultConsumer {
 
     @Override
     protected void doStart() throws Exception {
+        if (!ObjectHelper.isEmpty(serviceDefinition.getHost())) {
+            LOGGER.warn("Unsupported property `host` on definition={}", serviceDefinition.getName());
+        }
+        if (serviceDefinition.getPort() >= 0) {
+            LOGGER.warn("Unsupported property `port` on definition={}", serviceDefinition.getName());
+        }
+
         if (route == null) {
             String path = ObjectHelper.supplyIfEmpty(serviceDefinition.getPath(), () -> KnativeHttp.DEFAULT_PATH);
             if (ObjectHelper.isNotEmpty(basePath)) {
