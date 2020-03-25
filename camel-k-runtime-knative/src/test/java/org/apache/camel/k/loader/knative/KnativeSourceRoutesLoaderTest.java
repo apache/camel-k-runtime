@@ -23,7 +23,6 @@ import java.util.UUID;
 import java.util.stream.Stream;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.knative.KnativeComponent;
@@ -37,11 +36,9 @@ import org.apache.camel.k.SourceLoader;
 import org.apache.camel.k.Sources;
 import org.apache.camel.k.http.PlatformHttpServiceContextCustomizer;
 import org.apache.camel.k.listener.RoutesConfigurer;
-import org.apache.camel.k.loader.java.JavaSourceLoader;
 import org.apache.camel.k.test.AvailablePortFinder;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.model.RouteDefinition;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -69,15 +66,14 @@ public class KnativeSourceRoutesLoaderTest {
     public void testWrapLoader(String uri) throws Exception {
         LOGGER.info("uri: {}", uri);
 
-        final int port = AvailablePortFinder.getNextAvailable();
         final String data = UUID.randomUUID().toString();
+        final TestRuntime runtime = new TestRuntime();
 
         KnativeComponent component = new KnativeComponent();
         component.setEnvironment(KnativeEnvironment.on(
-            KnativeEnvironment.endpoint(Knative.EndpointKind.sink, "sink", "localhost", port)
+            KnativeEnvironment.endpoint(Knative.EndpointKind.sink, "sink", "localhost", runtime.port)
         ));
 
-        TestRuntime runtime = new TestRuntime();
 
         CamelContext context = runtime.getCamelContext();
         context.disableJMX();
@@ -95,7 +91,7 @@ public class KnativeSourceRoutesLoaderTest {
             context.addRoutes(new RouteBuilder() {
                 @Override
                 public void configure() throws Exception {
-                    fromF("undertow:http://localhost:%d", port)
+                    fromF("platform-http:/")
                         .routeId("http")
                         .to("mock:result");
                 }
@@ -128,60 +124,23 @@ public class KnativeSourceRoutesLoaderTest {
         }
     }
 
-    @Test
-    public void testWrapLoaderWithBeanRegistration() throws Exception {
-        final int port = AvailablePortFinder.getNextAvailable();
-
-        KnativeComponent component = new KnativeComponent();
-        component.setEnvironment(KnativeEnvironment.on(
-            KnativeEnvironment.endpoint(Knative.EndpointKind.sink, "sink", "localhost", port)
-        ));
-
-        TestRuntime runtime = new TestRuntime();
-
-        CamelContext context = runtime.getCamelContext();
-        context.disableJMX();
-        context.setStreamCaching(true);
-        context.addComponent("knative", component);
-
-        Source source = Sources.fromURI("classpath:sources/routes.java?name=MyRoutes.java&interceptors=knative-source");
-        SourceLoader loader = RoutesConfigurer.load(runtime, source);
-
-        assertThat(loader.getSupportedLanguages()).contains(source.getLanguage());
-        assertThat(loader).isInstanceOf(JavaSourceLoader.class);
-        assertThat(runtime.builders).hasSize(1);
-
-        try {
-            RoutesBuilder builder = runtime.builders.get(0);
-
-            context.addRoutes(builder);
-
-            context.adapt(ExtendedCamelContext.class)
-                .getBeanPostProcessor()
-                .postProcessBeforeInitialization(builder, builder.getClass().getName());
-            context.adapt(ExtendedCamelContext.class)
-                .getBeanPostProcessor()
-                .postProcessAfterInitialization(builder, builder.getClass().getName());
-
-            context.start();
-
-            assertThat(context.getRegistry().lookupByName("my-bean")).isInstanceOfSatisfying(String.class, "my-bean-string"::equals);
-        } finally {
-            context.stop();
-        }
-    }
-
     static class TestRuntime implements Runtime {
         private final CamelContext camelContext;
         private final List<RoutesBuilder> builders;
+        private final int port;
 
         public TestRuntime() {
             this.camelContext = new DefaultCamelContext();
             this.builders = new ArrayList<>();
+            this.port = AvailablePortFinder.getNextAvailable();
 
             PlatformHttpServiceContextCustomizer httpService = new PlatformHttpServiceContextCustomizer();
-            httpService.setBindPort(AvailablePortFinder.getNextAvailable());
+            httpService.setBindPort(this.port);
             httpService.apply(this.camelContext);
+        }
+
+        public int getPort() {
+            return port;
         }
 
         @Override

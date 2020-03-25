@@ -109,11 +109,6 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-undertow</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
             <artifactId>camel-cloud</artifactId>
             <scope>test</scope>
         </dependency>
@@ -138,7 +133,8 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <useSystemClassLoader>false</useSystemClassLoader>
-                    <forkCount>0</forkCount>
+                    <forkCount>1</forkCount>
+                    <resueForks>false</resueForks>
                 </configuration>
             </plugin>
         </plugins>
