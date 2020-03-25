@@ -30,6 +30,9 @@ import org.apache.camel.k.http.PlatformHttp;
 import org.apache.camel.support.service.ServiceSupport;
 
 public class KnativeHttpTransport extends ServiceSupport implements CamelContextAware, KnativeTransport {
+    public static final int DEFAULT_PORT = 8080;
+    public static final String DEFAULT_PATH = "/";
+    
     private PlatformHttp platformHttp;
     private WebClientOptions vertxHttpClientOptions;
     private CamelContext camelContext;

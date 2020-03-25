@@ -111,8 +111,8 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
             return true;
         }
 
-        final int port = serviceDefinition.getPortOrDefault(KnativeHttp.DEFAULT_PORT);
-        final String path = serviceDefinition.getPathOrDefault(KnativeHttp.DEFAULT_PATH);
+        final int port = serviceDefinition.getPortOrDefault(KnativeHttpTransport.DEFAULT_PORT);
+        final String path = serviceDefinition.getPathOrDefault(KnativeHttpTransport.DEFAULT_PATH);
 
         client.post(port, serviceDefinition.getHost(), path)
             .putHeaders(headers)
@@ -181,7 +181,7 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
     }
 
     private String getURI() {
-        String p = ObjectHelper.supplyIfEmpty(serviceDefinition.getPath(), () -> KnativeHttp.DEFAULT_PATH);
+        String p = ObjectHelper.supplyIfEmpty(serviceDefinition.getPath(), () -> KnativeHttpTransport.DEFAULT_PATH);
         if (!p.startsWith("/")) {
             p = "/" + p;
         }

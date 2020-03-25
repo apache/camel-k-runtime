@@ -93,7 +93,7 @@ public class KnativeHttpConsumer extends DefaultConsumer {
         }
 
         if (route == null) {
-            String path = ObjectHelper.supplyIfEmpty(serviceDefinition.getPath(), () -> KnativeHttp.DEFAULT_PATH);
+            String path = ObjectHelper.supplyIfEmpty(serviceDefinition.getPath(), () -> KnativeHttpTransport.DEFAULT_PATH);
             if (ObjectHelper.isNotEmpty(basePath)) {
                 path = basePath + path;
             }
