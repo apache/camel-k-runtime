@@ -16,9 +16,9 @@
 #
 name: Validate PR
 
-on: 
+on:
   pull_request:
-    branches: 
+    branches:
       - master
 jobs:
   build:
@@ -30,4 +30,8 @@ jobs:
       with:
         java-version: openjdk11
     - name: mvn package
-      run: ./mvnw -fae -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn -Dcheckstyle.failOnViolation=true clean package -Psourcecheck,license -DskipTests
+      run: |
+        ./mvnw -fae -B -ntp clean package \
+          -Dcheckstyle.failOnViolation=true \
+          -DskipTests \
+          -Psourcecheck,license
