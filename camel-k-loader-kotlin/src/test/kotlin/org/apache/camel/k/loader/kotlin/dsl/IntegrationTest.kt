@@ -18,6 +18,7 @@ package org.apache.camel.k.loader.kotlin.dsl
 
 import org.apache.camel.Predicate
 import org.apache.camel.Processor
+import org.apache.camel.RuntimeCamelException
 import org.apache.camel.component.jackson.JacksonDataFormat
 import org.apache.camel.component.log.LogComponent
 import org.apache.camel.component.seda.SedaComponent
@@ -31,7 +32,12 @@ import org.apache.camel.model.rest.PostVerbDefinition
 import org.apache.camel.processor.FatalFallbackErrorHandler
 import org.apache.camel.support.DefaultHeaderFilterStrategy
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatExceptionOfType
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
+import java.lang.IllegalArgumentException
+import java.lang.RuntimeException
 import javax.sql.DataSource
 
 class IntegrationTest {
@@ -102,6 +108,17 @@ class IntegrationTest {
         assertThat(mySeda.queueSize).isEqualTo(4321)
         assertThat(mySeda.concurrentConsumers).isEqualTo(21)
         assertThat(log.exchangeFormatter).isNotNull
+    }
+
+    @Test
+    fun `load integration with components configuration error`() {
+        val context = DefaultCamelContext()
+        val runtime = Runtime.on(context)
+
+        assertThatExceptionOfType(RuntimeCamelException::class.java)
+            .isThrownBy { forRoutes("classpath:routes-with-components-configuration-error.kts").accept(Runtime.Phase.ConfigureRoutes, runtime) }
+            .withCauseInstanceOf(IllegalArgumentException::class.java)
+            .withMessageContaining("Type mismatch, expected: class org.apache.camel.component.log.LogComponent, got: class org.apache.camel.component.seda.SedaComponent");
     }
 
     @Test
