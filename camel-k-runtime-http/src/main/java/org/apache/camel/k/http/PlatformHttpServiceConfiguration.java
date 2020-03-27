@@ -32,6 +32,7 @@ public class PlatformHttpServiceConfiguration {
 
     private BodyHandlerConfiguration bodyHandlerConfiguration = new BodyHandlerConfiguration();
     private SSLContextParameters sslContextParameters;
+    private boolean useGlobalSslContextParameters;
 
     public String getBindHost() {
         return bindHost;
@@ -79,6 +80,14 @@ public class PlatformHttpServiceConfiguration {
 
     public void setSslContextParameters(SSLContextParameters sslContextParameters) {
         this.sslContextParameters = sslContextParameters;
+    }
+
+    public boolean isUseGlobalSslContextParameters() {
+        return useGlobalSslContextParameters;
+    }
+
+    public void setUseGlobalSslContextParameters(boolean useGlobalSslContextParameters) {
+        this.useGlobalSslContextParameters = useGlobalSslContextParameters;
     }
 
     public static class BodyHandlerConfiguration {

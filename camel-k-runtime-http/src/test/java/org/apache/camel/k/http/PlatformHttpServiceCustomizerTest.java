@@ -19,6 +19,7 @@ package org.apache.camel.k.http;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
+import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.platform.http.PlatformHttpComponent;
 import org.apache.camel.component.platform.http.PlatformHttpConstants;
@@ -26,7 +27,13 @@ import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.http.engine.RuntimePlatformHttpEngine;
 import org.apache.camel.k.test.AvailablePortFinder;
+import org.apache.camel.support.jsse.KeyManagersParameters;
+import org.apache.camel.support.jsse.KeyStoreParameters;
+import org.apache.camel.support.jsse.SSLContextParameters;
+import org.apache.camel.support.jsse.SSLContextServerParameters;
+import org.apache.camel.support.jsse.TrustManagersParameters;
 import org.apache.camel.util.ObjectHelper;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -140,6 +147,131 @@ public class PlatformHttpServiceCustomizerTest {
                 .body(equalTo("TEST"));
         } finally {
             runtime.getCamelContext().stop();
+        }
+    }
+
+    @Test
+    public void testPlatformHttpComponentSSL() throws Exception {
+        KeyStoreParameters keystoreParameters = new KeyStoreParameters();
+        keystoreParameters.setResource("jsse/service.jks");
+        keystoreParameters.setPassword("security");
+
+        SSLContextParameters serviceSSLContextParameters = new SSLContextParameters();
+        KeyManagersParameters serviceSSLKeyManagers = new KeyManagersParameters();
+        serviceSSLKeyManagers.setKeyPassword("security");
+        serviceSSLKeyManagers.setKeyStore(keystoreParameters);
+        serviceSSLContextParameters.setKeyManagers(serviceSSLKeyManagers);
+
+        KeyStoreParameters truststoreParameters = new KeyStoreParameters();
+        truststoreParameters.setResource("jsse/truststore.jks");
+        truststoreParameters.setPassword("storepass");
+
+        TrustManagersParameters clientAuthServiceSSLTrustManagers = new TrustManagersParameters();
+        clientAuthServiceSSLTrustManagers.setKeyStore(truststoreParameters);
+        serviceSSLContextParameters.setTrustManagers(clientAuthServiceSSLTrustManagers);
+        SSLContextServerParameters clientAuthSSLContextServerParameters = new SSLContextServerParameters();
+        clientAuthSSLContextServerParameters.setClientAuthentication("REQUIRE");
+        serviceSSLContextParameters.setServerParameters(clientAuthSSLContextServerParameters);
+
+        SSLContextParameters clientSSLContextParameters = new SSLContextParameters();
+        TrustManagersParameters clientSSLTrustManagers = new TrustManagersParameters();
+        clientSSLTrustManagers.setKeyStore(truststoreParameters);
+        clientSSLContextParameters.setTrustManagers(clientSSLTrustManagers);
+
+        KeyManagersParameters clientAuthClientSSLKeyManagers = new KeyManagersParameters();
+        clientAuthClientSSLKeyManagers.setKeyPassword("security");
+        clientAuthClientSSLKeyManagers.setKeyStore(keystoreParameters);
+        clientSSLContextParameters.setKeyManagers(clientAuthClientSSLKeyManagers);
+
+        CamelContext context = new DefaultCamelContext();
+        context.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                fromF("platform-http:/")
+                    .transform().body(String.class, b -> b.toUpperCase());
+            }
+        });
+
+        PlatformHttpServiceContextCustomizer httpService = new PlatformHttpServiceContextCustomizer();
+        httpService.setBindPort(AvailablePortFinder.getNextAvailable());
+        httpService.setSslContextParameters(serviceSSLContextParameters);
+        httpService.apply(context);
+
+        try {
+            context.getRegistry().bind("clientSSLContextParameters", clientSSLContextParameters);
+            context.start();
+
+            String result = context.createFluentProducerTemplate()
+                .toF("https://localhost:%d?sslContextParameters=#clientSSLContextParameters", httpService.getBindPort())
+                .withBody("test")
+                .request(String.class);
+
+            assertThat(result).isEqualTo("TEST");
+        } finally {
+            context.stop();
+        }
+    }
+
+    @Test
+    public void testPlatformHttpComponentGlobalSSL() throws Exception {
+        KeyStoreParameters keystoreParameters = new KeyStoreParameters();
+        keystoreParameters.setResource("jsse/service.jks");
+        keystoreParameters.setPassword("security");
+
+        SSLContextParameters serviceSSLContextParameters = new SSLContextParameters();
+        KeyManagersParameters serviceSSLKeyManagers = new KeyManagersParameters();
+        serviceSSLKeyManagers.setKeyPassword("security");
+        serviceSSLKeyManagers.setKeyStore(keystoreParameters);
+        serviceSSLContextParameters.setKeyManagers(serviceSSLKeyManagers);
+
+        KeyStoreParameters truststoreParameters = new KeyStoreParameters();
+        truststoreParameters.setResource("jsse/truststore.jks");
+        truststoreParameters.setPassword("storepass");
+
+        TrustManagersParameters clientAuthServiceSSLTrustManagers = new TrustManagersParameters();
+        clientAuthServiceSSLTrustManagers.setKeyStore(truststoreParameters);
+        serviceSSLContextParameters.setTrustManagers(clientAuthServiceSSLTrustManagers);
+        SSLContextServerParameters clientAuthSSLContextServerParameters = new SSLContextServerParameters();
+        clientAuthSSLContextServerParameters.setClientAuthentication("REQUIRE");
+        serviceSSLContextParameters.setServerParameters(clientAuthSSLContextServerParameters);
+
+        SSLContextParameters clientSSLContextParameters = new SSLContextParameters();
+        TrustManagersParameters clientSSLTrustManagers = new TrustManagersParameters();
+        clientSSLTrustManagers.setKeyStore(truststoreParameters);
+        clientSSLContextParameters.setTrustManagers(clientSSLTrustManagers);
+
+        KeyManagersParameters clientAuthClientSSLKeyManagers = new KeyManagersParameters();
+        clientAuthClientSSLKeyManagers.setKeyPassword("security");
+        clientAuthClientSSLKeyManagers.setKeyStore(keystoreParameters);
+        clientSSLContextParameters.setKeyManagers(clientAuthClientSSLKeyManagers);
+
+        CamelContext context = new DefaultCamelContext();
+        context.setSSLContextParameters(serviceSSLContextParameters);
+        context.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                fromF("platform-http:/")
+                    .transform().body(String.class, b -> b.toUpperCase());
+            }
+        });
+
+        PlatformHttpServiceContextCustomizer httpService = new PlatformHttpServiceContextCustomizer();
+        httpService.setBindPort(AvailablePortFinder.getNextAvailable());
+        httpService.setUseGlobalSslContextParameters(true);
+        httpService.apply(context);
+
+        try {
+            context.getRegistry().bind("clientSSLContextParameters", clientSSLContextParameters);
+            context.start();
+
+            String result = context.createFluentProducerTemplate()
+                .toF("https://localhost:%d?sslContextParameters=#clientSSLContextParameters", httpService.getBindPort())
+                .withBody("test")
+                .request(String.class);
+
+            assertThat(result).isEqualTo("TEST");
+        } finally {
+            context.stop();
         }
     }
 }
