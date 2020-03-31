@@ -130,6 +130,9 @@ public class GenerateCatalogMojo extends AbstractMojo {
                         "health",
                         CamelCapability.forArtifact("org.apache.camel.k", "camel-k-runtime-health"));
                     runtimeSpec.putCapability(
+                        "platform-http",
+                        CamelCapability.forArtifact("org.apache.camel.k", "camel-k-runtime-http"));
+                    runtimeSpec.putCapability(
                         "rest",
                         new CamelCapability.Builder()
                             .addDependency("org.apache.camel", "camel-rest")
@@ -146,6 +149,9 @@ public class GenerateCatalogMojo extends AbstractMojo {
                     runtimeSpec.putCapability(
                         "health",
                         CamelCapability.forArtifact("org.apache.camel.quarkus", "camel-quarkus-microprofile-health"));
+                    runtimeSpec.putCapability(
+                        "platform-http",
+                        CamelCapability.forArtifact("org.apache.camel.quarkus", "camel-quarkus-platform-http"));
                     runtimeSpec.putCapability(
                         "rest",
                         new CamelCapability.Builder()
