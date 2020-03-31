@@ -232,13 +232,13 @@ public class KnativeEnvironment {
             @JsonProperty(value = "type", required = true) Knative.Type type,
             @JsonProperty(value = "name", required = true) String name,
             @JsonProperty(value = "host", required = false) String host,
-            @JsonProperty(value = "port", required = false) int port,
+            @JsonProperty(value = "port", required = false) Integer port,
             @JsonProperty(value = "metadata", required = false) Map<String, String> metadata) {
 
             super(
                 name,
                 host,
-                port,
+                port == null ? -1 : port,
                 KnativeSupport.mergeMaps(
                     metadata,
                     KnativeSupport.mapOf(
