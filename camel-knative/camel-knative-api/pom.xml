@@ -59,6 +59,18 @@
             <artifactId>jackson-datatype-jdk8</artifactId>
         </dependency>
 
+        <!-- ****************************** -->
+        <!--                                -->
+        <!-- TESTS                          -->
+        <!--                                -->
+        <!-- ****************************** -->
+
+        <dependency>
+            <groupId>org.apache.camel.k</groupId>
+            <artifactId>camel-k-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
