@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><rests xmlns="http://camel.apache.org/schema/spring">
+    <rest>
+        <get id="list" produces="application/json" uri="/">
+            <to uri="direct:list"/>
+        </get>
+        <get id="get" produces="application/octet-stream" uri="/{name}">
+            <to uri="direct:get"/>
+        </get>
+        <put consumes="application/octet-stream" id="create" uri="/{name}">
+            <param description="The object content" name="body" required="true" type="body"/>
+            <to uri="direct:create"/>
+        </put>
+        <delete id="delete" uri="/{name}">
+            <to uri="direct:delete"/>
+        </delete>
+    </rest>
+</rests>
