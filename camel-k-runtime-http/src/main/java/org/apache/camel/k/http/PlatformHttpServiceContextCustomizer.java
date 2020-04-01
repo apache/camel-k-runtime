@@ -16,7 +16,10 @@
  */
 package org.apache.camel.k.http;
 
+import java.util.Map;
+
 import org.apache.camel.CamelContext;
+import org.apache.camel.Endpoint;
 import org.apache.camel.Ordered;
 import org.apache.camel.component.platform.http.PlatformHttpComponent;
 import org.apache.camel.component.platform.http.PlatformHttpConstants;
@@ -42,7 +45,20 @@ public class PlatformHttpServiceContextCustomizer extends PlatformHttpServiceCon
         }
 
         // add the platform-http component
-        PlatformHttpComponent component = new PlatformHttpComponent();
+        PlatformHttpComponent component = new PlatformHttpComponent() {
+            @Override
+            protected Endpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters) throws Exception {
+                // remove matchOnUriPrefix as it will be fixed by camel 3.2 but will cause the context
+                // to fail as the property cannot be bound to the enpoint.
+                //
+                // TODO: remove once migrating to camel 3.2
+                parameters.remove("matchOnUriPrefix");
+
+                // let the original component to create the endpoint
+                return super.createEndpoint(uri, remaining, parameters);
+            }
+        };
+
         component.setEngine(new RuntimePlatformHttpEngine());
 
         camelContext.addComponent(PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME, component);
