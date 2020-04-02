@@ -17,17 +17,19 @@
 package org.apache.camel.k.tooling.maven;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DefaultArtifact;
 import org.apache.maven.plugin.AbstractMojo;
@@ -49,10 +51,12 @@ import org.yaml.snakeyaml.Yaml;
     requiresDependencyResolution = ResolutionScope.COMPILE_PLUS_RUNTIME,
     requiresDependencyCollection = ResolutionScope.COMPILE_PLUS_RUNTIME)
 public class GenerateDependencyListMojo extends AbstractMojo {
+    private static final String[] CHECKSUM_TYPES = {"md5", "sha1"};
+
     @Parameter(readonly = true, defaultValue = "${project}")
     private MavenProject project;
 
-    @Parameter(defaultValue = "${project.build.directory}/dependencies.yaml")
+    @Parameter(property = "dependencies.file", defaultValue = "${project.build.directory}/dependencies.yaml")
     private String outputFile;
 
     @Parameter(defaultValue = "true")
@@ -60,6 +64,7 @@ public class GenerateDependencyListMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
+        getLog().info(">>>" + this.outputFile);
         final Path output = Paths.get(this.outputFile);
 
         try {
@@ -92,11 +97,38 @@ public class GenerateDependencyListMojo extends AbstractMojo {
     }
 
     private Map<String, String> artifactToMap(Artifact artifact) {
-        Map<String, String> dep = new HashMap<>();
+        Map<String, String> dep = new LinkedHashMap<>();
         dep.put("id", artifact.getId());
 
-        if (includeLocation && artifact.getFile() != null) {
+        if (artifact.getFile() == null) {
+            return dep;
+        }
+
+        if (includeLocation) {
             dep.put("location", artifact.getFile().getAbsolutePath());
+        }
+
+        try {
+            String location = artifact.getFile().getAbsolutePath();
+            String checksum = null;
+
+            for (String checksumType : CHECKSUM_TYPES) {
+                Path checksumFile = Paths.get(location + "." + checksumType);
+                if (Files.exists(checksumFile)) {
+                    checksum = checksumType + ":" + Files.readString(checksumFile, StandardCharsets.UTF_8);
+                    break;
+                }
+            }
+
+            if (checksum == null) {
+                try (InputStream is = Files.newInputStream(artifact.getFile().toPath())) {
+                    checksum = "sh1:" + DigestUtils.sha1Hex(is);
+                }
+            }
+
+            dep.put("checksum", checksum);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
         return dep;
