@@ -28,6 +28,7 @@
     <version>1.0.0</version>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <openapi.spec>${project.basedir}/document.json</openapi.spec>
         <dsl.out>${project.basedir}/document.xml</dsl.out>
     </properties>
