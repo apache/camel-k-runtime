@@ -122,7 +122,7 @@ public class GenerateDependencyListMojo extends AbstractMojo {
 
             if (checksum == null) {
                 try (InputStream is = Files.newInputStream(artifact.getFile().toPath())) {
-                    checksum = "sh1:" + DigestUtils.sha1Hex(is);
+                    checksum = "sha1:" + DigestUtils.sha1Hex(is);
                 }
             }
 
