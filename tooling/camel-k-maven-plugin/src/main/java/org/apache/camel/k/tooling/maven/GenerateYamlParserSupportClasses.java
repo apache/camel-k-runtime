@@ -30,6 +30,7 @@ import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 import org.apache.camel.model.DataFormatDefinition;
+import org.apache.camel.model.LoadBalancerDefinition;
 import org.apache.camel.model.language.ExpressionDefinition;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.WordUtils;
@@ -53,6 +54,10 @@ public class GenerateYamlParserSupportClasses extends GenerateYamlSupport {
                 .build()
                 .writeTo(Paths.get(output));
             JavaFile.builder("org.apache.camel.k.loader.yaml.parser", generateHasDataFormat())
+                .indent("    ")
+                .build()
+                .writeTo(Paths.get(output));
+            JavaFile.builder("org.apache.camel.k.loader.yaml.parser", generateHasLoadBalancerType())
                 .indent("    ")
                 .build()
                 .writeTo(Paths.get(output));
@@ -154,6 +159,54 @@ public class GenerateYamlParserSupportClasses extends GenerateYamlSupport {
                             .endControlFlow()
                             .addStatement("setDataFormatType(definition);")
                             .build())
+                    .build()
+                );
+            }
+        );
+
+        return type.build();
+    }
+
+    public final TypeSpec generateHasLoadBalancerType() {
+        TypeSpec.Builder type = TypeSpec.interfaceBuilder("HasLoadBalancerType");
+        type.addModifiers(Modifier.PUBLIC);
+        type.addMethod(
+            MethodSpec.methodBuilder("setLoadBalancerType")
+                .addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT)
+                .addParameter(LoadBalancerDefinition.class, "loadbalancer")
+                .addAnnotation(
+                    AnnotationSpec.builder(JsonTypeInfo.class)
+                        .addMember("use", "$L", "JsonTypeInfo.Id.NAME")
+                        .addMember("include", "$L", "JsonTypeInfo.As.WRAPPER_OBJECT")
+                        .build())
+                .build()
+        );
+
+        type.addMethod(
+            MethodSpec.methodBuilder("getLoadBalancerType")
+                .addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT)
+                .returns(LoadBalancerDefinition.class)
+                .build()
+        );
+
+        definitions(LOAD_BALANCE_DEFINITION_CLASS).forEach(
+            (k, v) -> {
+                String name = k;
+                name = WordUtils.capitalize(name, '_', '-');
+                name = StringUtils.remove(name, "_");
+                name = StringUtils.remove(name, "-");
+
+                type.addMethod(MethodSpec.methodBuilder("set" + name)
+                    .addAnnotation(
+                        AnnotationSpec.builder(JsonAlias.class).addMember("value", "$S", k).build())
+                    .addModifiers(Modifier.PUBLIC, Modifier.DEFAULT)
+                    .addParameter(v, "definition")
+                    .addCode(
+                        CodeBlock.builder()
+                            .beginControlFlow("if (getLoadBalancerType() != null)")
+                            .addStatement("throw new IllegalArgumentException(\"A load-balancer has already been set\")")
+                            .endControlFlow()
+                            .addStatement("setLoadBalancerType(definition);").build())
                     .build()
                 );
             }

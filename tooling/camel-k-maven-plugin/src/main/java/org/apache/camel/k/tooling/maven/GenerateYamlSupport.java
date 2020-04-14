@@ -47,9 +47,8 @@ public abstract class GenerateYamlSupport extends AbstractMojo {
     public static final DotName EXPRESSION_DEFINITION_CLASS = DotName.createSimple("org.apache.camel.model.language.ExpressionDefinition");
     public static final DotName DATAFORMAT_DEFINITION_CLASS = DotName.createSimple("org.apache.camel.model.DataFormatDefinition");
     public static final DotName XMLROOTELEMENT_ANNOTATION_CLASS = DotName.createSimple("javax.xml.bind.annotation.XmlRootElement");
-    public static final DotName YAML_STEP_DEFINITION_CLASS = DotName.createSimple("org.apache.camel.k.loader.yaml.model.Step$Definition");
-    public static final DotName YAML_STEP_PARSER_ANNOTATION = DotName.createSimple("org.apache.camel.k.annotation.yaml.YAMLStepParser");
     public static final DotName YAML_STEP_DEFINITION_ANNOTATION = DotName.createSimple("org.apache.camel.k.annotation.yaml.YAMLNodeDefinition");
+    public static final DotName LOAD_BALANCE_DEFINITION_CLASS = DotName.createSimple("org.apache.camel.model.LoadBalancerDefinition");
 
     @Parameter(defaultValue = "${project}", readonly = true, required = true)
     protected MavenProject project;
