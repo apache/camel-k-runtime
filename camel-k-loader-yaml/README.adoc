@@ -1,14 +1,13 @@
-YAML DSL
-========
+= YAML DSL
 
 This artifact provides a YAML based DSL for Apache Camel and Apache Camel K.
 
 [WARNING]
 ====
-experimental
+Experimental
 ====
 
-=== Defining a route
+== Defining a route
 
 A route is a sequence of elements, or `steps`, defined as follow:
 
@@ -116,31 +115,51 @@ In case you want to use the data-format's default settings, you need to place an
 ====
 
 
-=== Supported EIP
+== Supported EIP
 
+- Aggregate
+- Bean
 - Choice
 - Claim Check
 - Convert Body
 - Delay
+- Dynamic Router
+- Enrich
 - Filter
+- From
+- Idempotent Consumer
 - Log
+- Loop
 - Marshal
+- Multicast
 - Pipeline
+- PollEnrich
 - Process
+- Recipient List
 - Remove Header
 - Remove Headers
 - Remove Property
 - Remove Properties
+- Resequence
+- Rest DSL
+- Routing Slip
+- Sample
 - Set Body
 - Set Header
 - Set Property
+- Sort
 - Split
+- Threads
+- Throttle
 - To
 - To Dynamic
 - Transform
+- Unmarshal
+- Validate
+- Wire Tap
 
 
-=== Extending the DSL
+== Extending the DSL
 
 The DSL is designed to be easily extended so you can provide your own step handler which is discovered at runtime using Camel's factory finder.
 
@@ -201,4 +220,4 @@ from:
         host: acme.com
         port: 8081
 ----
-<1> Parameters go here
+

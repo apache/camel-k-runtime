@@ -16,9 +16,9 @@
  */
 package org.apache.camel.k.loader.yaml
 
-
 import org.apache.camel.component.mock.MockEndpoint
 import org.apache.camel.processor.aggregate.UseLatestAggregationStrategy
+import org.apache.camel.support.processor.idempotent.MemoryIdempotentRepository
 
 class RoutesTest extends TestSupport {
 
@@ -100,4 +100,33 @@ class RoutesTest extends TestSupport {
         cleanup:
             context?.stop()
     }
+
+    def 'idempotentConsumer'() {
+        setup:
+        def context = startContext([
+                'myRepo': new MemoryIdempotentRepository()
+        ])
+
+        org.apache.camel.k.loader.yaml.TestSupport.mockEndpoint(context,'mock:idempotent') {
+            expectedMessageCount = 3
+            expectedBodiesReceived 'a', 'b', 'c'
+        }
+        org.apache.camel.k.loader.yaml.TestSupport.mockEndpoint(context,'mock:route') {
+            expectedMessageCount = 5
+            expectedBodiesReceived 'a', 'b', 'a2', 'b2', 'c'
+        }
+        when:
+        context.createProducerTemplate().with {
+            sendBodyAndHeader('direct:route', 'a', 'id', '1')
+            sendBodyAndHeader('direct:route', 'b', 'id', '2')
+            sendBodyAndHeader('direct:route', 'a2', 'id', '1')
+            sendBodyAndHeader('direct:route', 'b2', 'id', '2')
+            sendBodyAndHeader('direct:route', 'c', 'id', '3')
+        }
+        then:
+            MockEndpoint.assertIsSatisfied(context)
+        cleanup:
+            context?.stop()
+    }
+
 }
