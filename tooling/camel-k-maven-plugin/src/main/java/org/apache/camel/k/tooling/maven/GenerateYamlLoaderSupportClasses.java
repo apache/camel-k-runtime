@@ -91,6 +91,9 @@ public class GenerateYamlLoaderSupportClasses extends GenerateYamlSupport {
         definitions(DATAFORMAT_DEFINITION_CLASS).forEach(
             (k, v) -> mb.addStatement("context.registerSubtypes(new com.fasterxml.jackson.databind.jsontype.NamedType($T.class, $S))", v, k)
         );
+        definitions(LOAD_BALANCE_DEFINITION_CLASS).forEach(
+            (k, v) -> mb.addStatement("context.registerSubtypes(new com.fasterxml.jackson.databind.jsontype.NamedType($T.class, $S))", v, k)
+        );
 
         type.addMethod(mb.build());
 

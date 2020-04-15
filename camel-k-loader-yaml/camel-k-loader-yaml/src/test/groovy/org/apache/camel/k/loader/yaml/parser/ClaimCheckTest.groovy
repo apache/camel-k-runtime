@@ -16,9 +16,10 @@
  */
 package org.apache.camel.k.loader.yaml.parser
 
+import org.apache.camel.k.loader.yaml.TestSupport
 import org.apache.camel.model.ClaimCheckDefinition
 
-class ClaimCheckTest extends org.apache.camel.k.loader.yaml.TestSupport {
+class ClaimCheckTest extends TestSupport {
     def "definition"() {
         given:
             def stepContext = stepContext('''

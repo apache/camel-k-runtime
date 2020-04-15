@@ -21,7 +21,9 @@ import groovy.util.logging.Slf4j
 import org.apache.camel.CamelContext
 import org.apache.camel.component.mock.MockEndpoint
 import org.apache.camel.impl.DefaultCamelContext
+import org.apache.camel.k.loader.yaml.parser.ProcessorStepParser
 import org.apache.camel.k.loader.yaml.parser.StepParser
+import org.apache.camel.model.ProcessorDefinition
 import spock.lang.Specification
 
 import java.nio.charset.StandardCharsets
@@ -98,5 +100,9 @@ class TestSupport extends Specification {
         closure.call()
 
         return closure.delegate
+    }
+
+    static <U extends ProcessorStepParser> ProcessorDefinition<?> toProcessor(Class<U> type, String content) {
+        return type.getConstructor().newInstance().toProcessor(stepContext(content))
     }
 }
