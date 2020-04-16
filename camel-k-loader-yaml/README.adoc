@@ -128,6 +128,7 @@ In case you want to use the data-format's default settings, you need to place an
 - Filter
 - From
 - Idempotent Consumer
+- Load Balance
 - Log
 - Loop
 - Marshal
@@ -142,15 +143,21 @@ In case you want to use the data-format's default settings, you need to place an
 - Remove Properties
 - Resequence
 - Rest DSL
+- Rollback
 - Routing Slip
 - Sample
+- Script
 - Set Body
+- Set Exchange Pattern
 - Set Header
 - Set Property
 - Sort
 - Split
+- Step
+- Stop
 - Threads
 - Throttle
+- Throw Exception
 - To
 - To Dynamic
 - Transform
