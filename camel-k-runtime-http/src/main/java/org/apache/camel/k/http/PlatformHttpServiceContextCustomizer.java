@@ -29,6 +29,9 @@ import org.apache.camel.k.http.engine.RuntimePlatformHttpEngine;
 public class PlatformHttpServiceContextCustomizer extends PlatformHttpServiceConfiguration implements ContextCustomizer {
     private PlatformHttpServiceEndpoint endpoint;
 
+    public PlatformHttpServiceContextCustomizer() {
+    }
+
     @Override
     public int getOrder() {
         return Ordered.HIGHEST;
@@ -53,6 +56,12 @@ public class PlatformHttpServiceContextCustomizer extends PlatformHttpServiceCon
                 //
                 // TODO: remove once migrating to camel 3.2
                 parameters.remove("matchOnUriPrefix");
+
+                // the PlatformHttpComponent set this value but it is not handled which cause the
+                // context to fail as the property cannot be bound to the enpoint.
+                //
+                // TODO: fix upstream
+                parameters.remove("optionsEnabled");
 
                 // let the original component to create the endpoint
                 return super.createEndpoint(uri, remaining, parameters);

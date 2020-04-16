@@ -16,6 +16,8 @@
  */
 package org.apache.camel.k.http;
 
+import java.util.Arrays;
+
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
@@ -270,6 +272,47 @@ public class PlatformHttpServiceCustomizerTest {
                 .request(String.class);
 
             assertThat(result).isEqualTo("TEST");
+        } finally {
+            context.stop();
+        }
+    }
+
+    @Test
+    public void testPlatformHttpComponentCORS() throws Exception {
+        CamelContext context = new DefaultCamelContext();
+        context.addRoutes(new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                fromF("platform-http:/")
+                    .transform().constant("cors");
+            }
+        });
+
+        PlatformHttpServiceContextCustomizer httpService = new PlatformHttpServiceContextCustomizer();
+        httpService.setBindPort(AvailablePortFinder.getNextAvailable());
+        httpService.getCors().setEnabled(true);
+        httpService.getCors().setMethods(Arrays.asList("GET", "POST"));
+        httpService.apply(context);
+
+        try {
+            context.start();
+
+            String origin = "http://custom.origin.quarkus";
+            String methods = "GET,POST";
+            String headers = "X-Custom";
+
+            given()
+                .port(httpService.getBindPort())
+                .header("Origin", origin)
+                .header("Access-Control-Request-Method", methods)
+                .header("Access-Control-Request-Headers", headers)
+            .when()
+                .get("/")
+            .then()
+                .statusCode(200)
+                .header("Access-Control-Allow-Origin", origin)
+                .header("Access-Control-Allow-Methods", methods)
+                .header("Access-Control-Allow-Headers", headers);
         } finally {
             context.stop();
         }
