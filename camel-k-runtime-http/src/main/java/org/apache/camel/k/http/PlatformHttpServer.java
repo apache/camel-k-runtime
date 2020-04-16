@@ -83,6 +83,10 @@ public final class PlatformHttpServer extends ServiceSupport {
         final Router router = Router.router(vertx);
         final Router subRouter = Router.router(vertx);
 
+        if (configuration.getCors().isEnabled()) {
+            subRouter.route().handler(new org.apache.camel.k.http.support.CorsHandler(configuration));
+        }
+
         router.mountSubRouter(configuration.getPath(), subRouter);
 
         context.getRegistry().bind(
