@@ -55,7 +55,7 @@ public class KubernetesPropertiesFunction implements PropertiesFunction {
         Path file = this.root.resolve(name.toLowerCase()).resolve(property);
         if (Files.exists(file) && !Files.isDirectory(file)) {
             try {
-                return new String(Files.readAllBytes(file), StandardCharsets.UTF_8);
+                return Files.readString(file, StandardCharsets.UTF_8);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
