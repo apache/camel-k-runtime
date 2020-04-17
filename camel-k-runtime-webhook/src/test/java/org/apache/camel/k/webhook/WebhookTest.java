@@ -60,8 +60,8 @@ public class WebhookTest {
     public void testWebhookRegistration(WebhookAction action) throws Exception {
         Properties properties = new Properties();
         properties.setProperty("camel.component.webhook.configuration.webhook-auto-register", "false");
-        properties.setProperty("customizer.webhook.enabled", "true");
-        properties.setProperty("customizer.webhook.action", action.name().toLowerCase());
+        properties.setProperty("camel.k.customizer.webhook.enabled", "true");
+        properties.setProperty("camel.k.customizer.webhook.action", action.name().toLowerCase());
         runtime.setProperties(properties);
 
         CountDownLatch operation = new CountDownLatch(1);
@@ -126,8 +126,8 @@ public class WebhookTest {
     public void testRegistrationFailure(WebhookAction action) throws Exception {
         Properties properties = new Properties();
         properties.setProperty("camel.component.webhook.configuration.webhook-auto-register", "false");
-        properties.setProperty("customizer.webhook.enabled", "true");
-        properties.setProperty("customizer.webhook.action", action.name());
+        properties.setProperty("camel.k.customizer.webhook.enabled", "true");
+        properties.setProperty("camel.k.customizer.webhook.action", action.name());
         runtime.setProperties(properties);
 
         runtime.getCamelContext().addComponent(
@@ -147,8 +147,8 @@ public class WebhookTest {
     @Test
     public void testAutoRegistrationNotDisabled() throws Exception {
         Properties properties = new Properties();
-        properties.setProperty("customizer.webhook.enabled", "true");
-        properties.setProperty("customizer.webhook.action", WebhookAction.REGISTER.name());
+        properties.setProperty("camel.k.customizer.webhook.enabled", "true");
+        properties.setProperty("camel.k.customizer.webhook.action", WebhookAction.REGISTER.name());
         runtime.setProperties(properties);
 
         runtime.getCamelContext().addComponent(
