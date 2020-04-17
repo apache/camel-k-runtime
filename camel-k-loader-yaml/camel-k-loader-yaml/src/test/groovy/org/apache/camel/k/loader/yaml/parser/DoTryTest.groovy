@@ -25,17 +25,14 @@ class DoTryTest extends TestSupport {
         given:
             def stepContext = stepContext('''
                  steps:
-                   - to:
-                       uri: "log:when-a"
-                   - to:
-                       uri: "log:when-b"
+                   - to: "log:when-a"
+                   - to: "log:when-b"
                  do-catch:
                      exceptions: 
                        - "java.io.FileNotFoundException"
                        - "java.io.IOException"
                      steps:
-                       - to:
-                           uri: "log:io-error"
+                       - to: "log:io-error"
             ''')
         when:
             def processor = new DoTryStepParser().toProcessor(stepContext)
@@ -53,10 +50,8 @@ class DoTryTest extends TestSupport {
         given:
             def stepContext = stepContext('''
                  steps:
-                   - to:
-                       uri: "log:when-a"
-                   - to:
-                       uri: "log:when-b"
+                   - to: "log:when-a"
+                   - to: "log:when-b"
                  do-catch:
                      exceptions: 
                        - "java.io.FileNotFoundException"
@@ -64,8 +59,7 @@ class DoTryTest extends TestSupport {
                      when:
                        simple: "${body.size()} == 1"
                      steps:
-                       - to:
-                           uri: "log:io-error"
+                       - to: "log:io-error"
             ''')
         when:
             def processor = new DoTryStepParser().toProcessor(stepContext)
@@ -83,10 +77,8 @@ class DoTryTest extends TestSupport {
         given:
         def stepContext = stepContext('''
                  steps:
-                   - to:
-                       uri: "log:when-a"
-                   - to:
-                       uri: "log:when-b"
+                   - to: "log:when-a"
+                   - to: "log:when-b"
                  do-catch:
                      exceptions: 
                        - "java.io.FileNotFoundException"
@@ -94,12 +86,10 @@ class DoTryTest extends TestSupport {
                      when:
                        simple: "${body.size()} == 1"
                      steps:
-                       - to:
-                           uri: "log:io-error"
+                       - to: "log:io-error"
                  do-finally:
                    steps:
-                     - to:
-                         uri: "log:finally"
+                     - to: "log:finally"
             ''')
         when:
         def processor = new DoTryStepParser().toProcessor(stepContext)
@@ -117,21 +107,17 @@ class DoTryTest extends TestSupport {
         given:
         def stepContext = stepContext('''
                  steps:
-                   - to:
-                       uri: "log:when-a"
-                   - to:
-                       uri: "log:when-b"
+                   - to: "log:when-a"
+                   - to: "log:when-b"
                  do-catch:
                      exceptions: 
                        - "java.io.FileNotFoundException"
                        - "java.io.IOException"
                      steps:
-                       - to:
-                           uri: "log:io-error"
+                       - to: "log:io-error"
                  do-finally:
                    steps:
-                     - to:
-                         uri: "log:finally"
+                     - to: "log:finally"
             ''')
         when:
         def processor = new DoTryStepParser().toProcessor(stepContext)
@@ -149,14 +135,11 @@ class DoTryTest extends TestSupport {
         given:
             def stepContext = stepContext('''
                  steps:
-                   - to:
-                       uri: "log:when-a"
-                   - to:
-                       uri: "log:when-b"
+                   - to: "log:when-a"
+                   - to: "log:when-b"
                  do-finally:
                    steps:
-                     - to:
-                         uri: "log:finally"
+                     - to: "log:finally"
             ''')
         when:
             def processor = new DoTryStepParser().toProcessor(stepContext)
