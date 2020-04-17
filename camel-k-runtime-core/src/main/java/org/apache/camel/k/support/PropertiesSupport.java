@@ -119,7 +119,7 @@ public final class PropertiesSupport {
         // Additional locations
         if (ObjectHelper.isNotEmpty(conf)) {
             Path root = Paths.get(conf);
-            FileVisitor<Path> visitor = new SimpleFileVisitor<Path>() {
+            FileVisitor<Path> visitor = new SimpleFileVisitor<>() {
                 @Override
                 public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
                     Objects.requireNonNull(file);
