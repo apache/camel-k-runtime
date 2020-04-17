@@ -2,10 +2,7 @@
 
 This artifact provides a YAML based DSL for Apache Camel and Apache Camel K.
 
-[WARNING]
-====
-Experimental
-====
+The YAML DSL is current in preview support level.
 
 == Defining a route
 
@@ -161,10 +158,12 @@ In case you want to use the data-format's default settings, you need to place an
 - To
 - To Dynamic
 - Transform
+- Try Catch Finally
 - Unmarshal
 - Validate
 - Wire Tap
 
+The Try Catch Finally EIP currently only support specifying one `do-catch` clause.
 
 == Extending the DSL
 
