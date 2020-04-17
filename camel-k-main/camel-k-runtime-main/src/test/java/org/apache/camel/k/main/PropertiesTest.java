@@ -145,7 +145,26 @@ public class PropertiesTest {
     }
 
     @Test
-    public void testContextCustomizerFromProperty() throws Exception {
+    public void testContextCustomizerFromProperties() throws Exception {
+        Properties properties = new Properties();
+        properties.setProperty("camel.k.customizer.test.enabled", "true");
+        properties.setProperty("camel.k.customizer.test.message-history", "false");
+
+        ApplicationRuntime runtime = new ApplicationRuntime();
+        runtime.setProperties(properties);
+        runtime.addListener(new ContextConfigurer());
+        runtime.addListener(Runtime.Phase.Started, r -> {
+            CamelContext context = r.getCamelContext();
+            assertThat(context.isMessageHistory()).isFalse();
+            assertThat(context.isLoadTypeConverters()).isFalse();
+            runtime.stop();
+        });
+
+        runtime.run();
+    }
+
+    @Test
+    public void testContextCustomizerFromPropertiesFallback() throws Exception {
         Properties properties = new Properties();
         properties.setProperty("customizer.test.enabled", "true");
         properties.setProperty("customizer.test.message-history", "false");
@@ -166,7 +185,7 @@ public class PropertiesTest {
     @Test
     public void testContextCustomizerFromRegistry() throws Exception {
         Properties properties = new Properties();
-        properties.setProperty("customizer.c1.enabled", "true");
+        properties.setProperty("camel.k.customizer.c1.enabled", "true");
 
         ApplicationRuntime runtime = new ApplicationRuntime();
         runtime.setProperties(properties);

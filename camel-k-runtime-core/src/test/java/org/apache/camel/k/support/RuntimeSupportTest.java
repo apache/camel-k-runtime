@@ -44,7 +44,7 @@ public class RuntimeSupportTest {
         assertThat(customizers).hasSize(0);
 
         Properties properties = new Properties();
-        properties.setProperty("customizer.name.enabled", "true");
+        properties.setProperty("camel.k.customizer.name.enabled", "true");
         context.getPropertiesComponent().setInitialProperties(properties);
 
         customizers = RuntimeSupport.configureContextCustomizers(context);
@@ -85,6 +85,34 @@ public class RuntimeSupportTest {
         assertThat(customizers).hasSize(0);
 
         Properties properties = new Properties();
+        properties.setProperty("camel.k.customizer.name.enabled", "true");
+        context.getPropertiesComponent().setInitialProperties(properties);
+
+        customizers = RuntimeSupport.configureContextCustomizers(context);
+        assertThat(context.getName()).isEqualTo("default");
+        assertThat(customizers).hasSize(1);
+
+        properties.setProperty("camel.k.customizer.converters.enabled", "true");
+        context.getPropertiesComponent().setInitialProperties(properties);
+
+        customizers = RuntimeSupport.configureContextCustomizers(context);
+        assertThat(context.getName()).isEqualTo("default");
+        assertThat(context.isLoadTypeConverters()).isTrue();
+        assertThat(customizers).hasSize(2);
+    }
+
+    @Test
+    public void testLoadCustomizersFallback() {
+        CamelContext context = new DefaultCamelContext();
+        context.getRegistry().bind("converters", (ContextCustomizer)camelContext -> camelContext.setLoadTypeConverters(true));
+
+        List<ContextCustomizer> customizers = RuntimeSupport.configureContextCustomizers(context);
+        assertThat(context.getName()).isNotEqualTo("from-registry");
+        assertThat(context.getName()).isNotEqualTo("default");
+        assertThat(context.isLoadTypeConverters()).isFalse();
+        assertThat(customizers).hasSize(0);
+
+        Properties properties = new Properties();
         properties.setProperty("customizer.name.enabled", "true");
         context.getPropertiesComponent().setInitialProperties(properties);
 
@@ -92,6 +120,7 @@ public class RuntimeSupportTest {
         assertThat(context.getName()).isEqualTo("default");
         assertThat(customizers).hasSize(1);
 
+        properties.setProperty("customizer.converters.enabled", "true");
         properties.setProperty("customizer.converters.enabled", "true");
         context.getPropertiesComponent().setInitialProperties(properties);
 
@@ -135,9 +164,9 @@ public class RuntimeSupportTest {
         });
 
         Properties properties = new Properties();
-        properties.setProperty("customizer.c1.enabled", "true");
-        properties.setProperty("customizer.c2.enabled", "true");
-        properties.setProperty("customizer.c3.enabled", "true");
+        properties.setProperty("camel.k.customizer.c1.enabled", "true");
+        properties.setProperty("camel.k.customizer.c2.enabled", "true");
+        properties.setProperty("camel.k.customizer.c3.enabled", "true");
 
         context.getPropertiesComponent().setInitialProperties(properties);
 

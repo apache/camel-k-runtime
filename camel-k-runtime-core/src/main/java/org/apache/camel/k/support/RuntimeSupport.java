@@ -64,7 +64,9 @@ public final class RuntimeSupport {
             .forEach(e -> {
                 LOGGER.info("Apply ContextCustomizer with id={} and type={}", e.getKey(), e.getValue().getClass().getName());
 
-                PropertiesSupport.bindProperties(context, e.getValue(), "customizer." + e.getKey() + ".");
+                PropertiesSupport.bindProperties(context, e.getValue(), Constants.CUSTOMIZER_PREFIX + e.getKey() + ".");
+                PropertiesSupport.bindProperties(context, e.getValue(), Constants.CUSTOMIZER_PREFIX_FALLBACK + e.getKey() + ".");
+
                 e.getValue().apply(context);
 
                 appliedCustomizers.add(e.getValue());
@@ -75,7 +77,7 @@ public final class RuntimeSupport {
 
     public static Map<String, ContextCustomizer> lookupCustomizers(CamelContext context) {
         Map<String, ContextCustomizer> customizers = new ConcurrentHashMap<>();
-        Properties properties = context.getPropertiesComponent().loadProperties(n -> n.startsWith("customizer."));
+        Properties properties = context.getPropertiesComponent().loadProperties(n -> n.startsWith(Constants.CUSTOMIZER_PREFIX) || n.startsWith(Constants.CUSTOMIZER_PREFIX_FALLBACK));
 
         if (properties != null) {
             //
@@ -96,13 +98,21 @@ public final class RuntimeSupport {
                     final Object val = entry.getValue();
                     final Matcher matcher = pattern.matcher(key);
 
-                    if (matcher.matches() && matcher.groupCount() == 1) {
-                        if (Boolean.valueOf(String.valueOf(val))) {
+                    if (matcher.matches()) {
+                        String customizerId = null;
+
+                        if (matcher.groupCount() == 1) {
+                            customizerId = matcher.group(1);
+                        } else if (matcher.groupCount() == 2) {
+                            customizerId = matcher.group(2);
+                        }
+
+                        if (customizerId != null && Boolean.parseBoolean(String.valueOf(val))) {
                             //
                             // Do not override customizers eventually found
                             // in the registry
                             //
-                            customizers.computeIfAbsent(matcher.group(1), id -> lookupCustomizerByID(context, id));
+                            customizers.computeIfAbsent(customizerId, id -> lookupCustomizerByID(context, id));
                         }
                     }
                 });
@@ -250,7 +260,7 @@ public final class RuntimeSupport {
     public static Optional<RoutesBuilder> beforeConfigure(Optional<RoutesBuilder> builder, Consumer<RouteBuilder> consumer) {
         return builder.map(b -> {
             if (b instanceof RouteBuilder) {
-                RouteBuilder.class.cast(b).addLifecycleInterceptor(beforeConfigure(consumer));
+                ((RouteBuilder) b).addLifecycleInterceptor(beforeConfigure(consumer));
             }
             return b;
         });
@@ -268,7 +278,7 @@ public final class RuntimeSupport {
     public static Optional<RoutesBuilder> afterConfigure(Optional<RoutesBuilder> builder, Consumer<RouteBuilder> consumer) {
         return builder.map(b -> {
             if (b instanceof RouteBuilder) {
-                RouteBuilder.class.cast(b).addLifecycleInterceptor(afterConfigure(consumer));
+                ((RouteBuilder) b).addLifecycleInterceptor(afterConfigure(consumer));
             }
             return b;
         });
