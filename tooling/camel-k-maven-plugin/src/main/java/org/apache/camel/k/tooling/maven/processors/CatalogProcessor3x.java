@@ -50,6 +50,7 @@ public class CatalogProcessor3x implements CatalogProcessor {
         "grpc",
         "jetty",
         "netty-http",
+        "platform-http",
         "rest",
         "restlet",
         "servlet",
