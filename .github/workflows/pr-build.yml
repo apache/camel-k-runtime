@@ -35,9 +35,9 @@ jobs:
       uses: actions/cache@v1
       with:
         path: ~/.m2/repository
-        key: maven-${{ github.sha }}
+        key: maven-${{ github.run_id }}-${{ github.run_number }}
         restore-keys: |
-          maven-${{ github.sha }}
+          maven-${{ github.run_id }}-${{ github.run_number }}
   build-additional-jvm:
     runs-on: ubuntu-latest
     strategy:
@@ -77,9 +77,9 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ~/.m2/repository
-          key: maven-${{ github.sha }}
+          key: maven-${{ github.run_id }}-${{ github.run_number }}
           restore-keys: |
-            maven-${{ github.sha }}
+            maven-${{ github.run_id }}-${{ github.run_number }}
       - name: Integration Test - ${{ matrix.native-image-project }}
         run: |
           ./mvnw -V -B -ntp -nsu clean install \
@@ -111,9 +111,9 @@ jobs:
 #         uses: actions/cache@v1
 #         with:
 #           path: ~/.m2/repository
-#           key: maven-${{ github.sha }}
+#           key: maven-${{ github.run_id }}-${{ github.run_number }}
 #           restore-keys: |
-#             maven-${{ github.sha }}
+#             maven-${{ github.run_id }}-${{ github.run_number }}
 #       - name: Examples - ${{ matrix.native-image-project }}
 #         run: |
 #           ./mvnw -V -B -ntp -nsu clean package \
