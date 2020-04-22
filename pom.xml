@@ -43,7 +43,7 @@
         <camel-quarkus.version>1.0.0-M6</camel-quarkus.version>
         <catalog.version>${camel.version}</catalog.version>
         <junit.version>5.6.2</junit.version>
-        <joor.version>0.9.12</joor.version>
+        <joor.version>0.9.13</joor.version>
         <commons-lang.version>3.10</commons-lang.version>
         <commons-text.version>1.8</commons-text.version>
         <commons-codec.version>1.14</commons-codec.version>
