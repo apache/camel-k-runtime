@@ -1,0 +1,13 @@
+site:
+  title: Camel K Runtime Dev Playbook
+  url: https://camel.apache.org/
+  start_page: camel-k:languages:languages.adoc
+content:
+  sources:
+  - url: ../
+    branches: HEAD
+    start_path: docs
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/master/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
