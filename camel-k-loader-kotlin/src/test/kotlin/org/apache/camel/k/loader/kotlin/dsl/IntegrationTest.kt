@@ -33,11 +33,7 @@ import org.apache.camel.processor.FatalFallbackErrorHandler
 import org.apache.camel.support.DefaultHeaderFilterStrategy
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatExceptionOfType
-import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
-import java.lang.IllegalArgumentException
-import java.lang.RuntimeException
 import javax.sql.DataSource
 
 class IntegrationTest {
@@ -50,8 +46,6 @@ class IntegrationTest {
 
         assertThat(context.restConfiguration.host).isEqualTo("my-host")
         assertThat(context.restConfiguration.port).isEqualTo(9192)
-        assertThat(context.getRestConfiguration("undertow", false).host).isEqualTo("my-undertow-host")
-        assertThat(context.getRestConfiguration("undertow", false).port).isEqualTo(9193)
         assertThat(context.adapt(ModelCamelContext::class.java).restDefinitions.size).isEqualTo(2)
 
         with(context.adapt(ModelCamelContext::class.java).restDefinitions.find { it.path == "/my/path" }) {
@@ -164,7 +158,7 @@ class IntegrationTest {
 
         try {
             assertThat(context.routes).hasSize(1)
-            assertThat(context.routes[0].routeContext.getOnException("my-on-exception")).isInstanceOf(FatalFallbackErrorHandler::class.java)
+            assertThat(context.routes[0].getOnException("my-on-exception")).isInstanceOf(FatalFallbackErrorHandler::class.java)
         } finally {
             context.stop()
         }

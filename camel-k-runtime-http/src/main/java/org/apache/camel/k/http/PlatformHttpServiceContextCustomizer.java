@@ -40,6 +40,7 @@ public class PlatformHttpServiceContextCustomizer extends PlatformHttpServiceCon
     @Override
     public void apply(CamelContext camelContext) {
         endpoint = new PlatformHttpServiceEndpoint(camelContext, this);
+        endpoint.start();
 
         try {
             camelContext.addService(endpoint, true, true);
@@ -47,29 +48,24 @@ public class PlatformHttpServiceContextCustomizer extends PlatformHttpServiceCon
             throw new RuntimeException(e);
         }
 
-        // add the platform-http component
-        PlatformHttpComponent component = new PlatformHttpComponent() {
-            @Override
-            protected Endpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters) throws Exception {
-                // remove matchOnUriPrefix as it will be fixed by camel 3.2 but will cause the context
-                // to fail as the property cannot be bound to the enpoint.
-                //
-                // TODO: remove once migrating to camel 3.2
-                parameters.remove("matchOnUriPrefix");
+        camelContext.addComponent(PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME,  new PlatformHttpComponentWrapper());
+    }
 
-                // the PlatformHttpComponent set this value but it is not handled which cause the
-                // context to fail as the property cannot be bound to the enpoint.
-                //
-                // TODO: fix upstream
-                parameters.remove("optionsEnabled");
+    public static final class PlatformHttpComponentWrapper extends PlatformHttpComponent {
+        public PlatformHttpComponentWrapper() {
+            setEngine(new RuntimePlatformHttpEngine());
+        }
 
-                // let the original component to create the endpoint
-                return super.createEndpoint(uri, remaining, parameters);
-            }
-        };
+        @Override
+        protected Endpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters) throws Exception {
+            // the PlatformHttpComponent set this value but it is not handled which cause the
+            // context to fail as the property cannot be bound to the enpoint.
+            //
+            // TODO: fix upstream
+            parameters.remove("optionsEnabled");
 
-        component.setEngine(new RuntimePlatformHttpEngine());
-
-        camelContext.addComponent(PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME, component);
+            // let the original component to create the endpoint
+            return super.createEndpoint(uri, remaining, parameters);
+        }
     }
 }

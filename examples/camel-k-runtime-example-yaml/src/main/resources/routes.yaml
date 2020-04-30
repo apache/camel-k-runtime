@@ -112,11 +112,11 @@
     from:
       uri: "timer:tick"
       parameters:
-        period: "5s"
+        period: "5000"
       steps:
         - set-body:
             simple: "${exchangeProperty.CamelTimerName} -> ${exchangeProperty.CamelTimerCounter}"
         - to:
             uri: "log:tick"
         - log:
-            message: "${properties:message}"
+            message: "{{message}}"

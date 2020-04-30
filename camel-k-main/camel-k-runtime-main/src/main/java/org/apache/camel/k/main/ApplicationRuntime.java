@@ -16,14 +16,12 @@
  */
 package org.apache.camel.k.main;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
@@ -88,23 +86,12 @@ public final class ApplicationRuntime implements Runtime {
 
     @Override
     public void setInitialProperties(Properties properties) {
-        this.main.setInitialProperties(properties);
+        this.main.getCamelContext().getPropertiesComponent().setInitialProperties(properties);
     }
 
     @Override
     public void setProperties(Properties properties) {
-        this.main.setOverrideProperties(properties);
-    }
-
-    @Override
-    public void setPropertiesLocations(Collection<String> locations) {
-        this.main.setPropertyPlaceholderLocations(
-            locations.stream()
-                .map(location -> location.startsWith("file:") ? location : "file:" + location)
-                .distinct()
-                .sorted()
-                .collect(Collectors.joining(","))
-        );
+        this.main.getCamelContext().getPropertiesComponent().setOverrideProperties(properties);
     }
 
     public void addListeners(Iterable<Runtime.Listener> listeners) {
@@ -143,18 +130,19 @@ public final class ApplicationRuntime implements Runtime {
 
     private final class MainListenerAdapter implements org.apache.camel.main.MainListener {
         @Override
-        public void beforeStart(BaseMainSupport main) {
-            invokeListeners(Phase.Starting);
-        }
-
-        @Override
         public void beforeConfigure(BaseMainSupport main) {
+            invokeListeners(Phase.ConfigureProperties);
             invokeListeners(Phase.ConfigureRoutes);
         }
 
         @Override
         public void configure(CamelContext context) {
             invokeListeners(Phase.ConfigureContext);
+        }
+
+        @Override
+        public void beforeStart(BaseMainSupport main) {
+            invokeListeners(Phase.Starting);
         }
 
         @Override
@@ -184,6 +172,11 @@ public final class ApplicationRuntime implements Runtime {
     }
 
     private final class MainAdapter extends MainSupport {
+        @Override
+        public CamelContext getCamelContext() {
+            return ApplicationRuntime.this.context;
+        }
+
         @Override
         protected CamelContext createCamelContext() {
             return ApplicationRuntime.this.context;

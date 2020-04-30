@@ -20,11 +20,6 @@ rest {
         port '9192'
     }
 
-    configuration('undertow') {
-        host 'my-undertow-host'
-        port '9193'
-    }
-
     path('/my/path') {
         get('/get') {
             consumes 'application/json'

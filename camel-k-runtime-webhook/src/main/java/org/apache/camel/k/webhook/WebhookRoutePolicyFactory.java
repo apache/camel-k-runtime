@@ -45,10 +45,8 @@ public class WebhookRoutePolicyFactory implements RoutePolicyFactory {
         return null;
     }
 
-    private class WebhookRoutePolicy extends RoutePolicySupport {
-
+    private static class WebhookRoutePolicy extends RoutePolicySupport {
         private final CamelContext context;
-
         private final WebhookAction action;
 
         public WebhookRoutePolicy(CamelContext context, WebhookAction action) {
@@ -59,7 +57,7 @@ public class WebhookRoutePolicyFactory implements RoutePolicyFactory {
         @Override
         public void onInit(Route route) {
             super.onInit(route);
-            route.getRouteContext().setAutoStartup(false);
+            route.setAutoStartup(false);
 
             if (route.getEndpoint() instanceof WebhookEndpoint) {
                 WebhookEndpoint webhook = (WebhookEndpoint)route.getEndpoint();

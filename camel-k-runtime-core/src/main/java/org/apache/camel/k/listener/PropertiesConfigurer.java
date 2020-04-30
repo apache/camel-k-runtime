@@ -16,47 +16,62 @@
  */
 package org.apache.camel.k.listener;
 
+import org.apache.camel.Ordered;
 import org.apache.camel.k.Constants;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.support.KubernetesPropertiesFunction;
-import org.apache.camel.spi.PropertiesComponent;
+import org.apache.camel.k.support.PropertiesSupport;
 
-public class PropertiesFunctionsConfigurer extends AbstractPhaseListener {
-    public PropertiesFunctionsConfigurer() {
-        super(Runtime.Phase.Starting);
+public class PropertiesConfigurer extends AbstractPhaseListener {
+    public PropertiesConfigurer() {
+        super(Runtime.Phase.ConfigureProperties);
+    }
+
+    @Override
+    public int getOrder() {
+        return Ordered.HIGHEST;
     }
 
     @Override
     protected void accept(Runtime runtime) {
+        runtime.setInitialProperties(
+            PropertiesSupport.loadApplicationProperties()
+        );
+        runtime.setPropertiesLocations(
+            PropertiesSupport.resolveUserPropertiesLocations()
+        );
+
         //
         // Register properties functions to resolve k8s secrets or config maps like:
         //
         // {{secret:name/key}}
         // {{configmap:name/key}}
         //
-        PropertiesComponent pc = runtime.getCamelContext().getPropertiesComponent();
-        if (pc instanceof org.apache.camel.component.properties.PropertiesComponent) {
-            //
-            // ConfigMap
-            //
-            String cmPath = System.getProperty(Constants.PROPERTY_CAMEL_K_MOUNT_PATH_CONFIGMAPS);
-            if (cmPath == null) {
-                cmPath = System.getenv(Constants.ENV_CAMEL_K_MOUNT_PATH_CONFIGMAPS);
-            }
 
-            ((org.apache.camel.component.properties.PropertiesComponent)pc).addFunction(
+        //
+        // ConfigMap
+        //
+        String cmPath = System.getProperty(
+            Constants.PROPERTY_CAMEL_K_MOUNT_PATH_CONFIGMAPS,
+            System.getenv(Constants.ENV_CAMEL_K_MOUNT_PATH_CONFIGMAPS)
+        );
+
+        if (cmPath != null) {
+            runtime.getCamelContext().getPropertiesComponent().addPropertiesFunction(
                 new KubernetesPropertiesFunction(cmPath, "configmap")
             );
+        }
 
-            //
-            // Secret
-            //
-            String secretPath = System.getProperty(Constants.PROPERTY_CAMEL_K_MOUNT_PATH_SECRETS);
-            if (secretPath == null) {
-                secretPath = System.getenv(Constants.ENV_CAMEL_K_MOUNT_PATH_SECRETS);
-            }
+        //
+        // Secret
+        //
+        String secretPath = System.getProperty(
+            Constants.PROPERTY_CAMEL_K_MOUNT_PATH_SECRETS,
+            System.getenv(Constants.ENV_CAMEL_K_MOUNT_PATH_SECRETS)
+        );
 
-            ((org.apache.camel.component.properties.PropertiesComponent)pc).addFunction(
+        if (secretPath != null) {
+            runtime.getCamelContext().getPropertiesComponent().addPropertiesFunction(
                 new KubernetesPropertiesFunction(secretPath, "secret")
             );
         }

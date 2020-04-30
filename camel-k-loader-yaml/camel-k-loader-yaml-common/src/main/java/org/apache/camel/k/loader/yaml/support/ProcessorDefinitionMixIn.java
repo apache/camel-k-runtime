@@ -14,29 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.listener;
+package org.apache.camel.k.loader.yaml.support;
 
-import org.apache.camel.Ordered;
-import org.apache.camel.k.Runtime;
-import org.apache.camel.k.support.PropertiesSupport;
+import java.util.function.Function;
 
-public class RuntimeConfigurer extends AbstractPhaseListener {
-    public RuntimeConfigurer() {
-        super(Runtime.Phase.Starting);
-    }
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.camel.Exchange;
+import org.apache.camel.k.annotation.yaml.YAMLMixIn;
+import org.apache.camel.model.Block;
+import org.apache.camel.model.OptionalIdentifiedDefinition;
 
-    @Override
-    public int getOrder() {
-        return Ordered.HIGHEST;
-    }
+@YAMLMixIn(org.apache.camel.model.ProcessorDefinition.class)
+public abstract class ProcessorDefinitionMixIn<Type extends org.apache.camel.model.ProcessorDefinition<Type>>
+    extends OptionalIdentifiedDefinition<Type>
+    implements Block {
 
-    @Override
-    protected void accept(Runtime runtime) {
-        runtime.setInitialProperties(
-            PropertiesSupport.loadApplicationProperties()
-        );
-        runtime.setPropertiesLocations(
-            PropertiesSupport.resolveUserPropertiesLocations()
-        );
-    }
+    @JsonIgnore
+    public abstract <Result> Type setBody(Function<Exchange, Result> function);
 }

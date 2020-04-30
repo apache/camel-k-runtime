@@ -62,8 +62,6 @@ class IntegrationTest extends Specification {
         then:
             context.restConfiguration.host == 'my-host'
             context.restConfiguration.port == 9192
-            context.getRestConfiguration('undertow', false).host == 'my-undertow-host'
-            context.getRestConfiguration('undertow', false).port == 9193
 
             context.restDefinitions.size() == 2
 

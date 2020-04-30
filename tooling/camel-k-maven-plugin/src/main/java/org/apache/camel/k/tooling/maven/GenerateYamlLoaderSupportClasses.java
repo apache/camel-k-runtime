@@ -94,6 +94,22 @@ public class GenerateYamlLoaderSupportClasses extends GenerateYamlSupport {
         definitions(LOAD_BALANCE_DEFINITION_CLASS).forEach(
             (k, v) -> mb.addStatement("context.registerSubtypes(new com.fasterxml.jackson.databind.jsontype.NamedType($T.class, $S))", v, k)
         );
+        annotated(YAML_MIXIN_ANNOTATION).forEach(i -> {
+            final AnnotationInstance annotation = i.classAnnotation(YAML_MIXIN_ANNOTATION);
+            final AnnotationValue targets = annotation.value("value");
+
+            String name = i.toString();
+            if (i.nestingType() == ClassInfo.NestingType.INNER) {
+                name = i.enclosingClass().toString() + "." + i.simpleName();
+            }
+
+            if (targets != null) {
+                for (String target: targets.asStringArray()) {
+                    mb.addStatement("context.setMixInAnnotations($L.class, $L.class);", target, name);
+                }
+            }
+        });
+
 
         type.addMethod(mb.build());
 

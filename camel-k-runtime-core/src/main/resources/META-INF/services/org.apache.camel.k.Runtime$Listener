@@ -15,8 +15,7 @@
 # limitations under the License.
 #
 
-org.apache.camel.k.listener.RuntimeConfigurer
 org.apache.camel.k.listener.ContextConfigurer
 org.apache.camel.k.listener.RoutesConfigurer
 org.apache.camel.k.listener.RoutesDumper
-org.apache.camel.k.listener.PropertiesFunctionsConfigurer
+org.apache.camel.k.listener.PropertiesConfigurer

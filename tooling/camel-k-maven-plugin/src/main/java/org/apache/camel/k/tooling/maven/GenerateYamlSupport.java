@@ -48,6 +48,7 @@ public abstract class GenerateYamlSupport extends AbstractMojo {
     public static final DotName DATAFORMAT_DEFINITION_CLASS = DotName.createSimple("org.apache.camel.model.DataFormatDefinition");
     public static final DotName XMLROOTELEMENT_ANNOTATION_CLASS = DotName.createSimple("javax.xml.bind.annotation.XmlRootElement");
     public static final DotName YAML_STEP_DEFINITION_ANNOTATION = DotName.createSimple("org.apache.camel.k.annotation.yaml.YAMLNodeDefinition");
+    public static final DotName YAML_MIXIN_ANNOTATION = DotName.createSimple("org.apache.camel.k.annotation.yaml.YAMLMixIn");
     public static final DotName LOAD_BALANCE_DEFINITION_CLASS = DotName.createSimple("org.apache.camel.model.LoadBalancerDefinition");
 
     @Parameter(defaultValue = "${project}", readonly = true, required = true)

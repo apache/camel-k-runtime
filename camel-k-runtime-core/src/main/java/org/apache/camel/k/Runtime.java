@@ -21,6 +21,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Ordered;
@@ -90,7 +91,15 @@ public interface Runtime extends HasCamelContext {
         throw new UnsupportedOperationException();
     }
 
-    void setPropertiesLocations(Collection<String> locations);
+    default void setPropertiesLocations(Collection<String> locations) {
+        getCamelContext().getPropertiesComponent().setLocation(
+            locations.stream()
+                .map(location -> location.startsWith("file:") ? location : "file:" + location)
+                .distinct()
+                .sorted()
+                .collect(Collectors.joining(","))
+        );
+    }
 
     default void setPropertiesLocations(String... locations) {
         setPropertiesLocations(Arrays.asList(locations));
@@ -106,6 +115,7 @@ public interface Runtime extends HasCamelContext {
 
     enum Phase {
         Starting,
+        ConfigureProperties,
         ConfigureContext,
         ConfigureRoutes,
         Started,

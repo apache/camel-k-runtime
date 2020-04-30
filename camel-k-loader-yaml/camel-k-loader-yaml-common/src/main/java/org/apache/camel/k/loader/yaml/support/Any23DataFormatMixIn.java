@@ -14,8 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.apache.camel.k.loader.yaml.support;
 
-from('webhook:dummy:test?foo=bar')
-    .to('log:info')
-from('timer:tick')
-    .to('log:info')
+import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.camel.k.annotation.yaml.YAMLMixIn;
+
+@YAMLMixIn(org.apache.camel.model.dataformat.Any23DataFormat.class)
+public abstract class Any23DataFormatMixIn {
+    @JsonIgnore
+    public abstract void setConfiguration(Map<String, String> configuration);
+}

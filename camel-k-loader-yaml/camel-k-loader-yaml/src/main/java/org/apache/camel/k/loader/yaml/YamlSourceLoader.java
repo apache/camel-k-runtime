@@ -22,9 +22,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Function;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
@@ -34,7 +32,6 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 import org.apache.camel.CamelContext;
-import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
@@ -43,14 +40,11 @@ import org.apache.camel.k.annotation.Loader;
 import org.apache.camel.k.loader.yaml.model.Step;
 import org.apache.camel.k.loader.yaml.parser.StartStepParser;
 import org.apache.camel.k.loader.yaml.parser.StepParser;
-import org.apache.camel.model.Block;
-import org.apache.camel.model.OptionalIdentifiedDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.model.RoutesDefinition;
 import org.apache.camel.model.rest.RestDefinition;
 import org.apache.camel.model.rest.RestsDefinition;
-
 
 @Loader("yaml")
 public class YamlSourceLoader implements SourceLoader {
@@ -70,10 +64,9 @@ public class YamlSourceLoader implements SourceLoader {
             .setSerializationInclusion(JsonInclude.Include.NON_EMPTY)
             .setPropertyNamingStrategy(PropertyNamingStrategy.KEBAB_CASE)
             .enable(MapperFeature.USE_GETTERS_AS_SETTERS)
+            .disable(MapperFeature.REQUIRE_SETTERS_FOR_GETTERS)
             .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
             .enable(SerializationFeature.INDENT_OUTPUT);
-
-        mapper.addMixIn(ProcessorDefinition.class, ProcessorDefinitionMixIn.class);
     }
 
     @Override
@@ -104,7 +97,7 @@ public class YamlSourceLoader implements SourceLoader {
                 final List<RouteDefinition> routes = new ArrayList<>();
                 final List<RestDefinition> rests = new ArrayList<>();
 
-                try {
+                try (is) {
                     for (Step step : mapper.readValue(is, Step[].class)) {
                         final StepParser.Context context = new StepParser.Context(camelContext, mapper, step.node);
                         final ProcessorDefinition<?> root = StartStepParser.invoke(context, step.id);
@@ -136,23 +129,8 @@ public class YamlSourceLoader implements SourceLoader {
 
                         setRestCollection(definition);
                     }
-                } finally {
-                    is.close();
                 }
             }
         };
-    }
-
-    /**
-     * ProcessorDefinition declares multiple methods for setBody and Jackson get confused
-     * about what method to use so to hide such fields from the deserialization process
-     * without having to change the original class, a MixIn is required.
-     */
-    public abstract static class ProcessorDefinitionMixIn<Type extends ProcessorDefinition<Type>>
-        extends OptionalIdentifiedDefinition<Type>
-        implements Block {
-
-        @JsonIgnore
-        public abstract <Result> Type setBody(Function<Exchange, Result> function);
     }
 }
