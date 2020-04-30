@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.camel.Component;
 import org.apache.camel.Consumer;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Processor;
@@ -52,14 +53,13 @@ public class DummyWebhookComponent extends DefaultComponent {
 
     @Override
     protected Endpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters) throws Exception {
-        return new DummyWebhookComponent.DummyWebhookEndpoint();
+        parameters.clear();
+        return new DummyWebhookComponent.DummyWebhookEndpoint(uri, this);
     }
 
     class DummyWebhookEndpoint extends DefaultEndpoint implements WebhookCapableEndpoint {
-
-        @Override
-        protected String createEndpointUri() {
-            return "dummy";
+        public DummyWebhookEndpoint(String endpointUri, Component component) {
+            super(endpointUri, component);
         }
 
         @Override

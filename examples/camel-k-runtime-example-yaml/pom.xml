@@ -37,12 +37,12 @@
             <artifactId>camel-k-loader-yaml</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-log</artifactId>
+            <groupId>org.apache.camel.k</groupId>
+            <artifactId>camel-k-runtime-http</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-undertow</artifactId>
+            <artifactId>camel-log</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>

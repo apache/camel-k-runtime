@@ -22,7 +22,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.apache.camel.component.properties.PropertiesFunction;
+import org.apache.camel.spi.PropertiesFunction;
 import org.apache.camel.util.StringHelper;
 
 public class KubernetesPropertiesFunction implements PropertiesFunction {

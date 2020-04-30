@@ -16,9 +16,6 @@
  */
 package org.apache.camel.k.listener;
 
-import java.util.Properties;
-
-import org.apache.camel.CamelContext;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.k.Runtime;
 import org.junit.jupiter.api.Test;
@@ -28,20 +25,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PropertiesFunctionsConfigurerTest {
     @Test
     public void testConfigMapFunction() {
-        Properties properties = new Properties();
-        properties.setProperty("my.property", "{{secret:my-secret/my-property}}");
 
-        CamelContext context = new DefaultCamelContext();
-        context.getPropertiesComponent().setInitialProperties(properties);
+        Runtime runtime = Runtime.on(new DefaultCamelContext());
+        runtime.setProperties("my.property", "{{secret:my-secret/my-property}}");
 
-        new PropertiesFunctionsConfigurer().accept(Runtime.on(context));
+        new PropertiesConfigurer().accept(runtime);
 
-        assertThat(context.resolvePropertyPlaceholders("{{secret:my-secret/my-property}}")).isEqualTo("my-secret-property");
-        assertThat(context.resolvePropertyPlaceholders("{{secret:none/my-property}}")).isEqualTo("none/my-property");
+        assertThat(runtime.getCamelContext().resolvePropertyPlaceholders("{{secret:my-secret/my-property}}")).isEqualTo("my-secret-property");
+        assertThat(runtime.getCamelContext().resolvePropertyPlaceholders("{{secret:none/my-property}}")).isEqualTo("none/my-property");
 
-        assertThat(context.resolvePropertyPlaceholders("{{configmap:my-cm/my-property}}")).isEqualTo("my-cm-property");
-        assertThat(context.resolvePropertyPlaceholders("{{configmap:none/my-property}}")).isEqualTo("none/my-property");
+        assertThat(runtime.getCamelContext().resolvePropertyPlaceholders("{{configmap:my-cm/my-property}}")).isEqualTo("my-cm-property");
+        assertThat(runtime.getCamelContext().resolvePropertyPlaceholders("{{configmap:none/my-property}}")).isEqualTo("none/my-property");
 
-        assertThat(context.resolvePropertyPlaceholders("{{my.property}}")).isEqualTo("my-secret-property");
+        assertThat(runtime.getCamelContext().resolvePropertyPlaceholders("{{my.property}}")).isEqualTo("my-secret-property");
     }
 }

@@ -71,7 +71,7 @@ public class RuntimePlatformHttpConsumer extends DefaultConsumer {
     }
 
     @Override
-    protected void doStart() throws Exception {
+    protected void doInit() throws Exception {
         super.doStart();
 
         final PlatformHttpEndpoint endpoint = getEndpoint();

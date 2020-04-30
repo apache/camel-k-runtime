@@ -1,6 +1,7 @@
 {
   "component": {
     "kind": "component",
+    "name": "knative",
     "scheme": "knative",
     "extendsScheme": "",
     "syntax": "knative:type\/name",
@@ -19,10 +20,6 @@
     "version": "1.3.0-SNAPSHOT"
   },
   "componentProperties": {
-    "cloudEventsSpecVersion": { "kind": "property", "displayName": "Cloud Events Spec Version", "group": "common", "required": false, "type": "string", "javaType": "java.lang.String", "deprecated": false, "secret": false, "description": "Set the version of the cloudevents spec." },
-    "configuration": { "kind": "property", "displayName": "Configuration", "group": "common", "required": false, "type": "object", "javaType": "org.apache.camel.component.knative.KnativeConfiguration", "deprecated": false, "secret": false, "description": "Set the configuration." },
-    "environment": { "kind": "property", "displayName": "Environment", "group": "common", "required": false, "type": "object", "javaType": "org.apache.camel.component.knative.spi.KnativeEnvironment", "deprecated": false, "secret": false, "description": "The environment" },
-    "environmentPath": { "kind": "property", "displayName": "Environment Path", "group": "common", "required": false, "type": "string", "javaType": "java.lang.String", "deprecated": false, "secret": false, "description": "The path ot the environment definition" },
     "transport": { "kind": "property", "displayName": "Transport", "group": "common", "label": "", "required": false, "type": "object", "javaType": "org.apache.camel.component.knative.spi.KnativeTransport", "deprecated": false, "secret": false, "defaultValue": "http", "description": "The transport implementation." },
     "transportOptions": { "kind": "property", "displayName": "Transport Options", "group": "common", "label": "", "required": false, "type": "object", "javaType": "java.util.Map<java.lang.String, java.lang.Object>", "deprecated": false, "secret": false, "description": "Transport options." },
     "bridgeErrorHandler": { "kind": "property", "displayName": "Bridge Error Handler", "group": "consumer", "label": "consumer", "required": false, "type": "boolean", "javaType": "boolean", "deprecated": false, "secret": false, "defaultValue": false, "description": "Allows for bridging the consumer to the Camel routing Error Handler, which mean any exceptions occurred while the consumer is trying to pickup incoming messages, or the likes, will now be processed as a message and handled by the routing Error Handler. By default the consumer will use the org.apache.camel.spi.ExceptionHandler to deal with exceptions, that will be logged at WARN or ERROR level and ignored." },

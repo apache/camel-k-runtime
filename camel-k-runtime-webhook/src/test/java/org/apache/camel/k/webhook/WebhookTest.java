@@ -19,7 +19,6 @@ package org.apache.camel.k.webhook;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -37,7 +36,6 @@ import org.apache.camel.spi.RoutePolicy;
 import org.apache.camel.spi.RoutePolicyFactory;
 import org.apache.camel.support.RoutePolicySupport;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
@@ -45,24 +43,14 @@ import org.junit.jupiter.params.provider.EnumSource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class WebhookTest {
-
-    private ApplicationRuntime runtime;
-
-    @BeforeEach
-    public void setUp() {
-        this.runtime = new ApplicationRuntime();
-        this.runtime.addListener(RoutesConfigurer.forRoutes("classpath:webhook.js"));
-        this.runtime.addListener(new ContextConfigurer());
-    }
-
     @ParameterizedTest
     @EnumSource(WebhookAction.class)
     public void testWebhookRegistration(WebhookAction action) throws Exception {
-        Properties properties = new Properties();
-        properties.setProperty("camel.component.webhook.configuration.webhook-auto-register", "false");
-        properties.setProperty("camel.k.customizer.webhook.enabled", "true");
-        properties.setProperty("camel.k.customizer.webhook.action", action.name().toLowerCase());
-        runtime.setProperties(properties);
+        ApplicationRuntime runtime = new ApplicationRuntime();
+        runtime.setProperties(
+            "camel.component.webhook.configuration.webhook-auto-register", "false",
+            "camel.k.customizer.webhook.enabled", "true",
+            "camel.k.customizer.webhook.action", action.name().toLowerCase());
 
         CountDownLatch operation = new CountDownLatch(1);
         Map<WebhookAction, AtomicInteger> registerCounters = new HashMap<>();
@@ -82,6 +70,8 @@ public class WebhookTest {
         );
 
         AtomicBoolean routeStarted = new AtomicBoolean();
+        runtime.addListener(new ContextConfigurer());
+        runtime.addListener(RoutesConfigurer.forRoutes("classpath:webhook.js"));
         runtime.getCamelContext().addRoutePolicyFactory(new RoutePolicyFactory() {
             @Override
             public RoutePolicy createRoutePolicy(CamelContext camelContext, String routeId, NamedNode route) {
@@ -124,11 +114,11 @@ public class WebhookTest {
     @ParameterizedTest()
     @EnumSource(WebhookAction.class)
     public void testRegistrationFailure(WebhookAction action) throws Exception {
-        Properties properties = new Properties();
-        properties.setProperty("camel.component.webhook.configuration.webhook-auto-register", "false");
-        properties.setProperty("camel.k.customizer.webhook.enabled", "true");
-        properties.setProperty("camel.k.customizer.webhook.action", action.name());
-        runtime.setProperties(properties);
+        ApplicationRuntime runtime = new ApplicationRuntime();
+        runtime.setProperties(
+            "camel.component.webhook.configuration.webhook-auto-register", "false",
+            "camel.k.customizer.webhook.enabled", "true",
+            "camel.k.customizer.webhook.action", action.name());
 
         runtime.getCamelContext().addComponent(
             "dummy",
@@ -141,19 +131,22 @@ public class WebhookTest {
             })
         );
 
+        runtime.addListener(new ContextConfigurer());
+        runtime.addListener(RoutesConfigurer.forRoutes("classpath:webhook.js"));
+
         Assertions.assertThrows(FailedToCreateRouteException.class, runtime::run);
     }
 
     @Test
     public void testAutoRegistrationNotDisabled() throws Exception {
-        Properties properties = new Properties();
-        properties.setProperty("camel.k.customizer.webhook.enabled", "true");
-        properties.setProperty("camel.k.customizer.webhook.action", WebhookAction.REGISTER.name());
-        runtime.setProperties(properties);
+        ApplicationRuntime runtime = new ApplicationRuntime();
+        runtime.setProperties(
+            "camel.k.customizer.webhook.enabled", "true",
+            "camel.k.customizer.webhook.action", WebhookAction.REGISTER.name());
 
-        runtime.getCamelContext().addComponent(
-            "dummy",
-            new DummyWebhookComponent());
+        runtime.getCamelContext().addComponent("dummy", new DummyWebhookComponent());
+        runtime.addListener(new ContextConfigurer());
+        runtime.addListener(RoutesConfigurer.forRoutes("classpath:webhook.js"));
 
         Assertions.assertThrows(FailedToCreateRouteException.class, runtime::run);
     }

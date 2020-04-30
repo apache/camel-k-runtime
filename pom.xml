@@ -39,8 +39,8 @@
         <maven.compiler.target>11</maven.compiler.target>
         <kotlin.compiler.target>1.8</kotlin.compiler.target>
 
-        <camel.version>3.1.0</camel.version>
-        <camel-quarkus.version>1.0.0-M6</camel-quarkus.version>
+        <camel.version>3.2.0</camel.version>
+        <camel-quarkus.version>1.0.0-M7</camel-quarkus.version>
         <catalog.version>${camel.version}</catalog.version>
         <junit.version>5.6.2</junit.version>
         <joor.version>0.9.13</joor.version>
@@ -62,24 +62,25 @@
         <semver4j.version>3.1.0</semver4j.version>
         <vertx.version>3.8.5</vertx.version>
         <graalvm.version>19.3.1</graalvm.version>
-        <quarkus.version>1.3.2.Final</quarkus.version>
+        <quarkus.version>1.4.1.Final</quarkus.version>
         <jandex.version>2.1.3.Final</jandex.version>
         <javapoet.version>1.11.1</javapoet.version>
         <rest-assured.version>4.3.0</rest-assured.version>
+
         <gmavenplus-plugin.version>1.9.0</gmavenplus-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>3.0.0-M4</maven-surefire-plugin.version>
-        <maven-remote-resources-plugin.version>1.6.0</maven-remote-resources-plugin.version>
+        <maven-remote-resources-plugin.version>1.7.0</maven-remote-resources-plugin.version>
         <maven-failsafe-plugin.version>3.0.0-M4</maven-failsafe-plugin.version>
         <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
         <directory-maven-plugin.version>0.3.1</directory-maven-plugin.version>
         <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
         <mycila-license.version>3.0</mycila-license.version>
-        <maven-checkstyle-plugin.version>3.1.0</maven-checkstyle-plugin.version>
+        <maven-checkstyle-plugin.version>3.1.1</maven-checkstyle-plugin.version>
         <maven-checkstyle.version>8.26</maven-checkstyle.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <maven-deploy-plugin.version>3.0.0-M1</maven-deploy-plugin.version>
-        <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
+        <maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
         <maven-assembly-plugin.version>3.2.0</maven-assembly-plugin.version>
         <jandex-maven-plugin.version>1.0.7</jandex-maven-plugin.version>
@@ -171,18 +172,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-remote-resources-plugin</artifactId>
                     <version>${maven-remote-resources-plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>process</goal>
-                            </goals>
-                            <configuration>
-                                <resourceBundles>
-                                    <resourceBundle>org.apache:apache-jar-resource-bundle:1.4</resourceBundle>
-                                </resourceBundles>
-                            </configuration>
-                        </execution>
-                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -650,68 +639,68 @@
             <id>release</id>
             <activation>
                 <property>
-                <name>release</name>
+                    <name>release</name>
                 </property>
             </activation>
             <build>
                 <plugins>
-                <!-- We want to deploy the artifact to a staging location for perusal -->
-                <plugin>
-                    <inherited>true</inherited>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>${maven-deploy-plugin.version}</version>
-                    <configuration>
-                        <updateReleaseInfo>true</updateReleaseInfo>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-source-plugin</artifactId>
-                    <version>${maven-source-plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <id>attach-sources</id>
-                            <goals>
-                                <goal>jar</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>${maven-javadoc-plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <id>attach-javadocs</id>
-                            <goals>
-                                <goal>jar</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <additionalOptions>${javadoc.opts}</additionalOptions>
-                        <source>8</source>
-                    </configuration>
-                </plugin>
-                <!-- We want to sign the artifact, the POM, and all attached artifacts -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-gpg-plugin</artifactId>
-                    <version>${maven-gpg-plugin.version}</version>
-                    <configuration>
-                        <passphrase>${gpg.passphrase}</passphrase>
-                        <useAgent>${gpg.useagent}</useAgent>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>sign</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
+                    <!-- We want to deploy the artifact to a staging location for perusal -->
+                    <plugin>
+                        <inherited>true</inherited>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-deploy-plugin</artifactId>
+                        <version>${maven-deploy-plugin.version}</version>
+                        <configuration>
+                            <updateReleaseInfo>true</updateReleaseInfo>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>${maven-source-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${maven-javadoc-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <additionalOptions>${javadoc.opts}</additionalOptions>
+                            <source>8</source>
+                        </configuration>
+                    </plugin>
+                    <!-- We want to sign the artifact, the POM, and all attached artifacts -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven-gpg-plugin.version}</version>
+                        <configuration>
+                            <passphrase>${gpg.passphrase}</passphrase>
+                            <useAgent>${gpg.useagent}</useAgent>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
                 </plugins>
             </build>
         </profile>

@@ -21,7 +21,7 @@
   <route>
     <from uri="timer:tick"/>
     <filter>
-      <simple>in.body == {{the.body}}</simple>
+      <simple>${in.body} == {{the.body}}</simple>
       <to uri="log:info"/>
     </filter>
   </route>

@@ -14,8 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.apache.camel.k.loader.yaml.support;
 
-from('webhook:dummy:test?foo=bar')
-    .to('log:info')
-from('timer:tick')
-    .to('log:info')
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.camel.Predicate;
+import org.apache.camel.k.annotation.yaml.YAMLMixIn;
+
+@YAMLMixIn(org.apache.camel.model.ExpressionNode.class)
+public abstract class ExpressionNodeMixIn {
+    @JsonIgnore
+    private void setExpression(Predicate predicate) {
+    }
+}

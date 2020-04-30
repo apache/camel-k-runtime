@@ -30,12 +30,6 @@ class RestConfiguration extends RestVerbConfiguration {
         callable.call()
     }
 
-    def configuration(String component, @DelegatesTo(RestConfigurationDefinition) Closure<?> callable) {
-        callable.resolveStrategy = Closure.DELEGATE_FIRST
-        callable.delegate = builder.restConfiguration(component)
-        callable.call()
-    }
-
     def path(String path, @DelegatesTo(RestVerbConfiguration) Closure<?> callable) {
         callable.resolveStrategy = Closure.DELEGATE_FIRST
         callable.delegate = new RestVerbConfiguration(builder, path)

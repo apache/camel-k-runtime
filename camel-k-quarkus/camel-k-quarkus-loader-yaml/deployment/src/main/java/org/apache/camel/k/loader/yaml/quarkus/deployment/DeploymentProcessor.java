@@ -22,12 +22,15 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.k.loader.yaml.YamlSourceLoader;
 import org.apache.camel.k.loader.yaml.model.Node;
 import org.apache.camel.k.loader.yaml.model.Step;
 import org.apache.camel.k.loader.yaml.parser.HasDataFormat;
 import org.apache.camel.k.loader.yaml.parser.HasExpression;
 import org.apache.camel.k.loader.yaml.parser.StepParser;
+import org.apache.camel.k.loader.yaml.support.Any23DataFormatMixIn;
+import org.apache.camel.k.loader.yaml.support.ExpressionNodeMixIn;
+import org.apache.camel.k.loader.yaml.support.ProcessorDefinitionMixIn;
+import org.apache.camel.k.loader.yaml.support.XStreamDataFormatMixIn;
 import org.apache.camel.model.DataFormatDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.language.ExpressionDefinition;
@@ -81,9 +84,10 @@ public class DeploymentProcessor {
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, HasExpression.class));
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, HasDataFormat.class));
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, Node.class));
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, YamlSourceLoader.ProcessorDefinitionMixIn.class));
-
-
+        reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, ProcessorDefinitionMixIn.class));
+        reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, ExpressionNodeMixIn.class));
+        reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, Any23DataFormatMixIn.class));
+        reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, XStreamDataFormatMixIn.class));
     }
 
     private static Iterable<ClassInfo> getAllKnownImplementors(IndexView view, String name) {

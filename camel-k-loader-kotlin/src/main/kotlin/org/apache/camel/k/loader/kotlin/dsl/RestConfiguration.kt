@@ -27,11 +27,6 @@ class RestConfiguration(
         delegate.block()
     }
 
-    fun configuration(component: String, block: RestConfigurationDefinition.() -> Unit) {
-        val delegate = builder.restConfiguration(component)
-        delegate.block()
-    }
-
     fun path(path: String, block: RestVerbConfiguration.() -> Unit) {
         RestVerbConfiguration(builder, path).block()
     }

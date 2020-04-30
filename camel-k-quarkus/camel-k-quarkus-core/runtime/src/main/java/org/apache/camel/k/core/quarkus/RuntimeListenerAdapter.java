@@ -17,11 +17,9 @@
 package org.apache.camel.k.core.quarkus;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Properties;
-import java.util.stream.Collectors;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
@@ -46,18 +44,19 @@ public class RuntimeListenerAdapter implements MainListener {
     }
 
     @Override
-    public void beforeStart(BaseMainSupport main) {
-        invokeListeners(listeners, on(main), Runtime.Phase.Starting);
-    }
-
-    @Override
     public void beforeConfigure(BaseMainSupport main) {
+        invokeListeners(listeners, on(main), Runtime.Phase.ConfigureProperties);
         invokeListeners(listeners, on(main), Runtime.Phase.ConfigureRoutes);
     }
 
     @Override
     public void configure(CamelContext context) {
         invokeListeners(listeners, on(context), Runtime.Phase.ConfigureContext);
+    }
+
+    @Override
+    public void beforeStart(BaseMainSupport main) {
+        invokeListeners(listeners, on(main), Runtime.Phase.Starting);
     }
 
     @Override
@@ -114,23 +113,12 @@ public class RuntimeListenerAdapter implements MainListener {
 
             @Override
             public void setInitialProperties(Properties properties) {
-                main.setInitialProperties(properties);
+                main.getCamelContext().getPropertiesComponent().setInitialProperties(properties);
             }
 
             @Override
             public void setProperties(Properties properties) {
-                main.setOverrideProperties(properties);
-            }
-
-            @Override
-            public void setPropertiesLocations(Collection<String> locations) {
-                main.setPropertyPlaceholderLocations(
-                    locations.stream()
-                        .map(location -> location.startsWith("file:") ? location : "file:" + location)
-                        .distinct()
-                        .sorted()
-                        .collect(Collectors.joining(","))
-                );
+                main.getCamelContext().getPropertiesComponent().setOverrideProperties(properties);
             }
         };
     }

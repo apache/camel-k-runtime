@@ -30,7 +30,6 @@ import java.util.regex.Pattern;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
-import org.apache.camel.NoFactoryAvailableException;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.builder.RouteBuilderLifecycleStrategy;
@@ -124,16 +123,12 @@ public final class RuntimeSupport {
     public static ContextCustomizer lookupCustomizerByID(CamelContext context, String customizerId) {
         ContextCustomizer customizer = context.getRegistry().lookupByNameAndType(customizerId, ContextCustomizer.class);
         if (customizer == null) {
-            try {
-                customizer = context.adapt(ExtendedCamelContext.class)
-                    .getFactoryFinder(Constants.CONTEXT_CUSTOMIZER_RESOURCE_PATH)
-                    .newInstance(customizerId, ContextCustomizer.class)
-                    .orElseThrow(() -> new RuntimeException("Error creating instance for customizer: " + customizerId));
+            customizer = context.adapt(ExtendedCamelContext.class)
+                .getFactoryFinder(Constants.CONTEXT_CUSTOMIZER_RESOURCE_PATH)
+                .newInstance(customizerId, ContextCustomizer.class)
+                .orElseThrow(() -> new RuntimeException("Error creating instance for customizer: " + customizerId));
 
-                LOGGER.info("Found customizer {} with id {} from service definition", customizer, customizerId);
-            } catch (NoFactoryAvailableException e) {
-                throw new RuntimeException(e);
-            }
+            LOGGER.info("Found customizer {} with id {} from service definition", customizer, customizerId);
         } else {
             LOGGER.info("Found customizer {} with id {} from the registry", customizer, customizerId);
         }
@@ -203,18 +198,12 @@ public final class RuntimeSupport {
     }
 
     public static SourceLoader lookupLoaderFromResource(CamelContext context, String loaderId) {
-        SourceLoader loader;
+        SourceLoader loader = context.adapt(ExtendedCamelContext.class)
+            .getFactoryFinder(Constants.SOURCE_LOADER_RESOURCE_PATH)
+            .newInstance(loaderId, SourceLoader.class)
+            .orElseThrow(() -> new RuntimeException("Error creating instance of loader: " + loaderId));
 
-        try {
-            loader = context.adapt(ExtendedCamelContext.class)
-                .getFactoryFinder(Constants.SOURCE_LOADER_RESOURCE_PATH)
-                .newInstance(loaderId, SourceLoader.class)
-                .orElseThrow(() -> new RuntimeException("Error creating instance of loader: " + loaderId));
-
-            LOGGER.info("Found loader {} for language {} from service definition", loader, loaderId);
-        } catch (NoFactoryAvailableException e) {
-            throw new IllegalArgumentException("Unable to find loader for: " + loaderId, e);
-        }
+        LOGGER.info("Found loader {} for language {} from service definition", loader, loaderId);
 
         return loader;
     }
