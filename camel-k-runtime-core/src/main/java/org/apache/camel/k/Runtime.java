@@ -140,16 +140,7 @@ public interface Runtime extends HasCamelContext {
      * @return the runtime
      */
     static Runtime on(CamelContext camelContext) {
-        return new Runtime() {
-            @Override
-            public void setPropertiesLocations(Collection<String> locations) {
-            }
-
-            @Override
-            public CamelContext getCamelContext() {
-                return camelContext;
-            }
-        };
+        return () -> camelContext;
     }
 
     /**
@@ -159,15 +150,6 @@ public interface Runtime extends HasCamelContext {
      * @return the runtime
      */
     static Runtime on(HasCamelContext provider) {
-        return new Runtime() {
-            @Override
-            public void setPropertiesLocations(Collection<String> locations) {
-            }
-
-            @Override
-            public CamelContext getCamelContext() {
-                return provider.getCamelContext();
-            }
-        };
+        return () -> provider.getCamelContext();
     }
 }
