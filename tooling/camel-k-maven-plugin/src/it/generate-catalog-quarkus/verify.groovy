@@ -35,9 +35,11 @@ new File(basedir, "catalog.yaml").withReader {
 
     assert catalog.metadata.labels['camel.apache.org/runtime.version'] == runtimeVersion
 
-    assert catalog.spec.artifacts['camel-knative'].dependencies.size == 1
-    assert catalog.spec.artifacts['camel-knative'].dependencies[0].groupId == 'org.apache.camel.k'
-    assert catalog.spec.artifacts['camel-knative'].dependencies[0].artifactId == 'camel-k-quarkus-knative'
-    assert catalog.spec.artifacts['camel-knative'].schemes.size == 1
-    assert catalog.spec.artifacts['camel-knative'].schemes[0].id == 'knative'
+    catalog.spec.artifacts['camel-knative'].with {
+        assert dependencies.size() == 1
+        assert dependencies[0].groupId == 'org.apache.camel.k'
+        assert dependencies[0].artifactId == 'camel-k-quarkus-knative'
+        assert schemes.size() == 1
+        assert schemes[0].id == 'knative'
+    }
 }

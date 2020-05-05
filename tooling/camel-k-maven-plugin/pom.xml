@@ -257,6 +257,11 @@
               <goal>run</goal>
               <goal>verify</goal>
             </goals>
+            <configuration>
+              <properties>
+                <com.sun.xml.bind.v2.bytecode.ClassTailor.noOptimize>true</com.sun.xml.bind.v2.bytecode.ClassTailor.noOptimize>
+              </properties>
+            </configuration>
           </execution>
         </executions>
         <dependencies>
