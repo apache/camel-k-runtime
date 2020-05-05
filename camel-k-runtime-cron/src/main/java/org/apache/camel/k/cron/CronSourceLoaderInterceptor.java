@@ -48,9 +48,8 @@ public class CronSourceLoaderInterceptor implements SourceLoader.Interceptor {
         return overridableComponents;
     }
 
-    public CronSourceLoaderInterceptor setOverridableComponents(String overridableComponents) {
+    public void setOverridableComponents(String overridableComponents) {
         this.overridableComponents = overridableComponents;
-        return this;
     }
 
     @Override
