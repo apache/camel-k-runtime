@@ -16,6 +16,7 @@
  */
 package org.apache.camel.k.http;
 
+import java.net.ConnectException;
 import java.util.Arrays;
 
 import io.vertx.core.http.HttpMethod;
@@ -41,6 +42,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.hamcrest.Matchers.equalTo;
 
 public class PlatformHttpServiceCustomizerTest {
@@ -59,24 +61,30 @@ public class PlatformHttpServiceCustomizerTest {
 
         httpService.apply(runtime.getCamelContext());
 
-        PlatformHttp.lookup(runtime.getCamelContext()).router().route(HttpMethod.GET, "/my/path")
-            .handler(routingContext -> {
-                JsonObject response = new JsonObject();
-                response.put("status", "UP");
+        try {
+            runtime.getCamelContext().start();
 
-                routingContext.response()
-                    .putHeader("content-type", "application/json")
-                    .setStatusCode(200)
-                    .end(Json.encodePrettily(response));
-            });
+            PlatformHttp.lookup(runtime.getCamelContext()).router().route(HttpMethod.GET, "/my/path")
+                .handler(routingContext -> {
+                    JsonObject response = new JsonObject();
+                    response.put("status", "UP");
 
-        given()
-            .port(httpService.getBindPort())
-        .when()
-            .get(path + "/my/path")
-        .then()
-            .statusCode(200)
-            .body("status", equalTo("UP"));
+                    routingContext.response()
+                        .putHeader("content-type", "application/json")
+                        .setStatusCode(200)
+                        .end(Json.encodePrettily(response));
+                });
+
+            given()
+                .port(httpService.getBindPort())
+            .when()
+                .get(path + "/my/path")
+            .then()
+                .statusCode(200)
+                .body("status", equalTo("UP"));
+        } finally {
+            runtime.getCamelContext().stop();
+        }
     }
 
     @ParameterizedTest
@@ -150,6 +158,31 @@ public class PlatformHttpServiceCustomizerTest {
         } finally {
             runtime.getCamelContext().stop();
         }
+    }
+
+    @Test
+    public void testPlatformHttpServiceNotAvailableBeforeCamelContextStarts() throws Exception {
+        Runtime runtime = Runtime.on(new DefaultCamelContext());
+
+        var httpService = new PlatformHttpServiceContextCustomizer();
+        httpService.setBindPort(AvailablePortFinder.getNextAvailable());
+        httpService.apply(runtime.getCamelContext());
+
+        PlatformHttp.lookup(runtime.getCamelContext())
+            .router()
+            .route(HttpMethod.GET, "/my/path")
+            .handler(routingContext -> routingContext.response().setStatusCode(200).end());
+
+        assertThatExceptionOfType(ConnectException.class).isThrownBy(
+            () -> {
+                given()
+                    .port(httpService.getBindPort())
+                .when()
+                    .get("/my/path")
+                .then()
+                    .extract();
+            }
+        );
     }
 
     @Test

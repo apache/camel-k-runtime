@@ -45,7 +45,7 @@ public class PlatformHttpServiceEndpoint extends ServiceSupport {
     }
 
     @Override
-    protected void doStart() throws Exception {
+    protected void doInit() throws Exception {
         vertx = CamelContextHelper.findByType(context, Vertx.class);
         executor = context.getExecutorServiceManager().newSingleThreadExecutor(this, "platform-http-service");
 
@@ -64,6 +64,11 @@ public class PlatformHttpServiceEndpoint extends ServiceSupport {
         }
 
         vertxHttpServer = new PlatformHttpServer(context, configuration, vertx, executor);
+        vertxHttpServer.init();
+    }
+
+    @Override
+    protected void doStart() throws Exception {
         vertxHttpServer.start();
     }
 
