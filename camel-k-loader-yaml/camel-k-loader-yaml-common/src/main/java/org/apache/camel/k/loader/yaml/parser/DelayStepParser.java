@@ -18,17 +18,13 @@ package org.apache.camel.k.loader.yaml.parser;
 
 import org.apache.camel.k.annotation.yaml.YAMLNodeDefinition;
 import org.apache.camel.k.annotation.yaml.YAMLStepParser;
+import org.apache.camel.k.loader.yaml.spi.ProcessorStepParser;
 import org.apache.camel.model.DelayDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.reifier.DelayReifier;
-import org.apache.camel.reifier.ProcessorReifier;
 
 @YAMLStepParser("delay")
 public class DelayStepParser implements ProcessorStepParser {
-    static {
-        ProcessorReifier.registerReifier(Definition.class, DelayReifier::new);
-    }
-
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {
         return context.node(Definition.class);

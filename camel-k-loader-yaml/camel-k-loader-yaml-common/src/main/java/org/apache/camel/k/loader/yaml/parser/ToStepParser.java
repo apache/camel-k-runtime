@@ -23,6 +23,7 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.camel.k.annotation.yaml.YAMLNodeDefinition;
 import org.apache.camel.k.annotation.yaml.YAMLStepParser;
+import org.apache.camel.k.loader.yaml.spi.ProcessorStepParser;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.ToDefinition;
 import org.apache.camel.util.URISupport;

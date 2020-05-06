@@ -21,14 +21,12 @@ import org.apache.camel.model.ClaimCheckDefinition
 
 class ClaimCheckTest extends TestSupport {
     def "definition"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('claim-check', '''
                  operation: "Push"
                  key: "foo"
                  filter: "header:(foo|bar)"
             ''')
-        when:
-            def processor = new ClaimCheckStepParser().toProcessor(stepContext)
         then:
             with(processor, ClaimCheckDefinition) {
                 operation == 'Push'

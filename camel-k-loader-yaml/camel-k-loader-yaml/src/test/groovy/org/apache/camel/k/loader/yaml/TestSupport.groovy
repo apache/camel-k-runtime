@@ -21,8 +21,9 @@ import groovy.util.logging.Slf4j
 import org.apache.camel.CamelContext
 import org.apache.camel.component.mock.MockEndpoint
 import org.apache.camel.impl.DefaultCamelContext
-import org.apache.camel.k.loader.yaml.parser.ProcessorStepParser
-import org.apache.camel.k.loader.yaml.parser.StepParser
+import org.apache.camel.k.loader.yaml.spi.ProcessorStepParser
+import org.apache.camel.k.loader.yaml.spi.StartStepParser
+import org.apache.camel.k.loader.yaml.spi.StepParser
 import org.apache.camel.model.ProcessorDefinition
 import spock.lang.Specification
 
@@ -30,17 +31,18 @@ import java.nio.charset.StandardCharsets
 
 @Slf4j
 class TestSupport extends Specification {
+    static def RESOLVER =  new YamlStepResolver()
     static def MAPPER = new YamlSourceLoader().mapper()
 
     static StepParser.Context stepContext(String content) {
         def node = MAPPER.readTree(content.stripMargin())
         def cctx = new DefaultCamelContext()
 
-        return new StepParser.Context(cctx, MAPPER, node)
+        return new StepParser.Context(cctx, MAPPER, node, RESOLVER)
     }
 
     static StepParser.Context stepContext(JsonNode content) {
-        return new StepParser.Context(new DefaultCamelContext(), MAPPER, content)
+        return new StepParser.Context(new DefaultCamelContext(), MAPPER, content, RESOLVER)
     }
 
     static CamelContext startContext(String content) {
@@ -104,5 +106,18 @@ class TestSupport extends Specification {
 
     static <U extends ProcessorStepParser> ProcessorDefinition<?> toProcessor(Class<U> type, String content) {
         return type.getConstructor().newInstance().toProcessor(stepContext(content))
+    }
+
+    static ProcessorDefinition<?> toProcessor(String id, String content) {
+        def ctx = stepContext(content)
+        def parser = RESOLVER.resolve(ctx.camelContext, id)
+
+        if (parser instanceof ProcessorStepParser) {
+            return parser.toProcessor(ctx)
+        }
+        if (parser instanceof StartStepParser) {
+            return parser.toStartProcessor(ctx)
+        }
+        throw new IllegalArgumentException("No parser of ${id}")
     }
 }

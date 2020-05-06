@@ -23,12 +23,10 @@ import org.apache.camel.model.SetExchangePatternDefinition
 class SetExchangePatternTest extends TestSupport {
 
     def "definition"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('set-exchange-pattern', '''
                  pattern: "InOut"
             ''')
-        when:
-            def processor = new SetExchangePatternStepParser().toProcessor(stepContext)
         then:
             with(processor, SetExchangePatternDefinition) {
                 pattern == ExchangePattern.InOut.name()

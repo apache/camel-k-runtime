@@ -24,6 +24,8 @@ import org.apache.camel.Expression;
 import org.apache.camel.k.annotation.yaml.YAMLNodeDefinition;
 import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.k.loader.yaml.model.Step;
+import org.apache.camel.k.loader.yaml.spi.ProcessorStepParser;
+import org.apache.camel.k.loader.yaml.spi.StepParserSupport;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.ResequenceDefinition;
 import org.apache.camel.model.config.BatchResequencerConfig;

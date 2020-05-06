@@ -21,7 +21,7 @@
     from:
       uri: "platform-http:/hello"
       steps:
-        - convert-body:
+        - convert-body-to:
             type: "java.lang.String"
         - to:
             uri: "log:info"

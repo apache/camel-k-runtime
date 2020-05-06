@@ -14,24 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.loader.yaml.parser;
+package org.apache.camel.k.loader.yaml.parser
 
-import org.apache.camel.NoFactoryAvailableException;
-import org.apache.camel.model.ProcessorDefinition;
 
-@FunctionalInterface
-public interface ProcessorStepParser extends StepParser {
-    /**
-     * @param context
-     * @return
-     */
-    ProcessorDefinition<?> toProcessor(Context context);
+import org.apache.camel.k.loader.yaml.TestSupport
+import org.apache.camel.model.StopDefinition
 
-    static ProcessorDefinition<?> invoke(Context context, String stepId) {
-        try {
-            return StepParser.lookup(context.camelContext(), ProcessorStepParser.class, stepId).toProcessor(context);
-        } catch (NoFactoryAvailableException e) {
-            throw new RuntimeException(e);
-        }
+class StopTest extends TestSupport {
+
+    def "definition"() {
+        when:
+            def processor = toProcessor('stop', '''{}''')
+        then:
+            with(processor, StopDefinition) {
+            }
     }
+
 }

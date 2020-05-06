@@ -22,16 +22,14 @@ import org.apache.camel.model.RemoveHeadersDefinition
 class RemoveHeadersTest extends org.apache.camel.k.loader.yaml.TestSupport {
 
     def "definition"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('remove-headers', '''
                  pattern: toRemove
                  exclude-pattern: toExclude
                  exclude-patterns:
                    - toExclude1
                    - toExclude2
             ''')
-        when:
-            def processor = new RemoveHeadersStepParser().toProcessor(stepContext)
         then:
             with(processor, RemoveHeadersDefinition) {
                 pattern == 'toRemove'

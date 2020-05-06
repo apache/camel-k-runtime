@@ -14,32 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.loader.yaml.parser;
+package org.apache.camel.k.loader.yaml.support;
 
-import java.util.Arrays;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonAlias;
+import org.apache.camel.k.annotation.yaml.YAMLMixIn;
 
-import org.apache.camel.model.ProcessorDefinition;
+@YAMLMixIn(org.apache.camel.model.RemoveHeaderDefinition.class)
+public abstract class RemoveHeaderDefinitionMixIn {
+    @JsonAlias({"name", "header-name"})
+    public abstract void setHeaderName(String headerName);
 
-public class StepParserException extends RuntimeException {
-    private final String processor;
-    private final List<String> properties;
-
-    public StepParserException(String message, ProcessorDefinition<?> processor, String... properties) {
-        super(message);
-
-        this.processor = processor.getShortName();
-        this.properties = Arrays.asList(properties);
-    }
-
-    public StepParserException(String message, String... properties) {
-        super(message);
-
-        this.processor = null;
-        this.properties = Arrays.asList(properties);
-    }
-
-    public List<String> getProperties() {
-        return properties;
-    }
+    @JsonAlias({"name", "header-name"})
+    public abstract String getHeaderName();
 }

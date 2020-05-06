@@ -24,6 +24,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.camel.k.annotation.yaml.YAMLNodeDefinition;
 import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.k.loader.yaml.model.Node;
+import org.apache.camel.k.loader.yaml.spi.ProcessorStepParser;
+import org.apache.camel.k.loader.yaml.spi.StartStepParser;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.RouteDefinition;
 

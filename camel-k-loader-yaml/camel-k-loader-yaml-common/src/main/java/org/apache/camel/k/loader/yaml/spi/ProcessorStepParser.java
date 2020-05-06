@@ -14,17 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.loader.yaml.parser;
+package org.apache.camel.k.loader.yaml.spi;
 
-import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.model.ProcessorDefinition;
-import org.apache.camel.model.RollbackDefinition;
 
-@YAMLStepParser("rollback")
-public class RollbackStepParser implements ProcessorStepParser {
-    @Override
-    public ProcessorDefinition<?> toProcessor(Context context) {
-        return context.node(RollbackDefinition.class);
+@FunctionalInterface
+public interface ProcessorStepParser extends StepParser {
+    /**
+     * @param context
+     * @return
+     */
+    ProcessorDefinition<?> toProcessor(Context context);
+
+    static ProcessorDefinition<?> invoke(Context context, String stepId) {
+        return context.lookup(ProcessorStepParser.class, stepId).toProcessor(context);
+    }
+
+    @SuppressWarnings("rawtypes")
+    static ProcessorStepParser forType(Class<? extends ProcessorDefinition> type) {
+        return c -> c.node(type);
     }
 }
-

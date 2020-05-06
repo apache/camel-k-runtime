@@ -21,20 +21,16 @@ import org.apache.camel.k.loader.yaml.TestSupport
 import org.apache.camel.model.BeanDefinition
 
 class BeanTest extends TestSupport {
-
     def "definition"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('bean', '''
                  ref: "myBean"
                  method: "process"
             ''')
-        when:
-            def processor = new BeanStepParser().toProcessor(stepContext)
         then:
             with(processor, BeanDefinition) {
                 ref == 'myBean'
                 method == 'process'
             }
     }
-
 }

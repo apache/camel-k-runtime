@@ -17,6 +17,7 @@
 package org.apache.camel.k.loader.yaml.parser
 
 import org.apache.camel.k.loader.yaml.TestSupport
+import org.apache.camel.k.loader.yaml.spi.StepParserException
 import org.apache.camel.model.StepDefinition
 
 class StepTest extends TestSupport {
@@ -40,7 +41,7 @@ class StepTest extends TestSupport {
 
     def "should fail without steps"() {
         given:
-            def stepContext = stepContext(TestSupport.MAPPER.createObjectNode());
+            def stepContext = stepContext(MAPPER.createObjectNode());
         when:
             new StepStepParser().toProcessor(stepContext)
         then:

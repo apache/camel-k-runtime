@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.loader.yaml.parser;
+package org.apache.camel.k.loader.yaml.spi;
 
 import java.util.List;
 
@@ -46,6 +46,7 @@ public final class StepParserSupport {
         ProcessorDefinition<?> current = parent;
 
         for (Step step : steps) {
+
             ProcessorDefinition<?> child = ProcessorStepParser.invoke(
                 ProcessorStepParser.Context.of(context, step.node),
                 step.id

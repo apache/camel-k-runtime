@@ -14,16 +14,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.loader.yaml.parser;
+package org.apache.camel.k.loader.yaml.spi;
 
-import org.apache.camel.k.annotation.yaml.YAMLStepParser;
+import java.util.Arrays;
+import java.util.List;
+
 import org.apache.camel.model.ProcessorDefinition;
-import org.apache.camel.model.RemoveHeadersDefinition;
 
-@YAMLStepParser("remove-headers")
-public class RemoveHeadersStepParser implements ProcessorStepParser {
-    @Override
-    public ProcessorDefinition<?> toProcessor(Context context) {
-        return context.node(RemoveHeadersDefinition.class);
+public class StepParserException extends RuntimeException {
+    private final String processor;
+    private final List<String> properties;
+
+    public StepParserException(String message, ProcessorDefinition<?> processor, String... properties) {
+        super(message);
+
+        this.processor = processor.getShortName();
+        this.properties = Arrays.asList(properties);
+    }
+
+    public StepParserException(String message, String... properties) {
+        super(message);
+
+        this.processor = null;
+        this.properties = Arrays.asList(properties);
+    }
+
+    public List<String> getProperties() {
+        return properties;
     }
 }

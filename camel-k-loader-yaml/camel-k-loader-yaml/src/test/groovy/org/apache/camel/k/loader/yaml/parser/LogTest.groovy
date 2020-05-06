@@ -23,14 +23,12 @@ import org.apache.camel.model.LogDefinition
 class LogTest extends TestSupport {
 
     def "definition"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor =toProcessor('log', '''
                  logging-level: "ERROR"
                  message: "test"
                  log-name: "yaml"
             ''')
-        when:
-            def processor = new LogStepParser().toProcessor(stepContext)
         then:
             with(processor, LogDefinition) {
                 loggingLevel == 'ERROR'
