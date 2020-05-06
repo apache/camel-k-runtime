@@ -24,6 +24,7 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.camel.k.annotation.yaml.YAMLNodeDefinition;
 import org.apache.camel.k.annotation.yaml.YAMLStepParser;
+import org.apache.camel.k.loader.yaml.spi.ProcessorStepParser;
 import org.apache.camel.model.ExpressionSubElementDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.SetHeaderDefinition;
@@ -34,7 +35,7 @@ import org.apache.camel.reifier.WireTapReifier;
 import org.apache.camel.util.ObjectHelper;
 import org.apache.camel.util.URISupport;
 
-@YAMLStepParser("wiretap")
+@YAMLStepParser({"wiretap", "wire-tap"})
 public class WireTapStepParser implements ProcessorStepParser {
     @SuppressWarnings("unchecked")
     @Override

@@ -17,25 +17,21 @@
 package org.apache.camel.k.loader.yaml.parser
 
 import org.apache.camel.k.loader.yaml.TestSupport
-import org.apache.camel.model.IdempotentConsumerDefinition
-import org.apache.camel.model.LogDefinition
 import org.apache.camel.model.RollbackDefinition
 
 class RollbackTest extends TestSupport {
 
     def "definition"() {
-        given:
-        def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('rollback', '''
                  mark-rollback-only: "true"
                  message: "test"
             ''')
-        when:
-        def processor = new RollbackStepParser().toProcessor(stepContext)
         then:
-        with(processor, RollbackDefinition) {
-            markRollbackOnly == "true"
-            message == 'test'
-        }
+            with(processor, RollbackDefinition) {
+                markRollbackOnly == "true"
+                message == 'test'
+            }
     }
 
 }

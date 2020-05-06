@@ -14,58 +14,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.loader.yaml.parser;
+package org.apache.camel.k.loader.yaml.spi;
 
 import java.io.IOException;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
-import org.apache.camel.NoFactoryAvailableException;
+import org.apache.camel.spi.HasCamelContext;
 import org.apache.camel.util.ObjectHelper;
 
 public interface StepParser {
     String SERVICE_LOCATION = "META-INF/services/org/apache/camel/k/loader/yaml-parser/";
 
-    @SuppressWarnings("unchecked")
-    static <T extends StepParser> T lookup(CamelContext camelContext, Class<T> type, String stepId) throws NoFactoryAvailableException {
-        T converter = camelContext.getRegistry().lookupByNameAndType(stepId, type);
-        if (converter == null) {
-            converter = camelContext.adapt(ExtendedCamelContext.class)
-                .getFactoryFinder(SERVICE_LOCATION)
-                .newInstance(stepId, type)
-                .orElseThrow(() -> new RuntimeException("No handler for step with id: " + stepId));
-        }
-
-        return converter;
-    }
-
-    class Context {
+    /**
+     * Context for step parsing.
+     */
+    class Context implements HasCamelContext {
         private final ObjectMapper mapper;
         private final CamelContext camelContext;
         private final JsonNode node;
+        private final Resolver resolver;
 
-        public Context(CamelContext camelContext, ObjectMapper mapper, JsonNode node) {
+        public Context(CamelContext camelContext, ObjectMapper mapper, JsonNode node, Resolver resolver) {
             this.camelContext = camelContext;
             this.mapper = mapper;
             this.node = node;
+            this.resolver = ObjectHelper.notNull(resolver, "resolver");
         }
 
-        public CamelContext camelContext() {
+        @Override
+        public CamelContext getCamelContext() {
             return camelContext;
-        }
-
-        public <T extends CamelContext> T camelContext(Class<T> type) {
-            return camelContext.adapt(type);
         }
 
         public JsonNode node() {
             return node;
-        }
-
-        public ObjectMapper mapper() {
-            return mapper;
         }
 
         public <T> T node(Class<T> type) {
@@ -87,13 +74,46 @@ public interface StepParser {
             return definition;
         }
 
+        public <T extends StepParser> T lookup(Class<T> type, String stepId) {
+            StepParser parser = resolver.resolve(camelContext, stepId);
+            if (type.isInstance(parser)) {
+                return type.cast(parser);
+            }
+
+            throw new RuntimeException("No handler for step with id: " + stepId);
+        }
+
         public static Context of(Context context, JsonNode step) {
             return new Context(
                 context.camelContext,
                 context.mapper,
-                step
+                step,
+                context.resolver
             );
         }
     }
 
+    /**
+     * Step resolver.
+     */
+    interface Resolver {
+        StepParser resolve(CamelContext camelContext, String stepId);
+
+        default StepParser lookup(CamelContext camelContext, String stepId) {
+            StepParser answer = camelContext.getRegistry().lookupByNameAndType(stepId, StepParser.class);
+            if (answer == null) {
+                answer = camelContext.adapt(ExtendedCamelContext.class)
+                    .getFactoryFinder(SERVICE_LOCATION)
+                    .newInstance(stepId, StepParser.class)
+                    .orElseThrow(() -> new RuntimeException("No handler for step with id: " + stepId));
+            }
+
+            return answer;
+        }
+
+        static Resolver caching(Resolver delegate) {
+            final ConcurrentMap<String, StepParser> cache = new ConcurrentHashMap<>();
+            return (camelContext, stepId) -> cache.computeIfAbsent(stepId, key -> delegate.resolve(camelContext, key));
+        }
+    }
 }

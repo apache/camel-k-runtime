@@ -16,22 +16,19 @@
  */
 package org.apache.camel.k.loader.yaml.parser;
 
-import org.apache.camel.NoFactoryAvailableException;
+import org.apache.camel.k.loader.yaml.spi.ProcessorStepParser;
 import org.apache.camel.model.ProcessorDefinition;
 
-@FunctionalInterface
-public interface StartStepParser extends StepParser {
-    /**
-     * @param context
-     * @return
-     */
-    ProcessorDefinition<?> toStartProcessor(Context context);
+@SuppressWarnings("rawtypes")
+public class TypedProcessorStepParser implements ProcessorStepParser {
+    private final Class<? extends ProcessorDefinition> type;
 
-    static ProcessorDefinition<?> invoke(Context context, String stepId) {
-        try {
-            return StepParser.lookup(context.camelContext(), StartStepParser.class, stepId).toStartProcessor(context);
-        } catch (NoFactoryAvailableException e) {
-            throw new RuntimeException(e);
-        }
+    public TypedProcessorStepParser(Class<? extends ProcessorDefinition> type) {
+        this.type = type;
+    }
+
+    @Override
+    public ProcessorDefinition<?> toProcessor(Context context) {
+        return context.node(type);
     }
 }

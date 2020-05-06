@@ -22,12 +22,21 @@ import org.apache.camel.model.RemoveHeaderDefinition
 class RemoveHeaderTest extends TestSupport {
 
     def "definition"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('remove-header', '''
+                 header-name: test
+            ''')
+        then:
+            with(processor, RemoveHeaderDefinition) {
+                headerName == 'test'
+            }
+    }
+
+    def "definition (alias)"() {
+        when:
+            def processor = toProcessor('remove-header', '''
                  name: test
             ''')
-        when:
-            def processor = new RemoveHeaderStepParser().toProcessor(stepContext)
         then:
             with(processor, RemoveHeaderDefinition) {
                 headerName == 'test'

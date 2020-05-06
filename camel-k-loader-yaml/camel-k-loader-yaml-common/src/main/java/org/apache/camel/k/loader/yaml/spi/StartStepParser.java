@@ -14,17 +14,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.loader.yaml.parser;
+package org.apache.camel.k.loader.yaml.spi;
 
-import org.apache.camel.k.annotation.yaml.YAMLStepParser;
-import org.apache.camel.model.ClaimCheckDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 
-@YAMLStepParser("claim-check")
-public class ClaimCheckStepParser implements ProcessorStepParser {
-    @Override
-    public ProcessorDefinition<?> toProcessor(Context context) {
-        return context.node(ClaimCheckDefinition.class);
+@FunctionalInterface
+public interface StartStepParser extends StepParser {
+    /**
+     * @param context
+     * @return
+     */
+    ProcessorDefinition<?> toStartProcessor(Context context);
+
+    static ProcessorDefinition<?> invoke(Context context, String stepId) {
+        return context.lookup(StartStepParser.class, stepId).toStartProcessor(context);
     }
 }
-

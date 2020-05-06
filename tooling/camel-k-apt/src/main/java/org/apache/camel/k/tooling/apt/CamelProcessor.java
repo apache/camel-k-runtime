@@ -38,12 +38,10 @@ import javax.tools.StandardLocation;
 
 import org.apache.camel.k.annotation.Loader;
 import org.apache.camel.k.annotation.LoaderInterceptor;
-import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 
 @SupportedAnnotationTypes({
     "org.apache.camel.k.annotation.Loader",
     "org.apache.camel.k.annotation.LoaderInterceptor",
-    "org.apache.camel.k.annotation.yaml.YAMLStepParser"
 })
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class CamelProcessor extends AbstractProcessor {
@@ -66,14 +64,6 @@ public class CamelProcessor extends AbstractProcessor {
                         output("META-INF/services/org/apache/camel/k/loader/interceptor/%s", a.value()),
                         e
                     );
-                });
-                on(element, YAMLStepParser.class, (e, a) -> {
-                    for (String id: a.value()) {
-                        service(
-                            output("META-INF/services/org/apache/camel/k/loader/yaml-parser/%s", id),
-                            e
-                        );
-                    }
                 });
             }
         }

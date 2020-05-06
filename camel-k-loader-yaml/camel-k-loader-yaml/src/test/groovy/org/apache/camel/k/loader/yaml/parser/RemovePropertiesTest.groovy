@@ -31,7 +31,13 @@ class RemovePropertiesTest extends org.apache.camel.k.loader.yaml.TestSupport {
                    - toExclude2
             ''')
         when:
-            def processor = new RemovePropertiesStepParser().toProcessor(stepContext)
+            def processor = toProcessor('remove-properties', '''
+                 pattern: toRemove
+                 exclude-pattern: toExclude
+                 exclude-patterns:
+                   - toExclude1
+                   - toExclude2
+            ''')
         then:
             with(processor, RemovePropertiesDefinition) {
                 pattern == 'toRemove'

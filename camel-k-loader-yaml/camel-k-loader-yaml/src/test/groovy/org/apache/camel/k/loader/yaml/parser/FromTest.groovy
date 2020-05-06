@@ -17,6 +17,7 @@
 package org.apache.camel.k.loader.yaml.parser
 
 import org.apache.camel.k.loader.yaml.TestSupport
+import org.apache.camel.k.loader.yaml.spi.StepParserException
 import org.apache.camel.model.FromDefinition
 import org.apache.camel.model.RouteDefinition
 

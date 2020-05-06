@@ -14,17 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.loader.yaml.parser;
+package org.apache.camel.k.loader.yaml.support;
 
-import org.apache.camel.k.annotation.yaml.YAMLStepParser;
-import org.apache.camel.model.LogDefinition;
-import org.apache.camel.model.ProcessorDefinition;
+import com.fasterxml.jackson.annotation.JsonAlias;
+import org.apache.camel.k.annotation.yaml.YAMLMixIn;
 
-@YAMLStepParser("log")
-public class LogStepParser implements ProcessorStepParser {
-    @Override
-    public ProcessorDefinition<?> toProcessor(Context context) {
-        return context.node(LogDefinition.class);
-    }
+@YAMLMixIn(org.apache.camel.model.RemovePropertyDefinition.class)
+public abstract class RemovePropertyDefinitionMixIn {
+    @JsonAlias({"name", "property-name"})
+    public abstract void setPropertyName(String headerName);
+
+    @JsonAlias({"name", "property-name"})
+    public abstract String getPropertyName();
 }
-

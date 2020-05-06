@@ -27,7 +27,9 @@ class ThreadsTest extends TestSupport {
                  pool-size: 5
             ''')
         when:
-            def processor = new ThreadsStepParser().toProcessor(stepContext)
+            def processor = toProcessor('threads', '''
+                 pool-size: 5
+            ''')
         then:
             with (processor, ThreadsDefinition) {
                 poolSize == '5'

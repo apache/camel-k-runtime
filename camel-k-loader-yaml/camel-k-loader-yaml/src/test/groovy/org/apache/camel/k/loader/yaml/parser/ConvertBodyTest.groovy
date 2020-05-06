@@ -21,14 +21,12 @@ import org.apache.camel.model.ConvertBodyDefinition
 
 class ConvertBodyTest extends TestSupport {
     def "definition"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('convert-body-to','''
                  type: "java.lang.String"
                  type-class: "java.lang.String"
                  charset: "UTF8"
             ''')
-        when:
-            def processor = new ConvertBodyStepParser().toProcessor(stepContext)
         then:
             with(processor, ConvertBodyDefinition) {
                 type == 'java.lang.String'

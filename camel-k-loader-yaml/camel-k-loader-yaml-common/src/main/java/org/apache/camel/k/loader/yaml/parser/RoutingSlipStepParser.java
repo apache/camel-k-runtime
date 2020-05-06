@@ -19,6 +19,7 @@ package org.apache.camel.k.loader.yaml.parser;
 import org.apache.camel.Expression;
 import org.apache.camel.k.annotation.yaml.YAMLNodeDefinition;
 import org.apache.camel.k.annotation.yaml.YAMLStepParser;
+import org.apache.camel.k.loader.yaml.spi.ProcessorStepParser;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.RoutingSlipDefinition;
 import org.apache.camel.reifier.RoutingSlipReifier;
@@ -31,7 +32,7 @@ public class RoutingSlipStepParser implements ProcessorStepParser {
     }
 
     @YAMLNodeDefinition(reifiers = RoutingSlipReifier.class)
-    public static final class Definition extends RoutingSlipDefinition implements HasExpression {
+    public static final class Definition<T extends ProcessorDefinition<T>> extends RoutingSlipDefinition<T> implements HasExpression {
         public Definition() {
             super((Expression) null, RoutingSlipDefinition.DEFAULT_DELIMITER);
         }

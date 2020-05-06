@@ -22,18 +22,16 @@ import org.apache.camel.model.ThrowExceptionDefinition
 class ThrowExceptionTest extends TestSupport {
 
     def "definition"() {
-        given:
-            def stepContext = stepContext('''
-                     exception-type: "java.lang.IllegalArgumentException"
-                     message: "test"
-                ''')
         when:
-            def processor = new ThrowExceptionStepParser().toProcessor(stepContext)
-        then:
-            with(processor, ThrowExceptionDefinition) {
-                message == 'test'
-                exceptionType == "java.lang.IllegalArgumentException"
-            }
-    }
+            def processor = toProcessor('throw-exception', '''
+                    exception-type: "java.lang.IllegalArgumentException"
+                    message: "test"
+                ''')
+            then:
+                with(processor, ThrowExceptionDefinition) {
+                    message == 'test'
+                    exceptionType == "java.lang.IllegalArgumentException"
+                }
+        }
 
-}
+    }

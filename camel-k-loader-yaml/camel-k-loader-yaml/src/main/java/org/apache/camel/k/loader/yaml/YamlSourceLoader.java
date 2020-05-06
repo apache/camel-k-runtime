@@ -38,8 +38,8 @@ import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceLoader;
 import org.apache.camel.k.annotation.Loader;
 import org.apache.camel.k.loader.yaml.model.Step;
-import org.apache.camel.k.loader.yaml.parser.StartStepParser;
-import org.apache.camel.k.loader.yaml.parser.StepParser;
+import org.apache.camel.k.loader.yaml.spi.StartStepParser;
+import org.apache.camel.k.loader.yaml.spi.StepParser;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.model.RoutesDefinition;
@@ -93,13 +93,14 @@ public class YamlSourceLoader implements SourceLoader {
         return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
+                final StepParser.Resolver resolver = StepParser.Resolver.caching(new YamlStepResolver());
                 final CamelContext camelContext = getContext();
                 final List<RouteDefinition> routes = new ArrayList<>();
                 final List<RestDefinition> rests = new ArrayList<>();
 
                 try (is) {
                     for (Step step : mapper.readValue(is, Step[].class)) {
-                        final StepParser.Context context = new StepParser.Context(camelContext, mapper, step.node);
+                        final StepParser.Context context = new StepParser.Context(camelContext, mapper, step.node, resolver);
                         final ProcessorDefinition<?> root = StartStepParser.invoke(context, step.id);
 
                         if (root == null) {

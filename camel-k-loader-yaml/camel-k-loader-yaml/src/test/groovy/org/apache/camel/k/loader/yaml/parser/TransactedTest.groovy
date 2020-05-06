@@ -23,7 +23,7 @@ class TransactedTest extends TestSupport {
 
     def "definition with expression"() {
         when:
-            def processor = toProcessor(TransactedStepParser, '''
+            def processor = toProcessor('transacted', '''
                  ref: "my-policy"
             ''')
         then:

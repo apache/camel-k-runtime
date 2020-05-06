@@ -19,11 +19,16 @@ package org.apache.camel.k.tooling.maven;
 
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.lang.model.element.Modifier;
 
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.Module;
+import com.google.common.base.CaseFormat;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
@@ -52,6 +57,10 @@ public class GenerateYamlLoaderSupportClasses extends GenerateYamlSupport {
                 .build()
                 .writeTo(Paths.get(output));
             JavaFile.builder("org.apache.camel.k.loader.yaml", generateReifiers())
+                .indent("    ")
+                .build()
+                .writeTo(Paths.get(output));
+            JavaFile.builder("org.apache.camel.k.loader.yaml", generateResolver())
                 .indent("    ")
                 .build()
                 .writeTo(Paths.get(output));
@@ -86,14 +95,15 @@ public class GenerateYamlLoaderSupportClasses extends GenerateYamlSupport {
             .addParameter(Module.SetupContext.class, "context");
 
         definitions(EXPRESSION_DEFINITION_CLASS).forEach(
-            (k, v) -> mb.addStatement("context.registerSubtypes(new com.fasterxml.jackson.databind.jsontype.NamedType($T.class, $S))", v, k)
+            (k, v) -> mb.addStatement("context.registerSubtypes(new com.fasterxml.jackson.databind.jsontype.NamedType($L.class, $S))", v.getName(), k)
         );
         definitions(DATAFORMAT_DEFINITION_CLASS).forEach(
-            (k, v) -> mb.addStatement("context.registerSubtypes(new com.fasterxml.jackson.databind.jsontype.NamedType($T.class, $S))", v, k)
+            (k, v) -> mb.addStatement("context.registerSubtypes(new com.fasterxml.jackson.databind.jsontype.NamedType($L.class, $S))", v.getName(), k)
         );
         definitions(LOAD_BALANCE_DEFINITION_CLASS).forEach(
-            (k, v) -> mb.addStatement("context.registerSubtypes(new com.fasterxml.jackson.databind.jsontype.NamedType($T.class, $S))", v, k)
+            (k, v) -> mb.addStatement("context.registerSubtypes(new com.fasterxml.jackson.databind.jsontype.NamedType($L.class, $S))", v.getName(), k)
         );
+
         annotated(YAML_MIXIN_ANNOTATION).forEach(i -> {
             final AnnotationInstance annotation = i.classAnnotation(YAML_MIXIN_ANNOTATION);
             final AnnotationValue targets = annotation.value("value");
@@ -124,18 +134,18 @@ public class GenerateYamlLoaderSupportClasses extends GenerateYamlSupport {
             .addModifiers(Modifier.PUBLIC)
             .addModifiers(Modifier.STATIC);
 
-        annotated(YAML_STEP_DEFINITION_ANNOTATION).forEach(i -> {
-            final AnnotationInstance annotation = i.classAnnotation(YAML_STEP_DEFINITION_ANNOTATION);
+        annotated(YAML_NODE_DEFINITION_ANNOTATION).forEach(i -> {
+            final AnnotationInstance annotation = i.classAnnotation(YAML_NODE_DEFINITION_ANNOTATION);
             final AnnotationValue reifiers = annotation.value("reifiers");
 
-            String name = i.toString();
-            if (i.nestingType() == ClassInfo.NestingType.INNER) {
-                name = i.enclosingClass().toString() + "." + i.simpleName();
-            }
-
             if (reifiers != null) {
+                String name = i.toString();
+                if (i.nestingType() == ClassInfo.NestingType.INNER) {
+                    name = i.enclosingClass().toString() + "." + i.simpleName();
+                }
+
                 for (String reifier: reifiers.asStringArray()) {
-                    mb.addStatement("org.apache.camel.reifier.ProcessorReifier.registerReifier($L.class, $L::new);", name, reifier);
+                    mb.addStatement("org.apache.camel.reifier.ProcessorReifier.registerReifier($L.class, $L::new)", name, reifier);
                 }
             }
         });
@@ -143,5 +153,94 @@ public class GenerateYamlLoaderSupportClasses extends GenerateYamlSupport {
         type.addMethod(mb.build());
 
         return type.build();
+    }
+
+    public final TypeSpec generateResolver() {
+        Set<String> ids = new HashSet<>();
+
+        MethodSpec.Builder mb = MethodSpec.methodBuilder("resolve")
+            .addAnnotation(Override.class)
+            .addModifiers(Modifier.PUBLIC)
+            .addParameter(ClassName.get("org.apache.camel", "CamelContext"), "camelContext")
+            .addParameter(ClassName.get("java.lang", "String"), "id")
+            .returns(ClassName.get("org.apache.camel.k.loader.yaml.spi", "StepParser"));
+
+        mb.beginControlFlow("switch(id)");
+
+        // custom parsers
+        annotated(YAML_STEP_PARSER_ANNOTATION)
+            .sorted(Comparator.comparing(i -> i.name().toString()))
+            .forEach(
+                i -> {
+                    AnnotationValue value = i.classAnnotation(YAML_STEP_PARSER_ANNOTATION).value();
+                    for (String id: value.asStringArray()) {
+                        if (ids.add(id)) {
+                            mb.beginControlFlow("case $S:", id);
+                            mb.addStatement("return new $L()", i.name().toString());
+                            mb.endControlFlow();
+                        }
+                    }
+                }
+            );
+
+        // auto generated parsers
+        annotated(XMLROOTELEMENT_ANNOTATION_CLASS)
+            .forEach(
+                i -> {
+                    AnnotationInstance meta = i.classAnnotation(METADATA_ANNOTATION);
+                    AnnotationInstance root = i.classAnnotation(XMLROOTELEMENT_ANNOTATION_CLASS);
+
+                    if (meta != null && root != null) {
+                        AnnotationValue name = root.value("name");
+                        AnnotationValue label = meta.value("label");
+
+                        if (name != null && label != null) {
+                            // skip known definitions for which there is a custom
+                            // implementation
+                            switch (i.name().toString()) {
+                                case "org.apache.camel.model.Resilience4jConfigurationDefinition":
+                                case "org.apache.camel.model.HystrixConfigurationDefinition":
+                                case "org.apache.camel.model.config.StreamResequencerConfig":
+                                case "org.apache.camel.model.config.BatchResequencerConfig":
+                                case "org.apache.camel.model.OnFallbackDefinition":
+                                case "org.apache.camel.model.InOnlyDefinition":
+                                case "org.apache.camel.model.InOutDefinition":
+                                case "org.apache.camel.model.OtherwiseDefinition":
+                                case "org.apache.camel.model.WhenDefinition":
+                                    return;
+                                default:
+                                    break;
+                            }
+                            switch (i.name().prefix().toString()) {
+                                case "org.apache.camel.model.loadbalancer":
+                                    return;
+                                default:
+                                    break;
+                            }
+
+                            Set<String> labels = Set.of(label.asString().split(",", -1));
+                            if (labels.contains("eip")) {
+                                String id = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_HYPHEN, name.asString());
+                                if (ids.add(id)) {
+                                    mb.beginControlFlow("case $S:", id);
+                                    mb.addStatement("return new org.apache.camel.k.loader.yaml.parser.TypedProcessorStepParser($L.class)", i.name().toString());
+                                    mb.endControlFlow();
+                                }
+                            }
+                        }
+                    }
+                }
+            );
+
+        mb.beginControlFlow("default:");
+        mb.addStatement("return lookup(camelContext, id)");
+        mb.endControlFlow();
+        mb.endControlFlow();
+
+        return TypeSpec.classBuilder("YamlStepResolver")
+            .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
+            .addSuperinterface(ClassName.get("org.apache.camel.k.loader.yaml.spi", "StepParser.Resolver"))
+            .addMethod(mb.build())
+            .build();
     }
 }

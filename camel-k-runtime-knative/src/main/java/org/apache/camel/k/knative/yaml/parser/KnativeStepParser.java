@@ -23,9 +23,9 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.camel.component.knative.spi.Knative;
-import org.apache.camel.k.loader.yaml.parser.ProcessorStepParser;
-import org.apache.camel.k.loader.yaml.parser.StartStepParser;
-import org.apache.camel.k.loader.yaml.parser.StepParserSupport;
+import org.apache.camel.k.loader.yaml.spi.ProcessorStepParser;
+import org.apache.camel.k.loader.yaml.spi.StartStepParser;
+import org.apache.camel.k.loader.yaml.spi.StepParserSupport;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.model.ToDefinition;

@@ -22,16 +22,24 @@ import org.apache.camel.model.RemovePropertyDefinition
 class RemovePropertyTest extends TestSupport {
 
     def "definition"() {
-        given:
-            def stepContext = stepContext('''
-                 name: test
-            ''')
         when:
-            def processor = new RemovePropertyStepParser().toProcessor(stepContext)
+            def processor = toProcessor('remove-property', '''
+                 property-name: test
+            ''')
         then:
             with(processor, RemovePropertyDefinition) {
                 propertyName == 'test'
             }
     }
 
+    def "definition (alias)"() {
+        when:
+            def processor = toProcessor('remove-property', '''
+                 name: test
+            ''')
+        then:
+            with(processor, RemovePropertyDefinition) {
+                propertyName == 'test'
+            }
+    }
 }

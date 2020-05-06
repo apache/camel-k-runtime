@@ -24,7 +24,7 @@
       accepts: "text/plain"
       binding-mode: "off"
       steps:
-        - convert-body:
+        - convert-body-to:
             type: "java.lang.String"
         - to:
             uri: "log:in"
@@ -50,7 +50,7 @@
                             uri: "log:contains2"
         - marshal:
             json: {}
-        - convert-body:
+        - convert-body-to:
             type: "java.lang.String"
         - to:
             uri: "log:out"
@@ -63,7 +63,7 @@
       accepts: "text/plain"
       binding-mode: "off"
       steps:
-        - convert-body:
+        - convert-body-to:
             type: "java.lang.String"
         - to:
             uri: "log:in"
@@ -84,7 +84,7 @@
       accepts: "text/plain"
       binding-mode: "off"
       steps:
-        - convert-body:
+        - convert-body-to:
             type: "java.lang.String"
         - to:
             uri: "log:in"
