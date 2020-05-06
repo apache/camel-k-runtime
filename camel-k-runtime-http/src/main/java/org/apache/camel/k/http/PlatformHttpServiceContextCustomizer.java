@@ -40,10 +40,10 @@ public class PlatformHttpServiceContextCustomizer extends PlatformHttpServiceCon
     @Override
     public void apply(CamelContext camelContext) {
         endpoint = new PlatformHttpServiceEndpoint(camelContext, this);
-        endpoint.start();
+        //endpoint.init();
 
         try {
-            camelContext.addService(endpoint, true, true);
+            camelContext.addService(endpoint);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

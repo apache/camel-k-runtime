@@ -21,7 +21,6 @@ import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 
@@ -52,6 +51,7 @@ public final class PlatformHttpServer extends ServiceSupport {
     private final CamelContext context;
     private final PlatformHttpServiceConfiguration configuration;
     private final Vertx vertx;
+    private final Router router;
     private final ExecutorService executor;
 
     private HttpServer server;
@@ -60,27 +60,12 @@ public final class PlatformHttpServer extends ServiceSupport {
         this.context = context;
         this.configuration = configuration;
         this.vertx = vertx;
+        this.router = Router.router(vertx);
         this.executor = executor;
     }
 
     @Override
-    protected void doStart() throws Exception {
-        startAsync().toCompletableFuture().join();
-    }
-
-    @Override
-    protected void doStop() throws Exception {
-        try {
-            if (server != null) {
-                stopAsync().toCompletableFuture().join();
-            }
-        } finally {
-            this.server = null;
-        }
-    }
-
-    private CompletionStage<Void> startAsync() {
-        final Router router = Router.router(vertx);
+    protected void doInit() throws Exception {
         final Router subRouter = Router.router(vertx);
 
         if (configuration.getCors().isEnabled()) {
@@ -107,8 +92,11 @@ public final class PlatformHttpServer extends ServiceSupport {
         }
 
         server = vertx.createHttpServer(options);
+    }
 
-        return CompletableFuture.runAsync(
+    @Override
+    protected void doStart() throws Exception {
+        CompletableFuture.runAsync(
             () -> {
                 CountDownLatch latch = new CountDownLatch(1);
                 server.requestHandler(router).listen(configuration.getBindPort(), configuration.getBindHost(), result -> {
@@ -136,41 +124,48 @@ public final class PlatformHttpServer extends ServiceSupport {
                 }
             },
             executor
-        );
+        ).toCompletableFuture().join();
     }
 
-    protected CompletionStage<Void> stopAsync() {
-        return CompletableFuture.runAsync(
-            () -> {
-                CountDownLatch latch = new CountDownLatch(1);
+    @Override
+    protected void doStop() throws Exception {
+        try {
+            if (server != null) {
+                CompletableFuture.runAsync(
+                    () -> {
+                        CountDownLatch latch = new CountDownLatch(1);
 
-                // remove the platform-http component
-                context.removeComponent(PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME);
+                        // remove the platform-http component
+                        context.removeComponent(PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME);
 
-                server.close(result -> {
-                    try {
-                        if (result.failed()) {
-                            LOGGER.warn("Failed to close Vert.x HttpServer reason: {}",
-                                result.cause().getMessage()
-                            );
+                        server.close(result -> {
+                            try {
+                                if (result.failed()) {
+                                    LOGGER.warn("Failed to close Vert.x HttpServer reason: {}",
+                                        result.cause().getMessage()
+                                    );
 
-                            throw new RuntimeException(result.cause());
+                                    throw new RuntimeException(result.cause());
+                                }
+
+                                LOGGER.info("Vert.x HttpServer stopped");
+                            } finally {
+                                latch.countDown();
+                            }
+                        });
+
+                        try {
+                            latch.await();
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
                         }
-
-                        LOGGER.info("Vert.x HttpServer stopped");
-                    } finally {
-                        latch.countDown();
-                    }
-                });
-
-                try {
-                    latch.await();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            },
-            executor
-        );
+                    },
+                    executor
+                ).toCompletableFuture().join();
+            }
+        } finally {
+            this.server = null;
+        }
     }
 
     private Handler<RoutingContext> createBodyHandler() {
