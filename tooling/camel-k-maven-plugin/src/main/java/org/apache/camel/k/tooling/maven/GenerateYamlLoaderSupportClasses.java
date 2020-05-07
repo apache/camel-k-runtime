@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.lang.model.element.Modifier;
@@ -33,9 +34,11 @@ import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
+import org.apache.camel.util.AntPathMatcher;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.AnnotationValue;
@@ -49,6 +52,9 @@ import org.jboss.jandex.ClassInfo;
     threadSafe = true,
     requiresProject = false)
 public class GenerateYamlLoaderSupportClasses extends GenerateYamlSupport {
+    @Parameter
+    protected List<String> blacklistedDefinitions;
+
     @Override
     public void execute() throws MojoFailureException {
         try {
@@ -195,27 +201,14 @@ public class GenerateYamlLoaderSupportClasses extends GenerateYamlSupport {
                         AnnotationValue label = meta.value("label");
 
                         if (name != null && label != null) {
-                            // skip known definitions for which there is a custom
-                            // implementation
-                            switch (i.name().toString()) {
-                                case "org.apache.camel.model.Resilience4jConfigurationDefinition":
-                                case "org.apache.camel.model.HystrixConfigurationDefinition":
-                                case "org.apache.camel.model.config.StreamResequencerConfig":
-                                case "org.apache.camel.model.config.BatchResequencerConfig":
-                                case "org.apache.camel.model.OnFallbackDefinition":
-                                case "org.apache.camel.model.InOnlyDefinition":
-                                case "org.apache.camel.model.InOutDefinition":
-                                case "org.apache.camel.model.OtherwiseDefinition":
-                                case "org.apache.camel.model.WhenDefinition":
-                                    return;
-                                default:
-                                    break;
-                            }
-                            switch (i.name().prefix().toString()) {
-                                case "org.apache.camel.model.loadbalancer":
-                                    return;
-                                default:
-                                    break;
+
+                            if (blacklistedDefinitions != null) {
+                                for (String blacklistedDefinition: blacklistedDefinitions) {
+                                    if (AntPathMatcher.INSTANCE.match(blacklistedDefinition.replace('.', '/'), i.name().toString('/'))) {
+                                        getLog().debug("Skipping definition: " + i.name().toString());
+                                        return;
+                                    }
+                                }
                             }
 
                             Set<String> labels = Set.of(label.asString().split(",", -1));
