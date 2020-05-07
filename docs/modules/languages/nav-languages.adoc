@@ -4,3 +4,4 @@
 ** xref:languages:javascript.adoc[JavaScript]
 ** xref:languages:java.adoc[Java]
 ** xref:languages:xml.adoc[XML]
+** xref:languages:yaml.adoc[YAML]
