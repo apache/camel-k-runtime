@@ -145,6 +145,20 @@
                         <goals>
                             <goal>generate-yaml-loader-support-classes</goal>
                         </goals>
+                        <configuration>
+                            <blacklistedDefinitions>
+                                <blacklistedDefinition>org.apache.camel.model.Resilience4jConfigurationDefinition</blacklistedDefinition>
+                                <blacklistedDefinition>org.apache.camel.model.HystrixConfigurationDefinition</blacklistedDefinition>
+                                <blacklistedDefinition>org.apache.camel.model.OnFallbackDefinition</blacklistedDefinition>
+                                <blacklistedDefinition>org.apache.camel.model.InOnlyDefinition</blacklistedDefinition>
+                                <blacklistedDefinition>org.apache.camel.model.InOutDefinition</blacklistedDefinition>
+                                <blacklistedDefinition>org.apache.camel.model.OtherwiseDefinition</blacklistedDefinition>
+                                <blacklistedDefinition>org.apache.camel.model.WhenDefinition</blacklistedDefinition>
+                                <blacklistedDefinition>org.apache.camel.model.config.StreamResequencerConfig</blacklistedDefinition>
+                                <blacklistedDefinition>org.apache.camel.model.config.BatchResequencerConfig</blacklistedDefinition>
+                                <blacklistedDefinition>org.apache.camel.model.loadbalancer/**</blacklistedDefinition>
+                            </blacklistedDefinitions>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
