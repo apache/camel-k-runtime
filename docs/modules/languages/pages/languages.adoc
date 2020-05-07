@@ -13,6 +13,7 @@ Camel K supports multiple languages for writing integrations:
 | xref:javascript.adoc[JavaScript]	| JavaScript `.js` files are supported.
 | xref:java.adoc[Java]				| Integrations written in plain Java DSL are supported.
 | xref:xml.adoc[XML]					| Integrations written in plain XML DSL are supported (Spring XML or Blueprint not supported).
+| xref:yaml.adoc[YAML]	| Integrations written in plain YAML DSL are supported.
 |=======================
 
 More information about supported languages is provided in the language specific section.
