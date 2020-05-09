@@ -58,7 +58,7 @@
         <jackson.version>2.10.3</jackson.version>
         <jaxb-api.version>2.3.0</jaxb-api.version>
         <jaxb-core.version>2.3.0.1</jaxb-core.version>
-        <immutables.version>2.8.3</immutables.version>
+        <immutables.version>2.8.8</immutables.version>
         <semver4j.version>3.1.0</semver4j.version>
         <vertx.version>3.8.5</vertx.version>
         <graalvm.version>19.3.1</graalvm.version>
