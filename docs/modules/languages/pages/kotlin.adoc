@@ -26,21 +26,30 @@ context {
 
 At the moment the enhanced DSL provides a way to bind items to the registry, to configure the components the context creates and some improvements over the REST DSL.
 
-== Registry Configuration
+== Beans DSL
 
-The registry is accessible using the _registry_ block inside the _context_ one:
+To register beans as you would do with a Camel registry you can use the Beans DSL
 
 [source,kotlin]
 ----
-context {
-    registry {
-        bind("my-cache", Caffeine.newBuilder().build()) // <1>
-        bind("my-processor", processor { // <2>
-            e -> e.getIn().body = "Hello"
-        })
-        bind("my-predicate", predicate { // <3>
-            e -> e.getIn().body != null
-        })
+beans {
+    bean<org.apache.commons.dbcp2.BasicDataSource>("dataSource") {
+        driverClassName = "org.h2.Driver"
+        url = "jdbc:h2:mem:camel"
+        username = "sa"
+        password = ""
+    }
+
+    bean("filterStrategy") {
+        org.apache.camel.support.DefaultHeaderFilterStrategy()
+    }
+
+    processor("myProcessor") {
+        it.getIn().body = "Hello"
+    }
+
+    predicate("myPredicate") {
+        false
     }
 }
 ----
@@ -51,12 +60,13 @@ context {
 
 == Components Configuration
 
-Components can be configured within the _components_ block inside the _context_ one:
+Components can be configured within the _components_ block inside the _camel_ one:
 
 [source,kotlin]
 ----
-context {
+camel {
     components {
+
         component<SedaComponent>("seda") { //<1>
             queueSize = 1234
             concurrentConsumers = 12
@@ -68,10 +78,10 @@ context {
         }
 
         component<LogComponent>("log") { // <3>
-           setExchangeFormatter {
-               e: Exchange -> "" + e.getIn().body
-           }
-       }
+            setExchangeFormatter {
+                e: Exchange -> "" + e.getIn().body
+            }
+        }
     }
 }
 ----
@@ -97,7 +107,11 @@ rest {
     }
 
     path("/my/path") { // <2>
-        // standard Rest DSL
+        get("/get") {
+            consumes("application/json")
+            produces("application/json")
+            to("direct:get")
+        }
     }
 }
 ----
