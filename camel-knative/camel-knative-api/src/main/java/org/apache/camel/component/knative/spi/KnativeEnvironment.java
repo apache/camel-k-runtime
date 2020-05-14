@@ -33,6 +33,8 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.impl.cloud.DefaultServiceDefinition;
 import org.apache.camel.support.ResourceHelper;
 
+import static org.apache.camel.util.CollectionHelper.mapOf;
+
 /*
  * Assuming it is loaded from a json for now
  */
@@ -63,7 +65,6 @@ public class KnativeEnvironment {
     // Helpers
     //
     // ************************
-
 
     public static KnativeEnvironment mandatoryLoadFromSerializedString(CamelContext context, String configuration) throws Exception {
         try (Reader reader = new StringReader(configuration)) {
@@ -209,7 +210,7 @@ public class KnativeEnvironment {
             port,
             KnativeSupport.mergeMaps(
                 metadata,
-                KnativeSupport.mapOf(
+                mapOf(
                     Knative.CAMEL_ENDPOINT_KIND, endpointKind.name()
                 )
             )
@@ -241,7 +242,7 @@ public class KnativeEnvironment {
                 port == null ? -1 : port,
                 KnativeSupport.mergeMaps(
                     metadata,
-                    KnativeSupport.mapOf(
+                    mapOf(
                         Knative.KNATIVE_TYPE, type.name())
                 )
             );

@@ -37,19 +37,4 @@ public final class KnativeSupport {
 
         return answer;
     }
-
-    @SuppressWarnings("unchecked")
-    public static <K, V> Map<K, V> mapOf(K key, V value, Object... keyVals) {
-        Map<K, V> map = new HashMap<>();
-        map.put(key, value);
-
-        for (int i = 0; i < keyVals.length; i += 2) {
-            map.put(
-                    (K) keyVals[i],
-                    (V) keyVals[i + 1]
-            );
-        }
-
-        return map;
-    }
 }

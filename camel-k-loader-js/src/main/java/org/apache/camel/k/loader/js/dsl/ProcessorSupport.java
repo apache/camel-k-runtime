@@ -23,6 +23,6 @@ import org.apache.camel.Processor;
 
 public interface ProcessorSupport {
     default Processor processor(Consumer<Exchange> consumer) {
-        return e -> consumer.accept(e);
+        return consumer::accept;
     }
 }

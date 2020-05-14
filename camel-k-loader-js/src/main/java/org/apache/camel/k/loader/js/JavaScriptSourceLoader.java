@@ -55,7 +55,6 @@ public class JavaScriptSourceLoader implements SourceLoader {
                     // configure bindings
                     bindings.putMember("__dsl", new IntegrationConfiguration(this));
 
-
                     final String script = IOHelper.loadText(is);
                     final String wrappedScript = "with (__dsl) { " + script + " }";
 
