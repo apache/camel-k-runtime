@@ -91,10 +91,7 @@ public class KnativeEndpoint extends DefaultEndpoint {
     public Consumer createConsumer(Processor processor) throws Exception {
         final KnativeEnvironment.KnativeServiceDefinition service = lookupServiceDefinition(Knative.EndpointKind.source);
         final Processor ceProcessor = cloudEvent.consumer(this, service);
-        Processor replyProcessor = null;
-        if (configuration.isReplyWithCloudEvent()) {
-            replyProcessor = cloudEvent.producer(this, service);
-        }
+        final Processor replyProcessor = configuration.isReplyWithCloudEvent() ? cloudEvent.producer(this, service) : null;
         final Processor pipeline = Pipeline.newInstance(getCamelContext(), ceProcessor, processor, replyProcessor);
         final Consumer consumer = getComponent().getTransport().createConsumer(this, createTransportConfiguration(), service, pipeline);
 
@@ -140,16 +137,11 @@ public class KnativeEndpoint extends DefaultEndpoint {
         // the endpoint uri but for events it is not possible so default should always be there for events
         // unless the service name is define as an endpoint option.
         //
-        Optional<KnativeEnvironment.KnativeServiceDefinition> service = lookupServiceDefinition(serviceName, endpointKind);
-        if (!service.isPresent()) {
-            service = lookupServiceDefinition("default", endpointKind);
-        }
-        if (!service.isPresent()) {
-            throw new IllegalArgumentException(String.format("Unable to find a service definition for %s/%s/%s", type, serviceName, endpointKind));
-        }
+        KnativeEnvironment.KnativeServiceDefinition service = lookupServiceDefinition(serviceName, endpointKind)
+            .or(() -> lookupServiceDefinition("default", endpointKind))
+            .orElseThrow(() -> new IllegalArgumentException(String.format("Unable to find a service definition for %s/%s/%s", type, serviceName, endpointKind)));
 
-        Map<String, String> metadata = new HashMap<>();
-        metadata.putAll(service.get().getMetadata());
+        final Map<String, String> metadata = new HashMap<>(service.getMetadata());
 
         for (Map.Entry<String, Object> entry : configuration.getFilters().entrySet()) {
             String key = entry.getKey();
@@ -177,16 +169,16 @@ public class KnativeEndpoint extends DefaultEndpoint {
             }
         }
 
-        if (service.get().getType() == Knative.Type.event) {
+        if (service.getType() == Knative.Type.event) {
             metadata.put(Knative.KNATIVE_EVENT_TYPE, serviceName);
             metadata.put(Knative.KNATIVE_FILTER_PREFIX + cloudEvent.cloudEvent().mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).http(), serviceName);
         }
 
         return new KnativeEnvironment.KnativeServiceDefinition(
-            service.get().getType(),
-            service.get().getName(),
-            service.get().getHost(),
-            service.get().getPort(),
+            service.getType(),
+            service.getName(),
+            service.getHost(),
+            service.getPort(),
             metadata
         );
     }

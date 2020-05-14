@@ -150,6 +150,6 @@ public interface Runtime extends HasCamelContext {
      * @return the runtime
      */
     static Runtime on(HasCamelContext provider) {
-        return () -> provider.getCamelContext();
+        return provider::getCamelContext;
     }
 }

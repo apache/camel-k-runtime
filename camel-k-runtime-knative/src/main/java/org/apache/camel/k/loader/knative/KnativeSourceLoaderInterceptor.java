@@ -34,7 +34,6 @@ import org.slf4j.LoggerFactory;
 public class KnativeSourceLoaderInterceptor implements SourceLoader.Interceptor {
     private static final Logger LOGGER = LoggerFactory.getLogger(KnativeSourceLoaderInterceptor.class);
 
-
     @Override
     public void beforeLoad(SourceLoader loader, Source source) {
     }

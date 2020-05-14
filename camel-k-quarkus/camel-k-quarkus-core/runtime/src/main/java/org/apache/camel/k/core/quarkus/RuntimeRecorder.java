@@ -26,9 +26,6 @@ import org.apache.camel.main.MainListener;
 @Recorder
 public class RuntimeRecorder {
     public RuntimeValue<MainListener> createMainListener(List<Runtime.Listener> listeners) {
-        RuntimeListenerAdapter adapter = new RuntimeListenerAdapter();
-        adapter.setListeners(listeners);
-
-        return new RuntimeValue<>(adapter);
+        return new RuntimeValue<>(new RuntimeListenerAdapter(listeners));
     }
 }

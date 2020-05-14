@@ -38,6 +38,10 @@ public class RuntimeListenerAdapter implements MainListener {
         this.listeners = new ArrayList<>();
     }
 
+    public RuntimeListenerAdapter(List<Runtime.Listener> listeners) {
+        this.listeners = new ArrayList<>(listeners);
+    }
+
     public void setListeners(List<Runtime.Listener> listeners) {
         this.listeners.clear();
         this.listeners.addAll(listeners);
