@@ -21,6 +21,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Properties;
 
+import io.quarkus.runtime.Quarkus;
 import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.k.Runtime;
@@ -95,7 +96,17 @@ public class RuntimeListenerAdapter implements MainListener {
     }
 
     private static Runtime on(CamelContext context) {
-        return Runtime.on(context);
+        return new Runtime() {
+            @Override
+            public CamelContext getCamelContext() {
+                return context;
+            }
+
+            @Override
+            public void stop() throws Exception {
+                Quarkus.asyncExit();
+            }
+        };
     }
 
     private static Runtime on(BaseMainSupport main) {
@@ -123,6 +134,11 @@ public class RuntimeListenerAdapter implements MainListener {
             @Override
             public void setProperties(Properties properties) {
                 main.getCamelContext().getPropertiesComponent().setOverrideProperties(properties);
+            }
+
+            @Override
+            public void stop() throws Exception {
+                Quarkus.asyncExit();
             }
         };
     }
