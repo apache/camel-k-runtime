@@ -24,7 +24,7 @@ public enum CloudEvents implements CloudEvent {
     //
     // V0.1 - https://github.com/cloudevents/spec/blob/v0.1/spec.md
     //
-    V01(new CloudEventImpl(
+    v0_1(new CloudEventImpl(
         "0.1",
         Arrays.asList(
             Attribute.simple(CloudEvent.CAMEL_CLOUD_EVENT_TYPE, "CE-EventType", "eventType"),
@@ -41,7 +41,7 @@ public enum CloudEvents implements CloudEvent {
     //
     // V0.2 - https://github.com/cloudevents/spec/blob/v0.2/spec.md
     //
-    V02(new CloudEventImpl(
+    v0_2(new CloudEventImpl(
         "0.2",
         Arrays.asList(
             Attribute.simple(CloudEvent.CAMEL_CLOUD_EVENT_TYPE, "ce-type", "type"),
@@ -56,7 +56,7 @@ public enum CloudEvents implements CloudEvent {
     //
     // V0.3 - https://github.com/cloudevents/spec/blob/v0.3/spec.md
     //
-    V03(new CloudEventImpl(
+    v0_3(new CloudEventImpl(
         "0.3",
         Arrays.asList(
             Attribute.simple(CloudEvent.CAMEL_CLOUD_EVENT_ID, "ce-id", "id"),
@@ -66,6 +66,22 @@ public enum CloudEvents implements CloudEvent {
             Attribute.simple(CloudEvent.CAMEL_CLOUD_EVENT_DATA_CONTENT_ENCODING, "ce-datacontentencoding", "datacontentencoding"),
             Attribute.simple(CloudEvent.CAMEL_CLOUD_EVENT_DATA_CONTENT_TYPE, "ce-datacontenttype", "datacontenttype"),
             Attribute.simple(CloudEvent.CAMEL_CLOUD_EVENT_SCHEMA_URL, "ce-schemaurl", "schemaurl"),
+            Attribute.simple(CloudEvent.CAMEL_CLOUD_EVENT_SUBJECT, "ce-subject", "subject"),
+            Attribute.simple(CloudEvent.CAMEL_CLOUD_EVENT_TIME, "ce-time", "time")
+        )
+    )),
+    //
+    // V1.0 - https://github.com/cloudevents/spec/blob/v1.0/spec.md
+    //
+    v1_0(new CloudEventImpl(
+        "1.0",
+        Arrays.asList(
+            Attribute.simple(CloudEvent.CAMEL_CLOUD_EVENT_ID, "ce-id", "id"),
+            Attribute.simple(CloudEvent.CAMEL_CLOUD_EVENT_SOURCE, "ce-source", "source"),
+            Attribute.simple(CloudEvent.CAMEL_CLOUD_EVENT_VERSION, "ce-specversion", "specversion"),
+            Attribute.simple(CloudEvent.CAMEL_CLOUD_EVENT_TYPE, "ce-type", "type"),
+            Attribute.simple(CloudEvent.CAMEL_CLOUD_EVENT_DATA_CONTENT_TYPE, "ce-datacontenttype", "datacontenttype"),
+            Attribute.simple(CloudEvent.CAMEL_CLOUD_EVENT_SCHEMA_URL, "ce-dataschema", "dataschema"),
             Attribute.simple(CloudEvent.CAMEL_CLOUD_EVENT_SUBJECT, "ce-subject", "subject"),
             Attribute.simple(CloudEvent.CAMEL_CLOUD_EVENT_TIME, "ce-time", "time")
         )

@@ -235,6 +235,7 @@ public class KnativeHttpTest {
     @ParameterizedTest
     @EnumSource(CloudEvents.class)
     void testConsumeStructuredContent(CloudEvent ce) throws Exception {
+
         configureKnativeComponent(
             context,
             ce,
@@ -263,7 +264,7 @@ public class KnativeHttpTest {
         mock.expectedBodiesReceived("test");
         mock.expectedMessageCount(1);
 
-        if (Objects.equals(CloudEvents.V01.version(), ce.version())) {
+        if (Objects.equals(CloudEvents.v0_1.version(), ce.version())) {
             given()
                 .contentType(Knative.MIME_STRUCTURED_CONTENT_MODE)
                 .body(
@@ -278,11 +279,11 @@ public class KnativeHttpTest {
                     ),
                     ObjectMapperType.JACKSON_2
                 )
-                .when()
+            .when()
                 .post()
-                .then()
+            .then()
                 .statusCode(200);
-        } else if (Objects.equals(CloudEvents.V02.version(), ce.version())) {
+        } else if (Objects.equals(CloudEvents.v0_2.version(), ce.version())) {
             given()
                 .contentType(Knative.MIME_STRUCTURED_CONTENT_MODE)
                 .body(
@@ -297,11 +298,11 @@ public class KnativeHttpTest {
                     ),
                     ObjectMapperType.JACKSON_2
                 )
-                .when()
+            .when()
                 .post()
-                .then()
+            .then()
                 .statusCode(200);
-        } else if (Objects.equals(CloudEvents.V03.version(), ce.version())) {
+        } else if (Objects.equals(CloudEvents.v0_3.version(), ce.version())) {
             given()
                 .contentType(Knative.MIME_STRUCTURED_CONTENT_MODE)
                 .body(
@@ -316,9 +317,28 @@ public class KnativeHttpTest {
                     ),
                     ObjectMapperType.JACKSON_2
                 )
-                .when()
+            .when()
                 .post()
-                .then()
+            .then()
+                .statusCode(200);
+        } else if (Objects.equals(CloudEvents.v1_0.version(), ce.version())) {
+            given()
+                .contentType(Knative.MIME_STRUCTURED_CONTENT_MODE)
+                .body(
+                    mapOf(
+                        "specversion", ce.version(),
+                        "type", "org.apache.camel.event",
+                        "id", "myEventID",
+                        "time", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now()),
+                        "source", "/somewhere",
+                        "datacontenttype", "text/plain",
+                        "data", "test"
+                    ),
+                    ObjectMapperType.JACKSON_2
+                )
+            .when()
+                .post()
+            .then()
                 .statusCode(200);
         } else {
             throw new IllegalArgumentException("Unknown CloudEvent spec: " + ce.version());
