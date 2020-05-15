@@ -32,7 +32,7 @@ import org.apache.camel.support.service.ServiceSupport;
 public class KnativeHttpTransport extends ServiceSupport implements CamelContextAware, KnativeTransport {
     public static final int DEFAULT_PORT = 8080;
     public static final String DEFAULT_PATH = "/";
-    
+
     private PlatformHttp platformHttp;
     private WebClientOptions vertxHttpClientOptions;
     private CamelContext camelContext;
@@ -96,10 +96,12 @@ public class KnativeHttpTransport extends ServiceSupport implements CamelContext
 
     @Override
     public Consumer createConsumer(Endpoint endpoint, KnativeTransportConfiguration config, KnativeEnvironment.KnativeServiceDefinition service, Processor processor) {
-        Processor next = processor;
+        Processor next = KnativeHttpSupport.remalCloudEventHeaders(processor, config.getCloudEvent());
+
         if (config.isRemoveCloudEventHeadersInReply()) {
-            next = KnativeHttpSupport.withoutCloudEventHeaders(processor, config.getCloudEvent());
+            next = KnativeHttpSupport.withoutCloudEventHeaders(next, config.getCloudEvent());
         }
+
         return new KnativeHttpConsumer(this, endpoint, service, this.platformHttp, next);
     }
 

@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
 import io.vertx.core.http.HttpServerRequest;
 import org.apache.camel.AsyncCallback;
 import org.apache.camel.Exchange;
+import org.apache.camel.Message;
 import org.apache.camel.Processor;
 import org.apache.camel.component.knative.spi.CloudEvent;
 import org.apache.camel.component.knative.spi.Knative;
@@ -101,10 +102,37 @@ public final class KnativeHttpSupport {
             @Override
             public boolean process(Exchange exchange, AsyncCallback callback) {
                 return processor.process(exchange, doneSync -> {
+                    final Message message = exchange.getMessage();
+
                     // remove CloudEvent headers
                     for (CloudEvent.Attribute attr : ce.attributes()) {
-                        exchange.getMessage().removeHeader(attr.http());
+                        message.removeHeader(attr.http());
                     }
+
+                    callback.done(doneSync);
+                });
+            }
+        };
+    }
+
+    /**
+     * Remap camel headers to cloud event http headers.
+     */
+    public static Processor remalCloudEventHeaders(Processor delegate, CloudEvent ce) {
+        return new DelegateAsyncProcessor(delegate) {
+            @Override
+            public boolean process(Exchange exchange, AsyncCallback callback) {
+                return processor.process(exchange, doneSync -> {
+                    final Message message = exchange.getMessage();
+
+                    // remap CloudEvent camel --> http
+                    for (CloudEvent.Attribute attr : ce.attributes()) {
+                        Object value = message.getHeader(attr.id());
+                        if (value != null) {
+                            message.setHeader(attr.http(), value);
+                        }
+                    }
+
                     callback.done(doneSync);
                 });
             }
