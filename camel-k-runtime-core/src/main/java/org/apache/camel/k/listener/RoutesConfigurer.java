@@ -21,6 +21,7 @@ import java.util.List;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.k.Constants;
 import org.apache.camel.k.Runtime;
+import org.apache.camel.k.RuntimeAware;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceLoader;
 import org.apache.camel.k.Sources;
@@ -83,6 +84,10 @@ public class RoutesConfigurer extends AbstractPhaseListener {
 
         try {
             for (SourceLoader.Interceptor interceptor: interceptors) {
+                if (interceptor instanceof RuntimeAware) {
+                    ((RuntimeAware) interceptor).setRuntime(runtime);
+                }
+
                 interceptor.beforeLoad(loader, source);
             }
 
