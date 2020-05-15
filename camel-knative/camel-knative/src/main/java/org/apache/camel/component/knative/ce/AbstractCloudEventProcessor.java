@@ -31,6 +31,8 @@ import org.apache.camel.component.knative.KnativeEndpoint;
 import org.apache.camel.component.knative.spi.CloudEvent;
 import org.apache.camel.component.knative.spi.Knative;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 abstract class AbstractCloudEventProcessor implements CloudEventProcessor {
     private final CloudEvent cloudEvent;
@@ -57,7 +59,7 @@ abstract class AbstractCloudEventProcessor implements CloudEventProcessor {
                 final Map<String, Object> headers = exchange.getIn().getHeaders();
 
                 for (CloudEvent.Attribute attribute: ce.attributes()) {
-                    Object val = headers.get(attribute.http());
+                    Object val = headers.remove(attribute.http());
                     if (val != null) {
                         headers.put(attribute.id(), val);
                     }
@@ -75,6 +77,7 @@ abstract class AbstractCloudEventProcessor implements CloudEventProcessor {
     @Override
     public Processor producer(KnativeEndpoint endpoint, KnativeEnvironment.KnativeServiceDefinition service) {
         final CloudEvent ce = cloudEvent();
+        final Logger logger = LoggerFactory.getLogger(getClass());
 
         return exchange -> {
             final String contentType = service.getMetadata().get(Knative.CONTENT_TYPE);
@@ -89,12 +92,33 @@ abstract class AbstractCloudEventProcessor implements CloudEventProcessor {
 
             headers.putIfAbsent(Exchange.CONTENT_TYPE, contentType);
 
+            //
+            // in case of events, the type of the event defined as URI param so we need
+            // to override it to avoid the event type be overridden by Messages's headers
+            //
+            if (endpoint.getType() == Knative.Type.event) {
+                Object eventType = headers.get(CloudEvent.CAMEL_CLOUD_EVENT_TYPE);
+
+                if (eventType != null) {
+                    logger.debug("Detected the presence of {} header with value {}: it will be ignored and replaced by value set as uri parameter {}",
+                        CloudEvent.CAMEL_CLOUD_EVENT_TYPE,
+                        eventType,
+                        endpoint.getName());
+                }
+
+                headers.put(cloudEvent().mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).http(), endpoint.getName());
+            } else {
+                setCloudEventHeader(headers, CloudEvent.CAMEL_CLOUD_EVENT_TYPE, () -> {
+                    return service.getMetadata().getOrDefault(
+                        Knative.KNATIVE_EVENT_TYPE,
+                        endpoint.getConfiguration().getCloudEventsType()
+                    );
+                });
+            }
+
             setCloudEventHeader(headers, CloudEvent.CAMEL_CLOUD_EVENT_ID, exchange::getExchangeId);
             setCloudEventHeader(headers, CloudEvent.CAMEL_CLOUD_EVENT_SOURCE, endpoint::getEndpointUri);
             setCloudEventHeader(headers, CloudEvent.CAMEL_CLOUD_EVENT_VERSION, ce::version);
-            setCloudEventHeader(headers, CloudEvent.CAMEL_CLOUD_EVENT_TYPE, () -> {
-                return service.getMetadata().getOrDefault(Knative.KNATIVE_EVENT_TYPE, endpoint.getConfiguration().getCloudEventsType());
-            });
             setCloudEventHeader(headers, CloudEvent.CAMEL_CLOUD_EVENT_TIME, () -> {
                 final ZonedDateTime created = ZonedDateTime.ofInstant(Instant.ofEpochMilli(exchange.getCreated()), ZoneId.systemDefault());
                 final String eventTime = DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(created);
