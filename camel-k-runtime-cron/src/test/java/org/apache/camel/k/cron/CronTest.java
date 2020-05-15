@@ -37,8 +37,6 @@ public class CronTest {
     public void testCronTimerActivation(String routes, String cronOverride) throws Exception {
         ApplicationRuntime runtime = new ApplicationRuntime();
         runtime.setProperties(
-            // does not seems to work
-            "camel.main.duration-max-messages", "1",
             "loader.interceptor.cron.overridable-components", cronOverride
         );
         runtime.addListener(RoutesConfigurer.forRoutes(routes));
