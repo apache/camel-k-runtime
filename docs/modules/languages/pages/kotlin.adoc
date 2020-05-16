@@ -33,27 +33,27 @@ To register beans as you would do with a Camel registry you can use the Beans DS
 [source,kotlin]
 ----
 beans {
-    bean<org.apache.commons.dbcp2.BasicDataSource>("dataSource") {
+    bean<org.apache.commons.dbcp2.BasicDataSource>("dataSource") { <1>
         driverClassName = "org.h2.Driver"
         url = "jdbc:h2:mem:camel"
         username = "sa"
         password = ""
     }
 
-    bean("filterStrategy") {
+    bean("filterStrategy") { <1>
         org.apache.camel.support.DefaultHeaderFilterStrategy()
     }
 
-    processor("myProcessor") {
+    processor("myProcessor") { <2>
         it.getIn().body = "Hello"
     }
 
-    predicate("myPredicate") {
+    predicate("myPredicate") { <3>
         false
     }
 }
 ----
-<1> bind a simple bean to the context
+<1> bind beans to the context for the database and filter strategy
 <2> define a custom processor to be used later in the routes by ref
 <3> define a custom predicate to be used later in the routes by ref
 
