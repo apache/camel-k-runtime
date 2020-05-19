@@ -118,7 +118,7 @@ public final class KnativeHttpSupport {
     /**
      * Remap camel headers to cloud event http headers.
      */
-    public static Processor remalCloudEventHeaders(Processor delegate, CloudEvent ce) {
+    public static Processor remapCloudEventHeaders(Processor delegate, CloudEvent ce) {
         return new DelegateAsyncProcessor(delegate) {
             @Override
             public boolean process(Exchange exchange, AsyncCallback callback) {
