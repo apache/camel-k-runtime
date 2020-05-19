@@ -93,12 +93,11 @@ abstract class AbstractCloudEventProcessor implements CloudEventProcessor {
             headers.putIfAbsent(Exchange.CONTENT_TYPE, contentType);
 
             //
-            // in case of events, the type of the event defined as URI param so we need
+            // in case of events, if the type of the event is defined as URI param so we need
             // to override it to avoid the event type be overridden by Messages's headers
             //
-            if (endpoint.getType() == Knative.Type.event) {
-                Object eventType = headers.get(CloudEvent.CAMEL_CLOUD_EVENT_TYPE);
-
+            if (endpoint.getType() == Knative.Type.event && endpoint.getName() != null) {
+                final Object eventType = headers.get(CloudEvent.CAMEL_CLOUD_EVENT_TYPE);
                 if (eventType != null) {
                     logger.debug("Detected the presence of {} header with value {}: it will be ignored and replaced by value set as uri parameter {}",
                         CloudEvent.CAMEL_CLOUD_EVENT_TYPE,
