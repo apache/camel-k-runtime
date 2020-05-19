@@ -1580,5 +1580,62 @@ public class KnativeHttpTest {
             server.stop();
         }
     }
+
+    @ParameterizedTest
+    @EnumSource(CloudEvents.class)
+    void testDynamicEventBridge(CloudEvent ce) throws Exception {
+        final int port = AvailablePortFinder.getNextAvailable();
+        final KnativeHttpServer server = new KnativeHttpServer(context, port);
+
+        configureKnativeComponent(
+            context,
+            ce,
+            event(
+                Knative.EndpointKind.sink,
+                "default",
+                "localhost",
+                port,
+                mapOf(
+                    Knative.CONTENT_TYPE, "text/plain"
+                )),
+            sourceEvent(
+                "event.source",
+                mapOf(
+                    Knative.CONTENT_TYPE, "text/plain"
+                ))
+        );
+
+        RouteBuilder.addRoutes(context, b -> {
+            b.from("knative:event/event.source")
+                .setHeader(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).constant("event.sink")
+                .to("knative:event");
+        });
+
+        context.start();
+
+        try {
+            server.start();
+
+            given()
+                .body("test")
+                .header(Exchange.CONTENT_TYPE, "text/plain")
+                .header(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_VERSION).http(), ce.version())
+                .header(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).http(), "event.source")
+                .header(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_ID).http(), "myEventID")
+                .header(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TIME).http(), DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now()))
+                .header(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_SOURCE).http(), "/somewhere")
+            .when()
+                .post()
+            .then()
+                .statusCode(204);
+
+            HttpServerRequest request = server.poll(30, TimeUnit.SECONDS);
+            assertThat(request.getHeader(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_VERSION).http())).isEqualTo(ce.version());
+            assertThat(request.getHeader(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).http())).isEqualTo("event.sink");
+            assertThat(request.getHeader(Exchange.CONTENT_TYPE)).isEqualTo("text/plain");
+        } finally {
+            server.stop();
+        }
+    }
 }
 

@@ -215,7 +215,7 @@ public class KnativeComponent extends DefaultComponent {
             throw new IllegalArgumentException("Expecting URI in the form of: 'knative:type/name', got '" + uri + "'");
         }
 
-        final String type = StringHelper.before(remaining, "/");
+        final String type = ObjectHelper.supplyIfEmpty(StringHelper.before(remaining, "/"), () -> remaining);
         final String name = StringHelper.after(remaining, "/");
         final KnativeConfiguration conf = getKnativeConfiguration();
 
