@@ -60,6 +60,17 @@
             <version>${vertx.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.camel.k</groupId>
+            <artifactId>camel-k-apt</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.k</groupId>
+            <artifactId>camel-k-annotations</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- ****************************** -->
         <!--                                -->
         <!-- TESTS                          -->

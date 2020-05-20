@@ -22,8 +22,10 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.component.kubernetes.cluster.KubernetesClusterService;
 import org.apache.camel.k.ContextCustomizer;
+import org.apache.camel.k.annotation.Customizer;
 import org.apache.camel.util.ObjectHelper;
 
+@Customizer("master")
 public class MasterContextCustomizer implements ContextCustomizer {
 
     private String configMapName;
