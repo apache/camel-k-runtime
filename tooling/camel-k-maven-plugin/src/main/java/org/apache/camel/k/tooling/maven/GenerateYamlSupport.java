@@ -103,8 +103,8 @@ public abstract class GenerateYamlSupport extends AbstractMojo {
             List<IndexView> allIndex = new ArrayList<>();
             Set<URL> locations = new HashSet<>();
 
-            for (Enumeration<URL> e = elements; e.hasMoreElements();) {
-                URL url = e.nextElement();
+            while (elements.hasMoreElements()) {
+                URL url = elements.nextElement();
                 if (locations.add(url)) {
                     try (InputStream is = url.openStream()) {
                         allIndex.add(new IndexReader(is).read());
@@ -124,10 +124,8 @@ public abstract class GenerateYamlSupport extends AbstractMojo {
         }
 
         try {
-            List<String> elements = new ArrayList<>();
-            elements.addAll(project.getCompileClasspathElements());
-
-            URL urls[] = new URL[elements.size()];
+            List<String> elements = new ArrayList<>(project.getCompileClasspathElements());
+            URL[] urls = new URL[elements.size()];
             for (int i = 0; i < elements.size(); ++i) {
                 urls[i] = new File(elements.get(i)).toURI().toURL();
             }
