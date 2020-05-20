@@ -250,9 +250,7 @@ public class GenerateCatalogMojo extends AbstractMojo {
         String version = null;
 
         // try to load from maven properties first
-        try {
-            InputStream is = clazz.getResourceAsStream(path);
-
+        try (InputStream is = clazz.getResourceAsStream(path)) {
             if (is != null) {
                 Properties p = new Properties();
                 p.load(is);
