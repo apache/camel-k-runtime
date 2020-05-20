@@ -20,11 +20,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.k.ContextCustomizer;
 
 public class WebhookContextCustomizer implements ContextCustomizer {
-
     private WebhookAction action;
-
-    public WebhookContextCustomizer() {
-    }
 
     public WebhookAction getAction() {
         return action;

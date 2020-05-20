@@ -25,15 +25,9 @@ import org.apache.camel.k.ContextCustomizer;
 import org.apache.camel.util.ObjectHelper;
 
 public class MasterContextCustomizer implements ContextCustomizer {
-
     private String configMapName;
-
     private String labelKey;
-
     private String labelValue;
-
-    public MasterContextCustomizer() {
-    }
 
     @Override
     public void apply(CamelContext camelContext) {
