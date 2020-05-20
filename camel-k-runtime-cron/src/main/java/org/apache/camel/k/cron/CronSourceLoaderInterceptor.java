@@ -85,8 +85,8 @@ public class CronSourceLoaderInterceptor implements SourceLoader.Interceptor, Ru
                         return;
                     }
 
-                    CamelContext context = runtime.getCamelContext();
-                    String[] components = overridableComponents.split(",", -1);
+                    final CamelContext context = runtime.getCamelContext();
+                    final String[] components = overridableComponents.split(",", -1);
 
                     for (RouteDefinition def : builder.getRouteCollection().getRoutes()) {
                         String uri = def.getInput() != null ? def.getInput().getUri() : null;

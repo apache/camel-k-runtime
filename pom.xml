@@ -66,6 +66,7 @@
         <jandex.version>2.1.3.Final</jandex.version>
         <javapoet.version>1.11.1</javapoet.version>
         <rest-assured.version>4.3.0</rest-assured.version>
+        <hamcrest.version>2.2</hamcrest.version>
 
         <gmavenplus-plugin.version>1.9.0</gmavenplus-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
@@ -362,6 +363,16 @@
                 <artifactId>camel-k-runtime-knative</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-runtime-cron</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-runtime-master</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
             <!-- runtime - quarkus -->
             <dependency>
@@ -452,6 +463,16 @@
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-quarkus-knative-deployment</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-quarkus-cron</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-quarkus-knative-cron</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -563,6 +584,11 @@
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
                 <version>${assertj.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-core</artifactId>
+                <version>${hamcrest.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

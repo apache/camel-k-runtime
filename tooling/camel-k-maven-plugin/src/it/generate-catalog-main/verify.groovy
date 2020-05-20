@@ -24,6 +24,8 @@ new File(basedir, "catalog.yaml").withReader {
     assert catalog.spec.runtime.metadata['quarkus.version'] == quarkusVersion
     assert catalog.spec.runtime.metadata['camel-quarkus.version'] == camelQuarkusVersion
 
+    assert catalog.spec.runtime.capabilities['cron'].dependencies[0].groupId == 'org.apache.camel.k'
+    assert catalog.spec.runtime.capabilities['cron'].dependencies[0].artifactId == 'camel-k-runtime-cron'
     assert catalog.spec.runtime.capabilities['health'].dependencies[0].groupId == 'org.apache.camel.k'
     assert catalog.spec.runtime.capabilities['health'].dependencies[0].artifactId == 'camel-k-runtime-health'
     assert catalog.spec.runtime.capabilities['rest'].dependencies[0].groupId == 'org.apache.camel'

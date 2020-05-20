@@ -61,6 +61,7 @@ jobs:
       matrix:
         native-image-project:
           - :camel-k-quarkus-core-it
+          - :camel-k-quarkus-cron-it
           - :camel-k-quarkus-loader-xml-it
           - :camel-k-quarkus-loader-yaml-it
           - :camel-k-runtime-example-quarkus-xml

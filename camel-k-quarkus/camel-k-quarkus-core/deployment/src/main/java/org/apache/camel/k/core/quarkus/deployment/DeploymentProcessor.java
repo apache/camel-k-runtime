@@ -40,12 +40,19 @@ import static org.apache.camel.k.core.quarkus.deployment.DeploymentSupport.getAl
 
 public class DeploymentProcessor {
     @BuildStep
-    CamelServicePatternBuildItem servicePatterns() {
-        return new CamelServicePatternBuildItem(
-            CamelServicePatternBuildItem.CamelServiceDestination.REGISTRY,
-            true,
-            Constants.SOURCE_LOADER_RESOURCE_PATH + "/*",
-            Constants.CONTEXT_CUSTOMIZER_RESOURCE_PATH  + "/*");
+    List<CamelServicePatternBuildItem> servicePatterns() {
+        return List.of(
+            new CamelServicePatternBuildItem(
+                CamelServicePatternBuildItem.CamelServiceDestination.REGISTRY,
+                true,
+                Constants.SOURCE_LOADER_RESOURCE_PATH + "/*",
+                Constants.CONTEXT_CUSTOMIZER_RESOURCE_PATH  + "/*"),
+            new CamelServicePatternBuildItem(
+                CamelServicePatternBuildItem.CamelServiceDestination.DISCOVERY,
+                true,
+                Constants.SOURCE_LOADER_INTERCEPTOR_RESOURCE_PATH + "/*")
+        );
+
     }
 
     @BuildStep
