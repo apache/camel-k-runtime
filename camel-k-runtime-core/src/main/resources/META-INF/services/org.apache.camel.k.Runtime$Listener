@@ -17,5 +17,4 @@
 
 org.apache.camel.k.listener.ContextConfigurer
 org.apache.camel.k.listener.RoutesConfigurer
-org.apache.camel.k.listener.RoutesDumper
 org.apache.camel.k.listener.PropertiesConfigurer
