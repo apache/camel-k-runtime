@@ -22,11 +22,7 @@ import org.apache.camel.k.annotation.Customizer;
 
 @Customizer("webhook")
 public class WebhookContextCustomizer implements ContextCustomizer {
-
     private WebhookAction action;
-
-    public WebhookContextCustomizer() {
-    }
 
     public WebhookAction getAction() {
         return action;
