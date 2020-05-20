@@ -145,7 +145,7 @@ public class GenerateCatalogMojo extends AbstractMojo {
                     runtimeSpec.addDependency("org.apache.camel.k", "camel-k-runtime-quarkus");
                     runtimeSpec.putCapability(
                         "cron",
-                        CamelCapability.forArtifact("org.apache.camel.k", "camel-k-runtime-cron"));
+                        CamelCapability.forArtifact("org.apache.camel.k", "camel-k-quarkus-cron"));
                     runtimeSpec.putCapability(
                         "health",
                         CamelCapability.forArtifact("org.apache.camel.quarkus", "camel-quarkus-microprofile-health"));
