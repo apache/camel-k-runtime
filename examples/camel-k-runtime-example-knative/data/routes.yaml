@@ -15,15 +15,29 @@
 # limitations under the License.
 #
 
-- route:
-    id: "knative"
-    group: "routes"
-    from:
-      uri: "knative:endpoint/from"
-      steps:
-        - convert-body-to:
-            type: "java.lang.String"
-        - to:
-            uri: "log:knative"
-        - set-body:
-            constant: "Hello from camel-k (native)"
+- from:
+    uri: "knative:endpoint/echoer"
+    steps:
+      - log:
+          message: "Got Message: ${body}"
+      - convert-body-to: "java.lang.String"
+      - choice:
+          when:
+            - simple: "${body} != null && ${body.length} > 0"
+              steps:
+                - set-body:
+                    simple: "${body.toUpperCase()}"
+                - set-header:
+                    name: ContentType
+                    simple: text/plain
+                - log:
+                    message: "${body}"
+          otherwise:
+            steps:
+              - set-body:
+                  constant: "no body received"
+              - set-header:
+                  name: ContentType
+                  simple: text/plain
+              - log:
+                  message: "Otherwise::${body}"
