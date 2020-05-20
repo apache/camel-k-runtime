@@ -14,32 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.webhook;
+package org.apache.camel.k.annotation;
 
-import org.apache.camel.CamelContext;
-import org.apache.camel.k.ContextCustomizer;
-import org.apache.camel.k.annotation.Customizer;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-@Customizer("webhook")
-public class WebhookContextCustomizer implements ContextCustomizer {
-
-    private WebhookAction action;
-
-    public WebhookContextCustomizer() {
-    }
-
-    public WebhookAction getAction() {
-        return action;
-    }
-
-    public void setAction(WebhookAction action) {
-        this.action = action;
-    }
-
-    @Override
-    public void apply(CamelContext camelContext) {
-        if (action != null) {
-            camelContext.addRoutePolicyFactory(new WebhookRoutePolicyFactory(action));
-        }
-    }
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.SOURCE)
+public @interface Customizer {
+    String value();
 }

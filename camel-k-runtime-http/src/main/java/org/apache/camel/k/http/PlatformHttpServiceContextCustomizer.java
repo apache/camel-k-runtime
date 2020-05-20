@@ -24,8 +24,11 @@ import org.apache.camel.Ordered;
 import org.apache.camel.component.platform.http.PlatformHttpComponent;
 import org.apache.camel.component.platform.http.PlatformHttpConstants;
 import org.apache.camel.k.ContextCustomizer;
+import org.apache.camel.k.annotation.Customizer;
 import org.apache.camel.k.http.engine.RuntimePlatformHttpEngine;
 
+
+@Customizer("platform-http")
 public class PlatformHttpServiceContextCustomizer extends PlatformHttpServiceConfiguration implements ContextCustomizer {
     private PlatformHttpServiceEndpoint endpoint;
 
