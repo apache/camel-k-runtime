@@ -23,7 +23,6 @@ import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import org.apache.camel.k.listener.ContextConfigurer;
 import org.apache.camel.k.listener.RoutesConfigurer;
-import org.apache.camel.k.listener.RoutesDumper;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -43,8 +42,7 @@ public class ExtensionTest {
 
         assertThat(p.getList("services", String.class)).contains(
             ContextConfigurer.class.getName(),
-            RoutesConfigurer.class.getName(),
-            RoutesDumper.class.getName()
+            RoutesConfigurer.class.getName()
         );
     }
 }
