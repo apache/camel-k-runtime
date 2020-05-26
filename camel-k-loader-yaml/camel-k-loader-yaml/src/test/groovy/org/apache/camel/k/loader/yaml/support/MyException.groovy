@@ -14,18 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.loader.yaml.spi;
+package org.apache.camel.k.loader.yaml.support
 
-import org.apache.camel.model.ProcessorDefinition;
-
-@FunctionalInterface
-public interface StartStepParser extends StepParser {
-    /**
-     * @param context
-     */
-    ProcessorDefinition<?> toStartProcessor(Context context);
-
-    static ProcessorDefinition<?> invoke(Context context, String stepId) {
-        return context.lookup(StartStepParser.class, stepId).toStartProcessor(context);
+class MyException extends Exception {
+    MyException(String message) {
+        super(message)
     }
 }

@@ -17,6 +17,7 @@
 package org.apache.camel.k.loader.yaml
 
 import org.apache.camel.component.mock.MockEndpoint
+import org.apache.camel.k.loader.yaml.support.MyFailingProcessor
 import org.apache.camel.processor.aggregate.UseLatestAggregationStrategy
 import org.apache.camel.support.processor.idempotent.MemoryIdempotentRepository
 
@@ -26,15 +27,15 @@ class RoutesTest extends TestSupport {
         setup:
             def context = startContext()
 
-            org.apache.camel.k.loader.yaml.TestSupport.mockEndpoint(context,'mock:split') {
+            mockEndpoint(context,'mock:split') {
                 expectedMessageCount = 3
                 expectedBodiesReceived 'a', 'b', 'c'
             }
-            org.apache.camel.k.loader.yaml.TestSupport.mockEndpoint(context,'mock:route') {
+            mockEndpoint(context,'mock:route') {
                 expectedMessageCount = 1
                 expectedBodiesReceived 'a,b,c'
             }
-            org.apache.camel.k.loader.yaml.TestSupport.mockEndpoint(context,'mock:flow') {
+            mockEndpoint(context,'mock:flow') {
                 expectedMessageCount = 3
                 expectedBodiesReceived 'a', 'b', 'c'
             }
@@ -53,15 +54,15 @@ class RoutesTest extends TestSupport {
         setup:
             def context = startContext()
 
-            org.apache.camel.k.loader.yaml.TestSupport.mockEndpoint(context, 'mock:route') {
+            mockEndpoint(context, 'mock:route') {
                 expectedMessageCount 2
                 expectedBodiesReceived 'a', 'b'
             }
-            org.apache.camel.k.loader.yaml.TestSupport.mockEndpoint(context, 'mock:filter') {
+            mockEndpoint(context, 'mock:filter') {
                 expectedMessageCount 1
                 expectedBodiesReceived 'a'
             }
-            org.apache.camel.k.loader.yaml.TestSupport.mockEndpoint(context,'mock:flow') {
+            mockEndpoint(context,'mock:flow') {
                 expectedMessageCount 1
                 expectedBodiesReceived 'a'
             }
@@ -84,7 +85,7 @@ class RoutesTest extends TestSupport {
                 'aggregatorStrategy': new UseLatestAggregationStrategy()
             ])
 
-            org.apache.camel.k.loader.yaml.TestSupport.mockEndpoint(context, 'mock:route') {
+            mockEndpoint(context, 'mock:route') {
                 expectedMessageCount 2
                 expectedBodiesReceived '2', '4'
             }
@@ -103,30 +104,42 @@ class RoutesTest extends TestSupport {
 
     def 'idempotentConsumer'() {
         setup:
-        def context = startContext([
+            def context = startContext([
                 'myRepo': new MemoryIdempotentRepository()
-        ])
+            ])
 
-        org.apache.camel.k.loader.yaml.TestSupport.mockEndpoint(context,'mock:idempotent') {
-            expectedMessageCount = 3
-            expectedBodiesReceived 'a', 'b', 'c'
-        }
-        org.apache.camel.k.loader.yaml.TestSupport.mockEndpoint(context,'mock:route') {
-            expectedMessageCount = 5
-            expectedBodiesReceived 'a', 'b', 'a2', 'b2', 'c'
-        }
+            mockEndpoint(context,'mock:idempotent') {
+                expectedMessageCount = 3
+                expectedBodiesReceived 'a', 'b', 'c'
+            }
+            mockEndpoint(context,'mock:route') {
+                expectedMessageCount = 5
+                expectedBodiesReceived 'a', 'b', 'a2', 'b2', 'c'
+            }
         when:
-        context.createProducerTemplate().with {
-            sendBodyAndHeader('direct:route', 'a', 'id', '1')
-            sendBodyAndHeader('direct:route', 'b', 'id', '2')
-            sendBodyAndHeader('direct:route', 'a2', 'id', '1')
-            sendBodyAndHeader('direct:route', 'b2', 'id', '2')
-            sendBodyAndHeader('direct:route', 'c', 'id', '3')
-        }
+            context.createProducerTemplate().with {
+                sendBodyAndHeader('direct:route', 'a', 'id', '1')
+                sendBodyAndHeader('direct:route', 'b', 'id', '2')
+                sendBodyAndHeader('direct:route', 'a2', 'id', '1')
+                sendBodyAndHeader('direct:route', 'b2', 'id', '2')
+                sendBodyAndHeader('direct:route', 'c', 'id', '3')
+            }
         then:
             MockEndpoint.assertIsSatisfied(context)
         cleanup:
             context?.stop()
     }
 
+    def 'onExceptionHandled'() {
+        setup:
+            def context = startContext([
+                'myFailingProcessor' : new MyFailingProcessor()
+            ])
+        when:
+            def out = context.createProducerTemplate().requestBody('direct:start', 'Hello World');
+        then:
+            out == 'Sorry'
+        cleanup:
+            context?.stop()
+    }
 }

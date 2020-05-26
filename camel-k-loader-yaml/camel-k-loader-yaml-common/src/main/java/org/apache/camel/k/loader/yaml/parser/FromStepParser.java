@@ -37,7 +37,7 @@ public class FromStepParser implements StartStepParser {
     public ProcessorDefinition<?> toStartProcessor(Context context) {
         final FromStepDefinition definition = context.node(FromStepDefinition.class);
         final String uri = definition.getEndpointUri();
-        final RouteDefinition route = new RouteDefinition().from(uri);
+        final RouteDefinition route = context.builder().from(uri);
 
         // as this is a start converter, steps are mandatory
         StepParserSupport.notNull(definition.steps, "steps");
