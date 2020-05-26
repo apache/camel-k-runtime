@@ -19,7 +19,6 @@ package org.apache.camel.k.loader.yaml;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -31,7 +30,6 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
-import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
@@ -40,11 +38,6 @@ import org.apache.camel.k.annotation.Loader;
 import org.apache.camel.k.loader.yaml.model.Step;
 import org.apache.camel.k.loader.yaml.spi.StartStepParser;
 import org.apache.camel.k.loader.yaml.spi.StepParser;
-import org.apache.camel.model.ProcessorDefinition;
-import org.apache.camel.model.RouteDefinition;
-import org.apache.camel.model.RoutesDefinition;
-import org.apache.camel.model.rest.RestDefinition;
-import org.apache.camel.model.rest.RestsDefinition;
 
 @Loader("yaml")
 public class YamlSourceLoader implements SourceLoader {
@@ -94,41 +87,12 @@ public class YamlSourceLoader implements SourceLoader {
             @Override
             public void configure() throws Exception {
                 final StepParser.Resolver resolver = StepParser.Resolver.caching(new YamlStepResolver());
-                final CamelContext camelContext = getContext();
-                final List<RouteDefinition> routes = new ArrayList<>();
-                final List<RestDefinition> rests = new ArrayList<>();
 
                 try (is) {
                     for (Step step : mapper.readValue(is, Step[].class)) {
-                        final StepParser.Context context = new StepParser.Context(camelContext, mapper, step.node, resolver);
-                        final ProcessorDefinition<?> root = StartStepParser.invoke(context, step.id);
-
-                        if (root == null) {
-                            throw new IllegalStateException("No route definition");
-                        }
-                        if (!(root instanceof RouteDefinition)) {
-                            throw new IllegalStateException("Root definition should be of type RouteDefinition");
-                        }
-
-                        RouteDefinition r = (RouteDefinition) root;
-                        if (r.getRestDefinition() == null) {
-                            routes.add(r);
-                        } else {
-                            rests.add(r.getRestDefinition());
-                        }
-                    }
-
-                    if (!routes.isEmpty()) {
-                        RoutesDefinition definition = new RoutesDefinition();
-                        definition.setRoutes(routes);
-
-                        setRouteCollection(definition);
-                    }
-                    if (!rests.isEmpty()) {
-                        RestsDefinition definition = new RestsDefinition();
-                        definition.setRests(rests);
-
-                        setRestCollection(definition);
+                        StartStepParser.invoke(
+                            new StepParser.Context(this, mapper, step.node, resolver),
+                            step.id);
                     }
                 }
             }

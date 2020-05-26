@@ -41,7 +41,7 @@ public class RestStepParser implements StartStepParser {
         StepParserSupport.notNull(definition.verb, "verb");
         StepParserSupport.notNull(definition.steps, "steps");
 
-        RestDefinition rest = new RestDefinition().verb(definition.verb, definition.uri);
+        RestDefinition rest = context.builder().rest().verb(definition.verb, definition.uri);
 
         ObjectHelper.ifNotEmpty(definition.apiDocs, rest::apiDocs);
         ObjectHelper.ifNotEmpty(definition.enableCORS, rest::enableCORS);

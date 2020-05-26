@@ -19,6 +19,7 @@ package org.apache.camel.k.loader.yaml
 import com.fasterxml.jackson.databind.JsonNode
 import groovy.util.logging.Slf4j
 import org.apache.camel.CamelContext
+import org.apache.camel.builder.RouteBuilder
 import org.apache.camel.component.mock.MockEndpoint
 import org.apache.camel.impl.DefaultCamelContext
 import org.apache.camel.k.loader.yaml.spi.ProcessorStepParser
@@ -36,13 +37,23 @@ class TestSupport extends Specification {
 
     static StepParser.Context stepContext(String content) {
         def node = MAPPER.readTree(content.stripMargin())
-        def cctx = new DefaultCamelContext()
+        def builder = new RouteBuilder(new DefaultCamelContext()) {
+            @Override
+            void configure() throws Exception {
+            }
+        }
 
-        return new StepParser.Context(cctx, MAPPER, node, RESOLVER)
+        return new StepParser.Context(builder, MAPPER, node, RESOLVER)
     }
 
     static StepParser.Context stepContext(JsonNode content) {
-        return new StepParser.Context(new DefaultCamelContext(), MAPPER, content, RESOLVER)
+        def builder = new RouteBuilder(new DefaultCamelContext()) {
+            @Override
+            void configure() throws Exception {
+            }
+        }
+
+        return new StepParser.Context(builder, MAPPER, content, RESOLVER)
     }
 
     static CamelContext startContext(String content) {

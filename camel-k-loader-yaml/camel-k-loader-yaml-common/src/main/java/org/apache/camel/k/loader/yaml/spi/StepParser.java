@@ -24,6 +24,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
+import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.spi.HasCamelContext;
 import org.apache.camel.util.ObjectHelper;
 
@@ -35,12 +36,12 @@ public interface StepParser {
      */
     class Context implements HasCamelContext {
         private final ObjectMapper mapper;
-        private final CamelContext camelContext;
+        private final RouteBuilder builder;
         private final JsonNode node;
         private final Resolver resolver;
 
-        public Context(CamelContext camelContext, ObjectMapper mapper, JsonNode node, Resolver resolver) {
-            this.camelContext = camelContext;
+        public Context(RouteBuilder builder, ObjectMapper mapper, JsonNode node, Resolver resolver) {
+            this.builder = builder;
             this.mapper = mapper;
             this.node = node;
             this.resolver = ObjectHelper.notNull(resolver, "resolver");
@@ -48,7 +49,11 @@ public interface StepParser {
 
         @Override
         public CamelContext getCamelContext() {
-            return camelContext;
+            return builder.getContext();
+        }
+
+        public RouteBuilder builder() {
+            return builder;
         }
 
         public JsonNode node() {
@@ -75,7 +80,7 @@ public interface StepParser {
         }
 
         public <T extends StepParser> T lookup(Class<T> type, String stepId) {
-            StepParser parser = resolver.resolve(camelContext, stepId);
+            StepParser parser = resolver.resolve(builder.getContext(), stepId);
             if (type.isInstance(parser)) {
                 return type.cast(parser);
             }
@@ -85,7 +90,7 @@ public interface StepParser {
 
         public static Context of(Context context, JsonNode step) {
             return new Context(
-                context.camelContext,
+                context.builder,
                 context.mapper,
                 step,
                 context.resolver

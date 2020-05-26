@@ -37,7 +37,7 @@ public class KnativeStepParser implements ProcessorStepParser, StartStepParser {
     public ProcessorDefinition<?> toStartProcessor(Context context) {
         final Definition definition = context.node(Definition.class);
         final String uri = definition.getEndpointUri();
-        final RouteDefinition route = new RouteDefinition().from(uri);
+        final RouteDefinition route = context.builder().from(uri);
 
         // steps are mandatory
         ObjectHelper.notNull(definition.steps, "from steps");
