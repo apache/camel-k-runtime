@@ -19,6 +19,7 @@ package org.apache.camel.k.loader.groovy.dsl
 
 import org.apache.camel.builder.BuilderSupport
 import org.apache.camel.builder.EndpointConsumerBuilder
+import org.apache.camel.builder.ErrorHandlerBuilder
 import org.apache.camel.builder.endpoint.EndpointBuilderFactory
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder
 import org.apache.camel.model.InterceptDefinition
@@ -103,5 +104,9 @@ class IntegrationConfiguration extends BuilderSupport implements Support, Endpoi
 
     InterceptSendToEndpointDefinition interceptSendToEndpoint(String uri) {
         return builder.interceptSendToEndpoint(uri)
+    }
+
+    void errorHandler(ErrorHandlerBuilder handler) {
+        builder.errorHandler(handler)
     }
 }
