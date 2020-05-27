@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.spi.HasCamelContext;
 import org.apache.camel.util.ObjectHelper;
 
@@ -37,11 +38,13 @@ public interface StepParser {
     class Context implements HasCamelContext {
         private final ObjectMapper mapper;
         private final RouteBuilder builder;
+        private final ProcessorDefinition<?> processor;
         private final JsonNode node;
         private final Resolver resolver;
 
-        public Context(RouteBuilder builder, ObjectMapper mapper, JsonNode node, Resolver resolver) {
+        public Context(RouteBuilder builder, ProcessorDefinition<?> processor, ObjectMapper mapper, JsonNode node, Resolver resolver) {
             this.builder = builder;
+            this.processor = processor;
             this.mapper = mapper;
             this.node = node;
             this.resolver = ObjectHelper.notNull(resolver, "resolver");
@@ -50,6 +53,14 @@ public interface StepParser {
         @Override
         public CamelContext getCamelContext() {
             return builder.getContext();
+        }
+
+        public ProcessorDefinition<?> processor() {
+            return this.processor;
+        }
+
+        public <T extends ProcessorDefinition<?>> T processor(Class<T> type) {
+            return type.cast(this.processor);
         }
 
         public RouteBuilder builder() {
@@ -88,9 +99,30 @@ public interface StepParser {
             throw new RuntimeException("No handler for step with id: " + stepId);
         }
 
+        public static Context of(Context context, ProcessorDefinition<?> processor, JsonNode step) {
+            return new Context(
+                context.builder,
+                processor,
+                context.mapper,
+                step,
+                context.resolver
+            );
+        }
+
+        public static Context of(Context context, ProcessorDefinition<?> processor) {
+            return new Context(
+                context.builder,
+                processor,
+                context.mapper,
+                context.node,
+                context.resolver
+            );
+        }
+
         public static Context of(Context context, JsonNode step) {
             return new Context(
                 context.builder,
+                context.processor,
                 context.mapper,
                 step,
                 context.resolver

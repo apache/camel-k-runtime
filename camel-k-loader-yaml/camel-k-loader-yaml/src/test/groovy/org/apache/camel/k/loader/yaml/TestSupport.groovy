@@ -26,6 +26,7 @@ import org.apache.camel.k.loader.yaml.spi.ProcessorStepParser
 import org.apache.camel.k.loader.yaml.spi.StartStepParser
 import org.apache.camel.k.loader.yaml.spi.StepParser
 import org.apache.camel.model.ProcessorDefinition
+import org.apache.camel.model.RouteDefinition
 import spock.lang.Specification
 
 import java.nio.charset.StandardCharsets
@@ -43,7 +44,7 @@ class TestSupport extends Specification {
             }
         }
 
-        return new StepParser.Context(builder, MAPPER, node, RESOLVER)
+        return new StepParser.Context(builder, new RouteDefinition(), MAPPER, node, RESOLVER)
     }
 
     static StepParser.Context stepContext(JsonNode content) {
@@ -53,7 +54,7 @@ class TestSupport extends Specification {
             }
         }
 
-        return new StepParser.Context(builder, MAPPER, content, RESOLVER)
+        return new StepParser.Context(builder, new RouteDefinition(), MAPPER, content, RESOLVER)
     }
 
     static CamelContext startContext(String content) {
@@ -117,6 +118,10 @@ class TestSupport extends Specification {
 
     static <U extends ProcessorStepParser> ProcessorDefinition<?> toProcessor(Class<U> type, String content) {
         return type.getConstructor().newInstance().toProcessor(stepContext(content))
+    }
+
+    static <U extends StartStepParser> ProcessorDefinition<?> toStartProcessor(Class<U> type, String content) {
+        return type.getConstructor().newInstance().toStartProcessor(stepContext(content))
     }
 
     static ProcessorDefinition<?> toProcessor(String id, String content) {

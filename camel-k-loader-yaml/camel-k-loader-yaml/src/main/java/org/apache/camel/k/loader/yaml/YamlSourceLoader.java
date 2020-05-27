@@ -91,7 +91,7 @@ public class YamlSourceLoader implements SourceLoader {
                 try (is) {
                     for (Step step : mapper.readValue(is, Step[].class)) {
                         StartStepParser.invoke(
-                            new StepParser.Context(this, mapper, step.node, resolver),
+                            new StepParser.Context(this, null, mapper, step.node, resolver),
                             step.id);
                     }
                 }

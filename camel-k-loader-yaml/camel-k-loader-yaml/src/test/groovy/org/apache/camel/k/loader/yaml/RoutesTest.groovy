@@ -142,4 +142,21 @@ class RoutesTest extends TestSupport {
         cleanup:
             context?.stop()
     }
+
+    def 'errorHandler'() {
+        setup:
+            def context = startContext([
+                'myFailingProcessor' : new MyFailingProcessor()
+            ])
+
+            mockEndpoint(context, 'mock:on-error') {
+                expectedMessageCount = 1
+            }
+        when:
+            context.createProducerTemplate().requestBody('direct:start', 'Hello World');
+        then:
+            MockEndpoint.assertIsSatisfied(context)
+        cleanup:
+            context?.stop()
+    }
 }

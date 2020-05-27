@@ -46,9 +46,8 @@ public final class StepParserSupport {
         ProcessorDefinition<?> current = parent;
 
         for (Step step : steps) {
-
             ProcessorDefinition<?> child = ProcessorStepParser.invoke(
-                ProcessorStepParser.Context.of(context, step.node),
+                ProcessorStepParser.Context.of(context, current, step.node),
                 step.id
             );
 
