@@ -69,6 +69,7 @@ public class IntegrationTest {
         assertThat(seda).isNotNull();
         assertThat(seda).hasFieldOrPropertyWithValue("queueSize", 1234);
     }
+
     @Test
     public void testRestConfiguration() {
         configureRoutes(
@@ -124,5 +125,15 @@ public class IntegrationTest {
         assertThat(template.requestBody("direct:arrow", "")).isEqualTo("arrow");
         assertThat(template.requestBody("direct:wrapper", "")).isEqualTo("wrapper");
         assertThat(template.requestBody("direct:function", "")).isEqualTo("function");
+    }
+
+
+    @Test
+    public void testContextConfiguration() {
+        configureRoutes(
+            "classpath:routes-with-context-configuration.js"
+        );
+
+        assertThat(context.isTypeConverterStatisticsEnabled()).isTrue();
     }
 }
