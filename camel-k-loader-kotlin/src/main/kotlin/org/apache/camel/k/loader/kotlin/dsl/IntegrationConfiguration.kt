@@ -18,6 +18,7 @@ package org.apache.camel.k.loader.kotlin.dsl
 
 import org.apache.camel.builder.BuilderSupport
 import org.apache.camel.builder.EndpointConsumerBuilder
+import org.apache.camel.builder.ErrorHandlerBuilder
 import org.apache.camel.builder.endpoint.EndpointBuilderFactory
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder
 import org.apache.camel.k.loader.kotlin.KotlinCompilationConfiguration
@@ -75,5 +76,9 @@ abstract class IntegrationConfiguration(
 
     fun interceptSendToEndpoint(uri: String) : InterceptSendToEndpointDefinition {
         return builder.interceptSendToEndpoint(uri)
+    }
+
+    fun errorHandler(handler: ErrorHandlerBuilder) {
+        builder.errorHandler(handler)
     }
 }
