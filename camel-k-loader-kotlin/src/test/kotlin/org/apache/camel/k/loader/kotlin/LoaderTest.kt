@@ -33,15 +33,15 @@ class LoaderTest {
 
     @Test
     fun `load routes`() {
-        var runtime = TestRuntime()
-        var source = Sources.fromURI("classpath:routes.kts")
+        val runtime = TestRuntime()
+        val source = Sources.fromURI("classpath:routes.kts")
         val loader = RoutesConfigurer.load(runtime, source)
 
         assertThat(loader).isInstanceOf(KotlinSourceLoader::class.java)
         assertThat(runtime.builders).hasSize(1)
         assertThat(runtime.builders[0]).isInstanceOf(RouteBuilder::class.java)
 
-        var builder = runtime.builders[0] as RouteBuilder
+        val builder = runtime.builders[0] as RouteBuilder
         builder.context = runtime.camelContext
         builder.configure()
 
@@ -54,23 +54,23 @@ class LoaderTest {
 
     @Test
     fun `load routes with endpoint dsl`() {
-        var runtime = TestRuntime()
-        var source = Sources.fromURI("classpath:routes-with-endpoint-dsl.kts")
+        val runtime = TestRuntime()
+        val source = Sources.fromURI("classpath:routes-with-endpoint-dsl.kts")
         val loader = RoutesConfigurer.load(runtime, source)
 
         assertThat(loader).isInstanceOf(KotlinSourceLoader::class.java)
         assertThat(runtime.builders).hasSize(1)
         assertThat(runtime.builders[0]).isInstanceOf(RouteBuilder::class.java)
 
-        var builder = runtime.builders[0] as RouteBuilder
+        val builder = runtime.builders[0] as RouteBuilder
         builder.context = runtime.camelContext
         builder.configure()
 
         val routes = builder.routeCollection.routes
         assertThat(routes).hasSize(1)
-        assertThat(routes[0].input.endpointUri).isEqualTo("timer:tick?period=1s")
+        assertThat(routes[0].input.endpointUri).isEqualTo("timer://tick?period=1s")
         assertThat(routes[0].outputs[0]).isInstanceOfSatisfying(ToDefinition::class.java) {
-            assertThat(it.endpointUri).isEqualTo("log:info")
+            assertThat(it.endpointUri).isEqualTo("log://info")
         }
     }
 

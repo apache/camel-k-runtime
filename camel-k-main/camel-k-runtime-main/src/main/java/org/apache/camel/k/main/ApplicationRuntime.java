@@ -56,6 +56,7 @@ public final class ApplicationRuntime implements Runtime {
         this.main = new MainAdapter();
         this.main.configure().setXmlRoutes("false");
         this.main.configure().setXmlRests("false");
+        this.main.setDefaultPropertyPlaceholderLocation("false");
         this.main.setRoutesCollector(new NoRoutesCollector());
         this.main.addMainListener(new MainListenerAdapter());
     }
@@ -76,12 +77,12 @@ public final class ApplicationRuntime implements Runtime {
 
     @Override
     public void addRoutes(RoutesBuilder builder) {
-        this.main.addRoutesBuilder(builder);
+        this.main.configure().addRoutesBuilder(builder);
     }
 
     @Override
     public void addConfiguration(Object configuration) {
-        this.main.addConfiguration(configuration);
+        this.main.configure().addConfiguration(configuration);
     }
 
     @Override
@@ -130,14 +131,22 @@ public final class ApplicationRuntime implements Runtime {
 
     private final class MainListenerAdapter implements org.apache.camel.main.MainListener {
         @Override
-        public void beforeConfigure(BaseMainSupport main) {
+        public void beforeInitialize(BaseMainSupport main) {
             invokeListeners(Phase.ConfigureProperties);
+        }
+
+        @Override
+        public void beforeConfigure(BaseMainSupport main) {
             invokeListeners(Phase.ConfigureRoutes);
         }
 
         @Override
-        public void configure(CamelContext context) {
+        public void afterConfigure(BaseMainSupport main) {
             invokeListeners(Phase.ConfigureContext);
+        }
+
+        @Override
+        public void configure(CamelContext context) {
         }
 
         @Override

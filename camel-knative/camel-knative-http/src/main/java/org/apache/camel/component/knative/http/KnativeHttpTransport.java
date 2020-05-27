@@ -26,26 +26,26 @@ import org.apache.camel.Producer;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
 import org.apache.camel.component.knative.spi.KnativeTransport;
 import org.apache.camel.component.knative.spi.KnativeTransportConfiguration;
-import org.apache.camel.k.http.PlatformHttp;
+import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpRouter;
 import org.apache.camel.support.service.ServiceSupport;
 
 public class KnativeHttpTransport extends ServiceSupport implements CamelContextAware, KnativeTransport {
     public static final int DEFAULT_PORT = 8080;
     public static final String DEFAULT_PATH = "/";
 
-    private PlatformHttp platformHttp;
+    private VertxPlatformHttpRouter router;
     private WebClientOptions vertxHttpClientOptions;
     private CamelContext camelContext;
 
     public KnativeHttpTransport() {
     }
 
-    public PlatformHttp getPlatformHttp() {
-        return platformHttp;
+    public VertxPlatformHttpRouter getRouter() {
+        return router;
     }
 
-    public void setPlatformHttp(PlatformHttp platformHttp) {
-        this.platformHttp = platformHttp;
+    public void setRouter(VertxPlatformHttpRouter router) {
+        this.router = router;
     }
 
     public WebClientOptions getClientOptions() {
@@ -74,8 +74,8 @@ public class KnativeHttpTransport extends ServiceSupport implements CamelContext
 
     @Override
     protected void doStart() throws Exception {
-        if (this.platformHttp == null) {
-            this.platformHttp = PlatformHttp.lookup(camelContext);
+        if (this.router == null) {
+            this.router = VertxPlatformHttpRouter.lookup(camelContext);
         }
     }
 
@@ -91,7 +91,7 @@ public class KnativeHttpTransport extends ServiceSupport implements CamelContext
 
     @Override
     public Producer createProducer(Endpoint endpoint, KnativeTransportConfiguration config, KnativeEnvironment.KnativeServiceDefinition service) {
-        return new KnativeHttpProducer(this, endpoint, service, this.platformHttp, vertxHttpClientOptions);
+        return new KnativeHttpProducer(this, endpoint, service, this.router.vertx(), vertxHttpClientOptions);
     }
 
     @Override
@@ -102,7 +102,7 @@ public class KnativeHttpTransport extends ServiceSupport implements CamelContext
             next = KnativeHttpSupport.withoutCloudEventHeaders(next, config.getCloudEvent());
         }
 
-        return new KnativeHttpConsumer(this, endpoint, service, this.platformHttp, next);
+        return new KnativeHttpConsumer(this, endpoint, service, this.router, next);
     }
 
 }

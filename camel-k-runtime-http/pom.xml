@@ -41,12 +41,9 @@
             <artifactId>camel-core-engine</artifactId>
         </dependency>
 
-        <!--
-        Replace this with camel-platform-http-vertx when migrating to camel 3.3
-        -->
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-platform-http</artifactId>
+            <artifactId>camel-platform-http-vertx</artifactId>
         </dependency>
 
         <dependency>

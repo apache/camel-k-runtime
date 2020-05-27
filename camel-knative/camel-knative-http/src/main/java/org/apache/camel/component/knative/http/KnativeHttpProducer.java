@@ -19,6 +19,7 @@ package org.apache.camel.component.knative.http;
 import java.util.Map;
 
 import io.vertx.core.MultiMap;
+import io.vertx.core.Vertx;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpHeaders;
 import io.vertx.ext.web.client.HttpResponse;
@@ -31,7 +32,6 @@ import org.apache.camel.Exchange;
 import org.apache.camel.InvalidPayloadException;
 import org.apache.camel.Message;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
-import org.apache.camel.k.http.PlatformHttp;
 import org.apache.camel.spi.HeaderFilterStrategy;
 import org.apache.camel.support.DefaultAsyncProducer;
 import org.apache.camel.support.DefaultMessage;
@@ -46,7 +46,7 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
 
     private final KnativeHttpTransport transport;
     private final KnativeEnvironment.KnativeServiceDefinition serviceDefinition;
-    private final PlatformHttp platformHttp;
+    private final Vertx vertx;
     private final WebClientOptions clientOptions;
     private final HeaderFilterStrategy headerFilterStrategy;
 
@@ -56,13 +56,13 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
             KnativeHttpTransport transport,
             Endpoint endpoint,
             KnativeEnvironment.KnativeServiceDefinition serviceDefinition,
-            PlatformHttp platformHttp,
+            Vertx vertx,
             WebClientOptions clientOptions) {
         super(endpoint);
 
         this.transport = transport;
         this.serviceDefinition = serviceDefinition;
-        this.platformHttp = ObjectHelper.notNull(platformHttp, "vertx");
+        this.vertx = ObjectHelper.notNull(vertx, "vertx");
         this.clientOptions = ObjectHelper.supplyIfEmpty(clientOptions, WebClientOptions::new);
         this.headerFilterStrategy = new KnativeHttpHeaderFilterStrategy();
     }
@@ -166,7 +166,7 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
     protected void doInit() throws Exception {
         super.doInit();
 
-        this.client = WebClient.create(platformHttp.vertx(), clientOptions);
+        this.client = WebClient.create(vertx, clientOptions);
     }
 
     @Override

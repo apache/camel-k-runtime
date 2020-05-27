@@ -20,7 +20,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import org.apache.camel.k.loader.xml.quarkus.XmlLoaderRecorder;
-import org.apache.camel.quarkus.core.deployment.CamelRoutesLoaderBuildItems;
+import org.apache.camel.quarkus.core.deployment.spi.CamelRoutesLoaderBuildItems;
 
 public class DeploymentProcessor {
     @BuildStep

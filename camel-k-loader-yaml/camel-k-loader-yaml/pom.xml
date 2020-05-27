@@ -149,6 +149,7 @@
                             <blacklistedDefinitions>
                                 <blacklistedDefinition>org.apache.camel.model.Resilience4jConfigurationDefinition</blacklistedDefinition>
                                 <blacklistedDefinition>org.apache.camel.model.HystrixConfigurationDefinition</blacklistedDefinition>
+                                <blacklistedDefinition>org.apache.camel.model.FaultToleranceConfigurationDefinition</blacklistedDefinition>
                                 <blacklistedDefinition>org.apache.camel.model.OnFallbackDefinition</blacklistedDefinition>
                                 <blacklistedDefinition>org.apache.camel.model.InOnlyDefinition</blacklistedDefinition>
                                 <blacklistedDefinition>org.apache.camel.model.InOutDefinition</blacklistedDefinition>

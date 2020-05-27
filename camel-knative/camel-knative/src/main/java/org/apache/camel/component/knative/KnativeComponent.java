@@ -37,10 +37,8 @@ import org.apache.camel.util.StringHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Component("knative")
+@Component(KnativeConstants.SCHEME)
 public class KnativeComponent extends DefaultComponent {
-    public static final String CONFIGURATION_ENV_VARIABLE = "CAMEL_KNATIVE_CONFIGURATION";
-
     private static final Logger LOGGER = LoggerFactory.getLogger(KnativeComponent.class);
 
     private KnativeConfiguration configuration;
@@ -259,7 +257,7 @@ public class KnativeComponent extends DefaultComponent {
         }
 
         if (conf.getEnvironment() == null) {
-            String envConfig = System.getenv(CONFIGURATION_ENV_VARIABLE);
+            String envConfig = System.getenv(KnativeConstants.CONFIGURATION_ENV_VARIABLE);
             if (environmentPath != null) {
                 conf.setEnvironment(
                     KnativeEnvironment.mandatoryLoadFromResource(getCamelContext(), this.environmentPath)

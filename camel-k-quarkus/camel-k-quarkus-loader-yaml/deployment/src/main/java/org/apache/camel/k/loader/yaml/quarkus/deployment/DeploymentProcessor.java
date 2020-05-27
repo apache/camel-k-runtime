@@ -28,7 +28,7 @@ import org.apache.camel.k.loader.yaml.spi.StepParser;
 import org.apache.camel.model.DataFormatDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.language.ExpressionDefinition;
-import org.apache.camel.quarkus.core.deployment.CamelServicePatternBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
