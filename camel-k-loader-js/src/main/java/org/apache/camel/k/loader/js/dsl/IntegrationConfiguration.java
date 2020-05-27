@@ -18,6 +18,7 @@ package org.apache.camel.k.loader.js.dsl;
 
 import org.apache.camel.builder.BuilderSupport;
 import org.apache.camel.builder.EndpointConsumerBuilder;
+import org.apache.camel.builder.ErrorHandlerBuilder;
 import org.apache.camel.builder.endpoint.EndpointBuilderFactory;
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
 import org.apache.camel.model.InterceptDefinition;
@@ -81,5 +82,9 @@ public class IntegrationConfiguration extends BuilderSupport implements Endpoint
 
     public InterceptSendToEndpointDefinition interceptSendToEndpoint(String uri) {
         return builder.interceptSendToEndpoint(uri);
+    }
+
+    public void errorHandler(ErrorHandlerBuilder handler) {
+        builder.errorHandler(handler);
     }
 }
