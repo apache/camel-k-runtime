@@ -21,10 +21,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.apache.camel.reifier.ProcessorReifier;
+import org.apache.camel.reifier.AbstractReifier;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface YAMLNodeDefinition {
-    Class<? extends ProcessorReifier>[] reifiers() default {};
+    Class<? extends AbstractReifier>[] reifiers() default {};
 }
