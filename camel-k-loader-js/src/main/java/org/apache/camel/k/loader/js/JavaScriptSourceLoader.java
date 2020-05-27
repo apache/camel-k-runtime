@@ -17,6 +17,7 @@
 package org.apache.camel.k.loader.js;
 
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
 
@@ -29,7 +30,6 @@ import org.apache.camel.k.SourceLoader;
 import org.apache.camel.k.annotation.Loader;
 import org.apache.camel.k.loader.js.dsl.IntegrationConfiguration;
 import org.apache.camel.support.LifecycleStrategySupport;
-import org.apache.camel.util.IOHelper;
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.Value;
 
@@ -55,7 +55,7 @@ public class JavaScriptSourceLoader implements SourceLoader {
                     // configure bindings
                     bindings.putMember("__dsl", new IntegrationConfiguration(this));
 
-                    final String script = IOHelper.loadText(is);
+                    final String script = new String(is.readAllBytes(), StandardCharsets.UTF_8);
                     final String wrappedScript = "with (__dsl) { " + script + " }";
 
                     context.eval(LANGUAGE_ID, wrappedScript);
