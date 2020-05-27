@@ -16,6 +16,7 @@
  */
 package org.apache.camel.k.loader.js.dsl;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.builder.BuilderSupport;
 import org.apache.camel.builder.EndpointConsumerBuilder;
 import org.apache.camel.builder.endpoint.EndpointBuilderFactory;
@@ -34,6 +35,7 @@ public class IntegrationConfiguration extends BuilderSupport implements Endpoint
     public final Registry registry;
     public final Components components;
     public final EndpointRouteBuilder builder;
+    public final CamelContext context;
 
     public IntegrationConfiguration(EndpointRouteBuilder builder) {
         super(builder.getContext());
@@ -41,6 +43,7 @@ public class IntegrationConfiguration extends BuilderSupport implements Endpoint
         this.registry = builder.getContext().getRegistry();
         this.components = new Components(builder.getContext());
         this.builder = builder;
+        this.context = builder.getContext();
     }
 
     public RouteDefinition from(String endpoint) {
