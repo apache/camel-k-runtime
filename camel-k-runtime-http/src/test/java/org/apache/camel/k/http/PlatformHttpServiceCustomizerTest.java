@@ -26,9 +26,10 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.platform.http.PlatformHttpComponent;
 import org.apache.camel.component.platform.http.PlatformHttpConstants;
+import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpEngine;
+import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpRouter;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.k.Runtime;
-import org.apache.camel.k.http.engine.RuntimePlatformHttpEngine;
 import org.apache.camel.k.test.AvailablePortFinder;
 import org.apache.camel.support.jsse.KeyManagersParameters;
 import org.apache.camel.support.jsse.KeyStoreParameters;
@@ -64,7 +65,7 @@ public class PlatformHttpServiceCustomizerTest {
         try {
             runtime.getCamelContext().start();
 
-            PlatformHttp.lookup(runtime.getCamelContext()).router().route(HttpMethod.GET, "/my/path")
+            VertxPlatformHttpRouter.lookup(runtime.getCamelContext()).route(HttpMethod.GET, "/my/path")
                 .handler(routingContext -> {
                     JsonObject response = new JsonObject();
                     response.put("status", "UP");
@@ -106,7 +107,7 @@ public class PlatformHttpServiceCustomizerTest {
         PlatformHttpComponent c = runtime.getCamelContext().getComponent(PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME, PlatformHttpComponent.class);
 
         assertThat(c).isNotNull();
-        assertThat(c.getEngine()).isInstanceOf(RuntimePlatformHttpEngine.class);
+        assertThat(c.getEngine()).isInstanceOf(VertxPlatformHttpEngine.class);
 
         try {
             runtime.getCamelContext().start();
@@ -142,7 +143,7 @@ public class PlatformHttpServiceCustomizerTest {
         PlatformHttpComponent c = runtime.getCamelContext().getComponent(PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME, PlatformHttpComponent.class);
 
         assertThat(c).isNotNull();
-        assertThat(c.getEngine()).isInstanceOf(RuntimePlatformHttpEngine.class);
+        assertThat(c.getEngine()).isInstanceOf(VertxPlatformHttpEngine.class);
 
         try {
             runtime.getCamelContext().start();
@@ -168,17 +169,16 @@ public class PlatformHttpServiceCustomizerTest {
         httpService.setBindPort(AvailablePortFinder.getNextAvailable());
         httpService.apply(runtime.getCamelContext());
 
-        PlatformHttp.lookup(runtime.getCamelContext())
-            .router()
-            .route(HttpMethod.GET, "/my/path")
-            .handler(routingContext -> routingContext.response().setStatusCode(200).end());
+        //VertxPlatformHttpRouter.lookup(runtime.getCamelContext())
+        //    .route(HttpMethod.GET, "/my/path")
+        //    .handler(routingContext -> routingContext.response().setStatusCode(200).end());
 
         assertThatExceptionOfType(ConnectException.class).isThrownBy(
             () -> {
                 given()
                     .port(httpService.getBindPort())
                 .when()
-                    .get("/my/path")
+                    .get("/")
                 .then()
                     .extract();
             }

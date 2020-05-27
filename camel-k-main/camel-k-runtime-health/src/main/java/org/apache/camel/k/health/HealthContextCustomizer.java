@@ -26,6 +26,7 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Route;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Ordered;
+import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpRouter;
 import org.apache.camel.health.HealthCheck;
 import org.apache.camel.health.HealthCheckFilter;
 import org.apache.camel.health.HealthCheckHelper;
@@ -35,7 +36,6 @@ import org.apache.camel.impl.health.ContextHealthCheck;
 import org.apache.camel.impl.health.RoutesHealthCheckRepository;
 import org.apache.camel.k.ContextCustomizer;
 import org.apache.camel.k.annotation.Customizer;
-import org.apache.camel.k.http.PlatformHttp;
 
 @Customizer("health")
 public class HealthContextCustomizer implements ContextCustomizer {
@@ -111,16 +111,17 @@ public class HealthContextCustomizer implements ContextCustomizer {
         // add health route
         addRoute(
             camelContext,
-            PlatformHttp.lookup(camelContext)
+            VertxPlatformHttpRouter.lookup(camelContext)
         );
     }
 
-    private Route addRoute(CamelContext camelContext, PlatformHttp platformHttp) {
-        Route route = platformHttp.router().route(HttpMethod.GET, path);
+    private Route addRoute(CamelContext camelContext, VertxPlatformHttpRouter router) {
+        Route route = router.route(HttpMethod.GET, path);
 
-        // add global handlers first i.e. body handler
-        platformHttp.handlers().forEach(route::handler);
+        // add body handler
+        route.handler(router.bodyHandler());
 
+        // add health endpoint handler
         route.handler(routingContext -> {
             int code = 200;
 

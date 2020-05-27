@@ -16,7 +16,6 @@
  */
 package org.apache.camel.k.quarkus.knative;
 
-import java.util.Collections;
 import java.util.function.Supplier;
 
 import io.quarkus.runtime.RuntimeValue;
@@ -27,7 +26,7 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import org.apache.camel.component.knative.KnativeComponent;
 import org.apache.camel.component.knative.http.KnativeHttpTransport;
-import org.apache.camel.k.http.PlatformHttp;
+import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpRouter;
 
 @Recorder
 public class KnativeRecorder {
@@ -37,11 +36,12 @@ public class KnativeRecorder {
         Handler<RoutingContext> bodyHandler) {
 
         KnativeHttpTransport transport = new KnativeHttpTransport();
-        transport.setPlatformHttp(new PlatformHttp(
-            vertx.get(),
-            router.getValue(),
-            Collections.singletonList(bodyHandler)
-        ));
+        transport.setRouter(new VertxPlatformHttpRouter(vertx.get(), router.getValue()) {
+            @Override
+            public Handler<RoutingContext> bodyHandler() {
+                return bodyHandler;
+            }
+        });
 
         KnativeComponent component = new KnativeComponent();
         component.setTransport(transport);

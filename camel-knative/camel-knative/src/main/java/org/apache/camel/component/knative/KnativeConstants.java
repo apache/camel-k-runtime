@@ -14,16 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.http.engine;
+package org.apache.camel.component.knative;
 
-import org.apache.camel.Consumer;
-import org.apache.camel.Processor;
-import org.apache.camel.component.platform.http.PlatformHttpEndpoint;
-import org.apache.camel.component.platform.http.spi.PlatformHttpEngine;
+public final class KnativeConstants {
+    public static final String SCHEME = "knative";
+    public static final String CONFIGURATION_ENV_VARIABLE = "CAMEL_KNATIVE_CONFIGURATION";
 
-public class RuntimePlatformHttpEngine implements PlatformHttpEngine {
-    @Override
-    public Consumer createConsumer(PlatformHttpEndpoint platformHttpEndpoint, Processor processor) {
-        return new RuntimePlatformHttpConsumer(platformHttpEndpoint, processor);
+    private KnativeConstants() {
     }
 }

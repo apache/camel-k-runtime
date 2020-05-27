@@ -16,22 +16,19 @@
  */
 package org.apache.camel.k.http;
 
-import java.util.Map;
-
 import org.apache.camel.CamelContext;
-import org.apache.camel.Endpoint;
 import org.apache.camel.Ordered;
 import org.apache.camel.component.platform.http.PlatformHttpComponent;
 import org.apache.camel.component.platform.http.PlatformHttpConstants;
+import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpEngine;
+import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpServer;
+import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpServerConfiguration;
 import org.apache.camel.k.ContextCustomizer;
 import org.apache.camel.k.annotation.Customizer;
-import org.apache.camel.k.http.engine.RuntimePlatformHttpEngine;
 
 
 @Customizer("platform-http")
-public class PlatformHttpServiceContextCustomizer extends PlatformHttpServiceConfiguration implements ContextCustomizer {
-    private PlatformHttpServiceEndpoint endpoint;
-
+public class PlatformHttpServiceContextCustomizer extends VertxPlatformHttpServerConfiguration implements ContextCustomizer {
     public PlatformHttpServiceContextCustomizer() {
     }
 
@@ -42,33 +39,24 @@ public class PlatformHttpServiceContextCustomizer extends PlatformHttpServiceCon
 
     @Override
     public void apply(CamelContext camelContext) {
-        endpoint = new PlatformHttpServiceEndpoint(camelContext, this);
-        //endpoint.init();
-
         try {
-            camelContext.addService(endpoint);
+            camelContext.addService(new VertxPlatformHttpServer(this) {
+                @Override
+                protected void doInit() throws Exception {
+                    initializeServer();
+                }
+                @Override
+                protected void doStart() throws Exception {
+                    startServer();
+                }
+            });
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
-        camelContext.addComponent(PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME,  new PlatformHttpComponentWrapper());
-    }
+        PlatformHttpComponent component = new PlatformHttpComponent(camelContext);
+        component.setEngine(new VertxPlatformHttpEngine());
 
-    public static final class PlatformHttpComponentWrapper extends PlatformHttpComponent {
-        public PlatformHttpComponentWrapper() {
-            setEngine(new RuntimePlatformHttpEngine());
-        }
-
-        @Override
-        protected Endpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters) throws Exception {
-            // the PlatformHttpComponent set this value but it is not handled which cause the
-            // context to fail as the property cannot be bound to the enpoint.
-            //
-            // TODO: fix upstream
-            parameters.remove("optionsEnabled");
-
-            // let the original component to create the endpoint
-            return super.createEndpoint(uri, remaining, parameters);
-        }
+        camelContext.getRegistry().bind(PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME, component);
     }
 }

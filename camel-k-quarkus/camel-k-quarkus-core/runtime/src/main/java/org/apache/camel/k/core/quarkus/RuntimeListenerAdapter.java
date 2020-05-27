@@ -49,14 +49,22 @@ public class RuntimeListenerAdapter implements MainListener {
     }
 
     @Override
-    public void beforeConfigure(BaseMainSupport main) {
+    public void beforeInitialize(BaseMainSupport main) {
         invokeListeners(listeners, on(main), Runtime.Phase.ConfigureProperties);
+    }
+
+    @Override
+    public void beforeConfigure(BaseMainSupport main) {
         invokeListeners(listeners, on(main), Runtime.Phase.ConfigureRoutes);
     }
 
     @Override
+    public void afterConfigure(BaseMainSupport main) {
+        invokeListeners(listeners, on(main), Runtime.Phase.ConfigureContext);
+    }
+
+    @Override
     public void configure(CamelContext context) {
-        invokeListeners(listeners, on(context), Runtime.Phase.ConfigureContext);
     }
 
     @Override
@@ -118,22 +126,22 @@ public class RuntimeListenerAdapter implements MainListener {
 
             @Override
             public void addRoutes(RoutesBuilder builder) {
-                main.addRoutesBuilder(builder);
+                main.configure().addRoutesBuilder(builder);
             }
 
             @Override
             public void addConfiguration(Object configuration) {
-                main.addConfiguration(configuration);
+                main.configure().addConfiguration(configuration);
             }
 
             @Override
             public void setInitialProperties(Properties properties) {
-                main.getCamelContext().getPropertiesComponent().setInitialProperties(properties);
+                main.setInitialProperties(properties);
             }
 
             @Override
             public void setProperties(Properties properties) {
-                main.getCamelContext().getPropertiesComponent().setOverrideProperties(properties);
+                main.setOverrideProperties(properties);
             }
 
             @Override

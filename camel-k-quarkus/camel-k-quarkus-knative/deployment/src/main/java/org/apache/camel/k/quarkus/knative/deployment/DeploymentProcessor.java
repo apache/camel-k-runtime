@@ -16,7 +16,8 @@
  */
 package org.apache.camel.k.quarkus.knative.deployment;
 
-import io.quarkus.deployment.annotations.BuildProducer;
+import java.util.List;
+
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
@@ -24,19 +25,27 @@ import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.vertx.core.deployment.CoreVertxBuildItem;
 import io.quarkus.vertx.http.deployment.BodyHandlerBuildItem;
 import io.quarkus.vertx.http.deployment.VertxWebRouterBuildItem;
+import org.apache.camel.component.knative.KnativeComponent;
+import org.apache.camel.component.knative.KnativeConstants;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
 import org.apache.camel.k.quarkus.knative.KnativeRecorder;
-import org.apache.camel.quarkus.core.deployment.CamelRuntimeBeanBuildItem;
-import org.apache.camel.quarkus.core.deployment.CamelServiceFilter;
-import org.apache.camel.quarkus.core.deployment.CamelServiceFilterBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilter;
+import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilterBuildItem;
 
 public class DeploymentProcessor {
     @BuildStep
-    void servicesFilters(BuildProducer<CamelServiceFilterBuildItem> serviceFilter) {
-        serviceFilter.produce(
-            new CamelServiceFilterBuildItem(CamelServiceFilter.forComponent("knative"))
+    List<ReflectiveClassBuildItem> reflectiveClasses() {
+        return List.of(
+            new ReflectiveClassBuildItem(true, false, KnativeEnvironment.class),
+            new ReflectiveClassBuildItem(true, false, KnativeEnvironment.KnativeServiceDefinition.class)
         );
-        serviceFilter.produce(
+    }
+
+    @BuildStep
+    List<CamelServiceFilterBuildItem> servicesFilters() {
+        return List.of(
+            new CamelServiceFilterBuildItem(CamelServiceFilter.forComponent(KnativeConstants.SCHEME)),
             new CamelServiceFilterBuildItem(CamelServiceFilter.forPathEndingWith(CamelServiceFilter.CAMEL_SERVICE_BASE_PATH + "/knative/transport/http"))
         );
     }
@@ -50,18 +59,12 @@ public class DeploymentProcessor {
         BodyHandlerBuildItem bodyHandlerBuildItem) {
 
         return new CamelRuntimeBeanBuildItem(
-            "knative",
-            "org.apache.camel.component.knative.KnativeComponent",
+            KnativeConstants.SCHEME,
+            KnativeComponent.class.getName(),
             recorder.createKnativeComponent(
                 vertx.getVertx(),
                 router.getRouter(),
                 bodyHandlerBuildItem.getHandler())
         );
-    }
-
-    @BuildStep
-    void registerReflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, KnativeEnvironment.class));
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, KnativeEnvironment.KnativeServiceDefinition.class));
     }
 }

@@ -37,7 +37,7 @@ import org.apache.camel.NoTypeConversionAvailableException;
 import org.apache.camel.Processor;
 import org.apache.camel.TypeConverter;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
-import org.apache.camel.k.http.PlatformHttp;
+import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpRouter;
 import org.apache.camel.spi.HeaderFilterStrategy;
 import org.apache.camel.support.DefaultConsumer;
 import org.apache.camel.support.DefaultMessage;
@@ -53,7 +53,7 @@ public class KnativeHttpConsumer extends DefaultConsumer {
     private final KnativeHttpTransport transport;
     private final Predicate<HttpServerRequest> filter;
     private final KnativeEnvironment.KnativeServiceDefinition serviceDefinition;
-    private final PlatformHttp platformHttp;
+    private final VertxPlatformHttpRouter router;
     private final HeaderFilterStrategy headerFilterStrategy;
 
     private String basePath;
@@ -63,14 +63,14 @@ public class KnativeHttpConsumer extends DefaultConsumer {
         KnativeHttpTransport transport,
         Endpoint endpoint,
         KnativeEnvironment.KnativeServiceDefinition serviceDefinition,
-        PlatformHttp platformHttp,
+        VertxPlatformHttpRouter router,
         Processor processor) {
 
         super(endpoint, processor);
 
         this.transport = transport;
         this.serviceDefinition = serviceDefinition;
-        this.platformHttp = platformHttp;
+        this.router = router;
         this.headerFilterStrategy = new KnativeHttpHeaderFilterStrategy();
         this.filter = KnativeHttpSupport.createFilter(serviceDefinition);
     }
@@ -100,14 +100,15 @@ public class KnativeHttpConsumer extends DefaultConsumer {
 
             LOGGER.debug("Creating route for path: {}", path);
 
-            route = platformHttp.router().route(
+            route = router.route(
                 HttpMethod.POST,
                 path
             );
 
-            // add common handlers
-            platformHttp.handlers().forEach(route::handler);
+            // add body handler
+            route.handler(router.bodyHandler());
 
+            // add knative handler
             route.handler(routingContext -> {
                 LOGGER.debug("Handling {}", routingContext);
 
