@@ -20,20 +20,24 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.apache.camel.k</groupId>
-        <artifactId>camel-k-quarkus-knative-parent</artifactId>
+        <artifactId>camel-k-quarkus-itests</artifactId>
         <version>1.3.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>camel-k-quarkus-knative-it</artifactId>
+    <artifactId>camel-k-quarkus-itests-cron</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-quarkus-knative</artifactId>
+            <artifactId>camel-k-quarkus-cron</artifactId>
         </dependency>
 
         <!-- quarkus dependencies -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-jsonb</artifactId>
+        </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy</artifactId>
@@ -57,6 +61,11 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-core</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -104,9 +113,6 @@
                         <quarkus.http.test-port>${test.http.port.jvm}</quarkus.http.test-port>
                         <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
                     </systemProperties>
-                    <environmentVariables>
-                        <CAMEL_KNATIVE_CONFIGURATION>file:${project.basedir}/src/main/resources/env.json</CAMEL_KNATIVE_CONFIGURATION>
-                    </environmentVariables>
                 </configuration>
             </plugin>
         </plugins>
@@ -122,6 +128,7 @@
             </activation>
             <properties>
                 <quarkus.package.type>native</quarkus.package.type>
+                <quarkus.native.additional-build-args>--language:js</quarkus.native.additional-build-args>
             </properties>
             <build>
                 <plugins>
@@ -139,9 +146,6 @@
                                         <quarkus.http.test-port>${test.http.port.native}</quarkus.http.test-port>
                                         <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
                                     </systemProperties>
-                                    <environmentVariables>
-                                        <CAMEL_KNATIVE_CONFIGURATION>file:${project.basedir}/src/main/resources/env.json</CAMEL_KNATIVE_CONFIGURATION>
-                                    </environmentVariables>
                                 </configuration>
                             </execution>
                         </executions>

@@ -53,6 +53,8 @@
         <module>camel-k-quarkus-cron</module>
 
         <module>camel-k-runtime-quarkus</module>
+
+        <module>camel-k-quarkus-itests</module>
     </modules>
 
 </project>
