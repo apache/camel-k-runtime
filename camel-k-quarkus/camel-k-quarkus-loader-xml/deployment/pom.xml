@@ -41,6 +41,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-xml-io-deployment</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.camel.k</groupId>
             <artifactId>camel-k-quarkus-loader-xml</artifactId>
         </dependency>
