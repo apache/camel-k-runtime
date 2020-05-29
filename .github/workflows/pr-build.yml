@@ -66,6 +66,7 @@ jobs:
           - :camel-k-quarkus-itests-knative
           - :camel-k-quarkus-itests-loader-xml
           - :camel-k-quarkus-itests-loader-yaml
+          - :camel-k-quarkus-itests-polyglot
           - :camel-k-runtime-example-quarkus-xml
           - :camel-k-runtime-example-quarkus-yaml
           - :camel-k-runtime-example-quarkus-knative
