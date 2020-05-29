@@ -31,13 +31,14 @@ jobs:
         java-version: 11
     - name: mvn install
       run: ./mvnw -V -B -ntp clean install
-    - name: Save Cache
-      uses: actions/cache@v1
+    - name: Tar Maven Repo
+      shell: bash
+      run: tar -czf maven-repo-${{ github.run_id }}-${{ github.run_number }}.tgz -C ~ .m2/repository
+    - name: Persist Maven Repo
+      uses: actions/upload-artifact@v1
       with:
-        path: ~/.m2/repository
-        key: maven-${{ github.run_id }}-${{ github.run_number }}
-        restore-keys: |
-          maven-${{ github.run_id }}-${{ github.run_number }}
+        name: maven-repo-${{ github.run_id }}-${{ github.run_number }}
+        path: maven-repo-${{ github.run_id }}-${{ github.run_number }}.tgz
   build-additional-jvm:
     runs-on: ubuntu-latest
     strategy:
@@ -53,7 +54,7 @@ jobs:
       - name: Build on ${{ matrix.java }}
         run: |
           ./mvnw -V -B -ntp clean install
-  build-native-itests:
+  build-native:
     runs-on: ubuntu-latest
     needs: build
     strategy:
@@ -65,34 +66,6 @@ jobs:
           - :camel-k-quarkus-itests-knative
           - :camel-k-quarkus-itests-loader-xml
           - :camel-k-quarkus-itests-loader-yaml
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Set up JDK 11
-        uses: joschi/setup-jdk@v1
-        with:
-          java-version: 11
-      - name: Restore Cache
-        uses: actions/cache@v1
-        with:
-          path: ~/.m2/repository
-          key: maven-${{ github.run_id }}-${{ github.run_number }}
-          restore-keys: |
-            maven-${{ github.run_id }}-${{ github.run_number }}
-      - name: Integration Test - ${{ matrix.native-image-project }}
-        run: |
-          ./mvnw -V -B -ntp -nsu clean install \
-            -Dnative \
-            -Dnative-image.xmx=6g \
-            -Ddocker \
-            -pl ${{ matrix.native-image-project }}
-  build-native-examples:
-    runs-on: ubuntu-latest
-    needs: build
-    strategy:
-      fail-fast: false
-      matrix:
-        native-image-project:
           - :camel-k-runtime-example-quarkus-xml
           - :camel-k-runtime-example-quarkus-yaml
           - :camel-k-runtime-example-quarkus-knative
@@ -103,13 +76,14 @@ jobs:
         uses: joschi/setup-jdk@v1
         with:
           java-version: 11
-      - name: Restore Cache
-        uses: actions/cache@v1
+      - name: Download Maven Repo
+        uses: actions/download-artifact@v1
         with:
-          path: ~/.m2/repository
-          key: maven-${{ github.run_id }}-${{ github.run_number }}
-          restore-keys: |
-            maven-${{ github.run_id }}-${{ github.run_number }}
+          name: maven-repo-${{ github.run_id }}-${{ github.run_number }}
+          path: .
+      - name: Extract Maven Repo
+        shell: bash
+        run: tar -xzf maven-repo-${{ github.run_id }}-${{ github.run_number }}.tgz -C ~
       - name: Integration Test - ${{ matrix.native-image-project }}
         run: |
           ./mvnw -V -B -ntp -nsu clean install \
