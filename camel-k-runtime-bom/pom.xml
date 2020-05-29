@@ -31,6 +31,10 @@
     <version>1.3.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <properties>
+        <camel.version>3.3.0</camel.version>
+    </properties>
+
     <developers>
         <developer>
             <name>The Apache Camel Team</name>
@@ -85,6 +89,18 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- workarounds -->
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-openapi-java</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-swagger-java</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+
             <!-- tools -->
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
@@ -426,7 +442,7 @@
                             <dependency>
                                 <groupId>org.apache.camel</groupId>
                                 <artifactId>camel-buildtools</artifactId>
-                                <version>3.3.0</version>
+                                <version>${camel.version}</version>
                             </dependency>
                         </dependencies>
                     </plugin>
