@@ -35,6 +35,7 @@
         <module>camel-k-quarkus-itests-loader-js</module>
         <module>camel-k-quarkus-itests-loader-xml</module>
         <module>camel-k-quarkus-itests-loader-yaml</module>
+        <module>camel-k-quarkus-itests-polyglot</module>
     </modules>
 
 </project>
