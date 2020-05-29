@@ -1,4 +1,9 @@
-= Writing Integrations in Javascript
+= Writing Integrations in JavaScript
+
+[WARNING]
+====
+The JavaScript DSL is current in preview support level.
+====
 
 An integration written in JavaScript looks very similar to a Java one:
 
