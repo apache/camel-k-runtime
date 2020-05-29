@@ -20,19 +20,32 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.apache.camel.k</groupId>
-        <artifactId>camel-k-quarkus-core-parent</artifactId>
+        <artifactId>camel-k-quarkus-itests</artifactId>
         <version>1.3.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>camel-k-quarkus-core-it</artifactId>
+    <artifactId>camel-k-quarkus-itests-loader-js</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-quarkus-core</artifactId>
+            <artifactId>camel-k-quarkus-loader-js</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-direct</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-log</artifactId>
         </dependency>
 
+        <!-- quarkus dependencies -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-undertow</artifactId>
+        </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-jsonb</artifactId>
@@ -122,6 +135,7 @@
             </activation>
             <properties>
                 <quarkus.package.type>native</quarkus.package.type>
+                <quarkus.native.additional-build-args>--language:js</quarkus.native.additional-build-args>
             </properties>
             <build>
                 <plugins>

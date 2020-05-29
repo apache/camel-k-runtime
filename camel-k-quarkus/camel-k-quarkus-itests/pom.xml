@@ -26,11 +26,15 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
 
-    <artifactId>camel-k-quarkus-loader-xml-parent</artifactId>
+    <artifactId>camel-k-quarkus-itests</artifactId>
 
     <modules>
-        <module>runtime</module>
-        <module>deployment</module>
+        <module>camel-k-quarkus-itests-core</module>
+        <module>camel-k-quarkus-itests-cron</module>
+        <module>camel-k-quarkus-itests-knative</module>
+        <module>camel-k-quarkus-itests-loader-js</module>
+        <module>camel-k-quarkus-itests-loader-xml</module>
+        <module>camel-k-quarkus-itests-loader-yaml</module>
     </modules>
 
 </project>
