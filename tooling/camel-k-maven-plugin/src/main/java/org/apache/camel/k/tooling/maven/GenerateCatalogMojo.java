@@ -138,6 +138,9 @@ public class GenerateCatalogMojo extends AbstractMojo {
                             .addDependency("org.apache.camel", "camel-rest")
                             .addDependency("org.apache.camel.k", "camel-k-runtime-http")
                             .build());
+                    runtimeSpec.putCapability(
+                        "circuit-breaker",
+                        CamelCapability.forArtifact("org.apache.camel", "camel-microprofile-fault-tolerance"));
                     break;
                 case "quarkus":
                     catalog.setRuntimeProvider(new QuarkusRuntimeProvider());
@@ -158,6 +161,9 @@ public class GenerateCatalogMojo extends AbstractMojo {
                             .addDependency("org.apache.camel.quarkus", "camel-quarkus-rest")
                             .addDependency("org.apache.camel.quarkus", "camel-quarkus-platform-http")
                             .build());
+                    runtimeSpec.putCapability(
+                        "circuit-breaker",
+                        CamelCapability.forArtifact("org.apache.camel.quarkus", "camel-quarkus-microprofile-fault-tolerance"));
                     break;
                 default:
                     throw new IllegalArgumentException("catalog.runtime parameter value [" + runtime + "] is not supported!");
