@@ -125,13 +125,16 @@ public class GenerateCatalogMojo extends AbstractMojo {
                     runtimeSpec.addDependency("org.apache.camel.k", "camel-k-runtime-main");
                     runtimeSpec.putCapability(
                         "cron",
-                        CamelCapability.forArtifact("org.apache.camel.k", "camel-k-runtime-cron"));
+                        CamelCapability.forArtifact(
+                            "org.apache.camel.k", "camel-k-runtime-cron"));
                     runtimeSpec.putCapability(
                         "health",
-                        CamelCapability.forArtifact("org.apache.camel.k", "camel-k-runtime-health"));
+                        CamelCapability.forArtifact(
+                            "org.apache.camel.k", "camel-k-runtime-health"));
                     runtimeSpec.putCapability(
                         "platform-http",
-                        CamelCapability.forArtifact("org.apache.camel.k", "camel-k-runtime-http"));
+                        CamelCapability.forArtifact(
+                            "org.apache.camel.k", "camel-k-runtime-http"));
                     runtimeSpec.putCapability(
                         "rest",
                         new CamelCapability.Builder()
@@ -140,7 +143,12 @@ public class GenerateCatalogMojo extends AbstractMojo {
                             .build());
                     runtimeSpec.putCapability(
                         "circuit-breaker",
-                        CamelCapability.forArtifact("org.apache.camel", "camel-microprofile-fault-tolerance"));
+                        CamelCapability.forArtifact(
+                            "org.apache.camel", "camel-microprofile-fault-tolerance"));
+                    runtimeSpec.putCapability(
+                        "tracing",
+                        CamelCapability.forArtifact(
+                            "org.apache.camel.k", "camel-k-runtime-tracing"));
                     break;
                 case "quarkus":
                     catalog.setRuntimeProvider(new QuarkusRuntimeProvider());
@@ -148,13 +156,16 @@ public class GenerateCatalogMojo extends AbstractMojo {
                     runtimeSpec.addDependency("org.apache.camel.k", "camel-k-runtime-quarkus");
                     runtimeSpec.putCapability(
                         "cron",
-                        CamelCapability.forArtifact("org.apache.camel.k", "camel-k-quarkus-cron"));
+                        CamelCapability.forArtifact(
+                            "org.apache.camel.k", "camel-k-quarkus-cron"));
                     runtimeSpec.putCapability(
                         "health",
-                        CamelCapability.forArtifact("org.apache.camel.quarkus", "camel-quarkus-microprofile-health"));
+                        CamelCapability.forArtifact(
+                            "org.apache.camel.quarkus", "camel-quarkus-microprofile-health"));
                     runtimeSpec.putCapability(
                         "platform-http",
-                        CamelCapability.forArtifact("org.apache.camel.quarkus", "camel-quarkus-platform-http"));
+                        CamelCapability.forArtifact(
+                            "org.apache.camel.quarkus", "camel-quarkus-platform-http"));
                     runtimeSpec.putCapability(
                         "rest",
                         new CamelCapability.Builder()
@@ -163,7 +174,12 @@ public class GenerateCatalogMojo extends AbstractMojo {
                             .build());
                     runtimeSpec.putCapability(
                         "circuit-breaker",
-                        CamelCapability.forArtifact("org.apache.camel.quarkus", "camel-quarkus-microprofile-fault-tolerance"));
+                        CamelCapability.forArtifact(
+                            "org.apache.camel.quarkus", "camel-quarkus-microprofile-fault-tolerance"));
+                    runtimeSpec.putCapability(
+                        "tracing",
+                        CamelCapability.forArtifact(
+                            "org.apache.camel.quarkus", "camel-quarkus-opentracing"));
                     break;
                 default:
                     throw new IllegalArgumentException("catalog.runtime parameter value [" + runtime + "] is not supported!");

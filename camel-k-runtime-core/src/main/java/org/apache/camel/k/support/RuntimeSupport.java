@@ -37,6 +37,7 @@ import org.apache.camel.k.Constants;
 import org.apache.camel.k.ContextCustomizer;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceLoader;
+import org.apache.camel.spi.HasCamelContext;
 import org.apache.camel.util.ObjectHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,6 +54,10 @@ public final class RuntimeSupport {
     // Helpers - Customizers
     //
     // *********************************
+
+    public static List<ContextCustomizer> configureContextCustomizers(HasCamelContext hasCamelContext) {
+        return configureContextCustomizers(hasCamelContext.getCamelContext());
+    }
 
     public static List<ContextCustomizer> configureContextCustomizers(CamelContext context) {
         List<ContextCustomizer> appliedCustomizers = new ArrayList<>();
