@@ -28,13 +28,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TracingContextCustomizerTest {
     @Test
     public void testTracingConfiguration() {
+        final String serviceName = "my-service";
         final String endpoint = "http://jaeger:14268/api/traces";
         final String type = "const";
         final int param = new Random().nextInt(10);
 
         Runtime runtime = Runtime.on(new DefaultCamelContext());
         runtime.setProperties(
+            "service-name", serviceName,
             "camel.k.customizer.tracing.enabled", "true",
+            "camel.k.customizer.tracing.service-name", "{{service-name}}",
             "camel.k.customizer.tracing.reporter.sender.endpoint", endpoint,
             "camel.k.customizer.tracing.sampler.type", type,
             "camel.k.customizer.tracing.sampler.param", Integer.toString(param));
@@ -43,6 +46,7 @@ public class TracingContextCustomizerTest {
             .hasOnlyOneElementSatisfying(customizer -> {
                 assertThat(customizer)
                     .isInstanceOfSatisfying(TracingContextCustomizer.class, tracing -> {
+                        assertThat(tracing.getServiceName()).isEqualTo(serviceName);
                         assertThat(tracing.getReporter().getSenderConfiguration().getEndpoint()).isEqualTo(endpoint);
                         assertThat(tracing.getSampler().getType()).isEqualTo(type);
                         assertThat(tracing.getSampler().getParam().intValue()).isEqualTo(param);
