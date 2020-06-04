@@ -28,15 +28,14 @@ new File(basedir, "catalog.yaml").withReader {
     assert catalog.spec.runtime.capabilities['cron'].dependencies[0].artifactId == 'camel-k-runtime-cron'
     assert catalog.spec.runtime.capabilities['health'].dependencies[0].groupId == 'org.apache.camel.k'
     assert catalog.spec.runtime.capabilities['health'].dependencies[0].artifactId == 'camel-k-runtime-health'
-    assert catalog.spec.runtime.capabilities['rest'].dependencies[0].groupId == 'org.apache.camel'
-    assert catalog.spec.runtime.capabilities['rest'].dependencies[0].artifactId == 'camel-rest'
-    assert catalog.spec.runtime.capabilities['rest'].dependencies[1].groupId == 'org.apache.camel.k'
-    assert catalog.spec.runtime.capabilities['rest'].dependencies[1].artifactId == 'camel-k-runtime-http'
+    assert catalog.spec.runtime.capabilities['rest'].dependencies.any { it.groupId == 'org.apache.camel' && it.artifactId == 'camel-rest' }
+    assert catalog.spec.runtime.capabilities['rest'].dependencies.any { it.groupId == 'org.apache.camel.k' && it.artifactId == 'camel-k-runtime-http' }
     assert catalog.spec.runtime.capabilities['platform-http'].dependencies[0].groupId == 'org.apache.camel.k'
     assert catalog.spec.runtime.capabilities['platform-http'].dependencies[0].artifactId == 'camel-k-runtime-http'
     assert catalog.spec.runtime.capabilities['circuit-breaker'].dependencies[0].groupId == 'org.apache.camel'
     assert catalog.spec.runtime.capabilities['circuit-breaker'].dependencies[0].artifactId == 'camel-microprofile-fault-tolerance'
-
+    assert catalog.spec.runtime.capabilities['tracing'].dependencies[0].groupId == 'org.apache.camel.k'
+    assert catalog.spec.runtime.capabilities['tracing'].dependencies[0].artifactId == 'camel-k-runtime-tracing'
 
     assert catalog.metadata.labels['camel.apache.org/runtime.version'] == runtimeVersion
 
