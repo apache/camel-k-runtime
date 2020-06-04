@@ -64,7 +64,6 @@ public class GenerateDependencyListMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        getLog().info(">>>" + this.outputFile);
         final Path output = Paths.get(this.outputFile);
 
         try {
