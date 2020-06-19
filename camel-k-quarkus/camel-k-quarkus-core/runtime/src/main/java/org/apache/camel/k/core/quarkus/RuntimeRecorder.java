@@ -20,12 +20,27 @@ import java.util.List;
 
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
+import org.apache.camel.CamelContext;
+import org.apache.camel.k.CompositeClassloader;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.main.MainListener;
+import org.apache.camel.quarkus.core.CamelContextCustomizer;
 
 @Recorder
 public class RuntimeRecorder {
     public RuntimeValue<MainListener> createMainListener(List<Runtime.Listener> listeners) {
         return new RuntimeValue<>(new RuntimeListenerAdapter(listeners));
+    }
+
+    public RuntimeValue<CamelContextCustomizer> registerCompositeClassLoader() {
+        return new RuntimeValue<>(new CamelContextCustomizer() {
+            @Override
+            public void customize(CamelContext context) {
+                final ClassLoader oldLoader = context.getApplicationContextClassLoader();
+                final ClassLoader newLoader = CompositeClassloader.wrap(oldLoader);
+
+                context.setApplicationContextClassLoader(newLoader);
+            }
+        });
     }
 }

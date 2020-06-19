@@ -28,6 +28,7 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.k.CompositeClassloader;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.support.PropertiesSupport;
 import org.apache.camel.main.BaseMainSupport;
@@ -52,6 +53,7 @@ public final class ApplicationRuntime implements Runtime {
 
         this.context = new DefaultCamelContext();
         this.context.setName("camel-k");
+        this.context.setApplicationContextClassLoader(new CompositeClassloader());
 
         this.main = new MainAdapter();
         this.main.configure().setXmlRoutes("false");

@@ -30,6 +30,7 @@ import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 import org.apache.camel.k.Constants;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.core.quarkus.RuntimeRecorder;
+import org.apache.camel.quarkus.core.deployment.spi.CamelContextCustomizerBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelMainListenerBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem;
 import org.apache.camel.spi.HasId;
@@ -132,5 +133,11 @@ public class DeploymentProcessor {
         });
 
         return new CamelMainListenerBuildItem(recorder.createMainListener(listeners));
+    }
+
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep
+    void customizeContext(RuntimeRecorder recorder, BuildProducer<CamelContextCustomizerBuildItem> customizers) {
+        customizers.produce(new CamelContextCustomizerBuildItem(recorder.registerCompositeClassLoader()));
     }
 }

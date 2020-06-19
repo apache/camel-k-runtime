@@ -25,6 +25,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.k.CompositeClassloader;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceLoader;
@@ -109,6 +110,20 @@ public class RoutesLoaderTest {
         });
     }
 
+    @Test
+    public void testLoadJavaWithNestedType() throws Exception {
+        TestRuntime runtime = new TestRuntime();
+        Source source = Sources.fromURI("classpath:MyRoutesWithNestedTypes.java");
+        SourceLoader loader = RoutesConfigurer.load(runtime, source);
+
+        assertThat(loader).isInstanceOf(JavaSourceLoader.class);
+        assertThat(runtime.builders).hasSize(1);
+        assertThat(runtime.builders).first().isInstanceOf(RouteBuilder.class);
+
+        runtime.getCamelContext().addRoutes(runtime.builders.get(0));
+        runtime.getCamelContext().getApplicationContextClassLoader().loadClass("MyRoutesWithNestedTypes$MyModel");
+    }
+
     @ParameterizedTest
     @MethodSource("parameters")
     public void testLoaders(String location, Class<? extends SourceLoader> type) throws Exception {
@@ -148,6 +163,7 @@ public class RoutesLoaderTest {
 
         public TestRuntime() {
             this.camelContext = new DefaultCamelContext();
+            this.camelContext.setApplicationContextClassLoader(new CompositeClassloader());
             this.builders = new ArrayList<>();
             this.configurations = new ArrayList<>();
         }
