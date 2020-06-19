@@ -21,21 +21,30 @@ import org.apache.camel.k.Runtime;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class PropertiesFunctionsConfigurerTest {
     @Test
-    public void testConfigMapFunction() {
-
+    public void testKubernetesFunction() {
         Runtime runtime = Runtime.on(new DefaultCamelContext());
         runtime.setProperties("my.property", "{{secret:my-secret/my-property}}");
 
         new PropertiesConfigurer().accept(runtime);
 
-        assertThat(runtime.getCamelContext().resolvePropertyPlaceholders("{{secret:my-secret/my-property}}")).isEqualTo("my-secret-property");
-        assertThat(runtime.getCamelContext().resolvePropertyPlaceholders("{{secret:none/my-property}}")).isEqualTo("none/my-property");
+        assertThat(runtime.getCamelContext().resolvePropertyPlaceholders("{{secret:my-secret/my-property}}"))
+            .isEqualTo("my-secret-property");
+        assertThat(runtime.getCamelContext().resolvePropertyPlaceholders("{{secret:none/my-property:my-default-secret}}"))
+            .isEqualTo("my-default-secret");
+        assertThatThrownBy(() -> runtime.getCamelContext().resolvePropertyPlaceholders("{{secret:none/my-property}}"))
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessageContaining("returned null value which is not allowed, from input");
 
         assertThat(runtime.getCamelContext().resolvePropertyPlaceholders("{{configmap:my-cm/my-property}}")).isEqualTo("my-cm-property");
-        assertThat(runtime.getCamelContext().resolvePropertyPlaceholders("{{configmap:none/my-property}}")).isEqualTo("none/my-property");
+        assertThat(runtime.getCamelContext().resolvePropertyPlaceholders("{{configmap:my-cm/my-property:my-default-cm}}"))
+            .isEqualTo("my-default-cm");
+        assertThatThrownBy(() -> runtime.getCamelContext().resolvePropertyPlaceholders("{{configmap:none/my-property}}"))
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessageContaining("returned null value which is not allowed, from input");
 
         assertThat(runtime.getCamelContext().resolvePropertyPlaceholders("{{my.property}}")).isEqualTo("my-secret-property");
     }
