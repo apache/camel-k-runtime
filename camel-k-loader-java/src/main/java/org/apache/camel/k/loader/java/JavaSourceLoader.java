@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.camel.k.CompositeClassloader;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceLoader;
@@ -46,6 +47,14 @@ public class JavaSourceLoader implements SourceLoader {
             final String name = determineQualifiedName(source, content);
             final Reflect compiled = Reflect.compile(name, content);
             final Object instance = compiled.create().get();
+
+            // The given source may contains additional nested classes which are unknown to Camel
+            // as they are associated to the ClassLoader used to compile the source thus we need
+            // to add it to the ApplicationContextClassLoader.
+            final ClassLoader loader = runtime.getCamelContext().getApplicationContextClassLoader();
+            if (loader instanceof CompositeClassloader) {
+                ((CompositeClassloader) loader).addClassLoader(instance.getClass().getClassLoader());
+            }
 
             return Result.on(instance);
         }

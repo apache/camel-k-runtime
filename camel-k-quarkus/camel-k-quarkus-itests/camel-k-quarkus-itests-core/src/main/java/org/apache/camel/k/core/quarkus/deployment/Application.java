@@ -19,6 +19,7 @@ package org.apache.camel.k.core.quarkus.deployment;
 import java.util.ServiceLoader;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
@@ -27,11 +28,15 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.k.Runtime;
 
 @Path("/test")
 @ApplicationScoped
 public class Application {
+    @Inject
+    CamelContext camelContext;
+
     @GET
     @Path("/services")
     @Produces(MediaType.APPLICATION_JSON)
@@ -45,5 +50,12 @@ public class Application {
         return Json.createObjectBuilder()
             .add("services", builder)
             .build();
+    }
+
+    @GET
+    @Path("/application-classloader")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getApplicationClassloader() {
+        return camelContext.getApplicationContextClassLoader().getClass().getName();
     }
 }
