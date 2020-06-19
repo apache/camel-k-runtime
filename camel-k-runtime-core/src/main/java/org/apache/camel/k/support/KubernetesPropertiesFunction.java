@@ -41,15 +41,17 @@ public class KubernetesPropertiesFunction implements PropertiesFunction {
 
     @Override
     public String apply(String remainder) {
+        final String defaultValue = StringHelper.after(remainder, ":");
+
         if (this.root == null) {
-            return remainder;
+            return defaultValue;
         }
 
         final String name = StringHelper.before(remainder, "/");
         final String property = StringHelper.after(remainder, "/");
 
         if (name == null || property == null) {
-            return remainder;
+            return defaultValue;
         }
 
         Path file = this.root.resolve(name.toLowerCase()).resolve(property);
@@ -61,6 +63,6 @@ public class KubernetesPropertiesFunction implements PropertiesFunction {
             }
         }
 
-        return remainder;
+        return defaultValue;
     }
 }
