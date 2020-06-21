@@ -37,6 +37,7 @@ public final class Knative {
     public static final String SERVICE_META_HOST = "service.host";
     public static final String SERVICE_META_ZONE = "service.zone";
     public static final String SERVICE_META_PATH = "service.path";
+    public static final String SERVICE_META_URL = "service.url";
 
     private Knative() {
     }

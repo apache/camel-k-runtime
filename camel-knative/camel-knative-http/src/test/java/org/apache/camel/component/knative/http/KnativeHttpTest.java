@@ -234,6 +234,49 @@ public class KnativeHttpTest {
 
     @ParameterizedTest
     @EnumSource(CloudEvents.class)
+    void testInvokeEndpointByUrl(CloudEvent ce) throws Exception {
+        configureKnativeComponent(
+            context,
+            ce,
+            endpoint(
+                Knative.EndpointKind.sink,
+                "myEndpoint",
+                "none",
+                -1,
+                mapOf(
+                    Knative.SERVICE_META_PATH, "/does/not/exist",
+                    Knative.SERVICE_META_URL, String.format("http://localhost:%d/a/path", platformHttpPort),
+                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.CONTENT_TYPE, "text/plain"
+                ))
+        );
+
+        RouteBuilder.addRoutes(context, b -> {
+            b.from("direct:source")
+                .to("knative:endpoint/myEndpoint");
+            b.from("platform-http:/a/path")
+                .to("mock:ce");
+        });
+
+        context.start();
+
+        MockEndpoint mock = context.getEndpoint("mock:ce", MockEndpoint.class);
+        mock.expectedHeaderReceived(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_VERSION).http(), ce.version());
+        mock.expectedHeaderReceived(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).http(), "org.apache.camel.event");
+        mock.expectedHeaderReceived(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_SOURCE).http(), "knative://endpoint/myEndpoint");
+        mock.expectedHeaderReceived(Exchange.CONTENT_TYPE, "text/plain");
+        mock.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TIME).http()));
+        mock.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_ID).http()));
+        mock.expectedBodiesReceived("test");
+        mock.expectedMessageCount(1);
+
+        template.sendBody("direct:source", "test");
+
+        mock.assertIsSatisfied();
+    }
+
+    @ParameterizedTest
+    @EnumSource(CloudEvents.class)
     void testConsumeStructuredContent(CloudEvent ce) throws Exception {
 
         configureKnativeComponent(
