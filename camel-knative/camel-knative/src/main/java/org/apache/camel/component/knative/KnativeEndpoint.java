@@ -139,7 +139,7 @@ public class KnativeEndpoint extends DefaultEndpoint {
         //
         KnativeEnvironment.KnativeServiceDefinition service = lookupServiceDefinition(serviceName, endpointKind)
             .or(() -> lookupServiceDefinition("default", endpointKind))
-            .orElseThrow(() -> new IllegalArgumentException(String.format("Unable to find a service definition for %s/%s/%s", type, serviceName, endpointKind)));
+            .orElseThrow(() -> new IllegalArgumentException(String.format("Unable to find a service definition for %s/%s/%s", type, endpointKind, serviceName)));
 
         final Map<String, String> metadata = new HashMap<>(service.getMetadata());
 
