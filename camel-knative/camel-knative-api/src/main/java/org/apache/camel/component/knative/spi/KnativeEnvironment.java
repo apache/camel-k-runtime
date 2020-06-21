@@ -19,6 +19,8 @@ package org.apache.camel.component.knative.spi;
 import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -263,11 +265,48 @@ public class KnativeEnvironment {
             );
         }
 
+        @Override
+        public String getHost() {
+            String urlAsString = getUrl();
+            if (urlAsString != null) {
+                try {
+                    return new URL(urlAsString).getHost();
+                } catch (MalformedURLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+            return super.getHost();
+        }
+
+        @Override
+        public int getPort() {
+            String urlAsString = getUrl();
+            if (urlAsString != null) {
+                try {
+                    return new URL(urlAsString).getPort();
+                } catch (MalformedURLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+            return super.getPort();
+        }
+
         public Knative.Type getType() {
             return Knative.Type.valueOf(getMetadata().get(Knative.KNATIVE_TYPE));
         }
 
         public String getPath() {
+            String urlAsString = getUrl();
+            if (urlAsString != null) {
+                try {
+                    return new URL(urlAsString).getPath();
+                } catch (MalformedURLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
             return getMetadata(Knative.SERVICE_META_PATH);
         }
 

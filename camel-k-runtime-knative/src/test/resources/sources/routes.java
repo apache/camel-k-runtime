@@ -21,12 +21,7 @@ public class MyRoutes extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         from("direct:start")
-            .setBody().simple("${header[MyHeader]}")
+            .setBody().header("MyHeader")
             .to("log:knative");
-    }
-
-    @BindToRegistry("my-bean")
-    public static String myBean() {
-        return "my-bean-string";
     }
 }

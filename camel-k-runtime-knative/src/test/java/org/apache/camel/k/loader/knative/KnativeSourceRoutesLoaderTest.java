@@ -18,7 +18,10 @@ package org.apache.camel.k.loader.knative;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -26,6 +29,9 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.knative.KnativeComponent;
+import org.apache.camel.component.knative.KnativeConstants;
+import org.apache.camel.component.knative.spi.CloudEvent;
+import org.apache.camel.component.knative.spi.CloudEvents;
 import org.apache.camel.component.knative.spi.Knative;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
 import org.apache.camel.component.mock.MockEndpoint;
@@ -74,11 +80,8 @@ public class KnativeSourceRoutesLoaderTest {
             KnativeEnvironment.endpoint(Knative.EndpointKind.sink, "sink", "localhost", runtime.port)
         ));
 
-
         CamelContext context = runtime.getCamelContext();
-        context.disableJMX();
-        context.setStreamCaching(true);
-        context.addComponent("knative", component);
+        context.addComponent(KnativeConstants.SCHEME, component);
 
         Source source = Sources.fromURI(uri);
         SourceLoader loader = RoutesConfigurer.load(runtime, source);
@@ -112,11 +115,82 @@ public class KnativeSourceRoutesLoaderTest {
             mock.expectedMessageCount(1);
             mock.expectedBodiesReceived(data);
 
-            context.createProducerTemplate().sendBodyAndHeader(
-                "direct:start",
-                "",
-                "MyHeader",
-                data);
+            context.createFluentProducerTemplate()
+                .to("direct:start")
+                .withHeader("MyHeader", data)
+                .send();
+
+            mock.assertIsSatisfied();
+        } finally {
+            context.stop();
+        }
+    }
+
+    @ParameterizedTest
+    @MethodSource("parameters")
+    public void testWrapLoaderWithSyntheticServiceDefinition(String uri) throws Exception {
+        LOGGER.info("uri: {}", uri);
+
+        final String data = UUID.randomUUID().toString();
+        final TestRuntime runtime = new TestRuntime();
+        final String typeHeaderKey = CloudEvents.v1_0.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).http();
+        final String typeHeaderVal = UUID.randomUUID().toString();
+        final String url = String.format("http://localhost:%d", runtime.port);
+
+        KnativeComponent component = new KnativeComponent();
+        component.setEnvironment(new KnativeEnvironment(Collections.emptyList()));
+
+        Properties properties = new Properties();
+        properties.put("knative.sink", "mySynk");
+        properties.put("k.sink", String.format("http://localhost:%d", runtime.port));
+        properties.put("k.ce.overrides", Knative.MAPPER.writeValueAsString(Map.of(typeHeaderKey, typeHeaderVal)));
+
+        CamelContext context = runtime.getCamelContext();
+        context.getPropertiesComponent().setInitialProperties(properties);
+        context.addComponent(KnativeConstants.SCHEME, component);
+
+        Source source = Sources.fromURI(uri);
+        SourceLoader loader = RoutesConfigurer.load(runtime, source);
+
+        assertThat(loader.getSupportedLanguages()).contains(source.getLanguage());
+        assertThat(runtime.builders).hasSize(1);
+
+        try {
+            context.addRoutes(runtime.builders.get(0));
+            context.addRoutes(new RouteBuilder() {
+                @Override
+                public void configure() throws Exception {
+                    fromF("platform-http:/")
+                        .routeId("http")
+                        .to("mock:result");
+                }
+            });
+            context.start();
+
+            var definitions = context.adapt(ModelCamelContext.class).getRouteDefinitions();
+            var services = context.getRegistry().findByType(KnativeEnvironment.KnativeServiceDefinition.class);
+
+            assertThat(definitions).hasSize(2);
+            assertThat(definitions).first().satisfies(d -> {
+                assertThat(d.getOutputs()).last().hasFieldOrPropertyWithValue(
+                    "endpointUri",
+                    "knative://endpoint/mySynk"
+                );
+            });
+
+            assertThat(services).hasSize(1);
+            assertThat(services).first().hasFieldOrPropertyWithValue("name", "mySynk");
+            assertThat(services).first().hasFieldOrPropertyWithValue("url", url);
+
+            MockEndpoint mock = context.getEndpoint("mock:result", MockEndpoint.class);
+            mock.expectedMessageCount(1);
+            mock.expectedBodiesReceived(data);
+            mock.expectedHeaderReceived(typeHeaderKey, typeHeaderVal);
+
+            context.createFluentProducerTemplate()
+                .to("direct:start")
+                .withHeader("MyHeader", data)
+                .send();
 
             mock.assertIsSatisfied();
         } finally {
@@ -131,6 +205,9 @@ public class KnativeSourceRoutesLoaderTest {
 
         public TestRuntime() {
             this.camelContext = new DefaultCamelContext();
+            this.camelContext.disableJMX();
+            this.camelContext.setStreamCaching(true);
+
             this.builders = new ArrayList<>();
             this.port = AvailablePortFinder.getNextAvailable();
 

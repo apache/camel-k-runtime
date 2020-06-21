@@ -15,6 +15,6 @@
  * limitations under the License.
  */
 from("direct:start")
-    .setBody().simple("\${header[MyHeader]}")
+    .setBody().header("MyHeader")
     .to("log:knative")
 
