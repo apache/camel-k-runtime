@@ -17,6 +17,7 @@
 package org.apache.camel.component.knative.http;
 
 import java.util.Map;
+import java.util.function.Supplier;
 
 import io.vertx.core.MultiMap;
 import io.vertx.core.Vertx;
@@ -38,6 +39,7 @@ import org.apache.camel.support.DefaultMessage;
 import org.apache.camel.support.MessageHelper;
 import org.apache.camel.util.ObjectHelper;
 import org.apache.camel.util.URISupport;
+import org.apache.camel.util.function.Suppliers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,6 +51,7 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
     private final Vertx vertx;
     private final WebClientOptions clientOptions;
     private final HeaderFilterStrategy headerFilterStrategy;
+    private final Supplier<String> uri;
 
     private WebClient client;
 
@@ -65,6 +68,7 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
         this.vertx = ObjectHelper.notNull(vertx, "vertx");
         this.clientOptions = ObjectHelper.supplyIfEmpty(clientOptions, WebClientOptions::new);
         this.headerFilterStrategy = new KnativeHttpHeaderFilterStrategy();
+        this.uri = Suppliers.memorize(() -> computeUrl(serviceDefinition));
     }
 
     @Override
@@ -111,10 +115,7 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
             return true;
         }
 
-        final int port = serviceDefinition.getPortOrDefault(KnativeHttpTransport.DEFAULT_PORT);
-        final String path = serviceDefinition.getPathOrDefault(KnativeHttpTransport.DEFAULT_PATH);
-
-        client.post(port, serviceDefinition.getHost(), path)
+        client.postAbs(this.uri.get())
             .putHeaders(headers)
             .sendBuffer(Buffer.buffer(payload), response -> {
                 if (response.succeeded()) {
@@ -136,7 +137,7 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
                     if (result.statusCode() < 200 || result.statusCode() >= 300) {
                         String exceptionMessage = String.format(
                             "HTTP operation failed invoking %s with statusCode: %d, statusMessage: %s",
-                            URISupport.sanitizeUri(getURI()),
+                            URISupport.sanitizeUri(this.uri.get()),
                             result.statusCode(),
                             result.statusMessage()
                         );
@@ -148,7 +149,7 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
 
                     exchange.setMessage(answer);
                 } else if (response.failed()) {
-                    String exceptionMessage = "HTTP operation failed invoking " + URISupport.sanitizeUri(getURI());
+                    String exceptionMessage = "HTTP operation failed invoking " + URISupport.sanitizeUri(this.uri.get());
                     if (response.result() != null) {
                         exceptionMessage += " with statusCode: " + response.result().statusCode();
                     }
@@ -180,12 +181,20 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
         }
     }
 
-    private String getURI() {
-        String p = ObjectHelper.supplyIfEmpty(serviceDefinition.getPath(), () -> KnativeHttpTransport.DEFAULT_PATH);
-        if (!p.startsWith("/")) {
-            p = "/" + p;
+    private static String computeUrl(KnativeEnvironment.KnativeServiceDefinition definition) {
+        String url = definition.getUrl();
+        if (url == null) {
+            int port = definition.getPortOrDefault(KnativeHttpTransport.DEFAULT_PORT);
+            String path = definition.getPathOrDefault(KnativeHttpTransport.DEFAULT_PATH);
+
+            if (!path.startsWith("/")) {
+                path = "/" + path;
+            }
+
+            url = String.format("http://%s:%d%s", definition.getHost(), port, path);
         }
 
-        return String.format("http://%s:%d%s", serviceDefinition.getHost(), serviceDefinition.getPort(), p);
+        return url;
     }
+
 }
