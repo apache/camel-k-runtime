@@ -67,6 +67,8 @@ public class KnativeComponentTest {
         component.setEnvironment(env);
         component.setTransport(new KnativeTransportNoop());
 
+        context.getRegistry().bind("ereg", KnativeEnvironment.endpoint(Knative.EndpointKind.source, "ereg", null, -1));
+        context.getRegistry().bind("creg", KnativeEnvironment.channel(Knative.EndpointKind.source, "creg", null, -1));
         context.addComponent("knative", component);
 
         //
@@ -77,6 +79,10 @@ public class KnativeComponentTest {
             assertThat(endpoint.lookupServiceDefinition("c1", Knative.EndpointKind.source)).isPresent();
             assertThat(endpoint.lookupServiceDefinition("e1", Knative.EndpointKind.source)).isNotPresent();
         }
+        {
+            KnativeEndpoint endpoint = context.getEndpoint("knative:channel/creg", KnativeEndpoint.class);
+            assertThat(endpoint.lookupServiceDefinition("creg", Knative.EndpointKind.source)).isPresent();
+        }
 
         //
         // Endpoints
@@ -85,6 +91,10 @@ public class KnativeComponentTest {
             KnativeEndpoint endpoint = context.getEndpoint("knative:endpoint/e1", KnativeEndpoint.class);
             assertThat(endpoint.lookupServiceDefinition("e1", Knative.EndpointKind.source)).isPresent();
             assertThat(endpoint.lookupServiceDefinition("c1", Knative.EndpointKind.source)).isNotPresent();
+        }
+        {
+            KnativeEndpoint endpoint = context.getEndpoint("knative:endpoint/ereg", KnativeEndpoint.class);
+            assertThat(endpoint.lookupServiceDefinition("ereg", Knative.EndpointKind.source)).isPresent();
         }
     }
 }

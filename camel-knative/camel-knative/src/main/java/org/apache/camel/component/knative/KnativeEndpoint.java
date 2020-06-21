@@ -20,6 +20,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 import org.apache.camel.Consumer;
 import org.apache.camel.Processor;
@@ -51,11 +53,9 @@ public class KnativeEndpoint extends DefaultEndpoint {
     private final Knative.Type type;
     @UriPath(description = "The Knative name")
     private final String name;
-
+    private final CloudEventProcessor cloudEvent;
     @UriParam
     private KnativeConfiguration configuration;
-
-    private final CloudEventProcessor cloudEvent;
 
     public KnativeEndpoint(String uri, KnativeComponent component, Knative.Type type, String name, KnativeConfiguration configuration) {
         super(uri, component);
@@ -120,12 +120,12 @@ public class KnativeEndpoint extends DefaultEndpoint {
         return name;
     }
 
-    public void setConfiguration(KnativeConfiguration configuration) {
-        this.configuration = configuration;
-    }
-
     public KnativeConfiguration getConfiguration() {
         return configuration;
+    }
+
+    public void setConfiguration(KnativeConfiguration configuration) {
+        this.configuration = configuration;
     }
 
     KnativeEnvironment.KnativeServiceDefinition lookupServiceDefinition(Knative.EndpointKind endpointKind) {
@@ -152,7 +152,7 @@ public class KnativeEndpoint extends DefaultEndpoint {
                     key = Knative.KNATIVE_FILTER_PREFIX + key;
                 }
 
-                metadata.put(key, (String)val);
+                metadata.put(key, (String) val);
             }
         }
 
@@ -165,7 +165,7 @@ public class KnativeEndpoint extends DefaultEndpoint {
                     key = Knative.KNATIVE_CE_OVERRIDE_PREFIX + key;
                 }
 
-                metadata.put(key, (String)val);
+                metadata.put(key, (String) val);
             }
         }
 
@@ -184,25 +184,9 @@ public class KnativeEndpoint extends DefaultEndpoint {
     }
 
     Optional<KnativeEnvironment.KnativeServiceDefinition> lookupServiceDefinition(String name, Knative.EndpointKind endpointKind) {
-        return this.configuration.getEnvironment()
-            .lookup(this.type, name)
-            .filter(s -> {
-                final String type = s.getMetadata().get(Knative.CAMEL_ENDPOINT_KIND);
-                final String apiv = s.getMetadata().get(Knative.KNATIVE_API_VERSION);
-                final String kind = s.getMetadata().get(Knative.KNATIVE_KIND);
-
-                if (!Objects.equals(endpointKind.name(), type)) {
-                    return false;
-                }
-                if (configuration.getApiVersion() != null && !Objects.equals(apiv, configuration.getApiVersion())) {
-                    return false;
-                }
-                if (configuration.getKind() != null && !Objects.equals(kind, configuration.getKind())) {
-                    return false;
-                }
-
-                return true;
-            })
+        return servicesDefinitions()
+            .filter(definition -> definition.matches(this.type, name))
+            .filter(serviceFilter(endpointKind))
             .findFirst();
     }
 
@@ -211,5 +195,32 @@ public class KnativeEndpoint extends DefaultEndpoint {
             this.cloudEvent.cloudEvent(),
             !this.configuration.isReplyWithCloudEvent()
         );
+    }
+
+    private Stream<KnativeEnvironment.KnativeServiceDefinition> servicesDefinitions() {
+        return Stream.concat(
+            getCamelContext().getRegistry().findByType(KnativeEnvironment.KnativeServiceDefinition.class).stream(),
+            this.configuration.getEnvironment().stream()
+        );
+    }
+
+    private Predicate<KnativeEnvironment.KnativeServiceDefinition> serviceFilter(Knative.EndpointKind endpointKind) {
+        return s -> {
+            final String type = s.getMetadata(Knative.CAMEL_ENDPOINT_KIND);
+            final String apiv = s.getMetadata(Knative.KNATIVE_API_VERSION);
+            final String kind = s.getMetadata(Knative.KNATIVE_KIND);
+
+            if (!Objects.equals(endpointKind.name(), type)) {
+                return false;
+            }
+            if (configuration.getApiVersion() != null && !Objects.equals(apiv, configuration.getApiVersion())) {
+                return false;
+            }
+            if (configuration.getKind() != null && !Objects.equals(kind, configuration.getKind())) {
+                return false;
+            }
+
+            return true;
+        };
     }
 }
