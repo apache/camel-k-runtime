@@ -53,11 +53,7 @@ public class KnativeEnvironment {
     }
 
     public Stream<KnativeServiceDefinition> lookup(Knative.Type type, String name) {
-        return services.stream()
-            .filter(definition -> {
-                return Objects.equals(type.name(), definition.getMetadata().get(Knative.KNATIVE_TYPE))
-                    && Objects.equals(name, definition.getName());
-            });
+        return stream().filter(definition -> definition.matches(type, name));
     }
 
     // ************************
@@ -266,6 +262,15 @@ public class KnativeEnvironment {
 
         public int getPortOrDefault(int port) {
             return getPort() != -1 ? getPort() : port;
+        }
+
+        public String getMetadata(String key) {
+            return getMetadata().get(key);
+        }
+
+        public boolean matches(Knative.Type type, String name) {
+            return Objects.equals(type.name(), getMetadata(Knative.KNATIVE_TYPE))
+                && Objects.equals(name, getName());
         }
     }
 }
