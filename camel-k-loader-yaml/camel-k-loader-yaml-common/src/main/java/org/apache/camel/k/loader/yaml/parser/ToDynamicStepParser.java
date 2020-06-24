@@ -21,6 +21,7 @@ import java.net.URISyntaxException;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.camel.k.annotation.yaml.YAMLNodeDefinition;
 import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.k.loader.yaml.spi.ProcessorStepParser;
@@ -28,7 +29,7 @@ import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.ToDynamicDefinition;
 import org.apache.camel.util.URISupport;
 
-@YAMLStepParser({"tod", "to-d"})
+@YAMLStepParser(id = "tod", definitions = ToDynamicStepParser.Definition.class)
 public class ToDynamicStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {
@@ -40,6 +41,7 @@ public class ToDynamicStepParser implements ProcessorStepParser {
 
     @YAMLNodeDefinition
     public static final class Definition extends ToDynamicDefinition {
+        @JsonProperty
         public Map<String, Object> parameters;
 
         public Definition() {

@@ -23,7 +23,7 @@ import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.SortDefinition;
 import org.apache.camel.reifier.SortReifier;
 
-@YAMLStepParser("sort")
+@YAMLStepParser(id = "sort", definitions = SortStepParser.Definition.class)
 public class SortStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

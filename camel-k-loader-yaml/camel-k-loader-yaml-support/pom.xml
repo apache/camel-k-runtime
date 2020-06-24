@@ -25,7 +25,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>camel-k-loader-yaml</artifactId>
+    <artifactId>camel-k-loader-yaml-support</artifactId>
 
     <dependencies>
 
@@ -42,10 +42,6 @@
         <dependency>
             <groupId>org.apache.camel.k</groupId>
             <artifactId>camel-k-loader-yaml-common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-loader-yaml-support</artifactId>
         </dependency>
 
         <dependency>
@@ -67,56 +63,6 @@
             <artifactId>camel-k-annotations</artifactId>
             <scope>provided</scope>
         </dependency>
-
-        <!-- ****************************** -->
-        <!--                                -->
-        <!-- TESTS                          -->
-        <!--                                -->
-        <!-- ****************************** -->
-
-        <dependency>
-            <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-mock</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-direct</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-log</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-bean</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.spockframework</groupId>
-            <artifactId>spock-core</artifactId>
-            <version>${spock.version}</version>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.codehaus.groovy</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>junit</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
     </dependencies>
 
     <build>
@@ -130,17 +76,11 @@
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>add-source</goal>
-                            <goal>add-resource</goal>
                         </goals>
                         <configuration>
                             <sources>
-                                <source>src/generated/java</source>
+                                <source>${project.build.directory}/generated-sources/camel</source>
                             </sources>
-                            <resources>
-                                <resource>
-                                    <directory>src/generated/resources</directory>
-                                </resource>
-                            </resources>
                         </configuration>
                     </execution>
                 </executions>
@@ -153,10 +93,9 @@
                     <execution>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>generate-yaml-schema</goal>
+                            <goal>generate-yaml-loader-support-classes</goal>
                         </goals>
                         <configuration>
-                            <outputFile>${project.basedir}/src/generated/resources/yaml-schema.json</outputFile>
                             <bannedDefinitions>
                                 <bannedDefinition>org.apache.camel.model.Resilience4jConfigurationDefinition</bannedDefinition>
                                 <bannedDefinition>org.apache.camel.model.HystrixConfigurationDefinition</bannedDefinition>
@@ -175,22 +114,6 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.gmavenplus</groupId>
-                <artifactId>gmavenplus-plugin</artifactId>
-                <version>${gmavenplus-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>addTestSources</goal>
-                            <goal>compileTests</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <invokeDynamic>true</invokeDynamic>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.jboss.jandex</groupId>

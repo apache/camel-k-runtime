@@ -14,12 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-- route:
-    id: yaml
-    from:
-      uri: 'direct:yaml'
+- from:
+    uri: "direct:route"
     steps:
-      - marshal:
-          json: {}
-      - to: 'log:yaml'
+      - bean:
+          bean-type: org.apache.camel.k.loader.yaml.support.MyUppercaseProcessor
+      - to: "mock:route"

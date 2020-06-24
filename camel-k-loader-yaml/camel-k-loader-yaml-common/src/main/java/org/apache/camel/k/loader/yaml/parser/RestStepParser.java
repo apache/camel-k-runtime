@@ -31,7 +31,7 @@ import org.apache.camel.model.rest.RestBindingMode;
 import org.apache.camel.model.rest.RestDefinition;
 import org.apache.camel.util.ObjectHelper;
 
-@YAMLStepParser("rest")
+@YAMLStepParser(id = "rest", definitions = RestStepParser.Definition.class)
 public class RestStepParser implements StartStepParser {
     @Override
     public ProcessorDefinition<?> toStartProcessor(Context context) {

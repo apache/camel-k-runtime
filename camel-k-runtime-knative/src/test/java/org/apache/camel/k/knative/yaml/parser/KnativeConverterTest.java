@@ -53,16 +53,6 @@ public class KnativeConverterTest {
         List<RouteDefinition> routes = runtime.camelContext.getRouteDefinitions();
         assertThat(routes).hasSize(1);
 
-        // definition
-        assertThat(routes)
-            .first()
-            .extracting(RouteDefinition::getId)
-            .isEqualTo("knative");
-        assertThat(routes)
-            .first()
-            .extracting(RouteDefinition::getGroup)
-            .isEqualTo("flows");
-
         // input
         assertThat(routes)
             .first()

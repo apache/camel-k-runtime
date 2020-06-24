@@ -37,6 +37,7 @@ import org.apache.commons.text.WordUtils;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 
 @Mojo(
@@ -46,6 +47,9 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
     requiresDependencyResolution = ResolutionScope.COMPILE,
     threadSafe = true)
 public class GenerateYamlParserSupportClasses extends GenerateYamlSupport {
+    @Parameter(defaultValue = "${project.build.directory}/generated-sources/camel")
+    protected String output;
+
     @Override
     public void execute() throws MojoFailureException {
         try {
@@ -99,7 +103,7 @@ public class GenerateYamlParserSupportClasses extends GenerateYamlSupport {
                     .addAnnotation(
                         AnnotationSpec.builder(JsonAlias.class).addMember("value", "$S", k).build())
                     .addModifiers(Modifier.PUBLIC, Modifier.DEFAULT)
-                    .addParameter(v, "definition")
+                    .addParameter(loadClass(v), "definition")
                     .addCode(
                         CodeBlock.builder()
                             .beginControlFlow("if (getExpression() != null)")
@@ -151,7 +155,7 @@ public class GenerateYamlParserSupportClasses extends GenerateYamlSupport {
                     .addAnnotation(
                         AnnotationSpec.builder(JsonAlias.class).addMember("value", "$S", k).build())
                     .addModifiers(Modifier.PUBLIC, Modifier.DEFAULT)
-                    .addParameter(v, "definition")
+                    .addParameter(loadClass(v), "definition")
                     .addCode(
                         CodeBlock.builder()
                             .beginControlFlow("if (getDataFormatType() != null)")
@@ -200,7 +204,7 @@ public class GenerateYamlParserSupportClasses extends GenerateYamlSupport {
                     .addAnnotation(
                         AnnotationSpec.builder(JsonAlias.class).addMember("value", "$S", k).build())
                     .addModifiers(Modifier.PUBLIC, Modifier.DEFAULT)
-                    .addParameter(v, "definition")
+                    .addParameter(loadClass(v), "definition")
                     .addCode(
                         CodeBlock.builder()
                             .beginControlFlow("if (getLoadBalancerType() != null)")

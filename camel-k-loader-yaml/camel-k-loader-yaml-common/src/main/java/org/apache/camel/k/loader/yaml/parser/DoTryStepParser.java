@@ -19,6 +19,7 @@ package org.apache.camel.k.loader.yaml.parser;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.camel.k.annotation.yaml.YAMLNodeDefinition;
 import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.k.loader.yaml.model.Step;
@@ -33,7 +34,7 @@ import org.apache.camel.reifier.CatchReifier;
 import org.apache.camel.reifier.FinallyReifier;
 import org.apache.camel.reifier.TryReifier;
 
-@YAMLStepParser("do-try")
+@YAMLStepParser(id = "do-try", definitions = DoTryStepParser.DoTryDefinition.class)
 public class DoTryStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {
@@ -86,20 +87,23 @@ public class DoTryStepParser implements ProcessorStepParser {
     @YAMLNodeDefinition(reifiers = TryReifier.class)
     public static final class DoTryDefinition {
         public TryDefinition delegate = new TryDefinition();
+        @JsonProperty
         public List<Step> steps;
-        @JsonAlias({"do-catch"})
+        @JsonAlias("do-catch")
         public DoCatchDefinition doCatch;
-        @JsonAlias({"do-finally"})
+        @JsonAlias("do-finally")
         public DoFinallyDefinition doFinally;
     }
 
     @YAMLNodeDefinition(reifiers = CatchReifier.class)
     public static final class DoCatchDefinition extends CatchDefinition {
-        @JsonAlias({"when"})
+        @JsonAlias("do-when")
         public When when;
+        @JsonProperty
         public List<Step> steps;
 
         public static final class When extends WhenDefinition implements HasExpression {
+            @JsonProperty
             public List<Step> steps;
         }
     }

@@ -14,20 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.loader.yaml.parser;
+package org.apache.camel.k.loader.yaml.support
 
-import org.apache.camel.k.loader.yaml.spi.ProcessorStepParser;
-import org.apache.camel.model.ProcessorDefinition;
+import org.apache.camel.Exchange
+import org.apache.camel.Processor
 
-public class TypedProcessorStepParser implements ProcessorStepParser {
-    private final Class<? extends ProcessorDefinition> type;
-
-    public TypedProcessorStepParser(Class<? extends ProcessorDefinition> type) {
-        this.type = type;
-    }
-
+class MyUppercaseProcessor implements Processor {
     @Override
-    public ProcessorDefinition<?> toProcessor(Context context) {
-        return context.node(type);
+    void process(Exchange exchange) throws Exception {
+        exchange.in.body = exchange.in.getBody(String.class).toUpperCase();
     }
 }

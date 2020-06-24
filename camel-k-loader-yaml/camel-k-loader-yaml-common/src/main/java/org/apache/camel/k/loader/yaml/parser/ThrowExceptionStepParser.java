@@ -16,16 +16,22 @@
  */
 package org.apache.camel.k.loader.yaml.parser;
 
+import org.apache.camel.k.annotation.yaml.YAMLNodeDefinition;
 import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.k.loader.yaml.spi.ProcessorStepParser;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.ThrowExceptionDefinition;
+import org.apache.camel.reifier.ThrowExceptionReifier;
 
-@YAMLStepParser("throw-exception")
+@YAMLStepParser(id = "throw-exception", definitions = ThrowExceptionStepParser.Definition.class)
 public class ThrowExceptionStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {
-        return context.node(ThrowExceptionDefinition.class);
+        return context.node(Definition.class);
+    }
+
+    @YAMLNodeDefinition(reifiers = ThrowExceptionReifier.class)
+    public static class Definition extends ThrowExceptionDefinition {
     }
 }
 

@@ -18,6 +18,7 @@ package org.apache.camel.k.loader.yaml.parser;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.camel.k.annotation.yaml.YAMLNodeDefinition;
 import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.k.loader.yaml.model.Step;
@@ -27,7 +28,7 @@ import org.apache.camel.model.FilterDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.reifier.FilterReifier;
 
-@YAMLStepParser("filter")
+@YAMLStepParser(id = "filter", definitions = FilterStepParser.Definition.class)
 public class FilterStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {
@@ -42,6 +43,7 @@ public class FilterStepParser implements ProcessorStepParser {
 
     @YAMLNodeDefinition(reifiers = FilterReifier.class)
     public static final class Definition extends FilterDefinition implements HasExpression {
+        @JsonProperty
         public List<Step> steps;
     }
 }

@@ -17,6 +17,7 @@
 package org.apache.camel.k.loader.yaml.parser;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.camel.k.annotation.yaml.YAMLNodeDefinition;
 import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.k.loader.yaml.spi.ProcessorStepParser;
 import org.apache.camel.model.ProcessorDefinition;
@@ -27,7 +28,7 @@ import org.apache.camel.model.cloud.ServiceCallServiceFilterConfiguration;
 import org.apache.camel.model.cloud.ServiceCallServiceLoadBalancerConfiguration;
 import org.apache.camel.model.language.ExpressionDefinition;
 
-@YAMLStepParser("service-call")
+@YAMLStepParser(id = "service-call", definitions = ServiceCallStepParser.Definition.class)
 public class ServiceCallStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {
@@ -41,6 +42,7 @@ public class ServiceCallStepParser implements ProcessorStepParser {
     // may need to be fixed in camel to use an ExpressionDefinition instead
     // of just Expression.
     //
+    @YAMLNodeDefinition
     public static final class Definition implements HasExpression {
         private final ServiceCallDefinition delegate;
 
@@ -192,6 +194,7 @@ public class ServiceCallStepParser implements ProcessorStepParser {
         }
     }
 
+    @YAMLNodeDefinition
     public static final class ServiceCallExpressionDefinition extends ServiceCallExpressionConfiguration implements HasExpression {
         @JsonIgnore
         @Override

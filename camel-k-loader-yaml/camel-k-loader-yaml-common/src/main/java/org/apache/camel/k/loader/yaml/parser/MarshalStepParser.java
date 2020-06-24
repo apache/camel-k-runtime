@@ -23,7 +23,7 @@ import org.apache.camel.model.MarshalDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.reifier.MarshalReifier;
 
-@YAMLStepParser("marshal")
+@YAMLStepParser(id = "marshal", definitions = MarshalStepParser.Definition.class)
 public class MarshalStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

@@ -1,0 +1,3762 @@
+{
+  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "type" : "array",
+  "items" : {
+    "definitions" : {
+      "org.apache.camel.model.language.ConstantExpression" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "expression" : {
+              "type" : "string"
+            },
+            "id" : {
+              "type" : "string"
+            },
+            "trim" : {
+              "type" : "string"
+            }
+          },
+          "required" : [ "expression" ]
+        } ]
+      },
+      "expressions" : {
+        "type" : "object",
+        "properties" : {
+          "constant" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.ConstantExpression"
+          },
+          "exchange-property" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.ExchangePropertyExpression"
+          },
+          "groovy" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.GroovyExpression"
+          },
+          "header" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.HeaderExpression"
+          },
+          "hl7terser" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.Hl7TerserExpression"
+          },
+          "jsonpath" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.JsonPathExpression"
+          },
+          "language" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.LanguageExpression"
+          },
+          "method" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.MethodCallExpression"
+          },
+          "mvel" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.MvelExpression"
+          },
+          "ognl" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.OgnlExpression"
+          },
+          "ref" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.RefExpression"
+          },
+          "simple" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.SimpleExpression"
+          },
+          "spel" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.SpELExpression"
+          },
+          "tokenize" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.TokenizerExpression"
+          },
+          "xpath" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.XPathExpression"
+          },
+          "xquery" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.XQueryExpression"
+          },
+          "xtokenize" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.XMLTokenizerExpression"
+          }
+        }
+      },
+      "org.apache.camel.model.language.ExchangePropertyExpression" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "expression" : {
+              "type" : "string"
+            },
+            "id" : {
+              "type" : "string"
+            },
+            "trim" : {
+              "type" : "string"
+            }
+          },
+          "required" : [ "expression" ]
+        } ]
+      },
+      "org.apache.camel.model.language.GroovyExpression" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "expression" : {
+              "type" : "string"
+            },
+            "id" : {
+              "type" : "string"
+            },
+            "trim" : {
+              "type" : "string"
+            }
+          },
+          "required" : [ "expression" ]
+        } ]
+      },
+      "org.apache.camel.model.language.HeaderExpression" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "expression" : {
+              "type" : "string"
+            },
+            "id" : {
+              "type" : "string"
+            },
+            "trim" : {
+              "type" : "string"
+            }
+          },
+          "required" : [ "expression" ]
+        } ]
+      },
+      "org.apache.camel.model.language.Hl7TerserExpression" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "expression" : {
+              "type" : "string"
+            },
+            "id" : {
+              "type" : "string"
+            },
+            "trim" : {
+              "type" : "string"
+            }
+          },
+          "required" : [ "expression" ]
+        } ]
+      },
+      "org.apache.camel.model.language.JsonPathExpression" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "allow-easy-predicate" : {
+              "type" : "string"
+            },
+            "allow-simple" : {
+              "type" : "string"
+            },
+            "header-name" : {
+              "type" : "string"
+            },
+            "result-type" : {
+              "type" : "string"
+            },
+            "suppress-exceptions" : {
+              "type" : "string"
+            },
+            "write-as-string" : {
+              "type" : "string"
+            },
+            "expression" : {
+              "type" : "string"
+            },
+            "id" : {
+              "type" : "string"
+            },
+            "trim" : {
+              "type" : "string"
+            }
+          },
+          "required" : [ "expression" ]
+        } ]
+      },
+      "org.apache.camel.model.language.LanguageExpression" : {
+        "type" : "object",
+        "properties" : {
+          "language" : {
+            "type" : "string"
+          },
+          "expression" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          },
+          "trim" : {
+            "type" : "string"
+          }
+        },
+        "required" : [ "expression" ]
+      },
+      "org.apache.camel.model.language.MethodCallExpression" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "bean-type" : {
+              "type" : "string"
+            },
+            "method" : {
+              "type" : "string"
+            },
+            "ref" : {
+              "type" : "string"
+            },
+            "expression" : {
+              "type" : "string"
+            },
+            "id" : {
+              "type" : "string"
+            },
+            "trim" : {
+              "type" : "string"
+            }
+          },
+          "required" : [ "expression" ]
+        } ]
+      },
+      "org.apache.camel.model.language.MvelExpression" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "expression" : {
+              "type" : "string"
+            },
+            "id" : {
+              "type" : "string"
+            },
+            "trim" : {
+              "type" : "string"
+            }
+          },
+          "required" : [ "expression" ]
+        } ]
+      },
+      "org.apache.camel.model.language.OgnlExpression" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "expression" : {
+              "type" : "string"
+            },
+            "id" : {
+              "type" : "string"
+            },
+            "trim" : {
+              "type" : "string"
+            }
+          },
+          "required" : [ "expression" ]
+        } ]
+      },
+      "org.apache.camel.model.language.RefExpression" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "expression" : {
+              "type" : "string"
+            },
+            "id" : {
+              "type" : "string"
+            },
+            "trim" : {
+              "type" : "string"
+            }
+          },
+          "required" : [ "expression" ]
+        } ]
+      },
+      "org.apache.camel.model.language.SimpleExpression" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "result-type" : {
+              "type" : "string"
+            },
+            "expression" : {
+              "type" : "string"
+            },
+            "id" : {
+              "type" : "string"
+            },
+            "trim" : {
+              "type" : "string"
+            }
+          },
+          "required" : [ "expression" ]
+        } ]
+      },
+      "org.apache.camel.model.language.SpELExpression" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "expression" : {
+              "type" : "string"
+            },
+            "id" : {
+              "type" : "string"
+            },
+            "trim" : {
+              "type" : "string"
+            }
+          },
+          "required" : [ "expression" ]
+        } ]
+      },
+      "org.apache.camel.model.language.TokenizerExpression" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "end-token" : {
+              "type" : "string"
+            },
+            "group" : {
+              "type" : "string"
+            },
+            "group-delimiter" : {
+              "type" : "string"
+            },
+            "header-name" : {
+              "type" : "string"
+            },
+            "include-tokens" : {
+              "type" : "string"
+            },
+            "inherit-namespace-tag-name" : {
+              "type" : "string"
+            },
+            "regex" : {
+              "type" : "string"
+            },
+            "skip-first" : {
+              "type" : "string"
+            },
+            "token" : {
+              "type" : "string"
+            },
+            "xml" : {
+              "type" : "string"
+            },
+            "expression" : {
+              "type" : "string"
+            },
+            "id" : {
+              "type" : "string"
+            },
+            "trim" : {
+              "type" : "string"
+            }
+          },
+          "required" : [ "expression" ]
+        } ]
+      },
+      "org.apache.camel.model.language.XPathExpression" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "document-type" : {
+              "type" : "string"
+            },
+            "factory-ref" : {
+              "type" : "string"
+            },
+            "header-name" : {
+              "type" : "string"
+            },
+            "log-namespaces" : {
+              "type" : "string"
+            },
+            "object-model" : {
+              "type" : "string"
+            },
+            "result-type" : {
+              "type" : "string",
+              "enum" : [ "NUMBER", "STRING", "BOOLEAN", "NODESET", "NODE" ]
+            },
+            "saxon" : {
+              "type" : "string"
+            },
+            "thread-safety" : {
+              "type" : "string"
+            },
+            "expression" : {
+              "type" : "string"
+            },
+            "id" : {
+              "type" : "string"
+            },
+            "trim" : {
+              "type" : "string"
+            }
+          },
+          "required" : [ "expression" ]
+        } ]
+      },
+      "org.apache.camel.model.language.XQueryExpression" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "header-name" : {
+              "type" : "string"
+            },
+            "type" : {
+              "type" : "string"
+            },
+            "expression" : {
+              "type" : "string"
+            },
+            "id" : {
+              "type" : "string"
+            },
+            "trim" : {
+              "type" : "string"
+            }
+          },
+          "required" : [ "expression" ]
+        } ]
+      },
+      "org.apache.camel.model.language.XMLTokenizerExpression" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "group" : {
+              "type" : "string"
+            },
+            "header-name" : {
+              "type" : "string"
+            },
+            "mode" : {
+              "type" : "string"
+            },
+            "expression" : {
+              "type" : "string"
+            },
+            "id" : {
+              "type" : "string"
+            },
+            "trim" : {
+              "type" : "string"
+            }
+          },
+          "required" : [ "expression" ]
+        } ]
+      },
+      "org.apache.camel.model.dataformat.Any23DataFormat" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "base-uri" : {
+              "type" : "string"
+            },
+            "output-format" : {
+              "type" : "string",
+              "enum" : [ "NTRIPLES", "TURTLE", "NQUADS", "RDFXML", "JSONLD", "RDFJSON", "RDF4JMODEL" ]
+            },
+            "content-type-header" : {
+              "type" : "string"
+            },
+            "id" : {
+              "type" : "string"
+            }
+          }
+        } ]
+      },
+      "dataformats" : {
+        "type" : "object",
+        "properties" : {
+          "any23" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.Any23DataFormat"
+          },
+          "asn1" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.ASN1DataFormat"
+          },
+          "avro" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.AvroDataFormat"
+          },
+          "barcode" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.BarcodeDataFormat"
+          },
+          "base64" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.Base64DataFormat"
+          },
+          "beanio" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.BeanioDataFormat"
+          },
+          "bindy" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.BindyDataFormat"
+          },
+          "cbor" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.CBORDataFormat"
+          },
+          "crypto" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.CryptoDataFormat"
+          },
+          "csv" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.CsvDataFormat"
+          },
+          "custom-data-format" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.CustomDataFormat"
+          },
+          "fhir-json" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.FhirJsonDataFormat"
+          },
+          "fhir-xml" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.FhirXmlDataFormat"
+          },
+          "flatpack" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.FlatpackDataFormat"
+          },
+          "grok" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.GrokDataFormat"
+          },
+          "gzipdeflater" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.GzipDataFormat"
+          },
+          "hl7" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.HL7DataFormat"
+          },
+          "ical" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.IcalDataFormat"
+          },
+          "jacksonxml" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.JacksonXMLDataFormat"
+          },
+          "jaxb" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.JaxbDataFormat"
+          },
+          "json" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.JsonDataFormat"
+          },
+          "json-api" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.JsonApiDataFormat"
+          },
+          "lzf" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.LZFDataFormat"
+          },
+          "mime-multipart" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.MimeMultipartDataFormat"
+          },
+          "pgp" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.PGPDataFormat"
+          },
+          "protobuf" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.ProtobufDataFormat"
+          },
+          "rss" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.RssDataFormat"
+          },
+          "secure-xml" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.XMLSecurityDataFormat"
+          },
+          "soapjaxb" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.SoapJaxbDataFormat"
+          },
+          "syslog" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.SyslogDataFormat"
+          },
+          "tarfile" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.TarFileDataFormat"
+          },
+          "thrift" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.ThriftDataFormat"
+          },
+          "tidy-markup" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.TidyMarkupDataFormat"
+          },
+          "univocity-csv" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.UniVocityCsvDataFormat"
+          },
+          "univocity-fixed" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.UniVocityFixedWidthDataFormat"
+          },
+          "univocity-tsv" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.UniVocityTsvDataFormat"
+          },
+          "xmlrpc" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.XmlRpcDataFormat"
+          },
+          "xstream" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.XStreamDataFormat"
+          },
+          "yaml" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.YAMLDataFormat"
+          },
+          "zipdeflater" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.ZipDeflaterDataFormat"
+          },
+          "zipfile" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.dataformat.ZipFileDataFormat"
+          }
+        }
+      },
+      "org.apache.camel.model.dataformat.ASN1DataFormat" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "clazz-name" : {
+              "type" : "string"
+            },
+            "using-iterator" : {
+              "type" : "string"
+            },
+            "content-type-header" : {
+              "type" : "string"
+            },
+            "id" : {
+              "type" : "string"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.model.dataformat.AvroDataFormat" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "instance-class-name" : {
+              "type" : "string"
+            },
+            "content-type-header" : {
+              "type" : "string"
+            },
+            "id" : {
+              "type" : "string"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.model.dataformat.BarcodeDataFormat" : {
+        "type" : "object",
+        "properties" : {
+          "barcode-format" : {
+            "type" : "string"
+          },
+          "height" : {
+            "type" : "string"
+          },
+          "image-type" : {
+            "type" : "string"
+          },
+          "width" : {
+            "type" : "string"
+          },
+          "content-type-header" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.dataformat.Base64DataFormat" : {
+        "type" : "object",
+        "properties" : {
+          "line-length" : {
+            "type" : "string"
+          },
+          "line-separator" : {
+            "type" : "string"
+          },
+          "url-safe" : {
+            "type" : "string"
+          },
+          "content-type-header" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.dataformat.BeanioDataFormat" : {
+        "type" : "object",
+        "properties" : {
+          "bean-reader-error-handler-type" : {
+            "type" : "string"
+          },
+          "encoding" : {
+            "type" : "string"
+          },
+          "ignore-invalid-records" : {
+            "type" : "string"
+          },
+          "ignore-unexpected-records" : {
+            "type" : "string"
+          },
+          "ignore-unidentified-records" : {
+            "type" : "string"
+          },
+          "mapping" : {
+            "type" : "string"
+          },
+          "stream-name" : {
+            "type" : "string"
+          },
+          "unmarshal-single-object" : {
+            "type" : "string"
+          },
+          "content-type-header" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.dataformat.BindyDataFormat" : {
+        "type" : "object",
+        "properties" : {
+          "allow-empty-stream" : {
+            "type" : "string"
+          },
+          "class-type" : {
+            "type" : "string"
+          },
+          "locale" : {
+            "type" : "string"
+          },
+          "type" : {
+            "type" : "string",
+            "enum" : [ "Csv", "Fixed", "KeyValue" ]
+          },
+          "unwrap-single-instance" : {
+            "type" : "string"
+          },
+          "content-type-header" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        },
+        "required" : [ "type" ]
+      },
+      "org.apache.camel.model.dataformat.CBORDataFormat" : {
+        "type" : "object",
+        "properties" : {
+          "allow-jms-type" : {
+            "type" : "string"
+          },
+          "allow-unmarshall-type" : {
+            "type" : "string"
+          },
+          "collection-type-name" : {
+            "type" : "string"
+          },
+          "disable-features" : {
+            "type" : "string"
+          },
+          "enable-features" : {
+            "type" : "string"
+          },
+          "object-mapper" : {
+            "type" : "string"
+          },
+          "pretty-print" : {
+            "type" : "string"
+          },
+          "unmarshal-type-name" : {
+            "type" : "string"
+          },
+          "use-default-object-mapper" : {
+            "type" : "string"
+          },
+          "use-list" : {
+            "type" : "string"
+          },
+          "content-type-header" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.dataformat.CryptoDataFormat" : {
+        "type" : "object",
+        "properties" : {
+          "algorithm" : {
+            "type" : "string"
+          },
+          "algorithm-parameter-ref" : {
+            "type" : "string"
+          },
+          "buffersize" : {
+            "type" : "string"
+          },
+          "crypto-provider" : {
+            "type" : "string"
+          },
+          "init-vector-ref" : {
+            "type" : "string"
+          },
+          "inline" : {
+            "type" : "string"
+          },
+          "key-ref" : {
+            "type" : "string"
+          },
+          "mac-algorithm" : {
+            "type" : "string"
+          },
+          "should-append-hmac" : {
+            "type" : "string"
+          },
+          "content-type-header" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.dataformat.CsvDataFormat" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "allow-missing-column-names" : {
+              "type" : "string"
+            },
+            "comment-marker" : {
+              "type" : "string"
+            },
+            "comment-marker-disabled" : {
+              "type" : "string"
+            },
+            "delimiter" : {
+              "type" : "string"
+            },
+            "escape" : {
+              "type" : "string"
+            },
+            "escape-disabled" : {
+              "type" : "string"
+            },
+            "format-name" : {
+              "type" : "string",
+              "enum" : [ "DEFAULT", "EXCEL", "INFORMIX_UNLOAD", "INFORMIX_UNLOAD_CSV", "MYSQL", "RFC4180" ]
+            },
+            "format-ref" : {
+              "type" : "string"
+            },
+            "header-disabled" : {
+              "type" : "string"
+            },
+            "ignore-empty-lines" : {
+              "type" : "string"
+            },
+            "ignore-header-case" : {
+              "type" : "string"
+            },
+            "ignore-surrounding-spaces" : {
+              "type" : "string"
+            },
+            "lazy-load" : {
+              "type" : "string"
+            },
+            "marshaller-factory-ref" : {
+              "type" : "string"
+            },
+            "null-string" : {
+              "type" : "string"
+            },
+            "null-string-disabled" : {
+              "type" : "string"
+            },
+            "quote" : {
+              "type" : "string"
+            },
+            "quote-disabled" : {
+              "type" : "string"
+            },
+            "quote-mode" : {
+              "type" : "string"
+            },
+            "record-converter-ref" : {
+              "type" : "string"
+            },
+            "record-separator" : {
+              "type" : "string"
+            },
+            "record-separator-disabled" : {
+              "type" : "string"
+            },
+            "skip-header-record" : {
+              "type" : "string"
+            },
+            "trailing-delimiter" : {
+              "type" : "string"
+            },
+            "trim" : {
+              "type" : "string"
+            },
+            "use-maps" : {
+              "type" : "string"
+            },
+            "use-ordered-maps" : {
+              "type" : "string"
+            },
+            "content-type-header" : {
+              "type" : "string"
+            },
+            "id" : {
+              "type" : "string"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.model.dataformat.CustomDataFormat" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "ref" : {
+              "type" : "string"
+            },
+            "content-type-header" : {
+              "type" : "string"
+            },
+            "id" : {
+              "type" : "string"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.model.dataformat.FhirJsonDataFormat" : {
+        "type" : "object",
+        "properties" : {
+          "dont-encode-elements" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "dont-strip-versions-from-references-at-paths" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "encode-elements" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "encode-elements-applies-to-child-resources-only" : {
+            "type" : "string"
+          },
+          "fhir-version" : {
+            "type" : "string",
+            "enum" : [ "DSTU2", "DSTU2_HL7ORG", "DSTU2_1", "DSTU3", "R4" ]
+          },
+          "omit-resource-id" : {
+            "type" : "string"
+          },
+          "override-resource-id-with-bundle-entry-full-url" : {
+            "type" : "string"
+          },
+          "pretty-print" : {
+            "type" : "string"
+          },
+          "server-base-url" : {
+            "type" : "string"
+          },
+          "strip-versions-from-references" : {
+            "type" : "string"
+          },
+          "summary-mode" : {
+            "type" : "string"
+          },
+          "suppress-narratives" : {
+            "type" : "string"
+          },
+          "content-type-header" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.dataformat.FhirXmlDataFormat" : {
+        "type" : "object",
+        "properties" : {
+          "dont-encode-elements" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "dont-strip-versions-from-references-at-paths" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "encode-elements" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "encode-elements-applies-to-child-resources-only" : {
+            "type" : "string"
+          },
+          "fhir-version" : {
+            "type" : "string",
+            "enum" : [ "DSTU2", "DSTU2_HL7ORG", "DSTU2_1", "DSTU3", "R4" ]
+          },
+          "omit-resource-id" : {
+            "type" : "string"
+          },
+          "override-resource-id-with-bundle-entry-full-url" : {
+            "type" : "string"
+          },
+          "pretty-print" : {
+            "type" : "string"
+          },
+          "server-base-url" : {
+            "type" : "string"
+          },
+          "strip-versions-from-references" : {
+            "type" : "string"
+          },
+          "summary-mode" : {
+            "type" : "string"
+          },
+          "suppress-narratives" : {
+            "type" : "string"
+          },
+          "content-type-header" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.dataformat.FlatpackDataFormat" : {
+        "type" : "object",
+        "properties" : {
+          "allow-short-lines" : {
+            "type" : "string"
+          },
+          "definition" : {
+            "type" : "string"
+          },
+          "delimiter" : {
+            "type" : "string"
+          },
+          "fixed" : {
+            "type" : "string"
+          },
+          "ignore-extra-columns" : {
+            "type" : "string"
+          },
+          "ignore-first-record" : {
+            "type" : "string"
+          },
+          "parser-factory-ref" : {
+            "type" : "string"
+          },
+          "text-qualifier" : {
+            "type" : "string"
+          },
+          "content-type-header" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.dataformat.GrokDataFormat" : {
+        "type" : "object",
+        "properties" : {
+          "allow-multiple-matches-per-line" : {
+            "type" : "string"
+          },
+          "flattened" : {
+            "type" : "string"
+          },
+          "named-only" : {
+            "type" : "string"
+          },
+          "pattern" : {
+            "type" : "string"
+          },
+          "content-type-header" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.dataformat.GzipDataFormat" : {
+        "type" : "object",
+        "properties" : {
+          "content-type-header" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.dataformat.HL7DataFormat" : {
+        "type" : "object",
+        "properties" : {
+          "validate" : {
+            "type" : "string"
+          },
+          "content-type-header" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.dataformat.IcalDataFormat" : {
+        "type" : "object",
+        "properties" : {
+          "validating" : {
+            "type" : "string"
+          },
+          "content-type-header" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.dataformat.JacksonXMLDataFormat" : {
+        "type" : "object",
+        "properties" : {
+          "allow-jms-type" : {
+            "type" : "string"
+          },
+          "allow-unmarshall-type" : {
+            "type" : "string"
+          },
+          "collection-type-name" : {
+            "type" : "string"
+          },
+          "disable-features" : {
+            "type" : "string"
+          },
+          "enable-features" : {
+            "type" : "string"
+          },
+          "enable-jaxb-annotation-module" : {
+            "type" : "string"
+          },
+          "include" : {
+            "type" : "string"
+          },
+          "json-view" : {
+            "type" : "string"
+          },
+          "module-class-names" : {
+            "type" : "string"
+          },
+          "module-refs" : {
+            "type" : "string"
+          },
+          "pretty-print" : {
+            "type" : "string"
+          },
+          "unmarshal-type-name" : {
+            "type" : "string"
+          },
+          "use-list" : {
+            "type" : "string"
+          },
+          "xml-mapper" : {
+            "type" : "string"
+          },
+          "content-type-header" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.dataformat.JaxbDataFormat" : {
+        "type" : "object",
+        "properties" : {
+          "context-path" : {
+            "type" : "string"
+          },
+          "context-path-is-class-name" : {
+            "type" : "string"
+          },
+          "encoding" : {
+            "type" : "string"
+          },
+          "filter-non-xml-chars" : {
+            "type" : "string"
+          },
+          "fragment" : {
+            "type" : "string"
+          },
+          "ignore-jaxb-element" : {
+            "type" : "string"
+          },
+          "jaxb-provider-properties" : {
+            "type" : "string"
+          },
+          "must-be-jaxb-element" : {
+            "type" : "string"
+          },
+          "namespace-prefix-ref" : {
+            "type" : "string"
+          },
+          "no-namespace-schema-location" : {
+            "type" : "string"
+          },
+          "object-factory" : {
+            "type" : "string"
+          },
+          "part-class" : {
+            "type" : "string"
+          },
+          "part-namespace" : {
+            "type" : "string"
+          },
+          "pretty-print" : {
+            "type" : "string"
+          },
+          "schema" : {
+            "type" : "string"
+          },
+          "schema-location" : {
+            "type" : "string"
+          },
+          "schema-severity-level" : {
+            "type" : "string",
+            "enum" : [ "0", "1", "2" ]
+          },
+          "xml-stream-writer-wrapper" : {
+            "type" : "string"
+          },
+          "content-type-header" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.dataformat.JsonDataFormat" : {
+        "type" : "object",
+        "properties" : {
+          "allow-jms-type" : {
+            "type" : "string"
+          },
+          "allow-unmarshall-type" : {
+            "type" : "string"
+          },
+          "auto-discover-object-mapper" : {
+            "type" : "string"
+          },
+          "collection-type-name" : {
+            "type" : "string"
+          },
+          "disable-features" : {
+            "type" : "string"
+          },
+          "drop-root-node" : {
+            "type" : "string"
+          },
+          "enable-features" : {
+            "type" : "string"
+          },
+          "include" : {
+            "type" : "string"
+          },
+          "json-view" : {
+            "type" : "string"
+          },
+          "library" : {
+            "enum" : [ "XStream", "Jackson", "Johnzon", "Gson", "Fastjson" ]
+          },
+          "module-class-names" : {
+            "type" : "string"
+          },
+          "module-refs" : {
+            "type" : "string"
+          },
+          "object-mapper" : {
+            "type" : "string"
+          },
+          "permissions" : {
+            "type" : "string"
+          },
+          "pretty-print" : {
+            "type" : "string"
+          },
+          "timezone" : {
+            "type" : "string"
+          },
+          "unmarshal-type-name" : {
+            "type" : "string"
+          },
+          "use-default-object-mapper" : {
+            "type" : "string"
+          },
+          "use-list" : {
+            "type" : "string"
+          },
+          "content-type-header" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.dataformat.JsonApiDataFormat" : {
+        "type" : "object",
+        "properties" : {
+          "data-format-types" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "main-format-type" : {
+            "type" : "string"
+          },
+          "content-type-header" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.dataformat.LZFDataFormat" : {
+        "type" : "object",
+        "properties" : {
+          "using-parallel-compression" : {
+            "type" : "string"
+          },
+          "content-type-header" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.dataformat.MimeMultipartDataFormat" : {
+        "type" : "object",
+        "properties" : {
+          "binary-content" : {
+            "type" : "string"
+          },
+          "headers-inline" : {
+            "type" : "string"
+          },
+          "include-headers" : {
+            "type" : "string"
+          },
+          "multipart-sub-type" : {
+            "type" : "string"
+          },
+          "multipart-without-attachment" : {
+            "type" : "string"
+          },
+          "content-type-header" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.dataformat.PGPDataFormat" : {
+        "type" : "object",
+        "properties" : {
+          "algorithm" : {
+            "type" : "string"
+          },
+          "armored" : {
+            "type" : "string"
+          },
+          "compression-algorithm" : {
+            "type" : "string"
+          },
+          "hash-algorithm" : {
+            "type" : "string"
+          },
+          "integrity" : {
+            "type" : "string"
+          },
+          "key-file-name" : {
+            "type" : "string"
+          },
+          "key-userid" : {
+            "type" : "string"
+          },
+          "password" : {
+            "type" : "string"
+          },
+          "provider" : {
+            "type" : "string"
+          },
+          "signature-key-file-name" : {
+            "type" : "string"
+          },
+          "signature-key-ring" : {
+            "type" : "string"
+          },
+          "signature-key-userid" : {
+            "type" : "string"
+          },
+          "signature-password" : {
+            "type" : "string"
+          },
+          "signature-verification-option" : {
+            "type" : "string"
+          },
+          "content-type-header" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.dataformat.ProtobufDataFormat" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "content-type-format" : {
+              "type" : "string",
+              "enum" : [ "native", "json" ]
+            },
+            "instance-class" : {
+              "type" : "string"
+            },
+            "content-type-header" : {
+              "type" : "string"
+            },
+            "id" : {
+              "type" : "string"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.model.dataformat.RssDataFormat" : {
+        "type" : "object",
+        "properties" : {
+          "content-type-header" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.dataformat.XMLSecurityDataFormat" : {
+        "type" : "object",
+        "properties" : {
+          "add-key-value-for-encrypted-key" : {
+            "type" : "string"
+          },
+          "digest-algorithm" : {
+            "type" : "string"
+          },
+          "key-cipher-algorithm" : {
+            "type" : "string"
+          },
+          "key-or-trust-store-parameters-ref" : {
+            "type" : "string"
+          },
+          "key-password" : {
+            "type" : "string"
+          },
+          "mgf-algorithm" : {
+            "type" : "string"
+          },
+          "pass-phrase" : {
+            "type" : "string"
+          },
+          "pass-phrase-byte" : {
+            "type" : "string",
+            "format" : "binary"
+          },
+          "recipient-key-alias" : {
+            "type" : "string"
+          },
+          "secure-tag" : {
+            "type" : "string"
+          },
+          "secure-tag-contents" : {
+            "type" : "string"
+          },
+          "xml-cipher-algorithm" : {
+            "type" : "string"
+          },
+          "content-type-header" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.dataformat.SoapJaxbDataFormat" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "context-path" : {
+              "type" : "string"
+            },
+            "element-name-strategy-ref" : {
+              "type" : "string"
+            },
+            "encoding" : {
+              "type" : "string"
+            },
+            "namespace-prefix-ref" : {
+              "type" : "string"
+            },
+            "schema" : {
+              "type" : "string"
+            },
+            "version" : {
+              "type" : "string"
+            },
+            "content-type-header" : {
+              "type" : "string"
+            },
+            "id" : {
+              "type" : "string"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.model.dataformat.SyslogDataFormat" : {
+        "type" : "object",
+        "properties" : {
+          "content-type-header" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.dataformat.TarFileDataFormat" : {
+        "type" : "object",
+        "properties" : {
+          "allow-empty-directory" : {
+            "type" : "string"
+          },
+          "preserve-path-elements" : {
+            "type" : "string"
+          },
+          "using-iterator" : {
+            "type" : "string"
+          },
+          "content-type-header" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.dataformat.ThriftDataFormat" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "content-type-format" : {
+              "type" : "string",
+              "enum" : [ "binary", "json", "sjson" ]
+            },
+            "instance-class" : {
+              "type" : "string"
+            },
+            "content-type-header" : {
+              "type" : "string"
+            },
+            "id" : {
+              "type" : "string"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.model.dataformat.TidyMarkupDataFormat" : {
+        "type" : "object",
+        "properties" : {
+          "data-object-type" : {
+            "type" : "string"
+          },
+          "omit-xml-declaration" : {
+            "type" : "string"
+          },
+          "content-type-header" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.dataformat.UniVocityCsvDataFormat" : {
+        "type" : "object",
+        "properties" : {
+          "delimiter" : {
+            "type" : "string"
+          },
+          "quote" : {
+            "type" : "string"
+          },
+          "quote-all-fields" : {
+            "type" : "string"
+          },
+          "quote-escape" : {
+            "type" : "string"
+          },
+          "as-map" : {
+            "type" : "string"
+          },
+          "comment" : {
+            "type" : "string"
+          },
+          "empty-value" : {
+            "type" : "string"
+          },
+          "header-extraction-enabled" : {
+            "type" : "string"
+          },
+          "headers-disabled" : {
+            "type" : "string"
+          },
+          "ignore-leading-whitespaces" : {
+            "type" : "string"
+          },
+          "ignore-trailing-whitespaces" : {
+            "type" : "string"
+          },
+          "lazy-load" : {
+            "type" : "string"
+          },
+          "line-separator" : {
+            "type" : "string"
+          },
+          "normalized-line-separator" : {
+            "type" : "string"
+          },
+          "null-value" : {
+            "type" : "string"
+          },
+          "number-of-records-to-read" : {
+            "type" : "string"
+          },
+          "skip-empty-lines" : {
+            "type" : "string"
+          },
+          "content-type-header" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.dataformat.UniVocityFixedWidthDataFormat" : {
+        "type" : "object",
+        "properties" : {
+          "padding" : {
+            "type" : "string"
+          },
+          "record-ends-on-newline" : {
+            "type" : "string"
+          },
+          "skip-trailing-chars-until-newline" : {
+            "type" : "string"
+          },
+          "as-map" : {
+            "type" : "string"
+          },
+          "comment" : {
+            "type" : "string"
+          },
+          "empty-value" : {
+            "type" : "string"
+          },
+          "header-extraction-enabled" : {
+            "type" : "string"
+          },
+          "headers-disabled" : {
+            "type" : "string"
+          },
+          "ignore-leading-whitespaces" : {
+            "type" : "string"
+          },
+          "ignore-trailing-whitespaces" : {
+            "type" : "string"
+          },
+          "lazy-load" : {
+            "type" : "string"
+          },
+          "line-separator" : {
+            "type" : "string"
+          },
+          "normalized-line-separator" : {
+            "type" : "string"
+          },
+          "null-value" : {
+            "type" : "string"
+          },
+          "number-of-records-to-read" : {
+            "type" : "string"
+          },
+          "skip-empty-lines" : {
+            "type" : "string"
+          },
+          "content-type-header" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.dataformat.UniVocityTsvDataFormat" : {
+        "type" : "object",
+        "properties" : {
+          "escape-char" : {
+            "type" : "string"
+          },
+          "as-map" : {
+            "type" : "string"
+          },
+          "comment" : {
+            "type" : "string"
+          },
+          "empty-value" : {
+            "type" : "string"
+          },
+          "header-extraction-enabled" : {
+            "type" : "string"
+          },
+          "headers-disabled" : {
+            "type" : "string"
+          },
+          "ignore-leading-whitespaces" : {
+            "type" : "string"
+          },
+          "ignore-trailing-whitespaces" : {
+            "type" : "string"
+          },
+          "lazy-load" : {
+            "type" : "string"
+          },
+          "line-separator" : {
+            "type" : "string"
+          },
+          "normalized-line-separator" : {
+            "type" : "string"
+          },
+          "null-value" : {
+            "type" : "string"
+          },
+          "number-of-records-to-read" : {
+            "type" : "string"
+          },
+          "skip-empty-lines" : {
+            "type" : "string"
+          },
+          "content-type-header" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.dataformat.XmlRpcDataFormat" : {
+        "type" : "object",
+        "properties" : {
+          "request" : {
+            "type" : "string"
+          },
+          "content-type-header" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.dataformat.XStreamDataFormat" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "driver" : {
+              "type" : "string"
+            },
+            "driver-ref" : {
+              "type" : "string"
+            },
+            "encoding" : {
+              "type" : "string"
+            },
+            "mode" : {
+              "type" : "string"
+            },
+            "permissions" : {
+              "type" : "string"
+            },
+            "content-type-header" : {
+              "type" : "string"
+            },
+            "id" : {
+              "type" : "string"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.model.dataformat.YAMLDataFormat" : {
+        "type" : "object",
+        "properties" : {
+          "allow-any-type" : {
+            "type" : "string"
+          },
+          "allow-recursive-keys" : {
+            "type" : "string"
+          },
+          "constructor" : {
+            "type" : "string"
+          },
+          "dumper-options" : {
+            "type" : "string"
+          },
+          "library" : {
+            "enum" : [ "SnakeYAML" ]
+          },
+          "max-aliases-for-collections" : {
+            "type" : "string"
+          },
+          "pretty-flow" : {
+            "type" : "string"
+          },
+          "representer" : {
+            "type" : "string"
+          },
+          "resolver" : {
+            "type" : "string"
+          },
+          "unmarshal-type-name" : {
+            "type" : "string"
+          },
+          "use-application-context-class-loader" : {
+            "type" : "string"
+          },
+          "content-type-header" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.dataformat.ZipDeflaterDataFormat" : {
+        "type" : "object",
+        "properties" : {
+          "compression-level" : {
+            "type" : "string"
+          },
+          "content-type-header" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.dataformat.ZipFileDataFormat" : {
+        "type" : "object",
+        "properties" : {
+          "allow-empty-directory" : {
+            "type" : "string"
+          },
+          "preserve-path-elements" : {
+            "type" : "string"
+          },
+          "using-iterator" : {
+            "type" : "string"
+          },
+          "content-type-header" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.k.loader.yaml.parser.AggregateStepParser$CorrelationExpression" : {
+        "type" : "object",
+        "allOf" : [ {
+          "$ref" : "#/items/definitions/expressions"
+        }, { } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.AggregateStepParser$Definition" : {
+        "type" : "object",
+        "allOf" : [ {
+          "$ref" : "#/items/definitions/expressions"
+        }, {
+          "properties" : {
+            "aggregate-controller-ref" : {
+              "type" : "string"
+            },
+            "aggregation-repository-ref" : {
+              "type" : "string"
+            },
+            "close-correlation-key-on-completion" : {
+              "type" : "string"
+            },
+            "complete-all-on-stop" : {
+              "type" : "string"
+            },
+            "completion-from-batch-consumer" : {
+              "type" : "string"
+            },
+            "completion-interval" : {
+              "type" : "string"
+            },
+            "completion-on-new-correlation-group" : {
+              "type" : "string"
+            },
+            "completion-size" : {
+              "type" : "string"
+            },
+            "completion-timeout" : {
+              "type" : "string"
+            },
+            "completion-timeout-checker-interval" : {
+              "type" : "string"
+            },
+            "discard-on-aggregation-failure" : {
+              "type" : "string"
+            },
+            "discard-on-completion-timeout" : {
+              "type" : "string"
+            },
+            "eager-check-completion" : {
+              "type" : "string"
+            },
+            "executor-service-ref" : {
+              "type" : "string"
+            },
+            "force-completion-on-stop" : {
+              "type" : "string"
+            },
+            "ignore-invalid-correlation-keys" : {
+              "type" : "string"
+            },
+            "optimistic-locking" : {
+              "type" : "string"
+            },
+            "parallel-processing" : {
+              "type" : "string"
+            },
+            "strategy-method-allow-null" : {
+              "type" : "string"
+            },
+            "strategy-method-name" : {
+              "type" : "string"
+            },
+            "strategy-ref" : {
+              "type" : "string"
+            },
+            "timeout-checker-executor-service-ref" : {
+              "type" : "string"
+            },
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            },
+            "correlation-expression" : {
+              "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.AggregateStepParser$CorrelationExpression"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.ChoiceStepParser$Definition" : {
+        "type" : "object",
+        "properties" : {
+          "otherwise" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.ChoiceStepParser$Definition$Otherwise"
+          },
+          "when" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.ChoiceStepParser$Definition$When"
+            }
+          }
+        }
+      },
+      "org.apache.camel.k.loader.yaml.parser.ChoiceStepParser$Definition$Otherwise" : {
+        "type" : "object",
+        "properties" : {
+          "steps" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/items/definitions/step"
+            }
+          },
+          "inherit-error-handler" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "org.apache.camel.k.loader.yaml.parser.ChoiceStepParser$Definition$When" : {
+        "type" : "object",
+        "allOf" : [ {
+          "$ref" : "#/items/definitions/expressions"
+        }, {
+          "properties" : {
+            "steps" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/items/definitions/step"
+              }
+            },
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.CircuitBreakerStepParser$CBDefinition" : {
+        "type" : "object",
+        "properties" : {
+          "steps" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/items/definitions/step"
+            }
+          },
+          "on-fallback" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.CircuitBreakerStepParser$FBDefinition"
+          }
+        }
+      },
+      "org.apache.camel.k.loader.yaml.parser.CircuitBreakerStepParser$FBDefinition" : {
+        "type" : "object",
+        "properties" : {
+          "steps" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/items/definitions/step"
+            }
+          },
+          "fallback-via-network" : {
+            "type" : "string"
+          },
+          "inherit-error-handler" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "org.apache.camel.k.loader.yaml.parser.DelayStepParser$Definition" : {
+        "type" : "object",
+        "allOf" : [ {
+          "$ref" : "#/items/definitions/expressions"
+        }, {
+          "properties" : {
+            "async-delayed" : {
+              "type" : "string"
+            },
+            "caller-runs-when-rejected" : {
+              "type" : "string"
+            },
+            "executor-service-ref" : {
+              "type" : "string"
+            },
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.DoTryStepParser$DoCatchDefinition" : {
+        "type" : "object",
+        "properties" : {
+          "steps" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/items/definitions/step"
+            }
+          },
+          "inherit-error-handler" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "org.apache.camel.k.loader.yaml.parser.DoTryStepParser$DoFinallyDefinition" : {
+        "type" : "object",
+        "properties" : {
+          "inherit-error-handler" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "org.apache.camel.k.loader.yaml.parser.DoTryStepParser$DoTryDefinition" : {
+        "type" : "object",
+        "properties" : {
+          "steps" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/items/definitions/step"
+            }
+          }
+        }
+      },
+      "org.apache.camel.k.loader.yaml.parser.DynamicRouterStepParser$Definition" : {
+        "type" : "object",
+        "allOf" : [ {
+          "$ref" : "#/items/definitions/expressions"
+        }, {
+          "properties" : {
+            "cache-size" : {
+              "type" : "string"
+            },
+            "ignore-invalid-endpoints" : {
+              "type" : "string"
+            },
+            "uri-delimiter" : {
+              "type" : "string"
+            },
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.EnrichStepParser$Definition" : {
+        "type" : "object",
+        "allOf" : [ {
+          "$ref" : "#/items/definitions/expressions"
+        }, {
+          "properties" : {
+            "aggregate-on-exception" : {
+              "type" : "string"
+            },
+            "strategy-method-allow-null" : {
+              "type" : "string"
+            },
+            "strategy-method-name" : {
+              "type" : "string"
+            },
+            "strategy-ref" : {
+              "type" : "string"
+            },
+            "cache-size" : {
+              "type" : "string"
+            },
+            "ignore-invalid-endpoint" : {
+              "type" : "string"
+            },
+            "share-unit-of-work" : {
+              "type" : "string"
+            },
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.ErrorHandlerStepParser$Definition" : {
+        "type" : "object",
+        "properties" : {
+          "dead-letter-channel" : {
+            "$ref" : "#/items/definitions/org.apache.camel.builder.DeadLetterChannelBuilder"
+          },
+          "default" : {
+            "$ref" : "#/items/definitions/org.apache.camel.builder.DefaultErrorHandlerBuilder"
+          },
+          "no-error-handler" : {
+            "$ref" : "#/items/definitions/org.apache.camel.builder.NoErrorHandlerBuilder"
+          },
+          "ref" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.builder.DeadLetterChannelBuilder" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "async-delayed-redelivery" : {
+              "type" : "boolean"
+            },
+            "dead-letter-handle-new-exception" : {
+              "type" : "boolean"
+            },
+            "use-original-body" : {
+              "type" : "boolean"
+            },
+            "use-original-message" : {
+              "type" : "boolean"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.builder.DefaultErrorHandlerBuilder" : {
+        "type" : "object",
+        "properties" : {
+          "async-delayed-redelivery" : {
+            "type" : "boolean"
+          },
+          "dead-letter-handle-new-exception" : {
+            "type" : "boolean"
+          },
+          "use-original-body" : {
+            "type" : "boolean"
+          },
+          "use-original-message" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "org.apache.camel.builder.NoErrorHandlerBuilder" : {
+        "type" : "object"
+      },
+      "org.apache.camel.k.loader.yaml.parser.FilterStepParser$Definition" : {
+        "type" : "object",
+        "allOf" : [ {
+          "$ref" : "#/items/definitions/expressions"
+        }, {
+          "properties" : {
+            "steps" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/items/definitions/step"
+              }
+            },
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.FromStepParser$Definition" : {
+        "type" : "object",
+        "properties" : {
+          "parameters" : {
+            "type" : "object"
+          },
+          "steps" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/items/definitions/step"
+            }
+          },
+          "uri" : {
+            "type" : "string"
+          }
+        },
+        "required" : [ "steps", "uri" ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.IdempotentConsumerParser$Definition" : {
+        "type" : "object",
+        "allOf" : [ {
+          "$ref" : "#/items/definitions/expressions"
+        }, {
+          "properties" : {
+            "steps" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/items/definitions/step"
+              }
+            },
+            "completion-eager" : {
+              "type" : "string"
+            },
+            "eager" : {
+              "type" : "string"
+            },
+            "message-id-repository-ref" : {
+              "type" : "string"
+            },
+            "remove-on-failure" : {
+              "type" : "string"
+            },
+            "skip-duplicate" : {
+              "type" : "string"
+            },
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.LoadBalanceStepParser$Definition" : {
+        "type" : "object",
+        "properties" : {
+          "steps" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/items/definitions/step"
+            }
+          },
+          "inherit-error-handler" : {
+            "type" : "boolean"
+          },
+          "custom" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.loadbalancer.CustomLoadBalancerDefinition"
+          },
+          "failover" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.loadbalancer.FailoverLoadBalancerDefinition"
+          },
+          "type" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.LoadBalancerDefinition"
+          },
+          "random" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.loadbalancer.RandomLoadBalancerDefinition"
+          },
+          "round-robin" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.loadbalancer.RoundRobinLoadBalancerDefinition"
+          },
+          "sticky" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.LoadBalanceStepParser$Definition$Sticky"
+          },
+          "topic" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.loadbalancer.TopicLoadBalancerDefinition"
+          },
+          "weighted" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.loadbalancer.WeightedLoadBalancerDefinition"
+          }
+        }
+      },
+      "org.apache.camel.model.loadbalancer.CustomLoadBalancerDefinition" : {
+        "type" : "object",
+        "properties" : {
+          "ref" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.loadbalancer.FailoverLoadBalancerDefinition" : {
+        "type" : "object",
+        "properties" : {
+          "maximum-failover-attempts" : {
+            "type" : "string"
+          },
+          "round-robin" : {
+            "type" : "string"
+          },
+          "sticky" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.LoadBalancerDefinition" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "id" : {
+              "type" : "string"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.model.loadbalancer.RandomLoadBalancerDefinition" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.loadbalancer.RoundRobinLoadBalancerDefinition" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.k.loader.yaml.parser.LoadBalanceStepParser$Definition$Sticky" : {
+        "type" : "object",
+        "allOf" : [ {
+          "$ref" : "#/items/definitions/expressions"
+        }, {
+          "properties" : {
+            "id" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "$ref" : "#/items/definitions/expressions"
+        }, {
+          "properties" : {
+            "id" : {
+              "type" : "string"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.model.loadbalancer.TopicLoadBalancerDefinition" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.loadbalancer.WeightedLoadBalancerDefinition" : {
+        "type" : "object",
+        "properties" : {
+          "distribution-ratio" : {
+            "type" : "string"
+          },
+          "distribution-ratio-delimiter" : {
+            "type" : "string"
+          },
+          "round-robin" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.k.loader.yaml.parser.LoopStepParser$Definition" : {
+        "type" : "object",
+        "allOf" : [ {
+          "$ref" : "#/items/definitions/expressions"
+        }, {
+          "properties" : {
+            "steps" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/items/definitions/step"
+              }
+            },
+            "copy" : {
+              "type" : "string"
+            },
+            "do-while" : {
+              "type" : "string"
+            },
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.MarshalStepParser$Definition" : {
+        "type" : "object",
+        "allOf" : [ {
+          "$ref" : "#/items/definitions/dataformats"
+        }, {
+          "properties" : {
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.MulticastStepParser$Definition" : {
+        "type" : "object",
+        "properties" : {
+          "steps" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/items/definitions/step"
+            }
+          },
+          "executor-service-ref" : {
+            "type" : "string"
+          },
+          "on-prepare-ref" : {
+            "type" : "string"
+          },
+          "parallel-aggregate" : {
+            "type" : "string"
+          },
+          "parallel-processing" : {
+            "type" : "string"
+          },
+          "share-unit-of-work" : {
+            "type" : "string"
+          },
+          "stop-on-aggregate-exception" : {
+            "type" : "string"
+          },
+          "stop-on-exception" : {
+            "type" : "string"
+          },
+          "strategy-method-allow-null" : {
+            "type" : "string"
+          },
+          "strategy-method-name" : {
+            "type" : "string"
+          },
+          "strategy-ref" : {
+            "type" : "string"
+          },
+          "streaming" : {
+            "type" : "string"
+          },
+          "timeout" : {
+            "type" : "string"
+          },
+          "inherit-error-handler" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "org.apache.camel.k.loader.yaml.parser.OnExceptionStepParser$Definition" : {
+        "type" : "object",
+        "properties" : {
+          "steps" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/items/definitions/step"
+            }
+          }
+        }
+      },
+      "org.apache.camel.k.loader.yaml.parser.OnExceptionStepParser$Definition$ExpressionElement" : {
+        "type" : "object",
+        "allOf" : [ {
+          "$ref" : "#/items/definitions/expressions"
+        }, { } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.OnExceptionStepParser$Definition$MaybeBooleanExpressionElement" : {
+        "type" : "object",
+        "allOf" : [ {
+          "$ref" : "#/items/definitions/expressions"
+        }, { } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.OnExceptionStepParser$Definition$When" : {
+        "type" : "object",
+        "allOf" : [ {
+          "$ref" : "#/items/definitions/expressions"
+        }, {
+          "properties" : {
+            "steps" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/items/definitions/step"
+              }
+            },
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.PipelineStepParser$Definition" : {
+        "type" : "object",
+        "properties" : {
+          "steps" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/items/definitions/step"
+            }
+          }
+        }
+      },
+      "org.apache.camel.k.loader.yaml.parser.PollEnrichStepParser$Definition" : {
+        "type" : "object",
+        "allOf" : [ {
+          "$ref" : "#/items/definitions/expressions"
+        }, {
+          "properties" : {
+            "aggregate-on-exception" : {
+              "type" : "string"
+            },
+            "strategy-method-allow-null" : {
+              "type" : "string"
+            },
+            "strategy-method-name" : {
+              "type" : "string"
+            },
+            "strategy-ref" : {
+              "type" : "string"
+            },
+            "cache-size" : {
+              "type" : "string"
+            },
+            "ignore-invalid-endpoint" : {
+              "type" : "string"
+            },
+            "timeout" : {
+              "type" : "string"
+            },
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.ProcessStepParser$Definition" : {
+        "type" : "object",
+        "properties" : {
+          "ref" : {
+            "type" : "string"
+          },
+          "inherit-error-handler" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "org.apache.camel.k.loader.yaml.parser.RecipientListStepParser$Definition" : {
+        "type" : "object",
+        "allOf" : [ {
+          "$ref" : "#/items/definitions/expressions"
+        }, {
+          "properties" : {
+            "cache-size" : {
+              "type" : "string"
+            },
+            "delimiter" : {
+              "type" : "string"
+            },
+            "executor-service-ref" : {
+              "type" : "string"
+            },
+            "ignore-invalid-endpoints" : {
+              "type" : "string"
+            },
+            "on-prepare-ref" : {
+              "type" : "string"
+            },
+            "parallel-aggregate" : {
+              "type" : "string"
+            },
+            "parallel-processing" : {
+              "type" : "string"
+            },
+            "share-unit-of-work" : {
+              "type" : "string"
+            },
+            "stop-on-aggregate-exception" : {
+              "type" : "string"
+            },
+            "stop-on-exception" : {
+              "type" : "string"
+            },
+            "strategy-method-allow-null" : {
+              "type" : "string"
+            },
+            "strategy-method-name" : {
+              "type" : "string"
+            },
+            "strategy-ref" : {
+              "type" : "string"
+            },
+            "streaming" : {
+              "type" : "string"
+            },
+            "timeout" : {
+              "type" : "string"
+            },
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.ResequenceStepParser$Definition" : {
+        "type" : "object",
+        "allOf" : [ {
+          "$ref" : "#/items/definitions/expressions"
+        }, {
+          "properties" : {
+            "steps" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/items/definitions/step"
+              }
+            },
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            },
+            "batch-config" : {
+              "$ref" : "#/items/definitions/org.apache.camel.model.config.BatchResequencerConfig"
+            },
+            "stream-config" : {
+              "$ref" : "#/items/definitions/org.apache.camel.model.config.StreamResequencerConfig"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.model.config.BatchResequencerConfig" : {
+        "type" : "object",
+        "properties" : {
+          "allow-duplicates" : {
+            "type" : "string"
+          },
+          "batch-size" : {
+            "type" : "string"
+          },
+          "batch-timeout" : {
+            "type" : "string"
+          },
+          "ignore-invalid-exchanges" : {
+            "type" : "string"
+          },
+          "reverse" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.model.config.StreamResequencerConfig" : {
+        "type" : "object",
+        "properties" : {
+          "capacity" : {
+            "type" : "string"
+          },
+          "comparator-ref" : {
+            "type" : "string"
+          },
+          "delivery-attempt-interval" : {
+            "type" : "string"
+          },
+          "ignore-invalid-exchanges" : {
+            "type" : "string"
+          },
+          "reject-old" : {
+            "type" : "string"
+          },
+          "timeout" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.k.loader.yaml.parser.RestStepParser$Definition" : {
+        "type" : "object",
+        "properties" : {
+          "api-docs" : {
+            "type" : "boolean"
+          },
+          "binding-mode" : {
+            "enum" : [ "auto", "off", "json", "xml", "json_xml" ]
+          },
+          "consumes" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "enable-cors" : {
+            "type" : "boolean"
+          },
+          "id" : {
+            "type" : "string"
+          },
+          "out-type" : {
+            "type" : "string"
+          },
+          "produces" : {
+            "type" : "string"
+          },
+          "steps" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/items/definitions/step"
+            }
+          },
+          "type" : {
+            "type" : "string"
+          },
+          "uri" : {
+            "type" : "string"
+          },
+          "verb" : {
+            "type" : "string"
+          }
+        }
+      },
+      "org.apache.camel.k.loader.yaml.parser.RouteStepParser$Definition" : {
+        "type" : "object",
+        "properties" : {
+          "from" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.RouteStepParser$From"
+          },
+          "group" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          },
+          "steps" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/items/definitions/step"
+            }
+          }
+        },
+        "required" : [ "from", "steps" ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.RouteStepParser$From" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "parameters" : {
+              "type" : "object"
+            },
+            "uri" : {
+              "type" : "string"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.RoutingSlipStepParser$Definition" : {
+        "type" : "object",
+        "allOf" : [ {
+          "$ref" : "#/items/definitions/expressions"
+        }, {
+          "properties" : {
+            "cache-size" : {
+              "type" : "string"
+            },
+            "ignore-invalid-endpoints" : {
+              "type" : "string"
+            },
+            "uri-delimiter" : {
+              "type" : "string"
+            },
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.SagaStepParser$Definition" : {
+        "type" : "object",
+        "properties" : {
+          "steps" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/items/definitions/step"
+            }
+          },
+          "completion-mode" : {
+            "type" : "string",
+            "enum" : [ "AUTO", "MANUAL" ]
+          },
+          "propagation" : {
+            "type" : "string",
+            "enum" : [ "REQUIRED", "REQUIRES_NEW", "MANDATORY", "SUPPORTS", "NOT_SUPPORTED", "NEVER" ]
+          },
+          "saga-service-ref" : {
+            "type" : "string"
+          },
+          "timeout" : {
+            "type" : "string"
+          },
+          "timeout-in-milliseconds" : {
+            "type" : "string"
+          },
+          "inherit-error-handler" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "org.apache.camel.k.loader.yaml.parser.SampleStepParser$Definition" : {
+        "type" : "object",
+        "properties" : {
+          "steps" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/items/definitions/step"
+            }
+          },
+          "message-frequency" : {
+            "type" : "string"
+          },
+          "sample-period" : {
+            "type" : "string"
+          },
+          "units" : {
+            "type" : "string",
+            "enum" : [ "NANOSECONDS", "MICROSECONDS", "MILLISECONDS", "SECONDS", "MINUTES", "HOURS", "DAYS" ]
+          },
+          "inherit-error-handler" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "org.apache.camel.k.loader.yaml.parser.ScriptStepParser$Definition" : {
+        "type" : "object",
+        "allOf" : [ {
+          "$ref" : "#/items/definitions/expressions"
+        }, {
+          "properties" : {
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.ServiceCallStepParser$Definition" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "allOf" : [ {
+            "$ref" : "#/items/definitions/expressions"
+          }, { } ]
+        } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.ServiceCallStepParser$ServiceCallExpressionDefinition" : {
+        "type" : "object",
+        "allOf" : [ {
+          "$ref" : "#/items/definitions/expressions"
+        }, {
+          "properties" : {
+            "host-header" : {
+              "type" : "string"
+            },
+            "port-header" : {
+              "type" : "string"
+            },
+            "id" : {
+              "type" : "string"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.SetBodyStepParser$Definition" : {
+        "type" : "object",
+        "allOf" : [ {
+          "$ref" : "#/items/definitions/expressions"
+        }, {
+          "properties" : {
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.SetExchangePatternStepParser$Definition" : {
+        "type" : "object",
+        "properties" : {
+          "pattern" : {
+            "type" : "string",
+            "enum" : [ "InOnly", "InOut", "InOptionalOut" ]
+          },
+          "inherit-error-handler" : {
+            "type" : "boolean"
+          }
+        },
+        "required" : [ "pattern" ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.SetHeaderStepParser$Definition" : {
+        "type" : "object",
+        "allOf" : [ {
+          "$ref" : "#/items/definitions/expressions"
+        }, {
+          "properties" : {
+            "name" : {
+              "type" : "string"
+            },
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.SetPropertyStepParser$Definition" : {
+        "type" : "object",
+        "allOf" : [ {
+          "$ref" : "#/items/definitions/expressions"
+        }, {
+          "properties" : {
+            "name" : {
+              "type" : "string"
+            },
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.SortStepParser$Definition" : {
+        "type" : "object",
+        "allOf" : [ {
+          "$ref" : "#/items/definitions/expressions"
+        }, {
+          "properties" : {
+            "comparator-ref" : {
+              "type" : "string"
+            },
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.SplitStepParser$Definition" : {
+        "type" : "object",
+        "allOf" : [ {
+          "$ref" : "#/items/definitions/expressions"
+        }, {
+          "properties" : {
+            "steps" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/items/definitions/step"
+              }
+            },
+            "executor-service-ref" : {
+              "type" : "string"
+            },
+            "on-prepare-ref" : {
+              "type" : "string"
+            },
+            "parallel-aggregate" : {
+              "type" : "string"
+            },
+            "parallel-processing" : {
+              "type" : "string"
+            },
+            "share-unit-of-work" : {
+              "type" : "string"
+            },
+            "stop-on-aggregate-exception" : {
+              "type" : "string"
+            },
+            "stop-on-exception" : {
+              "type" : "string"
+            },
+            "strategy-method-allow-null" : {
+              "type" : "string"
+            },
+            "strategy-method-name" : {
+              "type" : "string"
+            },
+            "strategy-ref" : {
+              "type" : "string"
+            },
+            "streaming" : {
+              "type" : "string"
+            },
+            "timeout" : {
+              "type" : "string"
+            },
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.StepStepParser$Definition" : {
+        "type" : "object",
+        "properties" : {
+          "steps" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/items/definitions/step"
+            }
+          }
+        }
+      },
+      "org.apache.camel.k.loader.yaml.parser.ThrottleStepParser$Definition" : {
+        "type" : "object",
+        "allOf" : [ {
+          "$ref" : "#/items/definitions/expressions"
+        }, {
+          "properties" : {
+            "async-delayed" : {
+              "type" : "string"
+            },
+            "caller-runs-when-rejected" : {
+              "type" : "string"
+            },
+            "executor-service-ref" : {
+              "type" : "string"
+            },
+            "reject-execution" : {
+              "type" : "string"
+            },
+            "time-period-millis" : {
+              "type" : "string"
+            },
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.ThrowExceptionStepParser$Definition" : {
+        "type" : "object",
+        "properties" : {
+          "exception-type" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
+          },
+          "ref" : {
+            "type" : "string"
+          },
+          "inherit-error-handler" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "org.apache.camel.k.loader.yaml.parser.ToDynamicStepParser$Definition" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "parameters" : {
+              "type" : "object"
+            },
+            "allow-optimised-components" : {
+              "type" : "string"
+            },
+            "auto-start-components" : {
+              "type" : "string"
+            },
+            "cache-size" : {
+              "type" : "string"
+            },
+            "ignore-invalid-endpoint" : {
+              "type" : "string"
+            },
+            "pattern" : {
+              "type" : "string",
+              "enum" : [ "InOnly", "InOut", "InOptionalOut" ]
+            },
+            "uri" : {
+              "type" : "string"
+            },
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          },
+          "required" : [ "uri" ]
+        } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.ToStepParser$Definition" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "parameters" : {
+              "type" : "object"
+            },
+            "pattern" : {
+              "type" : "string",
+              "enum" : [ "InOnly", "InOut", "InOptionalOut" ]
+            },
+            "uri" : {
+              "type" : "string"
+            },
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          },
+          "required" : [ "uri" ]
+        } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.TransactedStepParser$Definition" : {
+        "type" : "object",
+        "properties" : {
+          "ref" : {
+            "type" : "string"
+          },
+          "inherit-error-handler" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "org.apache.camel.k.loader.yaml.parser.TransformStepParser$Definition" : {
+        "type" : "object",
+        "allOf" : [ {
+          "$ref" : "#/items/definitions/expressions"
+        }, {
+          "properties" : {
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.UnmarshalStepParser$Definition" : {
+        "type" : "object",
+        "allOf" : [ {
+          "$ref" : "#/items/definitions/dataformats"
+        }, {
+          "properties" : {
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.ValidateStepParser$Definition" : {
+        "type" : "object",
+        "allOf" : [ {
+          "$ref" : "#/items/definitions/expressions"
+        }, {
+          "properties" : {
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.WireTapStepParser$Definition" : {
+        "type" : "object",
+        "properties" : {
+          "allow-optimised-components" : {
+            "type" : "string"
+          },
+          "auto-start-components" : {
+            "type" : "string"
+          },
+          "cache-size" : {
+            "type" : "string"
+          },
+          "ignore-invalid-endpoint" : {
+            "type" : "string"
+          },
+          "pattern" : {
+            "type" : "string",
+            "enum" : [ "InOnly", "InOut", "InOptionalOut" ]
+          },
+          "uri" : {
+            "type" : "string"
+          },
+          "inherit-error-handler" : {
+            "type" : "boolean"
+          }
+        },
+        "required" : [ "uri" ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.WireTapStepParser$HeaderDefinition" : {
+        "type" : "object",
+        "allOf" : [ {
+          "$ref" : "#/items/definitions/expressions"
+        }, {
+          "properties" : {
+            "name" : {
+              "type" : "string"
+            },
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.WireTapStepParser$NewExchangeDefinition" : {
+        "type" : "object",
+        "allOf" : [ {
+          "$ref" : "#/items/definitions/expressions"
+        }, { } ]
+      },
+      "org.apache.camel.builder.ErrorHandlerBuilderRef" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object"
+        } ]
+      },
+      "org.apache.camel.builder.ErrorHandlerBuilderSupport" : {
+        "type" : "object"
+      },
+      "step" : {
+        "type" : "object",
+        "maxProperties" : 1,
+        "properties" : {
+          "aggregate" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.AggregateStepParser$Definition"
+          },
+          "choice" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.ChoiceStepParser$Definition"
+          },
+          "circuit-breaker" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.CircuitBreakerStepParser$CBDefinition"
+          },
+          "delay" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.DelayStepParser$Definition"
+          },
+          "do-try" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.DoTryStepParser$DoTryDefinition"
+          },
+          "dynamic-router" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.DynamicRouterStepParser$Definition"
+          },
+          "enrich" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.EnrichStepParser$Definition"
+          },
+          "error-handler" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.ErrorHandlerStepParser$Definition"
+          },
+          "filter" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.FilterStepParser$Definition"
+          },
+          "idempotent-consumer" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.IdempotentConsumerParser$Definition"
+          },
+          "load-balance" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.LoadBalanceStepParser$Definition"
+          },
+          "loop" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.LoopStepParser$Definition"
+          },
+          "marshal" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.MarshalStepParser$Definition"
+          },
+          "multicast" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.MulticastStepParser$Definition"
+          },
+          "on-exception" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.OnExceptionStepParser$Definition"
+          },
+          "pipeline" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.PipelineStepParser$Definition"
+          },
+          "poll-enrich" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.PollEnrichStepParser$Definition"
+          },
+          "process" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.ProcessStepParser$Definition"
+          },
+          "recipient-list" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.RecipientListStepParser$Definition"
+          },
+          "resequence" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.ResequenceStepParser$Definition"
+          },
+          "routing-slip" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.RoutingSlipStepParser$Definition"
+          },
+          "saga" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.SagaStepParser$Definition"
+          },
+          "sample" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.SampleStepParser$Definition"
+          },
+          "script" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.ScriptStepParser$Definition"
+          },
+          "service-call" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.ServiceCallStepParser$Definition"
+          },
+          "set-body" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.SetBodyStepParser$Definition"
+          },
+          "set-exchange-pattern" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.SetExchangePatternStepParser$Definition"
+          },
+          "set-header" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.SetHeaderStepParser$Definition"
+          },
+          "set-property" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.SetPropertyStepParser$Definition"
+          },
+          "sort" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.SortStepParser$Definition"
+          },
+          "split" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.SplitStepParser$Definition"
+          },
+          "step" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.StepStepParser$Definition"
+          },
+          "throttle" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.ThrottleStepParser$Definition"
+          },
+          "throw-exception" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.ThrowExceptionStepParser$Definition"
+          },
+          "tod" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.ToDynamicStepParser$Definition"
+          },
+          "to" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.ToStepParser$Definition"
+          },
+          "transacted" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.TransactedStepParser$Definition"
+          },
+          "transform" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.TransformStepParser$Definition"
+          },
+          "unmarshal" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.UnmarshalStepParser$Definition"
+          },
+          "validate" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.ValidateStepParser$Definition"
+          },
+          "wiretap" : {
+            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.WireTapStepParser$Definition"
+          },
+          "rollback" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.RollbackDefinition"
+          },
+          "remove-property" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.RemovePropertyDefinition"
+          },
+          "remove-header" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.RemoveHeaderDefinition"
+          },
+          "claim-check" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.ClaimCheckDefinition"
+          },
+          "convert-body-to" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.ConvertBodyDefinition"
+          },
+          "bean" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.BeanDefinition"
+          },
+          "remove-headers" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.RemoveHeadersDefinition"
+          },
+          "stop" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.StopDefinition"
+          },
+          "remove-properties" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.RemovePropertiesDefinition"
+          },
+          "log" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.LogDefinition"
+          },
+          "threads" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.ThreadsDefinition"
+          }
+        }
+      },
+      "org.apache.camel.model.RollbackDefinition" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "mark-rollback-only" : {
+              "type" : "string"
+            },
+            "mark-rollback-only-last" : {
+              "type" : "string"
+            },
+            "message" : {
+              "type" : "string"
+            },
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.model.RemovePropertyDefinition" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "property-name" : {
+              "type" : "string"
+            },
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.model.RemoveHeaderDefinition" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "header-name" : {
+              "type" : "string"
+            },
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.model.ClaimCheckDefinition" : {
+        "type" : "object",
+        "properties" : {
+          "strategy-method-name" : {
+            "type" : "string"
+          },
+          "strategy-ref" : {
+            "type" : "string"
+          },
+          "filter" : {
+            "type" : "string"
+          },
+          "key" : {
+            "type" : "string"
+          },
+          "operation" : {
+            "type" : "string",
+            "enum" : [ "Get", "GetAndRemove", "Set", "Push", "Pop" ]
+          },
+          "inherit-error-handler" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "org.apache.camel.model.ConvertBodyDefinition" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "charset" : {
+              "type" : "string"
+            },
+            "type" : {
+              "type" : "string"
+            },
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.model.BeanDefinition" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "bean-type" : {
+              "type" : "string"
+            },
+            "cache" : {
+              "type" : "string"
+            },
+            "method" : {
+              "type" : "string"
+            },
+            "ref" : {
+              "type" : "string"
+            },
+            "scope" : {
+              "type" : "string",
+              "enum" : [ "Singleton", "Request", "Prototype" ]
+            },
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.model.RemoveHeadersDefinition" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "exclude-pattern" : {
+              "type" : "string"
+            },
+            "pattern" : {
+              "type" : "string"
+            },
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.model.StopDefinition" : {
+        "type" : "object",
+        "properties" : {
+          "inherit-error-handler" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "org.apache.camel.model.RemovePropertiesDefinition" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "exclude-pattern" : {
+              "type" : "string"
+            },
+            "pattern" : {
+              "type" : "string"
+            },
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.model.LogDefinition" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "log-name" : {
+              "type" : "string"
+            },
+            "logger-ref" : {
+              "type" : "string"
+            },
+            "logging-level" : {
+              "type" : "string",
+              "enum" : [ "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "OFF" ]
+            },
+            "marker" : {
+              "type" : "string"
+            },
+            "message" : {
+              "type" : "string"
+            },
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          }
+        } ]
+      },
+      "org.apache.camel.model.ThreadsDefinition" : {
+        "type" : "object",
+        "properties" : {
+          "allow-core-thread-time-out" : {
+            "type" : "string"
+          },
+          "caller-runs-when-rejected" : {
+            "type" : "string"
+          },
+          "executor-service-ref" : {
+            "type" : "string"
+          },
+          "keep-alive-time" : {
+            "type" : "string"
+          },
+          "max-pool-size" : {
+            "type" : "string"
+          },
+          "max-queue-size" : {
+            "type" : "string"
+          },
+          "pool-size" : {
+            "type" : "string"
+          },
+          "rejected-policy" : {
+            "type" : "string",
+            "enum" : [ "Abort", "CallerRuns", "DiscardOldest", "Discard" ]
+          },
+          "thread-name" : {
+            "type" : "string"
+          },
+          "time-unit" : {
+            "type" : "string",
+            "enum" : [ "NANOSECONDS", "MICROSECONDS", "MILLISECONDS", "SECONDS", "MINUTES", "HOURS", "DAYS" ]
+          },
+          "inherit-error-handler" : {
+            "type" : "boolean"
+          }
+        }
+      }
+    },
+    "maxProperties" : 1,
+    "properties" : {
+      "error-handler" : {
+        "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.ErrorHandlerStepParser$Definition"
+      },
+      "from" : {
+        "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.FromStepParser$Definition"
+      },
+      "on-exception" : {
+        "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.OnExceptionStepParser$Definition"
+      },
+      "rest" : {
+        "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.RestStepParser$Definition"
+      },
+      "route" : {
+        "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.RouteStepParser$Definition"
+      }
+    }
+  }
+}

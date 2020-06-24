@@ -19,6 +19,7 @@ package org.apache.camel.k.loader.yaml.parser;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.camel.k.annotation.yaml.YAMLNodeDefinition;
 import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.k.loader.yaml.model.Step;
@@ -36,7 +37,7 @@ import org.apache.camel.reifier.OnExceptionReifier;
 
 import static org.apache.camel.util.ObjectHelper.ifNotEmpty;
 
-@YAMLStepParser("on-exception")
+@YAMLStepParser(id = "on-exception", definitions = OnExceptionStepParser.Definition.class)
 public class OnExceptionStepParser implements StartStepParser, ProcessorStepParser {
     @SuppressWarnings("unchecked")
     @Override
@@ -106,12 +107,13 @@ public class OnExceptionStepParser implements StartStepParser, ProcessorStepPars
 
     @YAMLNodeDefinition(reifiers = OnExceptionReifier.class)
     public static final class Definition {
+        @JsonProperty
         public List<Step> steps;
 
         @JsonAlias("exceptions")
         public List<String> exceptions;
 
-        @JsonAlias({"when", "on-when"})
+        @JsonAlias("when")
         public When onWhen;
         @JsonAlias("retry-while")
         public ExpressionElement retryWhile;
@@ -134,10 +136,13 @@ public class OnExceptionStepParser implements StartStepParser, ProcessorStepPars
         @JsonAlias("use-original-body")
         public boolean useOriginalBody;
 
+        @YAMLNodeDefinition
         public static final class When extends WhenDefinition implements HasExpression {
+            @JsonProperty
             public List<Step> steps;
         }
 
+        @YAMLNodeDefinition
         public static final class ExpressionElement extends ExpressionSubElementDefinition implements HasExpression {
             @Override
             public void setExpression(ExpressionDefinition expressionDefinition) {
@@ -150,6 +155,7 @@ public class OnExceptionStepParser implements StartStepParser, ProcessorStepPars
             }
         }
 
+        @YAMLNodeDefinition
         public static final class MaybeBooleanExpressionElement extends ExpressionSubElementDefinition implements HasExpression {
             public MaybeBooleanExpressionElement() {
             }

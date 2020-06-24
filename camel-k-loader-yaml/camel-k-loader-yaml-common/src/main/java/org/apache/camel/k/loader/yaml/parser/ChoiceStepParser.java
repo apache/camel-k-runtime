@@ -18,6 +18,7 @@ package org.apache.camel.k.loader.yaml.parser;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.camel.k.annotation.yaml.YAMLNodeDefinition;
 import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.k.loader.yaml.model.Step;
@@ -28,7 +29,7 @@ import org.apache.camel.model.OtherwiseDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.WhenDefinition;
 
-@YAMLStepParser("choice")
+@YAMLStepParser(id = "choice", definitions = ChoiceStepParser.Definition.class)
 public class ChoiceStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {
@@ -62,14 +63,20 @@ public class ChoiceStepParser implements ProcessorStepParser {
 
     @YAMLNodeDefinition
     public static final class Definition {
+        @JsonProperty
         public List<When> when;
+        @JsonProperty
         public Otherwise otherwise;
 
+        @YAMLNodeDefinition
         public static final class When extends WhenDefinition implements HasExpression {
+            @JsonProperty
             public List<Step> steps;
         }
 
+        @YAMLNodeDefinition
         public static final class Otherwise extends OtherwiseDefinition {
+            @JsonProperty
             public List<Step> steps;
         }
     }

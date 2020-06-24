@@ -17,6 +17,7 @@
 package org.apache.camel.k.loader.yaml.parser;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.camel.Expression;
 import org.apache.camel.k.annotation.yaml.YAMLNodeDefinition;
 import org.apache.camel.k.annotation.yaml.YAMLStepParser;
@@ -27,7 +28,7 @@ import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.language.ExpressionDefinition;
 import org.apache.camel.reifier.AggregateReifier;
 
-@YAMLStepParser("aggregate")
+@YAMLStepParser(id = "aggregate", definitions = AggregateStepParser.Definition.class)
 public class AggregateStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {
@@ -41,6 +42,7 @@ public class AggregateStepParser implements ProcessorStepParser {
             super.setExpression(expression);
         }
 
+        @JsonProperty
         public void setCorrelationExpression(CorrelationExpression correlationExpression) {
             super.setCorrelationExpression(correlationExpression);
         }

@@ -53,7 +53,9 @@ import org.jboss.jandex.ClassInfo;
     requiresProject = false)
 public class GenerateYamlLoaderSupportClasses extends GenerateYamlSupport {
     @Parameter
-    protected List<String> blacklistedDefinitions;
+    protected List<String> bannedDefinitions;
+    @Parameter(defaultValue = "${project.build.directory}/generated-sources/camel")
+    protected String output;
 
     @Override
     public void execute() throws MojoFailureException {
@@ -101,13 +103,13 @@ public class GenerateYamlLoaderSupportClasses extends GenerateYamlSupport {
             .addParameter(Module.SetupContext.class, "context");
 
         definitions(EXPRESSION_DEFINITION_CLASS).forEach(
-            (k, v) -> mb.addStatement("context.registerSubtypes(new com.fasterxml.jackson.databind.jsontype.NamedType($L.class, $S))", v.getName(), k)
+            (k, v) -> mb.addStatement("context.registerSubtypes(new com.fasterxml.jackson.databind.jsontype.NamedType($L.class, $S))", v.name().toString(), k)
         );
         definitions(DATAFORMAT_DEFINITION_CLASS).forEach(
-            (k, v) -> mb.addStatement("context.registerSubtypes(new com.fasterxml.jackson.databind.jsontype.NamedType($L.class, $S))", v.getName(), k)
+            (k, v) -> mb.addStatement("context.registerSubtypes(new com.fasterxml.jackson.databind.jsontype.NamedType($L.class, $S))", v.name().toString(), k)
         );
         definitions(LOAD_BALANCE_DEFINITION_CLASS).forEach(
-            (k, v) -> mb.addStatement("context.registerSubtypes(new com.fasterxml.jackson.databind.jsontype.NamedType($L.class, $S))", v.getName(), k)
+            (k, v) -> mb.addStatement("context.registerSubtypes(new com.fasterxml.jackson.databind.jsontype.NamedType($L.class, $S))", v.name().toString(), k)
         );
 
         annotated(YAML_MIXIN_ANNOTATION).forEach(i -> {
@@ -178,33 +180,43 @@ public class GenerateYamlLoaderSupportClasses extends GenerateYamlSupport {
             .sorted(Comparator.comparing(i -> i.name().toString()))
             .forEach(
                 i -> {
-                    AnnotationValue value = i.classAnnotation(YAML_STEP_PARSER_ANNOTATION).value();
-                    for (String id: value.asStringArray()) {
-                        if (ids.add(id)) {
-                            mb.beginControlFlow("case $S:", id);
+                    AnnotationValue id = i.classAnnotation(YAML_STEP_PARSER_ANNOTATION).value("id");
+                    if (id != null) {
+                        if (ids.add(id.asString())) {
+                            mb.beginControlFlow("case $S:", id.asString());
                             mb.addStatement("return new $L()", i.name().toString());
                             mb.endControlFlow();
+                        }
+                    }
+
+                    AnnotationValue aliases = i.classAnnotation(YAML_STEP_PARSER_ANNOTATION).value("aliases");
+                    if (aliases != null) {
+                        for (String alias : aliases.asStringArray()) {
+                            if (ids.add(alias)) {
+                                mb.beginControlFlow("case $S:", alias);
+                                mb.addStatement("return new $L()", i.name().toString());
+                                mb.endControlFlow();
+                            }
                         }
                     }
                 }
             );
 
         // auto generated parsers
-        annotated(XMLROOTELEMENT_ANNOTATION_CLASS)
+        annotated(XML_ROOT_ELEMENT_ANNOTATION_CLASS)
             .forEach(
                 i -> {
                     AnnotationInstance meta = i.classAnnotation(METADATA_ANNOTATION);
-                    AnnotationInstance root = i.classAnnotation(XMLROOTELEMENT_ANNOTATION_CLASS);
+                    AnnotationInstance root = i.classAnnotation(XML_ROOT_ELEMENT_ANNOTATION_CLASS);
 
                     if (meta != null && root != null) {
                         AnnotationValue name = root.value("name");
                         AnnotationValue label = meta.value("label");
 
                         if (name != null && label != null) {
-
-                            if (blacklistedDefinitions != null) {
-                                for (String blacklistedDefinition: blacklistedDefinitions) {
-                                    if (AntPathMatcher.INSTANCE.match(blacklistedDefinition.replace('.', '/'), i.name().toString('/'))) {
+                            if (bannedDefinitions != null) {
+                                for (String bannedDefinition: bannedDefinitions) {
+                                    if (AntPathMatcher.INSTANCE.match(bannedDefinition.replace('.', '/'), i.name().toString('/'))) {
                                         getLog().debug("Skipping definition: " + i.name().toString());
                                         return;
                                     }

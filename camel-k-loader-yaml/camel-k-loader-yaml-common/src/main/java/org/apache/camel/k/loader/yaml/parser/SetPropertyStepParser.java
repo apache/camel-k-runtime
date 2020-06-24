@@ -23,7 +23,7 @@ import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.SetPropertyDefinition;
 import org.apache.camel.reifier.SetPropertyReifier;
 
-@YAMLStepParser("set-property")
+@YAMLStepParser(id = "set-property", definitions = SetPropertyStepParser.Definition.class)
 public class SetPropertyStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

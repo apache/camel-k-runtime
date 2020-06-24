@@ -23,7 +23,7 @@ import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.ScriptDefinition;
 import org.apache.camel.reifier.ScriptReifier;
 
-@YAMLStepParser("script")
+@YAMLStepParser(id = "script", definitions = ScriptStepParser.Definition.class)
 public class ScriptStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {
