@@ -16,82 +16,84 @@
  */
 package org.apache.camel.k.loader.yaml.parser;
 
-import java.util.Optional;
+import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Map;
 
-import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.camel.k.annotation.yaml.YAMLNodeDefinition;
 import org.apache.camel.k.annotation.yaml.YAMLStepParser;
-import org.apache.camel.k.loader.yaml.model.Node;
-import org.apache.camel.k.loader.yaml.spi.ProcessorStepParser;
+import org.apache.camel.k.loader.yaml.model.Step;
 import org.apache.camel.k.loader.yaml.spi.StartStepParser;
+import org.apache.camel.k.loader.yaml.spi.StepParserSupport;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.RouteDefinition;
+import org.apache.camel.util.ObjectHelper;
+import org.apache.camel.util.URISupport;
 
-@YAMLStepParser("route")
+@YAMLStepParser(id = "route", definitions = RouteStepParser.Definition.class)
 public class RouteStepParser implements StartStepParser {
     @Override
     public ProcessorDefinition<?> toStartProcessor(Context context) {
         final Definition definition = context.node(Definition.class);
+        final String uri = definition.from.getEndpointUri();
+        final RouteDefinition route = context.builder().from(uri);
 
-        final ProcessorDefinition<?> root = StartStepParser.invoke(
-            ProcessorStepParser.Context.of(context, definition.getRoot().getData()),
-            definition.getRoot().getType());
+        ObjectHelper.ifNotEmpty(definition.id, route::routeId);
+        ObjectHelper.ifNotEmpty(definition.group, route::routeGroup);
 
-        if (root == null) {
-            throw new IllegalStateException("No route definition");
-        }
-        if (!(root instanceof RouteDefinition)) {
-            throw new IllegalStateException("Root definition should be of type RouteDefinition");
-        }
+        // as this is a start converter, steps are mandatory
+        StepParserSupport.notNull(definition.steps, "steps");
 
-        definition.getId().ifPresent(root::routeId);
-        definition.getGroup().ifPresent(root::routeGroup);
-
-        return root;
+        return StepParserSupport.convertSteps(
+            context,
+            route,
+            definition.steps
+        );
     }
 
     @YAMLNodeDefinition
     public static final class Definition {
-        private String id;
-        private String group;
-        private Node root;
-
-        public Optional<String> getId() {
-            return Optional.ofNullable(id);
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public Optional<String> getGroup() {
-            return Optional.ofNullable(group);
-        }
-
-        public void setGroup(String group) {
-            this.group = group;
-        }
-
-        @JsonIgnore
-        public Node getRoot() {
-            return root;
-        }
-
-        @JsonIgnore
-        public void setRoot(Node routeDefinition) {
-            this.root = routeDefinition;
-        }
-
-        @JsonAnySetter
-        public void handleUnknownField(String id, JsonNode node) {
-            if (root != null) {
-                throw new IllegalArgumentException("A root is already set: " + root.getType());
-            }
-            setRoot(new Node(id, node));
-        }
+        @JsonProperty
+        public String id;
+        @JsonProperty
+        public String group;
+        @JsonProperty(required = true)
+        public From from;
+        @JsonProperty(required = true)
+        public List<Step> steps;
     }
 
+    @YAMLNodeDefinition
+    public static final class From {
+        @JsonProperty
+        public String uri;
+        @JsonProperty
+        public Map<String, Object> parameters;
+
+        public From() {
+        }
+
+        public From(String uri) {
+            this.uri = uri;
+        }
+
+        @JsonIgnore
+        public String getEndpointUri() {
+            String answer = uri;
+
+            if (parameters != null) {
+                try {
+                    answer = URISupport.appendParametersToURI(answer, parameters);
+                } catch (URISyntaxException | UnsupportedEncodingException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+            return answer;
+        }
+    }
 }
 

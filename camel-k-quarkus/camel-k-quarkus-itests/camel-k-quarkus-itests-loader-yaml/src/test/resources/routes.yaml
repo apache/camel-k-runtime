@@ -19,5 +19,5 @@
     id: yaml
     from:
       uri: 'direct:yaml'
-      steps:
-        - to: 'log:yaml'
+    steps:
+      - to: 'log:yaml'

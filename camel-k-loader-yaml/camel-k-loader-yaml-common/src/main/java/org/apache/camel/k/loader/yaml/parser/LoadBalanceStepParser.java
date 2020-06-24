@@ -20,6 +20,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.apache.camel.Expression;
 import org.apache.camel.k.annotation.yaml.YAMLNodeDefinition;
@@ -41,7 +42,7 @@ import org.apache.camel.model.loadbalancer.TopicLoadBalancerDefinition;
 import org.apache.camel.model.loadbalancer.WeightedLoadBalancerDefinition;
 import org.apache.camel.reifier.LoadBalanceReifier;
 
-@YAMLStepParser("load-balance")
+@YAMLStepParser(id = "load-balance", definitions = LoadBalanceStepParser.Definition.class)
 public class LoadBalanceStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {
@@ -56,9 +57,10 @@ public class LoadBalanceStepParser implements ProcessorStepParser {
 
     @YAMLNodeDefinition(reifiers = LoadBalanceReifier.class)
     public static final class Definition extends LoadBalanceDefinition {
+        @JsonProperty
         public List<Step> steps;
 
-        @JsonAlias({"load-balancer-type", "type"})
+        @JsonAlias("type")
         @JsonTypeInfo(
             use = JsonTypeInfo.Id.NAME,
             include = JsonTypeInfo.As.WRAPPER_OBJECT
@@ -81,7 +83,7 @@ public class LoadBalanceStepParser implements ProcessorStepParser {
             setLoadBalancerType(definition);
         }
 
-        @JsonAlias({"customLoadBalancer", "custom"})
+        @JsonAlias("custom")
         public  void setCustomLoadBalancer(CustomLoadBalancerDefinition definition) {
             if (getLoadBalancerType() != null) {
                 throw new IllegalArgumentException("A load-balancer has already been set");
@@ -134,6 +136,7 @@ public class LoadBalanceStepParser implements ProcessorStepParser {
             setCustomLoadBalancer(definition);
         }
 
+        @YAMLNodeDefinition
         public static final class Sticky extends StickyLoadBalancerDefinition implements HasExpression {
             @JsonIgnore
             @Override

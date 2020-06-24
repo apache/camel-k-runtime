@@ -23,7 +23,7 @@ import org.apache.camel.model.DelayDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.reifier.DelayReifier;
 
-@YAMLStepParser("delay")
+@YAMLStepParser(id = "delay", definitions = DelayStepParser.Definition.class)
 public class DelayStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

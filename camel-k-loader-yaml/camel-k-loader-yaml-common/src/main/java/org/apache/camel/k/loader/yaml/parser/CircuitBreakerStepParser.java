@@ -19,6 +19,7 @@ package org.apache.camel.k.loader.yaml.parser;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.camel.k.annotation.yaml.YAMLNodeDefinition;
 import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.k.loader.yaml.model.Step;
@@ -33,7 +34,7 @@ import org.apache.camel.model.Resilience4jConfigurationDefinition;
 import org.apache.camel.reifier.CircuitBreakerReifier;
 import org.apache.camel.reifier.OnFallbackReifier;
 
-@YAMLStepParser("circuit-breaker")
+@YAMLStepParser(id = "circuit-breaker", definitions = CircuitBreakerStepParser.CBDefinition.class)
 public class CircuitBreakerStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {
@@ -61,8 +62,9 @@ public class CircuitBreakerStepParser implements ProcessorStepParser {
     @YAMLNodeDefinition(reifiers = CircuitBreakerReifier.class)
     public static final class CBDefinition {
         public CircuitBreakerDefinition delegate = new CircuitBreakerDefinition();
-        public FBDefinition onFallback;
 
+        public FBDefinition onFallback;
+        @JsonProperty
         public List<Step> steps;
 
         public HystrixConfigurationDefinition getHystrixConfiguration() {
@@ -93,6 +95,7 @@ public class CircuitBreakerStepParser implements ProcessorStepParser {
             return onFallback;
         }
 
+        @JsonProperty("on-fallback")
         public void setOnFallback(FBDefinition onFallback) {
             this.onFallback = onFallback;
         }
@@ -100,6 +103,7 @@ public class CircuitBreakerStepParser implements ProcessorStepParser {
 
     @YAMLNodeDefinition(reifiers = OnFallbackReifier.class)
     public static final class FBDefinition extends OnFallbackDefinition {
+        @JsonProperty
         public List<Step> steps;
 
         @Override
@@ -107,7 +111,7 @@ public class CircuitBreakerStepParser implements ProcessorStepParser {
             return super.getFallbackViaNetwork();
         }
 
-        @JsonAlias({"fallback-via-network", "via-network"})
+        @JsonAlias("fallback-via-network")
         @Override
         public void setFallbackViaNetwork(String fallbackViaNetwork) {
             super.setFallbackViaNetwork(fallbackViaNetwork);

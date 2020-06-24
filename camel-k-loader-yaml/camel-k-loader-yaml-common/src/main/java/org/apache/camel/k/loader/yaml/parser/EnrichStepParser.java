@@ -17,6 +17,7 @@
 package org.apache.camel.k.loader.yaml.parser;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.camel.Expression;
 import org.apache.camel.k.annotation.yaml.YAMLNodeDefinition;
 import org.apache.camel.k.annotation.yaml.YAMLStepParser;
@@ -25,7 +26,7 @@ import org.apache.camel.model.EnrichDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.reifier.EnrichReifier;
 
-@YAMLStepParser("enrich")
+@YAMLStepParser(id = "enrich", definitions = EnrichStepParser.Definition.class)
 public class EnrichStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {
@@ -39,11 +40,12 @@ public class EnrichStepParser implements ProcessorStepParser {
             super.setExpression(expression);
         }
 
+        @JsonProperty("strategy-ref")
         public void setStrategyRef(String aggregationStrategyRef) {
             super.setAggregationStrategyRef(aggregationStrategyRef);
         }
 
-        public String getStrategyMethodName() {
+        public String getStrategyRef() {
             return super.getAggregationStrategyRef();
         }
     }

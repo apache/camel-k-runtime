@@ -16,16 +16,22 @@
  */
 package org.apache.camel.k.loader.yaml.parser;
 
+import org.apache.camel.k.annotation.yaml.YAMLNodeDefinition;
 import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.k.loader.yaml.spi.ProcessorStepParser;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.TransactedDefinition;
+import org.apache.camel.reifier.TransactedReifier;
 
-@YAMLStepParser("transacted")
+@YAMLStepParser(id = "transacted", definitions = TransactedStepParser.Definition.class)
 public class TransactedStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {
-        return context.node(TransactedDefinition.class);
+        return context.node(Definition.class);
+    }
+
+    @YAMLNodeDefinition(reifiers = TransactedReifier.class)
+    public static class Definition extends TransactedDefinition {
     }
 }
 

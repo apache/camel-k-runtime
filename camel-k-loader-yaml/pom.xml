@@ -30,6 +30,7 @@
 
     <modules>
         <module>camel-k-loader-yaml-common</module>
+        <module>camel-k-loader-yaml-support</module>
         <module>camel-k-loader-yaml</module>
     </modules>
 

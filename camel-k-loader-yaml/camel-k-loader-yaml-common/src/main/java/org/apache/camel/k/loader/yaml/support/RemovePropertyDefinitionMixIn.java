@@ -21,9 +21,9 @@ import org.apache.camel.k.annotation.yaml.YAMLMixIn;
 
 @YAMLMixIn(org.apache.camel.model.RemovePropertyDefinition.class)
 public abstract class RemovePropertyDefinitionMixIn {
-    @JsonAlias({"name", "property-name"})
+    @JsonAlias("name")
     public abstract void setPropertyName(String headerName);
 
-    @JsonAlias({"name", "property-name"})
+    @JsonAlias("name")
     public abstract String getPropertyName();
 }

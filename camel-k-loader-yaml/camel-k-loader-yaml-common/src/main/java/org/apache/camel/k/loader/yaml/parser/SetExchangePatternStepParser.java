@@ -16,16 +16,22 @@
  */
 package org.apache.camel.k.loader.yaml.parser;
 
+import org.apache.camel.k.annotation.yaml.YAMLNodeDefinition;
 import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.k.loader.yaml.spi.ProcessorStepParser;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.SetExchangePatternDefinition;
+import org.apache.camel.reifier.SetExchangePatternReifier;
 
-@YAMLStepParser("set-exchange-pattern")
+@YAMLStepParser(id = "set-exchange-pattern", definitions = SetExchangePatternStepParser.Definition.class)
 public class SetExchangePatternStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {
-        return context.node(SetExchangePatternDefinition.class);
+        return context.node(Definition.class);
+    }
+
+    @YAMLNodeDefinition(reifiers = SetExchangePatternReifier.class)
+    public static class Definition extends SetExchangePatternDefinition {
     }
 }
 

@@ -21,9 +21,9 @@ import org.apache.camel.k.annotation.yaml.YAMLMixIn;
 
 @YAMLMixIn(org.apache.camel.model.RemoveHeaderDefinition.class)
 public abstract class RemoveHeaderDefinitionMixIn {
-    @JsonAlias({"name", "header-name"})
+    @JsonAlias("name")
     public abstract void setHeaderName(String headerName);
 
-    @JsonAlias({"name", "header-name"})
+    @JsonAlias("name")
     public abstract String getHeaderName();
 }

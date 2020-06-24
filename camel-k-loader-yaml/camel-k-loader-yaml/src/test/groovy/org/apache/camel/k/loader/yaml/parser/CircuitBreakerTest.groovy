@@ -52,21 +52,6 @@ class CircuitBreakerTest extends TestSupport {
             }
     }
 
-    def "definition with alias"() {
-        given:
-            def stepContext = stepContext('''
-                 on-fallback:
-                   via-network: "true"
-            ''')
-        when:
-            def processor = new CircuitBreakerStepParser().toProcessor(stepContext)
-        then:
-            with(processor, CircuitBreakerDefinition) {
-                onFallback != null
-                onFallback.fallbackViaNetwork == "true"
-            }
-    }
-
     def "definition with steps"() {
         given:
             def stepContext = stepContext('''

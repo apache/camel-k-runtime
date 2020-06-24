@@ -23,7 +23,7 @@ import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.UnmarshalDefinition;
 import org.apache.camel.reifier.UnmarshalReifier;
 
-@YAMLStepParser("unmarshal")
+@YAMLStepParser(id = "unmarshal", definitions = UnmarshalStepParser.Definition.class)
 public class UnmarshalStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

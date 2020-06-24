@@ -23,7 +23,7 @@ import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.SetBodyDefinition;
 import org.apache.camel.reifier.SetBodyReifier;
 
-@YAMLStepParser("set-body")
+@YAMLStepParser(id = "set-body", definitions = SetBodyStepParser.Definition.class)
 public class SetBodyStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

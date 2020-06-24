@@ -159,4 +159,15 @@ class RoutesTest extends TestSupport {
         cleanup:
             context?.stop()
     }
+
+    def 'bean'() {
+        setup:
+            def context = startContext()
+        when:
+            def out = context.createProducerTemplate().requestBody('direct:route', 'test');
+        then:
+            out == 'TEST'
+        cleanup:
+            context?.stop()
+    }
 }

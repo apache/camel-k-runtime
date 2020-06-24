@@ -24,7 +24,7 @@ import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.RoutingSlipDefinition;
 import org.apache.camel.reifier.RoutingSlipReifier;
 
-@YAMLStepParser("routing-slip")
+@YAMLStepParser(id = "routing-slip", definitions = RoutingSlipStepParser.Definition.class)
 public class RoutingSlipStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

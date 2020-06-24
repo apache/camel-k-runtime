@@ -34,9 +34,34 @@ class DefinitionsTest extends TestSupport {
                  group: my-route-group 
                  from:
                      uri: "direct:start"
-                     steps:
-                       - to:
-                           uri: "log:info"
+                 steps:
+                   - to:
+                       uri: "log:info"
+            '''.stripMargin('|')
+
+            def camelContext = new DefaultCamelContext()
+        when:
+            camelContext.addRoutes(new YamlSourceLoader().builder(content))
+        then:
+            camelContext.routeDefinitions[0].id == 'my-route-id'
+            camelContext.routeDefinitions[0].group == 'my-route-group'
+            camelContext.routeDefinitions[0].input.endpointUri == 'direct:start'
+
+            with(camelContext.routeDefinitions[0].outputs[0], ToDefinition) {
+                endpointUri == 'log:info'
+            }
+    }
+
+    def "route with id and compact from definition"() {
+        given:
+            def content = '''
+             - route:
+                 id: my-route-id    
+                 group: my-route-group 
+                 from: "direct:start"
+                 steps:
+                   - to:
+                       uri: "log:info"
             '''.stripMargin('|')
 
             def camelContext = new DefaultCamelContext()

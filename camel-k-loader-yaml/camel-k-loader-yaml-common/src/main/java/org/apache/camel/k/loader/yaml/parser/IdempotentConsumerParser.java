@@ -18,6 +18,7 @@ package org.apache.camel.k.loader.yaml.parser;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.camel.k.annotation.yaml.YAMLNodeDefinition;
 import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.k.loader.yaml.model.Step;
@@ -27,7 +28,7 @@ import org.apache.camel.model.IdempotentConsumerDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.reifier.IdempotentConsumerReifier;
 
-@YAMLStepParser("idempotent-consumer")
+@YAMLStepParser(id = "idempotent-consumer", definitions = IdempotentConsumerParser.Definition.class)
 public class IdempotentConsumerParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {
@@ -42,6 +43,7 @@ public class IdempotentConsumerParser implements ProcessorStepParser {
 
     @YAMLNodeDefinition(reifiers = IdempotentConsumerReifier.class)
     public static final class Definition extends IdempotentConsumerDefinition implements HasExpression {
+        @JsonProperty
         public List<Step> steps;
     }
 }

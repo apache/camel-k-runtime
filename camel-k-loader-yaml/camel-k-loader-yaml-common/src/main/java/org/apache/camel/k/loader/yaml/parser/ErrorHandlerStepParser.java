@@ -22,6 +22,7 @@ import org.apache.camel.builder.DefaultErrorHandlerBuilder;
 import org.apache.camel.builder.ErrorHandlerBuilder;
 import org.apache.camel.builder.ErrorHandlerBuilderRef;
 import org.apache.camel.builder.NoErrorHandlerBuilder;
+import org.apache.camel.k.annotation.yaml.YAMLNodeDefinition;
 import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.k.loader.yaml.spi.ProcessorStepParser;
 import org.apache.camel.k.loader.yaml.spi.StartStepParser;
@@ -29,7 +30,7 @@ import org.apache.camel.k.loader.yaml.spi.StepParserSupport;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.RouteDefinition;
 
-@YAMLStepParser("error-handler")
+@YAMLStepParser(id = "error-handler", definitions = ErrorHandlerStepParser.Definition.class)
 public class ErrorHandlerStepParser implements StartStepParser, ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toStartProcessor(Context context) {
@@ -52,6 +53,7 @@ public class ErrorHandlerStepParser implements StartStepParser, ProcessorStepPar
         return context.processor(RouteDefinition.class).errorHandler(definition.builder);
     }
 
+    @YAMLNodeDefinition()
     public static final class Definition {
         public ErrorHandlerBuilder builder;
 
@@ -65,14 +67,14 @@ public class ErrorHandlerStepParser implements StartStepParser, ProcessorStepPar
             setBuilder(builder);
         }
 
-        @JsonAlias({"no-error-handler", "none" })
+        @JsonAlias("no-error-handler")
         public void setNoErrorHandler(NoErrorHandlerBuilder builder) {
             setBuilder(builder);
         }
 
         @JsonAlias("ref")
-        public void setRefHandler(ErrorHandlerBuilderRef builder) {
-            setBuilder(builder);
+        public void setRefHandler(String ref) {
+            setBuilder(new ErrorHandlerBuilderRef(ref));
         }
 
         private void setBuilder(ErrorHandlerBuilder builder) {

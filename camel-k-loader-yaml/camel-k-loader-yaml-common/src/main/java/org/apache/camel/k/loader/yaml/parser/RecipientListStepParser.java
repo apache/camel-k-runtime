@@ -23,7 +23,7 @@ import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.RecipientListDefinition;
 import org.apache.camel.reifier.RecipientListReifier;
 
-@YAMLStepParser("recipient-list")
+@YAMLStepParser(id = "recipient-list", definitions = RecipientListStepParser.Definition.class)
 public class RecipientListStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

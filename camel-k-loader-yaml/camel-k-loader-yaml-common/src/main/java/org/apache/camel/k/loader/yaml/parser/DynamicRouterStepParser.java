@@ -23,7 +23,7 @@ import org.apache.camel.model.DynamicRouterDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.reifier.DynamicRouterReifier;
 
-@YAMLStepParser("dynamic-router")
+@YAMLStepParser(id = "dynamic-router", definitions = DynamicRouterStepParser.Definition.class)
 public class DynamicRouterStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

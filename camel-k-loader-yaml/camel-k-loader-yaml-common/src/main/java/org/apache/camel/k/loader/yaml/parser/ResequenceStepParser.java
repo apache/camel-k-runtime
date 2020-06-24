@@ -20,6 +20,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.camel.Expression;
 import org.apache.camel.k.annotation.yaml.YAMLNodeDefinition;
 import org.apache.camel.k.annotation.yaml.YAMLStepParser;
@@ -32,7 +33,7 @@ import org.apache.camel.model.config.BatchResequencerConfig;
 import org.apache.camel.model.config.StreamResequencerConfig;
 import org.apache.camel.reifier.ResequenceReifier;
 
-@YAMLStepParser("resequence")
+@YAMLStepParser(id = "resequence", definitions = ResequenceStepParser.Definition.class)
 public class ResequenceStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {
@@ -47,6 +48,7 @@ public class ResequenceStepParser implements ProcessorStepParser {
 
     @YAMLNodeDefinition(reifiers = ResequenceReifier.class)
     public static final class Definition extends ResequenceDefinition implements HasExpression {
+        @JsonProperty
         public List<Step> steps;
 
         @JsonIgnore

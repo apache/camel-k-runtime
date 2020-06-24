@@ -25,7 +25,7 @@ import org.apache.camel.model.PollEnrichDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.reifier.PollEnrichReifier;
 
-@YAMLStepParser("poll-enrich")
+@YAMLStepParser(id = "poll-enrich", definitions = PollEnrichStepParser.Definition.class)
 public class PollEnrichStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

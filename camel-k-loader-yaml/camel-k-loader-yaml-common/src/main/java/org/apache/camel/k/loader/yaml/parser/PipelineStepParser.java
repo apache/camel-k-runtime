@@ -18,6 +18,7 @@ package org.apache.camel.k.loader.yaml.parser;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.camel.k.annotation.yaml.YAMLNodeDefinition;
 import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.k.loader.yaml.model.Step;
@@ -26,7 +27,7 @@ import org.apache.camel.k.loader.yaml.spi.StepParserSupport;
 import org.apache.camel.model.PipelineDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 
-@YAMLStepParser("pipeline")
+@YAMLStepParser(id = "pipeline", definitions = PipelineStepParser.Definition.class)
 public class PipelineStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {
@@ -44,6 +45,7 @@ public class PipelineStepParser implements ProcessorStepParser {
 
     @YAMLNodeDefinition
     public static final class Definition {
+        @JsonProperty
         public List<Step> steps;
     }
 }
