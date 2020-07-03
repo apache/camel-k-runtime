@@ -25,10 +25,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Set up JDK 11
-      uses: joschi/setup-jdk@v1
+    - name: Set up JDK 11     
+      uses: AdoptOpenJDK/install-jdk@v1
       with:
-        java-version: 11
+        version: '11'
     - name: mvn install
       run: ./mvnw -V -B -ntp clean install
     - name: Tar Maven Repo
@@ -44,13 +44,13 @@ jobs:
     strategy:
       matrix:
         java:
-          - 14
+          - '14'
     steps:
       - uses: actions/checkout@v2
-      - name: Set up JDK - ${{ matrix.java }}
-        uses: joschi/setup-jdk@v1
+      - name: Set up JDK - ${{ matrix.java }}        
+        uses: AdoptOpenJDK/install-jdk@v1
         with:
-          java-version: ${{ matrix.java }}
+          version:  ${{ matrix.java }}
       - name: Build on ${{ matrix.java }}
         run: |
           ./mvnw -V -B -ntp clean install
@@ -74,9 +74,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set up JDK 11
-        uses: joschi/setup-jdk@v1
+        uses: AdoptOpenJDK/install-jdk@v1
         with:
-          java-version: 11
+          version: '11'
       - name: Download Maven Repo
         uses: actions/download-artifact@v1
         with:
