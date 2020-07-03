@@ -74,10 +74,10 @@ class LoaderTest extends Specification {
                 routes.size() == 1
 
                 with(routes[0].input, FromDefinition) {
-                    it.endpointUri == 'timer:tick?period=1s'
+                    it.endpointUri == 'timer://tick?period=1s'
                 }
                 with(routes[0].outputs[0], ToDefinition) {
-                    it.endpointUri == 'log:info'
+                    it.endpointUri == 'log://info'
                 }
             }
     }

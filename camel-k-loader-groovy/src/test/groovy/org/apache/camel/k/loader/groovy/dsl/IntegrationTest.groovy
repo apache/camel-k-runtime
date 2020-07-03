@@ -181,10 +181,10 @@ class IntegrationTest extends Specification {
             context.start()
         then:
             context.routes?.size() == 1
-            context.routes[0].routeContext.getOnException('my-on-exception') != null
-            context.routes[0].routeContext.getOnException('my-on-exception') instanceof FatalFallbackErrorHandler
+            context.routes[0].getOnException('my-on-exception') != null
+            context.routes[0].getOnException('my-on-exception') instanceof FatalFallbackErrorHandler
 
-            def eh = context.routes[0].routeContext.getOnException('my-on-exception')  as FatalFallbackErrorHandler
+            def eh = context.routes[0].getOnException('my-on-exception')  as FatalFallbackErrorHandler
             def ch = eh.processor as DefaultChannel
 
             ch.output instanceof SendProcessor

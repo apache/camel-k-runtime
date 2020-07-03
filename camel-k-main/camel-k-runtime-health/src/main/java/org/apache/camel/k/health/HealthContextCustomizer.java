@@ -94,7 +94,7 @@ public class HealthContextCustomizer implements ContextCustomizer {
         try {
             HealthCheckRegistry reg =  HealthCheckRegistry.get(camelContext);
             if (includeRoutes) {
-                reg.addRepository(new RoutesHealthCheckRepository());
+                reg.register(new RoutesHealthCheckRepository());
             }
             if (includeContext) {
                 ContextHealthCheck contextHealthCheck = new ContextHealthCheck();

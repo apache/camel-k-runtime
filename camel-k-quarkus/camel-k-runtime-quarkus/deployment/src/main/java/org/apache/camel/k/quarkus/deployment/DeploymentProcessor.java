@@ -16,19 +16,46 @@
  */
 package org.apache.camel.k.quarkus.deployment;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.ServiceLoader;
 
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.ExecutionTime;
+import io.quarkus.deployment.annotations.Record;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.apache.camel.k.Runtime;
+import org.apache.camel.k.quarkus.ApplicationRecorder;
+import org.apache.camel.quarkus.core.deployment.spi.CamelServiceDestination;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem;
+import org.apache.camel.quarkus.main.CamelMainApplication;
+import org.apache.camel.quarkus.main.deployment.spi.CamelMainListenerBuildItem;
+import org.apache.camel.spi.HasId;
 
 public class DeploymentProcessor {
     @BuildStep
-    public List<CamelServicePatternBuildItem> factoryPatterns() {
-        return List.of(
-            new CamelServicePatternBuildItem(
-            CamelServicePatternBuildItem.CamelServiceDestination.DISCOVERY,
-            true,
-            "META-INF/services/org/apache/camel/rest/*",
-            "META-INF/services/org/apache/camel/restapi/*"));
+    public ReflectiveClassBuildItem reflectiveClasses() {
+        return new ReflectiveClassBuildItem(true, false, CamelMainApplication.class);
+    }
+
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep
+    CamelMainListenerBuildItem registerListener(ApplicationRecorder recorder) {
+        List<Runtime.Listener> listeners = new ArrayList<>();
+        ServiceLoader.load(Runtime.Listener.class).forEach(listener -> {
+            if (listener instanceof HasId) {
+                String id = ((HasId) listener).getId();
+                if (!id.endsWith(".")) {
+                    id = id + ".";
+                }
+
+                // TODO: this has to be done at runtime
+                //PropertiesSupport.bindProperties(getCamelContext(), listener, id);
+            }
+
+            listeners.add(listener);
+        });
+
+        return new CamelMainListenerBuildItem(recorder.createMainListener(listeners));
     }
 }
