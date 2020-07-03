@@ -28,6 +28,7 @@ import org.apache.camel.k.loader.yaml.spi.StepParser;
 import org.apache.camel.model.DataFormatDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.language.ExpressionDefinition;
+import org.apache.camel.quarkus.core.deployment.spi.CamelServiceDestination;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
@@ -46,7 +47,7 @@ public class DeploymentProcessor {
     @BuildStep
     CamelServicePatternBuildItem servicePatterns() {
         return new CamelServicePatternBuildItem(
-            CamelServicePatternBuildItem.CamelServiceDestination.DISCOVERY,
+            CamelServiceDestination.DISCOVERY,
             true,
             StepParser.SERVICE_LOCATION + "/*");
     }

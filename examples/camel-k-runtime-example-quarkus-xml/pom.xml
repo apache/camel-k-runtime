@@ -143,6 +143,7 @@
                         </executions>
                         <configuration>
                             <executable>${project.build.directory}/${project.artifactId}-runner</executable>
+                            <arguments combine.self="override"/>
                             <workingDirectory>${project.basedir}</workingDirectory>
                             <environmentVariables>
                                 <CAMEL_K_CONF>${project.basedir}/data/application.properties</CAMEL_K_CONF>

@@ -16,9 +16,7 @@
  */
 package org.apache.camel.k.core.quarkus.deployment;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.ServiceLoader;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
@@ -28,12 +26,10 @@ import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 import org.apache.camel.k.Constants;
-import org.apache.camel.k.Runtime;
 import org.apache.camel.k.core.quarkus.RuntimeRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextCustomizerBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelMainListenerBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelServiceDestination;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem;
-import org.apache.camel.spi.HasId;
 import org.apache.camel.spi.StreamCachingStrategy;
 import org.jboss.jandex.IndexView;
 
@@ -44,12 +40,12 @@ public class DeploymentProcessor {
     List<CamelServicePatternBuildItem> servicePatterns() {
         return List.of(
             new CamelServicePatternBuildItem(
-                CamelServicePatternBuildItem.CamelServiceDestination.REGISTRY,
+                CamelServiceDestination.REGISTRY,
                 true,
                 Constants.SOURCE_LOADER_RESOURCE_PATH + "/*",
                 Constants.CONTEXT_CUSTOMIZER_RESOURCE_PATH  + "/*"),
             new CamelServicePatternBuildItem(
-                CamelServicePatternBuildItem.CamelServiceDestination.DISCOVERY,
+                CamelServiceDestination.DISCOVERY,
                 true,
                 Constants.SOURCE_LOADER_INTERCEPTOR_RESOURCE_PATH + "/*")
         );
@@ -112,27 +108,6 @@ public class DeploymentProcessor {
                 true,
                 StreamCachingStrategy.SpoolRule.class)
         );
-    }
-
-    @Record(ExecutionTime.STATIC_INIT)
-    @BuildStep
-    CamelMainListenerBuildItem registerListener(RuntimeRecorder recorder) {
-        List<Runtime.Listener> listeners = new ArrayList<>();
-        ServiceLoader.load(Runtime.Listener.class).forEach(listener -> {
-            if (listener instanceof HasId) {
-                String id = ((HasId) listener).getId();
-                if (!id.endsWith(".")) {
-                    id = id + ".";
-                }
-
-                // TODO: this has to be done at runtime
-                //PropertiesSupport.bindProperties(getCamelContext(), listener, id);
-            }
-
-            listeners.add(listener);
-        });
-
-        return new CamelMainListenerBuildItem(recorder.createMainListener(listeners));
     }
 
     @Record(ExecutionTime.STATIC_INIT)

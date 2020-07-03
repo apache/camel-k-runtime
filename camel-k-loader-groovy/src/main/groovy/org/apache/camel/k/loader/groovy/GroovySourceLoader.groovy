@@ -44,8 +44,7 @@ class GroovySourceLoader implements SourceLoader {
                 cc.addCompilationCustomizers(ic)
                 cc.setScriptBaseClass(DelegatingScript.class.getName())
 
-                def cl = Thread.currentThread().getContextClassLoader()
-                def sh = new GroovyShell(cl, new Binding(), cc)
+                def sh = new GroovyShell(new Binding(), cc)
                 def is = source.resolveAsInputStream(getContext())
 
                 is.withCloseable {

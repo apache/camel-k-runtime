@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.core.quarkus;
+package org.apache.camel.k.quarkus;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -30,16 +30,16 @@ import org.apache.camel.main.MainListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class RuntimeListenerAdapter implements MainListener {
-    private static final Logger LOGGER = LoggerFactory.getLogger(RuntimeListenerAdapter.class);
+public class ApplicationListenerAdapter implements MainListener {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationListenerAdapter.class);
 
     private final List<Runtime.Listener> listeners;
 
-    public RuntimeListenerAdapter() {
+    public ApplicationListenerAdapter() {
         this.listeners = new ArrayList<>();
     }
 
-    public RuntimeListenerAdapter(List<Runtime.Listener> listeners) {
+    public ApplicationListenerAdapter(List<Runtime.Listener> listeners) {
         this.listeners = new ArrayList<>(listeners);
     }
 
