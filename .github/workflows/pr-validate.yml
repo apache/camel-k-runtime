@@ -26,9 +26,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 11
-      uses: joschi/setup-jdk@v1
+      uses: AdoptOpenJDK/install-jdk@v1
       with:
-        java-version: 11
+        version: '11'
     - name: mvn package
       run: |
         ./mvnw -fae -B -ntp clean package \
