@@ -44,6 +44,7 @@ import org.apache.camel.http.base.HttpOperationFailedException;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.k.http.PlatformHttpServiceContextCustomizer;
 import org.apache.camel.k.test.AvailablePortFinder;
+import org.apache.camel.support.service.ServiceHelper;
 import org.apache.camel.util.ObjectHelper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -91,6 +92,8 @@ public class KnativeHttpTest {
 
     @AfterEach
     public void after() {
+        ServiceHelper.stopService(template);
+
         if (this.context != null) {
             this.context.stop();
         }
@@ -1676,6 +1679,67 @@ public class KnativeHttpTest {
             assertThat(request.getHeader(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_VERSION).http())).isEqualTo(ce.version());
             assertThat(request.getHeader(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).http())).isEqualTo("event.sink");
             assertThat(request.getHeader(Exchange.CONTENT_TYPE)).isEqualTo("text/plain");
+        } finally {
+            server.stop();
+        }
+    }
+
+    @ParameterizedTest
+    @EnumSource(CloudEvents.class)
+    void testSlowConsumer(CloudEvent ce) throws Exception {
+        final int port = AvailablePortFinder.getNextAvailable();
+        final KnativeHttpServer server = new KnativeHttpServer(context, port, event -> {
+            event.vertx().executeBlocking(
+                promise -> {
+                    try {
+                        Thread.sleep(5000);
+                        promise.complete();
+                    } catch (InterruptedException e) {
+                        promise.fail(e);
+                    }
+                },
+                false,
+                result -> {
+                    event.response().setStatusCode(200);
+                    event.response().end("");
+                }
+            );
+        });
+
+        configureKnativeComponent(
+            context,
+            ce,
+            sourceEndpoint(
+                "start",
+                mapOf(
+                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.CONTENT_TYPE, "text/plain"
+                ))
+        );
+
+        try {
+            server.start();
+
+            RouteBuilder.addRoutes(context, b -> {
+                b.from("knative:endpoint/start")
+                    .removeHeaders("Camel*")
+                    .toF("http://localhost:%d", port);
+            });
+
+            context.start();
+
+            given()
+                .body("test")
+                .header(Exchange.CONTENT_TYPE, "text/plain")
+                .header(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_VERSION).http(), ce.version())
+                .header(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).http(), "org.apache.camel.event")
+                .header(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_ID).http(), "myEventID")
+                .header(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TIME).http(), DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now()))
+                .header(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_SOURCE).http(), "/somewhere")
+                .when()
+                    .post()
+                .then()
+                    .statusCode(200);
         } finally {
             server.stop();
         }
