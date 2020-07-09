@@ -163,42 +163,74 @@ public class KnativeHttpConsumer extends DefaultConsumer {
 
         try {
             createUoW(exchange);
-            getAsyncProcessor().process(exchange, doneSync -> {
-                try {
-                    HttpServerResponse response = toHttpResponse(request, exchange.getMessage());
-                    Buffer body = null;
 
-                    if (request.response().getStatusCode() != 204) {
-                        body = computeResponseBody(exchange.getMessage());
+            // We do not know if any of the processing logic of the route is synchronous or not so we
+            // need to process the request on a thread on the Vert.x worker pool.
+            //
+            // As example the following route may block the Vert.x event loop as the camel-http component
+            // is not async so if the service is scaled-down, the it may take a while to become ready and
+            // the camel-http component blocks until the service becomes available.
+            //
+            // from("knative:event/my.event")
+            //        .to("http://{{env:PROJECT}}.{{env:NAMESPACE}}.svc.cluster.local/service");
+            //
+            router.vertx().executeBlocking(
+                promise -> {
+                    try {
+                        // no need to use an async processor as the processing happen in
+                        // a dedicated thread ans it won't block the Vert.x event loop
+                        getProcessor().process(exchange);
+                        promise.complete();
+                    } catch (Exception e) {
+                        promise.fail(e);
+                    }
+                },
+                false,
+                result -> {
+                    if (result.succeeded()) {
+                        try {
+                            HttpServerResponse response = toHttpResponse(request, exchange.getMessage());
+                            Buffer body = null;
 
-                        // set the content type in the response.
-                        String contentType = MessageHelper.getContentType(exchange.getMessage());
-                        if (contentType != null) {
-                            // set content-type
-                            response.putHeader(Exchange.CONTENT_TYPE, contentType);
+                            if (request.response().getStatusCode() != 204) {
+                                body = computeResponseBody(exchange.getMessage());
+
+                                // set the content type in the response.
+                                String contentType = MessageHelper.getContentType(exchange.getMessage());
+                                if (contentType != null) {
+                                    // set content-type
+                                    response.putHeader(Exchange.CONTENT_TYPE, contentType);
+                                }
+                            }
+
+                            if (body != null) {
+                                request.response().end(body);
+                            } else {
+                                request.response().setStatusCode(204);
+                                request.response().end();
+                            }
+                        } catch (Exception e) {
+                            getExceptionHandler().handleException(e);
                         }
+                    } else if (result.failed()) {
+                        getExceptionHandler().handleException(result.cause());
+
+                        request.response().setStatusCode(500);
+                        request.response().putHeader(Exchange.CONTENT_TYPE, "text/plain");
+                        request.response().end(result.cause().getMessage());
                     }
 
-                    if (body != null) {
-                        request.response().end(body);
-                    } else {
-                        request.response().setStatusCode(204);
-                        request.response().end();
-                    }
-                } catch (Exception e) {
-                    getExceptionHandler().handleException(e);
-                }
-            });
+                    doneUoW(exchange);
+                });
         } catch (Exception e) {
             getExceptionHandler().handleException(e);
 
             request.response().setStatusCode(500);
             request.response().putHeader(Exchange.CONTENT_TYPE, "text/plain");
             request.response().end(e.getMessage());
-        } finally {
+
             doneUoW(exchange);
         }
-
     }
 
     private Message toMessage(HttpServerRequest request, Exchange exchange) {
