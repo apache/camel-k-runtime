@@ -28,7 +28,7 @@ import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.language.ExpressionDefinition;
 import org.apache.camel.reifier.AggregateReifier;
 
-@YAMLStepParser(id = "aggregate", definitions = AggregateStepParser.Definition.class)
+@YAMLStepParser(id = "aggregate", definition = AggregateStepParser.Definition.class)
 public class AggregateStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

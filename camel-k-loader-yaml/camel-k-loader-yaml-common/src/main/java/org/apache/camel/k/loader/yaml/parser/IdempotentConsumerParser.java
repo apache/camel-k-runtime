@@ -28,7 +28,7 @@ import org.apache.camel.model.IdempotentConsumerDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.reifier.IdempotentConsumerReifier;
 
-@YAMLStepParser(id = "idempotent-consumer", definitions = IdempotentConsumerParser.Definition.class)
+@YAMLStepParser(id = "idempotent-consumer", definition = IdempotentConsumerParser.Definition.class)
 public class IdempotentConsumerParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

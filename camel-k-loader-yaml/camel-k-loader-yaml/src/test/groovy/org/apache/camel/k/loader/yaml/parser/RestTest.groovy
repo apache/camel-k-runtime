@@ -33,7 +33,7 @@ class RestTest extends TestSupport {
                        message: "test"
             ''')
         when:
-            def processor = new RestStepParser().toStartProcessor(stepContext)
+            def processor = new RestStepParser().process(stepContext)
         then:
             with(processor, RouteDefinition) {
                 restDefinition != null
@@ -51,7 +51,7 @@ class RestTest extends TestSupport {
                        message: "test"
             ''')
         when:
-            new RestStepParser().toStartProcessor(stepContext)
+            new RestStepParser().process(stepContext)
         then:
             def ex = thrown(StepParserException)
 
@@ -67,7 +67,7 @@ class RestTest extends TestSupport {
                        message: "test"
             ''')
         when:
-            new RestStepParser().toStartProcessor(stepContext)
+            new RestStepParser().process(stepContext)
         then:
             def ex = thrown(StepParserException)
 
@@ -81,7 +81,7 @@ class RestTest extends TestSupport {
                  uri: "/api/{id}"
             ''')
         when:
-            new RestStepParser().toStartProcessor(stepContext)
+            new RestStepParser().process(stepContext)
         then:
             def ex = thrown(StepParserException)
 

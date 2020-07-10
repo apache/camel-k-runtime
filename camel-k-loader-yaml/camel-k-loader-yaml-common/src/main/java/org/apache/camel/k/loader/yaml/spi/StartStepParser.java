@@ -16,16 +16,15 @@
  */
 package org.apache.camel.k.loader.yaml.spi;
 
-import org.apache.camel.model.ProcessorDefinition;
-
 @FunctionalInterface
 public interface StartStepParser extends StepParser {
     /**
      * @param context
+     * @return
      */
-    ProcessorDefinition<?> toStartProcessor(Context context);
+    Object process(Context context);
 
-    static ProcessorDefinition<?> invoke(Context context, String stepId) {
-        return context.lookup(StartStepParser.class, stepId).toStartProcessor(context);
+    static Object invoke(Context context, String stepId) {
+        return context.lookup(StartStepParser.class, stepId).process(context);
     }
 }

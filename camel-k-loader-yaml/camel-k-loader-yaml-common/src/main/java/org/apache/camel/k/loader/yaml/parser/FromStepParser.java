@@ -28,14 +28,13 @@ import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.k.loader.yaml.model.Step;
 import org.apache.camel.k.loader.yaml.spi.StartStepParser;
 import org.apache.camel.k.loader.yaml.spi.StepParserSupport;
-import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.util.URISupport;
 
-@YAMLStepParser(id = "from", definitions = FromStepParser.Definition.class)
+@YAMLStepParser(id = "from", definition = FromStepParser.Definition.class)
 public class FromStepParser implements StartStepParser {
     @Override
-    public ProcessorDefinition<?> toStartProcessor(Context context) {
+    public Object process(Context context) {
         final Definition definition = context.node(Definition.class);
         final String uri = definition.getEndpointUri();
         final RouteDefinition route = context.builder().from(uri);

@@ -28,7 +28,7 @@ import org.apache.camel.model.FilterDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.reifier.FilterReifier;
 
-@YAMLStepParser(id = "filter", definitions = FilterStepParser.Definition.class)
+@YAMLStepParser(id = "filter", definition = FilterStepParser.Definition.class)
 public class FilterStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

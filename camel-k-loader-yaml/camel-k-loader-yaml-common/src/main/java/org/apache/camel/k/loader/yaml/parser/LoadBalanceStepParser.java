@@ -42,7 +42,7 @@ import org.apache.camel.model.loadbalancer.TopicLoadBalancerDefinition;
 import org.apache.camel.model.loadbalancer.WeightedLoadBalancerDefinition;
 import org.apache.camel.reifier.LoadBalanceReifier;
 
-@YAMLStepParser(id = "load-balance", definitions = LoadBalanceStepParser.Definition.class)
+@YAMLStepParser(id = "load-balance", definition = LoadBalanceStepParser.Definition.class)
 public class LoadBalanceStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

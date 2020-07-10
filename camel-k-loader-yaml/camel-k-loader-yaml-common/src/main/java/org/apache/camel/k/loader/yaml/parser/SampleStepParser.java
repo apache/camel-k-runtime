@@ -28,7 +28,7 @@ import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.SamplingDefinition;
 import org.apache.camel.reifier.SamplingReifier;
 
-@YAMLStepParser(id = "sample", definitions = SampleStepParser.Definition.class)
+@YAMLStepParser(id = "sample", definition = SampleStepParser.Definition.class)
 public class SampleStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

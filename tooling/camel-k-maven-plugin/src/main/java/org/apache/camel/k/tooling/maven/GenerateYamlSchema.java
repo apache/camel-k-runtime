@@ -155,6 +155,14 @@ public class GenerateYamlSchema extends GenerateYamlSupport {
             .sorted(Comparator.comparing(entry -> entry.name().toString()))
             .forEach(
                 entry -> {
+                    boolean schema = annotationValue(entry, YAML_STEP_PARSER_ANNOTATION, "schema")
+                        .map(AnnotationValue::asBoolean)
+                        .orElse(true);
+
+                    if (!schema) {
+                        return;
+                    }
+
                     String stepId = annotationValue(entry, YAML_STEP_PARSER_ANNOTATION, "id")
                         .map(AnnotationValue::asString)
                         .orElseThrow(() -> new IllegalArgumentException("Missing id field"));
@@ -163,29 +171,27 @@ public class GenerateYamlSchema extends GenerateYamlSupport {
                         return;
                     }
 
-                    String[] models = annotationValue(entry, YAML_STEP_PARSER_ANNOTATION, "definitions")
-                        .map(AnnotationValue::asStringArray)
+                    String model = annotationValue(entry, YAML_STEP_PARSER_ANNOTATION, "definition")
+                        .map(AnnotationValue::asString)
                         .orElseThrow(() -> new IllegalArgumentException("Missing definitions field"));
 
-                    for (String model: models) {
-                        DotName name = DotName.createSimple(model);
+                    DotName name = DotName.createSimple(model);
 
-                        if (implementsInterface(entry, START_STEP_PARSER_CLASS)) {
-                            items.put("maxProperties", 1);
-                            items.with("properties")
-                                .putObject(stepId)
-                                .put("$ref", "#/items/definitions/" + name.toString());
-                        }
+                    if (implementsInterface(entry, START_STEP_PARSER_CLASS)) {
+                        items.put("maxProperties", 1);
+                        items.with("properties")
+                            .putObject(stepId)
+                            .put("$ref", "#/items/definitions/" + name.toString());
+                    }
 
-                        if (implementsInterface(entry, PROCESSOR_STEP_PARSER_CLASS)) {
-                            ObjectNode stepNode = definitions.with("step");
-                            stepNode.put("type", "object");
-                            stepNode.put("maxProperties", 1);
+                    if (implementsInterface(entry, PROCESSOR_STEP_PARSER_CLASS)) {
+                        ObjectNode stepNode = definitions.with("step");
+                        stepNode.put("type", "object");
+                        stepNode.put("maxProperties", 1);
 
-                            stepNode.with("properties")
-                                .putObject(stepId)
-                                .put("$ref", "#/items/definitions/" + name.toString());
-                        }
+                        stepNode.with("properties")
+                            .putObject(stepId)
+                            .put("$ref", "#/items/definitions/" + name.toString());
                     }
                 }
             );

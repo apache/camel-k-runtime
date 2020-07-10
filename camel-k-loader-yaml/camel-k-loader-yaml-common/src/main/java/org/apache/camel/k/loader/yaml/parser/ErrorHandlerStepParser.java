@@ -30,10 +30,10 @@ import org.apache.camel.k.loader.yaml.spi.StepParserSupport;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.RouteDefinition;
 
-@YAMLStepParser(id = "error-handler", definitions = ErrorHandlerStepParser.Definition.class)
+@YAMLStepParser(id = "error-handler", definition = ErrorHandlerStepParser.Definition.class)
 public class ErrorHandlerStepParser implements StartStepParser, ProcessorStepParser {
     @Override
-    public ProcessorDefinition<?> toStartProcessor(Context context) {
+    public Object process(Context context) {
         final Definition definition = context.node(Definition.class);
 
         StepParserSupport.notNull(definition.builder, "builder");

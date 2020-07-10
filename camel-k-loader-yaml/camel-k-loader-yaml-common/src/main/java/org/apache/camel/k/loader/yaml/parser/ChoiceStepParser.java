@@ -29,7 +29,7 @@ import org.apache.camel.model.OtherwiseDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.WhenDefinition;
 
-@YAMLStepParser(id = "choice", definitions = ChoiceStepParser.Definition.class)
+@YAMLStepParser(id = "choice", definition = ChoiceStepParser.Definition.class)
 public class ChoiceStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

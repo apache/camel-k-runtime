@@ -23,7 +23,7 @@ import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.ValidateDefinition;
 import org.apache.camel.reifier.ValidateReifier;
 
-@YAMLStepParser(id = "validate", definitions = ValidateStepParser.Definition.class)
+@YAMLStepParser(id = "validate", definition = ValidateStepParser.Definition.class)
 public class ValidateStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

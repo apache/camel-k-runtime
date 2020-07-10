@@ -34,7 +34,7 @@ class FromTest extends TestSupport {
                        message: "test"
             ''')
         when:
-            def processor = new FromStepParser().toStartProcessor(stepContext)
+            def processor = new FromStepParser().process(stepContext)
         then:
             with(processor, RouteDefinition) {
                 input instanceof FromDefinition
@@ -48,7 +48,7 @@ class FromTest extends TestSupport {
                  uri: "timer://tick"
             ''')
         when:
-            new FromStepParser().toStartProcessor(stepContext)
+            new FromStepParser().process(stepContext)
         then:
             def ex = thrown(StepParserException)
 

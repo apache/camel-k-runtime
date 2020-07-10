@@ -14,24 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.loader.yaml.model;
+package org.apache.camel.k.loader.yaml.support
 
-import com.fasterxml.jackson.databind.JsonNode;
+class MyBean {
+    String field1
+    String field2
+    Nested nested
 
-public class Node {
-    private final String type;
-    private final JsonNode data;
-
-    public Node(String type, JsonNode data) {
-        this.type = type;
-        this.data = data;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public JsonNode getData() {
-        return data;
+    static class Nested {
+        String field1
+        String field2
     }
 }

@@ -26,7 +26,7 @@ import org.apache.camel.model.EnrichDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.reifier.EnrichReifier;
 
-@YAMLStepParser(id = "enrich", definitions = EnrichStepParser.Definition.class)
+@YAMLStepParser(id = "enrich", definition = EnrichStepParser.Definition.class)
 public class EnrichStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

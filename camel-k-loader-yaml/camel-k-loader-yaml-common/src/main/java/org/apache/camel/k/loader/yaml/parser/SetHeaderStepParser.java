@@ -23,7 +23,7 @@ import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.SetHeaderDefinition;
 import org.apache.camel.reifier.SetHeaderReifier;
 
-@YAMLStepParser(id = "set-header", definitions = SetHeaderStepParser.Definition.class)
+@YAMLStepParser(id = "set-header", definition = SetHeaderStepParser.Definition.class)
 public class SetHeaderStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

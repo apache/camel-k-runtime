@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.camel.CamelContext;
@@ -71,7 +72,30 @@ public interface StepParser {
             return node;
         }
 
+        public ObjectMapper mapper() {
+            return this.mapper;
+        }
+
         public <T> T node(Class<T> type) {
+            ObjectHelper.notNull(node, "node");
+            ObjectHelper.notNull(type, "type");
+
+            final T definition;
+
+            try {
+                definition = mapper.reader().forType(type).readValue(node);
+            } catch (IOException e) {
+                throw new IllegalStateException(e);
+            }
+
+            if (definition == null) {
+                throw new IllegalStateException("Unable to decode node " + node + " to type " + type);
+            }
+
+            return definition;
+        }
+
+        public <T> T node(TypeReference<T> type) {
             ObjectHelper.notNull(node, "node");
             ObjectHelper.notNull(type, "type");
 

@@ -34,7 +34,7 @@ import org.apache.camel.util.URISupport;
 
 public class KnativeStepParser implements ProcessorStepParser, StartStepParser {
     @Override
-    public ProcessorDefinition<?> toStartProcessor(Context context) {
+    public Object process(Context context) {
         final Definition definition = context.node(Definition.class);
         final String uri = definition.getEndpointUri();
         final RouteDefinition route = context.builder().from(uri);

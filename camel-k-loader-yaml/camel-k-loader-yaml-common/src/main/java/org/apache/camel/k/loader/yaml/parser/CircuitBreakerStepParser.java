@@ -34,7 +34,7 @@ import org.apache.camel.model.Resilience4jConfigurationDefinition;
 import org.apache.camel.reifier.CircuitBreakerReifier;
 import org.apache.camel.reifier.OnFallbackReifier;
 
-@YAMLStepParser(id = "circuit-breaker", definitions = CircuitBreakerStepParser.CBDefinition.class)
+@YAMLStepParser(id = "circuit-breaker", definition = CircuitBreakerStepParser.CBDefinition.class)
 public class CircuitBreakerStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

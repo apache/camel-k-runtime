@@ -23,7 +23,7 @@ import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.ThrowExceptionDefinition;
 import org.apache.camel.reifier.ThrowExceptionReifier;
 
-@YAMLStepParser(id = "throw-exception", definitions = ThrowExceptionStepParser.Definition.class)
+@YAMLStepParser(id = "throw-exception", definition = ThrowExceptionStepParser.Definition.class)
 public class ThrowExceptionStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

@@ -28,7 +28,7 @@ import org.apache.camel.model.MulticastDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.reifier.MulticastReifier;
 
-@YAMLStepParser(id = "multicast", definitions = MulticastStepParser.Definition.class)
+@YAMLStepParser(id = "multicast", definition = MulticastStepParser.Definition.class)
 public class MulticastStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {
