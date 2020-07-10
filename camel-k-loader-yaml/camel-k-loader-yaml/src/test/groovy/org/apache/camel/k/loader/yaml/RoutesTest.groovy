@@ -17,6 +17,7 @@
 package org.apache.camel.k.loader.yaml
 
 import org.apache.camel.component.mock.MockEndpoint
+import org.apache.camel.k.loader.yaml.support.MyBean
 import org.apache.camel.k.loader.yaml.support.MyFailingProcessor
 import org.apache.camel.k.loader.yaml.support.TestSupport
 import org.apache.camel.processor.aggregate.UseLatestAggregationStrategy
@@ -168,6 +169,26 @@ class RoutesTest extends TestSupport {
             def out = context.createProducerTemplate().requestBody('direct:route', 'test');
         then:
             out == 'TEST'
+        cleanup:
+            context?.stop()
+    }
+
+    def 'beans'() {
+        when:
+            def context = startContextForSpec()
+        then:
+            with(context.registry.lookupByName('myNested'), MyBean) {
+                it.field1 == 'f1'
+                it.field2 == 'f2'
+                it.nested.field1 == 'nf1'
+                it.nested.field2 == 'nf2'
+            }
+            with(context.registry.lookupByName('myProps'), MyBean) {
+                it.field1 == 'f1_p'
+                it.field2 == 'f2_p'
+                it.nested.field1 == 'nf1_p'
+                it.nested.field2 == 'nf2_p'
+            }
         cleanup:
             context?.stop()
     }
