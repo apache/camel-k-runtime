@@ -2048,6 +2048,21 @@
           }
         } ]
       },
+      "org.apache.camel.k.loader.yaml.parser.BeansStepParser$Definition" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "properties" : {
+            "type" : "object"
+          },
+          "type" : {
+            "type" : "string"
+          }
+        },
+        "required" : [ "name", "type" ]
+      },
       "org.apache.camel.k.loader.yaml.parser.ChoiceStepParser$Definition" : {
         "type" : "object",
         "properties" : {
