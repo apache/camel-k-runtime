@@ -35,7 +35,7 @@ import org.apache.camel.reifier.WireTapReifier;
 import org.apache.camel.util.ObjectHelper;
 import org.apache.camel.util.URISupport;
 
-@YAMLStepParser(id = "wiretap", definitions = WireTapStepParser.Definition.class)
+@YAMLStepParser(id = "wiretap", definition = WireTapStepParser.Definition.class)
 public class WireTapStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

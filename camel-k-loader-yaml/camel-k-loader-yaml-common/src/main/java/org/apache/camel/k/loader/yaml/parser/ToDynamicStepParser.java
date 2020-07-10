@@ -29,7 +29,7 @@ import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.ToDynamicDefinition;
 import org.apache.camel.util.URISupport;
 
-@YAMLStepParser(id = "tod", definitions = ToDynamicStepParser.Definition.class)
+@YAMLStepParser(id = "tod", definition = ToDynamicStepParser.Definition.class)
 public class ToDynamicStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

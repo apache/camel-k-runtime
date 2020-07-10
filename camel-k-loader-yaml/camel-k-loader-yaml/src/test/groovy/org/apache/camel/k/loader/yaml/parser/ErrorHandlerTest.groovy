@@ -81,7 +81,7 @@ class ErrorHandlerTest extends TestSupport {
                  no-error-handler: {}                 
             ''')
         when:
-            new ErrorHandlerStepParser().toStartProcessor(stepContext)
+            new ErrorHandlerStepParser().process(stepContext)
         then:
             stepContext.builder().routeCollection.errorHandlerFactory instanceof NoErrorHandlerBuilder
     }
@@ -93,7 +93,7 @@ class ErrorHandlerTest extends TestSupport {
                    dead-letter-uri: "jms:queue:dead"        
             ''')
         when:
-            new ErrorHandlerStepParser().toStartProcessor(stepContext)
+            new ErrorHandlerStepParser().process(stepContext)
         then:
             with(stepContext.builder().routeCollection.errorHandlerFactory, DefaultErrorHandlerBuilder) {
                 deadLetterUri == 'jms:queue:dead'
@@ -106,7 +106,7 @@ class ErrorHandlerTest extends TestSupport {
                  dead-letter-channel: "jms:queue:dead"        
             ''')
         when:
-            new ErrorHandlerStepParser().toStartProcessor(stepContext)
+            new ErrorHandlerStepParser().process(stepContext)
         then:
             with(stepContext.builder().routeCollection.errorHandlerFactory, DefaultErrorHandlerBuilder) {
                 deadLetterUri == 'jms:queue:dead'
@@ -119,7 +119,7 @@ class ErrorHandlerTest extends TestSupport {
                  ref: "myErrorHandler"          
             ''')
         when:
-            new ErrorHandlerStepParser().toStartProcessor(stepContext)
+            new ErrorHandlerStepParser().process(stepContext)
         then:
             with(stepContext.builder().routeCollection.errorHandlerFactory, ErrorHandlerBuilderRef) {
                 ref == 'myErrorHandler'

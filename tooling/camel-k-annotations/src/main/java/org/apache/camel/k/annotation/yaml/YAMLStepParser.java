@@ -25,5 +25,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface YAMLStepParser {
     String id();
-    Class<?>[] definitions();
+    Class<?> definition();
+    boolean schema() default true;
 }

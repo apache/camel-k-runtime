@@ -28,7 +28,7 @@ import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.SplitDefinition;
 import org.apache.camel.reifier.SplitReifier;
 
-@YAMLStepParser(id = "split", definitions = SplitStepParser.Definition.class)
+@YAMLStepParser(id = "split", definition = SplitStepParser.Definition.class)
 public class SplitStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

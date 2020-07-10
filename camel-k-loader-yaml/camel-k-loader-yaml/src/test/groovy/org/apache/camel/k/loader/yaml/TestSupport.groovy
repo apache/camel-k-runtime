@@ -121,7 +121,7 @@ class TestSupport extends Specification {
     }
 
     static <U extends StartStepParser> ProcessorDefinition<?> toStartProcessor(Class<U> type, String content) {
-        return type.getConstructor().newInstance().toStartProcessor(stepContext(content))
+        return type.getConstructor().newInstance().process(stepContext(content))
     }
 
     static ProcessorDefinition<?> toProcessor(String id, String content) {
@@ -132,7 +132,7 @@ class TestSupport extends Specification {
             return parser.toProcessor(ctx)
         }
         if (parser instanceof StartStepParser) {
-            return parser.toStartProcessor(ctx)
+            return parser.process(ctx)
         }
         throw new IllegalArgumentException("No parser of ${id}")
     }

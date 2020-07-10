@@ -23,7 +23,7 @@ import org.apache.camel.model.ProcessDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.reifier.ProcessReifier;
 
-@YAMLStepParser(id = "process", definitions = ProcessStepParser.Definition.class)
+@YAMLStepParser(id = "process", definition = ProcessStepParser.Definition.class)
 public class ProcessStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

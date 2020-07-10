@@ -33,7 +33,7 @@ import org.apache.camel.model.config.BatchResequencerConfig;
 import org.apache.camel.model.config.StreamResequencerConfig;
 import org.apache.camel.reifier.ResequenceReifier;
 
-@YAMLStepParser(id = "resequence", definitions = ResequenceStepParser.Definition.class)
+@YAMLStepParser(id = "resequence", definition = ResequenceStepParser.Definition.class)
 public class ResequenceStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

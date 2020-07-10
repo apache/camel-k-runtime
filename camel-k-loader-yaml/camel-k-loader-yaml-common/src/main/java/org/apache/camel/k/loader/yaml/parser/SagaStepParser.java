@@ -28,7 +28,7 @@ import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.SagaDefinition;
 import org.apache.camel.reifier.SagaReifier;
 
-@YAMLStepParser(id = "saga", definitions = SagaStepParser.Definition.class)
+@YAMLStepParser(id = "saga", definition = SagaStepParser.Definition.class)
 public class SagaStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

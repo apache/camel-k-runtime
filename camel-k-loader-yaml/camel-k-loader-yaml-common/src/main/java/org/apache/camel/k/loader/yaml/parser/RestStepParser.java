@@ -26,15 +26,14 @@ import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.k.loader.yaml.model.Step;
 import org.apache.camel.k.loader.yaml.spi.StartStepParser;
 import org.apache.camel.k.loader.yaml.spi.StepParserSupport;
-import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.rest.RestBindingMode;
 import org.apache.camel.model.rest.RestDefinition;
 import org.apache.camel.util.ObjectHelper;
 
-@YAMLStepParser(id = "rest", definitions = RestStepParser.Definition.class)
+@YAMLStepParser(id = "rest", definition = RestStepParser.Definition.class)
 public class RestStepParser implements StartStepParser {
     @Override
-    public ProcessorDefinition<?> toStartProcessor(Context context) {
+    public Object process(Context context) {
         Definition definition = context.node(Definition.class);
 
         StepParserSupport.notNull(definition.uri, "uri");

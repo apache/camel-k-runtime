@@ -34,7 +34,7 @@ import org.apache.camel.reifier.CatchReifier;
 import org.apache.camel.reifier.FinallyReifier;
 import org.apache.camel.reifier.TryReifier;
 
-@YAMLStepParser(id = "do-try", definitions = DoTryStepParser.DoTryDefinition.class)
+@YAMLStepParser(id = "do-try", definition = DoTryStepParser.DoTryDefinition.class)
 public class DoTryStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

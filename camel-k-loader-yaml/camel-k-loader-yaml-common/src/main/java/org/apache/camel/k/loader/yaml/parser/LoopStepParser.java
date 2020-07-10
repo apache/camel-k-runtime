@@ -28,7 +28,7 @@ import org.apache.camel.model.LoopDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.reifier.LoopReifier;
 
-@YAMLStepParser(id = "loop", definitions = LoopStepParser.Definition.class)
+@YAMLStepParser(id = "loop", definition = LoopStepParser.Definition.class)
 public class LoopStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

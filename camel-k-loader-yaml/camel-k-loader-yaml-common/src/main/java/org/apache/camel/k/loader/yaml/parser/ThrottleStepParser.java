@@ -23,7 +23,7 @@ import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.ThrottleDefinition;
 import org.apache.camel.reifier.ThrottleReifier;
 
-@YAMLStepParser(id = "throttle", definitions = ThrottleStepParser.Definition.class)
+@YAMLStepParser(id = "throttle", definition = ThrottleStepParser.Definition.class)
 public class ThrottleStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

@@ -28,7 +28,7 @@ import org.apache.camel.model.cloud.ServiceCallServiceFilterConfiguration;
 import org.apache.camel.model.cloud.ServiceCallServiceLoadBalancerConfiguration;
 import org.apache.camel.model.language.ExpressionDefinition;
 
-@YAMLStepParser(id = "service-call", definitions = ServiceCallStepParser.Definition.class)
+@YAMLStepParser(id = "service-call", definition = ServiceCallStepParser.Definition.class)
 public class ServiceCallStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

@@ -37,11 +37,11 @@ import org.apache.camel.reifier.OnExceptionReifier;
 
 import static org.apache.camel.util.ObjectHelper.ifNotEmpty;
 
-@YAMLStepParser(id = "on-exception", definitions = OnExceptionStepParser.Definition.class)
+@YAMLStepParser(id = "on-exception", definition = OnExceptionStepParser.Definition.class)
 public class OnExceptionStepParser implements StartStepParser, ProcessorStepParser {
     @SuppressWarnings("unchecked")
     @Override
-    public ProcessorDefinition<?> toStartProcessor(Context context) {
+    public Object process(Context context) {
         final Definition definition = context.node(Definition.class);
         final OnExceptionDefinition onException = context.builder().onException();
 

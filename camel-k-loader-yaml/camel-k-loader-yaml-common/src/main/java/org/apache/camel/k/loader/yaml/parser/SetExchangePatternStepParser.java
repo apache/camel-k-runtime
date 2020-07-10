@@ -23,7 +23,7 @@ import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.SetExchangePatternDefinition;
 import org.apache.camel.reifier.SetExchangePatternReifier;
 
-@YAMLStepParser(id = "set-exchange-pattern", definitions = SetExchangePatternStepParser.Definition.class)
+@YAMLStepParser(id = "set-exchange-pattern", definition = SetExchangePatternStepParser.Definition.class)
 public class SetExchangePatternStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

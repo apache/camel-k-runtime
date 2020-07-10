@@ -27,7 +27,7 @@ import org.apache.camel.k.loader.yaml.spi.StepParserSupport;
 import org.apache.camel.model.PipelineDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 
-@YAMLStepParser(id = "pipeline", definitions = PipelineStepParser.Definition.class)
+@YAMLStepParser(id = "pipeline", definition = PipelineStepParser.Definition.class)
 public class PipelineStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {

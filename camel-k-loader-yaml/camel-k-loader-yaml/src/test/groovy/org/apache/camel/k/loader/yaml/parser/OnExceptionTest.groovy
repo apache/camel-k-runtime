@@ -104,7 +104,7 @@ class OnExceptionTest extends TestSupport {
                    constant: "continued"
             ''')
         when:
-            def processor = new OnExceptionStepParser().toStartProcessor(stepContext)
+            def processor = new OnExceptionStepParser().process(stepContext)
         then:
             stepContext.builder().routeCollection.onExceptions.size() == 1
             stepContext.builder().routeCollection.onExceptions[0].exceptions.contains("java.lang.Exception")
