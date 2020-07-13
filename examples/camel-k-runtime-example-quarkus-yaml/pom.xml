@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.apache.camel.k</groupId>
         <artifactId>camel-k-runtime-examples</artifactId>
-        <version>1.4.0-SNAPSHOT</version>
+        <version>1.4.0</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -169,7 +169,7 @@
                         </executions>
                         <configuration>
                             <executable>${project.build.directory}/${project.artifactId}-runner</executable>
-                            <arguments combine.self="override"/>
+                            <arguments combine.self="override" />
                             <workingDirectory>${project.basedir}</workingDirectory>
                             <environmentVariables>
                                 <CAMEL_K_CONF>${project.basedir}/data/application.properties</CAMEL_K_CONF>
