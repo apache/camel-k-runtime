@@ -18,28 +18,50 @@
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <parent>
         <groupId>org.apache.camel.k</groupId>
-        <artifactId>camel-k-quarkus-loader-kotlin-parent</artifactId>
+        <artifactId>camel-k-runtime-examples</artifactId>
         <version>1.5.0-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>camel-k-quarkus-loader-kotlin</artifactId>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>camel-k-runtime-example-quarkus-kotlin</artifactId>
+
+    <properties>
+        <noDeps>true</noDeps>
+        <quarkus.camel.routes-discovery.enabled>false</quarkus.camel.routes-discovery.enabled>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-bom</artifactId>
+                <version>${camel-quarkus.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-loader-kotlin</artifactId>
+            <artifactId>camel-k-runtime-quarkus</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.k</groupId>
+            <artifactId>camel-k-quarkus-loader-kotlin</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-quarkus-core</artifactId>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-log</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-kotlin</artifactId>
+            <artifactId>camel-quarkus-timer</artifactId>
         </dependency>
     </dependencies>
 
@@ -49,41 +71,46 @@
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-bootstrap-maven-plugin</artifactId>
                 <version>${quarkus.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-maven-plugin</artifactId>
+                <version>${quarkus.version}</version>
                 <executions>
                     <execution>
+                        <id>build</id>
                         <goals>
-                            <goal>extension-descriptor</goal>
+                            <goal>build</goal>
                         </goals>
                         <configuration>
-                            <deployment>${project.groupId}:${project.artifactId}-deployment:${project.version}</deployment>
+                            <finalName>${project.artifactId}</finalName>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>io.quarkus</groupId>
-                            <artifactId>quarkus-extension-processor</artifactId>
-                            <version>${quarkus.version}</version>
-                        </path>
-                    </annotationProcessorPaths>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.jboss.jandex</groupId>
-                <artifactId>jandex-maven-plugin</artifactId>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>${exec-maven-plugin.version}</version>
                 <executions>
                     <execution>
-                        <id>make-index</id>
                         <goals>
-                            <goal>jandex</goal>
+                            <goal>exec</goal>
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <executable>java</executable>
+                    <workingDirectory>${project.basedir}</workingDirectory>
+                    <arguments>
+                        <argument>-jar</argument>
+                        <argument>${project.build.directory}/${project.artifactId}-runner.jar</argument>
+                    </arguments>
+                    <environmentVariables>
+                        <CAMEL_K_CONF>${project.basedir}/data/application.properties</CAMEL_K_CONF>
+                        <CAMEL_K_ROUTES>file:${project.basedir}/data/routes.kts</CAMEL_K_ROUTES>
+                    </environmentVariables>
+                </configuration>
             </plugin>
         </plugins>
     </build>

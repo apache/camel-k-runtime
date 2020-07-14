@@ -117,11 +117,6 @@
             <artifactId>camel-direct</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-endpointdsl</artifactId>
-            <scope>test</scope>
-        </dependency>
 
         <dependency>
             <groupId>org.apache.camel.k</groupId>

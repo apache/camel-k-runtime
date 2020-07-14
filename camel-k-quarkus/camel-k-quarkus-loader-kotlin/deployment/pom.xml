@@ -30,11 +30,16 @@
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-quarkus-loader-kotlin</artifactId>
+            <artifactId>camel-k-quarkus-core-deployment</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-quarkus-core-deployment</artifactId>
+            <artifactId>camel-k-quarkus-loader-kotlin</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-kotlin-deployment</artifactId>
         </dependency>
     </dependencies>
 
