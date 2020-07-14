@@ -16,25 +16,23 @@
  */
 package org.apache.camel.k.loader.yaml.parser;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URISyntaxException;
 import java.util.Map;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.camel.k.annotation.yaml.YAMLNodeDefinition;
 import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.k.loader.yaml.spi.ProcessorStepParser;
+import org.apache.camel.k.loader.yaml.support.StepParserSupport;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.ToDynamicDefinition;
-import org.apache.camel.util.URISupport;
 
 @YAMLStepParser(id = "tod", definition = ToDynamicStepParser.Definition.class)
 public class ToDynamicStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {
         final Definition definition = context.node(Definition.class);
-        final ToDynamicDefinition answer = new ToDynamicDefinition(definition.getEndpointUri());
+        final String uri = StepParserSupport.createEndpointUri(definition.getUri(), definition.parameters);
+        final ToDynamicDefinition answer = new ToDynamicDefinition(uri);
 
         return answer;
     }
@@ -49,21 +47,6 @@ public class ToDynamicStepParser implements ProcessorStepParser {
 
         public Definition(String uri) {
             super(uri);
-        }
-
-        @JsonIgnore
-        public String getEndpointUri() {
-            String answer = getUri();
-
-            if (parameters != null) {
-                try {
-                    answer = URISupport.appendParametersToURI(answer, parameters);
-                } catch (URISyntaxException | UnsupportedEncodingException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-
-            return answer;
         }
     }
 }

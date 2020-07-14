@@ -14,15 +14,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-- on-exception:
-    exceptions:
-      - org.apache.camel.k.loader.yaml.support.MyException
-    handled: true
-    steps:
-      - transform:
-          constant: "Sorry"
 - from:
     uri: "direct:start"
     steps:
-      - process:
-          ref: "myFailingProcessor"
+      - to:
+          uri: "direct:{{direct.id}}"
+          parameters:
+            timeout: "{{direct.timeout}}"
+- from:
+    uri: "direct:{{direct.id}}"
+    parameters:
+      timeout: "{{direct.timeout}}"
+    steps:
+      - set-body:
+          constant: "{{direct.result}}"

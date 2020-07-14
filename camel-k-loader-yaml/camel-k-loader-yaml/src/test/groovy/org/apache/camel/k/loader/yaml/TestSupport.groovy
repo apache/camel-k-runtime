@@ -19,6 +19,7 @@ package org.apache.camel.k.loader.yaml
 import com.fasterxml.jackson.databind.JsonNode
 import groovy.util.logging.Slf4j
 import org.apache.camel.CamelContext
+import org.apache.camel.FluentProducerTemplate
 import org.apache.camel.builder.RouteBuilder
 import org.apache.camel.component.mock.MockEndpoint
 import org.apache.camel.impl.DefaultCamelContext
@@ -58,32 +59,37 @@ class TestSupport extends Specification {
     }
 
     static CamelContext startContext(String content) {
-        return startContext(content, [:])
+        return startContext(content, null)
     }
 
-    static CamelContext startContext(String content, Map<String, Object> beans) {
+    static CamelContext startContext(
+            String content,
+            @DelegatesTo(CamelContext) Closure<CamelContext> closure) {
         return startContext(
                 new ByteArrayInputStream(content.stripMargin().getBytes(StandardCharsets.UTF_8)),
-                beans
+                closure
         )
     }
 
     static CamelContext startContext(InputStream content) {
-        return startContext(content, [:])
+        return startContext(content, null)
     }
 
-    static CamelContext startContext(InputStream content, Map<String, Object> beans) {
+    static CamelContext startContext(
+            InputStream content,
+            @DelegatesTo(CamelContext) Closure closure) {
         def context = new DefaultCamelContext()
         def builder = new YamlSourceLoader().builder(content)
 
-        if (beans) {
-            beans.each {
-                k, v -> context.registry.bind(k, v)
-            }
-        }
-
         context.disableJMX()
         context.setStreamCaching(true)
+
+        if (closure) {
+            closure.resolveStrategy = Closure.DELEGATE_ONLY
+            closure.delegate = context
+            closure.call()
+        }
+
         context.addRoutes(builder)
         context.start()
 
@@ -91,16 +97,16 @@ class TestSupport extends Specification {
     }
 
     CamelContext startContext() {
-        return startContext([:])
+        return startContext(null as Closure)
     }
 
-    CamelContext startContext(Map<String, Object> beans) {
+    CamelContext startContext(@DelegatesTo(CamelContext) Closure closure) {
         def name = specificationContext.currentIteration.name.replace(' ', '_')
         def path = "/routes/${specificationContext.currentSpec.name}_${name}.yaml"
 
         return startContext(
                 TestSupport.class.getResourceAsStream(path) as InputStream,
-                beans
+                closure
         )
     }
 
@@ -136,4 +142,9 @@ class TestSupport extends Specification {
         }
         throw new IllegalArgumentException("No parser of ${id}")
     }
+
+    static FluentProducerTemplate template(CamelContext context) {
+        return context.createFluentProducerTemplate()
+    }
+
 }

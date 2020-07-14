@@ -14,11 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.loader.yaml.spi;
+package org.apache.camel.k.loader.yaml.support;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.camel.k.loader.yaml.model.Step;
+import org.apache.camel.k.loader.yaml.spi.ProcessorStepParser;
+import org.apache.camel.k.loader.yaml.spi.StepParser;
+import org.apache.camel.k.loader.yaml.spi.StepParserException;
 import org.apache.camel.model.OutputNode;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.util.ObjectHelper;
@@ -35,7 +40,7 @@ public final class StepParserSupport {
         return value;
     }
 
-    public static ProcessorDefinition<?> convertSteps(ProcessorStepParser.Context context, ProcessorDefinition<?> parent, List<Step> steps) {
+    public static ProcessorDefinition<?> convertSteps(StepParser.Context context, ProcessorDefinition<?> parent, List<Step> steps) {
         ObjectHelper.notNull(context, "step context");
         ObjectHelper.notNull(parent, "parent");
 
@@ -59,5 +64,22 @@ public final class StepParserSupport {
         }
 
         return parent;
+    }
+
+    public static String createEndpointUri(String uri, Map<String, Object> parameters) {
+        String answer = uri;
+
+        if (parameters != null) {
+            String queryString = parameters.entrySet().stream()
+                .filter(entry -> entry.getValue() != null)
+                .map(entry -> String.format("%s=%s", entry.getKey(), entry.getValue()))
+                .collect(Collectors.joining("&"));
+
+            if (ObjectHelper.isNotEmpty(queryString)) {
+                answer += "?" + queryString;
+            }
+        }
+
+        return answer;
     }
 }

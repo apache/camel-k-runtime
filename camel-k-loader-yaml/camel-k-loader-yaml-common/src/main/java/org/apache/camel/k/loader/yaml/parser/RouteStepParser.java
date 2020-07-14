@@ -16,28 +16,24 @@
  */
 package org.apache.camel.k.loader.yaml.parser;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.camel.k.annotation.yaml.YAMLNodeDefinition;
 import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.k.loader.yaml.model.Step;
 import org.apache.camel.k.loader.yaml.spi.StartStepParser;
-import org.apache.camel.k.loader.yaml.spi.StepParserSupport;
+import org.apache.camel.k.loader.yaml.support.StepParserSupport;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.util.ObjectHelper;
-import org.apache.camel.util.URISupport;
 
 @YAMLStepParser(id = "route", definition = RouteStepParser.Definition.class)
 public class RouteStepParser implements StartStepParser {
     @Override
     public Object process(Context context) {
         final Definition definition = context.node(Definition.class);
-        final String uri = definition.from.getEndpointUri();
+        final String uri = StepParserSupport.createEndpointUri(definition.from.uri, definition.from.parameters);
         final RouteDefinition route = context.builder().from(uri);
 
         ObjectHelper.ifNotEmpty(definition.id, route::routeId);
@@ -77,21 +73,6 @@ public class RouteStepParser implements StartStepParser {
 
         public From(String uri) {
             this.uri = uri;
-        }
-
-        @JsonIgnore
-        public String getEndpointUri() {
-            String answer = uri;
-
-            if (parameters != null) {
-                try {
-                    answer = URISupport.appendParametersToURI(answer, parameters);
-                } catch (URISyntaxException | UnsupportedEncodingException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-
-            return answer;
         }
     }
 }
