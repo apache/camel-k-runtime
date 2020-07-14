@@ -33,7 +33,7 @@ class ToTest extends TestSupport {
             def processor = new ToStepParser().toProcessor(stepContext)
         then:
             with(processor, ToDefinition) {
-                endpointUri == 'seda://test?queueSize=1'
+                endpointUri ==~  /seda:(\/\/)?test\?queueSize=1/
             }
     }
 
@@ -45,7 +45,7 @@ class ToTest extends TestSupport {
             def processor = new ToStepParser().toProcessor(stepContext)
         then:
             with(processor, ToDefinition) {
-                endpointUri == 'seda://test'
+                endpointUri ==~ /seda:(\/\/)?test/
             }
     }
 }

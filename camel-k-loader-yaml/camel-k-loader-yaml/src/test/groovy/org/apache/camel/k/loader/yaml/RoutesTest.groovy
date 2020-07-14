@@ -81,9 +81,9 @@ class RoutesTest extends TestSupport {
 
     def 'aggregator'() {
         setup:
-            def context = startContext([
-                'aggregatorStrategy': new UseLatestAggregationStrategy()
-            ])
+            def context = startContext {
+                registry.bind('aggregatorStrategy', new UseLatestAggregationStrategy())
+            }
 
             mockEndpoint(context, 'mock:route') {
                 expectedMessageCount 2
@@ -104,9 +104,9 @@ class RoutesTest extends TestSupport {
 
     def 'idempotentConsumer'() {
         setup:
-            def context = startContext([
-                'myRepo': new MemoryIdempotentRepository()
-            ])
+            def context = startContext {
+                registry.bind('myRepo', new MemoryIdempotentRepository())
+            }
 
             mockEndpoint(context,'mock:idempotent') {
                 expectedMessageCount = 3
@@ -132,9 +132,9 @@ class RoutesTest extends TestSupport {
 
     def 'onExceptionHandled'() {
         setup:
-            def context = startContext([
-                'myFailingProcessor' : new MyFailingProcessor()
-            ])
+            def context = startContext {
+                registry.bind('myFailingProcessor', new MyFailingProcessor())
+            }
         when:
             def out = context.createProducerTemplate().requestBody('direct:start', 'Hello World');
         then:
@@ -145,9 +145,9 @@ class RoutesTest extends TestSupport {
 
     def 'errorHandler'() {
         setup:
-            def context = startContext([
-                'myFailingProcessor' : new MyFailingProcessor()
-            ])
+            def context = startContext {
+                registry.bind('myFailingProcessor', new MyFailingProcessor())
+            }
 
             mockEndpoint(context, 'mock:on-error') {
                 expectedMessageCount = 1

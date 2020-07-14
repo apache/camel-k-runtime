@@ -25,7 +25,7 @@ import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.k.loader.yaml.model.Step;
 import org.apache.camel.k.loader.yaml.spi.ProcessorStepParser;
 import org.apache.camel.k.loader.yaml.spi.StartStepParser;
-import org.apache.camel.k.loader.yaml.spi.StepParserSupport;
+import org.apache.camel.k.loader.yaml.support.StepParserSupport;
 import org.apache.camel.model.ExpressionSubElementDefinition;
 import org.apache.camel.model.OnExceptionDefinition;
 import org.apache.camel.model.ProcessorDefinition;
