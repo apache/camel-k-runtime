@@ -31,16 +31,15 @@ import io.vertx.ext.web.Route;
 import io.vertx.ext.web.RoutingContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
-import org.apache.camel.ExchangePattern;
 import org.apache.camel.Message;
 import org.apache.camel.NoTypeConversionAvailableException;
 import org.apache.camel.Processor;
 import org.apache.camel.TypeConverter;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
+import org.apache.camel.component.knative.spi.KnativeTransportConfiguration;
 import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpRouter;
 import org.apache.camel.spi.HeaderFilterStrategy;
 import org.apache.camel.support.DefaultConsumer;
-import org.apache.camel.support.DefaultMessage;
 import org.apache.camel.support.ExchangeHelper;
 import org.apache.camel.support.MessageHelper;
 import org.apache.camel.util.ObjectHelper;
@@ -50,7 +49,7 @@ import org.slf4j.LoggerFactory;
 public class KnativeHttpConsumer extends DefaultConsumer {
     private static final Logger LOGGER = LoggerFactory.getLogger(KnativeHttpConsumer.class);
 
-    private final KnativeHttpTransport transport;
+    private final KnativeTransportConfiguration configuration;
     private final Predicate<HttpServerRequest> filter;
     private final KnativeEnvironment.KnativeServiceDefinition serviceDefinition;
     private final VertxPlatformHttpRouter router;
@@ -60,7 +59,7 @@ public class KnativeHttpConsumer extends DefaultConsumer {
     private Route route;
 
     public KnativeHttpConsumer(
-        KnativeHttpTransport transport,
+        KnativeTransportConfiguration configuration,
         Endpoint endpoint,
         KnativeEnvironment.KnativeServiceDefinition serviceDefinition,
         VertxPlatformHttpRouter router,
@@ -68,7 +67,7 @@ public class KnativeHttpConsumer extends DefaultConsumer {
 
         super(endpoint, processor);
 
-        this.transport = transport;
+        this.configuration = configuration;
         this.serviceDefinition = serviceDefinition;
         this.router = router;
         this.headerFilterStrategy = new KnativeHttpHeaderFilterStrategy();
@@ -149,17 +148,15 @@ public class KnativeHttpConsumer extends DefaultConsumer {
 
     private void handleRequest(RoutingContext routingContext) {
         final HttpServerRequest request = routingContext.request();
-        final Exchange exchange = getEndpoint().createExchange(ExchangePattern.InOut);
-        final Message in = toMessage(request, exchange);
+        final Exchange exchange = getEndpoint().createExchange();
+        final Message message = toMessage(request, exchange);
 
         Buffer payload = routingContext.getBody();
         if (payload != null) {
-            in.setBody(payload.getBytes());
+            message.setBody(payload.getBytes());
         } else {
-            in.setBody(null);
+            message.setBody(null);
         }
-
-        exchange.setIn(in);
 
         try {
             createUoW(exchange);
@@ -192,7 +189,7 @@ public class KnativeHttpConsumer extends DefaultConsumer {
                             HttpServerResponse response = toHttpResponse(request, exchange.getMessage());
                             Buffer body = null;
 
-                            if (request.response().getStatusCode() != 204) {
+                            if (request.response().getStatusCode() != 204 && configuration.isReply()) {
                                 body = computeResponseBody(exchange.getMessage());
 
                                 // set the content type in the response.
@@ -234,7 +231,7 @@ public class KnativeHttpConsumer extends DefaultConsumer {
     }
 
     private Message toMessage(HttpServerRequest request, Exchange exchange) {
-        Message message = new DefaultMessage(exchange.getContext());
+        Message message = exchange.getMessage();
         String path = request.path();
 
         if (serviceDefinition.getPath() != null) {
@@ -275,17 +272,19 @@ public class KnativeHttpConsumer extends DefaultConsumer {
 
         response.setStatusCode(code);
 
-        for (Map.Entry<String, Object> entry : message.getHeaders().entrySet()) {
-            final String key = entry.getKey();
-            final Object value = entry.getValue();
+        if (configuration.isReply()) {
+            for (Map.Entry<String, Object> entry : message.getHeaders().entrySet()) {
+                final String key = entry.getKey();
+                final Object value = entry.getValue();
 
-            for (Object it: org.apache.camel.support.ObjectHelper.createIterable(value, null)) {
-                String headerValue = tc.convertTo(String.class, it);
-                if (headerValue == null) {
-                    continue;
-                }
-                if (!headerFilterStrategy.applyFilterToCamelHeaders(key, headerValue, message.getExchange())) {
-                    response.putHeader(key, headerValue);
+                for (Object it : org.apache.camel.support.ObjectHelper.createIterable(value, null)) {
+                    String headerValue = tc.convertTo(String.class, it);
+                    if (headerValue == null) {
+                        continue;
+                    }
+                    if (!headerFilterStrategy.applyFilterToCamelHeaders(key, headerValue, message.getExchange())) {
+                        response.putHeader(key, headerValue);
+                    }
                 }
             }
         }

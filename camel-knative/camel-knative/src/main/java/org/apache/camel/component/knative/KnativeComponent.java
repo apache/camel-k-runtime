@@ -29,7 +29,6 @@ import org.apache.camel.component.knative.spi.KnativeTransport;
 import org.apache.camel.spi.Metadata;
 import org.apache.camel.spi.annotations.Component;
 import org.apache.camel.support.DefaultComponent;
-import org.apache.camel.support.PropertyBindingSupport;
 import org.apache.camel.support.service.ServiceHelper;
 import org.apache.camel.util.ObjectHelper;
 import org.apache.camel.util.PropertiesHelper;
@@ -227,14 +226,10 @@ public class KnativeComponent extends DefaultComponent {
             PropertiesHelper.extractProperties(parameters, "ce.override.", true)
         );
 
-        // set properties from the endpoint uri
-        PropertyBindingSupport.bindProperties(getCamelContext(), conf, parameters);
+        KnativeEndpoint endpoint = new KnativeEndpoint(uri, this, Knative.Type.valueOf(type), name, conf);
+        setProperties(endpoint, parameters);
 
-        if (ObjectHelper.isEmpty(conf.getServiceName())) {
-            conf.setServiceName(name);
-        }
-
-        return new KnativeEndpoint(uri, this, Knative.Type.valueOf(type), name, conf);
+        return endpoint;
     }
 
     // ************************

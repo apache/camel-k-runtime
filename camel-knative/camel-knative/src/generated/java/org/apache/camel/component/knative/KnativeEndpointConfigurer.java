@@ -40,6 +40,7 @@ public class KnativeEndpointConfigurer extends PropertyConfigurerSupport impleme
         case "kind": target.getConfiguration().setKind(property(camelContext, java.lang.String.class, value)); return true;
         case "lazystartproducer":
         case "lazyStartProducer": target.setLazyStartProducer(property(camelContext, boolean.class, value)); return true;
+        case "reply": target.getConfiguration().setReply(property(camelContext, java.lang.Boolean.class, value)); return true;
         case "replywithcloudevent":
         case "replyWithCloudEvent": target.getConfiguration().setReplyWithCloudEvent(property(camelContext, boolean.class, value)); return true;
         case "servicename":
@@ -66,6 +67,7 @@ public class KnativeEndpointConfigurer extends PropertyConfigurerSupport impleme
         answer.put("filters", java.util.Map.class);
         answer.put("kind", java.lang.String.class);
         answer.put("lazyStartProducer", boolean.class);
+        answer.put("reply", java.lang.Boolean.class);
         answer.put("replyWithCloudEvent", boolean.class);
         answer.put("serviceName", java.lang.String.class);
         answer.put("synchronous", boolean.class);
@@ -98,6 +100,7 @@ public class KnativeEndpointConfigurer extends PropertyConfigurerSupport impleme
         case "kind": return target.getConfiguration().getKind();
         case "lazystartproducer":
         case "lazyStartProducer": return target.isLazyStartProducer();
+        case "reply": return target.getConfiguration().getReply();
         case "replywithcloudevent":
         case "replyWithCloudEvent": return target.getConfiguration().isReplyWithCloudEvent();
         case "servicename":

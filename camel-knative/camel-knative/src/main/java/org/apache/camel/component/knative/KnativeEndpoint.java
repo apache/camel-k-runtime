@@ -38,6 +38,7 @@ import org.apache.camel.spi.UriParam;
 import org.apache.camel.spi.UriPath;
 import org.apache.camel.support.DefaultEndpoint;
 import org.apache.camel.support.PropertyBindingSupport;
+import org.apache.camel.util.ObjectHelper;
 
 /**
  * This component allows to interact with KNative events.
@@ -75,7 +76,7 @@ public class KnativeEndpoint extends DefaultEndpoint {
     public Producer createProducer() throws Exception {
         final KnativeEnvironment.KnativeServiceDefinition service = lookupServiceDefinition(Knative.EndpointKind.sink);
         final Processor ceProcessor = cloudEvent.producer(this, service);
-        final Producer producer = getComponent().getTransport().createProducer(this, createTransportConfiguration(), service);
+        final Producer producer = getComponent().getTransport().createProducer(this, createTransportConfiguration(service), service);
 
         PropertyBindingSupport.build()
             .withCamelContext(getCamelContext())
@@ -93,7 +94,7 @@ public class KnativeEndpoint extends DefaultEndpoint {
         final Processor ceProcessor = cloudEvent.consumer(this, service);
         final Processor replyProcessor = configuration.isReplyWithCloudEvent() ? cloudEvent.producer(this, service) : null;
         final Processor pipeline = Pipeline.newInstance(getCamelContext(), ceProcessor, processor, replyProcessor);
-        final Consumer consumer = getComponent().getTransport().createConsumer(this, createTransportConfiguration(), service, pipeline);
+        final Consumer consumer = getComponent().getTransport().createConsumer(this, createTransportConfiguration(service), service, pipeline);
 
         PropertyBindingSupport.build()
             .withCamelContext(getCamelContext())
@@ -126,6 +127,13 @@ public class KnativeEndpoint extends DefaultEndpoint {
 
     public void setConfiguration(KnativeConfiguration configuration) {
         this.configuration = configuration;
+    }
+
+    @Override
+    protected void doInit() throws Exception {
+        if (ObjectHelper.isEmpty(this.configuration .getServiceName())) {
+            this.configuration .setServiceName(this.name);
+        }
     }
 
     KnativeEnvironment.KnativeServiceDefinition lookupServiceDefinition(Knative.EndpointKind endpointKind) {
@@ -190,10 +198,14 @@ public class KnativeEndpoint extends DefaultEndpoint {
             .findFirst();
     }
 
-    private KnativeTransportConfiguration createTransportConfiguration() {
+    private KnativeTransportConfiguration createTransportConfiguration(KnativeEnvironment.KnativeServiceDefinition definition) {
         return new KnativeTransportConfiguration(
             this.cloudEvent.cloudEvent(),
-            !this.configuration.isReplyWithCloudEvent()
+            !this.configuration.isReplyWithCloudEvent(),
+            ObjectHelper.supplyIfEmpty(
+                this.configuration.getReply(),
+                () -> definition.getOptionalMetadata(Knative.KNATIVE_REPLY).map(Boolean::parseBoolean).orElse(true)
+            )
         );
     }
 

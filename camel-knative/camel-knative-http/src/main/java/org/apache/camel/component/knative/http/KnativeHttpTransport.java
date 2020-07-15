@@ -91,7 +91,7 @@ public class KnativeHttpTransport extends ServiceSupport implements CamelContext
 
     @Override
     public Producer createProducer(Endpoint endpoint, KnativeTransportConfiguration config, KnativeEnvironment.KnativeServiceDefinition service) {
-        return new KnativeHttpProducer(this, endpoint, service, this.router.vertx(), vertxHttpClientOptions);
+        return new KnativeHttpProducer(endpoint, service, this.router.vertx(), vertxHttpClientOptions);
     }
 
     @Override
@@ -102,7 +102,7 @@ public class KnativeHttpTransport extends ServiceSupport implements CamelContext
             next = KnativeHttpSupport.withoutCloudEventHeaders(next, config.getCloudEvent());
         }
 
-        return new KnativeHttpConsumer(this, endpoint, service, this.router, next);
+        return new KnativeHttpConsumer(config, endpoint, service, this.router, next);
     }
 
 }

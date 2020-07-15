@@ -46,7 +46,6 @@ import org.slf4j.LoggerFactory;
 public class KnativeHttpProducer extends DefaultAsyncProducer {
     private static final Logger LOGGER = LoggerFactory.getLogger(KnativeHttpProducer.class);
 
-    private final KnativeHttpTransport transport;
     private final KnativeEnvironment.KnativeServiceDefinition serviceDefinition;
     private final Vertx vertx;
     private final WebClientOptions clientOptions;
@@ -56,14 +55,12 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
     private WebClient client;
 
     public KnativeHttpProducer(
-            KnativeHttpTransport transport,
             Endpoint endpoint,
             KnativeEnvironment.KnativeServiceDefinition serviceDefinition,
             Vertx vertx,
             WebClientOptions clientOptions) {
         super(endpoint);
 
-        this.transport = transport;
         this.serviceDefinition = serviceDefinition;
         this.vertx = ObjectHelper.notNull(vertx, "vertx");
         this.clientOptions = ObjectHelper.supplyIfEmpty(clientOptions, WebClientOptions::new);
