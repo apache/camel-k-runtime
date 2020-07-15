@@ -17,6 +17,10 @@
 package org.apache.camel.k;
 
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,4 +32,12 @@ public interface Source {
     Optional<String> getLoader();
     List<String> getInterceptors();
     InputStream resolveAsInputStream(CamelContext ctx);
+
+    default Reader resolveAsReader(CamelContext ctx) {
+        return resolveAsReader(ctx, StandardCharsets.UTF_8);
+    }
+
+    default Reader resolveAsReader(CamelContext ctx, Charset charset) {
+        return new InputStreamReader(resolveAsInputStream(ctx), charset);
+    }
 }

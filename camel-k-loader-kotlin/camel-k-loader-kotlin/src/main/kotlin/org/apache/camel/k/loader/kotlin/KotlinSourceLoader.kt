@@ -25,8 +25,7 @@ import org.apache.camel.k.SourceLoader
 import org.apache.camel.k.loader.kotlin.dsl.IntegrationConfiguration
 import org.apache.camel.k.support.RouteBuilders
 import org.slf4j.LoggerFactory
-import java.io.InputStream
-import java.io.InputStreamReader
+import java.io.Reader
 import kotlin.script.experimental.api.ResultValue
 import kotlin.script.experimental.api.ScriptDiagnostic
 import kotlin.script.experimental.api.ScriptEvaluationConfiguration
@@ -45,18 +44,18 @@ class KotlinSourceLoader : SourceLoader {
     @Throws(Exception::class)
     override fun load(runtime: Runtime, source: Source): SourceLoader.Result {
         val builder = RouteBuilders.endpoint(source) {
-            inputStream, builder -> doLoad(inputStream, builder)
+            reader, builder -> doLoad(reader, builder)
         }
 
         return SourceLoader.Result.on(builder)
     }
 
-    private fun doLoad(inputStream: InputStream, builder: EndpointRouteBuilder) {
+    private fun doLoad(reader: Reader, builder: EndpointRouteBuilder) {
         val host = BasicJvmScriptingHost()
         val config = createJvmCompilationConfigurationFromTemplate<IntegrationConfiguration>()
 
         val result = host.eval(
-                InputStreamReader(inputStream).readText().toScriptSource(),
+                reader.readText().toScriptSource(),
                 config,
                 ScriptEvaluationConfiguration {
                     //

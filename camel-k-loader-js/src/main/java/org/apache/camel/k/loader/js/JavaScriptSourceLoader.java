@@ -16,8 +16,7 @@
  */
 package org.apache.camel.k.loader.js;
 
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
+import java.io.Reader;
 import java.util.Collections;
 import java.util.List;
 
@@ -29,9 +28,12 @@ import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceLoader;
 import org.apache.camel.k.annotation.Loader;
 import org.apache.camel.k.loader.js.dsl.IntegrationConfiguration;
+import org.apache.camel.k.support.RouteBuilders;
 import org.apache.camel.support.LifecycleStrategySupport;
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.Value;
+
+import static org.graalvm.polyglot.Source.newBuilder;
 
 @Loader("js")
 public class JavaScriptSourceLoader implements SourceLoader {
@@ -44,35 +46,46 @@ public class JavaScriptSourceLoader implements SourceLoader {
 
     @Override
     public Result load(Runtime runtime, Source source) throws Exception {
-        RoutesBuilder builder = new EndpointRouteBuilder() {
+        RoutesBuilder builder = RouteBuilders.endpoint(source, JavaScriptSourceLoader::doLoad);
+
+        return SourceLoader.Result.on(builder);
+    }
+
+    private static void doLoad(Reader reader, EndpointRouteBuilder builder) {
+        final Context context = Context.newBuilder("js").allowAllAccess(true).build();
+        final Value bindings = context.getBindings(LANGUAGE_ID);
+
+        // configure bindings
+        bindings.putMember("__dsl", new IntegrationConfiguration(builder));
+
+        //
+        // Expose IntegrationConfiguration methods to global scope.
+        //
+        context.eval(LANGUAGE_ID, ""
+            + "Object.setPrototypeOf(globalThis, new Proxy(Object.prototype, {"
+            + "    has(target, key) {"
+            + "        return key in __dsl || key in target;"
+            + "    },"
+            + "    get(target, key, receiver) {"
+            + "        return Reflect.get((key in __dsl) ? __dsl : target, key, receiver);"
+            + "    }"
+            + "}));");
+
+        //
+        // Run the script.
+        //
+        context.eval(
+            newBuilder(LANGUAGE_ID, reader, "Unnamed").buildLiteral()
+        );
+
+        //
+        // Close the polyglot context when the camel context stops
+        //
+        builder.getContext().addLifecycleStrategy(new LifecycleStrategySupport() {
             @Override
-            public void configure() throws Exception {
-                final Context context = Context.newBuilder("js").allowAllAccess(true).build();
-
-                try (InputStream is = source.resolveAsInputStream(getContext())) {
-                    Value bindings = context.getBindings(LANGUAGE_ID);
-
-                    // configure bindings
-                    bindings.putMember("__dsl", new IntegrationConfiguration(this));
-
-                    final String script = new String(is.readAllBytes(), StandardCharsets.UTF_8);
-                    final String wrappedScript = "with (__dsl) { " + script + " }";
-
-                    context.eval(LANGUAGE_ID, wrappedScript);
-
-                    //
-                    // Close the polyglot context when the camel context stops
-                    //
-                    getContext().addLifecycleStrategy(new LifecycleStrategySupport() {
-                        @Override
-                        public void onContextStop(CamelContext camelContext) {
-                            context.close(true);
-                        }
-                    });
-                }
+            public void onContextStop(CamelContext camelContext) {
+                context.close(true);
             }
-        };
-
-        return Result.on(builder);
+        });
     }
 }

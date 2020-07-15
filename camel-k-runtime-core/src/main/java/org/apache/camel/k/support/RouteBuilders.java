@@ -16,7 +16,7 @@
  */
 package org.apache.camel.k.support;
 
-import java.io.InputStream;
+import java.io.Reader;
 import java.util.function.BiConsumer;
 
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
@@ -26,12 +26,12 @@ public final class RouteBuilders {
     private RouteBuilders() {
     }
 
-    public static EndpointRouteBuilder endpoint(Source source, BiConsumer<InputStream, EndpointRouteBuilder> consumer) {
+    public static EndpointRouteBuilder endpoint(Source source, BiConsumer<Reader, EndpointRouteBuilder> consumer) {
         return new EndpointRouteBuilder() {
             @Override
             public void configure() throws Exception {
-                try (InputStream is = source.resolveAsInputStream(getContext())) {
-                    consumer.accept(is, this);
+                try (Reader reader = source.resolveAsReader(getContext())) {
+                    consumer.accept(reader, this);
                 }
             }
         };
