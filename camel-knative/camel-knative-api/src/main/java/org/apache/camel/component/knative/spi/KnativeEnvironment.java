@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -136,6 +137,13 @@ public class KnativeEnvironment {
             .withPort(port)
             .withMeta(metadata)
             .withMeta(Knative.CAMEL_ENDPOINT_KIND, endpointKind)
+            .build();
+    }
+
+    public static KnativeServiceDefinition sourceChannel(String name, Map<String, String> metadata) {
+        return serviceBuilder(Knative.Type.channel, name)
+            .withMeta(metadata)
+            .withMeta(Knative.CAMEL_ENDPOINT_KIND, Knative.EndpointKind.source)
             .build();
     }
 
@@ -328,6 +336,10 @@ public class KnativeEnvironment {
 
         public String getMetadata(String key) {
             return getMetadata().get(key);
+        }
+
+        public Optional<String> getOptionalMetadata(String key) {
+            return Optional.ofNullable(getMetadata(key));
         }
 
         public boolean matches(Knative.Type type, String name) {

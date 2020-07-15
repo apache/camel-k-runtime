@@ -20,6 +20,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
@@ -59,10 +60,13 @@ import static org.apache.camel.component.knative.http.KnativeHttpTestSupport.con
 import static org.apache.camel.component.knative.spi.KnativeEnvironment.channel;
 import static org.apache.camel.component.knative.spi.KnativeEnvironment.endpoint;
 import static org.apache.camel.component.knative.spi.KnativeEnvironment.event;
+import static org.apache.camel.component.knative.spi.KnativeEnvironment.sourceChannel;
 import static org.apache.camel.component.knative.spi.KnativeEnvironment.sourceEndpoint;
 import static org.apache.camel.component.knative.spi.KnativeEnvironment.sourceEvent;
 import static org.apache.camel.util.CollectionHelper.mapOf;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.emptyOrNullString;
+import static org.hamcrest.Matchers.is;
 
 public class KnativeHttpTest {
 
@@ -1248,6 +1252,116 @@ public class KnativeHttpTest {
         } finally {
             server.stop();
         }
+    }
+
+    @ParameterizedTest
+    @EnumSource(CloudEvents.class)
+    void testNoReply(CloudEvent ce) throws Exception {
+        configureKnativeComponent(
+            context,
+            ce,
+            sourceChannel(
+                "channel",
+                Map.of(
+                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.CONTENT_TYPE, "text/plain"
+                ))
+        );
+
+        RouteBuilder.addRoutes(context, b -> {
+            b.from("knative:channel/channel?reply=false")
+                .setBody().constant(Map.of());
+        });
+
+        context.start();
+
+        given()
+            .body("test")
+            .header(Exchange.CONTENT_TYPE, "text/plain")
+            .header(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_VERSION).http(), ce.version())
+            .header(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).http(), "org.apache.camel.event")
+            .header(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_ID).http(), "myEventID")
+            .header(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TIME).http(), DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now()))
+            .header(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_SOURCE).http(), "/somewhere")
+        .when()
+            .post()
+        .then()
+            .statusCode(204)
+            .body(is(emptyOrNullString()));
+    }
+
+    @ParameterizedTest
+    @EnumSource(CloudEvents.class)
+    void testNoReplyMeta(CloudEvent ce) throws Exception {
+        configureKnativeComponent(
+            context,
+            ce,
+            sourceChannel(
+                "channel",
+                Map.of(
+                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.CONTENT_TYPE, "text/plain",
+                    Knative.KNATIVE_REPLY, "false"
+                ))
+        );
+
+        RouteBuilder.addRoutes(context, b -> {
+            b.from("knative:channel/channel")
+                .setBody().constant(Map.of());
+        });
+
+        context.start();
+
+        given()
+            .body("test")
+            .header(Exchange.CONTENT_TYPE, "text/plain")
+            .header(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_VERSION).http(), ce.version())
+            .header(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).http(), "org.apache.camel.event")
+            .header(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_ID).http(), "myEventID")
+            .header(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TIME).http(), DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now()))
+            .header(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_SOURCE).http(), "/somewhere")
+        .when()
+            .post()
+        .then()
+            .statusCode(204)
+            .body(is(emptyOrNullString()));
+    }
+
+    @ParameterizedTest
+    @EnumSource(CloudEvents.class)
+    void testNoReplyMetaOverride(CloudEvent ce) throws Exception {
+        configureKnativeComponent(
+            context,
+            ce,
+            sourceChannel(
+                "channel",
+                Map.of(
+                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.CONTENT_TYPE, "text/plain",
+                    Knative.KNATIVE_REPLY, "true"
+                ))
+        );
+
+        RouteBuilder.addRoutes(context, b -> {
+            b.from("knative:channel/channel?reply=false")
+                .setBody().constant(Map.of());
+        });
+
+        context.start();
+
+        given()
+            .body("test")
+            .header(Exchange.CONTENT_TYPE, "text/plain")
+            .header(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_VERSION).http(), ce.version())
+            .header(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).http(), "org.apache.camel.event")
+            .header(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_ID).http(), "myEventID")
+            .header(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TIME).http(), DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now()))
+            .header(ce.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_SOURCE).http(), "/somewhere")
+        .when()
+            .post()
+        .then()
+            .statusCode(204)
+            .body(is(emptyOrNullString()));
     }
 
     @ParameterizedTest

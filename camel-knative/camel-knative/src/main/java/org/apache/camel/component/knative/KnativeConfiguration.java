@@ -47,6 +47,8 @@ public class KnativeConfiguration implements Cloneable {
     private String kind;
     @UriParam(label = "consumer", defaultValue = "false")
     private boolean replyWithCloudEvent;
+    @UriParam(label = "consumer,advanced", defaultValue = "true")
+    private Boolean reply;
 
     public KnativeConfiguration() {
     }
@@ -182,6 +184,17 @@ public class KnativeConfiguration implements Cloneable {
      */
     public void setKind(String kind) {
         this.kind = kind;
+    }
+
+    public Boolean getReply() {
+        return reply;
+    }
+
+    /**
+     * If the consumer should construct a full reply to knative request.
+     */
+    public void setReply(Boolean reply) {
+        this.reply = reply;
     }
 
     // ************************

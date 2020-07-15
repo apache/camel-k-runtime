@@ -19,12 +19,13 @@ package org.apache.camel.component.knative.spi;
 public final class KnativeTransportConfiguration {
 
     private final CloudEvent cloudEvent;
-
     private final boolean removeCloudEventHeadersInReply;
+    private final boolean reply;
 
-    public KnativeTransportConfiguration(CloudEvent cloudEvent, boolean removeCloudEventHeadersInReply) {
+    public KnativeTransportConfiguration(CloudEvent cloudEvent, boolean removeCloudEventHeadersInReply, boolean reply) {
         this.cloudEvent = cloudEvent;
         this.removeCloudEventHeadersInReply = removeCloudEventHeadersInReply;
+        this.reply = reply;
     }
 
     public CloudEvent getCloudEvent() {
@@ -35,4 +36,7 @@ public final class KnativeTransportConfiguration {
         return removeCloudEventHeadersInReply;
     }
 
+    public boolean isReply() {
+        return reply;
+    }
 }
