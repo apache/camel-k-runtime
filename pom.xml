@@ -68,6 +68,7 @@
         <rest-assured.version>4.3.1</rest-assured.version>
         <hamcrest.version>2.2</hamcrest.version>
         <jaeger.version>1.2.0</jaeger.version>
+        <json-schema-validator>2.2.14</json-schema-validator>
 
         <gmavenplus-plugin.version>1.9.0</gmavenplus-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>

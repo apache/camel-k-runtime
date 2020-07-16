@@ -19,7 +19,7 @@
     steps:
       - aggregate:
           strategy-ref: "aggregatorStrategy"
-          completion-size: 2
+          completion-size: "2"
           correlation-expression:
             simple: "${header.StockSymbol}"
       - to: "mock:route"
