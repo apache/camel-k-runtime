@@ -39,4 +39,8 @@ public final class KnativeHttpTestSupport {
 
         return component;
     }
+
+    public static String httpAttribute(CloudEvent ce, String name) {
+        return ce.mandatoryAttribute(name).http();
+    }
 }

@@ -96,13 +96,7 @@ public class KnativeHttpTransport extends ServiceSupport implements CamelContext
 
     @Override
     public Consumer createConsumer(Endpoint endpoint, KnativeTransportConfiguration config, KnativeEnvironment.KnativeServiceDefinition service, Processor processor) {
-        Processor next = KnativeHttpSupport.remapCloudEventHeaders(processor, config.getCloudEvent());
-
-        if (config.isRemoveCloudEventHeadersInReply()) {
-            next = KnativeHttpSupport.withoutCloudEventHeaders(next, config.getCloudEvent());
-        }
-
-        return new KnativeHttpConsumer(config, endpoint, service, this.router, next);
+        return new KnativeHttpConsumer(config, endpoint, service, this.router, processor);
     }
 
 }
