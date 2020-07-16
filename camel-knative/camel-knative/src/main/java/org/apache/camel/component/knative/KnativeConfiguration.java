@@ -128,7 +128,7 @@ public class KnativeConfiguration implements Cloneable {
      * Set the transport options.
      */
     public void setTransportOptions(Map<String, Object> transportOptions) {
-        this.transportOptions = transportOptions;
+        this.transportOptions = new HashMap<>(transportOptions);
     }
 
     /**
@@ -150,7 +150,7 @@ public class KnativeConfiguration implements Cloneable {
      * Set the filters.
      */
     public void setFilters(Map<String, Object> filters) {
-        this.filters = filters;
+        this.filters = new HashMap<>(filters);
     }
 
     public Map<String, Object> getCeOverride() {
@@ -161,7 +161,7 @@ public class KnativeConfiguration implements Cloneable {
      * CloudEvent headers to override
      */
     public void setCeOverride(Map<String, Object> ceOverride) {
-        this.ceOverride = ceOverride;
+        this.ceOverride = new HashMap<>(ceOverride);
     }
 
     public String getApiVersion() {

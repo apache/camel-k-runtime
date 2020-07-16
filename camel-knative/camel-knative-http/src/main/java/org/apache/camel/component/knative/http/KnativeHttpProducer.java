@@ -35,7 +35,6 @@ import org.apache.camel.Message;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
 import org.apache.camel.spi.HeaderFilterStrategy;
 import org.apache.camel.support.DefaultAsyncProducer;
-import org.apache.camel.support.DefaultMessage;
 import org.apache.camel.support.MessageHelper;
 import org.apache.camel.util.ObjectHelper;
 import org.apache.camel.util.URISupport;
@@ -117,18 +116,20 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
             .sendBuffer(Buffer.buffer(payload), response -> {
                 if (response.succeeded()) {
                     HttpResponse<Buffer> result = response.result();
+                    Message answer = exchange.getMessage();
 
-                    Message answer = new DefaultMessage(exchange.getContext());
                     answer.setHeader(Exchange.HTTP_RESPONSE_CODE, result.statusCode());
 
                     for (Map.Entry<String, String> entry : result.headers().entries()) {
                         if (!headerFilterStrategy.applyFilterToExternalHeaders(entry.getKey(), entry.getValue(), exchange)) {
-                            KnativeHttpSupport.appendHeader(answer.getHeaders(), entry.getKey(), entry.getValue());
+                            answer.setHeader(entry.getKey(), entry.getValue());
                         }
                     }
 
                     if (result.body() != null) {
                         answer.setBody(result.body().getBytes());
+                    } else {
+                        answer.setBody(null);
                     }
 
                     if (result.statusCode() < 200 || result.statusCode() >= 300) {
@@ -143,8 +144,6 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
                     }
 
                     answer.setHeader(Exchange.HTTP_RESPONSE_CODE, result.statusCode());
-
-                    exchange.setMessage(answer);
                 } else if (response.failed()) {
                     String exceptionMessage = "HTTP operation failed invoking " + URISupport.sanitizeUri(this.uri.get());
                     if (response.result() != null) {

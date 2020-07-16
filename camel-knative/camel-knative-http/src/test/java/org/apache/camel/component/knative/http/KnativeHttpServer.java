@@ -33,6 +33,7 @@ import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.platform.http.PlatformHttpConstants;
+import org.apache.camel.k.test.AvailablePortFinder;
 import org.apache.camel.support.service.ServiceSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,13 +45,17 @@ public class KnativeHttpServer extends ServiceSupport {
     private final String host;
     private final int port;
     private final String path;
+    private final BlockingQueue<HttpServerRequest> requests;
+    private final Handler<RoutingContext> handler;
 
     private Vertx vertx;
     private Router router;
     private ExecutorService executor;
     private HttpServer server;
-    private BlockingQueue<HttpServerRequest> requests;
-    private Handler<RoutingContext> handler;
+
+    public KnativeHttpServer(CamelContext context) {
+        this(context, "localhost", AvailablePortFinder.getNextAvailable(), "/", null);
+    }
 
     public KnativeHttpServer(CamelContext context, int port) {
         this(context, "localhost", port, "/", null);
@@ -60,8 +65,20 @@ public class KnativeHttpServer extends ServiceSupport {
         this(context, "localhost", port, "/", handler);
     }
 
+    public KnativeHttpServer(CamelContext context, Handler<RoutingContext> handler) {
+        this(context, "localhost", AvailablePortFinder.getNextAvailable(), "/", handler);
+    }
+
     public KnativeHttpServer(CamelContext context, String host, int port, String path) {
         this(context, host, port, path, null);
+    }
+
+    public KnativeHttpServer(CamelContext context, String host, String path) {
+        this(context, host, AvailablePortFinder.getNextAvailable(), path, null);
+    }
+
+    public KnativeHttpServer(CamelContext context, String host, String path, Handler<RoutingContext> handler) {
+        this(context, host, AvailablePortFinder.getNextAvailable(), path, handler);
     }
 
     public KnativeHttpServer(CamelContext context, String host, int port, String path, Handler<RoutingContext> handler) {
@@ -76,6 +93,18 @@ public class KnativeHttpServer extends ServiceSupport {
                 event.response().setStatusCode(200);
                 event.response().end();
             };
+    }
+
+    public String getHost() {
+        return host;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public String getPath() {
+        return path;
     }
 
     public HttpServerRequest poll(int timeout, TimeUnit unit) throws InterruptedException {

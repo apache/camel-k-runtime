@@ -24,14 +24,10 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import io.vertx.core.http.HttpServerRequest;
-import org.apache.camel.AsyncCallback;
-import org.apache.camel.Exchange;
 import org.apache.camel.Message;
-import org.apache.camel.Processor;
 import org.apache.camel.component.knative.spi.CloudEvent;
 import org.apache.camel.component.knative.spi.Knative;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
-import org.apache.camel.support.processor.DelegateAsyncProcessor;
 
 public final class KnativeHttpSupport {
     private KnativeHttpSupport() {
@@ -97,46 +93,25 @@ public final class KnativeHttpSupport {
     /**
      * Removes cloud event headers at the end of the processing.
      */
-    public static Processor withoutCloudEventHeaders(Processor delegate, CloudEvent ce) {
-        return new DelegateAsyncProcessor(delegate) {
-            @Override
-            public boolean process(Exchange exchange, AsyncCallback callback) {
-                return processor.process(exchange, doneSync -> {
-                    final Message message = exchange.getMessage();
-
-                    // remove CloudEvent headers
-                    for (CloudEvent.Attribute attr : ce.attributes()) {
-                        message.removeHeader(attr.http());
-                    }
-
-                    callback.done(doneSync);
-                });
-            }
-        };
+    public static void removeCloudEventHeaders(CloudEvent ce, Message message) {
+        // remove CloudEvent headers
+        for (CloudEvent.Attribute attr : ce.attributes()) {
+            message.removeHeader(attr.http());
+            message.removeHeader(attr.id());
+        }
     }
 
     /**
      * Remap camel headers to cloud event http headers.
      */
-    public static Processor remapCloudEventHeaders(Processor delegate, CloudEvent ce) {
-        return new DelegateAsyncProcessor(delegate) {
-            @Override
-            public boolean process(Exchange exchange, AsyncCallback callback) {
-                return processor.process(exchange, doneSync -> {
-                    final Message message = exchange.getMessage();
-
-                    // remap CloudEvent camel --> http
-                    for (CloudEvent.Attribute attr : ce.attributes()) {
-                        Object value = message.getHeader(attr.id());
-                        if (value != null) {
-                            message.setHeader(attr.http(), value);
-                        }
-                    }
-
-                    callback.done(doneSync);
-                });
+    public static void remapCloudEventHeaders(CloudEvent ce, Message message) {
+        // remap CloudEvent camel --> http
+        for (CloudEvent.Attribute attr : ce.attributes()) {
+            Object value = message.getHeader(attr.id());
+            if (value != null) {
+                message.setHeader(attr.http(), value);
             }
-        };
+        }
     }
 
 }

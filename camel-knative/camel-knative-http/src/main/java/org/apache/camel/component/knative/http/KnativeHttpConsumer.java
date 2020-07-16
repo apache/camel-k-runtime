@@ -287,6 +287,11 @@ public class KnativeHttpConsumer extends DefaultConsumer {
                     }
                 }
             }
+
+            KnativeHttpSupport.remapCloudEventHeaders(configuration.getCloudEvent(), message);
+            if (configuration.isRemoveCloudEventHeadersInReply()) {
+                KnativeHttpSupport.removeCloudEventHeaders(configuration.getCloudEvent(), message);
+            }
         }
 
         return response;
