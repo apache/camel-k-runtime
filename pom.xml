@@ -63,7 +63,7 @@
         <vertx.version>3.9.0</vertx.version>
         <graalvm.version>20.1.0</graalvm.version>
         <quarkus.version>1.6.0.Final</quarkus.version>
-        <jandex.version>2.1.3.Final</jandex.version>
+        <jandex.version>2.2.1.Final</jandex.version>
         <javapoet.version>1.11.1</javapoet.version>
         <rest-assured.version>4.3.1</rest-assured.version>
         <hamcrest.version>2.2</hamcrest.version>
