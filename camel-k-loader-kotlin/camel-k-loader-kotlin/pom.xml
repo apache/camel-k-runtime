@@ -130,7 +130,7 @@
                 <artifactId>kotlin-maven-plugin</artifactId>
                 <version>${kotlin.version}</version>
                 <configuration>
-                    <jvmTarget>${maven.compiler.target}</jvmTarget>
+                    <jvmTarget>${maven.compiler.release}</jvmTarget>
                 </configuration>
                 <executions>
                     <execution>
@@ -139,7 +139,7 @@
                             <goal>compile</goal>
                         </goals>
                         <configuration>
-                            <jvmTarget>${kotlin.compiler.target}</jvmTarget>
+                            <jvmTarget>${maven.compiler.release}</jvmTarget>
                             <sourceDirs>
                                 <sourceDir>src/main/kotlin</sourceDir>
                             </sourceDirs>
@@ -151,7 +151,7 @@
                             <goal>test-compile</goal>
                         </goals>
                         <configuration>
-                            <jvmTarget>${kotlin.compiler.target}</jvmTarget>
+                            <jvmTarget>${maven.compiler.release}</jvmTarget>
                             <sourceDirs>
                                 <sourceDir>src/test/kotlin</sourceDir>
                             </sourceDirs>

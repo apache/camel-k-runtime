@@ -37,7 +37,6 @@
         <maven.compiler.release>11</maven.compiler.release>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <kotlin.compiler.target>1.8</kotlin.compiler.target>
 
         <camel.version>3.4.0</camel.version>
         <camel-quarkus.version>1.0.0-CR3</camel-quarkus.version>

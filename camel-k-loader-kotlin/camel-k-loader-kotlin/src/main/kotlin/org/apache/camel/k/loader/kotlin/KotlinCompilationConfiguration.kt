@@ -30,9 +30,16 @@ class KotlinCompilationConfiguration : ScriptCompilationConfiguration(
     jvm {
         //
         // The Kotlin script compiler does not inherit
-        // the classpath by default
+        // the classpath by default.
         //
         dependenciesFromClassloader(wholeClasspath = true)
+
+        //
+        // Scripts have to be compiled with the same
+        // jvm target level as the loader.
+        //
+        compilerOptions.append("-jvm-target")
+        compilerOptions.append("11")
     }
     ide {
         acceptedLocations(ScriptAcceptedLocation.Everywhere)
