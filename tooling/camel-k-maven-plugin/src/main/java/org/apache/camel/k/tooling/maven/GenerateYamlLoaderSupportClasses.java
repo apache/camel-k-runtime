@@ -33,6 +33,9 @@ import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
+import org.apache.camel.catalog.CamelCatalog;
+import org.apache.camel.catalog.DefaultCamelCatalog;
+import org.apache.camel.k.tooling.maven.support.ToolingSupport;
 import org.apache.camel.util.AntPathMatcher;
 import org.apache.camel.util.StringHelper;
 import org.apache.maven.plugin.MojoFailureException;
@@ -175,7 +178,8 @@ public class GenerateYamlLoaderSupportClasses extends GenerateYamlSupport {
 
         mb.beginControlFlow("switch(id)");
 
-        // custom parsers
+        mb.addComment("custom parsers");
+
         annotated(YAML_STEP_PARSER_ANNOTATION)
             .sorted(Comparator.comparing(i -> i.name().toString()))
             .forEach(
@@ -200,7 +204,8 @@ public class GenerateYamlLoaderSupportClasses extends GenerateYamlSupport {
                 }
             );
 
-        // auto generated parsers
+        mb.addComment("auto generated parsers");
+
         annotated(XML_ROOT_ELEMENT_ANNOTATION_CLASS)
             .forEach(
                 i -> {
@@ -238,6 +243,20 @@ public class GenerateYamlLoaderSupportClasses extends GenerateYamlSupport {
                     }
                 }
             );
+
+        mb.addComment("endpoint dsl");
+
+        CamelCatalog catalog = new DefaultCamelCatalog();
+        catalog.findComponentNames().stream()
+            .sorted()
+            .map(catalog::componentModel)
+            .flatMap(component -> ToolingSupport.combine(component.getScheme(), component.getAlternativeSchemes()))
+            .filter(ids::add)
+            .forEach(scheme -> {
+                mb.beginControlFlow("case $S:", scheme);
+                mb.addStatement("return new org.apache.camel.k.loader.yaml.parser.EndpointStepParser($S)", scheme);
+                mb.endControlFlow();
+            });
 
         mb.beginControlFlow("default:");
         mb.addStatement("return lookup(camelContext, id)");

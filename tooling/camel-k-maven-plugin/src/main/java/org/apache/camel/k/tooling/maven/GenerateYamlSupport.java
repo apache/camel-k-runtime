@@ -75,6 +75,8 @@ public abstract class GenerateYamlSupport extends AbstractMojo {
         DotName.createSimple("org.apache.camel.k.annotation.yaml.YAMLStepParser");
     public static final DotName YAML_MIXIN_ANNOTATION =
         DotName.createSimple("org.apache.camel.k.annotation.yaml.YAMLMixIn");
+    public static final DotName JSON_SCHEMA_IGNORE_ANNOTATION =
+        DotName.createSimple("org.apache.camel.k.annotation.yaml.JsonSchemaIgnore");
     public static final DotName LOAD_BALANCE_DEFINITION_CLASS =
         DotName.createSimple("org.apache.camel.model.LoadBalancerDefinition");
     public static final DotName START_STEP_PARSER_CLASS =
@@ -85,6 +87,12 @@ public abstract class GenerateYamlSupport extends AbstractMojo {
         DotName.createSimple("org.apache.camel.k.loader.yaml.parser.HasExpression");
     public static final DotName HAS_DATAFORMAT_CLASS =
         DotName.createSimple("org.apache.camel.k.loader.yaml.parser.HasDataFormat");
+    public static final DotName HAS_ENDPOINT_CONSUMER_CLASS =
+        DotName.createSimple("org.apache.camel.k.loader.yaml.parser.HasEndpointConsumer");
+    public static final DotName HAS_ENDPOINT_PRODUCER_CLASS =
+        DotName.createSimple("org.apache.camel.k.loader.yaml.parser.HasEndpointProducer");
+    public static final DotName HAS_URI_PRODUCER_CLASS =
+        DotName.createSimple("org.apache.camel.k.loader.yaml.parser.HasUri");
     public static final DotName STEP_CLASS =
         DotName.createSimple("org.apache.camel.k.loader.yaml.model.Step");
 

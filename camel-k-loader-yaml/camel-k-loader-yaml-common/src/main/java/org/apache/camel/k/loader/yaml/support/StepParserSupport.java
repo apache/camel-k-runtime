@@ -16,10 +16,15 @@
  */
 package org.apache.camel.k.loader.yaml.support;
 
+import java.net.URISyntaxException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
+import org.apache.camel.CamelContext;
+import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.k.loader.yaml.model.Step;
 import org.apache.camel.k.loader.yaml.spi.ProcessorStepParser;
 import org.apache.camel.k.loader.yaml.spi.StepParser;
@@ -81,5 +86,16 @@ public final class StepParserSupport {
         }
 
         return answer;
+    }
+
+    public static String createEndpointUri(CamelContext context, String scheme, Map<String, Object> parameters) {
+        try {
+            Map<String, String> params = new HashMap<>();
+            parameters.forEach((k, v) -> params.put(k, Objects.toString(v)));
+
+            return context.adapt(ExtendedCamelContext.class).getRuntimeCamelCatalog().asEndpointUri(scheme, params, false);
+        } catch (URISyntaxException e) {
+            throw new IllegalArgumentException(e);
+        }
     }
 }

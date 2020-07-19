@@ -2327,14 +2327,14 @@
       "org.apache.camel.k.loader.yaml.parser.FromStepParser$Definition" : {
         "type" : "object",
         "properties" : {
-          "parameters" : {
-            "type" : "object"
-          },
           "steps" : {
             "type" : "array",
             "items" : {
               "$ref" : "#/items/definitions/step"
             }
+          },
+          "parameters" : {
+            "type" : "object"
           },
           "uri" : {
             "type" : "string"
@@ -2897,7 +2897,8 @@
             "uri" : {
               "type" : "string"
             }
-          }
+          },
+          "required" : [ "uri" ]
         } ]
       },
       "org.apache.camel.k.loader.yaml.parser.RoutingSlipStepParser$Definition" : {

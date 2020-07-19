@@ -19,16 +19,23 @@ package org.apache.camel.k.tooling.maven;
 
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.Map;
 
 import javax.lang.model.element.Modifier;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.squareup.javapoet.AnnotationSpec;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeSpec;
+import org.apache.camel.catalog.CamelCatalog;
+import org.apache.camel.catalog.DefaultCamelCatalog;
+import org.apache.camel.k.tooling.maven.support.ToolingSupport;
 import org.apache.camel.model.DataFormatDefinition;
 import org.apache.camel.model.LoadBalancerDefinition;
 import org.apache.camel.model.language.ExpressionDefinition;
@@ -61,6 +68,14 @@ public class GenerateYamlParserSupportClasses extends GenerateYamlSupport {
                 .build()
                 .writeTo(Paths.get(output));
             JavaFile.builder("org.apache.camel.k.loader.yaml.parser", generateHasLoadBalancerType())
+                .indent("    ")
+                .build()
+                .writeTo(Paths.get(output));
+            JavaFile.builder("org.apache.camel.k.loader.yaml.parser", generateHasEndpointConsumer())
+                .indent("    ")
+                .build()
+                .writeTo(Paths.get(output));
+            JavaFile.builder("org.apache.camel.k.loader.yaml.parser", generateHasEndpointProducer())
                 .indent("    ")
                 .build()
                 .writeTo(Paths.get(output));
@@ -216,5 +231,60 @@ public class GenerateYamlParserSupportClasses extends GenerateYamlSupport {
         );
 
         return type.build();
+    }
+
+    public final TypeSpec generateHasEndpointConsumer() {
+        TypeSpec.Builder type = TypeSpec.interfaceBuilder("HasEndpointConsumer");
+        type.addModifiers(Modifier.PUBLIC);
+        type.addSuperinterface(ClassName.get("org.apache.camel.k.loader.yaml.spi", "HasEndpoint"));
+
+        CamelCatalog catalog = new DefaultCamelCatalog();
+        catalog.findComponentNames().stream()
+            .map(catalog::componentModel)
+            .filter(component -> !component.isProducerOnly())
+            .flatMap(component -> ToolingSupport.combine(component.getScheme(), component.getAlternativeSchemes()))
+            .sorted()
+            .distinct()
+            .forEach(scheme -> generateHasEndpointProducer(scheme, type));
+
+        return type.build();
+    }
+
+    public final TypeSpec generateHasEndpointProducer() {
+        TypeSpec.Builder type = TypeSpec.interfaceBuilder("HasEndpointProducer");
+        type.addModifiers(Modifier.PUBLIC);
+        type.addSuperinterface(ClassName.get("org.apache.camel.k.loader.yaml.spi", "HasEndpoint"));
+
+        CamelCatalog catalog = new DefaultCamelCatalog();
+        catalog.findComponentNames().stream()
+            .map(catalog::componentModel)
+            .filter(component -> !component.isConsumerOnly())
+            .flatMap(component -> ToolingSupport.combine(component.getScheme(), component.getAlternativeSchemes()))
+            .sorted()
+            .distinct()
+            .forEach(scheme -> generateHasEndpointProducer(scheme, type));
+
+        return type.build();
+    }
+
+    private static void generateHasEndpointProducer(String scheme, TypeSpec.Builder type) {
+        String name = StringHelper.dashToCamelCase(scheme);
+        name = name.replaceAll("[^a-zA-Z0-9]", "");
+        name = name.toLowerCase();
+
+        type.addMethod(MethodSpec.methodBuilder("set_" + name)
+            .addAnnotation(AnnotationSpec.builder(JsonProperty.class).addMember("value", "$S", scheme).build())
+            .addModifiers(Modifier.PUBLIC, Modifier.DEFAULT)
+            .addParameter(ParameterizedTypeName.get(Map.class, String.class, Object.class), "parameters")
+            .addCode(
+                CodeBlock.builder()
+                    .beginControlFlow("if (getEndpointScheme() != null)")
+                    .addStatement("throw new IllegalArgumentException(\"And endpoint has already been set\")")
+                    .endControlFlow()
+                    .addStatement("setEndpointScheme($S);", scheme)
+                    .addStatement("setParameters(parameters);")
+                    .build())
+            .build()
+        );
     }
 }

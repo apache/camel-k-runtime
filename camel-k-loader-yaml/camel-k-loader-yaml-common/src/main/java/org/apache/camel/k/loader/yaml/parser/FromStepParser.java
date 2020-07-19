@@ -19,40 +19,81 @@ package org.apache.camel.k.loader.yaml.parser;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.camel.k.annotation.yaml.YAMLNodeDefinition;
 import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.k.loader.yaml.model.Step;
 import org.apache.camel.k.loader.yaml.spi.StartStepParser;
 import org.apache.camel.k.loader.yaml.support.StepParserSupport;
-import org.apache.camel.model.RouteDefinition;
 
 @YAMLStepParser(id = "from", definition = FromStepParser.Definition.class)
 public class FromStepParser implements StartStepParser {
     @Override
     public Object process(Context context) {
         final Definition definition = context.node(Definition.class);
-        final String uri = StepParserSupport.createEndpointUri(definition.uri, definition.parameters);
-        final RouteDefinition route = context.builder().from(uri);
+        if (definition.uri == null && definition.scheme == null) {
+            throw new IllegalArgumentException("Either uri or scheme must be set");
+        }
+
+        String uri = definition.uri != null
+            ? StepParserSupport.createEndpointUri(definition.uri, definition.parameters)
+            : StepParserSupport.createEndpointUri(context.getCamelContext(), definition.scheme, definition.parameters);
 
         // as this is a start converter, steps are mandatory
         StepParserSupport.notNull(definition.steps, "steps");
 
         return StepParserSupport.convertSteps(
             context,
-            route,
+            context.builder().from(uri),
             definition.steps
         );
     }
 
     @YAMLNodeDefinition
-    public static final class Definition {
-        @JsonProperty(required = true)
+    public static final class Definition implements HasEndpointConsumer {
+        public String scheme;
         public String uri;
-        @JsonProperty
         public Map<String, Object> parameters;
+
         @JsonProperty(required = true)
         public List<Step> steps;
+
+        @JsonIgnore
+        @Override
+        public void setEndpointScheme(String scheme) {
+            this.scheme = scheme;
+        }
+
+        @JsonIgnore
+        @Override
+        public String getEndpointScheme() {
+            return this.scheme ;
+        }
+
+        @JsonProperty(required = true)
+        @Override
+        public void setUri(String uri) {
+            this.uri = uri;
+        }
+
+        @JsonProperty
+        @Override
+        public String getUri() {
+            return this.uri;
+        }
+
+        @JsonProperty
+        @Override
+        public void setParameters(Map<String, Object> parameters) {
+            this.parameters = parameters;
+        }
+
+        @JsonProperty
+        @Override
+        public Map<String, Object> getParameters() {
+            return this.parameters;
+        }
     }
 }
 

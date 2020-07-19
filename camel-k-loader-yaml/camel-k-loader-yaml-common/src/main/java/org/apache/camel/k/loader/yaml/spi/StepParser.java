@@ -56,6 +56,10 @@ public interface StepParser {
             return builder.getContext();
         }
 
+        public <T extends CamelContext> T getCamelContext(Class<T> type) {
+            return builder.getContext().adapt(type);
+        }
+
         public ProcessorDefinition<?> processor() {
             return this.processor;
         }
