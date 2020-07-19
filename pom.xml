@@ -38,7 +38,33 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
 
-        <camel-version>3.4.2</camel-version>
+        <camel.version>3.4.2</camel.version>
+        <camel-quarkus.version>1.0.0</camel-quarkus.version>
+        <junit.version>5.6.2</junit.version>
+        <junit-pioneer.version>0.9.0</junit-pioneer.version>
+        <joor.version>0.9.13</joor.version>
+        <assertj.version>3.17.1</assertj.version>
+        <log4j2.version>2.13.3</log4j2.version>
+        <groovy.version>3.0.5</groovy.version>
+        <kotlin.version>1.4.0</kotlin.version>
+        <snakeyaml.version>1.26</snakeyaml.version>
+        <spock.version>2.0-M3-groovy-3.0</spock.version>
+        <jackson.version>2.10.5</jackson.version>
+        <jaxb-api.version>2.3.1</jaxb-api.version>
+        <jaxb-core.version>2.3.0.1</jaxb-core.version>
+        <immutables.version>2.8.8</immutables.version>
+        <semver4j.version>3.1.0</semver4j.version>
+        <vertx.version>3.9.2</vertx.version>
+        <graalvm.version>20.1.0</graalvm.version>
+        <quarkus.version>1.7.0.Final</quarkus.version>
+        <jandex.version>2.2.1.Final</jandex.version>
+        <javapoet.version>1.13.0</javapoet.version>
+        <rest-assured.version>4.3.1</rest-assured.version>
+        <hamcrest.version>2.2</hamcrest.version>
+        <jaeger.version>1.3.2</jaeger.version>
+        <json-schema-validator>2.2.14</json-schema-validator>
+
+        <camel-version>3.5.0-SNAPSHOT</camel-version>
 
         <!-- quarkus -->
         <camel-quarkus-version>1.0.0</camel-quarkus-version>
@@ -275,6 +301,7 @@
         <module>tooling</module>
 
         <module>camel-knative</module>
+        <module>camel-kamelet</module>
 
         <module>camel-k-runtime-core</module>
         <module>camel-k-main</module>
@@ -379,6 +406,11 @@
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-knative-test</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-kamelet</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
