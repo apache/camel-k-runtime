@@ -50,8 +50,39 @@ public class YamlLoaderTest {
                 .body()
                 .jsonPath();
 
-        assertThat(p.getList("components", String.class)).contains("direct", "log");
-        assertThat(p.getList("routes", String.class)).contains("yaml");
-        assertThat(p.getList("endpoints", String.class)).contains("direct://yaml", "log://yaml");
+        assertThat(p.getList("components", String.class))
+            .contains("direct", "log");
+        assertThat(p.getList("routes", String.class))
+            .contains("yaml");
+        assertThat(p.getList("endpoints", String.class))
+            .contains("direct://yaml", "log://yaml");
+    }
+
+    @Test
+    public void testLoadRoutesWithEndpointDSL() throws IOException {
+        String code;
+
+        try (InputStream is = YamlLoaderTest.class.getResourceAsStream("/routes_with_endpointdsl.yaml")) {
+            code = IOHelper.loadText(is);
+        }
+
+        JsonPath p = RestAssured.given()
+            .contentType(MediaType.TEXT_PLAIN)
+            .accept(MediaType.APPLICATION_JSON)
+            .body(code)
+            .post("/test/load-routes/MyRoute")
+            .then()
+                .statusCode(200)
+            .extract()
+                .body()
+                .jsonPath();
+
+        assertThat(p.getList("components", String.class))
+            .contains("direct");
+        assertThat(p.getList("routes", String.class))
+            .contains("yaml");
+        assertThat(p.getList("endpoints", String.class))
+            .contains("direct://route", "direct://route_result")
+            .contains("direct://from", "direct://from_result");
     }
 }

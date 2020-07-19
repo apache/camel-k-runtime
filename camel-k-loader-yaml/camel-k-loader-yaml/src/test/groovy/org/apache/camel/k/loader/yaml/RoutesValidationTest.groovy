@@ -33,7 +33,7 @@ class RoutesValidationTest extends Specification {
     static def SCHEMA = JsonSchemaFactory.byDefault().getJsonSchema(SCHEMA_RES)
 
     @Unroll
-    def 'validate'(Path source) {
+    def 'validate #source.last()'(Path source) {
         given:
             def target = MAPPER.readTree(source.toFile())
         when:
@@ -49,5 +49,8 @@ class RoutesValidationTest extends Specification {
         def paths = Paths.get(routes)
 
         return Files.list(paths)
+            // exclude RouteWithEndpointTest_ as there's no Endpoint DSL integration
+            // with the json schema
+            .filter(p -> !p.last().toString().startsWith("RouteWithEndpointTest_"))
     }
 }

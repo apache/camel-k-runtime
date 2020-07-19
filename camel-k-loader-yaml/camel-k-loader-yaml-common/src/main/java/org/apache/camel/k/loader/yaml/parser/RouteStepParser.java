@@ -19,6 +19,7 @@ package org.apache.camel.k.loader.yaml.parser;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.camel.k.annotation.yaml.YAMLNodeDefinition;
 import org.apache.camel.k.annotation.yaml.YAMLStepParser;
@@ -33,8 +34,15 @@ public class RouteStepParser implements StartStepParser {
     @Override
     public Object process(Context context) {
         final Definition definition = context.node(Definition.class);
-        final String uri = StepParserSupport.createEndpointUri(definition.from.uri, definition.from.parameters);
-        final RouteDefinition route = context.builder().from(uri);
+        if (definition.from.uri == null && definition.from.scheme == null) {
+            throw new IllegalArgumentException("Either uri or scheme must be set");
+        }
+
+        String uri = definition.from.uri != null
+            ? StepParserSupport.createEndpointUri(definition.from.uri, definition.from.parameters)
+            : StepParserSupport.createEndpointUri(context.getCamelContext(), definition.from.scheme, definition.from.parameters);
+
+        RouteDefinition route = context.builder().from(uri);
 
         ObjectHelper.ifNotEmpty(definition.id, route::routeId);
         ObjectHelper.ifNotEmpty(definition.group, route::routeGroup);
@@ -62,17 +70,53 @@ public class RouteStepParser implements StartStepParser {
     }
 
     @YAMLNodeDefinition
-    public static final class From {
-        @JsonProperty
+    public static final class From implements HasEndpointConsumer {
         public String uri;
-        @JsonProperty
         public Map<String, Object> parameters;
+        public String scheme;
 
         public From() {
         }
 
         public From(String uri) {
             this.uri = uri;
+        }
+
+        @JsonIgnore
+        @Override
+        public void setEndpointScheme(String scheme) {
+            this.scheme = scheme;
+        }
+
+        @JsonIgnore
+        @Override
+        public String getEndpointScheme() {
+            return null;
+        }
+
+        @JsonProperty(required = true)
+        @Override
+        public void setUri(String uri) {
+            this.uri = uri;
+        }
+
+        @JsonProperty
+        @Override
+        public String getUri() {
+            return this.uri;
+        }
+
+        @JsonProperty
+        @Override
+        public void setParameters(Map<String, Object> parameters) {
+            this.parameters = parameters;
+
+        }
+
+        @JsonProperty
+        @Override
+        public Map<String, Object> getParameters() {
+            return this.parameters;
         }
     }
 }

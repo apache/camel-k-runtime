@@ -22,6 +22,8 @@ import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.k.loader.yaml.model.Step;
 import org.apache.camel.k.loader.yaml.parser.HasDataFormat;
+import org.apache.camel.k.loader.yaml.parser.HasEndpointConsumer;
+import org.apache.camel.k.loader.yaml.parser.HasEndpointProducer;
 import org.apache.camel.k.loader.yaml.parser.HasExpression;
 import org.apache.camel.k.loader.yaml.spi.StepParser;
 import org.apache.camel.model.DataFormatDefinition;
@@ -84,5 +86,7 @@ public class DeploymentProcessor {
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, Step.Deserializer.class));
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, HasExpression.class));
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, HasDataFormat.class));
+        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, HasEndpointConsumer.class));
+        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, HasEndpointProducer.class));
     }
 }

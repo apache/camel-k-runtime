@@ -36,6 +36,11 @@
         <!-- ****************************** -->
 
         <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-core-catalog</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.camel.k</groupId>
             <artifactId>camel-k-runtime-core</artifactId>
         </dependency>
@@ -98,6 +103,11 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-bean</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-telegram</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -172,6 +182,7 @@
                 <version>${project.version}</version>
                 <executions>
                     <execution>
+                        <id>generate-yaml-schema</id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>generate-yaml-schema</goal>
@@ -193,6 +204,16 @@
                                 <bannedDefinition>org.apache.camel.model.WireTapDefinition</bannedDefinition>
                                 <bannedDefinition>org.apache.camel.model.ToDynamicDefinition</bannedDefinition>
                             </bannedDefinitions>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-yaml-endpoint-schema</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate-yaml-endpoints-schema</goal>
+                        </goals>
+                        <configuration>
+                            <outputFile>${project.basedir}/src/generated/resources/camel-yaml-endpoint.json</outputFile>
                         </configuration>
                     </execution>
                 </executions>

@@ -32,6 +32,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.apache.camel.k.tooling.maven.support.IndexerSupport;
 import org.apache.camel.k.tooling.maven.support.MavenSupport;
+import org.apache.camel.k.tooling.maven.support.ToolingSupport;
 import org.apache.camel.util.AntPathMatcher;
 import org.apache.camel.util.ObjectHelper;
 import org.apache.camel.util.StringHelper;
@@ -244,9 +245,7 @@ public class GenerateYamlSchema extends GenerateYamlSupport {
             );
 
         try {
-            if (!outputFile.getParentFile().exists()) {
-                outputFile.getParentFile().mkdirs();
-            }
+            ToolingSupport.mkparents(outputFile);
 
             mapper.writerWithDefaultPrettyPrinter().writeValue(outputFile, root);
         } catch (IOException e) {

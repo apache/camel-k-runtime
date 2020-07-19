@@ -286,6 +286,7 @@ public class CatalogProcessor3x implements CatalogProcessor {
             );
         }
     }
+
     private static void processComponents(CamelCatalog catalog, Map<String, CamelArtifact> artifacts) {
         for (String name : catalog.findComponentNames()) {
             String json = catalog.componentJSonSchema(name);
