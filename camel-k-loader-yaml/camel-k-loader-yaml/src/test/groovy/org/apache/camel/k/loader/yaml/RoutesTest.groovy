@@ -25,7 +25,7 @@ class RoutesTest extends TestSupport {
 
     def 'split'() {
         setup:
-            def context = startContext()
+            def context = startContextForSpec()
 
             mockEndpoint(context,'mock:split') {
                 expectedMessageCount = 3
@@ -52,7 +52,7 @@ class RoutesTest extends TestSupport {
 
     def 'filter'() {
         setup:
-            def context = startContext()
+            def context = startContextForSpec()
 
             mockEndpoint(context, 'mock:route') {
                 expectedMessageCount 2
@@ -81,7 +81,7 @@ class RoutesTest extends TestSupport {
 
     def 'aggregator'() {
         setup:
-            def context = startContext {
+            def context = startContextForSpec {
                 registry.bind('aggregatorStrategy', new UseLatestAggregationStrategy())
             }
 
@@ -104,7 +104,7 @@ class RoutesTest extends TestSupport {
 
     def 'idempotentConsumer'() {
         setup:
-            def context = startContext {
+            def context = startContextForSpec {
                 registry.bind('myRepo', new MemoryIdempotentRepository())
             }
 
@@ -132,7 +132,7 @@ class RoutesTest extends TestSupport {
 
     def 'onExceptionHandled'() {
         setup:
-            def context = startContext {
+            def context = startContextForSpec {
                 registry.bind('myFailingProcessor', new MyFailingProcessor())
             }
         when:
@@ -145,7 +145,7 @@ class RoutesTest extends TestSupport {
 
     def 'errorHandler'() {
         setup:
-            def context = startContext {
+            def context = startContextForSpec {
                 registry.bind('myFailingProcessor', new MyFailingProcessor())
             }
 
@@ -162,7 +162,7 @@ class RoutesTest extends TestSupport {
 
     def 'bean'() {
         setup:
-            def context = startContext()
+            def context = startContextForSpec()
         when:
             def out = context.createProducerTemplate().requestBody('direct:route', 'test');
         then:

@@ -23,6 +23,9 @@ import org.apache.camel.FluentProducerTemplate
 import org.apache.camel.builder.RouteBuilder
 import org.apache.camel.component.mock.MockEndpoint
 import org.apache.camel.impl.DefaultCamelContext
+import org.apache.camel.k.Runtime
+import org.apache.camel.k.Source
+import org.apache.camel.k.Sources
 import org.apache.camel.k.loader.yaml.spi.ProcessorStepParser
 import org.apache.camel.k.loader.yaml.spi.StartStepParser
 import org.apache.camel.k.loader.yaml.spi.StepParser
@@ -58,28 +61,20 @@ class TestSupport extends Specification {
         return new StepParser.Context(builder, new RouteDefinition(), MAPPER, content, RESOLVER)
     }
 
-    static CamelContext startContext(String content) {
-        return startContext(content, null)
-    }
-
     static CamelContext startContext(
             String content,
             @DelegatesTo(CamelContext) Closure<CamelContext> closure) {
         return startContext(
-                new ByteArrayInputStream(content.stripMargin().getBytes(StandardCharsets.UTF_8)),
+                Sources.fromBytes('yaml', content.getBytes(StandardCharsets.UTF_8)),
                 closure
         )
     }
 
-    static CamelContext startContext(InputStream content) {
-        return startContext(content, null)
-    }
-
     static CamelContext startContext(
-            InputStream content,
+            Source source,
             @DelegatesTo(CamelContext) Closure closure) {
         def context = new DefaultCamelContext()
-        def builder = new YamlSourceLoader().builder(content)
+        def builder = new YamlSourceLoader().load(Runtime.on(context), source).builder().orElseThrow(() -> new IllegalArgumentException());
 
         context.disableJMX()
         context.setStreamCaching(true)
@@ -96,16 +91,12 @@ class TestSupport extends Specification {
         return context
     }
 
-    CamelContext startContext() {
-        return startContext(null as Closure)
-    }
-
-    CamelContext startContext(@DelegatesTo(CamelContext) Closure closure) {
+    CamelContext startContextForSpec(@DelegatesTo(CamelContext) Closure closure) {
         def name = specificationContext.currentIteration.name.replace(' ', '_')
-        def path = "/routes/${specificationContext.currentSpec.name}_${name}.yaml"
+        def path = "classpath:/routes/${specificationContext.currentSpec.name}_${name}.yaml"
 
         return startContext(
-                TestSupport.class.getResourceAsStream(path) as InputStream,
+                Sources.fromURI(path),
                 closure
         )
     }
