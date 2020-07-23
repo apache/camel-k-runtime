@@ -37,11 +37,11 @@ class DefinitionsTest extends TestSupport {
                  steps:
                    - to:
                        uri: "log:info"
-            '''.stripMargin('|')
+            '''
 
             def camelContext = new DefaultCamelContext()
         when:
-            camelContext.addRoutes(new YamlSourceLoader().builder(content))
+            load(camelContext, content)
         then:
             camelContext.routeDefinitions[0].id == 'my-route-id'
             camelContext.routeDefinitions[0].group == 'my-route-group'
@@ -62,11 +62,11 @@ class DefinitionsTest extends TestSupport {
                  steps:
                    - to:
                        uri: "log:info"
-            '''.stripMargin('|')
+            '''
 
             def camelContext = new DefaultCamelContext()
         when:
-            camelContext.addRoutes(new YamlSourceLoader().builder(content))
+            load(camelContext, content)
         then:
             camelContext.routeDefinitions[0].id == 'my-route-id'
             camelContext.routeDefinitions[0].group == 'my-route-group'
@@ -100,11 +100,11 @@ class DefinitionsTest extends TestSupport {
                                uri: "log:otherwise"
                    - to:
                        uri: "log:info"
-            '''.stripMargin('|')
+            '''
 
             def camelContext = new DefaultCamelContext()
         when:
-            camelContext.addRoutes(new YamlSourceLoader().builder(content))
+            load(camelContext, content)
         then:
             camelContext.routeDefinitions[0].input.endpointUri == 'direct:start'
 
@@ -136,20 +136,20 @@ class DefinitionsTest extends TestSupport {
     def "route with split"() {
         given:
             def content = '''
-                 - from:
-                     uri: "direct:start"
-                     steps:
-                       - split: 
-                           tokenize: ","
-                           steps:
-                             - to: "log:split1"
-                             - to: "log:split2"
-                       - to: "log:info"
-            '''.stripMargin('|')
+             - from:
+                 uri: "direct:start"
+                 steps:
+                   - split: 
+                       tokenize: ","
+                       steps:
+                         - to: "log:split1"
+                         - to: "log:split2"
+                   - to: "log:info"
+            '''
 
             def camelContext = new DefaultCamelContext()
         when:
-            camelContext.addRoutes(new YamlSourceLoader().builder(content))
+            load(camelContext, content)
         then:
             camelContext.routeDefinitions[0].input.endpointUri == 'direct:start'
             camelContext.routeDefinitions[0].outputs.size() == 2
@@ -177,17 +177,17 @@ class DefinitionsTest extends TestSupport {
     def "flow style route with split"() {
         given:
             def content = '''
-                 - from:
-                     uri: "direct:start"
-                     steps:
-                       - split: 
-                           tokenize: ","
-                       - to: "log:info"
-            '''.stripMargin('|')
+             - from:
+                 uri: "direct:start"
+                 steps:
+                   - split: 
+                       tokenize: ","
+                   - to: "log:info"
+            '''
 
             def camelContext = new DefaultCamelContext()
         when:
-            camelContext.addRoutes(new YamlSourceLoader().builder(content))
+            load(camelContext, content)
         then:
             camelContext.routeDefinitions[0].input.endpointUri == 'direct:start'
             camelContext.routeDefinitions[0].outputs.size() == 1
@@ -217,11 +217,11 @@ class DefinitionsTest extends TestSupport {
                          - to: "log:filter1"
                          - to: "log:filter2"
                    - to: "log:info"
-            '''.stripMargin('|')
+            '''
 
             def camelContext = new DefaultCamelContext()
         when:
-            camelContext.addRoutes(new YamlSourceLoader().builder(content))
+            load(camelContext, content)
         then:
             camelContext.routeDefinitions[0].input.endpointUri == 'direct:start'
             camelContext.routeDefinitions[0].outputs.size() == 2
@@ -255,11 +255,11 @@ class DefinitionsTest extends TestSupport {
                    - filter: 
                        simple: "${body.startsWith(\\"a\\")}"
                    - to: "log:info"
-            '''.stripMargin('|')
+            '''
 
             def camelContext = new DefaultCamelContext()
         when:
-            camelContext.addRoutes(new YamlSourceLoader().builder(content))
+            load(camelContext, content)
         then:
             camelContext.routeDefinitions[0].input.endpointUri == 'direct:start'
             camelContext.routeDefinitions[0].outputs.size() == 1
