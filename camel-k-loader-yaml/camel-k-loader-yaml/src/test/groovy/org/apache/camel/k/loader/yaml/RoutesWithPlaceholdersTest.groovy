@@ -18,7 +18,7 @@ package org.apache.camel.k.loader.yaml
 
 import org.apache.camel.component.direct.DirectEndpoint
 
-class RouteWithPlaceholdersTest extends TestSupport {
+class RoutesWithPlaceholdersTest extends TestSupport {
     def 'route'() {
         setup:
             def parameters = [
@@ -26,7 +26,7 @@ class RouteWithPlaceholdersTest extends TestSupport {
                 'direct.timeout': 1234,
                 'direct.result': UUID.randomUUID().toString()
             ]
-            def context = startContext {
+            def context = startContextForSpec {
                 propertiesComponent.initialProperties = parameters as Properties
             }
         when:
@@ -44,7 +44,7 @@ class RouteWithPlaceholdersTest extends TestSupport {
                 'direct.timeout': 1234,
                 'direct.result': UUID.randomUUID().toString()
             ]
-            def context = startContext {
+            def context = startContextForSpec {
                 propertiesComponent.initialProperties = parameters as Properties
             }
         when:
@@ -67,7 +67,7 @@ class RouteWithPlaceholdersTest extends TestSupport {
                 'direct.timeout': 1234,
                 'direct.result': UUID.randomUUID().toString()
             ]
-            def context = startContext {
+            def context = startContextForSpec {
                 propertiesComponent.initialProperties = parameters as Properties
             }
         when:
@@ -85,7 +85,7 @@ class RouteWithPlaceholdersTest extends TestSupport {
                 'direct.timeout': 1234,
                 'direct.result': UUID.randomUUID().toString()
             ]
-            def context = startContext {
+            def context = startContextForSpec {
                 propertiesComponent.initialProperties = parameters as Properties
             }
         when:
