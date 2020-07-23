@@ -101,16 +101,14 @@ class TestSupport extends Specification {
         )
     }
 
-    static MockEndpoint mockEndpoint(
+    static mockEndpoint(
             CamelContext context,
             String uri,
-            @DelegatesTo(MockEndpoint) Closure<MockEndpoint> closure) {
+            @DelegatesTo(MockEndpoint) Closure<?> closure) {
 
         closure.resolveStrategy = Closure.DELEGATE_FIRST
         closure.delegate = context.getEndpoint(uri, MockEndpoint.class)
         closure.call()
-
-        return closure.delegate
     }
 
     static <U extends ProcessorStepParser> ProcessorDefinition<?> toProcessor(Class<U> type, String content) {
@@ -138,4 +136,10 @@ class TestSupport extends Specification {
         return context.createFluentProducerTemplate()
     }
 
+    static def load(CamelContext context, String content) {
+        def source = Sources.fromBytes('yaml', content.stripMargin().getBytes(StandardCharsets.UTF_8))
+        def builder = new YamlSourceLoader().load(Runtime.on(context), source).builder().orElseThrow(() -> new IllegalArgumentException());
+
+        context.addRoutes(builder)
+    }
 }

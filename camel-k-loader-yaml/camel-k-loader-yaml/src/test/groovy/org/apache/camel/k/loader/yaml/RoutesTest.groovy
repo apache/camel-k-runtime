@@ -27,15 +27,15 @@ class RoutesTest extends TestSupport {
         setup:
             def context = startContextForSpec()
 
-            mockEndpoint(context,'mock:split') {
+            mockEndpoint(context, 'mock:split') {
                 expectedMessageCount = 3
                 expectedBodiesReceived 'a', 'b', 'c'
             }
-            mockEndpoint(context,'mock:route') {
+            mockEndpoint(context, 'mock:route') {
                 expectedMessageCount = 1
                 expectedBodiesReceived 'a,b,c'
             }
-            mockEndpoint(context,'mock:flow') {
+            mockEndpoint(context, 'mock:flow') {
                 expectedMessageCount = 3
                 expectedBodiesReceived 'a', 'b', 'c'
             }
@@ -62,16 +62,16 @@ class RoutesTest extends TestSupport {
                 expectedMessageCount 1
                 expectedBodiesReceived 'a'
             }
-            mockEndpoint(context,'mock:flow') {
+            mockEndpoint(context, 'mock:flow') {
                 expectedMessageCount 1
                 expectedBodiesReceived 'a'
             }
         when:
-            context.createProducerTemplate().with {
-                sendBody('direct:route', 'a')
-                sendBody('direct:route', 'b')
-                sendBody('direct:flow', 'a')
-                sendBody('direct:flow', 'b')
+            template(context).with {
+                to('direct:route').withBody('a').send()
+                to('direct:route').withBody('b').send()
+                to('direct:flow').withBody('a').send()
+                to('direct:flow').withBody('b').send()
             }
         then:
             MockEndpoint.assertIsSatisfied(context)
@@ -90,11 +90,11 @@ class RoutesTest extends TestSupport {
                 expectedBodiesReceived '2', '4'
             }
         when:
-            context.createProducerTemplate().with {
-                sendBodyAndHeader('direct:route', '1', 'StockSymbol', 1)
-                sendBodyAndHeader('direct:route', '2', 'StockSymbol', 1)
-                sendBodyAndHeader('direct:route', '3', 'StockSymbol', 2)
-                sendBodyAndHeader('direct:route', '4', 'StockSymbol', 2)
+            template(context).with {
+                to('direct:route').withBody('1').withHeader('StockSymbol', 1).send()
+                to('direct:route').withBody('2').withHeader('StockSymbol', 1).send()
+                to('direct:route').withBody('3').withHeader('StockSymbol', 2).send()
+                to('direct:route').withBody('4').withHeader('StockSymbol', 2).send()
             }
         then:
             MockEndpoint.assertIsSatisfied(context)
@@ -108,21 +108,21 @@ class RoutesTest extends TestSupport {
                 registry.bind('myRepo', new MemoryIdempotentRepository())
             }
 
-            mockEndpoint(context,'mock:idempotent') {
+            mockEndpoint(context, 'mock:idempotent') {
                 expectedMessageCount = 3
                 expectedBodiesReceived 'a', 'b', 'c'
             }
-            mockEndpoint(context,'mock:route') {
+            mockEndpoint(context, 'mock:route') {
                 expectedMessageCount = 5
                 expectedBodiesReceived 'a', 'b', 'a2', 'b2', 'c'
             }
         when:
-            context.createProducerTemplate().with {
-                sendBodyAndHeader('direct:route', 'a', 'id', '1')
-                sendBodyAndHeader('direct:route', 'b', 'id', '2')
-                sendBodyAndHeader('direct:route', 'a2', 'id', '1')
-                sendBodyAndHeader('direct:route', 'b2', 'id', '2')
-                sendBodyAndHeader('direct:route', 'c', 'id', '3')
+            template(context).with {
+                to('direct:route').withBody('a').withHeader('id', '1').send()
+                to('direct:route').withBody('b').withHeader('id', '2').send()
+                to('direct:route').withBody('a2').withHeader('id', '1').send()
+                to('direct:route').withBody('b2').withHeader('id', '2').send()
+                to('direct:route').withBody('c').withHeader('id', '3').send()
             }
         then:
             MockEndpoint.assertIsSatisfied(context)
