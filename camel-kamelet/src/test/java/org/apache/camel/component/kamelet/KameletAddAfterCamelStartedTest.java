@@ -25,10 +25,11 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class KameletTest {
-    private static final Logger LOGGER = LoggerFactory.getLogger(KameletTest.class);
+public class KameletAddAfterCamelStartedTest {
+    private static final Logger LOGGER = LoggerFactory.getLogger(KameletAddAfterCamelStartedTest.class);
 
     @Test
     public void test() throws Exception {
@@ -53,6 +54,9 @@ public class KameletTest {
             .build();
          */
 
+        // start camel here and add routes with kamelts later
+        context.start();
+
         context.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -62,8 +66,6 @@ public class KameletTest {
                     .to("log:1");
             }
         });
-
-        context.start();
 
         assertThat(
             context.createFluentProducerTemplate().to("direct:template").withBody("test").request(String.class)

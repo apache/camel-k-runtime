@@ -18,6 +18,8 @@ package org.apache.camel.component.kamelet;
 
 import java.util.Map;
 
+import org.apache.camel.AsyncCallback;
+import org.apache.camel.AsyncProducer;
 import org.apache.camel.Consumer;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
@@ -26,9 +28,9 @@ import org.apache.camel.Producer;
 import org.apache.camel.spi.Metadata;
 import org.apache.camel.spi.UriEndpoint;
 import org.apache.camel.spi.UriPath;
+import org.apache.camel.support.DefaultAsyncProducer;
 import org.apache.camel.support.DefaultConsumer;
 import org.apache.camel.support.DefaultEndpoint;
-import org.apache.camel.support.DefaultProducer;
 import org.apache.camel.support.service.ServiceHelper;
 
 @UriEndpoint(
@@ -64,12 +66,21 @@ public class KameletEndpoint extends DefaultEndpoint {
         this.kameletUri = "direct:" + routeId;
     }
 
+    @Override
+    public KameletComponent getComponent() {
+        return (KameletComponent) super.getComponent();
+    }
+
     public String getTemplateId() {
         return templateId;
     }
 
     public String getRouteId() {
         return routeId;
+    }
+
+    public Map<String, Object> getKameletProperties() {
+        return kameletProperties;
     }
 
     @Override
@@ -81,21 +92,14 @@ public class KameletEndpoint extends DefaultEndpoint {
     public Consumer createConsumer(Processor processor) throws Exception {
         Consumer answer = new KemeletConsumer(processor);
         configureConsumer(answer);
-
         return answer;
     }
 
     @Override
-    protected void doStart() throws Exception {
-        try {
-            // Add a route to the camel context from the given template
-            // TODO: add validation (requires: https://issues.apache.org/jira/browse/CAMEL-15312)
-            getCamelContext().addRouteFromTemplate(routeId, templateId, kameletProperties);
-        } catch (Exception e) {
-            throw new IllegalArgumentException(e);
-        }
-
-        super.doStart();
+    protected void doInit() throws Exception {
+        super.doInit();
+        // only need to add during init phase
+        getComponent().onEndpointAdd(this);
     }
 
     // *********************************
@@ -117,52 +121,46 @@ public class KameletEndpoint extends DefaultEndpoint {
             endpoint = getCamelContext().getEndpoint(kameletUri);
             consumer = endpoint.createConsumer(getProcessor());
 
-            ServiceHelper.startService(endpoint);
-            ServiceHelper.startService(consumer);
-
+            ServiceHelper.startService(endpoint, consumer);
             super.doStart();
         }
 
         @Override
         protected void doStop() throws Exception {
-            ServiceHelper.stopService(endpoint);
-            ServiceHelper.stopService(consumer);
-
+            ServiceHelper.stopService(consumer, endpoint);
             super.doStop();
         }
     }
 
-    private class KameletProducer extends DefaultProducer {
+    private class KameletProducer extends DefaultAsyncProducer {
         private volatile Endpoint endpoint;
-        private volatile Producer producer;
+        private volatile AsyncProducer producer;
 
         public KameletProducer() {
             super(KameletEndpoint.this);
         }
 
         @Override
-        public void process(Exchange exchange) throws Exception {
+        public boolean process(Exchange exchange, AsyncCallback callback) {
             if (producer != null) {
-                producer.process(exchange);
+                return producer.process(exchange, callback);
+            } else {
+                callback.done(true);
+                return true;
             }
         }
 
         @Override
         protected void doStart() throws Exception {
             endpoint = getCamelContext().getEndpoint(kameletUri);
-            producer = endpoint.createProducer();
-
-            ServiceHelper.startService(endpoint);
-            ServiceHelper.startService(producer);
-
+            producer = endpoint.createAsyncProducer();
+            ServiceHelper.startService(endpoint, producer);
             super.doStart();
         }
 
         @Override
         protected void doStop() throws Exception {
-            ServiceHelper.stopService(endpoint);
-            ServiceHelper.stopService(producer);
-
+            ServiceHelper.stopService(producer, endpoint);
             super.doStop();
         }
     }
