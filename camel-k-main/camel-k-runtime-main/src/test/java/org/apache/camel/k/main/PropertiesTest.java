@@ -122,11 +122,11 @@ public class PropertiesTest {
     @Test
     public void testContextConfiguration() throws Exception {
         Properties properties = new Properties();
-        properties.setProperty("camel.context.message-history", "false");
-        properties.setProperty("camel.context.load-type-converters", "false");
-        properties.setProperty("camel.context.stream-caching-strategy.spool-threshold", "100");
-        properties.setProperty("camel.context.rest-configuration.component", "servlet");
-        properties.setProperty("camel.context.rest-configuration.context-path", "/my/path");
+        properties.setProperty("camel.main.message-history", "false");
+        properties.setProperty("camel.main.load-type-converters", "false");
+        properties.setProperty("camel.main.stream-caching-spool-threshold", "100");
+        properties.setProperty("camel.rest.component", "servlet");
+        properties.setProperty("camel.rest.context-path", "/my/path");
 
         ApplicationRuntime runtime = new ApplicationRuntime();
         runtime.setProperties(properties);
