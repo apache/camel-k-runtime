@@ -1,0 +1,11 @@
+github:
+  description: "Apache Camel K runtime"
+  homepage: https://camel.apache.org
+  labels:
+    - camel
+    - integration
+    - kubernetes
+    - serverless
+    - knative
+    - openshift
+    - operator
