@@ -16,12 +16,11 @@
  */
 package org.apache.camel.k.loader.groovy
 
-
-import org.apache.camel.builder.endpoint.EndpointRouteBuilder
 import org.apache.camel.k.Runtime
 import org.apache.camel.k.Source
 import org.apache.camel.k.SourceLoader
 import org.apache.camel.k.loader.groovy.dsl.IntegrationConfiguration
+import org.apache.camel.k.support.RouteBuilders
 import org.codehaus.groovy.control.CompilerConfiguration
 import org.codehaus.groovy.control.customizers.ImportCustomizer
 
@@ -33,30 +32,22 @@ class GroovySourceLoader implements SourceLoader {
 
     @Override
     Result load(Runtime runtime, Source source) throws Exception {
-        def builder = new EndpointRouteBuilder() {
-            @Override
-            void configure() throws Exception {
-                def ic = new ImportCustomizer()
-                ic.addStarImports('org.apache.camel')
-                ic.addStarImports('org.apache.camel.spi')
+        def builder = RouteBuilders.endpoint(source, { reader, builder ->
+            def ic = new ImportCustomizer()
+            ic.addStarImports('org.apache.camel')
+            ic.addStarImports('org.apache.camel.spi')
 
-                def cc = new CompilerConfiguration()
-                cc.addCompilationCustomizers(ic)
-                cc.setScriptBaseClass(DelegatingScript.class.getName())
+            def cc = new CompilerConfiguration()
+            cc.addCompilationCustomizers(ic)
+            cc.setScriptBaseClass(DelegatingScript.class.getName())
 
-                def sh = new GroovyShell(new Binding(), cc)
-                def is = source.resolveAsInputStream(getContext())
+            def sh = new GroovyShell(new Binding(), cc)
+            def script = (DelegatingScript) sh.parse(reader)
 
-                is.withCloseable {
-                    def reader = new InputStreamReader(is)
-                    def script = (DelegatingScript) sh.parse(reader)
-
-                    // set the delegate target
-                    script.setDelegate(new IntegrationConfiguration(this))
-                    script.run()
-                }
-            }
-        }
+            // set the delegate target
+            script.setDelegate(new IntegrationConfiguration(builder))
+            script.run()
+        })
 
         return Result.on(builder)
     }
