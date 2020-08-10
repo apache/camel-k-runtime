@@ -25,12 +25,15 @@ import java.util.List;
 import java.util.Optional;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.spi.HasId;
 
-public interface Source {
+public interface Source extends HasId {
     String getName();
     String getLanguage();
+    SourceType getType();
     Optional<String> getLoader();
     List<String> getInterceptors();
+    List<String> getPropertyNames();
     InputStream resolveAsInputStream(CamelContext ctx);
 
     default Reader resolveAsReader(CamelContext ctx) {

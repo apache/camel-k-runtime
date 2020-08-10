@@ -16,6 +16,9 @@
  */
 package org.apache.camel.k.support;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.apache.camel.util.ObjectHelper;
 import org.apache.camel.util.StringHelper;
 
@@ -23,47 +26,50 @@ public final class StringSupport {
     private StringSupport() {
     }
 
-    public static String substringBefore(final String str, final String separator) {
-        if (ObjectHelper.isEmpty(str) || separator == null) {
-            return str;
+    public static String substringBefore(String str, String separator) {
+        String answer = StringHelper.before(str, separator);
+        if (answer == null) {
+            answer = str;
         }
-        if (separator.isEmpty()) {
-            return "";
-        }
-        final int pos = str.indexOf(separator);
-        if (pos == -1) {
-            return str;
-        }
-        return str.substring(0, pos);
+
+        return answer;
     }
 
-    public static String substringAfter(final String str, final String separator) {
+    public static String substringAfter(String str, String separator) {
         String answer = StringHelper.after(str, separator);
-        return answer != null ? answer : "";
+        if (answer == null) {
+            answer = "";
+        }
+
+        return answer;
     }
 
-    public static String substringAfterLast(final String str, final String separator) {
+    public static String substringAfterLast(String str, String separator) {
         if (ObjectHelper.isEmpty(str)) {
             return str;
         }
         if (ObjectHelper.isEmpty(separator)) {
             return "";
         }
-        final int pos = str.lastIndexOf(separator);
+        int pos = str.lastIndexOf(separator);
         if (pos == -1 || pos == str.length() - separator.length()) {
             return "";
         }
         return str.substring(pos + separator.length());
     }
 
-    public static String substringBeforeLast(final String str, final String separator) {
+    public static String substringBeforeLast(String str, String separator) {
         if (ObjectHelper.isEmpty(str) || ObjectHelper.isEmpty(separator)) {
             return str;
         }
-        final int pos = str.lastIndexOf(separator);
+        int pos = str.lastIndexOf(separator);
         if (pos == -1) {
             return str;
         }
         return str.substring(0, pos);
+    }
+
+    public static List<String> split(String input, String regex) {
+        return input != null ? List.of(input.split(regex)) : Collections.emptyList();
     }
 }

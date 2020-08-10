@@ -56,6 +56,7 @@
         <module>camel-k-quarkus-loader-kotlin</module>
 
         <module>camel-k-quarkus-core</module>
+        <module>camel-k-quarkus-kamelet</module>
         <module>camel-k-quarkus-knative</module>
         <module>camel-k-quarkus-cron</module>
 

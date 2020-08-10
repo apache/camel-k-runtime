@@ -22,15 +22,20 @@
     <Console name="STDOUT" target="SYSTEM_OUT">
       <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS}|%-5level|%t|%c{1} - %msg%n"/>
     </Console>
+    <File name="FILE" filename="target/camel-kamelet-test.log">
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </File>
     <Null name="NONE"/>
   </Appenders>
 
   <Loggers>
+    <Logger name="org.apache.camel.component.kamelet" level="TRACE"/>
+
     <Root level="INFO">
       <!--
       <AppenderRef ref="STDOUT"/>
       -->
-      <AppenderRef ref="STDOUT"/>
+      <AppenderRef ref="FILE"/>
     </Root>
   </Loggers>
 

@@ -28,7 +28,6 @@ import org.apache.camel.k.Runtime;
 import org.apache.camel.k.quarkus.ApplicationRecorder;
 import org.apache.camel.quarkus.main.CamelMainApplication;
 import org.apache.camel.quarkus.main.deployment.spi.CamelMainListenerBuildItem;
-import org.apache.camel.spi.HasId;
 
 public class DeploymentProcessor {
     @BuildStep
@@ -40,19 +39,7 @@ public class DeploymentProcessor {
     @BuildStep
     CamelMainListenerBuildItem registerListener(ApplicationRecorder recorder) {
         List<Runtime.Listener> listeners = new ArrayList<>();
-        ServiceLoader.load(Runtime.Listener.class).forEach(listener -> {
-            if (listener instanceof HasId) {
-                String id = ((HasId) listener).getId();
-                if (!id.endsWith(".")) {
-                    id = id + ".";
-                }
-
-                // TODO: this has to be done at runtime
-                //PropertiesSupport.bindProperties(getCamelContext(), listener, id);
-            }
-
-            listeners.add(listener);
-        });
+        ServiceLoader.load(Runtime.Listener.class).forEach(listeners::add);
 
         return new CamelMainListenerBuildItem(recorder.createMainListener(listeners));
     }

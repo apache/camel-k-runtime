@@ -21,11 +21,12 @@
     <parent>
         <groupId>org.apache.camel.k</groupId>
         <artifactId>camel-k-runtime-parent</artifactId>
-        <version>1.5.0-SNAPSHOT</version>
+        <version>1.5.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>camel-kamelet</artifactId>
+    <description>The Kamelet Component provides support for interacting with Knative</description>
 
     <dependencies>
 
@@ -74,6 +75,16 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-log</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-mock</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-test-junit5</artifactId>
             <scope>test</scope>
         </dependency>
 

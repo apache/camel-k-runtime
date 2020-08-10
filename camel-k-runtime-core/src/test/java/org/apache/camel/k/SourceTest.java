@@ -18,6 +18,7 @@ package org.apache.camel.k;
 
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
 
 public class SourceTest {
@@ -42,4 +43,13 @@ public class SourceTest {
         );
     }
 
+    @Test
+    public void sourceCanBeContructedFromLocation() {
+        SourceDefinition definition = new SourceDefinition();
+        definition.setLocation("classpath:MyRoutes.java");
+
+        assertThat(Sources.fromDefinition(definition))
+            .hasFieldOrPropertyWithValue("name", "MyRoutes")
+            .hasFieldOrPropertyWithValue("language", "java");
+    }
 }

@@ -17,6 +17,7 @@
 
 import org.apache.camel.BindToRegistry;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.k.main.support.MyBean;
 
 public class MyRoutesWithBeans extends RouteBuilder {
     @Override
@@ -28,7 +29,7 @@ public class MyRoutesWithBeans extends RouteBuilder {
     }
 
     @BindToRegistry("my-bean")
-    public org.apache.camel.k.main.MyBean createMyBean() {
-        return new org.apache.camel.k.main.MyBean("my-bean-name");
+    public MyBean createMyBean() {
+        return new MyBean("my-bean-name");
     }
 }

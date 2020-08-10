@@ -18,177 +18,119 @@ package org.apache.camel.k;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.zip.GZIPInputStream;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.k.support.StringSupport;
-import org.apache.camel.spi.ClassResolver;
 import org.apache.camel.support.ResourceHelper;
 import org.apache.camel.util.ObjectHelper;
-import org.apache.camel.util.URISupport;
 
 public final class  Sources {
     private Sources() {
     }
 
     public static Source fromURI(String uri) throws Exception {
-        return new URI(uri);
+        return fromDefinition(SourceDefinition.fromURI(uri));
     }
 
     public static Source fromBytes(String name, String language, String loader, List<String> interceptors, byte[] content) {
-        return new InMemory(name, language, loader, interceptors, content);
+        return fromDefinition(SourceDefinition.fromBytes(null, name, language, loader, interceptors, content));
     }
 
     public static Source fromBytes(String name, String language, String loader, byte[] content) {
-        return new InMemory(name, language, loader, content);
+        return fromDefinition(SourceDefinition.fromBytes(null, name, language, loader, null, content));
     }
 
     public static Source fromBytes(String language, byte[] content) {
-        return new InMemory(UUID.randomUUID().toString(), language, null, content);
+        return fromDefinition(SourceDefinition.fromBytes(null, UUID.randomUUID().toString(), language, null, null, content));
     }
 
-    private static final class InMemory implements Source {
-        private final String name;
-        private final String language;
-        private final String loader;
-        private final List<String> interceptors;
-        private final byte[] content;
-
-        public InMemory(String name, String language, String loader, byte[] content) {
-            this.name = name;
-            this.language = language;
-            this.loader = loader;
-            this.interceptors = Collections.emptyList();
-            this.content = Arrays.copyOf(content, content.length);
+    public static Source fromDefinition(SourceDefinition definition) {
+        if (definition.getLocation() == null && definition.getContent() == null) {
+            throw new IllegalArgumentException("Either the source location or the source content should be set");
         }
 
-        public InMemory(String name, String language, String loader, List<String> interceptors, byte[] content) {
-            this.name = name;
-            this.language = language;
-            this.loader = loader;
-            this.interceptors = new ArrayList<>(interceptors);
-            this.content = Arrays.copyOf(content, content.length);
-        }
-
-        @Override
-        public String getName() {
-            return name;
-        }
-
-        @Override
-        public String getLanguage() {
-            return language;
-        }
-
-        @Override
-        public Optional<String> getLoader() {
-            return Optional.ofNullable(loader);
-        }
-
-        @Override
-        public List<String> getInterceptors() {
-            return interceptors;
-        }
-
-        @Override
-        public InputStream resolveAsInputStream(CamelContext ctx) {
-            if (content == null) {
-                throw new IllegalArgumentException("No content defined");
+        return new Source() {
+            @Override
+            public String getId() {
+                return ObjectHelper.supplyIfEmpty(definition.getId(), this::getName);
             }
 
-            return new ByteArrayInputStream(this.content);
-        }
-    }
+            @Override
+            public String getName() {
+                String answer = definition.getName();
+                if (ObjectHelper.isEmpty(answer) && ObjectHelper.isNotEmpty(definition.getLocation())) {
+                    answer = StringSupport.substringAfter(definition.getLocation(), ":");
+                    answer = StringSupport.substringBeforeLast(answer, ".");
 
-    private static final class URI implements Source {
-        private final String location;
-        private final String name;
-        private final String language;
-        private final String loader;
-        private final String interceptors;
-        private final boolean compressed;
+                    if (answer.contains("/")) {
+                        answer = StringSupport.substringAfterLast(answer, "/");
+                    }
+                }
 
-        private URI(String uri) throws Exception {
-            final String location = StringSupport.substringBefore(uri, "?");
-
-            if (!location.startsWith(Constants.SCHEME_PREFIX_CLASSPATH) && !location.startsWith(Constants.SCHEME_PREFIX_FILE)) {
-                throw new IllegalArgumentException("No valid resource format, expected scheme:path, found " + uri);
+                return answer;
             }
 
-            final String query = StringSupport.substringAfter(uri, "?");
-            final Map<String, Object> params = URISupport.parseQuery(query);
+            @Override
+            public String getLanguage() {
+                String answer = definition.getLanguage();
+                if (ObjectHelper.isEmpty(answer) && ObjectHelper.isNotEmpty(definition.getLocation())) {
+                    answer = StringSupport.substringAfterLast(definition.getLocation(), ":");
+                    answer = StringSupport.substringAfterLast(answer, ".");
+                }
 
-            String language = (String) params.get("language");
-            if (ObjectHelper.isEmpty(language)) {
-                language = StringSupport.substringAfterLast(location, ":");
-                language = StringSupport.substringAfterLast(language, ".");
+                return answer;
             }
-            if (ObjectHelper.isEmpty(language)) {
-                throw new IllegalArgumentException("Unknown language " + language);
+
+            @Override
+            public SourceType getType() {
+                return ObjectHelper.supplyIfEmpty(definition.getType(), () -> SourceType.source);
             }
 
-            String name = (String) params.get("name");
-            if (name == null) {
-                name = StringSupport.substringAfter(location, ":");
-                name = StringSupport.substringBeforeLast(name, ".");
+            @Override
+            public Optional<String> getLoader() {
+                return Optional.ofNullable(definition.getLoader());
+            }
 
-                if (name.contains("/")) {
-                    name = StringSupport.substringAfterLast(name, "/");
+            @Override
+            public List<String> getInterceptors() {
+                return ObjectHelper.supplyIfEmpty(definition.getInterceptors(), Collections::emptyList);
+            }
+
+            @Override
+            public List<String> getPropertyNames() {
+                return ObjectHelper.supplyIfEmpty(definition.getPropertyNames(), Collections::emptyList);
+            }
+
+            /**
+             * Read the content of the source as {@link InputStream}.
+             *
+             * @param ctx the {@link CamelContext}
+             * @return the {@link InputStream} representing the source content
+             */
+            @Override
+            public InputStream resolveAsInputStream(CamelContext ctx) {
+                try {
+                    InputStream is;
+
+                    if (definition.getContent() != null) {
+                        is = new ByteArrayInputStream(definition.getContent());
+                    } else {
+                        is = ResourceHelper.resolveMandatoryResourceAsInputStream(ctx, definition.getLocation());
+                    }
+
+                    return definition.isCompressed()
+                        ? new GZIPInputStream(Base64.getDecoder().wrap(is))
+                        : is;
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
                 }
             }
-
-            this.location = location;
-            this.name = name;
-            this.language = language;
-            this.loader = (String) params.get("loader");
-            this.interceptors = (String) params.get("interceptors");
-            this.compressed = Boolean.parseBoolean((String) params.get("compression"));
-        }
-
-        @Override
-        public String getName() {
-            return name;
-        }
-
-        @Override
-        public String getLanguage() {
-            return language;
-        }
-
-        @Override
-        public Optional<String> getLoader() {
-            return Optional.ofNullable(loader);
-        }
-
-        @Override
-        public List<String> getInterceptors() {
-            return interceptors != null ? Arrays.asList(interceptors.split(",", -1)) : Collections.emptyList();
-        }
-
-        @Override
-        public InputStream resolveAsInputStream(CamelContext ctx) {
-            if (location == null) {
-                throw new IllegalArgumentException("Cannot resolve null URI");
-            }
-
-            try {
-                final ClassResolver cr = ctx.getClassResolver();
-                final InputStream is = ResourceHelper.resolveResourceAsInputStream(cr, location);
-
-                return compressed
-                    ? new GZIPInputStream(Base64.getDecoder().wrap(is))
-                    : is;
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
+        };
     }
 }

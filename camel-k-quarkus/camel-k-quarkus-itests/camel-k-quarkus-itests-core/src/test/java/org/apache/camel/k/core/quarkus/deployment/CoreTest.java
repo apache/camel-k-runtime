@@ -24,7 +24,7 @@ import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import org.apache.camel.k.CompositeClassloader;
 import org.apache.camel.k.listener.ContextConfigurer;
-import org.apache.camel.k.listener.RoutesConfigurer;
+import org.apache.camel.k.listener.SourcesConfigurer;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -45,7 +45,7 @@ public class CoreTest {
 
         assertThat(p.getList("services", String.class)).contains(
             ContextConfigurer.class.getName(),
-            RoutesConfigurer.class.getName()
+            SourcesConfigurer.class.getName()
         );
     }
 

@@ -21,7 +21,7 @@ import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.Sources;
-import org.apache.camel.k.listener.RoutesConfigurer;
+import org.apache.camel.k.support.SourcesSupport;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -33,7 +33,7 @@ public class KotlinSourceLoaderTest {
         final Runtime runtime = Runtime.on(context);
         final Source source = Sources.fromURI("classpath:routes.kts");
 
-        RoutesConfigurer.load(runtime, source);
+        SourcesSupport.load(runtime, source);
 
         try {
             context.start();

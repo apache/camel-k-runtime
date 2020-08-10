@@ -21,9 +21,8 @@ import org.apache.camel.RoutesBuilder
 import org.apache.camel.impl.DefaultCamelContext
 import org.apache.camel.k.CompositeClassloader
 import org.apache.camel.k.Runtime
+import org.apache.camel.k.support.SourcesSupport
 import org.apache.camel.model.ModelCamelContext
-
-import static org.apache.camel.k.listener.RoutesConfigurer.forRoutes
 
 class TestRuntime implements Runtime, AutoCloseable {
     final ModelCamelContext context
@@ -54,9 +53,7 @@ class TestRuntime implements Runtime, AutoCloseable {
     }
 
     void loadRoutes(String... routes) {
-        routes.each {
-            forRoutes(it).accept(Phase.ConfigureRoutes, this)
-        }
+        SourcesSupport.loadSources(this, routes)
     }
 
     void start() {

@@ -30,14 +30,12 @@ import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.k.CompositeClassloader;
 import org.apache.camel.k.Runtime;
-import org.apache.camel.k.support.PropertiesSupport;
 import org.apache.camel.main.BaseMainSupport;
 import org.apache.camel.main.MainSupport;
 import org.apache.camel.main.RoutesCollector;
 import org.apache.camel.model.RouteTemplatesDefinition;
 import org.apache.camel.model.RoutesDefinition;
 import org.apache.camel.model.rest.RestsDefinition;
-import org.apache.camel.spi.HasId;
 import org.apache.camel.util.function.ThrowingConsumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -103,16 +101,7 @@ public final class ApplicationRuntime implements Runtime {
     }
 
     public void addListener(Runtime.Listener listener) {
-        if (listener instanceof HasId) {
-            String id = ((HasId) listener).getId();
-            if (!id.endsWith(".")) {
-                id = id + ".";
-            }
-
-            PropertiesSupport.bindProperties(getCamelContext(), listener, id);
-        }
-
-        LOGGER.info("Add listener: {}", listener);
+        LOGGER.debug("Add listener: {}", listener);
 
         this.listeners.add(listener);
     }
@@ -178,7 +167,7 @@ public final class ApplicationRuntime implements Runtime {
                 .sorted(Comparator.comparingInt(Listener::getOrder))
                 .forEach(l -> {
                     if (l.accept(phase, ApplicationRuntime.this)) {
-                        LOGGER.info("Listener {} executed in phase {}", l, phase);
+                        LOGGER.debug("Listener {} executed in phase {}", l, phase);
                     }
                 });
         }

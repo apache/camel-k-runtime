@@ -153,6 +153,11 @@
             <artifactId>camel-knative-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel.k</groupId>
+            <artifactId>camel-kamelet</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>

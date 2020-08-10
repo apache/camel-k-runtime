@@ -31,6 +31,7 @@
     <modules>
         <module>camel-k-quarkus-itests-core</module>
         <module>camel-k-quarkus-itests-cron</module>
+        <module>camel-k-quarkus-itests-kamelet</module>
         <module>camel-k-quarkus-itests-knative</module>
         <module>camel-k-quarkus-itests-loader-support</module>
         <module>camel-k-quarkus-itests-loader-groovy</module>

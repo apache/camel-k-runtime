@@ -69,8 +69,8 @@
                             <value>${project.basedir}/data/application.properties</value>
                         </systemProperty>
                         <systemProperty>
-                            <key>camel.k.routes</key>
-                            <value>file:${project.basedir}/data/routes.groovy</value>
+                            <key>data.dir</key>
+                            <value>${project.basedir}/data</value>
                         </systemProperty>
                     </systemProperties>
                 </configuration>

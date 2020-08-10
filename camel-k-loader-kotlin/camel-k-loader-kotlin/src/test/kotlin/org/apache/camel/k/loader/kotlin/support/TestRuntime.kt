@@ -22,7 +22,7 @@ import org.apache.camel.FluentProducerTemplate
 import org.apache.camel.RoutesBuilder
 import org.apache.camel.impl.DefaultCamelContext
 import org.apache.camel.k.CompositeClassloader
-import org.apache.camel.k.listener.RoutesConfigurer.forRoutes
+import org.apache.camel.k.support.SourcesSupport
 import org.apache.camel.model.ModelCamelContext
 import java.util.ArrayList
 
@@ -54,9 +54,7 @@ class TestRuntime : Runtime {
     }
 
     fun loadRoutes(vararg routes: String) {
-        for (route in routes) {
-            forRoutes(route).accept(Runtime.Phase.ConfigureRoutes, this)
-        }
+        SourcesSupport.loadSources(this, *routes)
     }
 
     fun start() {

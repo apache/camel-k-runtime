@@ -16,24 +16,18 @@
  */
 package org.apache.camel.component.kamelet;
 
-import java.util.UUID;
-
 import org.apache.camel.CamelContext;
+import org.apache.camel.RuntimeCamelException;
+import org.apache.camel.VetoCamelContextStartException;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-public class KameletTest {
-    private static final Logger LOGGER = LoggerFactory.getLogger(KameletTest.class);
-
+public class KameletValidationTest {
     @Test
-    public void test() throws Exception {
-        String body = UUID.randomUUID().toString();
-
+    public void validation() throws Exception {
         CamelContext context = new DefaultCamelContext();
         context.addRoutes(new RouteBuilder() {
             @Override
@@ -42,33 +36,14 @@ public class KameletTest {
                     .templateParameter("bodyValue")
                     .from("direct:{{routeId}}")
                     .setBody().constant("{{bodyValue}}");
+
+                from("direct:start")
+                    .to("kamelet:setBody/test");
             }
         });
 
-        /*
-        context.addRouteFromTemplate("setBody")
-            .routeId("test")
-            .parameter("routeId", "test")
-            .parameter("bodyValue", body)
-            .build();
-         */
-
-        context.addRoutes(new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                // routes
-                from("direct:template")
-                    .toF("kamelet:setBody/test?bodyValue=%s", body)
-                    .to("log:1");
-            }
-        });
-
-        context.start();
-
-        assertThat(
-            context.createFluentProducerTemplate().to("direct:template").withBody("test").request(String.class)
-        ).isEqualTo(body);
-
-        context.stop();
+        assertThatExceptionOfType(RuntimeCamelException.class)
+            .isThrownBy(context::start)
+            .withCauseExactlyInstanceOf(VetoCamelContextStartException.class);
     }
 }

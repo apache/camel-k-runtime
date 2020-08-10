@@ -101,11 +101,14 @@ public interface SourceLoader {
         /**
          * Invoked before the source is materialized top a RoutesBuilder.
          */
-        void beforeLoad(SourceLoader loader, Source source);
+        default void beforeLoad(SourceLoader loader, Source source) {
+        }
 
         /**
          * Invoked after the source is materialized and before is added to the runtime.
          */
-        Result afterLoad(SourceLoader loader, Source source, Result result);
+        default Result afterLoad(SourceLoader loader, Source source, Result result) {
+            return result;
+        }
     }
 }

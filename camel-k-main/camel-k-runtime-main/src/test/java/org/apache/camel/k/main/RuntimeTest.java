@@ -27,7 +27,9 @@ import org.apache.camel.component.knative.test.KnativeEnvironmentSupport;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.http.PlatformHttpServiceContextCustomizer;
 import org.apache.camel.k.listener.ContextConfigurer;
-import org.apache.camel.k.listener.RoutesConfigurer;
+import org.apache.camel.k.listener.SourcesConfigurer;
+import org.apache.camel.k.main.support.MyBean;
+import org.apache.camel.k.support.SourcesSupport;
 import org.apache.camel.k.test.AvailablePortFinder;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.model.ToDefinition;
@@ -53,10 +55,11 @@ public class RuntimeTest {
             runtime.stop();
         }
     }
+
     @Test
     void testLoadMultipleRoutes() throws Exception {
         runtime.addListener(new ContextConfigurer());
-        runtime.addListener(RoutesConfigurer.forRoutes("classpath:r1.js", "classpath:r2.mytype?language=js"));
+        runtime.addListener(SourcesSupport.forRoutes("classpath:r1.js", "classpath:r2.mytype?language=js"));
         runtime.addListener(Runtime.Phase.Started, r -> {
             CamelContext context = r.getCamelContext();
             List<Route> routes = context.getRoutes();
@@ -74,12 +77,12 @@ public class RuntimeTest {
     @Test
     void testLoadRouteAndRest() throws Exception {
         runtime.addListener(new ContextConfigurer());
-        runtime.addListener(RoutesConfigurer.forRoutes("classpath:routes.xml", "classpath:rests.xml"));
+        runtime.addListener(SourcesSupport.forRoutes("classpath:routes.xml", "classpath:rests.xml"));
         runtime.addListener(Runtime.Phase.Started, r -> {
-            CamelContext context = r.getCamelContext();
+            ModelCamelContext context = r.getCamelContext(ModelCamelContext.class);
 
-            assertThat(context.adapt(ModelCamelContext.class).getRouteDefinitions()).isNotEmpty();
-            assertThat(context.adapt(ModelCamelContext.class).getRestDefinitions()).isNotEmpty();
+            assertThat(context.getRouteDefinitions()).isNotEmpty();
+            assertThat(context.getRestDefinitions()).isNotEmpty();
 
             runtime.stop();
         });
@@ -94,16 +97,55 @@ public class RuntimeTest {
         ));
 
         runtime.addListener(new ContextConfigurer());
-        runtime.addListener(RoutesConfigurer.forRoutes("classpath:routes-with-expression.xml"));
-        runtime.addListener(Runtime.Phase.Started, r -> runtime.stop());
+        runtime.addListener(SourcesSupport.forRoutes("classpath:routes-with-expression.xml"));
+        runtime.addListener(Runtime.Phase.Started, Runtime::stop);
         runtime.run();
     }
 
     @Test
     public void testLoadJavaSource() throws Exception {
-        ApplicationRuntime runtime = new ApplicationRuntime();
-        runtime.addListener(RoutesConfigurer.forRoutes("classpath:MyRoutesWithBeans.java", "classpath:MyRoutesConfig.java"));
-        runtime.addListener(Runtime.Phase.Started, r ->  runtime.stop());
+        runtime.addListener(SourcesSupport.forRoutes("classpath:MyRoutesWithBeans.java", "classpath:MyRoutesConfig.java"));
+        runtime.addListener(Runtime.Phase.Started, r -> {
+            assertThat(runtime.getCamelContext().getRoutes()).hasSize(1);
+            assertThat(runtime.getRegistry().lookupByName("my-processor")).isNotNull();
+            assertThat(runtime.getRegistry().lookupByName("my-bean")).isInstanceOfSatisfying(MyBean.class, b -> {
+                assertThat(b).hasFieldOrPropertyWithValue("name", "my-bean-name");
+            });
+            r.stop();
+        });
+        runtime.run();
+    }
+
+    @Test
+    public void testLoadJavaSourceFromProperties() throws Exception {
+        runtime.setInitialProperties(
+            "camel.k.sources[0].name", "MyRoutesWithBeans",
+            "camel.k.sources[0].location", "classpath:MyRoutesWithBeans.java",
+            "camel.k.sources[0].language", "java",
+            "camel.k.sources[1].name", "MyRoutesConfig",
+            "camel.k.sources[1].location", "classpath:MyRoutesConfig.java",
+            "camel.k.sources[1].language", "java"
+        );
+        runtime.addListener(new SourcesConfigurer());
+        runtime.addListener(Runtime.Phase.Started, r -> {
+            assertThat(runtime.getCamelContext().getRoutes()).hasSize(1);
+            assertThat(runtime.getRegistry().lookupByName("my-processor")).isNotNull();
+            assertThat(runtime.getRegistry().lookupByName("my-bean")).isInstanceOfSatisfying(MyBean.class, b -> {
+                assertThat(b).hasFieldOrPropertyWithValue("name", "my-bean-name");
+            });
+            r.stop();
+        });
+        runtime.run();
+    }
+
+    @Test
+    public void testLoadJavaSourceFromSimpleProperties() throws Exception {
+        runtime.setInitialProperties(
+            "camel.k.sources[0].location", "classpath:MyRoutesWithBeans.java",
+            "camel.k.sources[1].location", "classpath:MyRoutesConfig.java"
+        );
+        runtime.addListener(new SourcesConfigurer());
+        runtime.addListener(Runtime.Phase.Started, Runtime::stop);
         runtime.run();
 
         assertThat(runtime.getRegistry().lookupByName("my-processor")).isNotNull();
@@ -124,8 +166,8 @@ public class RuntimeTest {
         phsc.apply(runtime.getCamelContext());
 
         runtime.getCamelContext().addComponent("knative", component);
-        runtime.addListener(RoutesConfigurer.forRoutes("classpath:MyRoutesWithBeans.java?interceptors=knative-source"));
-        runtime.addListener(Runtime.Phase.Started, r ->  runtime.stop());
+        runtime.addListener(SourcesSupport.forRoutes("classpath:MyRoutesWithBeans.java?interceptors=knative-source"));
+        runtime.addListener(Runtime.Phase.Started, Runtime::stop);
         runtime.run();
 
         assertThat(runtime.getRegistry().lookupByName("my-bean")).isInstanceOfSatisfying(MyBean.class, b -> {

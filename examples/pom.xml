@@ -37,9 +37,11 @@
         <module>camel-k-runtime-example-rest</module>
         <module>camel-k-runtime-example-groovy</module>
         <module>camel-k-runtime-example-yaml</module>
+        <module>camel-k-runtime-example-kamelets</module>
         <module>camel-k-runtime-example-knative</module>
         <module>camel-k-runtime-example-quarkus-js</module>
         <module>camel-k-runtime-example-quarkus-yaml</module>
+        <module>camel-k-runtime-example-quarkus-kamelets</module>
         <module>camel-k-runtime-example-quarkus-knative</module>
         <module>camel-k-runtime-example-quarkus-kotlin</module>
         <module>camel-k-runtime-example-quarkus-groovy</module>

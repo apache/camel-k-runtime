@@ -16,6 +16,7 @@
  */
 package org.apache.camel.component.kamelet;
 
+import java.util.Collections;
 import java.util.Map;
 
 import org.apache.camel.AsyncCallback;
@@ -32,12 +33,14 @@ import org.apache.camel.support.DefaultAsyncProducer;
 import org.apache.camel.support.DefaultConsumer;
 import org.apache.camel.support.DefaultEndpoint;
 import org.apache.camel.support.service.ServiceHelper;
+import org.apache.camel.util.ObjectHelper;
 
 @UriEndpoint(
     firstVersion = "3.5.0",
     scheme = "kamelet",
     syntax = "kamelet:templateId/routeId",
     title = "Kamelet",
+    lenientProperties = true,
     label = "camel-k")
 public class KameletEndpoint extends DefaultEndpoint {
     @Metadata(required = true)
@@ -50,6 +53,8 @@ public class KameletEndpoint extends DefaultEndpoint {
 
     private final Map<String, Object> kameletProperties;
     private final String kameletUri;
+    private Producer producer;
+    private Consumer consumer;
 
     public KameletEndpoint(
             String uri,
@@ -60,15 +65,24 @@ public class KameletEndpoint extends DefaultEndpoint {
 
         super(uri, component);
 
+        ObjectHelper.notNull(templateId, "template id");
+        ObjectHelper.notNull(routeId, "route id");
+        ObjectHelper.notNull(kameletProperties, "kamelet properties");
+
         this.templateId = templateId;
         this.routeId = routeId;
-        this.kameletProperties = kameletProperties;
+        this.kameletProperties = Collections.unmodifiableMap(kameletProperties);
         this.kameletUri = "direct:" + routeId;
     }
 
     @Override
     public KameletComponent getComponent() {
         return (KameletComponent) super.getComponent();
+    }
+
+    @Override
+    public boolean isLenientProperties() {
+        return true;
     }
 
     public String getTemplateId() {
@@ -98,8 +112,8 @@ public class KameletEndpoint extends DefaultEndpoint {
     @Override
     protected void doInit() throws Exception {
         super.doInit();
-        // only need to add during init phase
         getComponent().onEndpointAdd(this);
+
     }
 
     // *********************************
