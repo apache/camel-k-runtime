@@ -9,3 +9,7 @@ github:
     - knative
     - openshift
     - operator
+  enabled_merge_buttons:
+    merge: false
+    rebase: true
+    squash: true
