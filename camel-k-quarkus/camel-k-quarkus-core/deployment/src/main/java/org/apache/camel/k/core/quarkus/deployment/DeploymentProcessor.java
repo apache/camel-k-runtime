@@ -17,6 +17,7 @@
 package org.apache.camel.k.core.quarkus.deployment;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
@@ -26,6 +27,7 @@ import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 import org.apache.camel.k.Constants;
+import org.apache.camel.k.SourceDefinition;
 import org.apache.camel.k.core.quarkus.RuntimeRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextCustomizerBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceDestination;
@@ -34,6 +36,8 @@ import org.apache.camel.spi.StreamCachingStrategy;
 import org.jboss.jandex.IndexView;
 
 import static org.apache.camel.k.core.quarkus.deployment.DeploymentSupport.getAllKnownImplementors;
+import static org.apache.camel.k.core.quarkus.deployment.DeploymentSupport.reflectiveClassBuildItem;
+import static org.apache.camel.k.core.quarkus.deployment.DeploymentSupport.stream;
 
 public class DeploymentProcessor {
     @BuildStep
@@ -53,59 +57,42 @@ public class DeploymentProcessor {
     }
 
     @BuildStep
-    void registerServices(
-            BuildProducer<ServiceProviderBuildItem> serviceProvider,
-            BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
-            CombinedIndexBuildItem combinedIndexBuildItem) {
+    List<ReflectiveClassBuildItem> registerClasses() {
+       return List.of(
+           new ReflectiveClassBuildItem(true, false, SourceDefinition.class)
+       );
+    }
 
+    @BuildStep
+    List<ServiceProviderBuildItem> registerServices(CombinedIndexBuildItem combinedIndexBuildItem) {
         final IndexView view = combinedIndexBuildItem.getIndex();
         final String serviceType = "org.apache.camel.k.Runtime$Listener";
 
-        getAllKnownImplementors(view, serviceType).forEach(i -> {
-            serviceProvider.produce(
-                new ServiceProviderBuildItem(
-                    serviceType,
-                    i.name().toString())
-            );
-        });
+        return stream(getAllKnownImplementors(view, serviceType))
+            .map(i -> new ServiceProviderBuildItem(serviceType, i.name().toString()))
+            .collect(Collectors.toList());
     }
 
     @BuildStep
     void registerStreamCachingClasses(
             BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
-            CombinedIndexBuildItem combinedIndexBuildItem) {
+            CombinedIndexBuildItem combinedIndex) {
 
-        final IndexView view = combinedIndexBuildItem.getIndex();
+        final IndexView view = combinedIndex.getIndex();
 
-        getAllKnownImplementors(view, StreamCachingStrategy.class).forEach(i-> {
-            reflectiveClass.produce(
-                new ReflectiveClassBuildItem(
-                    true,
-                    true,
-                    i.name().toString())
-            );
-        });
-        getAllKnownImplementors(view, StreamCachingStrategy.Statistics.class).forEach(i-> {
-            reflectiveClass.produce(
-                new ReflectiveClassBuildItem(
-                    true,
-                    true,
-                    i.name().toString())
-            );
-        });
-        getAllKnownImplementors(view, StreamCachingStrategy.SpoolRule.class).forEach(i-> {
-            reflectiveClass.produce(
-                new ReflectiveClassBuildItem(
-                    true,
-                    true,
-                    i.name().toString())
-            );
-        });
+        getAllKnownImplementors(view, StreamCachingStrategy.class)
+            .forEach(i-> reflectiveClass.produce(reflectiveClassBuildItem(i)));
+
+        getAllKnownImplementors(view, StreamCachingStrategy.Statistics.class)
+            .forEach(i-> reflectiveClass.produce(reflectiveClassBuildItem(i)));
+
+        getAllKnownImplementors(view, StreamCachingStrategy.SpoolRule.class)
+            .forEach(i-> reflectiveClass.produce(reflectiveClassBuildItem(i)));
 
         reflectiveClass.produce(
             new ReflectiveClassBuildItem(
                 true,
-                true,
+                false,
                 StreamCachingStrategy.SpoolRule.class)
         );
     }

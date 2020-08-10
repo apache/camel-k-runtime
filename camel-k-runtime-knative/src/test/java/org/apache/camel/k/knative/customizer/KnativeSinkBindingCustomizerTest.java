@@ -41,8 +41,8 @@ import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceLoader;
 import org.apache.camel.k.Sources;
 import org.apache.camel.k.http.PlatformHttpServiceContextCustomizer;
-import org.apache.camel.k.listener.RoutesConfigurer;
 import org.apache.camel.k.support.RuntimeSupport;
+import org.apache.camel.k.support.SourcesSupport;
 import org.apache.camel.k.test.AvailablePortFinder;
 import org.junit.jupiter.api.Test;
 
@@ -106,7 +106,7 @@ public class KnativeSinkBindingCustomizerTest {
         RuntimeSupport.configureContextCustomizers(runtime);
 
         Source source = Sources.fromBytes("groovy", "from('direct:start').setBody().header('MyHeader').to('knative://endpoint/mySynk')".getBytes(StandardCharsets.UTF_8));
-        SourceLoader loader = RoutesConfigurer.load(runtime, source);
+        SourceLoader loader = SourcesSupport.load(runtime, source);
 
         assertThat(loader.getSupportedLanguages()).contains(source.getLanguage());
         assertThat(runtime.builders).hasSize(1);

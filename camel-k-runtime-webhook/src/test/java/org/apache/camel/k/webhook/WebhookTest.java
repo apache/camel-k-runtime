@@ -30,8 +30,8 @@ import org.apache.camel.FailedToCreateRouteException;
 import org.apache.camel.NamedNode;
 import org.apache.camel.Route;
 import org.apache.camel.k.listener.ContextConfigurer;
-import org.apache.camel.k.listener.RoutesConfigurer;
 import org.apache.camel.k.main.ApplicationRuntime;
+import org.apache.camel.k.support.SourcesSupport;
 import org.apache.camel.spi.RoutePolicy;
 import org.apache.camel.spi.RoutePolicyFactory;
 import org.apache.camel.support.RoutePolicySupport;
@@ -71,7 +71,7 @@ public class WebhookTest {
 
         AtomicBoolean routeStarted = new AtomicBoolean();
         runtime.addListener(new ContextConfigurer());
-        runtime.addListener(RoutesConfigurer.forRoutes("classpath:webhook.js"));
+        runtime.addListener(SourcesSupport.forRoutes("classpath:webhook.js"));
         runtime.getCamelContext().addRoutePolicyFactory(new RoutePolicyFactory() {
             @Override
             public RoutePolicy createRoutePolicy(CamelContext camelContext, String routeId, NamedNode route) {
@@ -132,7 +132,7 @@ public class WebhookTest {
         );
 
         runtime.addListener(new ContextConfigurer());
-        runtime.addListener(RoutesConfigurer.forRoutes("classpath:webhook.js"));
+        runtime.addListener(SourcesSupport.forRoutes("classpath:webhook.js"));
 
         Assertions.assertThrows(FailedToCreateRouteException.class, runtime::run);
     }
@@ -146,7 +146,7 @@ public class WebhookTest {
 
         runtime.getCamelContext().addComponent("dummy", new DummyWebhookComponent());
         runtime.addListener(new ContextConfigurer());
-        runtime.addListener(RoutesConfigurer.forRoutes("classpath:webhook.js"));
+        runtime.addListener(SourcesSupport.forRoutes("classpath:webhook.js"));
 
         Assertions.assertThrows(FailedToCreateRouteException.class, runtime::run);
     }

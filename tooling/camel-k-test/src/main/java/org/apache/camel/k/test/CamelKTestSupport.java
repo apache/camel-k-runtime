@@ -14,21 +14,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.main;
+package org.apache.camel.k.test;
 
-public class MyBean {
-    private final String name;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Properties;
 
-    public MyBean(String name) {
-        this.name = name;
+public final class CamelKTestSupport {
+    private CamelKTestSupport() {
     }
 
-    public String getName() {
-        return name;
+    public static Properties asProperties(String... properties) {
+        if ((properties.length & 1) != 0) {
+            throw new InternalError("length is odd");
+        }
+
+        Properties answer = new Properties();
+        for (int i = 0; i < properties.length; i += 2) {
+            answer.setProperty(
+                Objects.requireNonNull(properties[i]),
+                Objects.requireNonNull(properties[i + 1]));
+        }
+
+        return answer;
     }
 
-    @Override
-    public String toString() {
-        return name;
+    public static Properties asProperties(Map<String, Object> properties) {
+        Properties answer = new Properties();
+        answer.putAll(properties);
+
+        return answer;
     }
 }

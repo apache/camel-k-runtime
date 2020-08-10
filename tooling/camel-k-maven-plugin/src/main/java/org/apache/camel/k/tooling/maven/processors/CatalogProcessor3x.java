@@ -184,6 +184,23 @@ public class CatalogProcessor3x implements CatalogProcessor {
                     MavenArtifact.from("org.apache.camel.k", "camel-k-quarkus-knative"))
                 .build()
         );
+
+        specBuilder.putArtifact(
+            new CamelArtifact.Builder()
+                .groupId("org.apache.camel.k")
+                .artifactId("camel-kamelet")
+                .addScheme(new CamelScheme.Builder()
+                    .id("kamelet")
+                    .http(true)
+                    .build())
+                .addDependencies(
+                    () -> catalog.getRuntimeProvider() instanceof DefaultRuntimeProvider,
+                    MavenArtifact.from("org.apache.camel.k", "camel-kamelet"))
+                .addDependencies(
+                    () -> catalog.getRuntimeProvider() instanceof QuarkusRuntimeProvider,
+                    MavenArtifact.from("org.apache.camel.k", "camel-k-quarkus-kamelet"))
+                .build()
+        );
     }
 
     private static void processLoaders(CamelCatalog catalog, CamelCatalogSpec.Builder specBuilder) {

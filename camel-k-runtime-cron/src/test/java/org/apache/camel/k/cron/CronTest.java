@@ -22,8 +22,8 @@ import java.util.stream.Stream;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.k.listener.RoutesConfigurer;
 import org.apache.camel.k.main.ApplicationRuntime;
+import org.apache.camel.k.support.SourcesSupport;
 import org.apache.camel.support.LifecycleStrategySupport;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -39,7 +39,7 @@ public class CronTest {
         runtime.setProperties(
             "loader.interceptor.cron.overridable-components", cronOverride
         );
-        runtime.addListener(RoutesConfigurer.forRoutes(routes));
+        runtime.addListener(SourcesSupport.forRoutes(routes));
 
         // To check auto-termination of Camel context
         CountDownLatch termination = new CountDownLatch(1);

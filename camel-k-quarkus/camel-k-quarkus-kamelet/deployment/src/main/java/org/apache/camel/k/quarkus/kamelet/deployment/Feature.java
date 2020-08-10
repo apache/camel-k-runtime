@@ -14,25 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.main;
+package org.apache.camel.k.quarkus.kamelet.deployment;
 
-import org.apache.camel.CamelContext;
-import org.apache.camel.k.ContextCustomizer;
+import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.FeatureBuildItem;
 
-public class TestCustomizer implements ContextCustomizer {
-    private boolean messageHistory = true;
+public class Feature {
+    private static final String FEATURE = "camel-k-runtime-kamelet";
 
-    public boolean isMessageHistory() {
-        return messageHistory;
-    }
-
-    public void setMessageHistory(boolean messageHistory) {
-        this.messageHistory = messageHistory;
-    }
-
-    @Override
-    public void apply(CamelContext camelContext) {
-        camelContext.setMessageHistory(messageHistory);
-        camelContext.setLoadTypeConverters(false);
+    @BuildStep
+    FeatureBuildItem feature() {
+        return new FeatureBuildItem(FEATURE);
     }
 }

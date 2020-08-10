@@ -78,6 +78,7 @@ jobs:
         native-image-project:
           - :camel-k-quarkus-itests-core
           - :camel-k-quarkus-itests-cron
+          - :camel-k-quarkus-itests-kamelet
           - :camel-k-quarkus-itests-knative
           - :camel-k-quarkus-itests-loader-xml
           - :camel-k-quarkus-itests-loader-yaml

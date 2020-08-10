@@ -66,7 +66,7 @@ public final class RuntimeSupport {
         customizers.entrySet().stream()
             .sorted(Map.Entry.comparingByValue())
             .forEach(e -> {
-                LOGGER.info("Apply ContextCustomizer with id={} and type={}", e.getKey(), e.getValue().getClass().getName());
+                LOGGER.debug("Apply ContextCustomizer with id={} and type={}", e.getKey(), e.getValue().getClass().getName());
 
                 PropertiesSupport.bindProperties(context, e.getValue(), Constants.CUSTOMIZER_PREFIX + e.getKey() + ".");
                 PropertiesSupport.bindProperties(context, e.getValue(), Constants.CUSTOMIZER_PREFIX_FALLBACK + e.getKey() + ".");
@@ -133,9 +133,9 @@ public final class RuntimeSupport {
                 .newInstance(customizerId, ContextCustomizer.class)
                 .orElseThrow(() -> new RuntimeException("Error creating instance for customizer: " + customizerId));
 
-            LOGGER.info("Found customizer {} with id {} from service definition", customizer, customizerId);
+            LOGGER.debug("Found customizer {} with id {} from service definition", customizer, customizerId);
         } else {
-            LOGGER.info("Found customizer {} with id {} from the registry", customizer, customizerId);
+            LOGGER.debug("Found customizer {} with id {} from the registry", customizer, customizerId);
         }
 
         return customizer;
@@ -178,11 +178,11 @@ public final class RuntimeSupport {
 
 
     public static SourceLoader lookupLoaderById(CamelContext context, String loaderId) {
-        LOGGER.info("Looking up loader for id: {}", loaderId);
+        LOGGER.debug("Looking up loader for id: {}", loaderId);
 
         SourceLoader loader = context.getRegistry().findByTypeWithName(SourceLoader.class).get(loaderId);
         if (loader != null) {
-            LOGGER.info("Found loader {} with id {} from the registry", loader, loaderId);
+            LOGGER.debug("Found loader {} with id {} from the registry", loader, loaderId);
             return loader;
         }
 
@@ -190,11 +190,11 @@ public final class RuntimeSupport {
     }
 
     public static SourceLoader lookupLoaderByLanguage(CamelContext context, String loaderId) {
-        LOGGER.info("Looking up loader for language: {}", loaderId);
+        LOGGER.debug("Looking up loader for language: {}", loaderId);
 
         for (SourceLoader loader: context.getRegistry().findByType(SourceLoader.class)) {
             if (loader.getSupportedLanguages().contains(loaderId)) {
-                LOGGER.info("Found loader {} for language {} from the registry", loader, loaderId);
+                LOGGER.debug("Found loader {} for language {} from the registry", loader, loaderId);
                 return loader;
             }
         }
@@ -208,7 +208,7 @@ public final class RuntimeSupport {
             .newInstance(loaderId, SourceLoader.class)
             .orElseThrow(() -> new RuntimeException("Error creating instance of loader: " + loaderId));
 
-        LOGGER.info("Found loader {} for language {} from service definition", loader, loaderId);
+        LOGGER.debug("Found loader {} for language {} from service definition", loader, loaderId);
 
         return loader;
     }
@@ -235,9 +235,9 @@ public final class RuntimeSupport {
                         .newInstance(id, SourceLoader.Interceptor.class)
                         .orElseThrow(() -> new IllegalArgumentException("Unable to find source loader interceptor for: " + id));
 
-                    LOGGER.info("Found source loader interceptor {} from service definition", id);
+                    LOGGER.debug("Found source loader interceptor {} from service definition", id);
                 } else {
-                    LOGGER.info("Found source loader interceptor {} from registry", id);
+                    LOGGER.debug("Found source loader interceptor {} from registry", id);
                 }
 
                 PropertiesSupport.bindProperties(context, interceptor, "loader.interceptor." + id + ".");

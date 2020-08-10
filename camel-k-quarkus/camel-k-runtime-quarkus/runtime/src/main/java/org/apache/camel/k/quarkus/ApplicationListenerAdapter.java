@@ -99,7 +99,7 @@ public class ApplicationListenerAdapter implements MainListener {
             .sorted(Comparator.comparingInt(Runtime.Listener::getOrder))
             .forEach(l -> {
                 if (l.accept(phase, runtime)) {
-                    LOGGER.info("Listener {} executed in phase {}", l, phase);
+                    LOGGER.debug("Listener {} executed in phase {}", l, phase);
                 }
             });
     }
