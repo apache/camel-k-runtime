@@ -48,19 +48,9 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-jackson</artifactId>
         </dependency>
-
-        <!-- quarkus dependencies -->
         <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-jsonb</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-resteasy</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-resteasy-jsonb</artifactId>
+            <groupId>org.apache.camel.k</groupId>
+            <artifactId>camel-k-quarkus-itests-loader-support</artifactId>
         </dependency>
 
         <!-- test dependencies -->

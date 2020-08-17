@@ -18,8 +18,6 @@ package org.apache.camel.k.itests.polyglot.quarkus;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -29,10 +27,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Consume;
-import org.apache.camel.k.Runtime;
-import org.apache.camel.k.Source;
-import org.apache.camel.k.SourceLoader;
-import org.apache.camel.k.Sources;
+import org.apache.camel.k.loader.support.LoaderSupport;
 
 @Path("/test")
 @ApplicationScoped
@@ -45,40 +40,6 @@ public class Application {
     @Consume(MediaType.APPLICATION_OCTET_STREAM)
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject loadRoutes(@PathParam("loaderName") String loaderName, @PathParam("name") String name, byte[] code) throws Exception {
-        final SourceLoader loader = context.getRegistry().lookupByNameAndType(loaderName, SourceLoader.class);
-        final Runtime runtime = Runtime.on(context);
-        final Source source = Sources.fromBytes(name, loaderName, null, code);
-        final SourceLoader.Result result = loader.load(Runtime.on(context), source);
-
-        result.builder().ifPresent(runtime::addRoutes);
-        result.configuration().ifPresent(runtime::addConfiguration);
-
-        return Json.createObjectBuilder()
-            .add("components", extractComponents())
-            .add("routes", extractRoutes())
-            .add("endpoints", extractEndpoints())
-            .build();
-    }
-
-
-    private JsonArrayBuilder extractComponents() {
-        JsonArrayBuilder answer = Json.createArrayBuilder();
-        context.getComponentNames().forEach(answer::add);
-
-        return answer;
-    }
-
-    private JsonArrayBuilder extractRoutes() {
-        JsonArrayBuilder answer = Json.createArrayBuilder();
-        context.getRoutes().forEach(r -> answer.add(r.getId()));
-
-        return answer;
-    }
-
-    private JsonArrayBuilder extractEndpoints() {
-        JsonArrayBuilder answer = Json.createArrayBuilder();
-        context.getEndpoints().forEach(e -> answer.add(e.getEndpointUri()));
-
-        return answer;
+        return LoaderSupport.inspectSource(context, name, loaderName, code);
     }
 }
