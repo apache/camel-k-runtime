@@ -16,6 +16,7 @@
  */
 package org.apache.camel.k.quarkus.knative.deployment;
 
+import java.util.Locale;
 import java.util.Map;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -64,7 +65,7 @@ public class Application {
             @Override
             public void configure() throws Exception {
                 from("knative:endpoint/from")
-                    .transform().body(String.class, b -> b.toUpperCase());
+                    .transform().body(String.class, b -> b.toUpperCase(Locale.US));
             }
         };
     }

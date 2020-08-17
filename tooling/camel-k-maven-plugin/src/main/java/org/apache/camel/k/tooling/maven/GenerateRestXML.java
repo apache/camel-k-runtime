@@ -47,11 +47,6 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
     threadSafe = true,
     requiresProject = false)
 class GenerateRestXML extends AbstractMojo {
-    private static final String[] YAML_EXTENSIONS = {
-        "yaml",
-        "yml"
-    };
-
     @Parameter(property = "openapi.spec")
     private String inputFile;
     @Parameter(property = "dsl.out")
@@ -102,10 +97,8 @@ class GenerateRestXML extends AbstractMojo {
             final CamelContext context = new DefaultCamelContext();
             final String dsl = RestDslXmlGenerator.toXml(document).generate(context);
 
-            try {
+            try (writer) {
                 writer.write(dsl);
-            } finally {
-                writer.close();
             }
         } catch (Exception e) {
             throw new MojoExecutionException("Exception while generating rest xml", e);

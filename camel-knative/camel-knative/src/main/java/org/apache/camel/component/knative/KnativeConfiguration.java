@@ -50,9 +50,6 @@ public class KnativeConfiguration implements Cloneable {
     @UriParam(label = "consumer,advanced", defaultValue = "true")
     private Boolean reply;
 
-    public KnativeConfiguration() {
-    }
-
     // ************************
     //
     // Properties

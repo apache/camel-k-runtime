@@ -23,12 +23,8 @@ import io.smallrye.config.PropertiesConfigSource;
 import org.apache.camel.k.support.PropertiesSupport;
 import org.eclipse.microprofile.config.spi.ConfigSource;
 import org.eclipse.microprofile.config.spi.ConfigSourceProvider;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class ApplicationRuntimeConfigSourceProvider implements ConfigSourceProvider {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationRuntimeConfigSourceProvider.class);
-
     @Override
     public Iterable<ConfigSource> getConfigSources(ClassLoader forClassLoader) {
         final Properties applicationProperties = PropertiesSupport.loadProperties();

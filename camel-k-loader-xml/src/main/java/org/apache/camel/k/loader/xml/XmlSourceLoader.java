@@ -58,7 +58,7 @@ public class XmlSourceLoader implements SourceLoader {
                             LOGGER.debug("Loaded {} routes from {}", definitions.getRoutes().size(), source);
                             setRouteCollection(definitions);
                         }
-                    } catch (IllegalArgumentException e) {
+                    } catch (IllegalArgumentException ignored) {
                         // ignore
                     } catch (XmlPullParserException e) {
                         LOGGER.debug("Unable to load RoutesDefinition: {}", e.getMessage());
@@ -73,7 +73,7 @@ public class XmlSourceLoader implements SourceLoader {
                             LOGGER.debug("Loaded {} rests from {}", definitions.getRests().size(), source);
                             setRestCollection(definitions);
                         }
-                    } catch (IllegalArgumentException e) {
+                    } catch (IllegalArgumentException ignored) {
                         // ignore
                     } catch (XmlPullParserException e) {
                         LOGGER.debug("Unable to load RestsDefinition: {}", e.getMessage());

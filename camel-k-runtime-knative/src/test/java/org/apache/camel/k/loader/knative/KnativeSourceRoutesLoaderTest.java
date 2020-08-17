@@ -18,10 +18,7 @@ package org.apache.camel.k.loader.knative;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.Properties;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -30,10 +27,9 @@ import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.knative.KnativeComponent;
 import org.apache.camel.component.knative.KnativeConstants;
-import org.apache.camel.component.knative.spi.CloudEvent;
-import org.apache.camel.component.knative.spi.CloudEvents;
 import org.apache.camel.component.knative.spi.Knative;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
+import org.apache.camel.component.knative.test.KnativeEnvironmentSupport;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.k.Runtime;
@@ -77,7 +73,7 @@ public class KnativeSourceRoutesLoaderTest {
 
         KnativeComponent component = new KnativeComponent();
         component.setEnvironment(KnativeEnvironment.on(
-            KnativeEnvironment.endpoint(Knative.EndpointKind.sink, "sink", "localhost", runtime.port)
+            KnativeEnvironmentSupport.endpoint(Knative.EndpointKind.sink, "sink", "localhost", runtime.port)
         ));
 
         CamelContext context = runtime.getCamelContext();

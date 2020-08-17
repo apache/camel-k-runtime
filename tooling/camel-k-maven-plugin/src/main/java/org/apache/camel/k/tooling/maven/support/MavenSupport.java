@@ -17,10 +17,13 @@
 package org.apache.camel.k.tooling.maven.support;
 
 import java.io.File;
+import java.io.InputStream;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
+import java.util.function.Consumer;
 
 import org.apache.maven.project.MavenProject;
 
@@ -43,5 +46,62 @@ public final class MavenSupport {
         } catch (Exception e) {
             return IndexerSupport.class.getClassLoader();
         }
+    }
+
+    public static String getVersion(Class<?> clazz, String path) {
+        String version = null;
+
+        // try to load from maven properties first
+        try (InputStream is = clazz.getResourceAsStream(path)) {
+            if (is != null) {
+                Properties p = new Properties();
+                p.load(is);
+                version = p.getProperty("version", "");
+            }
+        } catch (Exception ignored) {
+        }
+
+        // fallback to using Java API
+        if (version == null) {
+            Package aPackage = clazz.getPackage();
+            if (aPackage != null) {
+                version = getVersion(aPackage);
+            }
+        }
+
+        if (version == null) {
+            // we could not compute the version so use a blank
+            throw new IllegalStateException("Unable to determine runtime version");
+        }
+
+        return version;
+    }
+
+    public static String getVersion(Package pkg) {
+        String version = pkg.getImplementationVersion();
+        if (version == null) {
+            version = pkg.getSpecificationVersion();
+        }
+
+        return version;
+    }
+
+    public static void getVersion(Class<?> clazz, String path, Consumer<String> consumer) {
+        consumer.accept(
+            MavenSupport.getVersion(clazz, path)
+        );
+    }
+
+    public static void getVersion(Class<?> clazz, String groupId, String artifactId, Consumer<String> consumer) {
+        getVersion(
+            clazz,
+            String.format("/META-INF/maven/%s/%s/pom.properties", groupId, artifactId),
+            consumer);
+    }
+
+    public static String getVersion(Class<?> clazz, String groupId, String artifactId) {
+        return MavenSupport.getVersion(
+            clazz,
+            String.format("/META-INF/maven/%s/%s/pom.properties", groupId, artifactId));
     }
 }

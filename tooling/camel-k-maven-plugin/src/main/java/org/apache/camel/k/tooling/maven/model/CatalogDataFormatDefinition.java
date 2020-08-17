@@ -43,7 +43,7 @@ public final class CatalogDataFormatDefinition extends CatalogDefinition {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Container {
-        private CatalogDataFormatDefinition delegate;
+        private final CatalogDataFormatDefinition delegate;
 
         @JsonCreator
         public Container(

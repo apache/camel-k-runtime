@@ -19,6 +19,7 @@ package org.apache.camel.component.knative;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.knative.spi.Knative;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
+import org.apache.camel.component.knative.test.KnativeEnvironmentSupport;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -67,8 +68,8 @@ public class KnativeComponentTest {
         component.setEnvironment(env);
         component.setTransport(new KnativeTransportNoop());
 
-        context.getRegistry().bind("ereg", KnativeEnvironment.endpoint(Knative.EndpointKind.source, "ereg", null, -1));
-        context.getRegistry().bind("creg", KnativeEnvironment.channel(Knative.EndpointKind.source, "creg", null, -1));
+        context.getRegistry().bind("ereg", KnativeEnvironmentSupport.endpoint(Knative.EndpointKind.source, "ereg", null, -1));
+        context.getRegistry().bind("creg", KnativeEnvironmentSupport.channel(Knative.EndpointKind.source, "creg", null, -1));
         context.addComponent("knative", component);
 
         //

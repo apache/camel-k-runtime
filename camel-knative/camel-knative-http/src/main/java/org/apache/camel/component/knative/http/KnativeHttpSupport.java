@@ -56,7 +56,7 @@ public final class KnativeHttpSupport {
             .filter(e -> e.getKey().startsWith(Knative.KNATIVE_FILTER_PREFIX))
             .collect(Collectors.toMap(
                 e -> e.getKey().substring(Knative.KNATIVE_FILTER_PREFIX.length()),
-                e -> e.getValue()
+                Map.Entry::getValue
             ));
 
         return v -> {
@@ -66,8 +66,6 @@ public final class KnativeHttpSupport {
 
             for (Map.Entry<String, String> entry : filters.entrySet()) {
                 final List<String> values = v.headers().getAll(entry.getKey());
-                final String ref = entry.getValue();
-
                 if (values.isEmpty()) {
                     return false;
                 }
@@ -80,7 +78,7 @@ public final class KnativeHttpSupport {
                     val = val.trim();
                 }
 
-                boolean matches = Objects.equals(ref, val) || val.matches(ref);
+                boolean matches = Objects.equals(entry.getValue(), val) || val.matches(entry.getValue());
                 if (!matches) {
                     return false;
                 }

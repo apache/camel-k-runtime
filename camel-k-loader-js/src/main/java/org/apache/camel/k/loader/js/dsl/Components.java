@@ -20,7 +20,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
 
 public class Components {
-    private CamelContext context;
+    private final CamelContext context;
 
     public Components(CamelContext context) {
         this.context = context;

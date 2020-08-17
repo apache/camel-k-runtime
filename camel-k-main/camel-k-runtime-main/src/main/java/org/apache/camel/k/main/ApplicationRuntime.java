@@ -149,6 +149,7 @@ public final class ApplicationRuntime implements Runtime {
 
         @Override
         public void configure(CamelContext context) {
+            // no-op
         }
 
         @Override

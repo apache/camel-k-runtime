@@ -53,7 +53,7 @@ public class RoutesConfigurer extends AbstractPhaseListener {
         load(runtime, routes.split(",", -1));
     }
 
-    protected void load(Runtime runtime, String[] routes) {
+    protected void load(Runtime runtime, String... routes) {
         for (String route: routes) {
             if (ObjectHelper.isEmpty(route)) {
                 continue;

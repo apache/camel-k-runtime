@@ -23,6 +23,7 @@ public class CompositeClassloader extends ClassLoader {
     private final List<ClassLoader> loaders = new CopyOnWriteArrayList<>();
 
     public CompositeClassloader() {
+        // no parent
     }
 
     public CompositeClassloader(ClassLoader parent) {
@@ -38,8 +39,8 @@ public class CompositeClassloader extends ClassLoader {
         for (ClassLoader loader: loaders) {
             try {
                 return loader.loadClass(name);
-            } catch (ClassNotFoundException e) {
-                // ignore
+            } catch (ClassNotFoundException ignored) {
+                // ignored
             }
         }
 

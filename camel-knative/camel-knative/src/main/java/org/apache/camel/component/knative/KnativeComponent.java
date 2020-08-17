@@ -52,7 +52,7 @@ public class KnativeComponent extends DefaultComponent {
     @Metadata
     private Map<String, Object> transportOptions;
 
-    private boolean managedTransport = true;
+    private boolean managedTransport;
 
     public KnativeComponent() {
         this(null);
@@ -168,6 +168,12 @@ public class KnativeComponent extends DefaultComponent {
                     .getFactoryFinder(Knative.KNATIVE_TRANSPORT_RESOURCE_PATH)
                     .newInstance(protocol.name(), KnativeTransport.class)
                     .orElseThrow(() -> new RuntimeException("Error creating knative transport for protocol: " + protocol.name()));
+
+                if (transportOptions != null) {
+                    setProperties(transport, new HashMap<>(transportOptions));
+                }
+
+                this.managedTransport = true;
             }
         }
 

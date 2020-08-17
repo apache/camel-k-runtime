@@ -39,6 +39,10 @@ public class StepParserException extends RuntimeException {
         this.properties = Arrays.asList(properties);
     }
 
+    public String getProcessor() {
+        return processor;
+    }
+
     public List<String> getProperties() {
         return properties;
     }

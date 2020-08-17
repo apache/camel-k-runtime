@@ -219,15 +219,16 @@ public class KnativeEndpoint extends DefaultEndpoint {
     private Predicate<KnativeEnvironment.KnativeServiceDefinition> serviceFilter(Knative.EndpointKind endpointKind) {
         return s -> {
             final String type = s.getMetadata(Knative.CAMEL_ENDPOINT_KIND);
-            final String apiv = s.getMetadata(Knative.KNATIVE_API_VERSION);
-            final String kind = s.getMetadata(Knative.KNATIVE_KIND);
-
             if (!Objects.equals(endpointKind.name(), type)) {
                 return false;
             }
+
+            final String apiv = s.getMetadata(Knative.KNATIVE_API_VERSION);
             if (configuration.getApiVersion() != null && !Objects.equals(apiv, configuration.getApiVersion())) {
                 return false;
             }
+
+            final String kind = s.getMetadata(Knative.KNATIVE_KIND);
             if (configuration.getKind() != null && !Objects.equals(kind, configuration.getKind())) {
                 return false;
             }

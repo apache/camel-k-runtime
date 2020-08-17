@@ -61,8 +61,9 @@ public class JavaScriptSourceLoader implements SourceLoader {
         //
         // Expose IntegrationConfiguration methods to global scope.
         //
-        context.eval(LANGUAGE_ID, ""
-            + "Object.setPrototypeOf(globalThis, new Proxy(Object.prototype, {"
+        context.eval(
+            LANGUAGE_ID,
+            "Object.setPrototypeOf(globalThis, new Proxy(Object.prototype, {"
             + "    has(target, key) {"
             + "        return key in __dsl || key in target;"
             + "    },"
