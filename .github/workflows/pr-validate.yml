@@ -31,7 +31,7 @@ jobs:
         version: '11'
     - name: mvn package
       run: |
-        ./mvnw -fae -B -ntp clean package \
+        ./mvnw -fae -B -ntp clean verify \
           -Dcheckstyle.failOnViolation=true \
           -DskipTests \
           -Psourcecheck,license
