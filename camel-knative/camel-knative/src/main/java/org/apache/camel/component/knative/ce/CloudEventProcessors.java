@@ -16,6 +16,7 @@
  */
 package org.apache.camel.component.knative.ce;
 
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -83,7 +84,7 @@ public enum CloudEventProcessors implements CloudEventProcessor {
             // Map every remaining field as it is (extensions).
             //
             content.forEach((key, val) -> {
-                message.setHeader(key.toLowerCase(), val);
+                message.setHeader(key.toLowerCase(Locale.US), val);
             });
 
         }
@@ -114,7 +115,7 @@ public enum CloudEventProcessors implements CloudEventProcessor {
             // Map every remaining field as it is (extensions).
             //
             content.forEach((key, val) -> {
-                message.setHeader(key.toLowerCase(), val);
+                message.setHeader(key.toLowerCase(Locale.US), val);
             });
         }
     }),
@@ -141,7 +142,7 @@ public enum CloudEventProcessors implements CloudEventProcessor {
             // Map every remaining field as it is (extensions).
             //
             content.forEach((key, val) -> {
-                message.setHeader(key.toLowerCase(), val);
+                message.setHeader(key.toLowerCase(Locale.US), val);
             });
         }
     });

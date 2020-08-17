@@ -73,7 +73,7 @@ public class GenerateYamlLoaderSupportClasses extends GenerateYamlSupport {
                 .build()
                 .writeTo(Paths.get(output));
         } catch (IOException e) {
-            throw new MojoFailureException(e.getMessage());
+            throw new MojoFailureException(e.getMessage(), e);
         }
     }
 
@@ -181,12 +181,10 @@ public class GenerateYamlLoaderSupportClasses extends GenerateYamlSupport {
             .forEach(
                 i -> {
                     AnnotationValue id = i.classAnnotation(YAML_STEP_PARSER_ANNOTATION).value("id");
-                    if (id != null) {
-                        if (ids.add(id.asString())) {
-                            mb.beginControlFlow("case $S:", id.asString());
-                            mb.addStatement("return new $L()", i.name().toString());
-                            mb.endControlFlow();
-                        }
+                    if (id != null && ids.add(id.asString())) {
+                        mb.beginControlFlow("case $S:", id.asString());
+                        mb.addStatement("return new $L()", i.name().toString());
+                        mb.endControlFlow();
                     }
 
                     AnnotationValue aliases = i.classAnnotation(YAML_STEP_PARSER_ANNOTATION).value("aliases");
@@ -209,29 +207,33 @@ public class GenerateYamlLoaderSupportClasses extends GenerateYamlSupport {
                     AnnotationInstance meta = i.classAnnotation(METADATA_ANNOTATION);
                     AnnotationInstance root = i.classAnnotation(XML_ROOT_ELEMENT_ANNOTATION_CLASS);
 
-                    if (meta != null && root != null) {
-                        AnnotationValue name = root.value("name");
-                        AnnotationValue label = meta.value("label");
+                    if (meta == null || root == null) {
+                        return;
+                    }
 
-                        if (name != null && label != null) {
-                            if (bannedDefinitions != null) {
-                                for (String bannedDefinition: bannedDefinitions) {
-                                    if (AntPathMatcher.INSTANCE.match(bannedDefinition.replace('.', '/'), i.name().toString('/'))) {
-                                        getLog().debug("Skipping definition: " + i.name().toString());
-                                        return;
-                                    }
-                                }
-                            }
+                    AnnotationValue name = root.value("name");
+                    AnnotationValue label = meta.value("label");
 
-                            Set<String> labels = Set.of(label.asString().split(",", -1));
-                            if (labels.contains("eip")) {
-                                String id = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_HYPHEN, name.asString());
-                                if (ids.add(id)) {
-                                    mb.beginControlFlow("case $S:", id);
-                                    mb.addStatement("return new org.apache.camel.k.loader.yaml.parser.TypedProcessorStepParser($L.class)", i.name().toString());
-                                    mb.endControlFlow();
-                                }
+                    if (name == null || label == null) {
+                        return;
+                    }
+
+                    if (bannedDefinitions != null) {
+                        for (String bannedDefinition: bannedDefinitions) {
+                            if (AntPathMatcher.INSTANCE.match(bannedDefinition.replace('.', '/'), i.name().toString('/'))) {
+                                getLog().debug("Skipping definition: " + i.name().toString());
+                                return;
                             }
+                        }
+                    }
+
+                    Set<String> labels = Set.of(label.asString().split(",", -1));
+                    if (labels.contains("eip")) {
+                        String id = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_HYPHEN, name.asString());
+                        if (ids.add(id)) {
+                            mb.beginControlFlow("case $S:", id);
+                            mb.addStatement("return new org.apache.camel.k.loader.yaml.parser.TypedProcessorStepParser($L.class)", i.name().toString());
+                            mb.endControlFlow();
                         }
                     }
                 }

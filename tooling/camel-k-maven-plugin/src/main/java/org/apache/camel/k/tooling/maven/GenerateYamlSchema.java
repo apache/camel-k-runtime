@@ -203,38 +203,42 @@ public class GenerateYamlSchema extends GenerateYamlSupport {
                     AnnotationInstance meta = i.classAnnotation(METADATA_ANNOTATION);
                     AnnotationInstance xmlRoot = i.classAnnotation(XML_ROOT_ELEMENT_ANNOTATION_CLASS);
 
-                    if (meta != null && xmlRoot != null) {
-                        AnnotationValue name = xmlRoot.value("name");
-                        AnnotationValue label = meta.value("label");
+                    if (meta == null || xmlRoot == null) {
+                        return;
+                    }
 
-                        if (name != null && label != null) {
-                            if (bannedDefinitions != null) {
-                                for (String bannedDefinition: bannedDefinitions) {
-                                    if (AntPathMatcher.INSTANCE.match(bannedDefinition.replace('.', '/'), i.name().toString('/'))) {
-                                        getLog().debug("Skipping definition: " + i.name().toString());
-                                        return;
-                                    }
-                                }
-                            }
+                    AnnotationValue name = xmlRoot.value("name");
+                    AnnotationValue label = meta.value("label");
 
-                            Set<String> labels = Set.of(label.asString().split(",", -1));
-                            if (labels.contains("eip")) {
-                                String stepId = StringHelper.camelCaseToDash(name.asString());
-                                if (!ids.add(stepId)) {
-                                    return;
-                                }
+                    if (name == null || label == null) {
+                        return;
+                    }
 
-                                processType(definitions.with(i.name().toString()), i);
-
-                                ObjectNode stepNode = definitions.with("step");
-                                stepNode.put("type", "object");
-                                stepNode.put("maxProperties", 1);
-
-                                stepNode.with("properties")
-                                    .putObject(stepId)
-                                    .put("$ref", "#/items/definitions/" + i.name().toString());
+                    if (bannedDefinitions != null) {
+                        for (String bannedDefinition: bannedDefinitions) {
+                            if (AntPathMatcher.INSTANCE.match(bannedDefinition.replace('.', '/'), i.name().toString('/'))) {
+                                getLog().debug("Skipping definition: " + i.name().toString());
+                                return;
                             }
                         }
+                    }
+
+                    Set<String> labels = Set.of(label.asString().split(",", -1));
+                    if (labels.contains("eip")) {
+                        String stepId = StringHelper.camelCaseToDash(name.asString());
+                        if (!ids.add(stepId)) {
+                            return;
+                        }
+
+                        processType(definitions.with(i.name().toString()), i);
+
+                        ObjectNode stepNode = definitions.with("step");
+                        stepNode.put("type", "object");
+                        stepNode.put("maxProperties", 1);
+
+                        stepNode.with("properties")
+                            .putObject(stepId)
+                            .put("$ref", "#/items/definitions/" + i.name().toString());
                     }
                 }
             );
@@ -246,7 +250,7 @@ public class GenerateYamlSchema extends GenerateYamlSupport {
 
             mapper.writerWithDefaultPrettyPrinter().writeValue(outputFile, root);
         } catch (IOException e) {
-            throw new MojoFailureException(e.getMessage());
+            throw new MojoFailureException(e.getMessage(), e);
         }
     }
 
@@ -449,9 +453,6 @@ public class GenerateYamlSchema extends GenerateYamlSupport {
     }
 
     protected void setJsonSchemaType(ObjectNode node, Type type) {
-        String javaType = type.name().toString();
-        ClassInfo typeClass = view.get().getClassByName(type.name());
-
         if (type.kind() == Type.Kind.PARAMETERIZED_TYPE) {
             ParameterizedType parameterized = type.asParameterizedType();
 
@@ -474,11 +475,13 @@ public class GenerateYamlSchema extends GenerateYamlSupport {
             }
         }
 
+        final ClassInfo typeClass = view.get().getClassByName(type.name());
         if (typeClass != null && typeClass.classAnnotation(YAML_NODE_DEFINITION_ANNOTATION) != null) {
             node.put("$ref", "#/items/definitions/" + type.name().toString());
             return;
         }
 
+        final String javaType = type.name().toString();
         switch (javaType) {
             /*
              * <tr><th scope="row"> boolean            <td style="text-align:center"> Z
@@ -541,7 +544,7 @@ public class GenerateYamlSchema extends GenerateYamlSupport {
                             throw new IllegalStateException("Unknown java_type: " + javaType + " on node: " + node);
                         }
                     } catch (ClassNotFoundException e) {
-                        throw new IllegalStateException("Unknown java_type: " + javaType + " on node: " + node);
+                        throw new IllegalStateException("Unknown java_type: " + javaType + " on node: " + node, e);
                     }
                 }
         }

@@ -26,8 +26,6 @@ import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.quarkus.ApplicationRecorder;
-import org.apache.camel.quarkus.core.deployment.spi.CamelServiceDestination;
-import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem;
 import org.apache.camel.quarkus.main.CamelMainApplication;
 import org.apache.camel.quarkus.main.deployment.spi.CamelMainListenerBuildItem;
 import org.apache.camel.spi.HasId;

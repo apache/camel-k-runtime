@@ -64,7 +64,7 @@ public final class CatalogComponentDefinition extends CatalogDefinition {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Container {
-        private CatalogComponentDefinition delegate;
+        private final CatalogComponentDefinition delegate;
 
         @JsonCreator
         public Container(

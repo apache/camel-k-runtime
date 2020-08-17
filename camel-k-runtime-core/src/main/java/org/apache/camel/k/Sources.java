@@ -67,7 +67,7 @@ public final class  Sources {
             this.language = language;
             this.loader = loader;
             this.interceptors = Collections.emptyList();
-            this.content = content;
+            this.content = Arrays.copyOf(content, content.length);
         }
 
         public InMemory(String name, String language, String loader, List<String> interceptors, byte[] content) {
@@ -75,7 +75,7 @@ public final class  Sources {
             this.language = language;
             this.loader = loader;
             this.interceptors = new ArrayList<>(interceptors);
-            this.content = content;
+            this.content = Arrays.copyOf(content, content.length);
         }
 
         @Override
@@ -113,7 +113,7 @@ public final class  Sources {
         private final String name;
         private final String language;
         private final String loader;
-        private final List<String> interceptors;
+        private final String interceptors;
         private final boolean compressed;
 
         private URI(String uri) throws Exception {
@@ -125,12 +125,8 @@ public final class  Sources {
 
             final String query = StringSupport.substringAfter(uri, "?");
             final Map<String, Object> params = URISupport.parseQuery(query);
-            final String languageName = (String) params.get("language");
-            final String compression = (String) params.get("compression");
-            final String loader = (String) params.get("loader");
-            final String interceptors = (String) params.get("interceptors");
 
-            String language = languageName;
+            String language = (String) params.get("language");
             if (ObjectHelper.isEmpty(language)) {
                 language = StringSupport.substringAfterLast(location, ":");
                 language = StringSupport.substringAfterLast(language, ".");
@@ -152,9 +148,9 @@ public final class  Sources {
             this.location = location;
             this.name = name;
             this.language = language;
-            this.loader = loader;
-            this.interceptors = interceptors != null ? Arrays.asList(interceptors.split(",", -1)) : Collections.emptyList();
-            this.compressed = Boolean.parseBoolean(compression);
+            this.loader = (String) params.get("loader");
+            this.interceptors = (String) params.get("interceptors");
+            this.compressed = Boolean.parseBoolean((String) params.get("compression"));
         }
 
         @Override
@@ -174,7 +170,7 @@ public final class  Sources {
 
         @Override
         public List<String> getInterceptors() {
-            return interceptors;
+            return interceptors != null ? Arrays.asList(interceptors.split(",", -1)) : Collections.emptyList();
         }
 
         @Override

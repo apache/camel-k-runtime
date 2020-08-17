@@ -66,7 +66,7 @@ public class GenerateYamlParserSupportClasses extends GenerateYamlSupport {
                 .build()
                 .writeTo(Paths.get(output));
         } catch (IOException e) {
-            throw new MojoFailureException(e.getMessage());
+            throw new MojoFailureException(e.getMessage(), e);
         }
     }
 

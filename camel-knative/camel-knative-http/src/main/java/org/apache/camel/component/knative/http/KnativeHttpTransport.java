@@ -37,9 +37,6 @@ public class KnativeHttpTransport extends ServiceSupport implements CamelContext
     private WebClientOptions vertxHttpClientOptions;
     private CamelContext camelContext;
 
-    public KnativeHttpTransport() {
-    }
-
     public VertxPlatformHttpRouter getRouter() {
         return router;
     }
@@ -81,6 +78,7 @@ public class KnativeHttpTransport extends ServiceSupport implements CamelContext
 
     @Override
     protected void doStop() throws Exception {
+        // no-op
     }
 
     // *****************************

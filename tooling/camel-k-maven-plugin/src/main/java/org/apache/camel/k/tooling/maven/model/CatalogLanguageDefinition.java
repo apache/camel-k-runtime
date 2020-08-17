@@ -43,7 +43,7 @@ public final class CatalogLanguageDefinition extends CatalogDefinition {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Container {
-        private CatalogLanguageDefinition delegate;
+        private final CatalogLanguageDefinition delegate;
 
         @JsonCreator
         public Container(

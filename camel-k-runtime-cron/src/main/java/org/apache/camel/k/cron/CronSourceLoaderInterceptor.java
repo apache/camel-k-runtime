@@ -73,6 +73,7 @@ public class CronSourceLoaderInterceptor implements SourceLoader.Interceptor, Ru
 
     @Override
     public void beforeLoad(SourceLoader loader, Source source) {
+        // no-op
     }
 
     @Override
@@ -111,7 +112,7 @@ public class CronSourceLoaderInterceptor implements SourceLoader.Interceptor, Ru
         };
     }
 
-    private static boolean shouldBeOverridden(String uri, String[] components) {
+    private static boolean shouldBeOverridden(String uri, String... components) {
         if (uri == null) {
             return false;
         }

@@ -65,6 +65,7 @@ public class ApplicationListenerAdapter implements MainListener {
 
     @Override
     public void configure(CamelContext context) {
+        // no-op
     }
 
     @Override
@@ -101,20 +102,6 @@ public class ApplicationListenerAdapter implements MainListener {
                     LOGGER.info("Listener {} executed in phase {}", l, phase);
                 }
             });
-    }
-
-    private static Runtime on(CamelContext context) {
-        return new Runtime() {
-            @Override
-            public CamelContext getCamelContext() {
-                return context;
-            }
-
-            @Override
-            public void stop() throws Exception {
-                Quarkus.asyncExit();
-            }
-        };
     }
 
     private static Runtime on(BaseMainSupport main) {

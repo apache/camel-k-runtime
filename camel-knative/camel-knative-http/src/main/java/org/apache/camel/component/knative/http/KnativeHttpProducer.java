@@ -183,7 +183,7 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
             int port = definition.getPortOrDefault(KnativeHttpTransport.DEFAULT_PORT);
             String path = definition.getPathOrDefault(KnativeHttpTransport.DEFAULT_PATH);
 
-            if (!path.startsWith("/")) {
+            if (path.charAt(0) != '/') {
                 path = "/" + path;
             }
 

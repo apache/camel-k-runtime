@@ -269,7 +269,7 @@ public class CatalogProcessor3x implements CatalogProcessor {
             );
         }
     }
-    private static void processComponents(org.apache.camel.catalog.CamelCatalog catalog, Map<String, CamelArtifact> artifacts) {
+    private static void processComponents(CamelCatalog catalog, Map<String, CamelArtifact> artifacts) {
         for (String name : catalog.findComponentNames()) {
             String json = catalog.componentJSonSchema(name);
             CatalogComponentDefinition definition = CatalogSupport.unmarshallComponent(json);
@@ -292,7 +292,7 @@ public class CatalogProcessor3x implements CatalogProcessor {
         }
     }
 
-    private static void processLanguages(org.apache.camel.catalog.CamelCatalog catalog, Map<String, CamelArtifact> artifacts) {
+    private static void processLanguages(CamelCatalog catalog, Map<String, CamelArtifact> artifacts) {
         for (String name : catalog.findLanguageNames()) {
             String json = catalog.languageJSonSchema(name);
             CatalogLanguageDefinition definition = CatalogSupport.unmarshallLanguage(json);
@@ -307,7 +307,7 @@ public class CatalogProcessor3x implements CatalogProcessor {
         }
     }
 
-    private static void processDataFormats(org.apache.camel.catalog.CamelCatalog catalog, Map<String, CamelArtifact> artifacts) {
+    private static void processDataFormats(CamelCatalog catalog, Map<String, CamelArtifact> artifacts) {
         for (String name : catalog.findDataFormatNames()) {
             String json = catalog.dataFormatJSonSchema(name);
             CatalogDataFormatDefinition definition = CatalogSupport.unmarshallDataFormat(json);

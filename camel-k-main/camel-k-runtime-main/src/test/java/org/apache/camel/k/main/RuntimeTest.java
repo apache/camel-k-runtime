@@ -23,6 +23,7 @@ import org.apache.camel.Route;
 import org.apache.camel.component.knative.KnativeComponent;
 import org.apache.camel.component.knative.spi.Knative;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
+import org.apache.camel.component.knative.test.KnativeEnvironmentSupport;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.http.PlatformHttpServiceContextCustomizer;
 import org.apache.camel.k.listener.ContextConfigurer;
@@ -115,7 +116,7 @@ public class RuntimeTest {
     public void testLoadJavaSourceWrap() throws Exception {
         KnativeComponent component = new KnativeComponent();
         component.setEnvironment(KnativeEnvironment.on(
-            KnativeEnvironment.endpoint(Knative.EndpointKind.sink, "sink", "localhost", AvailablePortFinder.getNextAvailable())
+            KnativeEnvironmentSupport.endpoint(Knative.EndpointKind.sink, "sink", "localhost", AvailablePortFinder.getNextAvailable())
         ));
 
         PlatformHttpServiceContextCustomizer phsc = new PlatformHttpServiceContextCustomizer();

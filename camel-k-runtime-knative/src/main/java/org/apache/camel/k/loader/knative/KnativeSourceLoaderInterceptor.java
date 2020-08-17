@@ -36,6 +36,7 @@ public class KnativeSourceLoaderInterceptor implements SourceLoader.Interceptor 
 
     @Override
     public void beforeLoad(SourceLoader loader, Source source) {
+        // no-op
     }
 
     @Override

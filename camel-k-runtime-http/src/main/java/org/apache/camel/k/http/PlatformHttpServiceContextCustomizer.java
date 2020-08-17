@@ -29,9 +29,6 @@ import org.apache.camel.k.annotation.Customizer;
 
 @Customizer("platform-http")
 public class PlatformHttpServiceContextCustomizer extends VertxPlatformHttpServerConfiguration implements ContextCustomizer {
-    public PlatformHttpServiceContextCustomizer() {
-    }
-
     @Override
     public int getOrder() {
         return Ordered.HIGHEST;

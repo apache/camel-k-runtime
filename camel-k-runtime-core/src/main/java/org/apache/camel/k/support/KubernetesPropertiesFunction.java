@@ -21,6 +21,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Locale;
 
 import org.apache.camel.spi.PropertiesFunction;
 import org.apache.camel.util.StringHelper;
@@ -54,7 +55,7 @@ public class KubernetesPropertiesFunction implements PropertiesFunction {
             return defaultValue;
         }
 
-        Path file = this.root.resolve(name.toLowerCase()).resolve(property);
+        Path file = this.root.resolve(name.toLowerCase(Locale.US)).resolve(property);
         if (Files.exists(file) && !Files.isDirectory(file)) {
             try {
                 return Files.readString(file, StandardCharsets.UTF_8);
