@@ -271,7 +271,7 @@
             <releases>
                 <enabled>false</enabled>
             </releases>
-        </repository>        
+        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -479,6 +479,14 @@
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-quarkus-knative-cron</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- runtime - quarkus (tests)-->
+
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-quarkus-itests-loader-support</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
