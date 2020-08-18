@@ -28,13 +28,13 @@ import javax.lang.model.element.Modifier;
 
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.Module;
-import com.google.common.base.CaseFormat;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 import org.apache.camel.util.AntPathMatcher;
+import org.apache.camel.util.StringHelper;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -229,7 +229,7 @@ public class GenerateYamlLoaderSupportClasses extends GenerateYamlSupport {
 
                     Set<String> labels = Set.of(label.asString().split(",", -1));
                     if (labels.contains("eip")) {
-                        String id = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_HYPHEN, name.asString());
+                        String id = StringHelper.camelCaseToDash(name.asString());
                         if (ids.add(id)) {
                             mb.beginControlFlow("case $S:", id);
                             mb.addStatement("return new org.apache.camel.k.loader.yaml.parser.TypedProcessorStepParser($L.class)", i.name().toString());
