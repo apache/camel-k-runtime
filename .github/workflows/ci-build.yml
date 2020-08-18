@@ -14,18 +14,33 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-name: Build PR
+name: Build
 
 on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - '**.adoc'
+      - 'KEYS'
+      - 'LICENSE'
+      - 'NOTICE'
+      - 'Jenkinsfile'
   pull_request:
     branches:
       - master
+    paths-ignore:
+      - '**.adoc'
+      - 'KEYS'
+      - 'LICENSE'
+      - 'NOTICE'
+      - 'Jenkinsfile'
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Set up JDK 11     
+    - name: Set up JDK 11
       uses: AdoptOpenJDK/install-jdk@v1
       with:
         version: '11'
@@ -47,7 +62,7 @@ jobs:
           - '14'
     steps:
       - uses: actions/checkout@v2
-      - name: Set up JDK - ${{ matrix.java }}        
+      - name: Set up JDK - ${{ matrix.java }}
         uses: AdoptOpenJDK/install-jdk@v1
         with:
           version:  ${{ matrix.java }}
