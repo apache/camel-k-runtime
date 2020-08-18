@@ -30,7 +30,7 @@ updates:
       - dependency-name: "org.apache.camel.quarkus:*"
       - dependency-name: "io.quarkus:*"
       - dependency-name: "org.graalvm.js:js"
-      - dependency-name: "com.fasterxml.jackson.*:*"
+      - dependency-name: "com.fasterxml.jackson:*"
   - package-ecosystem: "github-actions"
     directory: "/"
     labels:
