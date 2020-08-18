@@ -139,7 +139,6 @@
                 <configuration>
                     <useSystemClassLoader>false</useSystemClassLoader>
                     <forkCount>1</forkCount>
-                    <resueForks>false</resueForks>
                 </configuration>
             </plugin>
         </plugins>
