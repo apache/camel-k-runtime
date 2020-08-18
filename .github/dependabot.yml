@@ -31,6 +31,7 @@ updates:
       - dependency-name: "io.quarkus:*"
       - dependency-name: "org.graalvm.js:js"
       - dependency-name: "com.fasterxml.jackson:*"
+      - dependency-name: "com.puppycrawl.tools:checkstyle"
   - package-ecosystem: "github-actions"
     directory: "/"
     labels:
