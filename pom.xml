@@ -192,30 +192,6 @@
                             <version>${maven-checkstyle.version}</version>
                         </dependency>
                     </dependencies>
-                    <executions>
-                        <execution>
-                            <id>default-cli</id>
-                            <phase>validate</phase>
-                            <configuration>
-                                <includeResources>false</includeResources>
-                                <configLocation>camel-checkstyle.xml</configLocation>
-                                <consoleOutput>true</consoleOutput>
-                                <failsOnError>${checkstyle.failOnViolation}</failsOnError>
-                                <linkXRef>false</linkXRef>
-                                <suppressionsLocation>camel-checkstyle-suppressions.xml</suppressionsLocation>
-                                <encoding>UTF-8</encoding>
-                                <sourceDirectories>
-                                    <sourceDirectory>${basedir}/src</sourceDirectory>
-                                </sourceDirectories>
-                                <headerLocation>header-java.txt</headerLocation>
-                                <includes>**/*.java,**/*.groovy,**/*.scala,**/*.properties,**/*.xml,**/*.xsd</includes>
-                                <excludes>**/MyRoutes*.java,**/routes*.java,**/verify.groovy</excludes>
-                            </configuration>
-                            <goals>
-                                <goal>checkstyle</goal>
-                            </goals>
-                        </execution>
-                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>org.jboss.jandex</groupId>
@@ -248,6 +224,13 @@
                     <groupId>com.mycila</groupId>
                     <artifactId>license-maven-plugin</artifactId>
                     <version>${mycila-license.version}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.apache.camel</groupId>
+                            <artifactId>camel-buildtools</artifactId>
+                            <version>${camel.version}</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -837,13 +820,6 @@
                                 <headerDefinition>license-properties-headerdefinition.xml</headerDefinition>
                             </headerDefinitions>
                         </configuration>
-                        <dependencies>
-                            <dependency>
-                                <groupId>org.apache.camel</groupId>
-                                <artifactId>camel-buildtools</artifactId>
-                                <version>${camel.version}</version>
-                            </dependency>
-                        </dependencies>
                     </plugin>
                 </plugins>
             </build>
@@ -855,14 +831,31 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-checkstyle-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>default-cli</id>
+                                <phase>validate</phase>
+                                <configuration>
+                                    <includeResources>false</includeResources>
+                                    <configLocation>camel-checkstyle.xml</configLocation>
+                                    <consoleOutput>true</consoleOutput>
+                                    <failsOnError>${checkstyle.failOnViolation}</failsOnError>
+                                    <linkXRef>false</linkXRef>
+                                    <suppressionsLocation>camel-checkstyle-suppressions.xml</suppressionsLocation>
+                                    <encoding>UTF-8</encoding>
+                                    <sourceDirectories>
+                                        <sourceDirectory>${basedir}/src</sourceDirectory>
+                                    </sourceDirectories>
+                                    <headerLocation>header-java.txt</headerLocation>
+                                    <includes>**/*.java,**/*.groovy,**/*.scala,**/*.properties,**/*.xml,**/*.xsd</includes>
+                                    <excludes>**/MyRoutes*.java,**/routes*.java,**/verify.groovy</excludes>
+                                </configuration>
+                                <goals>
+                                    <goal>checkstyle</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>pmd</id>
-            <build>
-                <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-pmd-plugin</artifactId>
