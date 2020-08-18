@@ -42,6 +42,7 @@
         <camel-quarkus.version>1.0.0</camel-quarkus.version>
         <catalog.version>${camel.version}</catalog.version>
         <junit.version>5.6.2</junit.version>
+        <junit-pioneer.version>0.9.0</junit-pioneer.version>
         <joor.version>0.9.13</joor.version>
         <commons-lang.version>3.11</commons-lang.version>
         <commons-text.version>1.9</commons-text.version>
@@ -645,6 +646,11 @@
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter</artifactId>
                 <version>${junit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit-pioneer</groupId>
+                <artifactId>junit-pioneer</artifactId>
+                <version>${junit-pioneer.version}</version>
             </dependency>
 
             <dependency>
