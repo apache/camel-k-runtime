@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class LoaderTest {
+public class KotlinSourceLoaderTest {
     @Test
     public void testLoad() throws Exception {
         final CamelContext context = new DefaultCamelContext();
