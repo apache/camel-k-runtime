@@ -19,5 +19,5 @@ package org.apache.camel.k.loader.js.quarkus;
 import io.quarkus.test.junit.NativeImageTest;
 
 @NativeImageTest
-public class ExtensionIT extends ExtensionTest {
+public class JavaScriptLoaderIT extends JavaScriptLoaderTest {
 }

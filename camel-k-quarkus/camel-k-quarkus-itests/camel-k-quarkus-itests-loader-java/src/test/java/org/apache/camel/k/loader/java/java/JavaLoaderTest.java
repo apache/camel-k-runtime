@@ -14,13 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.loader.xml.quarkus;
+package org.apache.camel.k.loader.java.java;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 import javax.ws.rs.core.MediaType;
 
+import io.quarkus.test.junit.DisabledOnNativeImage;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
@@ -29,13 +30,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@DisabledOnNativeImage
 @QuarkusTest
-public class ExtensionTest {
+public class JavaLoaderTest {
     @Test
     public void testLoadRoutes() throws IOException {
         String code;
 
-        try (InputStream is = ExtensionTest.class.getResourceAsStream("/routes.xml")) {
+        try (InputStream is = JavaLoaderTest.class.getResourceAsStream("/MyRoutes.java")) {
             code = IOHelper.loadText(is);
         }
 
@@ -43,7 +45,7 @@ public class ExtensionTest {
             .contentType(MediaType.TEXT_PLAIN)
             .accept(MediaType.APPLICATION_JSON)
             .body(code)
-            .post("/test/load-routes/MyRoute")
+            .post("/test/load-routes/MyRoutes")
             .then()
                 .statusCode(200)
             .extract()
@@ -51,7 +53,7 @@ public class ExtensionTest {
                 .jsonPath();
 
         assertThat(p.getList("components", String.class)).contains("direct", "log");
-        assertThat(p.getList("routes", String.class)).contains("xml");
-        assertThat(p.getList("endpoints", String.class)).contains("direct://xml", "log://xml");
+        assertThat(p.getList("routes", String.class)).contains("java");
+        assertThat(p.getList("endpoints", String.class)).contains("direct://java", "log://java");
     }
 }

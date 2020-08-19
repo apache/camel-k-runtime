@@ -35,7 +35,7 @@ import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @QuarkusTest
-public class ExtensionTest {
+public class KnativeTest {
     @Test
     public void inspect() throws IOException {
         JsonPath p = RestAssured.given()

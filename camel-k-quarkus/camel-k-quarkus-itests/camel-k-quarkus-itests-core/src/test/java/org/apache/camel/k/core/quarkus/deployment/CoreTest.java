@@ -14,44 +14,49 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.loader.yaml.quarkus;
-
-import java.io.IOException;
-import java.io.InputStream;
+package org.apache.camel.k.core.quarkus.deployment;
 
 import javax.ws.rs.core.MediaType;
 
+import io.quarkus.test.junit.DisabledOnNativeImage;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
-import org.apache.camel.util.IOHelper;
+import org.apache.camel.k.CompositeClassloader;
+import org.apache.camel.k.listener.ContextConfigurer;
+import org.apache.camel.k.listener.RoutesConfigurer;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
-public class ExtensionTest {
+public class CoreTest {
     @Test
-    public void testLoadRoutes() throws IOException {
-        String code;
-
-        try (InputStream is = ExtensionTest.class.getResourceAsStream("/routes.yaml")) {
-            code = IOHelper.loadText(is);
-        }
-
+    public void testServices() {
         JsonPath p = RestAssured.given()
-            .contentType(MediaType.TEXT_PLAIN)
             .accept(MediaType.APPLICATION_JSON)
-            .body(code)
-            .post("/test/load-routes/MyRoute")
+            .get("/test/services")
             .then()
                 .statusCode(200)
             .extract()
                 .body()
                 .jsonPath();
 
-        assertThat(p.getList("components", String.class)).contains("direct", "log");
-        assertThat(p.getList("routes", String.class)).contains("yaml");
-        assertThat(p.getList("endpoints", String.class)).contains("direct://yaml", "log://yaml");
+        assertThat(p.getList("services", String.class)).contains(
+            ContextConfigurer.class.getName(),
+            RoutesConfigurer.class.getName()
+        );
+    }
+
+    @DisabledOnNativeImage
+    @Test
+    public void testClassLoader() {
+        RestAssured.given()
+            .accept(MediaType.TEXT_PLAIN)
+            .get("/test/application-classloader")
+            .then()
+            .statusCode(200)
+            .body(is(CompositeClassloader.class.getName()));
     }
 }
