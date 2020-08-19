@@ -14,10 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.quarkus.knative.deployment;
+package org.apache.camel.k.quarkus.cron.deployment;
 
-import io.quarkus.test.junit.NativeImageTest;
+import java.io.IOException;
 
-@NativeImageTest
-public class ExtensionIT extends ExtensionTest {
+import io.quarkus.test.junit.QuarkusTest;
+import org.apache.camel.k.cron.CronSourceLoaderInterceptor;
+import org.junit.jupiter.api.Test;
+
+import static io.restassured.RestAssured.when;
+import static org.hamcrest.Matchers.is;
+
+@QuarkusTest
+public class CronTest {
+    @Test
+    public void cronInterceptorIsRegistered() throws IOException {
+        when()
+            .get("/test/find-cron-interceptor")
+        .then()
+            .statusCode(200)
+            .body(is(CronSourceLoaderInterceptor.class.getName()));
+    }
 }

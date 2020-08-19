@@ -14,10 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.loader.yaml.quarkus;
+package org.apache.camel.k.loader.xml.quarkus;
 
 import io.quarkus.test.junit.NativeImageTest;
 
 @NativeImageTest
-public class ExtensionIT extends ExtensionTest {
+public class XmlLoaderIT extends XmlLoaderTest {
 }

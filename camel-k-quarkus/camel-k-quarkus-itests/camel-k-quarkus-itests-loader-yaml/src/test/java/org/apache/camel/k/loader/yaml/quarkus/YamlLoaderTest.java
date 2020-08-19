@@ -21,7 +21,6 @@ import java.io.InputStream;
 
 import javax.ws.rs.core.MediaType;
 
-import io.quarkus.test.junit.DisabledOnNativeImage;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
@@ -30,14 +29,13 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DisabledOnNativeImage
 @QuarkusTest
-public class ExtensionTest {
+public class YamlLoaderTest {
     @Test
     public void testLoadRoutes() throws IOException {
         String code;
 
-        try (InputStream is = ExtensionTest.class.getResourceAsStream("/routes.groovy")) {
+        try (InputStream is = YamlLoaderTest.class.getResourceAsStream("/routes.yaml")) {
             code = IOHelper.loadText(is);
         }
 
@@ -53,7 +51,7 @@ public class ExtensionTest {
                 .jsonPath();
 
         assertThat(p.getList("components", String.class)).contains("direct", "log");
-        assertThat(p.getList("routes", String.class)).contains("groovy");
-        assertThat(p.getList("endpoints", String.class)).contains("direct://groovy", "log://groovy");
+        assertThat(p.getList("routes", String.class)).contains("yaml");
+        assertThat(p.getList("endpoints", String.class)).contains("direct://yaml", "log://yaml");
     }
 }

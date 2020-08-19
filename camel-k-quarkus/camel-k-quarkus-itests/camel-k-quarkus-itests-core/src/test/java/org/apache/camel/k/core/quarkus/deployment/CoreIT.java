@@ -14,10 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.itests.polyglot.quarkus;
+package org.apache.camel.k.core.quarkus.deployment;
 
 import io.quarkus.test.junit.NativeImageTest;
 
 @NativeImageTest
-public class ExtensionIT extends ExtensionTest {
+public class CoreIT extends CoreTest {
 }

@@ -14,38 +14,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.itests.polyglot.quarkus;
+package org.apache.camel.k.loader.js.quarkus;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Map;
 
 import javax.ws.rs.core.MediaType;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.apache.camel.util.IOHelper;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @QuarkusTest
-public class ExtensionTest {
-    @ParameterizedTest
-    @ValueSource(strings = { "yaml", "xml" })
-    public void loadRoute(String loaderName) throws IOException {
-        final byte[] code;
+public class JavaScriptLoaderTest {
+    @Test
+    public void testLoadRoutes() throws IOException {
+        String code;
 
-        try (InputStream is = ExtensionTest.class.getResourceAsStream("/routes." + loaderName)) {
-            code = is.readAllBytes();
+        try (InputStream is = JavaScriptLoaderTest.class.getResourceAsStream("/routes.js")) {
+            code = IOHelper.loadText(is);
         }
 
         JsonPath p = RestAssured.given()
-            .contentType(MediaType.APPLICATION_OCTET_STREAM)
+            .contentType(MediaType.TEXT_PLAIN)
             .accept(MediaType.APPLICATION_JSON)
             .body(code)
-            .post("/test/load-routes/{loaderName}/MyRoute", Map.of("loaderName", loaderName))
+            .post("/test/load-routes/MyRoute")
             .then()
                 .statusCode(200)
             .extract()
@@ -53,7 +51,7 @@ public class ExtensionTest {
                 .jsonPath();
 
         assertThat(p.getList("components", String.class)).contains("direct", "log");
-        assertThat(p.getList("routes", String.class)).contains(loaderName);
-        assertThat(p.getList("endpoints", String.class)).contains("direct://" + loaderName, "log://" + loaderName);
+        assertThat(p.getList("routes", String.class)).contains("js");
+        assertThat(p.getList("endpoints", String.class)).contains("direct://js", "log://js");
     }
 }

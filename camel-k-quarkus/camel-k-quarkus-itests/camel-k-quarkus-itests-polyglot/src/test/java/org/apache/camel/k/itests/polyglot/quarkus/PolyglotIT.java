@@ -14,25 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.quarkus.cron.deployment;
+package org.apache.camel.k.itests.polyglot.quarkus;
 
-import java.io.IOException;
+import io.quarkus.test.junit.NativeImageTest;
 
-import io.quarkus.test.junit.QuarkusTest;
-import org.apache.camel.k.cron.CronSourceLoaderInterceptor;
-import org.junit.jupiter.api.Test;
-
-import static io.restassured.RestAssured.when;
-import static org.hamcrest.Matchers.is;
-
-@QuarkusTest
-public class ExtensionTest {
-    @Test
-    public void cronInterceptorIsRegistered() throws IOException {
-        when()
-            .get("/test/find-cron-interceptor")
-        .then()
-            .statusCode(200)
-            .body(is(CronSourceLoaderInterceptor.class.getName()));
-    }
+@NativeImageTest
+public class PolyglotIT extends PolyglotTest {
 }
