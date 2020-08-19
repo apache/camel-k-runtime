@@ -16,10 +16,12 @@
  */
 package org.apache.camel.k.loader.groovy.extension
 
+import groovy.transform.CompileStatic
 import org.apache.camel.Exchange
 import org.apache.camel.component.log.LogComponent
 import org.apache.camel.spi.ExchangeFormatter
 
+@CompileStatic
 class LogComponentExtension {
     static void formatter(LogComponent self, Closure callable) {
         self.exchangeFormatter = new ExchangeFormatter() {

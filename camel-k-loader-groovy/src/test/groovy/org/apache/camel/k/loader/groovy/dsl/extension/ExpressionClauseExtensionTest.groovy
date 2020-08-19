@@ -16,7 +16,7 @@
  */
 package org.apache.camel.k.loader.groovy.dsl.extension
 
-import org.apache.camel.builder.RouteBuilder
+
 import org.apache.camel.impl.DefaultCamelContext
 import spock.lang.Specification
 
@@ -25,13 +25,10 @@ class ExpressionClauseExtensionTest extends Specification {
     def "invoke extension method - untyped body expression"()  {
         given:
             def ctx = new DefaultCamelContext()
-            ctx.addRoutes(new RouteBuilder() {
-                @Override
-                void configure() throws Exception {
-                    from('direct:start')
-                        .transform().body { it.toString() }
-                }
-            })
+            ctx.addRoutes {
+                from('direct:start')
+                    .transform().body { it.toString() }
+            }
 
             ctx.start()
         when:
@@ -47,13 +44,10 @@ class ExpressionClauseExtensionTest extends Specification {
     def "invoke extension method - typed body expression"()  {
         given:
             def ctx = new DefaultCamelContext()
-            ctx.addRoutes(new RouteBuilder() {
-                @Override
-                void configure() throws Exception {
-                    from('direct:start')
-                        .transform().body(String.class, { it.toUpperCase() })
-                }
-            })
+            ctx.addRoutes {
+                from('direct:start')
+                    .transform().body(String.class, { it.toUpperCase() })
+            }
 
             ctx.start()
         when:
@@ -70,13 +64,10 @@ class ExpressionClauseExtensionTest extends Specification {
     def "invoke extension method - message expression"()  {
         given:
             def ctx = new DefaultCamelContext()
-            ctx.addRoutes(new RouteBuilder() {
-                @Override
-                void configure() throws Exception {
-                    from('direct:start')
-                        .transform().message { it.body.toUpperCase() }
-                }
-            })
+            ctx.addRoutes {
+                from('direct:start')
+                    .transform().message { it.body.toUpperCase() }
+            }
 
             ctx.start()
         when:
@@ -93,22 +84,19 @@ class ExpressionClauseExtensionTest extends Specification {
     def "invoke extension method - cbr"()  {
         given:
             def ctx = new DefaultCamelContext()
-            ctx.addRoutes(new RouteBuilder() {
-                @Override
-                void configure() throws Exception {
-                    from('direct:start')
-                        .choice()
-                            .when().body(String.class, { it == '1'})
-                                .setBody().constant('case-1')
-                                .endChoice()
-                            .when().body(String.class, { it == '2'})
-                                .setBody().constant('case-2')
-                                .endChoice()
-                            .otherwise()
-                                .setBody().constant('default')
-                        .end()
-                }
-            })
+            ctx.addRoutes {
+                from('direct:start')
+                    .choice()
+                        .when().body(String.class, { it == '1'})
+                            .setBody().constant('case-1')
+                            .endChoice()
+                        .when().body(String.class, { it == '2'})
+                            .setBody().constant('case-2')
+                            .endChoice()
+                        .otherwise()
+                            .setBody().constant('default')
+                    .end()
+            }
 
             ctx.start()
         when:

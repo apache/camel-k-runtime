@@ -16,7 +16,6 @@
  */
 package org.apache.camel.k.loader.groovy.dsl
 
-
 import org.apache.camel.builder.BuilderSupport
 import org.apache.camel.builder.EndpointConsumerBuilder
 import org.apache.camel.builder.ErrorHandlerBuilder
@@ -28,6 +27,7 @@ import org.apache.camel.model.InterceptSendToEndpointDefinition
 import org.apache.camel.model.OnCompletionDefinition
 import org.apache.camel.model.OnExceptionDefinition
 import org.apache.camel.model.RouteDefinition
+import org.apache.camel.model.rest.RestConfigurationDefinition
 import org.apache.camel.model.rest.RestDefinition
 import org.apache.camel.spi.Registry
 
@@ -66,7 +66,7 @@ class IntegrationConfiguration extends BuilderSupport implements Support, Endpoi
         return builder.rest()
     }
 
-    RestConfiguration restConfiguration() {
+    RestConfigurationDefinition restConfiguration() {
         builder.restConfiguration();
     }
 

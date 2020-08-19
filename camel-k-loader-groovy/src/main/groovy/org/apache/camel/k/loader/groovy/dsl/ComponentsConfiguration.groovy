@@ -16,11 +16,9 @@
  */
 package org.apache.camel.k.loader.groovy.dsl
 
-import groovy.util.logging.Slf4j
 import org.apache.camel.CamelContext
 import org.apache.camel.Component
 
-@Slf4j
 class ComponentsConfiguration {
     private final CamelContext context
 

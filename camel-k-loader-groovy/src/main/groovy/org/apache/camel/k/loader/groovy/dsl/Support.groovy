@@ -17,19 +17,21 @@
 package org.apache.camel.k.loader.groovy.dsl
 
 import org.apache.camel.Exchange
+import org.apache.camel.Predicate
+import org.apache.camel.Processor
 
 trait Support {
     def processor(@DelegatesTo(Exchange) Closure<?> callable) {
         return {
-            callable.resolveStrategy = Closure.DELEGATE_FIRST
+            callable.resolveStrategy = DELEGATE_FIRST
             callable.call(it)
-        } as org.apache.camel.Processor
+        } as Processor
     }
 
     def predicate(@DelegatesTo(Exchange) Closure<?> callable) {
         return {
-            callable.resolveStrategy = Closure.DELEGATE_FIRST
+            callable.resolveStrategy = DELEGATE_FIRST
             return callable.call(it)
-        } as org.apache.camel.Predicate
+        } as Predicate
     }
 }
