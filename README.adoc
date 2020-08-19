@@ -1,7 +1,9 @@
-image:https://github.com/apache/camel-k-runtime/workflows/Build%20PR/badge.svg["Build Status", link="https://github.com/apache/camel-k-runtime/actions?query=workflow%3A%22Build+PR%22"]
-
-
 Apache Camel K Runtime
 ======================
+
+image:https://img.shields.io/maven-central/v/org.apache.camel.k/camel-k-runtime-bom.svg["Maven Central", link="http://search.maven.org/#search%7Cga%7C1%7Corg.apache.camel.k"]
+image:https://img.shields.io/github/license/openshift/origin.svg?maxAge=2592000["Licensed under Apache License version 2.0", link="https://www.apache.org/licenses/LICENSE-2.0"]
+image:https://badges.gitter.im/apache/camel-k.svg["Chat on Gitter", link="https://gitter.im/apache/camel-k"]
+image:https://github.com/apache/camel-k-runtime/workflows/Build/badge.svg["Build Status", link="https://github.com/apache/camel-k-runtime/actions?query=workflow%3ABuild"]
 
 This repository contains the Apache Camel-K Runtime bits used by the https://github.com/apache/camel-k[_main project_]
