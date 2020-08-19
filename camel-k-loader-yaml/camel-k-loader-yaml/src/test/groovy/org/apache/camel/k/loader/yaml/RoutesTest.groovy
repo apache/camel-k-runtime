@@ -18,6 +18,7 @@ package org.apache.camel.k.loader.yaml
 
 import org.apache.camel.component.mock.MockEndpoint
 import org.apache.camel.k.loader.yaml.support.MyFailingProcessor
+import org.apache.camel.k.loader.yaml.support.TestSupport
 import org.apache.camel.processor.aggregate.UseLatestAggregationStrategy
 import org.apache.camel.support.processor.idempotent.MemoryIdempotentRepository
 

@@ -20,7 +20,7 @@ import org.apache.camel.builder.DeadLetterChannelBuilder
 import org.apache.camel.builder.DefaultErrorHandlerBuilder
 import org.apache.camel.builder.ErrorHandlerBuilderRef
 import org.apache.camel.builder.NoErrorHandlerBuilder
-import org.apache.camel.k.loader.yaml.TestSupport
+import org.apache.camel.k.loader.yaml.support.TestSupport
 import org.apache.camel.model.RouteDefinition
 
 class ErrorHandlerTest extends TestSupport {

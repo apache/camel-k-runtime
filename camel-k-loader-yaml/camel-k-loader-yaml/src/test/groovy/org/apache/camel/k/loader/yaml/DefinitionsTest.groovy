@@ -17,6 +17,7 @@
 package org.apache.camel.k.loader.yaml
 
 import org.apache.camel.impl.DefaultCamelContext
+import org.apache.camel.k.loader.yaml.support.TestSupport
 import org.apache.camel.model.ChoiceDefinition
 import org.apache.camel.model.FilterDefinition
 import org.apache.camel.model.SplitDefinition

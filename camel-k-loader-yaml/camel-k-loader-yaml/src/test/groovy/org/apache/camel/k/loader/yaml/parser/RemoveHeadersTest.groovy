@@ -16,10 +16,10 @@
  */
 package org.apache.camel.k.loader.yaml.parser
 
-
+import org.apache.camel.k.loader.yaml.support.TestSupport
 import org.apache.camel.model.RemoveHeadersDefinition
 
-class RemoveHeadersTest extends org.apache.camel.k.loader.yaml.TestSupport {
+class RemoveHeadersTest extends TestSupport {
 
     def "definition"() {
         when:

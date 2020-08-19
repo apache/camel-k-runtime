@@ -16,7 +16,7 @@
  */
 package org.apache.camel.k.loader.yaml.parser
 
-import org.apache.camel.k.loader.yaml.TestSupport
+import org.apache.camel.k.loader.yaml.support.TestSupport
 import org.apache.camel.model.OnExceptionDefinition
 import org.apache.camel.model.ToDefinition
 import org.apache.camel.model.language.ConstantExpression
