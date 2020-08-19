@@ -16,12 +16,10 @@
  */
 package org.apache.camel.k.loader.groovy.dsl
 
-import groovy.util.logging.Slf4j
 import org.apache.camel.CamelContext
 import org.apache.camel.ExtendedCamelContext
 import org.apache.camel.support.PropertyBindingSupport
 
-@Slf4j
 class BeanConfiguration {
     private final CamelContext context
     private final Object target

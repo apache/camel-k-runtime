@@ -14,23 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.loader.groovy.dsl
+package org.apache.camel.k.loader.groovy.extension
 
-import org.apache.camel.spi.Registry
+import groovy.transform.CompileStatic
+import org.apache.camel.CamelContext
+import org.apache.camel.builder.RouteBuilder
+import org.apache.camel.k.support.RouteBuilders
 
-
-class RegistryConfiguration {
-    private final Registry registry
-
-    RegistryConfiguration(Registry registry) {
-        this.registry = registry
-    }
-
-    def bind(String name, value) {
-        registry.bind(name, value)
-    }
-
-    def propertyMissing(String name, value) {
-        registry.bind(name, value)
+@CompileStatic
+class CamelContextExtensions {
+    static void addRoutes(CamelContext self, @DelegatesTo(RouteBuilder.class) Closure<?> callable) {
+        self.addRoutes(RouteBuilders.endpoint {
+            callable.resolveStrategy = Closure.DELEGATE_ONLY
+            callable.delegate = it
+            callable.call()
+        })
     }
 }

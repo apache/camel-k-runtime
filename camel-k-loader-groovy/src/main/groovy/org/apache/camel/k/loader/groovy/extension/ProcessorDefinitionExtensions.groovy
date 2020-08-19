@@ -16,6 +16,7 @@
  */
 package org.apache.camel.k.loader.groovy.extension
 
+import groovy.transform.CompileStatic
 import org.apache.camel.Processor;
 
 import java.util.function.Function;
@@ -23,8 +24,7 @@ import java.util.function.Function;
 import org.apache.camel.Exchange;
 import org.apache.camel.model.ProcessorDefinition;
 
-// Workaround for https://issues.apache.org/jira/browse/CAMEL-14300
-// TODO: remove once fixed on camel side
+@CompileStatic
 class ProcessorDefinitionExtensions {
     static <T extends ProcessorDefinition<T>> T setBody(ProcessorDefinition<T> self, Closure<?> callable) {
         return self.setBody(new Function<Exchange, Object>() {

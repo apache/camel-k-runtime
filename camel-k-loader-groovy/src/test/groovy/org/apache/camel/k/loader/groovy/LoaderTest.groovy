@@ -16,14 +16,12 @@
  */
 package org.apache.camel.k.loader.groovy
 
-import org.apache.camel.CamelContext
-import org.apache.camel.RoutesBuilder
-import org.apache.camel.builder.RouteBuilder
-import org.apache.camel.impl.DefaultCamelContext
-import org.apache.camel.k.Runtime
+
 import org.apache.camel.k.Sources
 import org.apache.camel.k.listener.RoutesConfigurer
+import org.apache.camel.k.loader.groovy.support.TestRuntime
 import org.apache.camel.model.FromDefinition
+import org.apache.camel.model.ModelCamelContext
 import org.apache.camel.model.ToDefinition
 import spock.lang.Specification
 
@@ -39,18 +37,12 @@ class LoaderTest extends Specification {
 
         then:
             loader instanceof GroovySourceLoader
-            runtime.builders.size() == 1
-            runtime.builders[0] instanceof RouteBuilder
 
-            with(runtime.builders[0], RouteBuilder) {
-                it.setContext(runtime.camelContext)
-                it.configure()
+            with(runtime.getCamelContext(ModelCamelContext.class).routeDefinitions) {
+                it.size() == 1
 
-                def routes = it.routeCollection.routes
-
-                routes.size() == 1
-                routes[0].outputs[0] instanceof ToDefinition
-                routes[0].input.endpointUri == 'timer:tick'
+                it[0].outputs[0] instanceof ToDefinition
+                it[0].input.endpointUri == 'timer:tick'
             }
     }
 
@@ -64,45 +56,16 @@ class LoaderTest extends Specification {
 
         then:
             loader instanceof GroovySourceLoader
-            runtime.builders.size() == 1
 
-            with(runtime.builders[0], RouteBuilder) {
-                it.setContext(runtime.camelContext)
-                it.configure()
+            with(runtime.getCamelContext(ModelCamelContext.class).routeDefinitions) {
+                it.size() == 1
 
-                def routes = it.routeCollection.routes
-                routes.size() == 1
-
-                with(routes[0].input, FromDefinition) {
+                with(it[0].input, FromDefinition) {
                     it.endpointUri == 'timer://tick?period=1s'
                 }
-                with(routes[0].outputs[0], ToDefinition) {
+                with(it[0].outputs[0], ToDefinition) {
                     it.endpointUri == 'log://info'
                 }
             }
-    }
-
-    static class TestRuntime implements Runtime {
-        private final CamelContext camelContext
-        private final List<RoutesBuilder> builders
-
-        TestRuntime() {
-            this.camelContext = new DefaultCamelContext()
-            this.builders = new ArrayList<>()
-        }
-
-        @Override
-        CamelContext getCamelContext() {
-            return this.camelContext
-        }
-
-        @Override
-        void addRoutes(RoutesBuilder builder) {
-            this.builders.add(builder)
-        }
-
-        @Override
-        void setPropertiesLocations(Collection<String> locations) {
-        }
     }
 }

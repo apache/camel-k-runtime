@@ -16,13 +16,14 @@
  */
 package org.apache.camel.k.loader.groovy.extension
 
+import groovy.transform.CompileStatic
 import org.apache.camel.Message
 import org.apache.camel.builder.ExpressionClause
 
 import java.util.function.Function
 
+@CompileStatic
 class ExpressionClauseExtensions {
-
     static <T> T body(ExpressionClause<T> self, Closure<?> callable) {
         return self.body(new Function<Object, Object>() {
             @Override
