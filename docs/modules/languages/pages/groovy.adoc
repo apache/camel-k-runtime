@@ -56,7 +56,7 @@ camel {
 <2> configure the properties of the component whit name _log_
 <3> creates and configure a component of type `SedaComponent` whose name is _mySeda_
 +
-Setting the property _exchangeFormatter_ looks a little ugly as you have to declare the type of your closure. For demonstration purpose we have created a Groovy extension module that simplify configuring the _exchangeFormatter_ so you can rewrite your DSL as
+Setting the property _exchangeFormatter_ looks a little ugly as you have to declare the type of your closure. For demonstration purpose, we have created a Groovy extension module that simplifies configuring the _exchangeFormatter_ so you can rewrite your DSL as
 +
 [source,groovy]
 ----
