@@ -32,7 +32,7 @@ import org.apache.camel.spi.Registry;
 
 import static org.apache.camel.util.CollectionHelper.mapOf;
 
-public interface Runtime extends HasCamelContext {
+public interface Runtime extends HasCamelContext, AutoCloseable {
 
     default <T extends CamelContext> T getCamelContext(Class<T> type) {
         return getCamelContext().adapt(type);
@@ -111,6 +111,11 @@ public interface Runtime extends HasCamelContext {
     default void stop() throws Exception {
         // Stopping the Camel context in default config is enough to tear down the integration
         getCamelContext().stop();
+    }
+
+    @Override
+    default void close() throws Exception {
+        stop();
     }
 
     enum Phase {
