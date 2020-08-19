@@ -14,34 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.loader.java.model;
+package org.apache.camel.k.loader.java.model
 
-public class EmployeeDTO {
-    public int id;
-    public String name;
-    public String org;
+import groovy.transform.CompileStatic
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getOrg() {
-        return org;
-    }
-
-    public void setOrg(String org) {
-        this.org = org;
-    }
+@CompileStatic
+class EmployeeDTO {
+    int id
+    String name
+    String org
 }
