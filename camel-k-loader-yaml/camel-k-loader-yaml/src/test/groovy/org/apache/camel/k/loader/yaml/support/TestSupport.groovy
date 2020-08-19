@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.loader.yaml
+package org.apache.camel.k.loader.yaml.support
 
 import com.fasterxml.jackson.databind.JsonNode
 import groovy.util.logging.Slf4j
@@ -26,6 +26,8 @@ import org.apache.camel.impl.DefaultCamelContext
 import org.apache.camel.k.Runtime
 import org.apache.camel.k.Source
 import org.apache.camel.k.Sources
+import org.apache.camel.k.loader.yaml.YamlSourceLoader
+import org.apache.camel.k.loader.yaml.YamlStepResolver
 import org.apache.camel.k.loader.yaml.spi.ProcessorStepParser
 import org.apache.camel.k.loader.yaml.spi.StartStepParser
 import org.apache.camel.k.loader.yaml.spi.StepParser

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.loader.groovy.dsl
+package org.apache.camel.k.loader.groovy
 
 import org.apache.camel.Predicate
 import org.apache.camel.Processor
@@ -22,8 +22,13 @@ import org.apache.camel.RuntimeCamelException
 import org.apache.camel.component.jackson.JacksonDataFormat
 import org.apache.camel.component.log.LogComponent
 import org.apache.camel.component.seda.SedaComponent
+import org.apache.camel.k.Sources
+import org.apache.camel.k.listener.RoutesConfigurer
 import org.apache.camel.k.loader.groovy.support.TestRuntime
 import org.apache.camel.language.bean.BeanLanguage
+import org.apache.camel.model.FromDefinition
+import org.apache.camel.model.ModelCamelContext
+import org.apache.camel.model.ToDefinition
 import org.apache.camel.model.rest.GetVerbDefinition
 import org.apache.camel.model.rest.PostVerbDefinition
 import org.apache.camel.processor.FatalFallbackErrorHandler
@@ -36,9 +41,49 @@ import spock.lang.Specification
 
 import javax.sql.DataSource
 
-class IntegrationTest extends Specification {
+class GroovySourceLoaderTest extends Specification {
     @AutoCleanup
     def runtime = new TestRuntime()
+
+    def "load routes"() {
+        given:
+            def source = Sources.fromURI("classpath:routes.groovy")
+
+        when:
+            def loader = RoutesConfigurer.load(runtime, source)
+
+        then:
+            loader instanceof GroovySourceLoader
+
+            with(runtime.getCamelContext(ModelCamelContext.class).routeDefinitions) {
+                it.size() == 1
+
+                it[0].outputs[0] instanceof ToDefinition
+                it[0].input.endpointUri == 'timer:tick'
+            }
+    }
+
+    def "load routes with endpoint dsl"() {
+        given:
+            def source = Sources.fromURI("classpath:routes-with-endpoint-dsl.groovy")
+
+        when:
+            def loader = RoutesConfigurer.load(runtime, source)
+
+        then:
+            loader instanceof GroovySourceLoader
+
+            with(runtime.getCamelContext(ModelCamelContext.class).routeDefinitions) {
+                it.size() == 1
+
+                with(it[0].input, FromDefinition) {
+                    it.endpointUri == 'timer://tick?period=1s'
+                }
+                with(it[0].outputs[0], ToDefinition) {
+                    it.endpointUri == 'log://info'
+                }
+            }
+    }
 
     def "load integration with rest"()  {
         when:
@@ -183,4 +228,3 @@ class IntegrationTest extends Specification {
             1 == 1
     }
 }
-

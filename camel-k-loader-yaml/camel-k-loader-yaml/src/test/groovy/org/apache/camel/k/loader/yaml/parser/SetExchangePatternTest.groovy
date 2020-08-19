@@ -17,7 +17,7 @@
 package org.apache.camel.k.loader.yaml.parser
 
 import org.apache.camel.ExchangePattern
-import org.apache.camel.k.loader.yaml.TestSupport
+import org.apache.camel.k.loader.yaml.support.TestSupport
 import org.apache.camel.model.SetExchangePatternDefinition
 
 class SetExchangePatternTest extends TestSupport {

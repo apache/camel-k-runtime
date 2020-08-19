@@ -17,6 +17,7 @@
 package org.apache.camel.k.loader.yaml
 
 import org.apache.camel.component.direct.DirectEndpoint
+import org.apache.camel.k.loader.yaml.support.TestSupport
 
 class RoutesWithPlaceholdersTest extends TestSupport {
     def 'route'() {

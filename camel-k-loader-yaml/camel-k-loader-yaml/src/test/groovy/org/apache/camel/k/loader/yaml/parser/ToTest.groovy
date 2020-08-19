@@ -17,7 +17,7 @@
 package org.apache.camel.k.loader.yaml.parser
 
 import com.fasterxml.jackson.databind.node.TextNode
-import org.apache.camel.k.loader.yaml.TestSupport
+import org.apache.camel.k.loader.yaml.support.TestSupport
 import org.apache.camel.model.ToDefinition
 
 class ToTest extends TestSupport {

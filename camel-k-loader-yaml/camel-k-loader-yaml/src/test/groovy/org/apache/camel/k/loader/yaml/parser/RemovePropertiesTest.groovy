@@ -16,10 +16,10 @@
  */
 package org.apache.camel.k.loader.yaml.parser
 
-
+import org.apache.camel.k.loader.yaml.support.TestSupport
 import org.apache.camel.model.RemovePropertiesDefinition
 
-class RemovePropertiesTest extends org.apache.camel.k.loader.yaml.TestSupport {
+class RemovePropertiesTest extends TestSupport {
 
     def "definition"() {
         given:
