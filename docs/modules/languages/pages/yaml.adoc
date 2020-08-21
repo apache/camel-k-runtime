@@ -11,17 +11,17 @@ A route is a sequence of elements, or `steps`, defined as follows:
 
 [source,yaml]
 ----
-from: #<1>
-  uri: "direct:start"
-  steps: #<2>
-    - filter:
-        expression:
-          simple: "${in.header.continue} == true"
-        steps: #<2>
-          - to:
-              uri: "log:filtered"
-    - to:
-        uri: "log:original"
+- from: #<1>
+    uri: "direct:start"
+    steps: #<2>
+      - filter:
+          expression:
+            simple: "${in.header.continue} == true"
+          steps: #<2>
+            - to:
+                uri: "log:filtered"
+      - to:
+          uri: "log:original"
 ----
 <1> route entry point, by default `from` and `rest` are supported
 <2> processing steps
