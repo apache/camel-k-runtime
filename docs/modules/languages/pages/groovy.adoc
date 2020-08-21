@@ -158,7 +158,7 @@ beans {
 
 == Rest Support
 
-Integrations's REST endpoints can be configured using the top level _rest_ block:
+Integrations REST endpoints can be configured using the top level _rest_ block:
 
 [source,groovy]
 ----

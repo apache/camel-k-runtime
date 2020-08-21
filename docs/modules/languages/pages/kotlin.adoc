@@ -24,7 +24,7 @@ context {
 }
 ----
 
-At the moment the enhanced DSL provides a way to bind items to the registry, to configure the components the context creates and some improvements over the REST DSL.
+At the moment, the enhanced DSL provides a way to bind items to the registry, to configure the components the context creates and some improvements over the REST DSL.
 
 == Beans DSL
 
@@ -96,7 +96,7 @@ As for Groovy, you can provide your custom extension to the DSL
 
 == Rest Endpoints
 
-Integrations's REST endpoints can be configured using the top level _rest_ block:
+Integrations REST endpoints can be configured using the top level _rest_ block:
 
 [source,kotlin]
 ----
