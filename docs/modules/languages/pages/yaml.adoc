@@ -7,7 +7,7 @@ The YAML DSL is current in preview support level.
 
 == Defining a route
 
-A route is a sequence of elements, or `steps`, defined as follow:
+A route is a sequence of elements, or `steps`, defined as follows:
 
 [source,yaml]
 ----
@@ -28,7 +28,7 @@ from: #<1>
 
 [NOTE]
 ====
-Each step is represented by YAML map that has a single entry where the field name is the EIP name
+Each step is represented by a YAML map that has a single entry where the field name is the EIP name
 ====
 
 As general rule each step provide all the parameters the related definition declares but there are some minor differences/enhancements:
@@ -114,7 +114,7 @@ In case you want to use the data-format's default settings, you need to place an
 
 == Extending the DSL
 
-The DSL is designed to be easily extended so you can provide your own step handler which is discovered at runtime using Camel's factory finder.
+The DSL is designed to be easily extended, so you can provide your own step handler which is discovered at runtime using Camel's factory finder.
 
 Assuming you want to create a step to simplify the creation of a certain type of endpoints then you need:
 
@@ -130,14 +130,14 @@ class=com.acme.converter.MyConverter
 
 [source,java]
 ----
-package com.acme.converter.AcmeConverter
+package com.acme.converter.AcmeConverter;
 
 import org.apache.camel.k.loader.yaml.parser.ProcessorStepParser;
 
 public class AcmeConverter
         implements ProcessorStepParser {
     /**
-     * @param context contains a references to the camel context and the current node as raw JsonNode
+     * @param context contains references to the camel context and the current node as raw JsonNode
      */
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {
@@ -145,8 +145,8 @@ public class AcmeConverter
         Definition definition = context.node(Definition.class);
 
         // create the definition
-        ToDefinition to = new ToDefinition()
-        to.setUri(String.format("http://%s:%d/fixed/path"), definition.host, definition.port)
+        ToDefinition to = new ToDefinition();
+        to.setUri(String.format("http://%s:%d/fixed/path", definition.host, definition.port));
 
         return to;
     }

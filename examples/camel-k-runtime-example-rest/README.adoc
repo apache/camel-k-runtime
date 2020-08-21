@@ -1,7 +1,7 @@
 Rest Apache Camel K Runtime example
 ======================================
 
-This repository contains an Apache Camel-K Runtime application that expose a `rest` endpoint and and `/health` endpoint to gather Camel context status.
+This repository contains an Apache Camel-K Runtime application that expose a `rest` endpoint and `/health` endpoint to gather Camel context status.
 
 In order to run it:
 [code,shell]
