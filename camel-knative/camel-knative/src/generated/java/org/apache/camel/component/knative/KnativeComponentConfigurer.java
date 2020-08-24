@@ -23,6 +23,8 @@ public class KnativeComponentConfigurer extends PropertyConfigurerSupport implem
         case "basicPropertyBinding": target.setBasicPropertyBinding(property(camelContext, boolean.class, value)); return true;
         case "bridgeerrorhandler":
         case "bridgeErrorHandler": target.setBridgeErrorHandler(property(camelContext, boolean.class, value)); return true;
+        case "environmentpath":
+        case "environmentPath": target.setEnvironmentPath(property(camelContext, java.lang.String.class, value)); return true;
         case "lazystartproducer":
         case "lazyStartProducer": target.setLazyStartProducer(property(camelContext, boolean.class, value)); return true;
         case "transport": target.setTransport(property(camelContext, org.apache.camel.component.knative.spi.KnativeTransport.class, value)); return true;
@@ -37,6 +39,7 @@ public class KnativeComponentConfigurer extends PropertyConfigurerSupport implem
         Map<String, Object> answer = new CaseInsensitiveMap();
         answer.put("basicPropertyBinding", boolean.class);
         answer.put("bridgeErrorHandler", boolean.class);
+        answer.put("environmentPath", java.lang.String.class);
         answer.put("lazyStartProducer", boolean.class);
         answer.put("transport", org.apache.camel.component.knative.spi.KnativeTransport.class);
         answer.put("transportOptions", java.util.Map.class);
@@ -51,6 +54,8 @@ public class KnativeComponentConfigurer extends PropertyConfigurerSupport implem
         case "basicPropertyBinding": return target.isBasicPropertyBinding();
         case "bridgeerrorhandler":
         case "bridgeErrorHandler": return target.isBridgeErrorHandler();
+        case "environmentpath":
+        case "environmentPath": return target.getEnvironmentPath();
         case "lazystartproducer":
         case "lazyStartProducer": return target.isLazyStartProducer();
         case "transport": return target.getTransport();
