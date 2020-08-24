@@ -41,7 +41,7 @@ import org.apache.camel.support.PropertyBindingSupport;
 import org.apache.camel.util.ObjectHelper;
 
 /**
- * This component allows to interact with KNative events.
+ * This component allows to interact with Knative.
  */
 @UriEndpoint(
     firstVersion = "3.0.0",
@@ -50,9 +50,9 @@ import org.apache.camel.util.ObjectHelper;
     title = "Knative",
     label = "cloud,eventing")
 public class KnativeEndpoint extends DefaultEndpoint {
-    @UriPath(description = "The Knative type")
+    @UriPath(description = "The Knative resource type")
     private final Knative.Type type;
-    @UriPath(description = "The Knative name")
+    @UriPath(description = "The name that identifies the Knative resource")
     private final String name;
     private final CloudEventProcessor cloudEvent;
     @UriParam

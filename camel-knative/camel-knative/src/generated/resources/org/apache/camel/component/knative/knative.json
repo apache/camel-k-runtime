@@ -3,7 +3,7 @@
     "kind": "component",
     "name": "knative",
     "title": "Knative",
-    "description": "This component allows to interact with KNative events.",
+    "description": "This component allows to interact with Knative.",
     "deprecated": false,
     "firstVersion": "3.0.0",
     "label": "cloud,eventing",
@@ -21,6 +21,7 @@
     "lenientProperties": false
   },
   "componentProperties": {
+    "environmentPath": { "kind": "property", "displayName": "Environment Path", "group": "common", "label": "", "required": false, "type": "string", "javaType": "java.lang.String", "deprecated": false, "secret": false, "description": "The path ot the environment definition" },
     "transport": { "kind": "property", "displayName": "Transport", "group": "common", "label": "", "required": false, "type": "object", "javaType": "org.apache.camel.component.knative.spi.KnativeTransport", "deprecated": false, "secret": false, "defaultValue": "http", "description": "The transport implementation." },
     "transportOptions": { "kind": "property", "displayName": "Transport Options", "group": "common", "label": "", "required": false, "type": "object", "javaType": "java.util.Map<java.lang.String, java.lang.Object>", "deprecated": false, "secret": false, "description": "Transport options." },
     "bridgeErrorHandler": { "kind": "property", "displayName": "Bridge Error Handler", "group": "consumer", "label": "consumer", "required": false, "type": "boolean", "javaType": "boolean", "deprecated": false, "secret": false, "defaultValue": false, "description": "Allows for bridging the consumer to the Camel routing Error Handler, which mean any exceptions occurred while the consumer is trying to pickup incoming messages, or the likes, will now be processed as a message and handled by the routing Error Handler. By default the consumer will use the org.apache.camel.spi.ExceptionHandler to deal with exceptions, that will be logged at WARN or ERROR level and ignored." },
@@ -28,8 +29,8 @@
     "basicPropertyBinding": { "kind": "property", "displayName": "Basic Property Binding", "group": "advanced", "label": "advanced", "required": false, "type": "boolean", "javaType": "boolean", "deprecated": false, "secret": false, "defaultValue": false, "description": "Whether the component should use basic property binding (Camel 2.x) or the newer property binding with additional capabilities" }
   },
   "properties": {
-    "type": { "kind": "path", "displayName": "Type", "group": "common", "label": "", "required": false, "type": "object", "javaType": "org.apache.camel.component.knative.spi.Knative.Type", "enum": [ "endpoint", "channel", "event" ], "deprecated": false, "secret": false, "description": "The Knative type" },
-    "name": { "kind": "path", "displayName": "Name", "group": "common", "label": "", "required": false, "type": "string", "javaType": "java.lang.String", "deprecated": false, "secret": false, "description": "The Knative name" },
+    "type": { "kind": "path", "displayName": "Type", "group": "common", "label": "", "required": false, "type": "object", "javaType": "org.apache.camel.component.knative.spi.Knative.Type", "enum": [ "endpoint", "channel", "event" ], "deprecated": false, "secret": false, "description": "The Knative resource type" },
+    "name": { "kind": "path", "displayName": "Name", "group": "common", "label": "", "required": false, "type": "string", "javaType": "java.lang.String", "deprecated": false, "secret": false, "description": "The name that identifies the Knative resource" },
     "ceOverride": { "kind": "parameter", "displayName": "Ce Override", "group": "common", "label": "", "required": false, "type": "object", "javaType": "java.util.Map<java.lang.String, java.lang.Object>", "prefix": "ce.override.", "deprecated": false, "secret": false, "configurationClass": "org.apache.camel.component.knative.KnativeConfiguration", "configurationField": "configuration", "description": "CloudEvent headers to override" },
     "cloudEventsSpecVersion": { "kind": "parameter", "displayName": "Cloud Events Spec Version", "group": "common", "label": "", "required": false, "type": "string", "javaType": "java.lang.String", "enum": [ "0.1", "0.2", "0.3", "1.0" ], "deprecated": false, "secret": false, "defaultValue": "1.0", "configurationClass": "org.apache.camel.component.knative.KnativeConfiguration", "configurationField": "configuration", "description": "Set the version of the cloudevents spec." },
     "cloudEventsType": { "kind": "parameter", "displayName": "Cloud Events Type", "group": "common", "label": "", "required": false, "type": "string", "javaType": "java.lang.String", "deprecated": false, "secret": false, "defaultValue": "org.apache.camel.event", "configurationClass": "org.apache.camel.component.knative.KnativeConfiguration", "configurationField": "configuration", "description": "Set the event-type information of the produced events." },

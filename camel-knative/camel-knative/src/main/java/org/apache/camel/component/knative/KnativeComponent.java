@@ -40,13 +40,16 @@ import org.slf4j.LoggerFactory;
 public class KnativeComponent extends DefaultComponent {
     private static final Logger LOGGER = LoggerFactory.getLogger(KnativeComponent.class);
 
+    @Metadata
     private KnativeConfiguration configuration;
+
+    @Metadata
     private String environmentPath;
 
     @Metadata(defaultValue = "http")
     private Knative.Protocol protocol = Knative.Protocol.http;
 
-    @Metadata(defaultValue = "http")
+    @Metadata
     private KnativeTransport transport;
 
     @Metadata
