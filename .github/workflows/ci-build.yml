@@ -38,12 +38,32 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      MAVEN_OPTS: -Xmx3000m
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 11
       uses: AdoptOpenJDK/install-jdk@v1
       with:
         version: '11'
+    - name: Build camel master
+      if: contains( github.event.pull_request.labels.*.name, 'depends-on/camel/master')
+      run: |
+        git clone --depth 1 --branch master https://github.com/apache/camel.git \
+          && cd camel \
+          && echo "Current Camel commit:" $(git rev-parse HEAD) \
+          && ./mvnw -V -B -ntp clean install \
+            -Dfastinstall
+        git clone --depth 1 --branch camel-master https://github.com/apache/camel-quarkus.git \
+          && cd camel-quarkus \
+          && echo "Current Camel Quarkus commit:" $(git rev-parse HEAD) \
+          && ./mvnw -V -B -ntp clean install \
+            -Dformatter.skip \
+            -Dimpsort.skip \
+            -Denforce=false \
+            -Dcamel-quarkus.update-extension-doc-page.skip \
+            -DskipTests \
+            -DskipITs
     - name: mvn install
       run: ./mvnw -V -B -ntp clean install
     - name: Tar Maven Repo
@@ -67,6 +87,7 @@ jobs:
         with:
           version:  ${{ matrix.java }}
       - name: Build on ${{ matrix.java }}
+        if: contains( github.event.pull_request.labels.*.name, 'depends-on/camel/master') == 'false'
         run: |
           ./mvnw -V -B -ntp clean install
   build-native:
