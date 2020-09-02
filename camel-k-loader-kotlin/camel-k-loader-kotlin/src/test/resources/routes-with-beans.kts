@@ -15,11 +15,8 @@
  * limitations under the License.
  */
 beans {
-    bean<org.apache.commons.dbcp2.BasicDataSource>("dataSource") {
-        driverClassName = "org.h2.Driver"
-        url = "jdbc:h2:mem:camel"
-        username = "sa"
-        password = ""
+    bean<org.apache.camel.k.loader.kotlin.support.MyBean>("myBean") {
+        name = "test"
     }
 
     bean("filterStrategy") {
