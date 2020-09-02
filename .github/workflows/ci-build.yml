@@ -46,7 +46,7 @@ jobs:
       uses: AdoptOpenJDK/install-jdk@v1
       with:
         version: '11'
-    - name: Build camel master
+    - name: Build camel (master)
       if: contains( github.event.pull_request.labels.*.name, 'depends-on/camel/master')
       run: |
         git clone --depth 1 --branch master https://github.com/apache/camel.git \
@@ -64,7 +64,20 @@ jobs:
             -Dcamel-quarkus.update-extension-doc-page.skip \
             -DskipTests \
             -DskipITs
-    - name: mvn install
+    - name: Build camel-quarkus (master)
+      if: contains( github.event.pull_request.labels.*.name, 'depends-on/quarkus/master')
+      run: |
+        git clone --depth 1 --branch master https://github.com/apache/camel-quarkus.git \
+          && cd camel-quarkus \
+          && echo "Current Camel Quarkus commit:" $(git rev-parse HEAD) \
+          && ./mvnw -V -B -ntp clean install \
+            -Dformatter.skip \
+            -Dimpsort.skip \
+            -Denforce=false \
+            -Dcamel-quarkus.update-extension-doc-page.skip \
+            -DskipTests \
+            -DskipITs
+    - name: Build camel-k-runtime
       run: ./mvnw -V -B -ntp clean install
     - name: Tar Maven Repo
       shell: bash
@@ -87,7 +100,7 @@ jobs:
         with:
           version:  ${{ matrix.java }}
       - name: Build on ${{ matrix.java }}
-        if: contains( github.event.pull_request.labels.*.name, 'depends-on/camel/master') == 'false'
+        if: contains( github.event.pull_request.labels.*.name, 'depends-on/camel/master') == 'false' && contains( github.event.pull_request.labels.*.name, 'depends-on/quarkus/master') == 'false'
         run: |
           ./mvnw -V -B -ntp clean install
   build-native:
