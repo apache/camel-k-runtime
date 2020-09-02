@@ -17,9 +17,12 @@
 package org.apache.camel.k.tooling.maven.support;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -103,5 +106,30 @@ public final class MavenSupport {
         return MavenSupport.getVersion(
             clazz,
             String.format("/META-INF/maven/%s/%s/pom.properties", groupId, artifactId));
+    }
+
+    public static String bytesToHex(byte[] hash) {
+        StringBuilder hexString = new StringBuilder();
+        for (byte b : hash) {
+            String hex = Integer.toHexString(0xff & b);
+            if (hex.length() == 1) {
+                hexString.append('0');
+            }
+
+            hexString.append(hex);
+        }
+
+        return hexString.toString();
+    }
+
+    public static String sha1Hex(InputStream is) throws NoSuchAlgorithmException, IOException {
+        MessageDigest digest = MessageDigest.getInstance("SHA-1");
+
+        byte[] buffer = new byte[1024];
+        for(int read = is.read(buffer, 0, 1024); read > -1; read = is.read(buffer, 0, 1024)) {
+            digest.update(buffer, 0, read);
+        }
+
+        return bytesToHex(digest.digest());
     }
 }

@@ -23,6 +23,8 @@ import java.nio.file.Files
 new File(basedir, "dependencies.yaml").withReader {
     def deps = new groovy.yaml.YamlSlurper().parse(it)
 
+    assert deps.dependencies.size() != 0
+
     for (Map<String, String> dependency: deps.dependencies) {
         dependency.checksum != null
         dependency.location != null
@@ -31,14 +33,14 @@ new File(basedir, "dependencies.yaml").withReader {
         File checksum
 
         if ((checksum = new File("${dependency.location}.md5")).exists()) {
-            dependency.checksum == "md5:" + Files.readString(checksum.toPath(), StandardCharsets.UTF_8)
+            assert dependency.checksum == "md5:" + Files.readString(checksum.toPath(), StandardCharsets.UTF_8)
         } else if ((checksum = new File("${dependency.location}.sha1")).exists()) {
-            dependency.checksum == "sha1:" + Files.readString(checksum.toPath(), StandardCharsets.UTF_8)
+            assert dependency.checksum == "sha1:" + Files.readString(checksum.toPath(), StandardCharsets.UTF_8)
         } else {
             def file  = new File(dependency.location)
             def bytes = Files.readAllBytes(file.toPath())
 
-            dependency.checksum == "sha1:" + DigestUtils.sha1Hex(bytes)
+            assert dependency.checksum == "sha1:" + DigestUtils.sha1Hex(bytes)
         }
     }
 }

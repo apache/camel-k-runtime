@@ -32,8 +32,7 @@ import com.squareup.javapoet.TypeSpec;
 import org.apache.camel.model.DataFormatDefinition;
 import org.apache.camel.model.LoadBalancerDefinition;
 import org.apache.camel.model.language.ExpressionDefinition;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.text.WordUtils;
+import org.apache.camel.util.StringHelper;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -95,9 +94,9 @@ public class GenerateYamlParserSupportClasses extends GenerateYamlSupport {
         definitions(EXPRESSION_DEFINITION_CLASS).forEach(
             (k, v) -> {
                 String name = k;
-                name = WordUtils.capitalize(name, '_', '-');
-                name = StringUtils.remove(name, "_");
-                name = StringUtils.remove(name, "-");
+                name = StringHelper.capitalize(name);
+                name = StringHelper.replaceAll(name, "_", "");
+                name = StringHelper.replaceAll(name, "-", "");
 
                 type.addMethod(MethodSpec.methodBuilder("set" + name)
                     .addAnnotation(
@@ -147,9 +146,9 @@ public class GenerateYamlParserSupportClasses extends GenerateYamlSupport {
         definitions(DATAFORMAT_DEFINITION_CLASS).forEach(
             (k, v) -> {
                 String name = k;
-                name = WordUtils.capitalize(name, '_', '-');
-                name = StringUtils.remove(name, "_");
-                name = StringUtils.remove(name, "-");
+                name = StringHelper.capitalize(name);
+                name = StringHelper.replaceAll(name, "_", "");
+                name = StringHelper.replaceAll(name, "-", "");
 
                 type.addMethod(MethodSpec.methodBuilder("set" + name)
                     .addAnnotation(
@@ -196,9 +195,9 @@ public class GenerateYamlParserSupportClasses extends GenerateYamlSupport {
         definitions(LOAD_BALANCE_DEFINITION_CLASS).forEach(
             (k, v) -> {
                 String name = k;
-                name = WordUtils.capitalize(name, '_', '-');
-                name = StringUtils.remove(name, "_");
-                name = StringUtils.remove(name, "-");
+                name = StringHelper.capitalize(name);
+                name = StringHelper.replaceAll(name, "_", "");
+                name = StringHelper.replaceAll(name, "-", "");
 
                 type.addMethod(MethodSpec.methodBuilder("set" + name)
                     .addAnnotation(
