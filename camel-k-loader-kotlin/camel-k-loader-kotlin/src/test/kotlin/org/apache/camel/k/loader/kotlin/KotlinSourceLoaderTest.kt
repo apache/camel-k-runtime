@@ -22,6 +22,7 @@ import org.apache.camel.RuntimeCamelException
 import org.apache.camel.component.jackson.JacksonDataFormat
 import org.apache.camel.component.log.LogComponent
 import org.apache.camel.component.seda.SedaComponent
+import org.apache.camel.k.loader.kotlin.support.MyBean
 import org.apache.camel.k.loader.kotlin.support.TestRuntime
 import org.apache.camel.language.bean.BeanLanguage
 import org.apache.camel.model.ProcessDefinition
@@ -33,7 +34,6 @@ import org.apache.camel.support.DefaultHeaderFilterStrategy
 import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import javax.sql.DataSource
 
 class KotlinSourceLoaderTest {
 
@@ -100,8 +100,8 @@ class KotlinSourceLoaderTest {
         val runtime = TestRuntime()
         runtime.loadRoutes("classpath:routes-with-beans.kts")
 
-        assertThat(runtime.context.registry.findByType(DataSource::class.java)).hasSize(1)
-        assertThat(runtime.context.registry.lookupByName("dataSource")).isInstanceOf(DataSource::class.java)
+        assertThat(runtime.context.registry.findByType(MyBean::class.java)).hasSize(1)
+        assertThat(runtime.context.registry.lookupByName("myBean")).isInstanceOf(MyBean::class.java)
         assertThat(runtime.context.registry.findByType(DefaultHeaderFilterStrategy::class.java)).hasSize(1)
         assertThat(runtime.context.registry.lookupByName("filterStrategy")).isInstanceOf(DefaultHeaderFilterStrategy::class.java)
         assertThat(runtime.context.registry.lookupByName("myProcessor")).isInstanceOf(Processor::class.java)

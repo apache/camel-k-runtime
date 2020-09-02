@@ -24,6 +24,7 @@ import org.apache.camel.component.log.LogComponent
 import org.apache.camel.component.seda.SedaComponent
 import org.apache.camel.k.Sources
 import org.apache.camel.k.listener.RoutesConfigurer
+import org.apache.camel.k.loader.groovy.support.MyBean
 import org.apache.camel.k.loader.groovy.support.TestRuntime
 import org.apache.camel.language.bean.BeanLanguage
 import org.apache.camel.model.FromDefinition
@@ -38,8 +39,6 @@ import org.apache.camel.spi.HeaderFilterStrategy
 import org.apache.camel.support.DefaultHeaderFilterStrategy
 import spock.lang.AutoCleanup
 import spock.lang.Specification
-
-import javax.sql.DataSource
 
 class GroovySourceLoaderTest extends Specification {
     @AutoCleanup
@@ -129,8 +128,8 @@ class GroovySourceLoaderTest extends Specification {
 
         then:
             with(runtime.context.registry) {
-                it.findByType(DataSource).size() == 1
-                it.lookupByName('dataSource') instanceof DataSource
+                it.findByType(MyBean).size() == 1
+                it.lookupByName('myBean') instanceof MyBean
                 it.findByType(HeaderFilterStrategy).size() == 1
                 it.lookupByName('filterStrategy') instanceof DefaultHeaderFilterStrategy
                 it.lookupByName('myProcessor') instanceof Processor

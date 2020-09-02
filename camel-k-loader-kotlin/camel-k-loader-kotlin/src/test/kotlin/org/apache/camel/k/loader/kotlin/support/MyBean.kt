@@ -1,4 +1,4 @@
-/*
+/**
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -14,19 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-beans {
-    myBean(org.apache.camel.k.loader.groovy.support.MyBean) {
-        name = "test"
-    }
-    filterStrategy {
-        new org.apache.camel.support.DefaultHeaderFilterStrategy()
-    }
+package org.apache.camel.k.loader.kotlin.support
 
-    myProcessor = processor {
-        it.in.body = 'value'
-    }
+class MyBean {
+    var name: String = ""
 
-    myPredicate = predicate {
-        false
-    }
+
 }

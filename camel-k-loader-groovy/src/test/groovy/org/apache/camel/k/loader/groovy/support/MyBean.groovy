@@ -14,19 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-beans {
-    myBean(org.apache.camel.k.loader.groovy.support.MyBean) {
-        name = "test"
-    }
-    filterStrategy {
-        new org.apache.camel.support.DefaultHeaderFilterStrategy()
+package org.apache.camel.k.loader.groovy.support
+
+class MyBean {
+    private String name
+
+    String getName() {
+        return name
     }
 
-    myProcessor = processor {
-        it.in.body = 'value'
-    }
-
-    myPredicate = predicate {
-        false
+    void setName(String name) {
+        this.name = name
     }
 }
