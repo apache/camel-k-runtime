@@ -126,7 +126,7 @@ public final class MavenSupport {
         MessageDigest digest = MessageDigest.getInstance("SHA-1");
 
         byte[] buffer = new byte[1024];
-        for(int read = is.read(buffer, 0, 1024); read > -1; read = is.read(buffer, 0, 1024)) {
+        for (int read = is.read(buffer, 0, 1024); read > -1; read = is.read(buffer, 0, 1024)) {
             digest.update(buffer, 0, read);
         }
 

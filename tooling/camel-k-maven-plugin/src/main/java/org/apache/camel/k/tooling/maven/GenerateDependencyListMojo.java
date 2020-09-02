@@ -128,7 +128,7 @@ public class GenerateDependencyListMojo extends AbstractMojo {
             }
 
             dep.put("checksum", checksum);
-        } catch (IOException|NoSuchAlgorithmException e) {
+        } catch (IOException | NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
 
