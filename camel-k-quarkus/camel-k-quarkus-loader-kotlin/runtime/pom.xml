@@ -27,31 +27,14 @@
 
     <artifactId>camel-k-quarkus-loader-kotlin</artifactId>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.jetbrains.kotlin</groupId>
-                <artifactId>kotlin-bom</artifactId>
-                <version>${kotlin.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
             <artifactId>camel-k-loader-kotlin</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.apache.camel.k</groupId>
             <artifactId>camel-k-quarkus-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-kotlin</artifactId>
         </dependency>
     </dependencies>
 
