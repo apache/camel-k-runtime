@@ -44,9 +44,6 @@
         <junit.version>5.6.2</junit.version>
         <junit-pioneer.version>0.9.0</junit-pioneer.version>
         <joor.version>0.9.13</joor.version>
-        <commons-lang.version>3.11</commons-lang.version>
-        <commons-text.version>1.9</commons-text.version>
-        <commons-codec.version>1.14</commons-codec.version>
         <commons-dbcp2.version>2.7.0</commons-dbcp2.version>
         <assertj.version>3.17.1</assertj.version>
         <log4j2.version>2.13.3</log4j2.version>

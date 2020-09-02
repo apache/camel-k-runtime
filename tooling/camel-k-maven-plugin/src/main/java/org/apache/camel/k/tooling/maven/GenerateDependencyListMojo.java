@@ -23,13 +23,13 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.NoSuchAlgorithmException;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DefaultArtifact;
 import org.apache.maven.plugin.AbstractMojo;
@@ -43,6 +43,8 @@ import org.apache.maven.project.MavenProject;
 import org.apache.maven.shared.utils.StringUtils;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
+
+import static org.apache.camel.k.tooling.maven.support.MavenSupport.sha1Hex;
 
 @Mojo(
     name = "generate-dependency-list",
@@ -121,12 +123,12 @@ public class GenerateDependencyListMojo extends AbstractMojo {
 
             if (checksum == null) {
                 try (InputStream is = Files.newInputStream(artifact.getFile().toPath())) {
-                    checksum = "sha1:" + DigestUtils.sha1Hex(is);
+                    checksum = "sha1:" + sha1Hex(is);
                 }
             }
 
             dep.put("checksum", checksum);
-        } catch (IOException e) {
+        } catch (IOException|NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
 
