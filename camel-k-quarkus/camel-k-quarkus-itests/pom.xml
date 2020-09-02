@@ -34,6 +34,7 @@
         <module>camel-k-quarkus-itests-knative</module>
         <module>camel-k-quarkus-itests-loader-support</module>
         <module>camel-k-quarkus-itests-loader-groovy</module>
+        <module>camel-k-quarkus-itests-loader-kotlin</module>
         <module>camel-k-quarkus-itests-loader-java</module>
         <module>camel-k-quarkus-itests-loader-js</module>
         <module>camel-k-quarkus-itests-loader-xml</module>
