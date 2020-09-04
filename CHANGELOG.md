@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- Use camel-dependencies instead of our own [\#459](https://github.com/apache/camel-k-runtime/issues/459)
 - knative: support for programmatically add entries to the knative environment [\#454](https://github.com/apache/camel-k-runtime/issues/454)
 - Invalid example on yaml language docu [\#423](https://github.com/apache/camel-k-runtime/issues/423)
 - \[quarkus\] add tests for jvm only loaders [\#215](https://github.com/apache/camel-k-runtime/issues/215)
@@ -13,6 +14,8 @@
 
 **Merged pull requests:**
 
+- Use camel-dependencies instead of our own [\#463](https://github.com/apache/camel-k-runtime/pull/463) ([lburgazzoli](https://github.com/lburgazzoli))
+- loaders: add itest for kotlin on quarkus [\#462](https://github.com/apache/camel-k-runtime/pull/462) ([lburgazzoli](https://github.com/lburgazzoli))
 - Cleanup dependencies [\#461](https://github.com/apache/camel-k-runtime/pull/461) ([lburgazzoli](https://github.com/lburgazzoli))
 - Added an automatic changelog gh action [\#460](https://github.com/apache/camel-k-runtime/pull/460) ([oscerd](https://github.com/oscerd))
 - Upgrade Assertj to version 3.17.1 [\#457](https://github.com/apache/camel-k-runtime/pull/457) ([oscerd](https://github.com/oscerd))
