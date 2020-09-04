@@ -101,7 +101,7 @@
             <plugin>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-component-maven-plugin</artifactId>
-                <version>${camel.version}</version>
+                <version>${camel-version}</version>
                 <executions>
                     <execution>
                         <id>generate</id>
@@ -115,7 +115,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <version>${build-helper-maven-plugin.version}</version>
+                <version>${build-helper-maven-plugin-version}</version>
                 <executions>
                     <execution>
                         <phase>generate-sources</phase>

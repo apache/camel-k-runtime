@@ -67,7 +67,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <version>${build-helper-maven-plugin.version}</version>
+                <version>${build-helper-maven-plugin-version}</version>
                 <executions>
                     <execution>
                         <id>reserve-network-port</id>
@@ -87,7 +87,7 @@
             <plugin>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>
-                <version>${quarkus.version}</version>
+                <version>${quarkus-version}</version>
                 <executions>
                     <execution>
                         <goals>

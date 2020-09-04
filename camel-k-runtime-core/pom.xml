@@ -97,7 +97,7 @@
                 <!-- we need to generate additional configurer classes -->
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-package-maven-plugin</artifactId>
-                <version>${camel.version}</version>
+                <version>${camel-version}</version>
                 <executions>
                     <execution>
                         <id>generate-configurer</id>
@@ -111,7 +111,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <version>${build-helper-maven-plugin.version}</version>
+                <version>${build-helper-maven-plugin-version}</version>
                 <executions>
                     <execution>
                         <phase>generate-sources</phase>

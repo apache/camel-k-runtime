@@ -38,7 +38,7 @@
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-bom</artifactId>
-                <version>${camel-quarkus.version}</version>
+                <version>${camel-quarkus-version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -73,12 +73,12 @@
             <plugin>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-bootstrap-maven-plugin</artifactId>
-                <version>${quarkus.version}</version>
+                <version>${quarkus-version}</version>
             </plugin>
             <plugin>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>
-                <version>${quarkus.version}</version>
+                <version>${quarkus-version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -93,7 +93,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>${exec-maven-plugin.version}</version>
+                <version>${exec-maven-plugin-version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -135,7 +135,7 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
-                        <version>${exec-maven-plugin.version}</version>
+                        <version>${exec-maven-plugin-version}</version>
                         <executions>
                             <execution>
                                 <goals>
