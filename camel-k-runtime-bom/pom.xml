@@ -32,7 +32,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <camel.version>3.3.0</camel.version>
+        <camel-version>3.3.0</camel-version>
     </properties>
 
     <developers>
@@ -93,12 +93,12 @@
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-openapi-java</artifactId>
-                <version>${camel.version}</version>
+                <version>${camel-version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-swagger-java</artifactId>
-                <version>${camel.version}</version>
+                <version>${camel-version}</version>
             </dependency>
 
             <!-- tools -->
@@ -454,7 +454,7 @@
                             <dependency>
                                 <groupId>org.apache.camel</groupId>
                                 <artifactId>camel-buildtools</artifactId>
-                                <version>${camel.version}</version>
+                                <version>${camel-version}</version>
                             </dependency>
                         </dependencies>
                     </plugin>

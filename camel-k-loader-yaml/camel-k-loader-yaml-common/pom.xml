@@ -57,7 +57,7 @@
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
-            <version>${jaxb-api.version}</version>
+            <version>${jaxb-api-version}</version>
         </dependency>
 
         <dependency>
@@ -77,7 +77,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <version>${build-helper-maven-plugin.version}</version>
+                <version>${build-helper-maven-plugin-version}</version>
                 <executions>
                     <execution>
                         <phase>generate-sources</phase>
@@ -108,19 +108,19 @@
                     <dependency>
                         <groupId>com.squareup</groupId>
                         <artifactId>javapoet</artifactId>
-                        <version>${javapoet.version}</version>
+                        <version>${javapoet-version}</version>
                     </dependency>
                     <dependency>
                         <groupId>org.apache.camel</groupId>
                         <artifactId>camel-core-engine</artifactId>
-                        <version>${camel.version}</version>
+                        <version>${camel-version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.gmavenplus</groupId>
                 <artifactId>gmavenplus-plugin</artifactId>
-                <version>${gmavenplus-plugin.version}</version>
+                <version>${gmavenplus-plugin-version}</version>
                 <executions>
                     <execution>
                         <goals>

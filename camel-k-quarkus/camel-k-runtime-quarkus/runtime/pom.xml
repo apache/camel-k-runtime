@@ -47,7 +47,7 @@
             <plugin>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-bootstrap-maven-plugin</artifactId>
-                <version>${quarkus.version}</version>
+                <version>${quarkus-version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -67,7 +67,7 @@
                         <path>
                             <groupId>io.quarkus</groupId>
                             <artifactId>quarkus-extension-processor</artifactId>
-                            <version>${quarkus.version}</version>
+                            <version>${quarkus-version}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>

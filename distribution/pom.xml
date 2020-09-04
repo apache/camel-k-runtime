@@ -25,7 +25,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <packaging>pom</packaging>
-  
+
   <artifactId>apache-camel-k-runtime</artifactId>
   <profiles>
     <profile>
@@ -35,7 +35,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-assembly-plugin</artifactId>
-            <version>${maven-assembly-plugin.version}</version>
+            <version>${maven-assembly-plugin-version}</version>
             <executions>
               <execution>
                 <id>source-release</id>
