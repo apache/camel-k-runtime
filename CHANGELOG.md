@@ -452,7 +452,6 @@
 - groovy: add extension methods for expression clause [\#133](https://github.com/apache/camel-k-runtime/pull/133) ([lburgazzoli](https://github.com/lburgazzoli))
 - Update deps [\#132](https://github.com/apache/camel-k-runtime/pull/132) ([lburgazzoli](https://github.com/lburgazzoli))
 - knative-http component does not return response [\#131](https://github.com/apache/camel-k-runtime/pull/131) ([lburgazzoli](https://github.com/lburgazzoli))
-- chore\(deps\): update kotlin to v1.3.50 [\#129](https://github.com/apache/camel-k-runtime/pull/129) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-1.0.1](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.0.1) (2019-08-23)
 
@@ -465,6 +464,7 @@
 
 **Merged pull requests:**
 
+- chore\(deps\): update kotlin to v1.3.50 [\#129](https://github.com/apache/camel-k-runtime/pull/129) ([lburgazzoli](https://github.com/lburgazzoli))
 - Base knative-http component to vertx-web as the next undertow major release \(3\) will be based on it \#126 [\#128](https://github.com/apache/camel-k-runtime/pull/128) ([lburgazzoli](https://github.com/lburgazzoli))
 - Re-organize repo and update deps [\#127](https://github.com/apache/camel-k-runtime/pull/127) ([lburgazzoli](https://github.com/lburgazzoli))
 - knative: add custom loader for sources [\#125](https://github.com/apache/camel-k-runtime/pull/125) ([lburgazzoli](https://github.com/lburgazzoli))
