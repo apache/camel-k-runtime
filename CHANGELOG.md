@@ -51,7 +51,6 @@
 - Fixed properties test to use correct way of main configurations [\#419](https://github.com/apache/camel-k-runtime/pull/419) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade to camel-quarkus v1.0.0 [\#418](https://github.com/apache/camel-k-runtime/pull/418) ([lburgazzoli](https://github.com/lburgazzoli))
 - Disable merge commits on pull requests [\#417](https://github.com/apache/camel-k-runtime/pull/417) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix \#394: unable to run Groovy routes on Quarkus [\#415](https://github.com/apache/camel-k-runtime/pull/415) ([nicolaferraro](https://github.com/nicolaferraro))
 
 ## [camel-k-runtime-parent-1.5.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.5.0) (2020-08-06)
 
@@ -59,6 +58,7 @@
 
 **Merged pull requests:**
 
+- Fix \#394: unable to run Groovy routes on Quarkus [\#415](https://github.com/apache/camel-k-runtime/pull/415) ([nicolaferraro](https://github.com/nicolaferraro))
 - Upgrade Jackson to version 2.10.5 [\#413](https://github.com/apache/camel-k-runtime/pull/413) ([oscerd](https://github.com/oscerd))
 - Update commons text to version 1.9 [\#412](https://github.com/apache/camel-k-runtime/pull/412) ([oscerd](https://github.com/oscerd))
 - Fix \#365: change sinkbinding to be a customizer unrelated to the knat… [\#411](https://github.com/apache/camel-k-runtime/pull/411) ([nicolaferraro](https://github.com/nicolaferraro))
