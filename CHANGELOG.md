@@ -14,6 +14,7 @@
 
 **Merged pull requests:**
 
+- Automatic changelog: Let's run during the night just one time [\#465](https://github.com/apache/camel-k-runtime/pull/465) ([oscerd](https://github.com/oscerd))
 - Changelog updater: run every hour [\#464](https://github.com/apache/camel-k-runtime/pull/464) ([oscerd](https://github.com/oscerd))
 - Use camel-dependencies instead of our own [\#463](https://github.com/apache/camel-k-runtime/pull/463) ([lburgazzoli](https://github.com/lburgazzoli))
 - loaders: add itest for kotlin on quarkus [\#462](https://github.com/apache/camel-k-runtime/pull/462) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -47,6 +48,7 @@
 - chore\(deps\): update kotlin to v1.4.0 [\#426](https://github.com/apache/camel-k-runtime/pull/426) ([lburgazzoli](https://github.com/lburgazzoli))
 - PMD [\#424](https://github.com/apache/camel-k-runtime/pull/424) ([lburgazzoli](https://github.com/lburgazzoli))
 - \[quarkus\] add tests for jvm only loaders [\#421](https://github.com/apache/camel-k-runtime/pull/421) ([lburgazzoli](https://github.com/lburgazzoli))
+- Update maven plugin dependencies [\#420](https://github.com/apache/camel-k-runtime/pull/420) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fixed properties test to use correct way of main configurations [\#419](https://github.com/apache/camel-k-runtime/pull/419) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade to camel-quarkus v1.0.0 [\#418](https://github.com/apache/camel-k-runtime/pull/418) ([lburgazzoli](https://github.com/lburgazzoli))
 - Disable merge commits on pull requests [\#417](https://github.com/apache/camel-k-runtime/pull/417) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -58,7 +60,6 @@
 
 **Merged pull requests:**
 
-- Update maven plugin dependencies [\#420](https://github.com/apache/camel-k-runtime/pull/420) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade Jackson to version 2.10.5 [\#413](https://github.com/apache/camel-k-runtime/pull/413) ([oscerd](https://github.com/oscerd))
 - Update commons text to version 1.9 [\#412](https://github.com/apache/camel-k-runtime/pull/412) ([oscerd](https://github.com/oscerd))
 - Fix \#365: change sinkbinding to be a customizer unrelated to the knat… [\#411](https://github.com/apache/camel-k-runtime/pull/411) ([nicolaferraro](https://github.com/nicolaferraro))
@@ -167,7 +168,6 @@
 - Cannot run openapi in quarkus mode [\#258](https://github.com/apache/camel-k-runtime/issues/258)
 - Add circuit-breaker capability [\#257](https://github.com/apache/camel-k-runtime/issues/257)
 - \[quarkus\] support stopping the application [\#224](https://github.com/apache/camel-k-runtime/issues/224)
-- Complete support for EIP in YAML DSL [\#183](https://github.com/apache/camel-k-runtime/issues/183)
 - Support CloudEvents v1.0.0 [\#179](https://github.com/apache/camel-k-runtime/issues/179)
 
 **Merged pull requests:**
@@ -363,6 +363,7 @@
 
 - Remove support for java class loader [\#195](https://github.com/apache/camel-k-runtime/issues/195)
 - Upgrade to Camel RC3 [\#189](https://github.com/apache/camel-k-runtime/issues/189)
+- Complete support for EIP in YAML DSL [\#183](https://github.com/apache/camel-k-runtime/issues/183)
 - CamelCloudEventXXX not converted to CE header [\#177](https://github.com/apache/camel-k-runtime/issues/177)
 - Undertow does not shut down properly in webhook route policy [\#172](https://github.com/apache/camel-k-runtime/issues/172)
 - switch to camel main for quarkus related bits [\#149](https://github.com/apache/camel-k-runtime/issues/149)
