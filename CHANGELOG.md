@@ -168,6 +168,7 @@
 - Cannot run openapi in quarkus mode [\#258](https://github.com/apache/camel-k-runtime/issues/258)
 - Add circuit-breaker capability [\#257](https://github.com/apache/camel-k-runtime/issues/257)
 - \[quarkus\] support stopping the application [\#224](https://github.com/apache/camel-k-runtime/issues/224)
+- Complete support for EIP in YAML DSL [\#183](https://github.com/apache/camel-k-runtime/issues/183)
 - Support CloudEvents v1.0.0 [\#179](https://github.com/apache/camel-k-runtime/issues/179)
 
 **Merged pull requests:**
@@ -363,7 +364,6 @@
 
 - Remove support for java class loader [\#195](https://github.com/apache/camel-k-runtime/issues/195)
 - Upgrade to Camel RC3 [\#189](https://github.com/apache/camel-k-runtime/issues/189)
-- Complete support for EIP in YAML DSL [\#183](https://github.com/apache/camel-k-runtime/issues/183)
 - CamelCloudEventXXX not converted to CE header [\#177](https://github.com/apache/camel-k-runtime/issues/177)
 - Undertow does not shut down properly in webhook route policy [\#172](https://github.com/apache/camel-k-runtime/issues/172)
 - switch to camel main for quarkus related bits [\#149](https://github.com/apache/camel-k-runtime/issues/149)
