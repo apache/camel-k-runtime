@@ -14,6 +14,8 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump kotlin-version from 1.4.0 to 1.4.10 [\#467](https://github.com/apache/camel-k-runtime/pull/467) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump jaeger-client from 1.3.2 to 1.4.0 [\#466](https://github.com/apache/camel-k-runtime/pull/466) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Automatic changelog: Let's run during the night just one time [\#465](https://github.com/apache/camel-k-runtime/pull/465) ([oscerd](https://github.com/oscerd))
 - Changelog updater: run every hour [\#464](https://github.com/apache/camel-k-runtime/pull/464) ([oscerd](https://github.com/oscerd))
 - Use camel-dependencies instead of our own [\#463](https://github.com/apache/camel-k-runtime/pull/463) ([lburgazzoli](https://github.com/lburgazzoli))
