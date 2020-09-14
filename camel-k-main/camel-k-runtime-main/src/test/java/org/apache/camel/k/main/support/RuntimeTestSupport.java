@@ -23,7 +23,7 @@ import org.apache.camel.k.listener.SourcesConfigurer;
 import org.apache.camel.k.main.ApplicationRuntime;
 import org.junit.jupiter.api.function.ThrowingConsumer;
 
-public class RuntimeTestSupport {
+public final class RuntimeTestSupport {
     private RuntimeTestSupport() {
     }
 

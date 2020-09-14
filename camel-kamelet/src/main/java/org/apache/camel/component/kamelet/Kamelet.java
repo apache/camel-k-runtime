@@ -31,10 +31,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public final class Kamelet {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Kamelet.class);
-
-    public static final String SCHEME = "kamelet";
     public static final String PROPERTIES_PREFIX = "camel.kamelet.";
+    public static final String SCHEME = "kamelet";
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(Kamelet.class);
 
     private Kamelet() {
     }

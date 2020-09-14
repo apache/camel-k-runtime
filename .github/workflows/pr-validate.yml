@@ -35,9 +35,8 @@ jobs:
       with:
         version: '11'
     - name: mvn package
-      if: contains( github.event.pull_request.labels.*.name, 'depends-on/camel/master') == 'false' && contains( github.event.pull_request.labels.*.name, 'depends-on/quarkus/master') == 'false'
       run: |
-        ./mvnw -fae -B -ntp clean verify \
+        ./mvnw -ntp clean verify \
           -Dcheckstyle.failOnViolation=true \
           -DskipTests \
           -Psourcecheck,license
