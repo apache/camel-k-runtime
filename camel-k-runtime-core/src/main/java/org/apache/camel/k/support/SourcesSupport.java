@@ -88,7 +88,7 @@ public final class SourcesSupport {
         final SourceLoader loader = RuntimeSupport.loaderFor(runtime.getCamelContext(), source);
         final List<SourceLoader.Interceptor> interceptors = source.getType() == SourceType.source
             ? sourceInterceptors(runtime, source)
-            : templateInterceptors(runtime, source);
+            : templateInterceptors(source);
 
         try {
             for (SourceLoader.Interceptor interceptor: interceptors) {
@@ -118,7 +118,7 @@ public final class SourcesSupport {
         return RuntimeSupport.loadInterceptors(runtime.getCamelContext(), source);
     }
 
-    private static List<SourceLoader.Interceptor> templateInterceptors(Runtime runtime, Source source) {
+    private static List<SourceLoader.Interceptor> templateInterceptors(Source source) {
         if (!source.getInterceptors().isEmpty()) {
             LOGGER.warn("Interceptors associated to the route template {} will be ignored", source.getName());
         }

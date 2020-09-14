@@ -16,8 +16,6 @@
     "extendsScheme": "",
     "syntax": "kamelet:templateId\/routeId",
     "async": false,
-    "api": false,
-    "apiPropertyQualifier": "",
     "consumerOnly": false,
     "producerOnly": false,
     "lenientProperties": true

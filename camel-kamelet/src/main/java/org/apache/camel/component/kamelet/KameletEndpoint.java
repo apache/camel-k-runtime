@@ -53,8 +53,6 @@ public class KameletEndpoint extends DefaultEndpoint {
 
     private final Map<String, Object> kameletProperties;
     private final String kameletUri;
-    private Producer producer;
-    private Consumer consumer;
 
     public KameletEndpoint(
             String uri,

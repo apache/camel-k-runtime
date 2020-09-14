@@ -18,6 +18,7 @@ package org.apache.camel.k.quarkus.kamelet.deployment;
 
 import java.util.Locale;
 import java.util.stream.Collectors;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -40,7 +41,7 @@ import org.apache.camel.model.RouteTemplateDefinition;
 @Path("/test")
 @ApplicationScoped
 public class Application {
-    public static String TEMPLATE_ID = "to-upper";
+    public static final String TEMPLATE_ID = "to-upper";
 
     @Inject
     CamelContext context;

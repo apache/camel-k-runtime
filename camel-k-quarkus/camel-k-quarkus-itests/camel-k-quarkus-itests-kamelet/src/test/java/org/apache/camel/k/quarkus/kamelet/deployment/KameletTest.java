@@ -17,6 +17,7 @@
 package org.apache.camel.k.quarkus.kamelet.deployment;
 
 import java.util.Locale;
+
 import javax.ws.rs.core.MediaType;
 
 import io.quarkus.test.junit.QuarkusTest;
