@@ -9,11 +9,14 @@
 - Use camel-dependencies instead of our own [\#459](https://github.com/apache/camel-k-runtime/issues/459)
 - knative: support for programmatically add entries to the knative environment [\#454](https://github.com/apache/camel-k-runtime/issues/454)
 - Invalid example on yaml language docu [\#423](https://github.com/apache/camel-k-runtime/issues/423)
+- kamelets: create a camel-kamelet component [\#375](https://github.com/apache/camel-k-runtime/issues/375)
 - \[quarkus\] add tests for jvm only loaders [\#215](https://github.com/apache/camel-k-runtime/issues/215)
 - add support for component customizer [\#58](https://github.com/apache/camel-k-runtime/issues/58)
 
 **Merged pull requests:**
 
+- Fix PMD and checkstyle violations [\#469](https://github.com/apache/camel-k-runtime/pull/469) ([lburgazzoli](https://github.com/lburgazzoli))
+- Switch from Gitter to Zulip [\#468](https://github.com/apache/camel-k-runtime/pull/468) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps\): bump kotlin-version from 1.4.0 to 1.4.10 [\#467](https://github.com/apache/camel-k-runtime/pull/467) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump jaeger-client from 1.3.2 to 1.4.0 [\#466](https://github.com/apache/camel-k-runtime/pull/466) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Automatic changelog: Let's run during the night just one time [\#465](https://github.com/apache/camel-k-runtime/pull/465) ([oscerd](https://github.com/oscerd))
@@ -23,6 +26,7 @@
 - Cleanup dependencies [\#461](https://github.com/apache/camel-k-runtime/pull/461) ([lburgazzoli](https://github.com/lburgazzoli))
 - Added an automatic changelog gh action [\#460](https://github.com/apache/camel-k-runtime/pull/460) ([oscerd](https://github.com/oscerd))
 - Upgrade Assertj to version 3.17.1 [\#457](https://github.com/apache/camel-k-runtime/pull/457) ([oscerd](https://github.com/oscerd))
+- Kamelets [\#456](https://github.com/apache/camel-k-runtime/pull/456) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps\): bump assertj-core from 3.16.1 to 3.17.0 [\#455](https://github.com/apache/camel-k-runtime/pull/455) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Invalid example on yaml language docu [\#452](https://github.com/apache/camel-k-runtime/pull/452) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(ci\): Ignore some paths on the PR validate workflow [\#451](https://github.com/apache/camel-k-runtime/pull/451) ([jamesnetherton](https://github.com/jamesnetherton))
