@@ -27,6 +27,7 @@ import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 import org.apache.camel.k.Constants;
+import org.apache.camel.k.ContextCustomizer;
 import org.apache.camel.k.SourceDefinition;
 import org.apache.camel.k.core.quarkus.RuntimeRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextCustomizerBuildItem;
@@ -57,9 +58,17 @@ public class DeploymentProcessor {
     }
 
     @BuildStep
-    List<ReflectiveClassBuildItem> registerClasses() {
-       return List.of(
-           new ReflectiveClassBuildItem(true, false, SourceDefinition.class)
+    List<ReflectiveClassBuildItem> registerClasses(CombinedIndexBuildItem index) {
+        return List.of(
+           new ReflectiveClassBuildItem(
+               true,
+               false,
+               SourceDefinition.class),
+           new ReflectiveClassBuildItem(
+               true,
+               false,
+               getAllKnownImplementors(index.getIndex(), ContextCustomizer.class, ci -> ci.name().toString())
+                   .toArray(String[]::new))
        );
     }
 

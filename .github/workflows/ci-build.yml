@@ -100,7 +100,6 @@ jobs:
         with:
           version:  ${{ matrix.java }}
       - name: Build on ${{ matrix.java }}
-        if: contains( github.event.pull_request.labels.*.name, 'depends-on/camel/master') == 'false' && contains( github.event.pull_request.labels.*.name, 'depends-on/quarkus/master') == 'false'
         run: |
           ./mvnw -V -B -ntp clean install
   build-native:
@@ -112,6 +111,7 @@ jobs:
         native-image-project:
           - :camel-k-quarkus-itests-core
           - :camel-k-quarkus-itests-cron
+          - :camel-k-quarkus-itests-master
           - :camel-k-quarkus-itests-kamelet
           - :camel-k-quarkus-itests-knative
           - :camel-k-quarkus-itests-loader-xml

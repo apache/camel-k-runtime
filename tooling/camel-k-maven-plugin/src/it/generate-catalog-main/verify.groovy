@@ -36,6 +36,8 @@ new File(basedir, "catalog.yaml").withReader {
     assert catalog.spec.runtime.capabilities['circuit-breaker'].dependencies[0].artifactId == 'camel-microprofile-fault-tolerance'
     assert catalog.spec.runtime.capabilities['tracing'].dependencies[0].groupId == 'org.apache.camel.k'
     assert catalog.spec.runtime.capabilities['tracing'].dependencies[0].artifactId == 'camel-k-runtime-tracing'
+    assert catalog.spec.runtime.capabilities['master'].dependencies[0].groupId == 'org.apache.camel.k'
+    assert catalog.spec.runtime.capabilities['master'].dependencies[0].artifactId == 'camel-k-runtime-master'
 
     assert catalog.metadata.labels['camel.apache.org/runtime.version'] == runtimeVersion
 

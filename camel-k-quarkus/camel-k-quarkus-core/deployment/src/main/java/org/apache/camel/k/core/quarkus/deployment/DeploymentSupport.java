@@ -35,62 +35,62 @@ public final class DeploymentSupport {
     public static Iterable<ClassInfo> getAllKnownImplementors(IndexView view, String name) {
         return view.getAllKnownImplementors(DotName.createSimple(name));
     }
-    public static <T> Iterable<T> getAllKnownImplementors(IndexView view, String name, Function<ClassInfo, T> mapper) {
-        return stream(getAllKnownImplementors(view, name)).map(mapper).collect(Collectors.toList());
+    public static <T> Stream<T> getAllKnownImplementors(IndexView view, String name, Function<ClassInfo, T> mapper) {
+        return stream(getAllKnownImplementors(view, name)).map(mapper);
     }
 
 
     public static Iterable<ClassInfo> getAllKnownImplementors(IndexView view, Class<?> type) {
         return view.getAllKnownImplementors(DotName.createSimple(type.getName()));
     }
-    public static <T> Iterable<T> getAllKnownImplementors(IndexView view, Class<?> type, Function<ClassInfo, T> mapper) {
-        return stream(getAllKnownImplementors(view, type)).map(mapper).collect(Collectors.toList());
+    public static <T> Stream<T> getAllKnownImplementors(IndexView view, Class<?> type, Function<ClassInfo, T> mapper) {
+        return stream(getAllKnownImplementors(view, type)).map(mapper);
     }
 
 
     public static Iterable<ClassInfo> getAllKnownImplementors(IndexView view, DotName type) {
         return view.getAllKnownImplementors(type);
     }
-    public static <T> Iterable<T> getAllKnownImplementors(IndexView view, DotName type, Function<ClassInfo, T> mapper) {
-        return stream(getAllKnownImplementors(view, type)).map(mapper).collect(Collectors.toList());
+    public static <T> Stream<T> getAllKnownImplementors(IndexView view, DotName type, Function<ClassInfo, T> mapper) {
+        return stream(getAllKnownImplementors(view, type)).map(mapper);
     }
 
 
     public static Iterable<ClassInfo> getAllKnownSubclasses(IndexView view, String name) {
         return view.getAllKnownSubclasses(DotName.createSimple(name));
     }
-    public static <T> Iterable<T> getAllKnownSubclasses(IndexView view, String name, Function<ClassInfo, T> mapper) {
-        return stream(getAllKnownSubclasses(view, name)).map(mapper).collect(Collectors.toList());
+    public static <T> Stream<T> getAllKnownSubclasses(IndexView view, String name, Function<ClassInfo, T> mapper) {
+        return stream(getAllKnownSubclasses(view, name)).map(mapper);
     }
 
 
     public static Iterable<ClassInfo> getAllKnownSubclasses(IndexView view, Class<?> type) {
         return view.getAllKnownSubclasses(DotName.createSimple(type.getName()));
     }
-    public static <T> Iterable<T> getAllKnownSubclasses(IndexView view, Class<?> type, Function<ClassInfo, T> mapper) {
-        return stream(getAllKnownSubclasses(view, type)).map(mapper).collect(Collectors.toList());
+    public static <T> Stream<T> getAllKnownSubclasses(IndexView view, Class<?> type, Function<ClassInfo, T> mapper) {
+        return stream(getAllKnownSubclasses(view, type)).map(mapper);
     }
 
     public static Iterable<ClassInfo> getAllKnownSubclasses(IndexView view, DotName type) {
         return view.getAllKnownSubclasses(type);
     }
-    public static <T> Iterable<T> getAllKnownSubclasses(IndexView view, DotName type, Function<ClassInfo, T> mapper) {
-        return stream(getAllKnownSubclasses(view, type)).map(mapper).collect(Collectors.toList());
+    public static <T> Stream<T> getAllKnownSubclasses(IndexView view, DotName type, Function<ClassInfo, T> mapper) {
+        return stream(getAllKnownSubclasses(view, type)).map(mapper);
     }
 
 
     public static Iterable<ClassInfo> getAnnotated(IndexView view, String name) {
         return getAnnotated(view, DotName.createSimple(name));
     }
-    public static <T> Iterable<T> getAnnotated(IndexView view, String name, Function<ClassInfo, T> mapper) {
-        return stream(getAnnotated(view, name)).map(mapper).collect(Collectors.toList());
+    public static <T> Stream<T> getAnnotated(IndexView view, String name, Function<ClassInfo, T> mapper) {
+        return stream(getAnnotated(view, name)).map(mapper);
     }
 
     public static Iterable<ClassInfo> getAnnotated(IndexView view, Class<?> type) {
         return getAnnotated(view, DotName.createSimple(type.getName()));
     }
-    public static <T> Iterable<T> getAnnotated(IndexView view, Class<?> type, Function<ClassInfo, T> mapper) {
-        return stream(getAnnotated(view, type)).map(mapper).collect(Collectors.toList());
+    public static <T> Stream<T> getAnnotated(IndexView view, Class<?> type, Function<ClassInfo, T> mapper) {
+        return stream(getAnnotated(view, type)).map(mapper);
     }
 
     public static Iterable<ClassInfo> getAnnotated(IndexView view, DotName type) {
