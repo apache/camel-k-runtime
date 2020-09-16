@@ -19,7 +19,9 @@ package org.apache.camel.k.webhook;
 import org.apache.camel.CamelContext;
 import org.apache.camel.k.ContextCustomizer;
 import org.apache.camel.k.annotation.Customizer;
+import org.apache.camel.spi.Configurer;
 
+@Configurer
 @Customizer("webhook")
 public class WebhookContextCustomizer implements ContextCustomizer {
     private WebhookAction action;

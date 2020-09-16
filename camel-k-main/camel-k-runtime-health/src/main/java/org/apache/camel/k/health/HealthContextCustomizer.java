@@ -36,7 +36,9 @@ import org.apache.camel.impl.health.ContextHealthCheck;
 import org.apache.camel.impl.health.RoutesHealthCheckRepository;
 import org.apache.camel.k.ContextCustomizer;
 import org.apache.camel.k.annotation.Customizer;
+import org.apache.camel.spi.Configurer;
 
+@Configurer
 @Customizer("health")
 public class HealthContextCustomizer implements ContextCustomizer {
     public static final String DEFAULT_PATH = "/health";

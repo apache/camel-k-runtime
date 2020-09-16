@@ -28,8 +28,10 @@ import org.apache.camel.component.knative.spi.Knative;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
 import org.apache.camel.k.ContextCustomizer;
 import org.apache.camel.k.annotation.Customizer;
+import org.apache.camel.spi.Configurer;
 import org.apache.camel.util.ObjectHelper;
 
+@Configurer
 @Customizer("sinkbinding")
 public class KnativeSinkBindingContextCustomizer implements ContextCustomizer {
 
