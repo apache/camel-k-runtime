@@ -16,6 +16,7 @@
  */
 package org.apache.camel.k.core.quarkus.deployment;
 
+import java.util.Collection;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -104,6 +105,13 @@ public final class DeploymentSupport {
         return stream(getAnnotated(view, type)).map(mapper).collect(Collectors.toList());
     }
 
+    public static ReflectiveClassBuildItem reflectiveClassBuildItem(Class<?>... classes) {
+        return new ReflectiveClassBuildItem(true, false, classes);
+    }
+
+    public static ReflectiveClassBuildItem reflectiveClassBuildItem(boolean methods, boolean fields, Class<?>... classes) {
+        return new ReflectiveClassBuildItem(methods, fields, classes);
+    }
 
     public static ReflectiveClassBuildItem reflectiveClassBuildItem(ClassInfo... classInfos) {
         return classInfos.length == 1
@@ -121,11 +129,55 @@ public final class DeploymentSupport {
         );
     }
 
+    public static ReflectiveClassBuildItem reflectiveClassBuildItem(Collection<ClassInfo> classInfos) {
+        return new ReflectiveClassBuildItem(
+            true,
+            false,
+            classInfos.stream()
+                .map(ClassInfo::name)
+                .map(DotName::toString)
+                .toArray(String[]::new)
+        );
+    }
+
+    public static ReflectiveClassBuildItem reflectiveClassBuildItem(Iterable<ClassInfo> classInfos) {
+        return new ReflectiveClassBuildItem(
+            true,
+            false,
+            stream(classInfos)
+                .map(ClassInfo::name)
+                .map(DotName::toString)
+                .toArray(String[]::new)
+        );
+    }
+
     public static ReflectiveClassBuildItem reflectiveClassBuildItem(boolean methods, boolean fields, ClassInfo... classInfos) {
         return new ReflectiveClassBuildItem(
             methods,
             fields,
             Stream.of(classInfos)
+                .map(ClassInfo::name)
+                .map(DotName::toString)
+                .toArray(String[]::new)
+        );
+    }
+
+    public static ReflectiveClassBuildItem reflectiveClassBuildItem(boolean methods, boolean fields, Collection<ClassInfo> classInfos) {
+        return new ReflectiveClassBuildItem(
+            methods,
+            fields,
+            classInfos.stream()
+                .map(ClassInfo::name)
+                .map(DotName::toString)
+                .toArray(String[]::new)
+        );
+    }
+
+    public static ReflectiveClassBuildItem reflectiveClassBuildItem(boolean methods, boolean fields, Iterable<ClassInfo> classInfos) {
+        return new ReflectiveClassBuildItem(
+            methods,
+            fields,
+            stream(classInfos)
                 .map(ClassInfo::name)
                 .map(DotName::toString)
                 .toArray(String[]::new)

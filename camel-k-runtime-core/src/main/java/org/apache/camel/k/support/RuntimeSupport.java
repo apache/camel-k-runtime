@@ -240,7 +240,8 @@ public final class RuntimeSupport {
                     LOGGER.debug("Found source loader interceptor {} from registry", id);
                 }
 
-                PropertiesSupport.bindProperties(context, interceptor, "loader.interceptor." + id + ".");
+                PropertiesSupport.bindProperties(context, interceptor, Constants.LOADER_INTERCEPTOR_PREFIX + id + ".");
+                PropertiesSupport.bindProperties(context, interceptor, Constants.LOADER_INTERCEPTOR_PREFIX_FALLBACK + id + ".");
 
                 answer.add(interceptor);
             } catch (Exception e) {

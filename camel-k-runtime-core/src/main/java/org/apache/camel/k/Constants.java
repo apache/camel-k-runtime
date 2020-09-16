@@ -56,6 +56,8 @@ public final class Constants {
 
     public static final String CUSTOMIZER_PREFIX = "camel.k.customizer.";
     public static final String CUSTOMIZER_PREFIX_FALLBACK = "customizer.";
+    public static final String LOADER_INTERCEPTOR_PREFIX = "camel.k.loader.interceptor.";
+    public static final String LOADER_INTERCEPTOR_PREFIX_FALLBACK = "loader.interceptor.";
 
 
     private Constants() {
