@@ -145,6 +145,10 @@ public class GenerateCatalogMojo extends AbstractMojo {
                         "tracing",
                         CamelCapability.forArtifact(
                             "org.apache.camel.k", "camel-k-runtime-tracing"));
+                    runtimeSpec.putCapability(
+                        "master",
+                        CamelCapability.forArtifact(
+                            "org.apache.camel.k", "camel-k-runtime-master"));
                     break;
                 case "quarkus":
                     catalog.setRuntimeProvider(new QuarkusRuntimeProvider());
@@ -176,6 +180,10 @@ public class GenerateCatalogMojo extends AbstractMojo {
                         "tracing",
                         CamelCapability.forArtifact(
                             "org.apache.camel.quarkus", "camel-quarkus-opentracing"));
+                    runtimeSpec.putCapability(
+                        "master",
+                        CamelCapability.forArtifact(
+                            "org.apache.camel.quarkus", "camel-quarkus-master"));
                     break;
                 default:
                     throw new IllegalArgumentException("catalog.runtime parameter value [" + runtime + "] is not supported!");
