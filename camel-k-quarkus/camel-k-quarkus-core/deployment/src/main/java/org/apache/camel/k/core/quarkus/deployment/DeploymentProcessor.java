@@ -29,6 +29,7 @@ import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 import org.apache.camel.k.Constants;
 import org.apache.camel.k.ContextCustomizer;
 import org.apache.camel.k.SourceDefinition;
+import org.apache.camel.k.SourceLoader;
 import org.apache.camel.k.core.quarkus.RuntimeRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextCustomizerBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceDestination;
@@ -54,21 +55,14 @@ public class DeploymentProcessor {
                 true,
                 Constants.SOURCE_LOADER_INTERCEPTOR_RESOURCE_PATH + "/*")
         );
-
     }
 
     @BuildStep
     List<ReflectiveClassBuildItem> registerClasses(CombinedIndexBuildItem index) {
         return List.of(
-           new ReflectiveClassBuildItem(
-               true,
-               false,
-               SourceDefinition.class),
-           new ReflectiveClassBuildItem(
-               true,
-               false,
-               getAllKnownImplementors(index.getIndex(), ContextCustomizer.class, ci -> ci.name().toString())
-                   .toArray(String[]::new))
+            reflectiveClassBuildItem(SourceDefinition.class),
+            reflectiveClassBuildItem(getAllKnownImplementors(index.getIndex(), ContextCustomizer.class)),
+            reflectiveClassBuildItem(getAllKnownImplementors(index.getIndex(), SourceLoader.Interceptor.class))
        );
     }
 

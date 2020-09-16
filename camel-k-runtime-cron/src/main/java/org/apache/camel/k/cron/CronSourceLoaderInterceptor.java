@@ -28,11 +28,13 @@ import org.apache.camel.k.annotation.LoaderInterceptor;
 import org.apache.camel.k.support.RuntimeSupport;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.spi.CamelEvent;
+import org.apache.camel.spi.Configurer;
 import org.apache.camel.support.EventNotifierSupport;
 import org.apache.camel.util.ObjectHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Configurer
 @LoaderInterceptor("cron")
 public class CronSourceLoaderInterceptor implements SourceLoader.Interceptor, RuntimeAware {
 
