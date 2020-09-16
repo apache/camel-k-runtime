@@ -25,8 +25,9 @@ import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpServer;
 import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpServerConfiguration;
 import org.apache.camel.k.ContextCustomizer;
 import org.apache.camel.k.annotation.Customizer;
+import org.apache.camel.spi.Configurer;
 
-
+@Configurer
 @Customizer("platform-http")
 public class PlatformHttpServiceContextCustomizer extends VertxPlatformHttpServerConfiguration implements ContextCustomizer {
     @Override

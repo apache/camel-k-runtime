@@ -25,8 +25,10 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.k.ContextCustomizer;
 import org.apache.camel.k.annotation.Customizer;
 import org.apache.camel.opentracing.OpenTracingTracer;
+import org.apache.camel.spi.Configurer;
 import org.apache.camel.util.ObjectHelper;
 
+@Configurer
 @Customizer("tracing")
 public class TracingContextCustomizer implements ContextCustomizer {
     private String serviceName;
