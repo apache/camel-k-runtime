@@ -30,6 +30,7 @@
 
     <modules>
         <module>camel-k-quarkus-itests-core</module>
+        <module>camel-k-quarkus-itests-runtime</module>
         <module>camel-k-quarkus-itests-cron</module>
         <module>camel-k-quarkus-itests-master</module>
         <module>camel-k-quarkus-itests-kamelet</module>

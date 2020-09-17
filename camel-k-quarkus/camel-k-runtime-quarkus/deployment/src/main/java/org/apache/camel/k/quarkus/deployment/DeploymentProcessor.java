@@ -20,13 +20,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ServiceLoader;
 
+import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
+import io.quarkus.arc.deployment.BeanContainerBuildItem;
+import io.quarkus.arc.deployment.SyntheticBeansRuntimeInitBuildItem;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.Consume;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.k.Runtime;
+import org.apache.camel.k.quarkus.ApplicationProducers;
 import org.apache.camel.k.quarkus.ApplicationRecorder;
+import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeTaskBuildItem;
 import org.apache.camel.quarkus.main.CamelMainApplication;
+import org.apache.camel.quarkus.main.deployment.spi.CamelMainBuildItem;
 import org.apache.camel.quarkus.main.deployment.spi.CamelMainListenerBuildItem;
 
 public class DeploymentProcessor {
@@ -42,5 +49,25 @@ public class DeploymentProcessor {
         ServiceLoader.load(Runtime.Listener.class).forEach(listeners::add);
 
         return new CamelMainListenerBuildItem(recorder.createMainListener(listeners));
+    }
+
+    @Record(ExecutionTime.RUNTIME_INIT)
+    @BuildStep
+    @Consume(SyntheticBeansRuntimeInitBuildItem.class)
+    CamelRuntimeTaskBuildItem registerRuntime(
+            ApplicationRecorder recorder,
+            CamelMainBuildItem camelMain,
+            BeanContainerBuildItem beanContainer) {
+
+        recorder.publishRuntime(camelMain.getInstance(), beanContainer.getValue());
+
+        return new CamelRuntimeTaskBuildItem("camel-k-runtime");
+    }
+
+    @BuildStep
+    List<AdditionalBeanBuildItem> unremovableBeans() {
+       return List.of(
+           AdditionalBeanBuildItem.unremovableOf(ApplicationProducers.class)
+       );
     }
 }

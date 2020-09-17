@@ -14,35 +14,44 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.quarkus.master;
+package org.apache.camel.k.quarkus;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import javax.enterprise.inject.Produces;
+import javax.inject.Singleton;
 
-import org.apache.camel.CamelContext;
-import org.apache.camel.component.kubernetes.cluster.KubernetesClusterService;
+import io.quarkus.arc.DefaultBean;
+import io.quarkus.arc.Unremovable;
+import io.quarkus.runtime.Quarkus;
+import org.apache.camel.k.Runtime;
 
-@Path("/test")
 @ApplicationScoped
-public class Application {
-    @Inject
-    CamelContext context;
+public class ApplicationProducers {
+    private volatile Runtime runtime;
 
-    @GET
-    @Path("/inspect")
-    @Produces(MediaType.APPLICATION_JSON)
-    public JsonObject inspect() {
-        var service = context.hasService(KubernetesClusterService.class);
+    public void setRuntime(Runtime runtime) {
+        this.runtime = runtime;
+    }
 
-        return Json.createObjectBuilder()
-            .add("cluster-service", service != null ? service.getClass().getName() : "")
-            .add("cluster-service-cm", service != null ? service.getConfigMapName() : "")
-            .build();
+    @Unremovable
+    @Singleton
+    @Produces
+    Runtime runtime() {
+        return this.runtime;
+    }
+
+    @Unremovable
+    @DefaultBean
+    @Singleton
+    @Produces
+    Application.ShutdownTask shutdownTask() {
+        return new DefaultShutdownTask();
+    }
+
+    public static class DefaultShutdownTask implements Application.ShutdownTask {
+        @Override
+        public void run() {
+            Quarkus.asyncExit();
+        }
     }
 }

@@ -25,27 +25,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>camel-k-quarkus-itests-cron</artifactId>
+    <artifactId>camel-k-quarkus-itests-runtime</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
             <artifactId>camel-k-runtime-quarkus</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-quarkus-cron</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-quarkus-loader-yaml</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-timer</artifactId>
-        </dependency>
 
-        <!-- quarkus dependencies -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-jsonb</artifactId>
@@ -75,18 +62,6 @@
             <artifactId>assertj-core</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-core</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.awaitility</groupId>
-            <artifactId>awaitility</artifactId>
-            <version>${awaitility-version}</version>
-        </dependency>
-
     </dependencies>
 
 
@@ -128,9 +103,13 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
+                    <environmentVariables>
+                        <CAMEL_K_CONF>${project.basedir}/src/test/resources/test.properties</CAMEL_K_CONF>
+                    </environmentVariables>
                     <systemProperties>
                         <quarkus.http.test-port>${test.http.port.jvm}</quarkus.http.test-port>
                         <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                        <camel.k.conf>${project.basedir}/src/test/resources/test.properties</camel.k.conf>
                     </systemProperties>
                 </configuration>
             </plugin>
@@ -147,7 +126,6 @@
             </activation>
             <properties>
                 <quarkus.package.type>native</quarkus.package.type>
-                <quarkus.native.additional-build-args>--language:js</quarkus.native.additional-build-args>
             </properties>
             <build>
                 <plugins>
@@ -161,6 +139,9 @@
                                     <goal>verify</goal>
                                 </goals>
                                 <configuration>
+                                    <environmentVariables>
+                                        <CAMEL_K_CONF>${project.basedir}/src/test/resources/test.properties</CAMEL_K_CONF>
+                                    </environmentVariables>
                                     <systemProperties>
                                         <quarkus.http.test-port>${test.http.port.native}</quarkus.http.test-port>
                                         <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
@@ -173,6 +154,5 @@
             </build>
         </profile>
     </profiles>
-
 
 </project>

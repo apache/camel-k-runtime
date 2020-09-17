@@ -110,6 +110,7 @@ jobs:
       matrix:
         native-image-project:
           - :camel-k-quarkus-itests-core
+          - :camel-k-quarkus-itests-runtime
           - :camel-k-quarkus-itests-cron
           - :camel-k-quarkus-itests-master
           - :camel-k-quarkus-itests-kamelet

@@ -16,23 +16,43 @@
  */
 package org.apache.camel.k.quarkus.cron.deployment;
 
-import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.apache.camel.k.cron.CronSourceLoaderInterceptor;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.when;
+import static org.awaitility.Awaitility.await;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 public class CronTest {
     @Test
-    public void cronInterceptorIsRegistered() throws IOException {
+    public void cronInterceptorIsRegistered() {
         when()
             .get("/test/find-cron-interceptor")
         .then()
             .statusCode(200)
             .body(is(CronSourceLoaderInterceptor.class.getName()));
+    }
+
+    @Test
+    public void cronInvokesShutdown() {
+        when()
+            .get("/test/load")
+            .then()
+            .statusCode(200)
+            .body(is("1"));
+
+        await().atMost(10, TimeUnit.SECONDS).until(() -> {
+            String result = when()
+                .get("/test/stopped")
+                .then()
+                .statusCode(200)
+                .extract().body().asString();
+
+            return "true".equals(result);
+        });
     }
 }

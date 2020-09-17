@@ -14,24 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.quarkus;
+package org.apache.camel.k.quarkus.it;
 
-import java.util.List;
+import io.quarkus.test.junit.NativeImageTest;
 
-import io.quarkus.arc.runtime.BeanContainer;
-import io.quarkus.runtime.RuntimeValue;
-import io.quarkus.runtime.annotations.Recorder;
-import org.apache.camel.k.Runtime;
-import org.apache.camel.main.MainListener;
-import org.apache.camel.quarkus.main.CamelMain;
-
-@Recorder
-public class ApplicationRecorder {
-    public RuntimeValue<MainListener> createMainListener(List<Runtime.Listener> listeners) {
-        return new RuntimeValue<>(new Application.ListenerAdapter(listeners));
-    }
-
-    public void publishRuntime(RuntimeValue<CamelMain> main, BeanContainer container) {
-        container.instance(ApplicationProducers.class).setRuntime(new Application.Runtime(main.getValue()));
-    }
+@NativeImageTest
+public class RuntimeIT extends RuntimeTest {
 }
