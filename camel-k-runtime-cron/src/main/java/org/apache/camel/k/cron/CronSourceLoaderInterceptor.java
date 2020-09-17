@@ -30,6 +30,7 @@ import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.spi.CamelEvent;
 import org.apache.camel.spi.Configurer;
 import org.apache.camel.support.EventNotifierSupport;
+import org.apache.camel.support.service.ServiceHelper;
 import org.apache.camel.util.ObjectHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -100,7 +101,10 @@ public class CronSourceLoaderInterceptor implements SourceLoader.Interceptor, Ru
                             // Don't install the shutdown strategy more than once.
                             //
                             if (context.getManagementStrategy().getEventNotifiers().stream().noneMatch(CronShutdownStrategy.class::isInstance)) {
-                                context.getManagementStrategy().addEventNotifier(new CronShutdownStrategy(runtime));
+                                CronShutdownStrategy strategy = new CronShutdownStrategy(runtime);
+                                ServiceHelper.startService(strategy);
+
+                                context.getManagementStrategy().addEventNotifier(strategy);
                             }
                         }
                     }

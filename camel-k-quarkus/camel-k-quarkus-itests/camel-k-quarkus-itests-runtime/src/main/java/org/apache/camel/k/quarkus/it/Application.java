@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.quarkus.master;
+package org.apache.camel.k.quarkus.it;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -22,27 +22,52 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.component.kubernetes.cluster.KubernetesClusterService;
+import org.apache.camel.k.Runtime;
+import org.eclipse.microprofile.config.Config;
+
+import static org.apache.camel.k.quarkus.Application.instance;
 
 @Path("/test")
 @ApplicationScoped
 public class Application {
     @Inject
-    CamelContext context;
+    Config config;
 
     @GET
     @Path("/inspect")
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject inspect() {
-        var service = context.hasService(KubernetesClusterService.class);
-
         return Json.createObjectBuilder()
-            .add("cluster-service", service != null ? service.getClass().getName() : "")
-            .add("cluster-service-cm", service != null ? service.getConfigMapName() : "")
+            .add(
+                "camel-context",
+                instance(CamelContext.class)
+                    .map(Object::getClass)
+                    .map(Class::getName)
+                    .orElse(""))
+            .add(
+                "camel-k-runtime",
+                instance(Runtime.class)
+                    .map(Object::getClass)
+                    .map(Class::getName)
+                    .orElse(""))
+            .add(
+                "shutdown-task",
+                instance(org.apache.camel.k.quarkus.Application.ShutdownTask.class)
+                    .map(Object::getClass)
+                    .map(Class::getName)
+                    .orElse(""))
             .build();
+    }
+
+    @GET
+    @Path("/property/{name}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String property(@PathParam("name") String name) {
+        return config.getValue(name, String.class);
     }
 }

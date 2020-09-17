@@ -24,7 +24,7 @@ import org.apache.camel.k.support.PropertiesSupport;
 import org.eclipse.microprofile.config.spi.ConfigSource;
 import org.eclipse.microprofile.config.spi.ConfigSourceProvider;
 
-public class ApplicationRuntimeConfigSourceProvider implements ConfigSourceProvider {
+public class ApplicationConfigSourceProvider implements ConfigSourceProvider {
     @Override
     public Iterable<ConfigSource> getConfigSources(ClassLoader forClassLoader) {
         final Properties applicationProperties = PropertiesSupport.loadProperties();
