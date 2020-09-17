@@ -6,15 +6,22 @@
 
 **Closed issues:**
 
+- Create an extension fot camel-k-runtime-master [\#470](https://github.com/apache/camel-k-runtime/issues/470)
 - Use camel-dependencies instead of our own [\#459](https://github.com/apache/camel-k-runtime/issues/459)
 - knative: support for programmatically add entries to the knative environment [\#454](https://github.com/apache/camel-k-runtime/issues/454)
 - Invalid example on yaml language docu [\#423](https://github.com/apache/camel-k-runtime/issues/423)
+- \[yaml\] support for configuring beans with the yaml dsl [\#376](https://github.com/apache/camel-k-runtime/issues/376)
 - kamelets: create a camel-kamelet component [\#375](https://github.com/apache/camel-k-runtime/issues/375)
 - \[quarkus\] add tests for jvm only loaders [\#215](https://github.com/apache/camel-k-runtime/issues/215)
 - add support for component customizer [\#58](https://github.com/apache/camel-k-runtime/issues/58)
 
 **Merged pull requests:**
 
+- Generate Configurer to bind properties SourceLoader.Interceptor without the need for reflection [\#475](https://github.com/apache/camel-k-runtime/pull/475) ([lburgazzoli](https://github.com/lburgazzoli))
+- \[yaml\] support for configuring beans with the yaml dsl [\#474](https://github.com/apache/camel-k-runtime/pull/474) ([lburgazzoli](https://github.com/lburgazzoli))
+- Generate Configurer to bind properties to Customizers without the need for reflection [\#473](https://github.com/apache/camel-k-runtime/pull/473) ([lburgazzoli](https://github.com/lburgazzoli))
+- chore\(build\): enable native tests for js loader [\#472](https://github.com/apache/camel-k-runtime/pull/472) ([lburgazzoli](https://github.com/lburgazzoli))
+- Create an extension fot camel-k-runtime-master [\#471](https://github.com/apache/camel-k-runtime/pull/471) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix PMD and checkstyle violations [\#469](https://github.com/apache/camel-k-runtime/pull/469) ([lburgazzoli](https://github.com/lburgazzoli))
 - Switch from Gitter to Zulip [\#468](https://github.com/apache/camel-k-runtime/pull/468) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps\): bump kotlin-version from 1.4.0 to 1.4.10 [\#467](https://github.com/apache/camel-k-runtime/pull/467) ([dependabot[bot]](https://github.com/apps/dependabot))
