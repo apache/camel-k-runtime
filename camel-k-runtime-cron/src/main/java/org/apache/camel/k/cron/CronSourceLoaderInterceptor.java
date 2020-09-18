@@ -52,9 +52,8 @@ public class CronSourceLoaderInterceptor implements SourceLoader.Interceptor, Ru
         return timerUri;
     }
 
-    public CronSourceLoaderInterceptor setTimerUri(String timerUri) {
+    public void setTimerUri(String timerUri) {
         this.timerUri = timerUri;
-        return this;
     }
 
     public String getOverridableComponents() {
