@@ -27,28 +27,28 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.Consume;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.quarkus.ApplicationProducers;
 import org.apache.camel.k.quarkus.ApplicationRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeTaskBuildItem;
-import org.apache.camel.quarkus.main.CamelMainApplication;
 import org.apache.camel.quarkus.main.deployment.spi.CamelMainBuildItem;
 import org.apache.camel.quarkus.main.deployment.spi.CamelMainListenerBuildItem;
+import org.apache.camel.quarkus.main.deployment.spi.CamelRoutesCollectorBuildItem;
 
 public class DeploymentProcessor {
-    @BuildStep
-    public ReflectiveClassBuildItem reflectiveClasses() {
-        return new ReflectiveClassBuildItem(true, false, CamelMainApplication.class);
-    }
-
     @Record(ExecutionTime.STATIC_INIT)
     @BuildStep
-    CamelMainListenerBuildItem registerListener(ApplicationRecorder recorder) {
+    CamelMainListenerBuildItem mainListener(ApplicationRecorder recorder) {
         List<Runtime.Listener> listeners = new ArrayList<>();
         ServiceLoader.load(Runtime.Listener.class).forEach(listeners::add);
 
         return new CamelMainListenerBuildItem(recorder.createMainListener(listeners));
+    }
+
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep
+    CamelRoutesCollectorBuildItem routesCollector(ApplicationRecorder recorder) {
+        return new CamelRoutesCollectorBuildItem(recorder.createRoutesCollector());
     }
 
     @Record(ExecutionTime.RUNTIME_INIT)
