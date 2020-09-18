@@ -183,7 +183,7 @@ public class GenerateCatalogMojo extends AbstractMojo {
                     runtimeSpec.putCapability(
                         "master",
                         CamelCapability.forArtifact(
-                            "org.apache.camel.quarkus", "camel-quarkus-master"));
+                            "org.apache.camel.k", "camel-k-quarkus-master"));
                     break;
                 default:
                     throw new IllegalArgumentException("catalog.runtime parameter value [" + runtime + "] is not supported!");
