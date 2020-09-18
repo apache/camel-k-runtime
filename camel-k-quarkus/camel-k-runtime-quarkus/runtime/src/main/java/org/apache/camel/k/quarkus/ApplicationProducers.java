@@ -20,9 +20,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Singleton;
 
-import io.quarkus.arc.DefaultBean;
 import io.quarkus.arc.Unremovable;
-import io.quarkus.runtime.Quarkus;
 import org.apache.camel.k.Runtime;
 
 @ApplicationScoped
@@ -38,20 +36,5 @@ public class ApplicationProducers {
     @Produces
     Runtime runtime() {
         return this.runtime;
-    }
-
-    @Unremovable
-    @DefaultBean
-    @Singleton
-    @Produces
-    Application.ShutdownTask shutdownTask() {
-        return new DefaultShutdownTask();
-    }
-
-    public static class DefaultShutdownTask implements Application.ShutdownTask {
-        @Override
-        public void run() {
-            Quarkus.asyncExit();
-        }
     }
 }
