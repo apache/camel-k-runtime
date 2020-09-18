@@ -75,9 +75,7 @@ public final class Application {
         @Override
         public void stop() throws Exception {
             if (!this.stopped.compareAndExchange(false, true)) {
-                instance(ShutdownTask.class).ifPresentOrElse(
-                    ShutdownTask::run,
-                    Quarkus::asyncExit);
+                Quarkus.asyncExit();
             }
         }
     }
@@ -142,14 +140,6 @@ public final class Application {
                 listeners[i].accept(phase, runtime);
             }
         }
-    }
-
-    /**
-     * Provide the task to be executed to shutdown the runtime
-     */
-    @FunctionalInterface
-    public interface ShutdownTask {
-        void run();
     }
 
     // *********************************

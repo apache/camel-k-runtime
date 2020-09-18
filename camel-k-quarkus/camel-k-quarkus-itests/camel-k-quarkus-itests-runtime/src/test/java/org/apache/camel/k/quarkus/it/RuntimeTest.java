@@ -22,7 +22,6 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import org.apache.camel.k.quarkus.Application;
-import org.apache.camel.k.quarkus.ApplicationProducers;
 import org.apache.camel.quarkus.core.FastCamelContext;
 import org.junit.jupiter.api.Test;
 
@@ -43,7 +42,6 @@ public class RuntimeTest {
 
         assertThat(p.getString("camel-context")).isEqualTo(FastCamelContext.class.getName());
         assertThat(p.getString("camel-k-runtime")).isEqualTo(Application.Runtime.class.getName());
-        assertThat(p.getString("shutdown-task")).isEqualTo(ApplicationProducers.DefaultShutdownTask.class.getName());
     }
 
     @Test

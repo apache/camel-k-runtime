@@ -22,13 +22,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import io.quarkus.arc.Unremovable;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.k.Constants;
@@ -38,6 +36,7 @@ import org.apache.camel.k.SourceLoader;
 import org.apache.camel.k.Sources;
 import org.apache.camel.k.cron.CronSourceLoaderInterceptor;
 import org.apache.camel.k.loader.yaml.YamlSourceLoader;
+import org.apache.camel.k.support.DelegatingRuntime;
 
 @Path("/test")
 @ApplicationScoped
@@ -72,15 +71,21 @@ public class Application {
 
         final SourceLoader loader = new YamlSourceLoader();
         final Source source = Sources.fromBytes("my-cron", "yaml", null, List.of("cron"), code.getBytes(StandardCharsets.UTF_8));
+        final Runtime rt = new DelegatingRuntime(runtime) {
+            @Override
+            public void stop() throws Exception {
+                stopped.set(true);
+            }
+        };
 
         final CronSourceLoaderInterceptor interceptor = new CronSourceLoaderInterceptor();
-        interceptor.setRuntime(runtime);
+        interceptor.setRuntime(rt);
         interceptor.setOverridableComponents("timer");
 
         SourceLoader.Result result = interceptor.afterLoad(
             loader,
             source,
-            loader.load(runtime, source));
+            loader.load(rt, source));
 
         result.builder().ifPresent(b -> {
             try {
@@ -98,15 +103,5 @@ public class Application {
     @Produces(MediaType.TEXT_PLAIN)
     public String stopped()  {
         return "" + stopped.get();
-    }
-
-    /*
-     * Override the default ShutdownTask for testing purpose.
-     */
-    @Unremovable
-    @Singleton
-    @javax.enterprise.inject.Produces
-    org.apache.camel.k.quarkus.Application.ShutdownTask shutdownTask() {
-        return () -> stopped.set(true);
     }
 }

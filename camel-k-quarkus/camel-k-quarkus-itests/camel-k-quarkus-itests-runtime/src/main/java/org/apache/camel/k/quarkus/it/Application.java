@@ -43,24 +43,8 @@ public class Application {
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject inspect() {
         return Json.createObjectBuilder()
-            .add(
-                "camel-context",
-                instance(CamelContext.class)
-                    .map(Object::getClass)
-                    .map(Class::getName)
-                    .orElse(""))
-            .add(
-                "camel-k-runtime",
-                instance(Runtime.class)
-                    .map(Object::getClass)
-                    .map(Class::getName)
-                    .orElse(""))
-            .add(
-                "shutdown-task",
-                instance(org.apache.camel.k.quarkus.Application.ShutdownTask.class)
-                    .map(Object::getClass)
-                    .map(Class::getName)
-                    .orElse(""))
+            .add("camel-context", instance(CamelContext.class).map(Object::getClass).map(Class::getName).orElse(""))
+            .add("camel-k-runtime", instance(Runtime.class).map(Object::getClass).map(Class::getName).orElse(""))
             .build();
     }
 
