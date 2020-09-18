@@ -21,10 +21,11 @@ import java.util.Optional;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
+import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceLoader;
 import org.apache.camel.k.annotation.LoaderInterceptor;
-import org.apache.camel.k.support.RuntimeSupport;
+import org.apache.camel.k.support.SourcesSupport;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.model.ToDefinition;
 import org.slf4j.Logger;
@@ -44,24 +45,9 @@ public class KnativeSourceLoaderInterceptor implements SourceLoader.Interceptor 
         return new SourceLoader.Result() {
             @Override
             public Optional<RoutesBuilder> builder() {
-                return RuntimeSupport.afterConfigure(result.builder(), builder -> {
-                    final CamelContext camelContext = builder.getContext();
-                    final List<RouteDefinition> definitions = builder.getRouteCollection().getRoutes();
-
-                    if (definitions.size() == 1) {
-                        final String sinkName = camelContext.resolvePropertyPlaceholders("{{knative.sink:sink}}");
-                        final String sinkUri = String.format("knative://endpoint/%s", sinkName);
-                        final RouteDefinition definition = definitions.get(0);
-
-                        LOGGER.info("Add sink:{} to route:{}", sinkUri, definition.getId());
-
-                        // assuming that route is linear like there's no content based routing
-                        // or ant other EIP that would branch the flow
-                        definition.getOutputs().add(new ToDefinition(sinkUri));
-                    } else {
-                        LOGGER.warn("Cannot determine route to enrich. the knative enpoint need to explicitly be defined");
-                    }
-                });
+                return result.builder().map(
+                    bulider -> SourcesSupport.afterConfigure(bulider, KnativeSourceLoaderInterceptor::afterConfigure)
+                );
             }
 
             @Override
@@ -69,6 +55,25 @@ public class KnativeSourceLoaderInterceptor implements SourceLoader.Interceptor 
                 return result.configuration();
             }
         };
+    }
+
+    private static void afterConfigure(RouteBuilder builder) {
+        final CamelContext camelContext = builder.getContext();
+        final List<RouteDefinition> definitions = builder.getRouteCollection().getRoutes();
+
+        if (definitions.size() == 1) {
+            final String sinkName = camelContext.resolvePropertyPlaceholders("{{knative.sink:sink}}");
+            final String sinkUri = String.format("knative://endpoint/%s", sinkName);
+            final RouteDefinition definition = definitions.get(0);
+
+            LOGGER.info("Add sink:{} to route:{}", sinkUri, definition.getId());
+
+            // assuming that route is linear like there's no content based routing
+            // or ant other EIP that would branch the flow
+            definition.getOutputs().add(new ToDefinition(sinkUri));
+        } else {
+            LOGGER.warn("Cannot determine route to enrich. the knative enpoint need to explicitly be defined");
+        }
     }
 
 }
