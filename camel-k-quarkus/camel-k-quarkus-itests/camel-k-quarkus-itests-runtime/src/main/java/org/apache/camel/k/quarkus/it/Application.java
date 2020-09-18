@@ -28,6 +28,8 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.k.Runtime;
+import org.apache.camel.main.BaseMainSupport;
+import org.apache.camel.quarkus.main.CamelMain;
 import org.eclipse.microprofile.config.Config;
 
 import static org.apache.camel.k.quarkus.Application.instance;
@@ -45,6 +47,7 @@ public class Application {
         return Json.createObjectBuilder()
             .add("camel-context", instance(CamelContext.class).map(Object::getClass).map(Class::getName).orElse(""))
             .add("camel-k-runtime", instance(Runtime.class).map(Object::getClass).map(Class::getName).orElse(""))
+            .add("routes-collector", instance(CamelMain.class).map(BaseMainSupport::getRoutesCollector).map(Object::getClass).map(Class::getName).orElse(""))
             .build();
     }
 

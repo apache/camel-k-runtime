@@ -23,6 +23,7 @@ import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.main.MainListener;
+import org.apache.camel.main.RoutesCollector;
 import org.apache.camel.quarkus.main.CamelMain;
 
 @Recorder
@@ -33,5 +34,9 @@ public class ApplicationRecorder {
 
     public void publishRuntime(RuntimeValue<CamelMain> main, BeanContainer container) {
         container.instance(ApplicationProducers.class).setRuntime(new Application.Runtime(main.getValue()));
+    }
+
+    public RuntimeValue<RoutesCollector> createRoutesCollector() {
+        return new RuntimeValue<>(new Application.NoRoutesCollector());
     }
 }

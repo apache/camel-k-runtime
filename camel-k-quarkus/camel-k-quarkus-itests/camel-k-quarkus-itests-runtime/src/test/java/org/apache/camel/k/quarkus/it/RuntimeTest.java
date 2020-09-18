@@ -42,6 +42,7 @@ public class RuntimeTest {
 
         assertThat(p.getString("camel-context")).isEqualTo(FastCamelContext.class.getName());
         assertThat(p.getString("camel-k-runtime")).isEqualTo(Application.Runtime.class.getName());
+        assertThat(p.getString("routes-collector")).isEqualTo(Application.NoRoutesCollector.class.getName());
     }
 
     @Test
