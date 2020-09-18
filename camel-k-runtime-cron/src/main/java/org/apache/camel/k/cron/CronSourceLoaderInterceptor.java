@@ -20,12 +20,13 @@ import java.util.Optional;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
+import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.RuntimeAware;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceLoader;
 import org.apache.camel.k.annotation.LoaderInterceptor;
-import org.apache.camel.k.support.RuntimeSupport;
+import org.apache.camel.k.support.SourcesSupport;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.spi.CamelEvent;
 import org.apache.camel.spi.Configurer;
@@ -84,38 +85,41 @@ public class CronSourceLoaderInterceptor implements SourceLoader.Interceptor, Ru
         return new SourceLoader.Result() {
             @Override
             public Optional<RoutesBuilder> builder() {
-                return RuntimeSupport.afterConfigure(result.builder(), builder -> {
-                    if (ObjectHelper.isEmpty(overridableComponents)) {
-                        return;
-                    }
-
-                    final CamelContext context = runtime.getCamelContext();
-                    final String[] components = overridableComponents.split(",", -1);
-
-                    for (RouteDefinition def : builder.getRouteCollection().getRoutes()) {
-                        String uri = def.getInput() != null ? def.getInput().getUri() : null;
-                        if (shouldBeOverridden(uri, components)) {
-                            def.getInput().setUri(timerUri);
-
-                            //
-                            // Don't install the shutdown strategy more than once.
-                            //
-                            if (context.getManagementStrategy().getEventNotifiers().stream().noneMatch(CronShutdownStrategy.class::isInstance)) {
-                                CronShutdownStrategy strategy = new CronShutdownStrategy(runtime);
-                                ServiceHelper.startService(strategy);
-
-                                context.getManagementStrategy().addEventNotifier(strategy);
-                            }
-                        }
-                    }
-                });
+                return result.builder().map(
+                    builder -> SourcesSupport.afterConfigure(builder, CronSourceLoaderInterceptor.this::afterConfigure)
+                );
             }
-
             @Override
             public Optional<Object> configuration() {
                 return result.configuration();
             }
         };
+    }
+
+    private void afterConfigure(RouteBuilder builder) {
+        if (ObjectHelper.isEmpty(overridableComponents)) {
+            return;
+        }
+
+        final CamelContext context = runtime.getCamelContext();
+        final String[] components = overridableComponents.split(",", -1);
+
+        for (RouteDefinition def : builder.getRouteCollection().getRoutes()) {
+            String uri = def.getInput() != null ? def.getInput().getUri() : null;
+            if (shouldBeOverridden(uri, components)) {
+                def.getInput().setUri(timerUri);
+
+                //
+                // Don't install the shutdown strategy more than once.
+                //
+                if (context.getManagementStrategy().getEventNotifiers().stream().noneMatch(CronShutdownStrategy.class::isInstance)) {
+                    CronShutdownStrategy strategy = new CronShutdownStrategy(runtime);
+                    ServiceHelper.startService(strategy);
+
+                    context.getManagementStrategy().addEventNotifier(strategy);
+                }
+            }
+        }
     }
 
     private static boolean shouldBeOverridden(String uri, String... components) {

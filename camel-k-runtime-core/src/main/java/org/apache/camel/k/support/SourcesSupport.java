@@ -17,7 +17,9 @@
 package org.apache.camel.k.support;
 
 import java.util.List;
+import java.util.function.Consumer;
 
+import org.apache.camel.RoutesBuilder;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.builder.RouteBuilderLifecycleStrategy;
@@ -160,5 +162,37 @@ public final class SourcesSupport {
                 }
             }
         );
+    }
+
+    public static RoutesBuilder beforeConfigure(RoutesBuilder builder, Consumer<RouteBuilder> consumer) {
+        if (builder instanceof RouteBuilder) {
+            ((RouteBuilder) builder).addLifecycleInterceptor(beforeConfigure(consumer));
+        }
+        return builder;
+    }
+
+    public static RouteBuilderLifecycleStrategy beforeConfigure(Consumer<RouteBuilder> consumer) {
+        return new RouteBuilderLifecycleStrategy() {
+            @Override
+            public void beforeConfigure(RouteBuilder builder) {
+                consumer.accept(builder);
+            }
+        };
+    }
+
+    public static RoutesBuilder afterConfigure(RoutesBuilder builder, Consumer<RouteBuilder> consumer) {
+        if (builder instanceof RouteBuilder) {
+            ((RouteBuilder) builder).addLifecycleInterceptor(afterConfigure(consumer));
+        }
+        return builder;
+    }
+
+    public static RouteBuilderLifecycleStrategy afterConfigure(Consumer<RouteBuilder> consumer) {
+        return new RouteBuilderLifecycleStrategy() {
+            @Override
+            public void afterConfigure(RouteBuilder builder) {
+                consumer.accept(builder);
+            }
+        };
     }
 }

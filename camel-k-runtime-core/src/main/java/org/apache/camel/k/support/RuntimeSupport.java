@@ -19,20 +19,15 @@ package org.apache.camel.k.support;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
-import org.apache.camel.RoutesBuilder;
-import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.builder.RouteBuilderLifecycleStrategy;
 import org.apache.camel.k.Constants;
 import org.apache.camel.k.ContextCustomizer;
 import org.apache.camel.k.Source;
@@ -250,42 +245,6 @@ public final class RuntimeSupport {
         }
 
         return answer;
-    }
-
-    public static Optional<RoutesBuilder> beforeConfigure(Optional<RoutesBuilder> builder, Consumer<RouteBuilder> consumer) {
-        return builder.map(b -> {
-            if (b instanceof RouteBuilder) {
-                ((RouteBuilder) b).addLifecycleInterceptor(beforeConfigure(consumer));
-            }
-            return b;
-        });
-    }
-
-    public static RouteBuilderLifecycleStrategy beforeConfigure(Consumer<RouteBuilder> consumer) {
-        return new RouteBuilderLifecycleStrategy() {
-            @Override
-            public void beforeConfigure(RouteBuilder builder) {
-                consumer.accept(builder);
-            }
-        };
-    }
-
-    public static Optional<RoutesBuilder> afterConfigure(Optional<RoutesBuilder> builder, Consumer<RouteBuilder> consumer) {
-        return builder.map(b -> {
-            if (b instanceof RouteBuilder) {
-                ((RouteBuilder) b).addLifecycleInterceptor(afterConfigure(consumer));
-            }
-            return b;
-        });
-    }
-
-    public static RouteBuilderLifecycleStrategy afterConfigure(Consumer<RouteBuilder> consumer) {
-        return new RouteBuilderLifecycleStrategy() {
-            @Override
-            public void afterConfigure(RouteBuilder builder) {
-                consumer.accept(builder);
-            }
-        };
     }
 
 }
