@@ -17,6 +17,9 @@
 
 **Merged pull requests:**
 
+- quarkus: disable routes discovery as routes are programmatically added [\#479](https://github.com/apache/camel-k-runtime/pull/479) ([lburgazzoli](https://github.com/lburgazzoli))
+- loaders: simplify source loader interceptors [\#478](https://github.com/apache/camel-k-runtime/pull/478) ([lburgazzoli](https://github.com/lburgazzoli))
+- Quarkus runtime improvements [\#477](https://github.com/apache/camel-k-runtime/pull/477) ([lburgazzoli](https://github.com/lburgazzoli))
 - quarkus: improve runtime set-up [\#476](https://github.com/apache/camel-k-runtime/pull/476) ([lburgazzoli](https://github.com/lburgazzoli))
 - Generate Configurer to bind properties SourceLoader.Interceptor without the need for reflection [\#475](https://github.com/apache/camel-k-runtime/pull/475) ([lburgazzoli](https://github.com/lburgazzoli))
 - \[yaml\] support for configuring beans with the yaml dsl [\#474](https://github.com/apache/camel-k-runtime/pull/474) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -549,6 +552,7 @@
 - update to Camel 2.24.0 [\#60](https://github.com/apache/camel-k-runtime/issues/60)
 - remove spring boot support [\#55](https://github.com/apache/camel-k-runtime/issues/55)
 - Release 0.3.2 [\#51](https://github.com/apache/camel-k-runtime/issues/51)
+- Refactor customizer activation [\#46](https://github.com/apache/camel-k-runtime/issues/46)
 
 **Merged pull requests:**
 
@@ -570,7 +574,6 @@
 **Closed issues:**
 
 - Provide a default "type" for cloudevents [\#48](https://github.com/apache/camel-k-runtime/issues/48)
-- Refactor customizer activation [\#46](https://github.com/apache/camel-k-runtime/issues/46)
 - Support StreamCaching configuration trough a ContextCustomizer [\#44](https://github.com/apache/camel-k-runtime/issues/44)
 - Runtime components should include catalog information [\#31](https://github.com/apache/camel-k-runtime/issues/31)
 - Release 0.3.1 [\#28](https://github.com/apache/camel-k-runtime/issues/28)
