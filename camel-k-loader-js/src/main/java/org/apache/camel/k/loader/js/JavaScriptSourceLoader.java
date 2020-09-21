@@ -45,10 +45,8 @@ public class JavaScriptSourceLoader implements SourceLoader {
     }
 
     @Override
-    public Result load(Runtime runtime, Source source) throws Exception {
-        RoutesBuilder builder = RouteBuilders.endpoint(source, JavaScriptSourceLoader::doLoad);
-
-        return SourceLoader.Result.on(builder);
+    public RoutesBuilder load(Runtime runtime, Source source) {
+        return RouteBuilders.endpoint(source, JavaScriptSourceLoader::doLoad);
     }
 
     private static void doLoad(Reader reader, EndpointRouteBuilder builder) {
@@ -84,7 +82,7 @@ public class JavaScriptSourceLoader implements SourceLoader {
         //
         builder.getContext().addLifecycleStrategy(new LifecycleStrategySupport() {
             @Override
-            public void onContextStop(CamelContext camelContext) {
+            public void onContextStopping(CamelContext camelContext) {
                 context.close(true);
             }
         });

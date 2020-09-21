@@ -68,14 +68,6 @@ class JavaSourceLoaderTest extends Specification {
             }
     }
 
-    def "load configuration"() {
-        when:
-            runtime.loadRoutes("classpath:MyRoutesConfig.java")
-        then:
-            runtime.configurations.size() == 1
-    }
-
-
     def "load"(location) {
         expect:
             runtime.loadRoutes(location)

@@ -78,11 +78,6 @@ public class DelegatingRuntime implements Runtime {
     }
 
     @Override
-    public void addConfiguration(Object configuration) {
-        runtime.addConfiguration(configuration);
-    }
-
-    @Override
     public void setPropertiesLocations(Collection<String> locations) {
         runtime.setPropertiesLocations(locations);
     }

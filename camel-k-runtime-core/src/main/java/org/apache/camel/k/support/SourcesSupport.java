@@ -101,14 +101,13 @@ public final class SourcesSupport {
                 interceptor.beforeLoad(loader, source);
             }
 
-            SourceLoader.Result result = loader.load(runtime, source);
+            RoutesBuilder result = loader.load(runtime, source);
 
             for (SourceLoader.Interceptor interceptor: interceptors) {
                 result = interceptor.afterLoad(loader, source, result);
             }
 
-            result.builder().ifPresent(runtime::addRoutes);
-            result.configuration().ifPresent(runtime::addConfiguration);
+            runtime.addRoutes(result);
         } catch (Exception e) {
             throw RuntimeCamelException.wrapRuntimeCamelException(e);
         }
@@ -128,37 +127,33 @@ public final class SourcesSupport {
         return List.of(
             new SourceLoader.Interceptor() {
                 @Override
-                public SourceLoader.Result afterLoad(SourceLoader loader, Source source, SourceLoader.Result result) {
-                    RouteBuilder builder = result.builder()
-                        .map(RouteBuilder.class::cast)
-                        .orElseThrow(() -> new IllegalArgumentException("Unexpected routes builder type"));
+                public RoutesBuilder afterLoad(SourceLoader loader, Source source, RoutesBuilder builder) {
+                    return SourcesSupport.afterConfigure(builder, rb -> {
+                        rb.addLifecycleInterceptor(new RouteBuilderLifecycleStrategy() {
+                            @Override
+                            public void afterConfigure(RouteBuilder builder) {
+                                List<RouteDefinition> routes = builder.getRouteCollection().getRoutes();
+                                List<RouteTemplateDefinition> templates = builder.getRouteTemplateCollection().getRouteTemplates();
 
-                    builder.addLifecycleInterceptor(new RouteBuilderLifecycleStrategy() {
-                        @Override
-                        public void afterConfigure(RouteBuilder builder) {
-                            List<RouteDefinition> routes = builder.getRouteCollection().getRoutes();
-                            List<RouteTemplateDefinition> templates = builder.getRouteTemplateCollection().getRouteTemplates();
+                                if (routes.size() != 1) {
+                                    throw new IllegalArgumentException("There should be a single route definition, got " + routes.size());
+                                }
+                                if (!templates.isEmpty()) {
+                                    throw new IllegalArgumentException("There should not be any template, got " + templates.size());
+                                }
 
-                            if (routes.size() != 1) {
-                                throw new IllegalArgumentException("There should be a single route definition, got " + routes.size());
+                                // create a new template from the source
+                                RouteTemplateDefinition templatesDefinition = builder.getRouteTemplateCollection().routeTemplate(source.getId());
+                                templatesDefinition.setRoute(routes.get(0));
+
+                                source.getPropertyNames().forEach(templatesDefinition::templateParameter);
+
+                                // remove all routes definitions as they have been translated
+                                // in the related route template
+                                routes.clear();
                             }
-                            if (!templates.isEmpty()) {
-                                throw new IllegalArgumentException("There should not be any template, got " + templates.size());
-                            }
-
-                            // create a new template from the source
-                            RouteTemplateDefinition templatesDefinition = builder.getRouteTemplateCollection().routeTemplate(source.getId());
-                            templatesDefinition.setRoute(routes.get(0));
-
-                            source.getPropertyNames().forEach(templatesDefinition::templateParameter);
-
-                            // remove all routes definitions as they have been translated
-                            // in the related route template
-                            routes.clear();
-                        }
+                        });
                     });
-
-                    return SourceLoader.Result.on(builder);
                 }
             }
         );

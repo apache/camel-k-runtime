@@ -40,7 +40,7 @@ import java.nio.charset.StandardCharsets
 @Slf4j
 class TestSupport extends Specification {
     static def RESOLVER =  new YamlStepResolver()
-    static def MAPPER = new YamlSourceLoader().mapper()
+    static def MAPPER = YamlSourceLoader.MAPPER
 
     static StepParser.Context stepContext(String content) {
         def node = MAPPER.readTree(content.stripMargin())
@@ -76,7 +76,9 @@ class TestSupport extends Specification {
             Source source,
             @DelegatesTo(CamelContext) Closure closure) {
         def context = new DefaultCamelContext()
-        def builder = new YamlSourceLoader().load(Runtime.on(context), source).builder().orElseThrow(() -> new IllegalArgumentException());
+        def builder = new YamlSourceLoader().load(Runtime.on(context), source)
+
+        assert builder != null
 
         context.disableJMX()
         context.setStreamCaching(true)
@@ -117,11 +119,7 @@ class TestSupport extends Specification {
         return type.getConstructor().newInstance().toProcessor(stepContext(content))
     }
 
-    static <U extends StartStepParser> ProcessorDefinition<?> toStartProcessor(Class<U> type, String content) {
-        return type.getConstructor().newInstance().process(stepContext(content))
-    }
-
-    static ProcessorDefinition<?> toProcessor(String id, String content) {
+    static Object toProcessor(String id, String content) {
         def ctx = stepContext(content)
         def parser = RESOLVER.resolve(ctx.camelContext, id)
 
@@ -140,7 +138,9 @@ class TestSupport extends Specification {
 
     static def load(CamelContext context, String content) {
         def source = Sources.fromBytes('yaml', content.stripMargin().getBytes(StandardCharsets.UTF_8))
-        def builder = new YamlSourceLoader().load(Runtime.on(context), source).builder().orElseThrow(() -> new IllegalArgumentException());
+        def builder = new YamlSourceLoader().load(Runtime.on(context), source)
+
+        assert builder != null
 
         context.addRoutes(builder)
     }

@@ -14,20 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import org.apache.camel.BindToRegistry;
+package org.apache.camel.k.main.support;
+
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
-import org.apache.camel.builder.RouteBuilder;
 
-public class MyRoutesConfig {
-    @BindToRegistry("my-processor")
-    public static MyProcessor myProcessor() {
-        return new MyProcessor();
-    }
-
-    public static class MyProcessor implements Processor {
-        @Override
-        public void process(Exchange exchange) throws Exception {
-        }
+public class MyProcessor implements Processor {
+    @Override
+    public void process(Exchange exchange) throws Exception {
     }
 }

@@ -17,7 +17,6 @@
 package org.apache.camel.k.loader.knative;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
@@ -36,25 +35,8 @@ public class KnativeSourceLoaderInterceptor implements SourceLoader.Interceptor 
     private static final Logger LOGGER = LoggerFactory.getLogger(KnativeSourceLoaderInterceptor.class);
 
     @Override
-    public void beforeLoad(SourceLoader loader, Source source) {
-        // no-op
-    }
-
-    @Override
-    public SourceLoader.Result afterLoad(SourceLoader loader, Source source, SourceLoader.Result result) {
-        return new SourceLoader.Result() {
-            @Override
-            public Optional<RoutesBuilder> builder() {
-                return result.builder().map(
-                    bulider -> SourcesSupport.afterConfigure(bulider, KnativeSourceLoaderInterceptor::afterConfigure)
-                );
-            }
-
-            @Override
-            public Optional<Object> configuration() {
-                return result.configuration();
-            }
-        };
+    public RoutesBuilder afterLoad(SourceLoader loader, Source source, RoutesBuilder bulider) {
+        return SourcesSupport.afterConfigure(bulider, KnativeSourceLoaderInterceptor::afterConfigure);
     }
 
     private static void afterConfigure(RouteBuilder builder) {

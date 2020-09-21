@@ -82,11 +82,6 @@ public final class ApplicationRuntime implements Runtime {
     }
 
     @Override
-    public void addConfiguration(Object configuration) {
-        this.main.configure().addConfiguration(configuration);
-    }
-
-    @Override
     public void setInitialProperties(Properties properties) {
         this.main.getCamelContext().getPropertiesComponent().setInitialProperties(properties);
     }

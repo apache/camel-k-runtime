@@ -87,10 +87,6 @@ public interface Runtime extends HasCamelContext, AutoCloseable {
         }
     }
 
-    default void addConfiguration(Object configuration) {
-        throw new UnsupportedOperationException();
-    }
-
     default void setPropertiesLocations(Collection<String> locations) {
         getCamelContext().getPropertiesComponent().setLocation(
             locations.stream()

@@ -50,11 +50,6 @@ class TestRuntime implements Runtime, AutoCloseable {
         this.context.addRoutes(builder)
     }
 
-    @Override
-    void addConfiguration(Object configuration) {
-        this.configurations.add(configuration)
-    }
-
     void loadRoutes(String... routes) {
         SourcesSupport.loadSources(this, routes)
     }
