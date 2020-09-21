@@ -151,6 +151,7 @@
 - Add runtime support for Knative sinkbinding [\#372](https://github.com/apache/camel-k-runtime/pull/372) ([lburgazzoli](https://github.com/lburgazzoli))
 - Create a CompositeClassloader and set is as Camel's ApplicationClassloader [\#368](https://github.com/apache/camel-k-runtime/pull/368) ([lburgazzoli](https://github.com/lburgazzoli))
 - Integration should fail when no secret is found [\#367](https://github.com/apache/camel-k-runtime/pull/367) ([lburgazzoli](https://github.com/lburgazzoli))
+- tracing: support configuring the jeager service name [\#355](https://github.com/apache/camel-k-runtime/pull/355) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-1.3.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.3.0) (2020-06-05)
 
@@ -191,7 +192,6 @@
 **Merged pull requests:**
 
 - chore: remove meaningless log statement [\#356](https://github.com/apache/camel-k-runtime/pull/356) ([lburgazzoli](https://github.com/lburgazzoli))
-- tracing: support configuring the jeager service name [\#355](https://github.com/apache/camel-k-runtime/pull/355) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(pgp\): update key for Nicola Ferraro [\#354](https://github.com/apache/camel-k-runtime/pull/354) ([nicolaferraro](https://github.com/nicolaferraro))
 - Add an opentracing capability [\#353](https://github.com/apache/camel-k-runtime/pull/353) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade Jackson to version 2.10.4 [\#352](https://github.com/apache/camel-k-runtime/pull/352) ([oscerd](https://github.com/oscerd))
