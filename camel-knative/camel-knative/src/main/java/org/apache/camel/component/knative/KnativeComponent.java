@@ -52,9 +52,6 @@ public class KnativeComponent extends DefaultComponent {
     @Metadata
     private KnativeTransport transport;
 
-    @Metadata
-    private Map<String, Object> transportOptions;
-
     private boolean managedTransport;
 
     public KnativeComponent() {
@@ -172,8 +169,8 @@ public class KnativeComponent extends DefaultComponent {
                     .newInstance(protocol.name(), KnativeTransport.class)
                     .orElseThrow(() -> new RuntimeException("Error creating knative transport for protocol: " + protocol.name()));
 
-                if (transportOptions != null) {
-                    setProperties(transport, new HashMap<>(transportOptions));
+                if (configuration.getTransportOptions() != null) {
+                    setProperties(transport, new HashMap<>(configuration.getTransportOptions()));
                 }
 
                 this.managedTransport = true;
