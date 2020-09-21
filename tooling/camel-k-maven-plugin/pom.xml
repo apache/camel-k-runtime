@@ -25,7 +25,7 @@
   </parent>
 
   <prerequisites>
-    <maven>3.6.3</maven>
+    <maven>${maven-version}</maven>
   </prerequisites>
 
   <modelVersion>4.0.0</modelVersion>
@@ -43,7 +43,6 @@
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-core</artifactId>
-      <version>${maven-version}</version>
       <exclusions>
         <exclusion>
           <groupId>*</groupId>
@@ -54,7 +53,6 @@
     <dependency>
       <groupId>org.apache.maven.plugin-tools</groupId>
       <artifactId>maven-plugin-annotations</artifactId>
-      <version>${maven-plugin-tools-version}</version>
       <exclusions>
         <exclusion>
           <groupId>org.codehaus.plexus</groupId>
@@ -65,7 +63,6 @@
     <dependency>
       <groupId>org.apache.maven.shared</groupId>
       <artifactId>maven-common-artifact-filters</artifactId>
-      <version>${maven-shaded-version}</version>
       <exclusions>
         <exclusion>
           <groupId>org.apache.maven</groupId>
@@ -80,7 +77,6 @@
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-plugin-api</artifactId>
-      <version>${maven-version}</version>
       <exclusions>
         <exclusion>
           <groupId>*</groupId>
@@ -112,7 +108,6 @@
     <dependency>
       <groupId>org.yaml</groupId>
       <artifactId>snakeyaml</artifactId>
-      <version>${snakeyaml-version}</version>
     </dependency>
 
     <dependency>
@@ -131,35 +126,29 @@
     <dependency>
       <groupId>com.vdurmont</groupId>
       <artifactId>semver4j</artifactId>
-      <version>${semver4j-version}</version>
     </dependency>
     <dependency>
       <groupId>org.immutables</groupId>
       <artifactId>value</artifactId>
-      <version>${immutables-version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.jboss</groupId>
       <artifactId>jandex</artifactId>
-      <version>${jandex-version}</version>
     </dependency>
     <dependency>
       <groupId>com.squareup</groupId>
       <artifactId>javapoet</artifactId>
-      <version>${javapoet-version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
-      <version>${junit-jupiter-version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
-      <version>${assertj-version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -169,7 +158,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>${maven-jar-plugin-version}</version>
         <configuration>
           <archive>
             <manifest>
@@ -182,7 +170,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-plugin-plugin</artifactId>
-        <version>3.6.0</version>
         <configuration>
           <mojoDependencies />
         </configuration>
@@ -205,7 +192,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-invoker-plugin</artifactId>
-        <version>${maven-invoker-plugin-version}</version>
         <configuration>
           <scriptVariables>
             <runtimeVersion>${project.version}</runtimeVersion>
