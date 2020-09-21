@@ -53,8 +53,6 @@ public class KnativeComponentConfigurer extends PropertyConfigurerSupport implem
         case "serviceName": getOrCreateConfiguration(target).setServiceName(property(camelContext, java.lang.String.class, value)); return true;
         case "transport": target.setTransport(property(camelContext, org.apache.camel.component.knative.spi.KnativeTransport.class, value)); return true;
         case "transportoptions":
-        case "transportOptions": target.setTransportOptions(property(camelContext, java.util.Map.class, value)); return true;
-        case "transportoptions":
         case "transportOptions": getOrCreateConfiguration(target).setTransportOptions(property(camelContext, java.util.Map.class, value)); return true;
         default: return false;
         }
@@ -79,7 +77,6 @@ public class KnativeComponentConfigurer extends PropertyConfigurerSupport implem
         answer.put("replyWithCloudEvent", boolean.class);
         answer.put("serviceName", java.lang.String.class);
         answer.put("transport", org.apache.camel.component.knative.spi.KnativeTransport.class);
-        answer.put("transportOptions", java.util.Map.class);
         answer.put("transportOptions", java.util.Map.class);
         return answer;
     }
@@ -114,8 +111,6 @@ public class KnativeComponentConfigurer extends PropertyConfigurerSupport implem
         case "servicename":
         case "serviceName": return getOrCreateConfiguration(target).getServiceName();
         case "transport": return target.getTransport();
-        case "transportoptions":
-        case "transportOptions": return target.getTransportOptions();
         case "transportoptions":
         case "transportOptions": return getOrCreateConfiguration(target).getTransportOptions();
         default: return null;
