@@ -15,21 +15,47 @@ import org.apache.camel.support.component.PropertyConfigurerSupport;
 @SuppressWarnings("unchecked")
 public class KnativeComponentConfigurer extends PropertyConfigurerSupport implements GeneratedPropertyConfigurer, PropertyConfigurerGetter {
 
+    private org.apache.camel.component.knative.KnativeConfiguration getOrCreateConfiguration(KnativeComponent target) {
+        if (target.getConfiguration() == null) {
+            target.setConfiguration(new org.apache.camel.component.knative.KnativeConfiguration());
+        }
+        return target.getConfiguration();
+    }
+
     @Override
     public boolean configure(CamelContext camelContext, Object obj, String name, Object value, boolean ignoreCase) {
         KnativeComponent target = (KnativeComponent) obj;
         switch (ignoreCase ? name.toLowerCase() : name) {
+        case "apiversion":
+        case "apiVersion": getOrCreateConfiguration(target).setApiVersion(property(camelContext, java.lang.String.class, value)); return true;
         case "basicpropertybinding":
         case "basicPropertyBinding": target.setBasicPropertyBinding(property(camelContext, boolean.class, value)); return true;
         case "bridgeerrorhandler":
         case "bridgeErrorHandler": target.setBridgeErrorHandler(property(camelContext, boolean.class, value)); return true;
+        case "ceoverride":
+        case "ceOverride": getOrCreateConfiguration(target).setCeOverride(property(camelContext, java.util.Map.class, value)); return true;
+        case "cloudeventsspecversion":
+        case "cloudEventsSpecVersion": getOrCreateConfiguration(target).setCloudEventsSpecVersion(property(camelContext, java.lang.String.class, value)); return true;
+        case "cloudeventstype":
+        case "cloudEventsType": getOrCreateConfiguration(target).setCloudEventsType(property(camelContext, java.lang.String.class, value)); return true;
+        case "configuration": target.setConfiguration(property(camelContext, org.apache.camel.component.knative.KnativeConfiguration.class, value)); return true;
+        case "environment": getOrCreateConfiguration(target).setEnvironment(property(camelContext, org.apache.camel.component.knative.spi.KnativeEnvironment.class, value)); return true;
         case "environmentpath":
         case "environmentPath": target.setEnvironmentPath(property(camelContext, java.lang.String.class, value)); return true;
+        case "filters": getOrCreateConfiguration(target).setFilters(property(camelContext, java.util.Map.class, value)); return true;
+        case "kind": getOrCreateConfiguration(target).setKind(property(camelContext, java.lang.String.class, value)); return true;
         case "lazystartproducer":
         case "lazyStartProducer": target.setLazyStartProducer(property(camelContext, boolean.class, value)); return true;
+        case "reply": getOrCreateConfiguration(target).setReply(property(camelContext, java.lang.Boolean.class, value)); return true;
+        case "replywithcloudevent":
+        case "replyWithCloudEvent": getOrCreateConfiguration(target).setReplyWithCloudEvent(property(camelContext, boolean.class, value)); return true;
+        case "servicename":
+        case "serviceName": getOrCreateConfiguration(target).setServiceName(property(camelContext, java.lang.String.class, value)); return true;
         case "transport": target.setTransport(property(camelContext, org.apache.camel.component.knative.spi.KnativeTransport.class, value)); return true;
         case "transportoptions":
         case "transportOptions": target.setTransportOptions(property(camelContext, java.util.Map.class, value)); return true;
+        case "transportoptions":
+        case "transportOptions": getOrCreateConfiguration(target).setTransportOptions(property(camelContext, java.util.Map.class, value)); return true;
         default: return false;
         }
     }
@@ -37,11 +63,23 @@ public class KnativeComponentConfigurer extends PropertyConfigurerSupport implem
     @Override
     public Map<String, Object> getAllOptions(Object target) {
         Map<String, Object> answer = new CaseInsensitiveMap();
+        answer.put("apiVersion", java.lang.String.class);
         answer.put("basicPropertyBinding", boolean.class);
         answer.put("bridgeErrorHandler", boolean.class);
+        answer.put("ceOverride", java.util.Map.class);
+        answer.put("cloudEventsSpecVersion", java.lang.String.class);
+        answer.put("cloudEventsType", java.lang.String.class);
+        answer.put("configuration", org.apache.camel.component.knative.KnativeConfiguration.class);
+        answer.put("environment", org.apache.camel.component.knative.spi.KnativeEnvironment.class);
         answer.put("environmentPath", java.lang.String.class);
+        answer.put("filters", java.util.Map.class);
+        answer.put("kind", java.lang.String.class);
         answer.put("lazyStartProducer", boolean.class);
+        answer.put("reply", java.lang.Boolean.class);
+        answer.put("replyWithCloudEvent", boolean.class);
+        answer.put("serviceName", java.lang.String.class);
         answer.put("transport", org.apache.camel.component.knative.spi.KnativeTransport.class);
+        answer.put("transportOptions", java.util.Map.class);
         answer.put("transportOptions", java.util.Map.class);
         return answer;
     }
@@ -50,17 +88,36 @@ public class KnativeComponentConfigurer extends PropertyConfigurerSupport implem
     public Object getOptionValue(Object obj, String name, boolean ignoreCase) {
         KnativeComponent target = (KnativeComponent) obj;
         switch (ignoreCase ? name.toLowerCase() : name) {
+        case "apiversion":
+        case "apiVersion": return getOrCreateConfiguration(target).getApiVersion();
         case "basicpropertybinding":
         case "basicPropertyBinding": return target.isBasicPropertyBinding();
         case "bridgeerrorhandler":
         case "bridgeErrorHandler": return target.isBridgeErrorHandler();
+        case "ceoverride":
+        case "ceOverride": return getOrCreateConfiguration(target).getCeOverride();
+        case "cloudeventsspecversion":
+        case "cloudEventsSpecVersion": return getOrCreateConfiguration(target).getCloudEventsSpecVersion();
+        case "cloudeventstype":
+        case "cloudEventsType": return getOrCreateConfiguration(target).getCloudEventsType();
+        case "configuration": return target.getConfiguration();
+        case "environment": return getOrCreateConfiguration(target).getEnvironment();
         case "environmentpath":
         case "environmentPath": return target.getEnvironmentPath();
+        case "filters": return getOrCreateConfiguration(target).getFilters();
+        case "kind": return getOrCreateConfiguration(target).getKind();
         case "lazystartproducer":
         case "lazyStartProducer": return target.isLazyStartProducer();
+        case "reply": return getOrCreateConfiguration(target).getReply();
+        case "replywithcloudevent":
+        case "replyWithCloudEvent": return getOrCreateConfiguration(target).isReplyWithCloudEvent();
+        case "servicename":
+        case "serviceName": return getOrCreateConfiguration(target).getServiceName();
         case "transport": return target.getTransport();
         case "transportoptions":
         case "transportOptions": return target.getTransportOptions();
+        case "transportoptions":
+        case "transportOptions": return getOrCreateConfiguration(target).getTransportOptions();
         default: return null;
         }
     }
