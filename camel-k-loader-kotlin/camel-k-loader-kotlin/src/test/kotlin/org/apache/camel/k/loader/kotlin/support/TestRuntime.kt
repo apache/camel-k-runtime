@@ -49,10 +49,6 @@ class TestRuntime : Runtime {
         this.context.addRoutes(builder)
     }
 
-    override fun addConfiguration(configuration: Any) {
-        this.configurations.add(configuration)
-    }
-
     fun loadRoutes(vararg routes: String) {
         SourcesSupport.loadSources(this, *routes)
     }

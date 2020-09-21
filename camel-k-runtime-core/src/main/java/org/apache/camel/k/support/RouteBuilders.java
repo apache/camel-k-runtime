@@ -17,17 +17,19 @@
 package org.apache.camel.k.support;
 
 import java.io.Reader;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
+import org.apache.camel.RoutesBuilder;
+import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
 import org.apache.camel.k.Source;
+import org.apache.camel.util.function.ThrowingBiConsumer;
+import org.apache.camel.util.function.ThrowingConsumer;
 
 public final class RouteBuilders {
     private RouteBuilders() {
     }
 
-    public static EndpointRouteBuilder endpoint(Source source, BiConsumer<Reader, EndpointRouteBuilder> consumer) {
+    public static EndpointRouteBuilder endpoint(Source source, ThrowingBiConsumer<Reader, EndpointRouteBuilder, Exception> consumer) {
         return new EndpointRouteBuilder() {
             @Override
             public void configure() throws Exception {
@@ -38,8 +40,28 @@ public final class RouteBuilders {
         };
     }
 
-    public static EndpointRouteBuilder endpoint(Consumer<EndpointRouteBuilder> consumer) {
+    public static EndpointRouteBuilder endpoint(ThrowingConsumer<EndpointRouteBuilder, Exception> consumer) {
         return new EndpointRouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                consumer.accept(this);
+            }
+        };
+    }
+
+    public static RoutesBuilder route(Source source, ThrowingBiConsumer<Reader, RouteBuilder, Exception> consumer) {
+        return new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                try (Reader reader = source.resolveAsReader(getContext())) {
+                    consumer.accept(reader, this);
+                }
+            }
+        };
+    }
+
+    public static RoutesBuilder route(ThrowingConsumer<RouteBuilder, Exception> consumer) {
+        return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 consumer.accept(this);

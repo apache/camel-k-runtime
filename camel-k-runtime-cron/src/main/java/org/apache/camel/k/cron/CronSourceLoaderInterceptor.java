@@ -16,8 +16,6 @@
  */
 package org.apache.camel.k.cron;
 
-import java.util.Optional;
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
@@ -75,24 +73,8 @@ public class CronSourceLoaderInterceptor implements SourceLoader.Interceptor, Ru
     }
 
     @Override
-    public void beforeLoad(SourceLoader loader, Source source) {
-        // no-op
-    }
-
-    @Override
-    public SourceLoader.Result afterLoad(SourceLoader loader, Source source, SourceLoader.Result result) {
-        return new SourceLoader.Result() {
-            @Override
-            public Optional<RoutesBuilder> builder() {
-                return result.builder().map(
-                    builder -> SourcesSupport.afterConfigure(builder, CronSourceLoaderInterceptor.this::afterConfigure)
-                );
-            }
-            @Override
-            public Optional<Object> configuration() {
-                return result.configuration();
-            }
-        };
+    public RoutesBuilder afterLoad(SourceLoader loader, Source source, RoutesBuilder builder) {
+        return SourcesSupport.afterConfigure(builder, CronSourceLoaderInterceptor.this::afterConfigure);
     }
 
     private void afterConfigure(RouteBuilder builder) {

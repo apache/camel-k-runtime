@@ -23,6 +23,7 @@ import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.RoutesBuilder;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceLoader;
@@ -36,10 +37,9 @@ public final class LoaderSupport {
         final SourceLoader loader = context.getRegistry().lookupByNameAndType(loaderId, SourceLoader.class);
         final Runtime runtime = Runtime.on(context);
         final Source source = Sources.fromBytes(name, loaderId, null, code);
-        final SourceLoader.Result result = loader.load(Runtime.on(context), source);
+        final RoutesBuilder builder = loader.load(Runtime.on(context), source);
 
-        result.builder().ifPresent(runtime::addRoutes);
-        result.configuration().ifPresent(runtime::addConfiguration);
+        runtime.addRoutes(builder);
 
         return Json.createObjectBuilder()
             .add("components", extractComponents(context))

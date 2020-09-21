@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.camel.ExtendedCamelContext;
+import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
@@ -43,8 +44,8 @@ public class XmlSourceLoader implements SourceLoader {
     }
 
     @Override
-    public Result load(Runtime runtime, Source source) throws Exception {
-        RouteBuilder builder = new RouteBuilder() {
+    public RoutesBuilder load(Runtime runtime, Source source) {
+        return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 final ExtendedCamelContext context = getContext().adapt(ExtendedCamelContext.class);
@@ -81,7 +82,5 @@ public class XmlSourceLoader implements SourceLoader {
                 }
             }
         };
-
-        return Result.on(builder);
     }
 }

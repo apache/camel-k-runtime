@@ -29,6 +29,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
+import org.apache.camel.RoutesBuilder;
 import org.apache.camel.k.Constants;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
@@ -82,18 +83,16 @@ public class Application {
         interceptor.setRuntime(rt);
         interceptor.setOverridableComponents("timer");
 
-        SourceLoader.Result result = interceptor.afterLoad(
+        RoutesBuilder builder = interceptor.afterLoad(
             loader,
             source,
             loader.load(rt, source));
 
-        result.builder().ifPresent(b -> {
-            try {
-                context.addRoutes(b);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
+        try {
+            context.addRoutes(builder);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         return "" + context.getRoutesSize();
     }

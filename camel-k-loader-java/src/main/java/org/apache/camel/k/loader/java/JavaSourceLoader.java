@@ -16,12 +16,14 @@
  */
 package org.apache.camel.k.loader.java;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.camel.RoutesBuilder;
 import org.apache.camel.k.CompositeClassloader;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
@@ -41,12 +43,12 @@ public class JavaSourceLoader implements SourceLoader {
     }
 
     @Override
-    public Result load(Runtime runtime, Source source) throws Exception {
+    public RoutesBuilder load(Runtime runtime, Source source) {
         try (InputStream is = source.resolveAsInputStream(runtime.getCamelContext())) {
             final String content = IOHelper.loadText(is);
             final String name = determineQualifiedName(source, content);
             final Reflect compiled = Reflect.compile(name, content);
-            final Object instance = compiled.create().get();
+            final RoutesBuilder instance = compiled.create().get();
 
             // The given source may contains additional nested classes which are unknown to Camel
             // as they are associated to the ClassLoader used to compile the source thus we need
@@ -56,7 +58,9 @@ public class JavaSourceLoader implements SourceLoader {
                 ((CompositeClassloader) loader).addClassLoader(instance.getClass().getClassLoader());
             }
 
-            return Result.on(instance);
+            return instance;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

@@ -63,11 +63,6 @@ public final class Application {
         }
 
         @Override
-        public void addConfiguration(Object configuration) {
-            main.configure().addConfiguration(configuration);
-        }
-
-        @Override
         public void setInitialProperties(Properties properties) {
             main.setInitialProperties(properties);
         }

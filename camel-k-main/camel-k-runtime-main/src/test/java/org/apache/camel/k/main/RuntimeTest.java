@@ -29,6 +29,7 @@ import org.apache.camel.k.http.PlatformHttpServiceContextCustomizer;
 import org.apache.camel.k.listener.ContextConfigurer;
 import org.apache.camel.k.listener.SourcesConfigurer;
 import org.apache.camel.k.main.support.MyBean;
+import org.apache.camel.k.main.support.MyProcessor;
 import org.apache.camel.k.support.SourcesSupport;
 import org.apache.camel.k.test.AvailablePortFinder;
 import org.apache.camel.model.ModelCamelContext;
@@ -104,10 +105,14 @@ public class RuntimeTest {
 
     @Test
     public void testLoadJavaSource() throws Exception {
-        runtime.addListener(SourcesSupport.forRoutes("classpath:MyRoutesWithBeans.java", "classpath:MyRoutesConfig.java"));
+        runtime.setProperties(mapOf(
+            "camel.beans.myProcessor", "#class:" + MyProcessor.class.getName()
+        ));
+
+        runtime.addListener(SourcesSupport.forRoutes("classpath:MyRoutesWithBeans.java"));
         runtime.addListener(Runtime.Phase.Started, r -> {
             assertThat(runtime.getCamelContext().getRoutes()).hasSize(1);
-            assertThat(runtime.getRegistry().lookupByName("my-processor")).isNotNull();
+            assertThat(runtime.getRegistry().lookupByName("myProcessor")).isNotNull();
             assertThat(runtime.getRegistry().lookupByName("my-bean")).isInstanceOfSatisfying(MyBean.class, b -> {
                 assertThat(b).hasFieldOrPropertyWithValue("name", "my-bean-name");
             });
@@ -121,15 +126,16 @@ public class RuntimeTest {
         runtime.setInitialProperties(
             "camel.k.sources[0].name", "MyRoutesWithBeans",
             "camel.k.sources[0].location", "classpath:MyRoutesWithBeans.java",
-            "camel.k.sources[0].language", "java",
-            "camel.k.sources[1].name", "MyRoutesConfig",
-            "camel.k.sources[1].location", "classpath:MyRoutesConfig.java",
-            "camel.k.sources[1].language", "java"
+            "camel.k.sources[0].language", "java"
         );
+        runtime.setProperties(mapOf(
+            "camel.beans.myProcessor", "#class:" + MyProcessor.class.getName()
+        ));
+
         runtime.addListener(new SourcesConfigurer());
         runtime.addListener(Runtime.Phase.Started, r -> {
             assertThat(runtime.getCamelContext().getRoutes()).hasSize(1);
-            assertThat(runtime.getRegistry().lookupByName("my-processor")).isNotNull();
+            assertThat(runtime.getRegistry().lookupByName("myProcessor")).isNotNull();
             assertThat(runtime.getRegistry().lookupByName("my-bean")).isInstanceOfSatisfying(MyBean.class, b -> {
                 assertThat(b).hasFieldOrPropertyWithValue("name", "my-bean-name");
             });
@@ -141,14 +147,17 @@ public class RuntimeTest {
     @Test
     public void testLoadJavaSourceFromSimpleProperties() throws Exception {
         runtime.setInitialProperties(
-            "camel.k.sources[0].location", "classpath:MyRoutesWithBeans.java",
-            "camel.k.sources[1].location", "classpath:MyRoutesConfig.java"
+            "camel.k.sources[0].location", "classpath:MyRoutesWithBeans.java"
         );
+        runtime.setProperties(mapOf(
+            "camel.beans.myProcessor", "#class:" + MyProcessor.class.getName()
+        ));
+
         runtime.addListener(new SourcesConfigurer());
         runtime.addListener(Runtime.Phase.Started, Runtime::stop);
         runtime.run();
 
-        assertThat(runtime.getRegistry().lookupByName("my-processor")).isNotNull();
+        assertThat(runtime.getRegistry().lookupByName("myProcessor")).isNotNull();
         assertThat(runtime.getRegistry().lookupByName("my-bean")).isInstanceOfSatisfying(MyBean.class, b -> {
             assertThat(b).hasFieldOrPropertyWithValue("name", "my-bean-name");
         });

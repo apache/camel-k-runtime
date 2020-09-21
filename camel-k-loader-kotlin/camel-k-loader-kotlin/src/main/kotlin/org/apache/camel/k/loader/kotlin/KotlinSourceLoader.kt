@@ -17,6 +17,7 @@
 package org.apache.camel.k.loader.kotlin
 
 import org.apache.camel.Experimental
+import org.apache.camel.RoutesBuilder
 import org.apache.camel.RuntimeCamelException
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder
 import org.apache.camel.k.Runtime
@@ -41,13 +42,10 @@ class KotlinSourceLoader : SourceLoader {
         return listOf("kts")
     }
 
-    @Throws(Exception::class)
-    override fun load(runtime: Runtime, source: Source): SourceLoader.Result {
-        val builder = RouteBuilders.endpoint(source) {
+    override fun load(runtime: Runtime, source: Source): RoutesBuilder {
+        return RouteBuilders.endpoint(source) {
             reader, builder -> doLoad(reader, builder)
         }
-
-        return SourceLoader.Result.on(builder)
     }
 
     private fun doLoad(reader: Reader, builder: EndpointRouteBuilder) {

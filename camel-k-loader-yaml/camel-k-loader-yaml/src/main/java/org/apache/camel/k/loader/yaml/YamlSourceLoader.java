@@ -16,9 +16,6 @@
  */
 package org.apache.camel.k.loader.yaml;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
 
@@ -30,7 +27,7 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
-import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.RoutesBuilder;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceLoader;
@@ -38,21 +35,20 @@ import org.apache.camel.k.annotation.Loader;
 import org.apache.camel.k.loader.yaml.model.Step;
 import org.apache.camel.k.loader.yaml.spi.StartStepParser;
 import org.apache.camel.k.loader.yaml.spi.StepParser;
+import org.apache.camel.k.support.RouteBuilders;
 
 @Loader("yaml")
 public class YamlSourceLoader implements SourceLoader {
+    public static final ObjectMapper MAPPER;
+
     static {
+        // register custom reifiers auto-generated from the step parser definitions
         YamlReifiers.registerReifiers();
-    }
 
-    private final ObjectMapper mapper;
-
-    public YamlSourceLoader() {
-        YAMLFactory yamlFactory = new YAMLFactory()
-            .configure(YAMLGenerator.Feature.MINIMIZE_QUOTES, true)
-            .configure(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID, false);
-
-        this.mapper = new ObjectMapper(yamlFactory)
+        MAPPER = new ObjectMapper(
+            new YAMLFactory()
+                .configure(YAMLGenerator.Feature.MINIMIZE_QUOTES, true)
+                .configure(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID, false))
             .registerModule(new YamlModule())
             .setSerializationInclusion(JsonInclude.Include.NON_EMPTY)
             .setPropertyNamingStrategy(PropertyNamingStrategy.KEBAB_CASE)
@@ -68,34 +64,15 @@ public class YamlSourceLoader implements SourceLoader {
     }
 
     @Override
-    public Result load(Runtime runtime, Source source) throws Exception {
-        return Result.on(
-            builder(source.resolveAsInputStream(runtime.getCamelContext()))
-        );
-    }
+    public RoutesBuilder load(Runtime runtime, Source source) {
+        return RouteBuilders.route(source, (reader, builder) -> {
+            final StepParser.Resolver resolver = StepParser.Resolver.caching(new YamlStepResolver());
 
-    final ObjectMapper mapper() {
-        return mapper;
-    }
-
-    final RouteBuilder builder(String content) {
-        return builder(new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8)));
-    }
-
-    final RouteBuilder builder(InputStream is) {
-        return new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                final StepParser.Resolver resolver = StepParser.Resolver.caching(new YamlStepResolver());
-
-                try (is) {
-                    for (Step step : mapper.readValue(is, Step[].class)) {
-                        StartStepParser.invoke(
-                            new StepParser.Context(this, null, mapper, step.node, resolver),
-                            step.id);
-                    }
-                }
+            for (Step step : MAPPER.readValue(reader, Step[].class)) {
+                StartStepParser.invoke(
+                    new StepParser.Context(builder, null, MAPPER, step.node, resolver),
+                    step.id);
             }
-        };
+        });
     }
 }

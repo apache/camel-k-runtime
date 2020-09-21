@@ -16,6 +16,7 @@
  */
 package org.apache.camel.k.loader.groovy
 
+import org.apache.camel.RoutesBuilder
 import org.apache.camel.k.Runtime
 import org.apache.camel.k.Source
 import org.apache.camel.k.SourceLoader
@@ -31,8 +32,8 @@ class GroovySourceLoader implements SourceLoader {
     }
 
     @Override
-    Result load(Runtime runtime, Source source) throws Exception {
-        def builder = RouteBuilders.endpoint(source, { reader, builder ->
+    RoutesBuilder load(Runtime runtime, Source source) {
+        return RouteBuilders.endpoint(source, { reader, builder ->
             def ic = new ImportCustomizer()
             ic.addStarImports('org.apache.camel')
             ic.addStarImports('org.apache.camel.spi')
@@ -48,7 +49,5 @@ class GroovySourceLoader implements SourceLoader {
             script.setDelegate(new IntegrationConfiguration(builder))
             script.run()
         })
-
-        return Result.on(builder)
     }
 }
