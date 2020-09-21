@@ -120,7 +120,6 @@
             <plugin>
                 <groupId>org.codehaus.gmavenplus</groupId>
                 <artifactId>gmavenplus-plugin</artifactId>
-                <version>${gmavenplus-plugin-version}</version>
                 <executions>
                     <execution>
                         <goals>
