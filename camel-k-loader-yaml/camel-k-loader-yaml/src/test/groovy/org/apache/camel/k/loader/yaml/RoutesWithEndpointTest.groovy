@@ -21,7 +21,7 @@ import org.apache.camel.component.mock.MockEndpoint
 import org.apache.camel.component.telegram.TelegramEndpoint
 import org.apache.camel.k.loader.yaml.support.TestSupport
 
-class RouteWithEndpointTest extends TestSupport {
+class RoutesWithEndpointTest extends TestSupport {
     def 'from'() {
         setup:
             def parameters = [
