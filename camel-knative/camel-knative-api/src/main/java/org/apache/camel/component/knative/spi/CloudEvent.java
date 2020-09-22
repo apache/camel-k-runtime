@@ -65,6 +65,20 @@ public interface CloudEvent {
                 .orElseThrow(() -> new IllegalArgumentException("Unable to find attribute with id: " + id));
     }
 
+    /**
+     * Mandatory find http attribute by id.
+     */
+    default String httpAttribute(String id) {
+        return mandatoryAttribute(id).http();
+    }
+
+    /**
+     * Mandatory find json attribute by id.
+     */
+    default String jsonAttribute(String id) {
+        return mandatoryAttribute(id).json();
+    }
+
     interface Attribute {
         /**
          * The ID of the attributes, can be used to look it up.

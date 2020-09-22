@@ -112,7 +112,6 @@ jobs:
           - :camel-k-quarkus-itests-core
           - :camel-k-quarkus-itests-runtime
           - :camel-k-quarkus-itests-runtime-kamelet
-          - :camel-k-quarkus-itests-runtime-knative
           - :camel-k-quarkus-itests-cron
           - :camel-k-quarkus-itests-master
           - :camel-k-quarkus-itests-kamelet
