@@ -202,8 +202,8 @@ public class KnativeEnvironment {
             if (urlAsString != null) {
                 try {
                     return new URL(urlAsString).getHost();
-                } catch (MalformedURLException e) {
-                    throw new RuntimeException(e);
+                } catch (MalformedURLException ignored) {
+                    // ignored
                 }
             }
 
@@ -216,8 +216,8 @@ public class KnativeEnvironment {
             if (urlAsString != null) {
                 try {
                     return new URL(urlAsString).getPort();
-                } catch (MalformedURLException e) {
-                    throw new RuntimeException(e);
+                } catch (MalformedURLException ignored) {
+                    // ignored
                 }
             }
 

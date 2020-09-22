@@ -44,6 +44,7 @@
         <module>camel-k-quarkus-itests-polyglot</module>
         <module>camel-k-quarkus-itests-runtime</module>
         <module>camel-k-quarkus-itests-runtime-kamelet</module>
+        <module>camel-k-quarkus-itests-runtime-knative</module>
     </modules>
 
 </project>

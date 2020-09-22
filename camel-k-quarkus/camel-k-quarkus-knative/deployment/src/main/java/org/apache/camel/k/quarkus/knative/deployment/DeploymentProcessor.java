@@ -18,6 +18,7 @@ package org.apache.camel.k.quarkus.knative.deployment;
 
 import java.util.List;
 
+import io.quarkus.arc.deployment.UnremovableBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
@@ -34,6 +35,13 @@ import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilter;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilterBuildItem;
 
 public class DeploymentProcessor {
+    @BuildStep
+    List<UnremovableBeanBuildItem> unremovableBeans() {
+        return List.of(
+            UnremovableBeanBuildItem.beanTypes(KnativeEnvironment.class)
+        );
+    }
+
     @BuildStep
     List<ReflectiveClassBuildItem> reflectiveClasses() {
         return List.of(

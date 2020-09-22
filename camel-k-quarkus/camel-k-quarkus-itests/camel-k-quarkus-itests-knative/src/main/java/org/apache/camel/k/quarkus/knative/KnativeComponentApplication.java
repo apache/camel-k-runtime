@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.quarkus.knative.deployment;
+package org.apache.camel.k.quarkus.knative;
 
 import java.util.Locale;
 import java.util.Map;
@@ -37,7 +37,7 @@ import org.apache.camel.component.knative.spi.Knative;
 
 @Path("/test")
 @ApplicationScoped
-public class Application {
+public class KnativeComponentApplication {
     @Inject
     CamelContext context;
 
