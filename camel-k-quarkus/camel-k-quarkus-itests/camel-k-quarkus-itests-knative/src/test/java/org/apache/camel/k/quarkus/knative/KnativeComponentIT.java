@@ -14,10 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.quarkus.knative.deployment;
+package org.apache.camel.k.quarkus.knative;
 
 import io.quarkus.test.junit.NativeImageTest;
 
 @NativeImageTest
-public class KnativeIT extends KnativeTest {
+public class KnativeComponentIT extends KnativeComponentTest {
 }

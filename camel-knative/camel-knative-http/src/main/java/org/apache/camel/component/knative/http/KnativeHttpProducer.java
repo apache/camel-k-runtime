@@ -16,6 +16,8 @@
  */
 package org.apache.camel.component.knative.http;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -87,11 +89,12 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
             return true;
         }
 
-        Message message = exchange.getMessage();
+        final Message message = exchange.getMessage();
+        final String host = getHost(serviceDefinition);
 
         MultiMap headers = MultiMap.caseInsensitiveMultiMap();
-        headers.add(HttpHeaders.HOST, serviceDefinition.getHost());
         headers.add(HttpHeaders.CONTENT_LENGTH, Integer.toString(payload.length));
+        headers.add(HttpHeaders.HOST, host);
 
         String contentType = MessageHelper.getContentType(message);
         if (contentType != null) {
@@ -104,7 +107,7 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
             }
         }
 
-        if (ObjectHelper.isEmpty(serviceDefinition.getHost())) {
+        if (ObjectHelper.isEmpty(host)) {
             exchange.setException(new CamelException("HTTP operation failed because host is not defined"));
             callback.done(true);
 
@@ -177,7 +180,7 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
         }
     }
 
-    private static String computeUrl(KnativeEnvironment.KnativeServiceDefinition definition) {
+    private String computeUrl(KnativeEnvironment.KnativeServiceDefinition definition) {
         String url = definition.getUrl();
         if (url == null) {
             int port = definition.getPortOrDefault(KnativeHttpTransport.DEFAULT_PORT);
@@ -190,7 +193,26 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
             url = String.format("http://%s:%d%s", definition.getHost(), port, path);
         }
 
-        return url;
+        return getEndpoint().getCamelContext().resolvePropertyPlaceholders(url);
+    }
+
+    private String getHost(KnativeEnvironment.KnativeServiceDefinition definition) {
+        if (definition.getHost() != null) {
+            return serviceDefinition.getHost();
+        }
+
+        if (serviceDefinition.getUrl() != null) {
+            String url = serviceDefinition.getUrl();
+            url = getEndpoint().getCamelContext().resolvePropertyPlaceholders(url);
+
+            try {
+               return new URL(url).getHost();
+            } catch (MalformedURLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        throw new IllegalStateException("Unable to determine the Host value");
     }
 
 }
