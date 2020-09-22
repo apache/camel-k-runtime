@@ -14,41 +14,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.core.quarkus.deployment;
-
-import java.util.ServiceLoader;
+package org.apache.camel.k.quarkus.it;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.apache.camel.CamelContext;
-import org.apache.camel.k.Runtime;
+import org.apache.camel.FluentProducerTemplate;
 
 @Path("/test")
 @ApplicationScoped
 public class Application {
     @Inject
-    CamelContext camelContext;
+    FluentProducerTemplate template;
 
     @GET
-    @Path("/services")
-    @Produces(MediaType.APPLICATION_JSON)
-    public JsonObject getServices() {
-        JsonArrayBuilder builder = Json.createArrayBuilder();
-
-        ServiceLoader.load(Runtime.Listener.class).forEach(listener -> {
-            builder.add(listener.getClass().getName());
-        });
-
-        return Json.createObjectBuilder()
-            .add("services", builder)
-            .build();
+    @Path("/execute")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String execute() {
+        return template.to("direct:process").request(String.class);
     }
 }

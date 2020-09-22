@@ -19,6 +19,7 @@ package org.apache.camel.k.loader.java.quarkus;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.JsonObject;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -41,5 +42,12 @@ public class Application {
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject loadRoutes(@PathParam("name") String name, String code) throws Exception {
         return LoaderSupport.inspectSource(context, name, "java", code);
+    }
+
+    @GET
+    @Path("/application-classloader")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getApplicationClassloader() {
+        return context.getApplicationContextClassLoader().getClass().getName();
     }
 }

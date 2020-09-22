@@ -128,32 +128,30 @@ public final class SourcesSupport {
             new SourceLoader.Interceptor() {
                 @Override
                 public RoutesBuilder afterLoad(SourceLoader loader, Source source, RoutesBuilder builder) {
-                    return SourcesSupport.afterConfigure(builder, rb -> {
-                        rb.addLifecycleInterceptor(new RouteBuilderLifecycleStrategy() {
-                            @Override
-                            public void afterConfigure(RouteBuilder builder) {
-                                List<RouteDefinition> routes = builder.getRouteCollection().getRoutes();
-                                List<RouteTemplateDefinition> templates = builder.getRouteTemplateCollection().getRouteTemplates();
+                    return SourcesSupport.afterConfigure(
+                        builder,
+                        rb -> {
+                            List<RouteDefinition> routes = rb.getRouteCollection().getRoutes();
+                            List<RouteTemplateDefinition> templates = rb.getRouteTemplateCollection().getRouteTemplates();
 
-                                if (routes.size() != 1) {
-                                    throw new IllegalArgumentException("There should be a single route definition, got " + routes.size());
-                                }
-                                if (!templates.isEmpty()) {
-                                    throw new IllegalArgumentException("There should not be any template, got " + templates.size());
-                                }
-
-                                // create a new template from the source
-                                RouteTemplateDefinition templatesDefinition = builder.getRouteTemplateCollection().routeTemplate(source.getId());
-                                templatesDefinition.setRoute(routes.get(0));
-
-                                source.getPropertyNames().forEach(templatesDefinition::templateParameter);
-
-                                // remove all routes definitions as they have been translated
-                                // in the related route template
-                                routes.clear();
+                            if (routes.size() != 1) {
+                                throw new IllegalArgumentException("There should be a single route definition, got " + routes.size());
                             }
-                        });
-                    });
+                            if (!templates.isEmpty()) {
+                                throw new IllegalArgumentException("There should not be any template, got " + templates.size());
+                            }
+
+                            // create a new template from the source
+                            RouteTemplateDefinition templatesDefinition = rb.getRouteTemplateCollection().routeTemplate(source.getId());
+                            templatesDefinition.setRoute(routes.get(0));
+
+                            source.getPropertyNames().forEach(templatesDefinition::templateParameter);
+
+                            // remove all routes definitions as they have been translated
+                            // in the related route template
+                            routes.clear();
+                        }
+                    );
                 }
             }
         );

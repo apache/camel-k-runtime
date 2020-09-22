@@ -14,38 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.core.quarkus.deployment;
+package org.apache.camel.k.quarkus.it;
 
 import javax.ws.rs.core.MediaType;
 
-import io.quarkus.test.junit.DisabledOnNativeImage;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import io.restassured.path.json.JsonPath;
-import org.apache.camel.k.CompositeClassloader;
-import org.apache.camel.k.listener.ContextConfigurer;
-import org.apache.camel.k.listener.SourcesConfigurer;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
-public class CoreTest {
+public class RuntimeTest {
     @Test
-    public void testServices() {
-        JsonPath p = RestAssured.given()
-            .accept(MediaType.APPLICATION_JSON)
-            .get("/test/services")
+    public void invoke() {
+        RestAssured.given()
+            .accept(MediaType.TEXT_PLAIN)
+            .get("/test/execute")
             .then()
                 .statusCode(200)
-            .extract()
-                .body()
-                .jsonPath();
-
-        assertThat(p.getList("services", String.class)).contains(
-            ContextConfigurer.class.getName(),
-            SourcesConfigurer.class.getName()
-        );
+                .body(is("template"));
     }
 }
