@@ -4,6 +4,11 @@
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-parent-1.5.0...HEAD)
 
+**Implemented enhancements:**
+
+- Remove suport for "configuration" classes [\#480](https://github.com/apache/camel-k-runtime/issues/480)
+- Support endpoint DSL in YAML/JSON [\#366](https://github.com/apache/camel-k-runtime/issues/366)
+
 **Closed issues:**
 
 - Create an extension fot camel-k-runtime-master [\#470](https://github.com/apache/camel-k-runtime/issues/470)
@@ -12,11 +17,17 @@
 - Invalid example on yaml language docu [\#423](https://github.com/apache/camel-k-runtime/issues/423)
 - \[yaml\] support for configuring beans with the yaml dsl [\#376](https://github.com/apache/camel-k-runtime/issues/376)
 - kamelets: create a camel-kamelet component [\#375](https://github.com/apache/camel-k-runtime/issues/375)
+- Document Knative component [\#247](https://github.com/apache/camel-k-runtime/issues/247)
 - \[quarkus\] add tests for jvm only loaders [\#215](https://github.com/apache/camel-k-runtime/issues/215)
 - add support for component customizer [\#58](https://github.com/apache/camel-k-runtime/issues/58)
 
 **Merged pull requests:**
 
+- build\(deps\): bump gmavenplus-plugin from 1.10.0 to 1.10.1 [\#488](https://github.com/apache/camel-k-runtime/pull/488) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Support endpoint DSL in YAML/JSON [\#486](https://github.com/apache/camel-k-runtime/pull/486) ([lburgazzoli](https://github.com/lburgazzoli))
+- chore\(build\): use dependency management for dependencies and plugins [\#483](https://github.com/apache/camel-k-runtime/pull/483) ([lburgazzoli](https://github.com/lburgazzoli))
+- Document Knative component [\#482](https://github.com/apache/camel-k-runtime/pull/482) ([lburgazzoli](https://github.com/lburgazzoli))
+- Remove suport for configuration classes [\#481](https://github.com/apache/camel-k-runtime/pull/481) ([lburgazzoli](https://github.com/lburgazzoli))
 - quarkus: disable routes discovery as routes are programmatically added [\#479](https://github.com/apache/camel-k-runtime/pull/479) ([lburgazzoli](https://github.com/lburgazzoli))
 - loaders: simplify source loader interceptors [\#478](https://github.com/apache/camel-k-runtime/pull/478) ([lburgazzoli](https://github.com/lburgazzoli))
 - Quarkus runtime improvements [\#477](https://github.com/apache/camel-k-runtime/pull/477) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -151,7 +162,6 @@
 - Add runtime support for Knative sinkbinding [\#372](https://github.com/apache/camel-k-runtime/pull/372) ([lburgazzoli](https://github.com/lburgazzoli))
 - Create a CompositeClassloader and set is as Camel's ApplicationClassloader [\#368](https://github.com/apache/camel-k-runtime/pull/368) ([lburgazzoli](https://github.com/lburgazzoli))
 - Integration should fail when no secret is found [\#367](https://github.com/apache/camel-k-runtime/pull/367) ([lburgazzoli](https://github.com/lburgazzoli))
-- tracing: support configuring the jeager service name [\#355](https://github.com/apache/camel-k-runtime/pull/355) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-1.3.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.3.0) (2020-06-05)
 
@@ -192,6 +202,7 @@
 **Merged pull requests:**
 
 - chore: remove meaningless log statement [\#356](https://github.com/apache/camel-k-runtime/pull/356) ([lburgazzoli](https://github.com/lburgazzoli))
+- tracing: support configuring the jeager service name [\#355](https://github.com/apache/camel-k-runtime/pull/355) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(pgp\): update key for Nicola Ferraro [\#354](https://github.com/apache/camel-k-runtime/pull/354) ([nicolaferraro](https://github.com/nicolaferraro))
 - Add an opentracing capability [\#353](https://github.com/apache/camel-k-runtime/pull/353) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade Jackson to version 2.10.4 [\#352](https://github.com/apache/camel-k-runtime/pull/352) ([oscerd](https://github.com/oscerd))
