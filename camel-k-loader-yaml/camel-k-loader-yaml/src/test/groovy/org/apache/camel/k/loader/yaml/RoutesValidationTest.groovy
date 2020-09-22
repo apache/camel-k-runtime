@@ -51,6 +51,6 @@ class RoutesValidationTest extends Specification {
         return Files.list(paths)
             // exclude RouteWithEndpointTest_ as there's no Endpoint DSL integration
             // with the json schema
-            .filter(p -> !p.last().toString().startsWith("RouteWithEndpointTest_"))
+            .filter(p -> !p.last().toString().startsWith("RoutesWithEndpointTest_"))
     }
 }
