@@ -7,7 +7,7 @@ The YAML DSL is current in preview support level.
 
 == Defining a route
 
-A route is a sequence of elements, or `steps`, defined as follows:
+A route is collection of elements defined as follows:
 
 [source,yaml]
 ----
@@ -110,6 +110,51 @@ set-body:
 [NOTE]
 ====
 In case you want to use the data-format's default settings, you need to place an empty block as data format parameters, like `json: {}`
+====
+
+== Defining beans
+
+In addition to the general support for creating beans provided by https://camel.apache.org/components/latest/others/main.html#_specifying_custom_beans[Camel Main], the YAML DSL provide a convenient syntax to define and configure them:
+
+[source,yaml]
+----
+- beans:
+  - name: beanFromMap  # <1>
+    type: com.acme.MyBean # <2>
+    properties: # <3>
+      foo: bar
+----
+<1> the name of the bean which will be used to bound the instance to the Camel Registry
+<2> the full qualified class name of the bean
+<3> the properties of the bean to be set
+
+The properties of the bean can be defined using either a map or properties style as shown in the example below:
+
+[source,yaml]
+----
+- beans:
+  # map style
+  - name: beanFromMap
+    type: com.acme.MyBean
+    properties:
+      field1: 'f1'
+      field2: 'f2'
+      nested:
+        field1: 'nf1'
+        field2: 'nf2'
+  # properties style
+  - name: beanFromProps
+    type: com.acme.MyBean
+    properties:
+      field1: 'f1_p'
+      field2: 'f2_p'
+      nested.field1: 'nf1_p'
+      nested.field2: 'nf2_p'
+----
+
+[NOTE]
+====
+The `beans` elements can only be used as root element
 ====
 
 == Extending the DSL
