@@ -191,7 +191,8 @@ public class CatalogProcessor3x implements CatalogProcessor {
                 .artifactId("camel-kamelet")
                 .addScheme(new CamelScheme.Builder()
                     .id("kamelet")
-                    .http(true)
+                    .http(false)
+                    .passive(true)
                     .build())
                 .addDependencies(
                     () -> catalog.getRuntimeProvider() instanceof DefaultRuntimeProvider,

@@ -49,4 +49,11 @@ new File(basedir, "catalog.yaml").withReader {
         assert schemes.size() == 1
         assert schemes[0].id == 'knative'
     }
+
+    catalog.spec.artifacts['camel-kamelet'].with {
+        assert schemes.size() == 1
+        assert schemes[0].id == 'kamelet'
+        assert schemes[0].passive == true
+        assert schemes[0].http == false
+    }
 }
