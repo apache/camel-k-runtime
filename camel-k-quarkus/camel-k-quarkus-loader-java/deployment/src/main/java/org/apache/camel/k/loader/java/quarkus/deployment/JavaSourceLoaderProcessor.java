@@ -14,25 +14,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.core.quarkus;
+package org.apache.camel.k.loader.java.quarkus.deployment;
 
-import io.quarkus.runtime.RuntimeValue;
-import io.quarkus.runtime.annotations.Recorder;
-import org.apache.camel.CamelContext;
-import org.apache.camel.k.CompositeClassloader;
-import org.apache.camel.quarkus.core.CamelContextCustomizer;
+import io.quarkus.deployment.annotations.BuildProducer;
+import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.ExecutionTime;
+import io.quarkus.deployment.annotations.Record;
+import org.apache.camel.k.loader.java.quarkus.JavaSourceLoaderRecorder;
+import org.apache.camel.quarkus.core.deployment.spi.CamelContextCustomizerBuildItem;
 
-@Recorder
-public class RuntimeRecorder {
-    public RuntimeValue<CamelContextCustomizer> registerCompositeClassLoader() {
-        return new RuntimeValue<>(new CamelContextCustomizer() {
-            @Override
-            public void customize(CamelContext context) {
-                final ClassLoader oldLoader = context.getApplicationContextClassLoader();
-                final ClassLoader newLoader = CompositeClassloader.wrap(oldLoader);
-
-                context.setApplicationContextClassLoader(newLoader);
-            }
-        });
+public class JavaSourceLoaderProcessor {
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep
+    void customizeContext(JavaSourceLoaderRecorder recorder, BuildProducer<CamelContextCustomizerBuildItem> customizers) {
+        customizers.produce(new CamelContextCustomizerBuildItem(recorder.registerCompositeClassLoader()));
     }
 }

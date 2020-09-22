@@ -21,8 +21,6 @@ import java.util.stream.Collectors;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.ExecutionTime;
-import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
@@ -30,8 +28,6 @@ import org.apache.camel.k.Constants;
 import org.apache.camel.k.ContextCustomizer;
 import org.apache.camel.k.SourceDefinition;
 import org.apache.camel.k.SourceLoader;
-import org.apache.camel.k.core.quarkus.RuntimeRecorder;
-import org.apache.camel.quarkus.core.deployment.spi.CamelContextCustomizerBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceDestination;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem;
 import org.apache.camel.spi.StreamCachingStrategy;
@@ -98,11 +94,5 @@ public class DeploymentProcessor {
                 false,
                 StreamCachingStrategy.SpoolRule.class)
         );
-    }
-
-    @Record(ExecutionTime.STATIC_INIT)
-    @BuildStep
-    void customizeContext(RuntimeRecorder recorder, BuildProducer<CamelContextCustomizerBuildItem> customizers) {
-        customizers.produce(new CamelContextCustomizerBuildItem(recorder.registerCompositeClassLoader()));
     }
 }
