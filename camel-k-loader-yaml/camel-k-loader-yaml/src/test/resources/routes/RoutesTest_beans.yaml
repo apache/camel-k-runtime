@@ -15,18 +15,18 @@
 # limitations under the License.
 #
 - beans:
-    - name: myNested
-      type: org.apache.camel.k.loader.yaml.support.MyBean
-      properties:
-        field1: 'f1'
-        field2: 'f2'
-        nested:
-          field1: 'nf1'
-          field2: 'nf2'
-    - name: myProps
-      type: org.apache.camel.k.loader.yaml.support.MyBean
-      properties:
-        field1: 'f1_p'
-        field2: 'f2_p'
-        nested.field1: 'nf1_p'
-        nested.field2: 'nf2_p'
+  - name: myNested
+    type: org.apache.camel.k.loader.yaml.support.MyBean
+    properties:
+      field1: 'f1'
+      field2: 'f2'
+      nested:
+        field1: 'nf1'
+        field2: 'nf2'
+  - name: myProps
+    type: org.apache.camel.k.loader.yaml.support.MyBean
+    properties:
+      field1: 'f1_p'
+      field2: 'f2_p'
+      nested.field1: 'nf1_p'
+      nested.field2: 'nf2_p'
