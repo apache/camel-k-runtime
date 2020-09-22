@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.quarkus.knative;
+package org.apache.camel.k.quarkus.it;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -35,7 +35,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
-public class KnativeComponentTest {
+public class KnativeTest {
+
     @Test
     public void inspect() {
         JsonPath p = RestAssured.given()
@@ -44,7 +45,7 @@ public class KnativeComponentTest {
             .get("/test/inspect")
             .then()
                 .statusCode(200)
-            .extract()
+                .extract()
                 .body()
                 .jsonPath();
 
@@ -55,23 +56,34 @@ public class KnativeComponentTest {
     }
 
     @Test
-    public void invoke() {
+    public void invokeEndpoint() {
         final String payload = "test";
 
         given()
             .body(payload)
             .header(Exchange.CONTENT_TYPE, "text/plain")
-            .header(CloudEvents.v1_0.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_VERSION).http(), CloudEvents.v1_0.version())
-            .header(CloudEvents.v1_0.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).http(), "org.apache.camel.event")
-            .header(CloudEvents.v1_0.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_ID).http(), "myEventID")
-            .header(CloudEvents.v1_0.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TIME).http(), DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now()))
-            .header(CloudEvents.v1_0.mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_SOURCE).http(), "/somewhere")
-        .when()
-            .post("/knative")
-        .then()
-            .statusCode(200)
-            .body(is(payload.toUpperCase()))
-            .extract()
-            .asString();
+            .header(CloudEvents.v1_0.httpAttribute(CloudEvent.CAMEL_CLOUD_EVENT_VERSION), CloudEvents.v1_0.version())
+            .header(CloudEvents.v1_0.httpAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE), "org.apache.camel.event")
+            .header(CloudEvents.v1_0.httpAttribute(CloudEvent.CAMEL_CLOUD_EVENT_ID), "myEventID")
+            .header(CloudEvents.v1_0.httpAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TIME), DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now()))
+            .header(CloudEvents.v1_0.httpAttribute(CloudEvent.CAMEL_CLOUD_EVENT_SOURCE), "/somewhere")
+            .when()
+                .post("/knative")
+            .then()
+                .statusCode(200)
+                .body(is(payload.toUpperCase()));
+    }
+
+    @Test
+    public void invokeRoute() {
+        final String payload = "hello";
+
+        RestAssured.given()
+            .accept(MediaType.TEXT_PLAIN)
+            .body(payload)
+            .post("/test/execute")
+            .then()
+                .statusCode(200)
+                .body(is(payload.toUpperCase()));
     }
 }

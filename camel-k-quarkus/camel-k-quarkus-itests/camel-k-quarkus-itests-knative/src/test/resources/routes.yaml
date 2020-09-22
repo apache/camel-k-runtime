@@ -19,8 +19,17 @@
     uri: "direct:process"
     steps:
       - to: "knative:endpoint/process"
+
 - from:
     uri: "knative:endpoint/process"
+    steps:
+      - convert-body-to:
+          type: "java.lang.String"
+      - set-body:
+          simple: "${in.body.toUpperCase()}"
+
+- from:
+    uri: "knative:endpoint/from"
     steps:
       - convert-body-to:
           type: "java.lang.String"

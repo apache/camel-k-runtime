@@ -14,9 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.quarkus.knative;
+package org.apache.camel.k.quarkus.it;
 
-import java.util.Locale;
 import java.util.Map;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -25,21 +24,27 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.CamelContext;
-import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.FluentProducerTemplate;
 import org.apache.camel.component.knative.KnativeEndpoint;
 import org.apache.camel.component.knative.spi.Knative;
+import org.apache.camel.component.knative.spi.KnativeEnvironment;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-
+@RegisterForReflection(targets = { String.class })
 @Path("/test")
 @ApplicationScoped
-public class KnativeComponentApplication {
+public class KnativeApplication {
     @Inject
     CamelContext context;
+    @Inject
+    FluentProducerTemplate template;
 
     @SuppressWarnings("unchecked")
     @GET
@@ -59,14 +64,31 @@ public class KnativeComponentApplication {
             .build();
     }
 
+    @POST
+    @Path("/execute")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String execute(String payload) {
+        return template.to("direct:process").withBody(payload).request(String.class);
+    }
+
     @javax.enterprise.inject.Produces
-    public RouteBuilder routes() {
-        return new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                from("knative:endpoint/from")
-                    .transform().body(String.class, b -> b.toUpperCase(Locale.US));
-            }
-        };
+    KnativeEnvironment environment(
+        @ConfigProperty(name = "camel.knative.listening.port") int port) {
+
+        return KnativeEnvironment.on(
+            KnativeEnvironment.serviceBuilder(Knative.Type.endpoint, "process")
+                .withMeta(Knative.CAMEL_ENDPOINT_KIND, Knative.EndpointKind.source)
+                .withMeta(Knative.SERVICE_META_PATH, "/knative")
+                .build(),
+            KnativeEnvironment.serviceBuilder(Knative.Type.endpoint, "from")
+                .withMeta(Knative.CAMEL_ENDPOINT_KIND, Knative.EndpointKind.source)
+                .withMeta(Knative.SERVICE_META_PATH, "/knative")
+                .withMeta(Knative.KNATIVE_EVENT_TYPE, "camel.k.evt")
+                .build(),
+            KnativeEnvironment.serviceBuilder(Knative.Type.endpoint, "process")
+                .withMeta(Knative.CAMEL_ENDPOINT_KIND, Knative.EndpointKind.sink)
+                .withMeta(Knative.SERVICE_META_URL, String.format("http://localhost:%d/knative", port))
+                .build()
+        );
     }
 }
