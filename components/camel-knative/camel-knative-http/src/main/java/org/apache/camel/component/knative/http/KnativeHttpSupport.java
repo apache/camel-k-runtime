@@ -51,7 +51,7 @@ public final class KnativeHttpSupport {
         headers.put(key, value);
     }
 
-    public static Predicate<HttpServerRequest> createFilter(KnativeEnvironment.KnativeServiceDefinition serviceDefinition) {
+    public static Predicate<HttpServerRequest> createFilter(KnativeEnvironment.KnativeResource serviceDefinition) {
         Map<String, String> filters = serviceDefinition.getMetadata().entrySet().stream()
             .filter(e -> e.getKey().startsWith(Knative.KNATIVE_FILTER_PREFIX))
             .collect(Collectors.toMap(

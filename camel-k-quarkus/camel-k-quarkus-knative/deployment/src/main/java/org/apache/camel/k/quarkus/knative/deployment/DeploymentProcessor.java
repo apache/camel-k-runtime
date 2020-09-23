@@ -46,7 +46,7 @@ public class DeploymentProcessor {
     List<ReflectiveClassBuildItem> reflectiveClasses() {
         return List.of(
             new ReflectiveClassBuildItem(true, false, KnativeEnvironment.class),
-            new ReflectiveClassBuildItem(true, false, KnativeEnvironment.KnativeServiceDefinition.class)
+            new ReflectiveClassBuildItem(true, false, KnativeEnvironment.KnativeResource.class)
         );
     }
 

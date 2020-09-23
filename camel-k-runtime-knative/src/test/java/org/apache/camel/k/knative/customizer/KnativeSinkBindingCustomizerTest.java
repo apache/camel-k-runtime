@@ -70,7 +70,7 @@ public class KnativeSinkBindingCustomizerTest {
                 assertThat(sc.getKind()).isEqualTo("InMemoryChannel");
             });
 
-            var svc = runtime.getRegistry().lookupByNameAndType("mychannel", KnativeEnvironment.KnativeServiceDefinition.class);
+            var svc = runtime.getRegistry().lookupByNameAndType("mychannel", KnativeEnvironment.KnativeResource.class);
             assertThat(svc).isNotNull();
             assertThat(svc.getUrl()).isEqualTo("http://theurl");
             assertThat(svc.getName()).isEqualTo("mychannel");
@@ -123,7 +123,7 @@ public class KnativeSinkBindingCustomizerTest {
             });
             context.start();
 
-            var services = context.getRegistry().findByType(KnativeEnvironment.KnativeServiceDefinition.class);
+            var services = context.getRegistry().findByType(KnativeEnvironment.KnativeResource.class);
 
             assertThat(services).hasSize(1);
             assertThat(services).first().hasFieldOrPropertyWithValue("name", "mySynk");

@@ -28,11 +28,11 @@ public final class KnativeHttpTestSupport {
     private KnativeHttpTestSupport() {
     }
 
-    public static KnativeComponent configureKnativeComponent(CamelContext context, CloudEvent ce, KnativeEnvironment.KnativeServiceDefinition... definitions) {
+    public static KnativeComponent configureKnativeComponent(CamelContext context, CloudEvent ce, KnativeEnvironment.KnativeResource... definitions) {
         return configureKnativeComponent(context, ce, Arrays.asList(definitions));
     }
 
-    public static KnativeComponent configureKnativeComponent(CamelContext context, CloudEvent ce, List<KnativeEnvironment.KnativeServiceDefinition> definitions) {
+    public static KnativeComponent configureKnativeComponent(CamelContext context, CloudEvent ce, List<KnativeEnvironment.KnativeResource> definitions) {
         KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
         component.setCloudEventsSpecVersion(ce.version());
         component.setEnvironment(new KnativeEnvironment(definitions));

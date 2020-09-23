@@ -37,7 +37,7 @@ public class KnativeTransportNoop implements KnativeTransport {
     }
 
     @Override
-    public Producer createProducer(Endpoint endpoint, KnativeTransportConfiguration configuration, KnativeEnvironment.KnativeServiceDefinition service) {
+    public Producer createProducer(Endpoint endpoint, KnativeTransportConfiguration configuration, KnativeEnvironment.KnativeResource service) {
         return new DefaultProducer(endpoint) {
             @Override
             public void process(Exchange exchange) throws Exception {
@@ -46,7 +46,7 @@ public class KnativeTransportNoop implements KnativeTransport {
     }
 
     @Override
-    public Consumer createConsumer(Endpoint endpoint, KnativeTransportConfiguration configuration, KnativeEnvironment.KnativeServiceDefinition service, Processor processor) {
+    public Consumer createConsumer(Endpoint endpoint, KnativeTransportConfiguration configuration, KnativeEnvironment.KnativeResource service, Processor processor) {
         return new DefaultConsumer(endpoint, processor);
     }
 }

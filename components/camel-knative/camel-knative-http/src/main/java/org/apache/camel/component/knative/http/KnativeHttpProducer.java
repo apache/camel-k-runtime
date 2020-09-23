@@ -47,7 +47,7 @@ import org.slf4j.LoggerFactory;
 public class KnativeHttpProducer extends DefaultAsyncProducer {
     private static final Logger LOGGER = LoggerFactory.getLogger(KnativeHttpProducer.class);
 
-    private final KnativeEnvironment.KnativeServiceDefinition serviceDefinition;
+    private final KnativeEnvironment.KnativeResource serviceDefinition;
     private final Vertx vertx;
     private final WebClientOptions clientOptions;
     private final HeaderFilterStrategy headerFilterStrategy;
@@ -57,7 +57,7 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
 
     public KnativeHttpProducer(
             Endpoint endpoint,
-            KnativeEnvironment.KnativeServiceDefinition serviceDefinition,
+            KnativeEnvironment.KnativeResource serviceDefinition,
             Vertx vertx,
             WebClientOptions clientOptions) {
         super(endpoint);
@@ -92,6 +92,13 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
         final Message message = exchange.getMessage();
         final String host = getHost(serviceDefinition);
 
+        if (ObjectHelper.isEmpty(host)) {
+            exchange.setException(new CamelException("HTTP operation failed because host is not defined"));
+            callback.done(true);
+
+            return true;
+        }
+
         MultiMap headers = MultiMap.caseInsensitiveMultiMap();
         headers.add(HttpHeaders.CONTENT_LENGTH, Integer.toString(payload.length));
         headers.add(HttpHeaders.HOST, host);
@@ -105,13 +112,6 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
             if (!headerFilterStrategy.applyFilterToCamelHeaders(entry.getKey(), entry.getValue(), exchange)) {
                 headers.add(entry.getKey(), entry.getValue().toString());
             }
-        }
-
-        if (ObjectHelper.isEmpty(host)) {
-            exchange.setException(new CamelException("HTTP operation failed because host is not defined"));
-            callback.done(true);
-
-            return true;
         }
 
         client.postAbs(this.uri.get())
@@ -180,7 +180,7 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
         }
     }
 
-    private String computeUrl(KnativeEnvironment.KnativeServiceDefinition definition) {
+    private String computeUrl(KnativeEnvironment.KnativeResource definition) {
         String url = definition.getUrl();
         if (url == null) {
             int port = definition.getPortOrDefault(KnativeHttpTransport.DEFAULT_PORT);
@@ -196,7 +196,7 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
         return getEndpoint().getCamelContext().resolvePropertyPlaceholders(url);
     }
 
-    private String getHost(KnativeEnvironment.KnativeServiceDefinition definition) {
+    private String getHost(KnativeEnvironment.KnativeResource definition) {
         if (definition.getHost() != null) {
             return serviceDefinition.getHost();
         }
@@ -212,7 +212,7 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
             }
         }
 
-        throw new IllegalStateException("Unable to determine the Host value");
+        return null;
     }
 
 }

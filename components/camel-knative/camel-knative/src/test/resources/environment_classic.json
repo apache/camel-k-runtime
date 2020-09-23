@@ -1,5 +1,5 @@
 {
-  "resources": [
+  "services": [
     {
       "type": "channel",
       "name": "c1",

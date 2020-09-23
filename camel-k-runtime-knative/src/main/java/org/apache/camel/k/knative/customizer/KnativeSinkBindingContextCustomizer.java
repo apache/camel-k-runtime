@@ -51,7 +51,7 @@ public class KnativeSinkBindingContextCustomizer implements ContextCustomizer {
         });
     }
 
-    private Optional<KnativeEnvironment.KnativeServiceDefinition> createSyntheticDefinition(
+    private Optional<KnativeEnvironment.KnativeResource> createSyntheticDefinition(
             CamelContext camelContext,
             String sinkName) {
 
