@@ -111,7 +111,6 @@ public class KameletEndpoint extends DefaultEndpoint {
     protected void doInit() throws Exception {
         super.doInit();
         getComponent().onEndpointAdd(this);
-
     }
 
     // *********************************
