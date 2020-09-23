@@ -30,10 +30,6 @@
 
     <modules>
         <module>camel-k-quarkus-itests-core</module>
-        <module>camel-k-quarkus-itests-cron</module>
-        <module>camel-k-quarkus-itests-master</module>
-        <module>camel-k-quarkus-itests-kamelet</module>
-        <module>camel-k-quarkus-itests-knative</module>
         <module>camel-k-quarkus-itests-loader-support</module>
         <module>camel-k-quarkus-itests-loader-groovy</module>
         <module>camel-k-quarkus-itests-loader-kotlin</module>
@@ -42,8 +38,11 @@
         <module>camel-k-quarkus-itests-loader-xml</module>
         <module>camel-k-quarkus-itests-loader-yaml</module>
         <module>camel-k-quarkus-itests-polyglot</module>
+        <module>camel-k-quarkus-itests-cron</module>
+        <module>camel-k-quarkus-itests-master</module>
+        <module>camel-k-quarkus-itests-knative</module>
+        <module>camel-k-quarkus-itests-kamelet</module>
         <module>camel-k-quarkus-itests-runtime</module>
-        <module>camel-k-quarkus-itests-runtime-kamelet</module>
     </modules>
 
 </project>
