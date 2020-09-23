@@ -51,7 +51,7 @@ public class KnativeHttpConsumer extends DefaultConsumer {
 
     private final KnativeTransportConfiguration configuration;
     private final Predicate<HttpServerRequest> filter;
-    private final KnativeEnvironment.KnativeServiceDefinition serviceDefinition;
+    private final KnativeEnvironment.KnativeResource serviceDefinition;
     private final VertxPlatformHttpRouter router;
     private final HeaderFilterStrategy headerFilterStrategy;
 
@@ -61,7 +61,7 @@ public class KnativeHttpConsumer extends DefaultConsumer {
     public KnativeHttpConsumer(
         KnativeTransportConfiguration configuration,
         Endpoint endpoint,
-        KnativeEnvironment.KnativeServiceDefinition serviceDefinition,
+        KnativeEnvironment.KnativeResource serviceDefinition,
         VertxPlatformHttpRouter router,
         Processor processor) {
 

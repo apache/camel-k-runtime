@@ -34,7 +34,7 @@ public interface KnativeTransport extends Service {
     Producer createProducer(
         Endpoint endpoint,
         KnativeTransportConfiguration configuration,
-        KnativeEnvironment.KnativeServiceDefinition service);
+        KnativeEnvironment.KnativeResource service);
 
     /**
      * Create a camel {@link Consumer} in place of the original endpoint for a specific protocol.
@@ -47,5 +47,5 @@ public interface KnativeTransport extends Service {
     Consumer createConsumer(
         Endpoint endpoint,
         KnativeTransportConfiguration configuration,
-        KnativeEnvironment.KnativeServiceDefinition service, Processor processor);
+        KnativeEnvironment.KnativeResource service, Processor processor);
 }

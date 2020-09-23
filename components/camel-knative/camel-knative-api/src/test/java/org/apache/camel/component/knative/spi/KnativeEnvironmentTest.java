@@ -18,23 +18,26 @@ package org.apache.camel.component.knative.spi;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class KnativeEnvironmentTest {
 
-    @Test
-    public void testKnativeEnvironmentDeserializationFromString() throws Exception {
-        CamelContext context = new DefaultCamelContext();
 
-        KnativeEnvironment env = KnativeEnvironment.mandatoryLoadFromSerializedString(
-            context,
-            "{\"services\":[{\"type\":\"endpoint\",\"name\":\"knative3\",\"metadata\":{\"camel.endpoint.kind\":\"source\",\"knative.apiVersion\":\"serving.knative.dev/v1\",\"knative.kind\":\"Service\",\"service.path\":\"/\"}}]}"
-        );
+    @ParameterizedTest
+    @ValueSource(strings = {
+        "{\"services\":[{\"type\":\"endpoint\",\"name\":\"knative3\",\"metadata\":{\"camel.endpoint.kind\":\"source\",\"knative.apiVersion\":\"serving.knative.dev/v1\",\"knative.kind\":\"Service\",\"service.path\":\"/\"}}]}",
+        "{\"resources\":[{\"type\":\"endpoint\",\"name\":\"knative3\",\"metadata\":{\"camel.endpoint.kind\":\"source\",\"knative.apiVersion\":\"serving.knative.dev/v1\",\"knative.kind\":\"Service\",\"service.path\":\"/\"}}]}"
+    })
+    public void testKnativeEnvironmentDeserializationFromString(String content) throws Exception {
+        CamelContext context = new DefaultCamelContext();
+        KnativeEnvironment env = KnativeEnvironment.mandatoryLoadFromSerializedString(context, content);
 
         assertThat(env.lookup(Knative.Type.endpoint, "knative3"))
             .first()
+                .hasFieldOrPropertyWithValue("url", null)
                 .hasFieldOrPropertyWithValue("port", -1)
                 .hasFieldOrPropertyWithValue("host", null);
     }

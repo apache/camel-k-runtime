@@ -48,7 +48,7 @@ abstract class AbstractCloudEventProcessor implements CloudEventProcessor {
 
     @SuppressWarnings("unchecked")
     @Override
-    public Processor consumer(KnativeEndpoint endpoint, KnativeEnvironment.KnativeServiceDefinition service) {
+    public Processor consumer(KnativeEndpoint endpoint, KnativeEnvironment.KnativeResource service) {
         return exchange -> {
             if (Objects.equals(exchange.getIn().getHeader(Exchange.CONTENT_TYPE), Knative.MIME_BATCH_CONTENT_MODE)) {
                 throw new UnsupportedOperationException("Batched CloudEvents are not yet supported");
@@ -75,7 +75,7 @@ abstract class AbstractCloudEventProcessor implements CloudEventProcessor {
     protected abstract void decodeStructuredContent(Exchange exchange, Map<String, Object> content);
 
     @Override
-    public Processor producer(KnativeEndpoint endpoint, KnativeEnvironment.KnativeServiceDefinition service) {
+    public Processor producer(KnativeEndpoint endpoint, KnativeEnvironment.KnativeResource service) {
         final CloudEvent ce = cloudEvent();
         final Logger logger = LoggerFactory.getLogger(getClass());
 

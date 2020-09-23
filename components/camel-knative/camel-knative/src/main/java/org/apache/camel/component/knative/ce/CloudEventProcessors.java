@@ -159,12 +159,12 @@ public enum CloudEventProcessors implements CloudEventProcessor {
     }
 
     @Override
-    public Processor consumer(KnativeEndpoint endpoint, KnativeEnvironment.KnativeServiceDefinition service) {
+    public Processor consumer(KnativeEndpoint endpoint, KnativeEnvironment.KnativeResource service) {
         return instance.consumer(endpoint, service);
     }
 
     @Override
-    public Processor producer(KnativeEndpoint endpoint, KnativeEnvironment.KnativeServiceDefinition service) {
+    public Processor producer(KnativeEndpoint endpoint, KnativeEnvironment.KnativeResource service) {
         return instance.producer(endpoint, service);
     }
 

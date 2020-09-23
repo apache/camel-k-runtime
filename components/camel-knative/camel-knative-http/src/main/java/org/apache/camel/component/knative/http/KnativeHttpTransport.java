@@ -88,12 +88,12 @@ public class KnativeHttpTransport extends ServiceSupport implements CamelContext
     // *****************************
 
     @Override
-    public Producer createProducer(Endpoint endpoint, KnativeTransportConfiguration config, KnativeEnvironment.KnativeServiceDefinition service) {
+    public Producer createProducer(Endpoint endpoint, KnativeTransportConfiguration config, KnativeEnvironment.KnativeResource service) {
         return new KnativeHttpProducer(endpoint, service, this.router.vertx(), vertxHttpClientOptions);
     }
 
     @Override
-    public Consumer createConsumer(Endpoint endpoint, KnativeTransportConfiguration config, KnativeEnvironment.KnativeServiceDefinition service, Processor processor) {
+    public Consumer createConsumer(Endpoint endpoint, KnativeTransportConfiguration config, KnativeEnvironment.KnativeResource service, Processor processor) {
         return new KnativeHttpConsumer(config, endpoint, service, this.router, processor);
     }
 

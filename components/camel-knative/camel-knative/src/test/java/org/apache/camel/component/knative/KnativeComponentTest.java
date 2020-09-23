@@ -23,7 +23,8 @@ import org.apache.camel.component.knative.test.KnativeEnvironmentSupport;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.apache.camel.component.knative.spi.KnativeEnvironment.mandatoryLoadFromResource;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -56,9 +57,10 @@ public class KnativeComponentTest {
     //
     // **************************
 
-    @Test
-    void testLoadEnvironment() throws Exception {
-        KnativeEnvironment env = mandatoryLoadFromResource(context, "classpath:/environment.json");
+    @ParameterizedTest
+    @ValueSource(strings = { "classpath:/environment.json", "classpath:/environment_classic.json"})
+    void testLoadEnvironment(String resource) throws Exception {
+        KnativeEnvironment env = mandatoryLoadFromResource(context, resource);
 
         assertThat(env.stream()).hasSize(3);
         assertThat(env.stream()).anyMatch(s -> s.getType() == Knative.Type.channel);
@@ -68,8 +70,8 @@ public class KnativeComponentTest {
         component.setEnvironment(env);
         component.setTransport(new KnativeTransportNoop());
 
-        context.getRegistry().bind("ereg", KnativeEnvironmentSupport.endpoint(Knative.EndpointKind.source, "ereg", null, -1));
-        context.getRegistry().bind("creg", KnativeEnvironmentSupport.channel(Knative.EndpointKind.source, "creg", null, -1));
+        context.getRegistry().bind("ereg", KnativeEnvironmentSupport.endpoint(Knative.EndpointKind.source, "ereg", null));
+        context.getRegistry().bind("creg", KnativeEnvironmentSupport.channel(Knative.EndpointKind.source, "creg", null));
         context.addComponent("knative", component);
 
         //
@@ -79,6 +81,10 @@ public class KnativeComponentTest {
             KnativeEndpoint endpoint = context.getEndpoint("knative:channel/c1", KnativeEndpoint.class);
             assertThat(endpoint.lookupServiceDefinition("c1", Knative.EndpointKind.source)).isPresent();
             assertThat(endpoint.lookupServiceDefinition("e1", Knative.EndpointKind.source)).isNotPresent();
+            assertThat(endpoint.lookupServiceDefinition("c1", Knative.EndpointKind.source)).isPresent().get()
+                .hasFieldOrPropertyWithValue("url", "http://localhost:8081")
+                .hasFieldOrPropertyWithValue("host", "localhost")
+                .hasFieldOrPropertyWithValue("port", 8081);
         }
         {
             KnativeEndpoint endpoint = context.getEndpoint("knative:channel/creg", KnativeEndpoint.class);
@@ -92,6 +98,10 @@ public class KnativeComponentTest {
             KnativeEndpoint endpoint = context.getEndpoint("knative:endpoint/e1", KnativeEndpoint.class);
             assertThat(endpoint.lookupServiceDefinition("e1", Knative.EndpointKind.source)).isPresent();
             assertThat(endpoint.lookupServiceDefinition("c1", Knative.EndpointKind.source)).isNotPresent();
+            assertThat(endpoint.lookupServiceDefinition("e1", Knative.EndpointKind.source)).isPresent().get()
+                .hasFieldOrPropertyWithValue("url", "http://localhost:9001")
+                .hasFieldOrPropertyWithValue("host", "localhost")
+                .hasFieldOrPropertyWithValue("port", 9001);
         }
         {
             KnativeEndpoint endpoint = context.getEndpoint("knative:endpoint/ereg", KnativeEndpoint.class);

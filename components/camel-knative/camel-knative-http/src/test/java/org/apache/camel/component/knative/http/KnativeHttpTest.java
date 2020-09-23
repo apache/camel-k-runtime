@@ -208,10 +208,8 @@ public class KnativeHttpTest {
             endpoint(
                 Knative.EndpointKind.sink,
                 "myEndpoint",
-                platformHttpHost,
-                platformHttpPort,
+                String.format("http://%s:%d/a/path", platformHttpHost, platformHttpPort),
                 Map.of(
-                    Knative.SERVICE_META_PATH, "/a/path",
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 ))
@@ -250,8 +248,7 @@ public class KnativeHttpTest {
             endpoint(
                 Knative.EndpointKind.sink,
                 "myEndpoint",
-                "none",
-                -1,
+                null,
                 Map.of(
                     Knative.SERVICE_META_PATH, "/does/not/exist",
                     Knative.SERVICE_META_URL, String.format("http://localhost:%d/a/path", platformHttpPort),
@@ -697,8 +694,7 @@ public class KnativeHttpTest {
             endpoint(
                 Knative.EndpointKind.sink,
                 "to",
-                platformHttpHost,
-                platformHttpPort,
+                String.format("http://%s:%d", platformHttpHost, platformHttpPort),
                 Map.of(
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event.to",
                     Knative.CONTENT_TYPE, "text/plain"
@@ -744,8 +740,7 @@ public class KnativeHttpTest {
             endpoint(
                 Knative.EndpointKind.sink,
                 "to",
-                platformHttpHost,
-                platformHttpPort,
+                String.format("http://%s:%d", platformHttpHost, platformHttpPort),
                 Map.of(
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
@@ -785,8 +780,7 @@ public class KnativeHttpTest {
             endpoint(
                 Knative.EndpointKind.sink,
                 "test",
-                "",
-                platformHttpPort,
+                null,
                 Map.of(
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
@@ -817,8 +811,7 @@ public class KnativeHttpTest {
             endpoint(
                 Knative.EndpointKind.sink,
                 "test",
-                platformHttpHost,
-                platformHttpPort,
+                String.format("http://%s:%d", platformHttpHost, platformHttpPort),
                 Map.of(
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
@@ -837,7 +830,7 @@ public class KnativeHttpTest {
         Exchange exchange = template.request("direct:start", e -> e.getMessage().setBody(""));
         assertThat(exchange.isFailed()).isTrue();
         assertThat(exchange.getException()).isInstanceOf(CamelException.class);
-        assertThat(exchange.getException()).hasMessageStartingWith("HTTP operation failed invoking http://localhost:" + platformHttpPort + "/");
+        assertThat(exchange.getException()).hasMessageStartingWith("HTTP operation failed invoking http://localhost:" + platformHttpPort);
     }
 
     @ParameterizedTest
@@ -953,8 +946,7 @@ public class KnativeHttpTest {
             endpoint(
                 Knative.EndpointKind.sink,
                 "ep",
-                platformHttpHost,
-                platformHttpPort,
+                String.format("http://%s:%d", platformHttpHost, platformHttpPort),
                 Map.of(
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
@@ -991,8 +983,7 @@ public class KnativeHttpTest {
             event(
                 Knative.EndpointKind.sink,
                 "default",
-                platformHttpHost,
-                platformHttpPort,
+                String.format("http://%s:%d", platformHttpHost, platformHttpPort),
                 Map.of(
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
@@ -1037,8 +1028,7 @@ public class KnativeHttpTest {
             event(
                 Knative.EndpointKind.sink,
                 "default",
-                platformHttpHost,
-                platformHttpPort,
+                String.format("http://%s:%d", platformHttpHost, platformHttpPort),
                 Map.of(
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain",
@@ -1174,8 +1164,7 @@ public class KnativeHttpTest {
             endpoint(
                 Knative.EndpointKind.sink,
                 "myEndpoint",
-                platformHttpHost,
-                platformHttpPort,
+                String.format("http://%s:%d", platformHttpHost, platformHttpPort),
                 Map.of(
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
@@ -1210,7 +1199,6 @@ public class KnativeHttpTest {
                 Knative.EndpointKind.source,
                 "messages",
                 null,
-                -1,
                 Map.of(
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
@@ -1218,8 +1206,7 @@ public class KnativeHttpTest {
             channel(
                 Knative.EndpointKind.sink,
                 "messages",
-                platformHttpHost,
-                platformHttpPort,
+                String.format("http://%s:%d", platformHttpHost, platformHttpPort),
                 Map.of(
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
@@ -1227,8 +1214,7 @@ public class KnativeHttpTest {
             channel(
                 Knative.EndpointKind.sink,
                 "words",
-                server.getHost(),
-                server.getPort(),
+                String.format("http://%s:%d", server.getHost(), server.getPort()),
                 Map.of(
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
@@ -1368,7 +1354,7 @@ public class KnativeHttpTest {
     @ParameterizedTest
     @EnumSource(CloudEvents.class)
     void testOrdering(CloudEvent ce) throws Exception {
-        List<KnativeEnvironment.KnativeServiceDefinition> hops = new Random()
+        List<KnativeEnvironment.KnativeResource> hops = new Random()
             .ints(0, 100)
             .distinct()
             .limit(10)
@@ -1385,7 +1371,7 @@ public class KnativeHttpTest {
                 .toF("http://localhost:%d", platformHttpPort)
                 .convertBodyTo(String.class);
 
-            for (KnativeEnvironment.KnativeServiceDefinition definition : hops) {
+            for (KnativeEnvironment.KnativeResource definition : hops) {
                 b.fromF("knative:endpoint/%s", definition.getName())
                     .routeId(definition.getName())
                     .setBody().constant(definition.getName());
@@ -1395,7 +1381,7 @@ public class KnativeHttpTest {
         context.start();
 
         List<String> hopsDone = new ArrayList<>();
-        for (KnativeEnvironment.KnativeServiceDefinition definition : hops) {
+        for (KnativeEnvironment.KnativeResource definition : hops) {
             hopsDone.add(definition.getName());
 
             Exchange result = template.request(
@@ -1422,8 +1408,7 @@ public class KnativeHttpTest {
             endpoint(
                 Knative.EndpointKind.sink,
                 "ep",
-                server.getHost(),
-                server.getPort(),
+                String.format("http://%s:%d", server.getHost(), server.getPort()),
                 Map.of(
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
@@ -1476,8 +1461,7 @@ public class KnativeHttpTest {
             endpoint(
                 Knative.EndpointKind.sink,
                 "ep",
-                server.getHost(),
-                server.getPort(),
+                String.format("http://%s:%d", server.getHost(), server.getPort()),
                 Map.of(
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
@@ -1522,8 +1506,7 @@ public class KnativeHttpTest {
             endpoint(
                 Knative.EndpointKind.sink,
                 "ep",
-                server.getHost(),
-                server.getPort(),
+                String.format("http://%s:%d", server.getHost(), server.getPort()),
                 Map.of(
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain",
@@ -1569,8 +1552,7 @@ public class KnativeHttpTest {
             endpoint(
                 Knative.EndpointKind.sink,
                 "ep",
-                server.getHost(),
-                server.getPort(),
+                String.format("http://%s:%d", server.getHost(), server.getPort()),
                 Map.of(
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
@@ -1616,8 +1598,7 @@ public class KnativeHttpTest {
             endpoint(
                 Knative.EndpointKind.sink,
                 "ep",
-                server.getHost(),
-                server.getPort(),
+                String.format("http://%s:%d", server.getHost(), server.getPort()),
                 Map.of(
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
@@ -1662,8 +1643,7 @@ public class KnativeHttpTest {
             endpoint(
                 Knative.EndpointKind.sink,
                 "ep",
-                server.getHost(),
-                server.getPort(),
+                String.format("http://%s:%d", server.getHost(), server.getPort()),
                 Map.of(
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
@@ -1704,8 +1684,7 @@ public class KnativeHttpTest {
             endpoint(
                 Knative.EndpointKind.sink,
                 "ep",
-                server.getHost(),
-                server.getPort(),
+                String.format("http://%s:%d", server.getHost(), server.getPort()),
                 Map.of(
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
@@ -1747,8 +1726,7 @@ public class KnativeHttpTest {
             event(
                 Knative.EndpointKind.sink,
                 "event.sink",
-                server.getHost(),
-                server.getPort(),
+                String.format("http://%s:%d", server.getHost(), server.getPort()),
                 Map.of(
                     Knative.CONTENT_TYPE, "text/plain"
                 )),
@@ -1794,7 +1772,6 @@ public class KnativeHttpTest {
     @ParameterizedTest
     @EnumSource(CloudEvents.class)
     void testDynamicEventBridge(CloudEvent ce) throws Exception {
-        final int port = AvailablePortFinder.getNextAvailable();
         final KnativeHttpServer server = new KnativeHttpServer(context);
 
         configureKnativeComponent(
@@ -1803,8 +1780,7 @@ public class KnativeHttpTest {
             event(
                 Knative.EndpointKind.sink,
                 "default",
-                server.getHost(),
-                server.getPort(),
+                String.format("http://%s:%d", server.getHost(), server.getPort()),
                 Map.of(
                     Knative.CONTENT_TYPE, "text/plain"
                 )),

@@ -167,7 +167,7 @@ public class RuntimeTest {
     public void testLoadJavaSourceWrap() throws Exception {
         KnativeComponent component = new KnativeComponent();
         component.setEnvironment(KnativeEnvironment.on(
-            KnativeEnvironmentSupport.endpoint(Knative.EndpointKind.sink, "sink", "localhost", AvailablePortFinder.getNextAvailable())
+            KnativeEnvironmentSupport.endpoint(Knative.EndpointKind.sink, "sink", "http://localhost:" + AvailablePortFinder.getNextAvailable())
         ));
 
         PlatformHttpServiceContextCustomizer phsc = new PlatformHttpServiceContextCustomizer();

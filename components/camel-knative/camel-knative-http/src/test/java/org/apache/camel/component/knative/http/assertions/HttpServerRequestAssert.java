@@ -32,7 +32,6 @@ public class HttpServerRequestAssert extends AbstractAssert<HttpServerRequestAss
         return new HttpServerRequestAssert(actual);
     }
 
-
     public AbstractStringAssert<?> header(String name) {
         isNotNull();
 
@@ -43,7 +42,6 @@ public class HttpServerRequestAssert extends AbstractAssert<HttpServerRequestAss
         isNotNull();
 
         if (Objects.isNull(actual.getHeader(name))) {
-            //failWithMessage("Expected header name to be <%s> but was <%s>", name, actual.getName());
             failWithMessage("Expected header %s not present", name);
         }
 

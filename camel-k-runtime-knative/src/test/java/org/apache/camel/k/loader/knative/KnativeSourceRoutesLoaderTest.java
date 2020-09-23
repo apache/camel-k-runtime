@@ -73,7 +73,7 @@ public class KnativeSourceRoutesLoaderTest {
 
         KnativeComponent component = new KnativeComponent();
         component.setEnvironment(KnativeEnvironment.on(
-            KnativeEnvironmentSupport.endpoint(Knative.EndpointKind.sink, "sink", "localhost", runtime.port)
+            KnativeEnvironmentSupport.endpoint(Knative.EndpointKind.sink, "sink", "http://localhost:" + runtime.port)
         ));
 
         CamelContext context = runtime.getCamelContext();

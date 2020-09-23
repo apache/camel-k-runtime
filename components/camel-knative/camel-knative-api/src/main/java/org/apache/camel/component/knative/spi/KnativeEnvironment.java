@@ -23,7 +23,7 @@ import java.io.StringReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,30 +31,37 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.camel.CamelContext;
-import org.apache.camel.impl.cloud.DefaultServiceDefinition;
 import org.apache.camel.support.ResourceHelper;
 
 /*
  * Assuming it is loaded from a json for now
  */
 public class KnativeEnvironment {
-    private final List<KnativeServiceDefinition> services;
+    private final List<KnativeResource> resources;
 
-    @JsonCreator
-    public KnativeEnvironment(
-        @JsonProperty(value = "services", required = true) List<KnativeServiceDefinition> services) {
-
-        this.services = new ArrayList<>(services);
+    public KnativeEnvironment() {
+        this.resources = new ArrayList<>();
     }
 
-    public Stream<KnativeServiceDefinition> stream() {
-        return services.stream();
+    public KnativeEnvironment(Collection<KnativeResource> resources) {
+        this.resources = new ArrayList<>(resources);
     }
 
-    public Stream<KnativeServiceDefinition> lookup(Knative.Type type, String name) {
+    @JsonAlias("services")
+    @JsonProperty(value = "resources", required = true)
+    public List<KnativeResource> getResources() {
+        return resources;
+    }
+
+    public Stream<KnativeResource> stream() {
+        return resources.stream();
+    }
+
+    public Stream<KnativeResource> lookup(Knative.Type type, String name) {
         return stream().filter(definition -> definition.matches(type, name));
     }
 
@@ -80,8 +87,7 @@ public class KnativeEnvironment {
             //         {
             //              "type": "channel|endpoint|event",
             //              "name": "",
-            //              "host": "",
-            //              "port": "",
+            //              "url": "",
             //              "metadata": {
             //                  "service.path": "",
             //                  "filter.header": "value",
@@ -100,8 +106,13 @@ public class KnativeEnvironment {
         }
     }
 
-    public static KnativeEnvironment on(KnativeServiceDefinition... definitions) {
-        return new KnativeEnvironment(Arrays.asList(definitions));
+    public static KnativeEnvironment on(KnativeResource... definitions) {
+        KnativeEnvironment env = new KnativeEnvironment();
+        for (KnativeResource definition : definitions) {
+            env.getResources().add(definition);
+        }
+
+        return env;
     }
 
     public static KnativeServiceBuilder serviceBuilder(Knative.Type type, String name) {
@@ -114,12 +125,10 @@ public class KnativeEnvironment {
     //
     // ************************
 
-
     public static final class KnativeServiceBuilder {
         private final Knative.Type type;
         private final String name;
-        private String host;
-        private Integer port;
+        private String url;
         private Map<String, String> metadata;
 
         public KnativeServiceBuilder(Knative.Type type, String name) {
@@ -127,13 +136,8 @@ public class KnativeEnvironment {
             this.name = name;
         }
 
-        public KnativeServiceBuilder withHost(String host) {
-            this.host = host;
-            return this;
-        }
-
-        public KnativeServiceBuilder withPort(Integer port) {
-            this.port = port;
+        public KnativeServiceBuilder withUrl(String url) {
+            this.url = url;
             return this;
         }
 
@@ -170,47 +174,49 @@ public class KnativeEnvironment {
             return this;
         }
 
-        public KnativeServiceDefinition build() {
-            return new KnativeServiceDefinition(type, name, host, port, metadata);
+        public KnativeResource build() {
+            return new KnativeResource(type, name, url, metadata);
         }
     }
 
-    public static final class KnativeServiceDefinition extends DefaultServiceDefinition {
+    public static final class KnativeResource {
+        private final String name;
+        private final String url;
+        private final Map<String, String> meta;
+
         @JsonCreator
-        public KnativeServiceDefinition(
+        public KnativeResource(
             @JsonProperty(value = "type", required = true) Knative.Type type,
             @JsonProperty(value = "name", required = true) String name,
-            @JsonProperty(value = "host", required = false) String host,
-            @JsonProperty(value = "port", required = false) Integer port,
+            @JsonProperty(value = "url", required = false) String url,
             @JsonProperty(value = "metadata", required = false) Map<String, String> metadata) {
 
-            super(
-                name,
-                host,
-                port == null ? -1 : port,
-                KnativeSupport.mergeMaps(
-                    metadata,
-                    Map.of(
-                        Knative.KNATIVE_TYPE, type.name())
-                )
+            this.name = name;
+            this.url = url;
+            this.meta = KnativeSupport.mergeMaps(
+                metadata,
+                Map.of(
+                    Knative.KNATIVE_TYPE, type.name())
             );
         }
 
-        @Override
+        public String getName() {
+            return this.name;
+        }
+
         public String getHost() {
             String urlAsString = getUrl();
             if (urlAsString != null) {
                 try {
                     return new URL(urlAsString).getHost();
                 } catch (MalformedURLException ignored) {
-                    // ignored
+                    // ignore
                 }
             }
 
-            return super.getHost();
+            return null;
         }
 
-        @Override
         public int getPort() {
             String urlAsString = getUrl();
             if (urlAsString != null) {
@@ -221,7 +227,11 @@ public class KnativeEnvironment {
                 }
             }
 
-            return super.getPort();
+            return -1;
+        }
+
+        public Map<String, String> getMetadata() {
+            return this.meta;
         }
 
         public Knative.Type getType() {
@@ -254,7 +264,7 @@ public class KnativeEnvironment {
         }
 
         public String getUrl() {
-            return getMetadata(Knative.SERVICE_META_URL);
+            return this.url != null ? this.url : getMetadata(Knative.SERVICE_META_URL);
         }
 
         public String getMetadata(String key) {
