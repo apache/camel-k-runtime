@@ -11,6 +11,10 @@
 
 **Closed issues:**
 
+- Failed to start Kamelet [\#493](https://github.com/apache/camel-k-runtime/issues/493)
+- Fix kamelet entry in catalog [\#492](https://github.com/apache/camel-k-runtime/issues/492)
+- Add a kamelet catalog entry [\#491](https://github.com/apache/camel-k-runtime/issues/491)
+- yaml dsl: document how to create beans using YAML [\#487](https://github.com/apache/camel-k-runtime/issues/487)
 - Create an extension fot camel-k-runtime-master [\#470](https://github.com/apache/camel-k-runtime/issues/470)
 - Use camel-dependencies instead of our own [\#459](https://github.com/apache/camel-k-runtime/issues/459)
 - knative: support for programmatically add entries to the knative environment [\#454](https://github.com/apache/camel-k-runtime/issues/454)
@@ -23,6 +27,11 @@
 
 **Merged pull requests:**
 
+- quarkus: consolidate knative its [\#498](https://github.com/apache/camel-k-runtime/pull/498) ([lburgazzoli](https://github.com/lburgazzoli))
+- quarkus: add integration tests for knative [\#497](https://github.com/apache/camel-k-runtime/pull/497) ([lburgazzoli](https://github.com/lburgazzoli))
+- Failed to start Kamelet [\#496](https://github.com/apache/camel-k-runtime/pull/496) ([lburgazzoli](https://github.com/lburgazzoli))
+- Fix kamelet entry in catalog [\#494](https://github.com/apache/camel-k-runtime/pull/494) ([lburgazzoli](https://github.com/lburgazzoli))
+- yaml dsl: document how to create beans using YAML [\#489](https://github.com/apache/camel-k-runtime/pull/489) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps\): bump gmavenplus-plugin from 1.10.0 to 1.10.1 [\#488](https://github.com/apache/camel-k-runtime/pull/488) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Support endpoint DSL in YAML/JSON [\#486](https://github.com/apache/camel-k-runtime/pull/486) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(build\): use dependency management for dependencies and plugins [\#483](https://github.com/apache/camel-k-runtime/pull/483) ([lburgazzoli](https://github.com/lburgazzoli))
