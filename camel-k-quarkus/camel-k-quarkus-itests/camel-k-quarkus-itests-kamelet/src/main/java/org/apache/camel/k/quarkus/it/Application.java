@@ -14,9 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.quarkus.kamelet.deployment;
+package org.apache.camel.k.quarkus.it;
 
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -31,18 +30,16 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.CamelContext;
 import org.apache.camel.FluentProducerTemplate;
-import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.model.RouteTemplateDefinition;
 
-
+@RegisterForReflection(targets = { String.class })
 @Path("/test")
 @ApplicationScoped
 public class Application {
-    public static final String TEMPLATE_ID = "to-upper";
-
     @Inject
     CamelContext context;
     @Inject
@@ -60,25 +57,18 @@ public class Application {
             .build();
     }
 
+    @GET
+    @Path("/execute")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String execute() {
+        return template.to("direct:process").request(String.class);
+    }
+
     @POST
-    @Path("/invoke/{templateId}")
+    @Path("/execute/{templateId}")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public String invoke(@PathParam("templateId") String templateId, String message) {
         return template.toF("kamelet:%s/test?message=%s", templateId, message).request(String.class);
-    }
-
-    @javax.enterprise.inject.Produces
-    public RouteBuilder routes() {
-        return new RouteBuilder() {
-            @Override
-            public void configure() throws Exception {
-                routeTemplate(TEMPLATE_ID)
-                    .templateParameter("message")
-                    .from("direct:{{routeId}}")
-                        .setBody().constant("{{message}}")
-                        .transform().body(String.class, b -> b.toUpperCase(Locale.US));
-            }
-        };
     }
 }

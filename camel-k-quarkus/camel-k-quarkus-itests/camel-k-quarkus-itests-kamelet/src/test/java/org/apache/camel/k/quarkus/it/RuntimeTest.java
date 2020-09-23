@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.quarkus.kamelet.deployment;
+package org.apache.camel.k.quarkus.it;
 
 import java.util.Locale;
 
@@ -28,9 +28,11 @@ import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
-public class KameletTest {
+public class RuntimeTest {
+
     @Test
     public void inspect() {
         JsonPath p = RestAssured.given()
@@ -39,23 +41,33 @@ public class KameletTest {
             .get("/test/inspect")
             .then()
                 .statusCode(200)
-            .extract()
+                .extract()
                 .body()
                 .jsonPath();
 
-        assertThat(p.getList("templates", String.class)).contains(Application.TEMPLATE_ID);
+        assertThat(p.getList("templates", String.class)).containsExactlyInAnyOrder("to-upper", "set-body");
     }
 
     @Test
-    public void invoke() {
+    public void execute() {
+        RestAssured.given()
+            .accept(MediaType.TEXT_PLAIN)
+            .get("/test/execute")
+            .then()
+            .statusCode(200)
+            .body(is("template"));
+    }
+
+    @Test
+    public void executeTemplate() {
         final String payload = "test";
 
         String result = given()
             .body(payload)
             .header(Exchange.CONTENT_TYPE, "text/plain")
-        .when()
-            .post("/test/invoke/{templateId}", Application.TEMPLATE_ID)
-        .then()
+            .when()
+            .post("/test/execute/{templateId}", "to-upper")
+            .then()
             .statusCode(200)
             .extract()
             .asString();
