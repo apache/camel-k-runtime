@@ -115,6 +115,7 @@ jobs:
           - :camel-k-quarkus-itests-master
           - :camel-k-quarkus-itests-kamelet
           - :camel-k-quarkus-itests-knative
+          - :camel-k-quarkus-itests-wrap
           - :camel-k-quarkus-itests-loader-xml
           - :camel-k-quarkus-itests-loader-yaml
           - :camel-k-quarkus-itests-loader-js

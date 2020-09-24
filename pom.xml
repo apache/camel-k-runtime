@@ -312,6 +312,7 @@
 
         <module>camel-knative</module>
         <module>camel-kamelet</module>
+        <module>camel-wrap</module>
 
         <module>camel-k-runtime-core</module>
         <module>camel-k-main</module>
@@ -421,6 +422,11 @@
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-kamelet</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-wrap</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -585,6 +591,16 @@
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-quarkus-master-deployment</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-quarkus-wrap</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-quarkus-wrap-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
