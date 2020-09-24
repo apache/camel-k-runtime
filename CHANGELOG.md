@@ -27,6 +27,8 @@
 
 **Merged pull requests:**
 
+- Sink Kamelet not called [\#502](https://github.com/apache/camel-k-runtime/pull/502) ([lburgazzoli](https://github.com/lburgazzoli))
+- quarkus: consolidate kamelet integration tests [\#499](https://github.com/apache/camel-k-runtime/pull/499) ([lburgazzoli](https://github.com/lburgazzoli))
 - quarkus: consolidate knative its [\#498](https://github.com/apache/camel-k-runtime/pull/498) ([lburgazzoli](https://github.com/lburgazzoli))
 - quarkus: add integration tests for knative [\#497](https://github.com/apache/camel-k-runtime/pull/497) ([lburgazzoli](https://github.com/lburgazzoli))
 - Failed to start Kamelet [\#496](https://github.com/apache/camel-k-runtime/pull/496) ([lburgazzoli](https://github.com/lburgazzoli))
