@@ -309,10 +309,7 @@
 
     <modules>
         <module>tooling</module>
-
-        <module>camel-knative</module>
-        <module>camel-kamelet</module>
-        <module>camel-wrap</module>
+        <module>components</module>
 
         <module>camel-k-runtime-core</module>
         <module>camel-k-main</module>
