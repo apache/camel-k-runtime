@@ -20,30 +20,40 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.apache.camel.k</groupId>
-        <artifactId>camel-k-quarkus</artifactId>
+        <artifactId>camel-k-quarkus-wrap-parent</artifactId>
         <version>1.5.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <packaging>pom</packaging>
 
-    <artifactId>camel-k-quarkus-itests</artifactId>
+    <artifactId>camel-k-quarkus-wrap-deployment</artifactId>
 
-    <modules>
-        <module>camel-k-quarkus-itests-core</module>
-        <module>camel-k-quarkus-itests-loader-support</module>
-        <module>camel-k-quarkus-itests-loader-groovy</module>
-        <module>camel-k-quarkus-itests-loader-kotlin</module>
-        <module>camel-k-quarkus-itests-loader-java</module>
-        <module>camel-k-quarkus-itests-loader-js</module>
-        <module>camel-k-quarkus-itests-loader-xml</module>
-        <module>camel-k-quarkus-itests-loader-yaml</module>
-        <module>camel-k-quarkus-itests-polyglot</module>
-        <module>camel-k-quarkus-itests-runtime</module>
-        <module>camel-k-quarkus-itests-cron</module>
-        <module>camel-k-quarkus-itests-master</module>
-        <module>camel-k-quarkus-itests-knative</module>
-        <module>camel-k-quarkus-itests-kamelet</module>
-        <module>camel-k-quarkus-itests-wrap</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.camel.k</groupId>
+            <artifactId>camel-k-quarkus-core-deployment</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.k</groupId>
+            <artifactId>camel-k-quarkus-wrap</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>io.quarkus</groupId>
+                            <artifactId>quarkus-extension-processor</artifactId>
+                            <version>${quarkus-version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

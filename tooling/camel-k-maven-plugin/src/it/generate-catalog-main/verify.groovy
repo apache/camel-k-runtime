@@ -56,4 +56,10 @@ new File(basedir, "catalog.yaml").withReader {
         assert schemes[0].passive == true
         assert schemes[0].http == false
     }
+
+    catalog.spec.artifacts['camel-wrap'].with {
+        assert schemes.size() == 1
+        assert schemes[0].id == 'wrap'
+        assert dependencies.find { it.groupId == 'org.apache.camel.k' && it.artifactId == 'camel-wrap' }
+    }
 }
