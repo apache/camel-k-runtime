@@ -46,39 +46,8 @@ jobs:
       uses: AdoptOpenJDK/install-jdk@v1
       with:
         version: '11'
-    - name: Build camel (master)
-      if: contains( github.event.pull_request.labels.*.name, 'depends-on/camel/master')
-      run: |
-        git clone --depth 1 --branch master https://github.com/apache/camel.git \
-          && cd camel \
-          && echo "Current Camel commit:" $(git rev-parse HEAD) \
-          && ./mvnw -V -B -ntp clean install \
-            -Dfastinstall
-        git clone --depth 1 --branch camel-master https://github.com/apache/camel-quarkus.git \
-          && cd camel-quarkus \
-          && echo "Current Camel Quarkus commit:" $(git rev-parse HEAD) \
-          && ./mvnw -V -B -ntp clean install \
-            -Dformatter.skip \
-            -Dimpsort.skip \
-            -Denforce=false \
-            -Dcamel-quarkus.update-extension-doc-page.skip \
-            -DskipTests \
-            -DskipITs
-    - name: Build camel-quarkus (master)
-      if: contains( github.event.pull_request.labels.*.name, 'depends-on/quarkus/master')
-      run: |
-        git clone --depth 1 --branch master https://github.com/apache/camel-quarkus.git \
-          && cd camel-quarkus \
-          && echo "Current Camel Quarkus commit:" $(git rev-parse HEAD) \
-          && ./mvnw -V -B -ntp clean install \
-            -Dformatter.skip \
-            -Dimpsort.skip \
-            -Denforce=false \
-            -Dcamel-quarkus.update-extension-doc-page.skip \
-            -DskipTests \
-            -DskipITs
     - name: Build camel-k-runtime
-      run: ./mvnw -V -B -ntp clean install
+      run: ./mvnw -V -ntp clean install
     - name: Tar Maven Repo
       shell: bash
       run: tar -czf maven-repo-${{ github.run_id }}-${{ github.run_number }}.tgz -C ~ .m2/repository
@@ -145,6 +114,21 @@ jobs:
             -Dnative-image.xmx=6g \
             -Ddocker \
             -pl ${{ matrix.native-image-project }}
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-native
+    if: github.ref == 'refs/heads/master'
+    env:
+      NEXUS_DEPLOY_USERNAME: ${{ secrets.NEXUS_USER }}
+      NEXUS_DEPLOY_PASSWORD: ${{ secrets.NEXUS_PWD }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 11
+      uses: AdoptOpenJDK/install-jdk@v1
+      with:
+        version: '11'
+    - name: Deploy to ASF Snapshots Repository
+      run: ./mvnw -V -ntp clean deploy -DskipTests -DskipITs --settings .github/asf-deploy-settings.xml
 
 #
 # JS build disabled as fails for OOM
