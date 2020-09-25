@@ -128,7 +128,7 @@ jobs:
       with:
         version: '11'
     - name: Deploy to ASF Snapshots Repository
-      run: ./mvnw -V -ntp clean deploy -DskipTests -DskipITs --settings .github/asf-deploy-settings.xml
+      run: ./mvnw -V clean deploy -DskipTests -DskipITs --settings .github/asf-deploy-settings.xml
 
 #
 # JS build disabled as fails for OOM
