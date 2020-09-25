@@ -33,16 +33,18 @@
             <artifactId>camel-k-quarkus-loader-xml</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.camel.k</groupId>
+            <artifactId>camel-k-quarkus-itests-loader-support</artifactId>
+        </dependency>
+
+        <!-- camel quarkus -->
+        <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-direct</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-log</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-quarkus-itests-loader-support</artifactId>
         </dependency>
 
         <!-- test dependencies -->
@@ -60,6 +62,21 @@
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <!-- The following dependencies guarantee that this module is built after them.  -->
+        <dependency>
+            <groupId>org.apache.camel.k</groupId>
+            <artifactId>camel-k-quarkus-loader-xml-deployment</artifactId>
+            <version>${project.version}</version>
+            <type>pom</type>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
