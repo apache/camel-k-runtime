@@ -18,6 +18,7 @@
 - Create an extension fot camel-k-runtime-master [\#470](https://github.com/apache/camel-k-runtime/issues/470)
 - Use camel-dependencies instead of our own [\#459](https://github.com/apache/camel-k-runtime/issues/459)
 - knative: support for programmatically add entries to the knative environment [\#454](https://github.com/apache/camel-k-runtime/issues/454)
+- knative: refactor knative environment definition [\#453](https://github.com/apache/camel-k-runtime/issues/453)
 - Invalid example on yaml language docu [\#423](https://github.com/apache/camel-k-runtime/issues/423)
 - \[yaml\] support for configuring beans with the yaml dsl [\#376](https://github.com/apache/camel-k-runtime/issues/376)
 - kamelets: create a camel-kamelet component [\#375](https://github.com/apache/camel-k-runtime/issues/375)
@@ -27,7 +28,11 @@
 
 **Merged pull requests:**
 
+- build: deploy to ASF snapshots from GitHub Actions [\#505](https://github.com/apache/camel-k-runtime/pull/505) ([lburgazzoli](https://github.com/lburgazzoli))
+- chore\(build\): add virtual deps to quarkus itests to ensure test have correct dependency tree on deployment artifacts [\#504](https://github.com/apache/camel-k-runtime/pull/504) ([lburgazzoli](https://github.com/lburgazzoli))
+- Create a wrap component to wrap single tenant component [\#503](https://github.com/apache/camel-k-runtime/pull/503) ([lburgazzoli](https://github.com/lburgazzoli))
 - Sink Kamelet not called [\#502](https://github.com/apache/camel-k-runtime/pull/502) ([lburgazzoli](https://github.com/lburgazzoli))
+- knative: refactor knative environment definition [\#501](https://github.com/apache/camel-k-runtime/pull/501) ([lburgazzoli](https://github.com/lburgazzoli))
 - quarkus: consolidate kamelet integration tests [\#499](https://github.com/apache/camel-k-runtime/pull/499) ([lburgazzoli](https://github.com/lburgazzoli))
 - quarkus: consolidate knative its [\#498](https://github.com/apache/camel-k-runtime/pull/498) ([lburgazzoli](https://github.com/lburgazzoli))
 - quarkus: add integration tests for knative [\#497](https://github.com/apache/camel-k-runtime/pull/497) ([lburgazzoli](https://github.com/lburgazzoli))
