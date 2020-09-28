@@ -18,16 +18,13 @@ package org.apache.camel.component.kamelet;
 
 import java.util.UUID;
 
-import org.apache.camel.CamelExecutionException;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.direct.DirectConsumerNotAvailableException;
 import org.apache.camel.test.junit5.CamelTestSupport;
 import org.apache.http.annotation.Obsolete;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class KameletRouteTest extends CamelTestSupport {
     @Test
@@ -48,15 +45,6 @@ public class KameletRouteTest extends CamelTestSupport {
         ).isEqualTo("b-a-" + body);
     }
 
-    @Test
-    public void testFailure()  {
-        String body = UUID.randomUUID().toString();
-
-        assertThatExceptionOfType(CamelExecutionException.class)
-            .isThrownBy(() -> fluentTemplate.toF("direct:fail").withBody(body).request(String.class))
-            .withCauseExactlyInstanceOf(DirectConsumerNotAvailableException.class);
-    }
-
     // **********************************************
     //
     // test set-up
@@ -70,12 +58,7 @@ public class KameletRouteTest extends CamelTestSupport {
             public void configure() throws Exception {
                 routeTemplate("echo")
                     .templateParameter("prefix")
-                    .from("direct:{{routeId}}")
-                    .setBody().simple("{{prefix}}-${body}");
-
-                routeTemplate("echo-fail")
-                    .templateParameter("prefix")
-                    .from("direct:#property:routeId")
+                    .from("kamelet:source")
                     .setBody().simple("{{prefix}}-${body}");
 
                 from("direct:single")
@@ -85,10 +68,6 @@ public class KameletRouteTest extends CamelTestSupport {
                 from("direct:chain")
                     .to("kamelet:echo/1?prefix=a")
                     .to("kamelet:echo/2?prefix=b")
-                    .log("${body}");
-
-                from("direct:fail")
-                    .to("kamelet:echo-fail?prefix=a")
                     .log("${body}");
             }
         };

@@ -78,13 +78,13 @@ public class KameletBasicTest extends CamelTestSupport {
             public void configure() throws Exception {
                 routeTemplate("setBody")
                     .templateParameter("bodyValue")
-                    .from("direct:{{routeId}}")
+                    .from("kamelet:source")
                     .setBody().constant("{{bodyValue}}");
 
                 routeTemplate("tick")
                     .from("timer:{{routeId}}?repeatCount=1&delay=-1")
                     .setBody().exchangeProperty(Exchange.TIMER_COUNTER)
-                    .to("direct:{{routeId}}");
+                    .to("kamelet:sink");
 
                 from("direct:templateEmbedded")
                     .toF("kamelet:setBody/embedded?bodyValue=embedded");

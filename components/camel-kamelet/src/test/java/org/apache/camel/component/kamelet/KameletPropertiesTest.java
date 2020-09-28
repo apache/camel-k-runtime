@@ -78,7 +78,7 @@ public class KameletPropertiesTest extends CamelTestSupport {
                 // template
                 routeTemplate("setBody")
                     .templateParameter("bodyValue")
-                    .from("direct:{{routeId}}")
+                    .from("kamelet:source")
                     .setBody().constant("{{bodyValue}}");
             }
         };
