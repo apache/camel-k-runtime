@@ -127,6 +127,9 @@ public class KameletEndpoint extends DefaultEndpoint {
         return routeId;
     }
 
+    /**
+     * Custom properties for kamelet
+     */
     public void setKameletProperties(Map<String, Object> kameletProperties) {
         if (kameletProperties != null) {
             this.kameletProperties.clear();
