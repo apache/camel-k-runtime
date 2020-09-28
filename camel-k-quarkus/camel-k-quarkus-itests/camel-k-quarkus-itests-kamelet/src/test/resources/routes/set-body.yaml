@@ -16,7 +16,7 @@
 #
 
 - from:
-    uri: "direct:{{routeId}}"
+    uri: "kamelet:source"
     steps:
       - set-body:
           constant: "{{bodyValue}}"
