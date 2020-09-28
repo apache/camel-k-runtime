@@ -17,12 +17,9 @@
 package org.apache.camel.component.kamelet;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.StringJoiner;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -30,14 +27,8 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.VetoCamelContextStartException;
-import org.apache.camel.model.EndpointRequiredDefinition;
-import org.apache.camel.model.FromDefinition;
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.model.ProcessorDefinitionHelper;
 import org.apache.camel.model.RouteDefinition;
-import org.apache.camel.model.RouteTemplateDefinition;
-import org.apache.camel.model.RouteTemplateParameterDefinition;
-import org.apache.camel.model.ToDefinition;
 import org.apache.camel.spi.Metadata;
 import org.apache.camel.spi.PropertiesComponent;
 import org.apache.camel.spi.annotations.Component;
@@ -47,8 +38,9 @@ import org.apache.camel.support.service.ServiceHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-import static org.apache.camel.model.ProcessorDefinitionHelper.filterTypeInOutputs;
+import static org.apache.camel.component.kamelet.Kamelet.PARAM_ROUTE_ID;
+import static org.apache.camel.component.kamelet.Kamelet.PARAM_TEMPLATE_ID;
+import static org.apache.camel.component.kamelet.Kamelet.addRouteFromTemplate;
 
 /**
  * The Kamelet Component provides support for materializing routes templates.
@@ -71,23 +63,53 @@ public class KameletComponent extends DefaultComponent {
     }
 
     @Override
-    public Endpoint createEndpoint(String uri) throws Exception {
-        return super.createEndpoint(uri);
-    }
-
-    @Override
     protected Endpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters) throws Exception {
-        final String templateId = Kamelet.extractTemplateId(getCamelContext(), remaining);
-        final String routeId = Kamelet.extractRouteId(getCamelContext(), remaining);
-        final String newUri = "kamelet:" + templateId + "/" + routeId;
+        final String templateId = Kamelet.extractTemplateId(getCamelContext(), remaining, parameters);
+        final String routeId = Kamelet.extractRouteId(getCamelContext(), remaining, parameters);
+
+        parameters.remove(PARAM_TEMPLATE_ID);
+        parameters.remove(PARAM_ROUTE_ID);
 
         final KameletEndpoint endpoint;
 
-        if (!Kamelet.SOURCE_ID.equals(remaining) && !Kamelet.SINK_ID.equals(remaining)) {
-            endpoint = new KameletEndpoint(newUri, this, templateId, routeId, consumers) {
+        if (Kamelet.SOURCE_ID.equals(remaining) || Kamelet.SINK_ID.equals(remaining)) {
+            //
+            // if remaining is either `source` or `sink' then it is a virtual
+            // endpoint that is used inside the kamelet definition to mark it
+            // as in/out endpoint.
+            //
+            // The following snippet defines a template which will act as a
+            // consumer for this Kamelet:
+            //
+            //     from("kamelet:source")
+            //         .to("log:info")
+            //
+            // The following snippet defines a template which will act as a
+            // producer for this Kamelet:
+            //
+            //     from("telegram:bots")
+            //         .to("kamelet:sink")
+            //
+            // Note that at the moment, there's no enforcement around `source`
+            // and `sink' to be defined on the right side (producer or consumer)
+            //
+            endpoint = new KameletEndpoint(uri, this, templateId, routeId, consumers);
+
+            // forward component properties
+            endpoint.setBlock(block);
+            endpoint.setTimeout(timeout);
+
+            // set endpoint specific properties
+            setProperties(endpoint, parameters);
+        } else {
+            endpoint = new KameletEndpoint(uri, this, templateId, routeId, consumers) {
                 @Override
                 protected void doInit() throws Exception {
                     super.doInit();
+                    //
+                    // since this is the real kamelet, then we need to hand it
+                    // over to the tracker.
+                    //
                     lifecycleHandler.track(this);
                 }
             };
@@ -110,20 +132,11 @@ public class KameletComponent extends DefaultComponent {
             //
             Map<String, Object> kameletProperties = Kamelet.extractKameletProperties(getCamelContext(), templateId, routeId);
             kameletProperties.putAll(parameters);
-            kameletProperties.put("templateId", templateId);
-            kameletProperties.put("routeId", routeId);
+            kameletProperties.put(PARAM_TEMPLATE_ID, templateId);
+            kameletProperties.put(PARAM_ROUTE_ID, routeId);
 
             // set kamelet specific properties
             endpoint.setKameletProperties(kameletProperties);
-        } else {
-            endpoint = new KameletEndpoint(newUri, this, templateId, routeId, consumers);
-
-            // forward component properties
-            endpoint.setBlock(block);
-            endpoint.setTimeout(timeout);
-
-            // set endpoint specific properties
-            setProperties(endpoint, parameters);
         }
 
         return endpoint;
@@ -193,8 +206,6 @@ public class KameletComponent extends DefaultComponent {
         @Override
         public void onContextInitialized(CamelContext context) throws VetoCamelContextStartException {
             if (!this.initialized.compareAndExchange(false, true)) {
-                ModelCamelContext mcc = context.adapt(ModelCamelContext.class);
-
                 for (KameletEndpoint endpoint : endpoints) {
                     try {
                         createRouteForEndpoint(endpoint);
@@ -233,12 +244,14 @@ public class KameletComponent extends DefaultComponent {
 
             if (!def.isPrepared()) {
                 // when starting the route that was created from the template
-                // then we must provide the route id as local properties to the properties component
-                // as this route id is used internal by kamelets when they are starting
+                // then we must provide the route id as local properties to the
+                // properties component as this route id is used internal by
+                // kamelets when they are starting
                 PropertiesComponent pc = context.getPropertiesComponent();
                 try {
                     Properties prop = new Properties();
-                    prop.put("routeId", id);
+                    prop.put(PARAM_TEMPLATE_ID, endpoint.getTemplateId());
+                    prop.put(PARAM_ROUTE_ID, id);
                     pc.setLocalProperties(prop);
                     context.startRouteDefinitions(List.of(def));
                 } finally {
@@ -248,72 +261,5 @@ public class KameletComponent extends DefaultComponent {
 
             LOGGER.debug("Route with id={} created from template={}", id, endpoint.getTemplateId());
         }
-
-        private static String addRouteFromTemplate(final ModelCamelContext context, final String routeId, final String routeTemplateId, final Map<String, Object> parameters)
-                throws Exception {
-            RouteTemplateDefinition target = null;
-            for (RouteTemplateDefinition def : context.getRouteTemplateDefinitions()) {
-                if (routeTemplateId.equals(def.getId())) {
-                    target = def;
-                    break;
-                }
-            }
-            if (target == null) {
-                throw new IllegalArgumentException("Cannot find RouteTemplate with id " + routeTemplateId);
-            }
-
-            StringJoiner templatesBuilder = new StringJoiner(", ");
-            final Map<String, Object> prop = new HashMap();
-            // include default values first from the template (and validate that we have inputs for all required parameters)
-            if (target.getTemplateParameters() != null) {
-                for (RouteTemplateParameterDefinition temp : target.getTemplateParameters()) {
-                    if (temp.getDefaultValue() != null) {
-                        prop.put(temp.getName(), temp.getDefaultValue());
-                    } else {
-                        // this is a required parameter do we have that as input
-                        if (!parameters.containsKey(temp.getName())) {
-                            templatesBuilder.add(temp.getName());
-                        }
-                    }
-                }
-            }
-            if (templatesBuilder.length() > 0) {
-                throw new IllegalArgumentException(
-                        "Route template " + routeTemplateId + " the following mandatory parameters must be provided: "
-                                + templatesBuilder.toString());
-            }
-            // then override with user parameters
-            if (parameters != null) {
-                prop.putAll(parameters);
-            }
-
-            RouteDefinition def = target.asRouteDefinition();
-            // must make deep copy of input
-            def.setInput(null);
-            def.setInput(new FromDefinition(target.getRoute().getInput().getEndpointUri()));
-            if (routeId != null) {
-                def.setId(routeId);
-            }
-            // must make the source and simk endpoints are unique by appending the route id before we create the route from the template
-            if (def.getInput().getEndpointUri().startsWith("kamelet:source")) {
-                def.getInput().setUri("kamelet:source?routeId=" + routeId);
-            }
-            Iterator<ToDefinition> it = filterTypeInOutputs(def.getOutputs(), ToDefinition.class);
-            while (it.hasNext()) {
-                ToDefinition to = it.next();
-                if (to.getEndpointUri().startsWith("kamelet:sink")) {
-                    // TODO: must make deep copy
-                    to.setUri("kamelet:sink?routeId=" + routeId);
-                }
-            }
-
-
-            def.setTemplateParameters(prop);
-            context.removeRouteDefinition(def);
-            context.getRouteDefinitions().add(def);
-
-            return def.getId();
-        }
-
     }
 }

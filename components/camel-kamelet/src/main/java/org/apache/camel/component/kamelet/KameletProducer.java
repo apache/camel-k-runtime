@@ -48,7 +48,7 @@ final class KameletProducer extends DefaultAsyncProducer {
     @Override
     public boolean process(Exchange exchange, AsyncCallback callback) {
         try {
-            final KameletConsumer consumer = getEndpoint().getConsumer();;
+            final KameletConsumer consumer = getEndpoint().getConsumer();
 
             if (consumer != null) {
                 return consumer.getAsyncProcessor().process(exchange, callback);

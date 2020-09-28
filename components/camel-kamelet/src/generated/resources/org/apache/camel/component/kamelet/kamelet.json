@@ -6,7 +6,7 @@
     "description": "The Kamelet Component provides support for interacting with Knative",
     "deprecated": false,
     "firstVersion": "3.5.0",
-    "label": "camel-k",
+    "label": "core",
     "javaType": "org.apache.camel.component.kamelet.KameletComponent",
     "supportLevel": "Preview",
     "groupId": "org.apache.camel.k",

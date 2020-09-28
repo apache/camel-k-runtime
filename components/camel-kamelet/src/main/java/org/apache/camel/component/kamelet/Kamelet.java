@@ -17,19 +17,32 @@
 package org.apache.camel.component.kamelet;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
+import java.util.StringJoiner;
 import java.util.function.Predicate;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.model.FromDefinition;
+import org.apache.camel.model.ModelCamelContext;
+import org.apache.camel.model.RouteDefinition;
+import org.apache.camel.model.RouteTemplateDefinition;
+import org.apache.camel.model.RouteTemplateParameterDefinition;
+import org.apache.camel.model.ToDefinition;
 import org.apache.camel.spi.PropertiesComponent;
+import org.apache.camel.support.CamelContextHelper;
 import org.apache.camel.util.StringHelper;
+
+import static org.apache.camel.model.ProcessorDefinitionHelper.filterTypeInOutputs;
 
 public final class Kamelet {
     public static final String PROPERTIES_PREFIX = "camel.kamelet.";
     public static final String SCHEME = "kamelet";
     public static final String SOURCE_ID = "source";
     public static final String SINK_ID = "sink";
+    public static final String PARAM_ROUTE_ID = "routeId";
+    public static final String PARAM_TEMPLATE_ID = "templateId";
 
     private Kamelet() {
     }
@@ -38,9 +51,14 @@ public final class Kamelet {
         return item -> item.startsWith(prefix);
     }
 
-    public static String extractTemplateId(CamelContext context, String remaining) {
+    public static String extractTemplateId(CamelContext context, String remaining, Map<String, Object> parameters) {
+        Object param = parameters.get(PARAM_TEMPLATE_ID);
+        if (param != null) {
+            return CamelContextHelper.mandatoryConvertTo(context, String.class, param);
+        }
+
         if (SOURCE_ID.equals(remaining) || SINK_ID.equals(remaining)) {
-            return context.resolvePropertyPlaceholders("{{templateId}}");
+            return context.resolvePropertyPlaceholders("{{" + PARAM_TEMPLATE_ID + "}}");
         }
 
         String answer = StringHelper.before(remaining, "/");
@@ -51,14 +69,19 @@ public final class Kamelet {
         return answer;
     }
 
-    public static String extractRouteId(CamelContext context, String remaining) {
+    public static String extractRouteId(CamelContext context, String remaining, Map<String, Object> parameters) {
+        Object param = parameters.get(PARAM_ROUTE_ID);
+        if (param != null) {
+            return CamelContextHelper.mandatoryConvertTo(context, String.class, param);
+        }
+
         if (SOURCE_ID.equals(remaining) || SINK_ID.equals(remaining)) {
-            return context.resolvePropertyPlaceholders("{{routeId}}");
+            return context.resolvePropertyPlaceholders("{{" + PARAM_ROUTE_ID + "}}");
         }
 
         String answer = StringHelper.after(remaining, "/");
         if (answer == null) {
-            answer = extractTemplateId(context, remaining) + "-" + context.getUuidGenerator().generateUuid();
+            answer = extractTemplateId(context, remaining, parameters) + "-" + context.getUuidGenerator().generateUuid();
         }
 
         return answer;
@@ -84,4 +107,68 @@ public final class Kamelet {
 
         return properties;
     }
+
+    public static String addRouteFromTemplate(ModelCamelContext context, String routeId, String routeTemplateId, Map<String, Object> parameters) throws Exception {
+        RouteTemplateDefinition target = null;
+        for (RouteTemplateDefinition def : context.getRouteTemplateDefinitions()) {
+            if (routeTemplateId.equals(def.getId())) {
+                target = def;
+                break;
+            }
+        }
+        if (target == null) {
+            throw new IllegalArgumentException("Cannot find RouteTemplate with id " + routeTemplateId);
+        }
+
+        StringJoiner templatesBuilder = new StringJoiner(", ");
+        final Map<String, Object> prop = new HashMap<>();
+        // include default values first from the template (and validate that we have inputs for all required parameters)
+        if (target.getTemplateParameters() != null) {
+            for (RouteTemplateParameterDefinition temp : target.getTemplateParameters()) {
+                if (temp.getDefaultValue() != null) {
+                    prop.put(temp.getName(), temp.getDefaultValue());
+                } else {
+                    // this is a required parameter do we have that as input
+                    if (!parameters.containsKey(temp.getName())) {
+                        templatesBuilder.add(temp.getName());
+                    }
+                }
+            }
+        }
+        if (templatesBuilder.length() > 0) {
+            throw new IllegalArgumentException(
+                "Route template " + routeTemplateId + " the following mandatory parameters must be provided: "
+                    + templatesBuilder.toString());
+        }
+        // then override with user parameters
+        if (parameters != null) {
+            prop.putAll(parameters);
+        }
+
+        RouteDefinition def = target.asRouteDefinition();
+        // must make deep copy of input
+        def.setInput(null);
+        def.setInput(new FromDefinition(target.getRoute().getInput().getEndpointUri()));
+        if (routeId != null) {
+            def.setId(routeId);
+        }
+        // must make the source and sink endpoints are unique by appending the route id before we create the route from the template
+        if (def.getInput().getEndpointUri().startsWith("kamelet:source") || def.getInput().getEndpointUri().startsWith("kamelet//source")) {
+            def.getInput().setUri("kamelet:source?" + PARAM_ROUTE_ID + "=" + routeId);
+        }
+        Iterator<ToDefinition> it = filterTypeInOutputs(def.getOutputs(), ToDefinition.class);
+        while (it.hasNext()) {
+            ToDefinition to = it.next();
+            if (to.getEndpointUri().startsWith("kamelet:sink") || to.getEndpointUri().startsWith("kamelet://sink")) {
+                to.setUri("kamelet:sink?" + PARAM_ROUTE_ID + "=" + routeId);
+            }
+        }
+
+        def.setTemplateParameters(prop);
+        context.removeRouteDefinition(def);
+        context.getRouteDefinitions().add(def);
+
+        return def.getId();
+    }
+
 }

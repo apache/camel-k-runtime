@@ -32,7 +32,9 @@
     <Logger name="org.apache.camel.component.kamelet" level="TRACE"/>
 
     <Root level="INFO">
+      <!--
       <AppenderRef ref="STDOUT"/>
+      -->
       <AppenderRef ref="FILE"/>
     </Root>
   </Loggers>

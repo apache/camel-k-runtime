@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.camel.Category;
 import org.apache.camel.Consumer;
 import org.apache.camel.Processor;
 import org.apache.camel.Producer;
@@ -30,8 +31,6 @@ import org.apache.camel.spi.UriPath;
 import org.apache.camel.support.DefaultEndpoint;
 import org.apache.camel.util.ObjectHelper;
 import org.apache.camel.util.StopWatch;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @UriEndpoint(
     firstVersion = "3.5.0",
@@ -39,10 +38,8 @@ import org.slf4j.LoggerFactory;
     syntax = "kamelet:templateId/routeId",
     title = "Kamelet",
     lenientProperties = true,
-    label = "camel-k")
+    category = Category.CORE)
 public class KameletEndpoint extends DefaultEndpoint {
-    private static final Logger LOGGER = LoggerFactory.getLogger(KameletEndpoint.class);
-
     @Metadata(required = true)
     @UriPath(description = "The Route Template ID")
     private final String templateId;
