@@ -112,6 +112,57 @@ set-body:
 In case you want to use the data-format's default settings, you need to place an empty block as data format parameters, like `json: {}`
 ====
 
+== Defining endpoints
+
+To define an endpoint with the YAML dsl you have three options:
+
+. Using a classic Camel URI:
++
+[source,yaml]
+----
+- from:
+    uri: "timer:tick?period=1s"
+    steps:
+      - to:
+          uri: "telegram:bots?authorizationToken=XXX"
+----
+. Using URI and parameters:
++
+[source,yaml]
+----
+- from:
+    uri: "timer://tick"
+    parameters:
+      period: "1s"
+    steps:
+      - to:
+          uri: "telegram:bots"
+          parameters:
+            authorizationToken: "XXX"
+----
+. Using the YAML implementation of the https://camel.apache.org/manual/latest/Endpoint-dsl.html[Endpoint DSL]:
++
+[source,yaml]
+----
+- from:
+    timer:
+      name: "tick"
+      period: "1s"
+    steps:
+      - telegram:
+          type: "bots"
+          authorizationToken: "XXX"
+----
+
+[WARNING]
+====
+Support for the Endpoint DSL with YAML is experimental and subject to changes.
+====
+[NOTE]
+====
+Support for Endpoint DSL auto completion https://github.com/apache/camel-k-runtime/issues/485[is not yet available].
+====
+
 == Defining beans
 
 In addition to the general support for creating beans provided by https://camel.apache.org/components/latest/others/main.html#_specifying_custom_beans[Camel Main], the YAML DSL provide a convenient syntax to define and configure them:
