@@ -34,7 +34,7 @@ public class KameletValidationTest {
             public void configure() throws Exception {
                 routeTemplate("setBody")
                     .templateParameter("bodyValue")
-                    .from("direct:{{routeId}}")
+                    .from("kamelet:source")
                     .setBody().constant("{{bodyValue}}");
 
                 from("direct:start")

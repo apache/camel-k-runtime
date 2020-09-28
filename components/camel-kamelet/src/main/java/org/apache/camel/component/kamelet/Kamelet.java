@@ -17,24 +17,19 @@
 package org.apache.camel.component.kamelet;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.function.Predicate;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.spi.PropertiesComponent;
 import org.apache.camel.util.StringHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public final class Kamelet {
     public static final String PROPERTIES_PREFIX = "camel.kamelet.";
     public static final String SCHEME = "kamelet";
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(Kamelet.class);
+    public static final String SOURCE_ID = "source";
+    public static final String SINK_ID = "sink";
 
     private Kamelet() {
     }
@@ -43,20 +38,11 @@ public final class Kamelet {
         return item -> item.startsWith(prefix);
     }
 
-    public static void createRouteForEndpoint(KameletEndpoint endpoint) throws Exception {
-        LOGGER.debug("Creating route from template {}", endpoint.getTemplateId());
-
-        ModelCamelContext context = endpoint.getCamelContext().adapt(ModelCamelContext.class);
-        String id = context.addRouteFromTemplate(endpoint.getRouteId(), endpoint.getTemplateId(), endpoint.getKameletProperties());
-        RouteDefinition def = context.getRouteDefinition(id);
-        if (!def.isPrepared()) {
-            context.startRouteDefinitions(List.of(def));
+    public static String extractTemplateId(CamelContext context, String remaining) {
+        if (SOURCE_ID.equals(remaining) || SINK_ID.equals(remaining)) {
+            return context.resolvePropertyPlaceholders("{{templateId}}");
         }
 
-        LOGGER.debug("Route {} created from template {}", id, endpoint.getTemplateId());
-    }
-
-    public static  String extractTemplateId(CamelContext context, String remaining) {
         String answer = StringHelper.before(remaining, "/");
         if (answer == null) {
             answer = remaining;
@@ -65,7 +51,11 @@ public final class Kamelet {
         return answer;
     }
 
-    public static  String extractRouteId(CamelContext context, String remaining) {
+    public static String extractRouteId(CamelContext context, String remaining) {
+        if (SOURCE_ID.equals(remaining) || SINK_ID.equals(remaining)) {
+            return context.resolvePropertyPlaceholders("{{routeId}}");
+        }
+
         String answer = StringHelper.after(remaining, "/");
         if (answer == null) {
             answer = extractTemplateId(context, remaining) + "-" + context.getUuidGenerator().generateUuid();
@@ -74,7 +64,7 @@ public final class Kamelet {
         return answer;
     }
 
-    public static  Map<String, Object> extractKameletProperties(CamelContext context, String... elements) {
+    public static Map<String, Object> extractKameletProperties(CamelContext context, String... elements) {
         PropertiesComponent pc = context.getPropertiesComponent();
         Map<String, Object> properties = new HashMap<>();
         String prefix = Kamelet.PROPERTIES_PREFIX;
