@@ -593,6 +593,7 @@
 - remove spring boot support [\#62](https://github.com/apache/camel-k-runtime/pull/62) ([lburgazzoli](https://github.com/lburgazzoli))
 - update to Camel 2.24.0 [\#61](https://github.com/apache/camel-k-runtime/pull/61) ([lburgazzoli](https://github.com/lburgazzoli))
 - knative: fix wrong content type [\#54](https://github.com/apache/camel-k-runtime/pull/54) ([lburgazzoli](https://github.com/lburgazzoli))
+- Suport for camel 3.0.0-M2 and 2.21.x [\#43](https://github.com/apache/camel-k-runtime/pull/43) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-0.3.2](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-0.3.2) (2019-04-26)
 
@@ -613,7 +614,6 @@
 - customizer: honour cutomizer list property/env [\#49](https://github.com/apache/camel-k-runtime/pull/49) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore: fix typo in package name and add license header [\#47](https://github.com/apache/camel-k-runtime/pull/47) ([lburgazzoli](https://github.com/lburgazzoli))
 - fix \#44 : Support StreamCaching configuration trough a ContextCustomi… [\#45](https://github.com/apache/camel-k-runtime/pull/45) ([valdar](https://github.com/valdar))
-- Suport for camel 3.0.0-M2 and 2.21.x [\#43](https://github.com/apache/camel-k-runtime/pull/43) ([lburgazzoli](https://github.com/lburgazzoli))
 - logging: add log4j to camel-k bom [\#42](https://github.com/apache/camel-k-runtime/pull/42) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fixed comnpatibility with camel 2.21.x [\#40](https://github.com/apache/camel-k-runtime/pull/40) ([valdar](https://github.com/valdar))
 - Need to exclude groovy-all here as well, possible for it to bleed in [\#38](https://github.com/apache/camel-k-runtime/pull/38) ([cunningt](https://github.com/cunningt))
@@ -644,6 +644,7 @@
 - camel-knative: set CloudEvents v0.2 as default spec version [\#25](https://github.com/apache/camel-k-runtime/pull/25) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(netty\): improve health service [\#24](https://github.com/apache/camel-k-runtime/pull/24) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(camel-3\): fix camel 3 compatibility layer [\#23](https://github.com/apache/camel-k-runtime/pull/23) ([lburgazzoli](https://github.com/lburgazzoli))
+- Add runtime health endpoint [\#22](https://github.com/apache/camel-k-runtime/pull/22) ([lburgazzoli](https://github.com/lburgazzoli))
 - Default service definition not taken into account [\#20](https://github.com/apache/camel-k-runtime/pull/20) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-0.3.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-0.3.0) (2019-02-27)
@@ -661,7 +662,6 @@
 
 **Merged pull requests:**
 
-- Add runtime health endpoint [\#22](https://github.com/apache/camel-k-runtime/pull/22) ([lburgazzoli](https://github.com/lburgazzoli))
 - Support for camel 3.x [\#16](https://github.com/apache/camel-k-runtime/pull/16) ([lburgazzoli](https://github.com/lburgazzoli))
 - fix\(deploy\): Camel-k-runtime-merge job is failing, fixes \#14 [\#15](https://github.com/apache/camel-k-runtime/pull/15) ([oscerd](https://github.com/oscerd))
 - Create runtime bom [\#13](https://github.com/apache/camel-k-runtime/pull/13) ([lburgazzoli](https://github.com/lburgazzoli))
