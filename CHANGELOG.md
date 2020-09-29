@@ -15,6 +15,7 @@
 - Fix kamelet entry in catalog [\#492](https://github.com/apache/camel-k-runtime/issues/492)
 - Add a kamelet catalog entry [\#491](https://github.com/apache/camel-k-runtime/issues/491)
 - yaml dsl: document how to create beans using YAML [\#487](https://github.com/apache/camel-k-runtime/issues/487)
+- yaml dsl: add documentation for endpoint-dsl support [\#484](https://github.com/apache/camel-k-runtime/issues/484)
 - Create an extension fot camel-k-runtime-master [\#470](https://github.com/apache/camel-k-runtime/issues/470)
 - Use camel-dependencies instead of our own [\#459](https://github.com/apache/camel-k-runtime/issues/459)
 - knative: support for programmatically add entries to the knative environment [\#454](https://github.com/apache/camel-k-runtime/issues/454)
@@ -28,6 +29,8 @@
 
 **Merged pull requests:**
 
+- Fixes changelog to run only on master [\#509](https://github.com/apache/camel-k-runtime/pull/509) ([oscerd](https://github.com/oscerd))
+- yaml dsl: add documentation for endpoint-dsl support [\#508](https://github.com/apache/camel-k-runtime/pull/508) ([lburgazzoli](https://github.com/lburgazzoli))
 - build: deploy to ASF snapshots from GitHub Actions [\#505](https://github.com/apache/camel-k-runtime/pull/505) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(build\): add virtual deps to quarkus itests to ensure test have correct dependency tree on deployment artifacts [\#504](https://github.com/apache/camel-k-runtime/pull/504) ([lburgazzoli](https://github.com/lburgazzoli))
 - Create a wrap component to wrap single tenant component [\#503](https://github.com/apache/camel-k-runtime/pull/503) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -568,7 +571,6 @@
 - Support camel 3.0.0 M3 \#79 [\#81](https://github.com/apache/camel-k-runtime/pull/81) ([lburgazzoli](https://github.com/lburgazzoli))
 - catalog: generate license header \(camel 3\) [\#77](https://github.com/apache/camel-k-runtime/pull/77) ([lburgazzoli](https://github.com/lburgazzoli))
 - Camel 3 cleanup [\#75](https://github.com/apache/camel-k-runtime/pull/75) ([lburgazzoli](https://github.com/lburgazzoli))
-- Switch to Camel 3 by default [\#73](https://github.com/apache/camel-k-runtime/pull/73) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-0.3.3](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-0.3.3) (2019-05-28)
 
@@ -583,6 +585,7 @@
 
 **Merged pull requests:**
 
+- Switch to Camel 3 by default [\#73](https://github.com/apache/camel-k-runtime/pull/73) ([lburgazzoli](https://github.com/lburgazzoli))
 - Added a servletregistration customizer and improved examples. [\#71](https://github.com/apache/camel-k-runtime/pull/71) ([valdar](https://github.com/valdar))
 - servlet: update catalog and bom [\#70](https://github.com/apache/camel-k-runtime/pull/70) ([lburgazzoli](https://github.com/lburgazzoli))
 - add servlet support [\#68](https://github.com/apache/camel-k-runtime/pull/68) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -593,7 +596,6 @@
 - remove spring boot support [\#62](https://github.com/apache/camel-k-runtime/pull/62) ([lburgazzoli](https://github.com/lburgazzoli))
 - update to Camel 2.24.0 [\#61](https://github.com/apache/camel-k-runtime/pull/61) ([lburgazzoli](https://github.com/lburgazzoli))
 - knative: fix wrong content type [\#54](https://github.com/apache/camel-k-runtime/pull/54) ([lburgazzoli](https://github.com/lburgazzoli))
-- Suport for camel 3.0.0-M2 and 2.21.x [\#43](https://github.com/apache/camel-k-runtime/pull/43) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-0.3.2](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-0.3.2) (2019-04-26)
 
@@ -614,6 +616,7 @@
 - customizer: honour cutomizer list property/env [\#49](https://github.com/apache/camel-k-runtime/pull/49) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore: fix typo in package name and add license header [\#47](https://github.com/apache/camel-k-runtime/pull/47) ([lburgazzoli](https://github.com/lburgazzoli))
 - fix \#44 : Support StreamCaching configuration trough a ContextCustomi… [\#45](https://github.com/apache/camel-k-runtime/pull/45) ([valdar](https://github.com/valdar))
+- Suport for camel 3.0.0-M2 and 2.21.x [\#43](https://github.com/apache/camel-k-runtime/pull/43) ([lburgazzoli](https://github.com/lburgazzoli))
 - logging: add log4j to camel-k bom [\#42](https://github.com/apache/camel-k-runtime/pull/42) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fixed comnpatibility with camel 2.21.x [\#40](https://github.com/apache/camel-k-runtime/pull/40) ([valdar](https://github.com/valdar))
 - Need to exclude groovy-all here as well, possible for it to bleed in [\#38](https://github.com/apache/camel-k-runtime/pull/38) ([cunningt](https://github.com/cunningt))
