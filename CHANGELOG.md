@@ -29,6 +29,9 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump junit-pioneer from 0.9.1 to 0.9.2 [\#515](https://github.com/apache/camel-k-runtime/pull/515) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump groovy-version from 3.0.5 to 3.0.6 [\#514](https://github.com/apache/camel-k-runtime/pull/514) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump junit-pioneer from 0.9.0 to 0.9.1 [\#510](https://github.com/apache/camel-k-runtime/pull/510) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Fixes changelog to run only on master [\#509](https://github.com/apache/camel-k-runtime/pull/509) ([oscerd](https://github.com/oscerd))
 - yaml dsl: add documentation for endpoint-dsl support [\#508](https://github.com/apache/camel-k-runtime/pull/508) ([lburgazzoli](https://github.com/lburgazzoli))
 - build: deploy to ASF snapshots from GitHub Actions [\#505](https://github.com/apache/camel-k-runtime/pull/505) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -566,11 +569,10 @@
 - Update dependencies [\#90](https://github.com/apache/camel-k-runtime/pull/90) ([lburgazzoli](https://github.com/lburgazzoli))
 - Ass keys [\#89](https://github.com/apache/camel-k-runtime/pull/89) ([lburgazzoli](https://github.com/lburgazzoli))
 - Enable checkstyle and license checks [\#88](https://github.com/apache/camel-k-runtime/pull/88) ([lburgazzoli](https://github.com/lburgazzoli))
-- chore\(deps\): update kotlin to v1.3.40 [\#85](https://github.com/apache/camel-k-runtime/pull/85) ([lburgazzoli](https://github.com/lburgazzoli))
-- Support full yaml dsl \#80 [\#84](https://github.com/apache/camel-k-runtime/pull/84) ([lburgazzoli](https://github.com/lburgazzoli))
 - Support camel 3.0.0 M3 \#79 [\#81](https://github.com/apache/camel-k-runtime/pull/81) ([lburgazzoli](https://github.com/lburgazzoli))
 - catalog: generate license header \(camel 3\) [\#77](https://github.com/apache/camel-k-runtime/pull/77) ([lburgazzoli](https://github.com/lburgazzoli))
 - Camel 3 cleanup [\#75](https://github.com/apache/camel-k-runtime/pull/75) ([lburgazzoli](https://github.com/lburgazzoli))
+- Switch to Camel 3 by default [\#73](https://github.com/apache/camel-k-runtime/pull/73) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-0.3.3](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-0.3.3) (2019-05-28)
 
@@ -585,7 +587,7 @@
 
 **Merged pull requests:**
 
-- Switch to Camel 3 by default [\#73](https://github.com/apache/camel-k-runtime/pull/73) ([lburgazzoli](https://github.com/lburgazzoli))
+- chore\(deps\): update kotlin to v1.3.40 [\#85](https://github.com/apache/camel-k-runtime/pull/85) ([lburgazzoli](https://github.com/lburgazzoli))
 - Added a servletregistration customizer and improved examples. [\#71](https://github.com/apache/camel-k-runtime/pull/71) ([valdar](https://github.com/valdar))
 - servlet: update catalog and bom [\#70](https://github.com/apache/camel-k-runtime/pull/70) ([lburgazzoli](https://github.com/lburgazzoli))
 - add servlet support [\#68](https://github.com/apache/camel-k-runtime/pull/68) ([lburgazzoli](https://github.com/lburgazzoli))
