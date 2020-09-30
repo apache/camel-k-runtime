@@ -25,9 +25,14 @@ import org.apache.camel.k.Runtime;
 import org.apache.camel.main.MainListener;
 import org.apache.camel.main.RoutesCollector;
 import org.apache.camel.quarkus.main.CamelMain;
+import org.slf4j.LoggerFactory;
 
 @Recorder
 public class ApplicationRecorder {
+    public void version(String version) {
+        LoggerFactory.getLogger(Runtime.class).info("Apache Camel K Runtime {}", version);
+    }
+
     public RuntimeValue<MainListener> createMainListener(List<Runtime.Listener> listeners) {
         return new RuntimeValue<>(new Application.ListenerAdapter(listeners));
     }

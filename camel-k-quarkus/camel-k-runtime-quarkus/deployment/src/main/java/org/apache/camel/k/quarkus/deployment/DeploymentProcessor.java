@@ -30,6 +30,7 @@ import io.quarkus.deployment.annotations.Record;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.quarkus.ApplicationProducers;
 import org.apache.camel.k.quarkus.ApplicationRecorder;
+import org.apache.camel.k.support.RuntimeSupport;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeTaskBuildItem;
 import org.apache.camel.quarkus.main.deployment.spi.CamelMainBuildItem;
 import org.apache.camel.quarkus.main.deployment.spi.CamelMainListenerBuildItem;
@@ -60,6 +61,7 @@ public class DeploymentProcessor {
             BeanContainerBuildItem beanContainer) {
 
         recorder.publishRuntime(camelMain.getInstance(), beanContainer.getValue());
+        recorder.version(RuntimeSupport.getRuntimeVersion());
 
         return new CamelRuntimeTaskBuildItem("camel-k-runtime");
     }

@@ -30,6 +30,7 @@ import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.k.CompositeClassloader;
 import org.apache.camel.k.Runtime;
+import org.apache.camel.k.support.RuntimeSupport;
 import org.apache.camel.main.BaseMainSupport;
 import org.apache.camel.main.MainSupport;
 import org.apache.camel.main.RoutesCollector;
@@ -57,6 +58,7 @@ public final class ApplicationRuntime implements Runtime {
         this.main = new MainAdapter();
         this.main.configure().setXmlRoutes("false");
         this.main.configure().setXmlRests("false");
+        this.main.configure().setXmlRouteTemplates("false");
         this.main.setDefaultPropertyPlaceholderLocation("false");
         this.main.setRoutesCollector(new NoRoutesCollector());
         this.main.addMainListener(new MainListenerAdapter());
@@ -68,6 +70,7 @@ public final class ApplicationRuntime implements Runtime {
     }
 
     public void run() throws Exception {
+        LOGGER.info("Apache Camel K Runtime {}", RuntimeSupport.getRuntimeVersion());
         this.main.run();
     }
 
@@ -119,6 +122,7 @@ public final class ApplicationRuntime implements Runtime {
     private final class MainListenerAdapter implements org.apache.camel.main.MainListener {
         @Override
         public void beforeInitialize(BaseMainSupport main) {
+            invokeListeners(Phase.Initializing);
             invokeListeners(Phase.ConfigureProperties);
         }
 

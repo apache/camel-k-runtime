@@ -94,6 +94,7 @@ public final class Application {
 
         @Override
         public void beforeInitialize(BaseMainSupport main) {
+            invokeListeners(org.apache.camel.k.Runtime.Phase.Initializing);
             invokeListeners(org.apache.camel.k.Runtime.Phase.ConfigureProperties);
         }
 

@@ -115,10 +115,11 @@ public interface Runtime extends HasCamelContext, AutoCloseable {
     }
 
     enum Phase {
-        Starting,
+        Initializing,
         ConfigureProperties,
         ConfigureContext,
         ConfigureRoutes,
+        Starting,
         Started,
         Stopping,
         Stopped
