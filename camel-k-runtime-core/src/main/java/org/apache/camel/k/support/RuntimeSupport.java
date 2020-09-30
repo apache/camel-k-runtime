@@ -16,9 +16,11 @@
  */
 package org.apache.camel.k.support;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
@@ -33,6 +35,7 @@ import org.apache.camel.k.ContextCustomizer;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceLoader;
 import org.apache.camel.spi.HasCamelContext;
+import org.apache.camel.util.IOHelper;
 import org.apache.camel.util.ObjectHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -245,6 +248,51 @@ public final class RuntimeSupport {
         }
 
         return answer;
+    }
+
+    // *********************************
+    //
+    // Helpers - Misc
+    //
+    // *********************************
+
+    public static String getRuntimeVersion() {
+        String version = null;
+
+        InputStream is = null;
+        // try to load from maven properties first
+        try {
+            Properties p = new Properties();
+            is = RuntimeSupport.class.getResourceAsStream("/META-INF/maven/org.apache.camel.k/camel-k-runtime-core/pom.properties");
+            if (is != null) {
+                p.load(is);
+                version = p.getProperty("version", "");
+            }
+        } catch (Exception e) {
+            // ignore
+        } finally {
+            if (is != null) {
+                IOHelper.close(is);
+            }
+        }
+
+        // fallback to using Java API
+        if (version == null) {
+            Package aPackage = RuntimeSupport.class.getPackage();
+            if (aPackage != null) {
+                version = aPackage.getImplementationVersion();
+                if (version == null) {
+                    version = aPackage.getSpecificationVersion();
+                }
+            }
+        }
+
+        if (version == null) {
+            // we could not compute the version so use a blank
+            version = "";
+        }
+
+        return Objects.requireNonNull(version, "Could not determine Camel K Runtime version");
     }
 
 }
