@@ -158,32 +158,36 @@ public class KnativeHttpConsumer extends DefaultConsumer {
             message.setBody(null);
         }
 
-        try {
-            createUoW(exchange);
+        // We do not know if any of the processing logic of the route is synchronous or not so we
+        // need to process the request on a thread on the Vert.x worker pool.
+        //
+        // As example the following route may block the Vert.x event loop as the camel-http component
+        // is not async so if the service is scaled-down, the it may take a while to become ready and
+        // the camel-http component blocks until the service becomes available.
+        //
+        // from("knative:event/my.event")
+        //        .to("http://{{env:PROJECT}}.{{env:NAMESPACE}}.svc.cluster.local/service");
+        //
+        router.vertx().executeBlocking(
+            promise -> {
+                try {
+                    createUoW(exchange);
+                } catch (Exception e) {
+                    promise.fail(e);
+                    return;
+                }
 
-            // We do not know if any of the processing logic of the route is synchronous or not so we
-            // need to process the request on a thread on the Vert.x worker pool.
-            //
-            // As example the following route may block the Vert.x event loop as the camel-http component
-            // is not async so if the service is scaled-down, the it may take a while to become ready and
-            // the camel-http component blocks until the service becomes available.
-            //
-            // from("knative:event/my.event")
-            //        .to("http://{{env:PROJECT}}.{{env:NAMESPACE}}.svc.cluster.local/service");
-            //
-            router.vertx().executeBlocking(
-                promise -> {
-                    try {
-                        // no need to use an async processor as the processing happen in
-                        // a dedicated thread ans it won't block the Vert.x event loop
-                        getProcessor().process(exchange);
+                getAsyncProcessor().process(exchange, c -> {
+                    if (!exchange.isFailed()) {
                         promise.complete();
-                    } catch (Exception e) {
-                        promise.fail(e);
+                    } else {
+                        promise.fail(exchange.getException());
                     }
-                },
-                false,
-                result -> {
+                });
+            },
+            false,
+            result -> {
+                try {
                     if (result.succeeded()) {
                         try {
                             HttpServerResponse response = toHttpResponse(request, exchange.getMessage());
@@ -212,22 +216,12 @@ public class KnativeHttpConsumer extends DefaultConsumer {
                     } else if (result.failed()) {
                         getExceptionHandler().handleException(result.cause());
 
-                        request.response().setStatusCode(500);
-                        request.response().putHeader(Exchange.CONTENT_TYPE, "text/plain");
-                        request.response().end(result.cause().getMessage());
+                        routingContext.fail(result.cause());
                     }
-
+                } finally {
                     doneUoW(exchange);
-                });
-        } catch (Exception e) {
-            getExceptionHandler().handleException(e);
-
-            request.response().setStatusCode(500);
-            request.response().putHeader(Exchange.CONTENT_TYPE, "text/plain");
-            request.response().end(e.getMessage());
-
-            doneUoW(exchange);
-        }
+                }
+            });
     }
 
     private Message toMessage(HttpServerRequest request, Exchange exchange) {
