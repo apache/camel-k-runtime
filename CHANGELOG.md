@@ -11,9 +11,11 @@
 
 **Closed issues:**
 
+- Sink Kamelet not called [\#500](https://github.com/apache/camel-k-runtime/issues/500)
 - Failed to start Kamelet [\#493](https://github.com/apache/camel-k-runtime/issues/493)
 - Fix kamelet entry in catalog [\#492](https://github.com/apache/camel-k-runtime/issues/492)
 - Add a kamelet catalog entry [\#491](https://github.com/apache/camel-k-runtime/issues/491)
+- kamelet-sink component [\#490](https://github.com/apache/camel-k-runtime/issues/490)
 - yaml dsl: document how to create beans using YAML [\#487](https://github.com/apache/camel-k-runtime/issues/487)
 - yaml dsl: add documentation for endpoint-dsl support [\#484](https://github.com/apache/camel-k-runtime/issues/484)
 - Create an extension fot camel-k-runtime-master [\#470](https://github.com/apache/camel-k-runtime/issues/470)
@@ -29,8 +31,10 @@
 
 **Merged pull requests:**
 
+- knative\(http\): use async processor to process http requests [\#516](https://github.com/apache/camel-k-runtime/pull/516) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps\): bump junit-pioneer from 0.9.1 to 0.9.2 [\#515](https://github.com/apache/camel-k-runtime/pull/515) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump groovy-version from 3.0.5 to 3.0.6 [\#514](https://github.com/apache/camel-k-runtime/pull/514) ([dependabot[bot]](https://github.com/apps/dependabot))
+- kamelet source/sink component [\#511](https://github.com/apache/camel-k-runtime/pull/511) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps\): bump junit-pioneer from 0.9.0 to 0.9.1 [\#510](https://github.com/apache/camel-k-runtime/pull/510) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Fixes changelog to run only on master [\#509](https://github.com/apache/camel-k-runtime/pull/509) ([oscerd](https://github.com/oscerd))
 - yaml dsl: add documentation for endpoint-dsl support [\#508](https://github.com/apache/camel-k-runtime/pull/508) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -333,7 +337,6 @@
 - Add a helper module for setting up master [\#241](https://github.com/apache/camel-k-runtime/issues/241)
 - Allow to load generic secrets and reference entries from integrations [\#239](https://github.com/apache/camel-k-runtime/issues/239)
 - remove support for multiple camel versions [\#229](https://github.com/apache/camel-k-runtime/issues/229)
-- Ad a specific section in the camel-k-runtime catalog to list loaders and related dependencies [\#182](https://github.com/apache/camel-k-runtime/issues/182)
 
 **Merged pull requests:**
 
@@ -414,6 +417,7 @@
 
 - Remove support for java class loader [\#195](https://github.com/apache/camel-k-runtime/issues/195)
 - Upgrade to Camel RC3 [\#189](https://github.com/apache/camel-k-runtime/issues/189)
+- Ad a specific section in the camel-k-runtime catalog to list loaders and related dependencies [\#182](https://github.com/apache/camel-k-runtime/issues/182)
 - CamelCloudEventXXX not converted to CE header [\#177](https://github.com/apache/camel-k-runtime/issues/177)
 - Undertow does not shut down properly in webhook route policy [\#172](https://github.com/apache/camel-k-runtime/issues/172)
 - switch to camel main for quarkus related bits [\#149](https://github.com/apache/camel-k-runtime/issues/149)
@@ -569,6 +573,8 @@
 - Update dependencies [\#90](https://github.com/apache/camel-k-runtime/pull/90) ([lburgazzoli](https://github.com/lburgazzoli))
 - Ass keys [\#89](https://github.com/apache/camel-k-runtime/pull/89) ([lburgazzoli](https://github.com/lburgazzoli))
 - Enable checkstyle and license checks [\#88](https://github.com/apache/camel-k-runtime/pull/88) ([lburgazzoli](https://github.com/lburgazzoli))
+- chore\(deps\): update kotlin to v1.3.40 [\#85](https://github.com/apache/camel-k-runtime/pull/85) ([lburgazzoli](https://github.com/lburgazzoli))
+- Support full yaml dsl \#80 [\#84](https://github.com/apache/camel-k-runtime/pull/84) ([lburgazzoli](https://github.com/lburgazzoli))
 - Support camel 3.0.0 M3 \#79 [\#81](https://github.com/apache/camel-k-runtime/pull/81) ([lburgazzoli](https://github.com/lburgazzoli))
 - catalog: generate license header \(camel 3\) [\#77](https://github.com/apache/camel-k-runtime/pull/77) ([lburgazzoli](https://github.com/lburgazzoli))
 - Camel 3 cleanup [\#75](https://github.com/apache/camel-k-runtime/pull/75) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -587,7 +593,6 @@
 
 **Merged pull requests:**
 
-- chore\(deps\): update kotlin to v1.3.40 [\#85](https://github.com/apache/camel-k-runtime/pull/85) ([lburgazzoli](https://github.com/lburgazzoli))
 - Added a servletregistration customizer and improved examples. [\#71](https://github.com/apache/camel-k-runtime/pull/71) ([valdar](https://github.com/valdar))
 - servlet: update catalog and bom [\#70](https://github.com/apache/camel-k-runtime/pull/70) ([lburgazzoli](https://github.com/lburgazzoli))
 - add servlet support [\#68](https://github.com/apache/camel-k-runtime/pull/68) ([lburgazzoli](https://github.com/lburgazzoli))
