@@ -25,7 +25,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class KnativeEnvironmentTest {
 
-
     @ParameterizedTest
     @ValueSource(strings = {
         "{\"services\":[{\"type\":\"endpoint\",\"name\":\"knative3\",\"metadata\":{\"camel.endpoint.kind\":\"source\",\"knative.apiVersion\":\"serving.knative.dev/v1\",\"knative.kind\":\"Service\",\"service.path\":\"/\"}}]}",
@@ -38,7 +37,6 @@ public class KnativeEnvironmentTest {
         assertThat(env.lookup(Knative.Type.endpoint, "knative3"))
             .first()
                 .hasFieldOrPropertyWithValue("url", null)
-                .hasFieldOrPropertyWithValue("port", -1)
-                .hasFieldOrPropertyWithValue("host", null);
+                .hasFieldOrProperty("metadata");
     }
 }

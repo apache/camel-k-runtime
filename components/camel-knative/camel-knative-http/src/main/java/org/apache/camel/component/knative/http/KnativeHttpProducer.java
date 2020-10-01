@@ -19,7 +19,6 @@ package org.apache.camel.component.knative.http;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
-import java.util.function.Supplier;
 
 import io.vertx.core.MultiMap;
 import io.vertx.core.Vertx;
@@ -34,13 +33,13 @@ import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
 import org.apache.camel.InvalidPayloadException;
 import org.apache.camel.Message;
+import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
 import org.apache.camel.spi.HeaderFilterStrategy;
 import org.apache.camel.support.DefaultAsyncProducer;
 import org.apache.camel.support.MessageHelper;
 import org.apache.camel.util.ObjectHelper;
 import org.apache.camel.util.URISupport;
-import org.apache.camel.util.function.Suppliers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,8 +50,9 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
     private final Vertx vertx;
     private final WebClientOptions clientOptions;
     private final HeaderFilterStrategy headerFilterStrategy;
-    private final Supplier<String> uri;
 
+    private String uri;
+    private String host;
     private WebClient client;
 
     public KnativeHttpProducer(
@@ -66,7 +66,6 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
         this.vertx = ObjectHelper.notNull(vertx, "vertx");
         this.clientOptions = ObjectHelper.supplyIfEmpty(clientOptions, WebClientOptions::new);
         this.headerFilterStrategy = new KnativeHttpHeaderFilterStrategy();
-        this.uri = Suppliers.memorize(() -> computeUrl(serviceDefinition));
     }
 
     @Override
@@ -89,32 +88,22 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
             return true;
         }
 
-        final Message message = exchange.getMessage();
-        final String host = getHost(serviceDefinition);
-
-        if (ObjectHelper.isEmpty(host)) {
-            exchange.setException(new CamelException("HTTP operation failed because host is not defined"));
-            callback.done(true);
-
-            return true;
-        }
-
         MultiMap headers = MultiMap.caseInsensitiveMultiMap();
         headers.add(HttpHeaders.CONTENT_LENGTH, Integer.toString(payload.length));
-        headers.add(HttpHeaders.HOST, host);
+        headers.add(HttpHeaders.HOST, this.host);
 
-        String contentType = MessageHelper.getContentType(message);
+        String contentType = MessageHelper.getContentType(exchange.getMessage());
         if (contentType != null) {
             headers.add(HttpHeaders.CONTENT_TYPE, contentType);
         }
 
-        for (Map.Entry<String, Object> entry : message.getHeaders().entrySet()) {
+        for (Map.Entry<String, Object> entry : exchange.getMessage().getHeaders().entrySet()) {
             if (!headerFilterStrategy.applyFilterToCamelHeaders(entry.getKey(), entry.getValue(), exchange)) {
                 headers.add(entry.getKey(), entry.getValue().toString());
             }
         }
 
-        client.postAbs(this.uri.get())
+        client.postAbs(this.uri)
             .putHeaders(headers)
             .sendBuffer(Buffer.buffer(payload), response -> {
                 if (response.succeeded()) {
@@ -138,7 +127,7 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
                     if (result.statusCode() < 200 || result.statusCode() >= 300) {
                         String exceptionMessage = String.format(
                             "HTTP operation failed invoking %s with statusCode: %d, statusMessage: %s",
-                            URISupport.sanitizeUri(this.uri.get()),
+                            URISupport.sanitizeUri(this.uri),
                             result.statusCode(),
                             result.statusMessage()
                         );
@@ -148,7 +137,7 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
 
                     answer.setHeader(Exchange.HTTP_RESPONSE_CODE, result.statusCode());
                 } else if (response.failed()) {
-                    String exceptionMessage = "HTTP operation failed invoking " + URISupport.sanitizeUri(this.uri.get());
+                    String exceptionMessage = "HTTP operation failed invoking " + URISupport.sanitizeUri(this.uri);
                     if (response.result() != null) {
                         exceptionMessage += " with statusCode: " + response.result().statusCode();
                     }
@@ -164,9 +153,11 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
 
     @Override
     protected void doInit() throws Exception {
-        super.doInit();
-
+        this.uri = getUrl(serviceDefinition);
+        this.host = getHost(serviceDefinition);
         this.client = WebClient.create(vertx, clientOptions);
+
+        super.doInit();
     }
 
     @Override
@@ -180,39 +171,35 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
         }
     }
 
-    private String computeUrl(KnativeEnvironment.KnativeResource definition) {
+    private String getUrl(KnativeEnvironment.KnativeResource definition) {
         String url = definition.getUrl();
         if (url == null) {
-            int port = definition.getPortOrDefault(KnativeHttpTransport.DEFAULT_PORT);
-            String path = definition.getPathOrDefault(KnativeHttpTransport.DEFAULT_PATH);
+            throw new RuntimeCamelException("Unable to determine the `url` for definition: " + definition);
+        }
 
+        String path = definition.getPath();
+        if (path != null) {
             if (path.charAt(0) != '/') {
                 path = "/" + path;
             }
+            if (url.endsWith("/")) {
+                url = url.substring(0, url.length() - 1);
+            }
 
-            url = String.format("http://%s:%d%s", definition.getHost(), port, path);
+            url += path;
         }
 
         return getEndpoint().getCamelContext().resolvePropertyPlaceholders(url);
     }
 
     private String getHost(KnativeEnvironment.KnativeResource definition) {
-        if (definition.getHost() != null) {
-            return serviceDefinition.getHost();
+        String url = getUrl(definition);
+
+        try {
+           return new URL(url).getHost();
+        } catch (MalformedURLException e) {
+            throw new RuntimeCamelException("Unable to determine `host` for definition: " + definition, e);
         }
-
-        if (serviceDefinition.getUrl() != null) {
-            String url = serviceDefinition.getUrl();
-            url = getEndpoint().getCamelContext().resolvePropertyPlaceholders(url);
-
-            try {
-               return new URL(url).getHost();
-            } catch (MalformedURLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        return null;
     }
 
 }

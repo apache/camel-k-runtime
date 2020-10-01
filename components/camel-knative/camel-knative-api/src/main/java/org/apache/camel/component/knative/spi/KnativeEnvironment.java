@@ -20,8 +20,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -204,32 +202,6 @@ public class KnativeEnvironment {
             return this.name;
         }
 
-        public String getHost() {
-            String urlAsString = getUrl();
-            if (urlAsString != null) {
-                try {
-                    return new URL(urlAsString).getHost();
-                } catch (MalformedURLException ignored) {
-                    // ignore
-                }
-            }
-
-            return null;
-        }
-
-        public int getPort() {
-            String urlAsString = getUrl();
-            if (urlAsString != null) {
-                try {
-                    return new URL(urlAsString).getPort();
-                } catch (MalformedURLException ignored) {
-                    // ignored
-                }
-            }
-
-            return -1;
-        }
-
         public Map<String, String> getMetadata() {
             return this.meta;
         }
@@ -239,28 +211,11 @@ public class KnativeEnvironment {
         }
 
         public String getPath() {
-            String urlAsString = getUrl();
-            if (urlAsString != null) {
-                try {
-                    return new URL(urlAsString).getPath();
-                } catch (MalformedURLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-
             return getMetadata(Knative.SERVICE_META_PATH);
-        }
-
-        public String getPathOrDefault(String path) {
-            return getMetadata().getOrDefault(Knative.SERVICE_META_PATH, path);
         }
 
         public String getEventType() {
             return getMetadata(Knative.KNATIVE_EVENT_TYPE);
-        }
-
-        public int getPortOrDefault(int port) {
-            return getPort() != -1 ? getPort() : port;
         }
 
         public String getUrl() {
@@ -278,6 +233,15 @@ public class KnativeEnvironment {
         public boolean matches(Knative.Type type, String name) {
             return Objects.equals(type.name(), getMetadata(Knative.KNATIVE_TYPE))
                 && Objects.equals(name, getName());
+        }
+
+        @Override
+        public String toString() {
+            return "KnativeResource{" +
+                "name='" + name + '\'' +
+                ", url='" + url + '\'' +
+                ", meta=" + meta +
+                '}';
         }
     }
 }
