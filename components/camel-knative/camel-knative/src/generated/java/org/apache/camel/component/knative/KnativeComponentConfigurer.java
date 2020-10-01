@@ -22,10 +22,11 @@ public class KnativeComponentConfigurer extends PropertyConfigurerSupport implem
         map.put("cloudEventsSpecVersion", java.lang.String.class);
         map.put("cloudEventsType", java.lang.String.class);
         map.put("configuration", org.apache.camel.component.knative.KnativeConfiguration.class);
+        map.put("consumerFactory", org.apache.camel.component.knative.spi.KnativeConsumerFactory.class);
         map.put("environment", org.apache.camel.component.knative.spi.KnativeEnvironment.class);
         map.put("environmentPath", java.lang.String.class);
         map.put("filters", java.util.Map.class);
-        map.put("transport", org.apache.camel.component.knative.spi.KnativeTransport.class);
+        map.put("producerFactory", org.apache.camel.component.knative.spi.KnativeProducerFactory.class);
         map.put("transportOptions", java.util.Map.class);
         map.put("typeId", java.lang.String.class);
         map.put("bridgeErrorHandler", boolean.class);
@@ -63,6 +64,8 @@ public class KnativeComponentConfigurer extends PropertyConfigurerSupport implem
         case "cloudeventstype":
         case "cloudEventsType": getOrCreateConfiguration(target).setCloudEventsType(property(camelContext, java.lang.String.class, value)); return true;
         case "configuration": target.setConfiguration(property(camelContext, org.apache.camel.component.knative.KnativeConfiguration.class, value)); return true;
+        case "consumerfactory":
+        case "consumerFactory": target.setConsumerFactory(property(camelContext, org.apache.camel.component.knative.spi.KnativeConsumerFactory.class, value)); return true;
         case "environment": getOrCreateConfiguration(target).setEnvironment(property(camelContext, org.apache.camel.component.knative.spi.KnativeEnvironment.class, value)); return true;
         case "environmentpath":
         case "environmentPath": target.setEnvironmentPath(property(camelContext, java.lang.String.class, value)); return true;
@@ -71,10 +74,11 @@ public class KnativeComponentConfigurer extends PropertyConfigurerSupport implem
         case "lazystartproducer":
         case "lazyStartProducer": target.setLazyStartProducer(property(camelContext, boolean.class, value)); return true;
         case "name": getOrCreateConfiguration(target).setName(property(camelContext, java.lang.String.class, value)); return true;
+        case "producerfactory":
+        case "producerFactory": target.setProducerFactory(property(camelContext, org.apache.camel.component.knative.spi.KnativeProducerFactory.class, value)); return true;
         case "reply": getOrCreateConfiguration(target).setReply(property(camelContext, java.lang.Boolean.class, value)); return true;
         case "replywithcloudevent":
         case "replyWithCloudEvent": getOrCreateConfiguration(target).setReplyWithCloudEvent(property(camelContext, boolean.class, value)); return true;
-        case "transport": target.setTransport(property(camelContext, org.apache.camel.component.knative.spi.KnativeTransport.class, value)); return true;
         case "transportoptions":
         case "transportOptions": getOrCreateConfiguration(target).setTransportOptions(property(camelContext, java.util.Map.class, value)); return true;
         case "typeid":
@@ -105,6 +109,8 @@ public class KnativeComponentConfigurer extends PropertyConfigurerSupport implem
         case "cloudeventstype":
         case "cloudEventsType": return getOrCreateConfiguration(target).getCloudEventsType();
         case "configuration": return target.getConfiguration();
+        case "consumerfactory":
+        case "consumerFactory": return target.getConsumerFactory();
         case "environment": return getOrCreateConfiguration(target).getEnvironment();
         case "environmentpath":
         case "environmentPath": return target.getEnvironmentPath();
@@ -113,10 +119,11 @@ public class KnativeComponentConfigurer extends PropertyConfigurerSupport implem
         case "lazystartproducer":
         case "lazyStartProducer": return target.isLazyStartProducer();
         case "name": return getOrCreateConfiguration(target).getName();
+        case "producerfactory":
+        case "producerFactory": return target.getProducerFactory();
         case "reply": return getOrCreateConfiguration(target).getReply();
         case "replywithcloudevent":
         case "replyWithCloudEvent": return getOrCreateConfiguration(target).isReplyWithCloudEvent();
-        case "transport": return target.getTransport();
         case "transportoptions":
         case "transportOptions": return getOrCreateConfiguration(target).getTransportOptions();
         case "typeid":

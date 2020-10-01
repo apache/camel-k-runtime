@@ -25,6 +25,8 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import org.apache.camel.Exchange;
+import org.apache.camel.component.knative.http.KnativeHttpConsumerFactory;
+import org.apache.camel.component.knative.http.KnativeHttpProducerFactory;
 import org.apache.camel.component.knative.spi.CloudEvent;
 import org.apache.camel.component.knative.spi.CloudEvents;
 import org.apache.camel.component.knative.spi.Knative;
@@ -53,6 +55,12 @@ public class KnativeTest {
             .containsEntry(Knative.KNATIVE_EVENT_TYPE, "camel.k.evt")
             .containsEntry(Knative.SERVICE_META_PATH, "/knative")
             .containsEntry("camel.endpoint.kind", "source");
+
+
+        assertThat(p.getString("component.consumer-factory"))
+            .isEqualTo(KnativeHttpConsumerFactory.class.getName());
+        assertThat(p.getString("component.producer-factory"))
+            .isEqualTo(KnativeHttpProducerFactory.class.getName());
     }
 
     @Test

@@ -20,14 +20,15 @@
     group: "routes"
     from:
       uri: "knative://endpoint/source"
-      steps:
-        - convert-body-to:
-            type: "java.lang.String"
-        - choice:
-            when:
-              - simple: "${body} >= 100"
-                steps:
-                  - to: "log:when"
-            otherwise:
+    steps:
+      - convert-body-to:
+          type: "java.lang.String"
+      - choice:
+          when:
+            - simple: "${body} >= 100"
               steps:
-                - to: "log:otherwise"
+                - to: "log:when"
+          otherwise:
+            steps:
+              - to: "log:otherwise"
+

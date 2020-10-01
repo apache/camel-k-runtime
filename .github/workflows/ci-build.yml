@@ -84,6 +84,8 @@ jobs:
           - :camel-k-itests-cron
           - :camel-k-itests-kamelet
           - :camel-k-itests-knative
+          - :camel-k-itests-knative-producer
+          - :camel-k-itests-knative-consumer
           - :camel-k-itests-knative-sinkbinding
           - :camel-k-itests-knative-source-js
           - :camel-k-itests-knative-source-xml

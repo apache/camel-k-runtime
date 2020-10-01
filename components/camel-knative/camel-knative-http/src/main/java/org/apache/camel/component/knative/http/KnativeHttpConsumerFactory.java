@@ -16,41 +16,30 @@
  */
 package org.apache.camel.component.knative.http;
 
-import io.vertx.ext.web.client.WebClientOptions;
+import java.util.Objects;
+
+import io.vertx.ext.web.Router;
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelContextAware;
 import org.apache.camel.Consumer;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Processor;
-import org.apache.camel.Producer;
+import org.apache.camel.component.knative.spi.KnativeConsumerFactory;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
-import org.apache.camel.component.knative.spi.KnativeTransport;
 import org.apache.camel.component.knative.spi.KnativeTransportConfiguration;
-import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpRouter;
 import org.apache.camel.support.service.ServiceSupport;
 
-public class KnativeHttpTransport extends ServiceSupport implements CamelContextAware, KnativeTransport {
-    public static final int DEFAULT_PORT = 8080;
-    public static final String DEFAULT_PATH = "/";
-
-    private VertxPlatformHttpRouter router;
-    private WebClientOptions vertxHttpClientOptions;
+public class KnativeHttpConsumerFactory extends ServiceSupport implements CamelContextAware, KnativeConsumerFactory {
+    private Router router;
     private CamelContext camelContext;
 
-    public VertxPlatformHttpRouter getRouter() {
+    public Router getRouter() {
         return router;
     }
 
-    public void setRouter(VertxPlatformHttpRouter router) {
+    public KnativeHttpConsumerFactory setRouter(Router router) {
         this.router = router;
-    }
-
-    public WebClientOptions getClientOptions() {
-        return vertxHttpClientOptions;
-    }
-
-    public void setClientOptions(WebClientOptions vertxHttpClientOptions) {
-        this.vertxHttpClientOptions = vertxHttpClientOptions;
+        return this;
     }
 
     @Override
@@ -63,38 +52,16 @@ public class KnativeHttpTransport extends ServiceSupport implements CamelContext
         return camelContext;
     }
 
-    // *****************************
-    //
-    // Lifecycle
-    //
-    // *****************************
-
-    @Override
-    protected void doStart() throws Exception {
-        if (this.router == null) {
-            this.router = VertxPlatformHttpRouter.lookup(camelContext);
-        }
-    }
-
-    @Override
-    protected void doStop() throws Exception {
-        // no-op
-    }
-
-    // *****************************
-    //
-    //
-    //
-    // *****************************
-
-    @Override
-    public Producer createProducer(Endpoint endpoint, KnativeTransportConfiguration config, KnativeEnvironment.KnativeResource service) {
-        return new KnativeHttpProducer(endpoint, service, this.router.vertx(), vertxHttpClientOptions);
-    }
-
     @Override
     public Consumer createConsumer(Endpoint endpoint, KnativeTransportConfiguration config, KnativeEnvironment.KnativeResource service, Processor processor) {
-        return new KnativeHttpConsumer(config, endpoint, service, this.router, processor);
+        Objects.requireNonNull(this.router, "router");
+
+        return new KnativeHttpConsumer(
+            config,
+            endpoint,
+            service,
+            this.router,
+            processor);
     }
 
 }

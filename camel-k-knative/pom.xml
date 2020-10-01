@@ -30,9 +30,10 @@
 
     <modules>
         <module>impl</module>
+        <module>producer</module>
+        <module>consumer</module>
         <module>runtime</module>
         <module>deployment</module>
     </modules>
-
 
 </project>

@@ -64,6 +64,13 @@ public interface CamelArtifact extends Artifact {
         return Collections.emptySet();
     }
 
+    static Builder from(String groupId, String artifactId) {
+        return new Builder().groupId(groupId).artifactId(artifactId);
+    }
+
     class Builder extends ImmutableCamelArtifact.Builder {
+        public Builder addDependency(String groupId, String artifactId) {
+            return super.addDependencies(MavenArtifact.from(groupId, artifactId));
+        }
     }
 }

@@ -23,6 +23,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
+import org.apache.camel.Category;
 import org.apache.camel.Consumer;
 import org.apache.camel.Processor;
 import org.apache.camel.Producer;
@@ -48,13 +49,14 @@ import org.apache.camel.util.ObjectHelper;
     scheme = "knative",
     syntax = "knative:type/typeId",
     title = "Knative",
-    label = "cloud,eventing")
+    category = Category.CLOUD)
 public class KnativeEndpoint extends DefaultEndpoint {
+    private final CloudEventProcessor cloudEvent;
+
     @UriPath(description = "The Knative resource type")
     private final Knative.Type type;
     @UriPath(description = "The identifier of the Knative resource")
     private final String typeId;
-    private final CloudEventProcessor cloudEvent;
     @UriParam
     private KnativeConfiguration configuration;
 
@@ -76,12 +78,13 @@ public class KnativeEndpoint extends DefaultEndpoint {
     public Producer createProducer() throws Exception {
         final KnativeEnvironment.KnativeResource service = lookupServiceDefinition(Knative.EndpointKind.sink);
         final Processor ceProcessor = cloudEvent.producer(this, service);
-        final Producer producer = getComponent().getTransport().createProducer(this, createTransportConfiguration(service), service);
+        final Producer producer = getComponent().getProducerFactory().createProducer(this, createTransportConfiguration(service), service);
 
         PropertyBindingSupport.build()
             .withCamelContext(getCamelContext())
             .withProperties(configuration.getTransportOptions())
             .withRemoveParameters(false)
+            .withMandatory(false)
             .withTarget(producer)
             .bind();
 
@@ -94,12 +97,13 @@ public class KnativeEndpoint extends DefaultEndpoint {
         final Processor ceProcessor = cloudEvent.consumer(this, service);
         final Processor replyProcessor = configuration.isReplyWithCloudEvent() ? cloudEvent.producer(this, service) : null;
         final Processor pipeline = Pipeline.newInstance(getCamelContext(), ceProcessor, processor, replyProcessor);
-        final Consumer consumer = getComponent().getTransport().createConsumer(this, createTransportConfiguration(service), service, pipeline);
+        final Consumer consumer = getComponent().getConsumerFactory().createConsumer(this, createTransportConfiguration(service), service, pipeline);
 
         PropertyBindingSupport.build()
             .withCamelContext(getCamelContext())
             .withProperties(configuration.getTransportOptions())
             .withRemoveParameters(false)
+            .withMandatory(false)
             .withTarget(consumer)
             .bind();
 

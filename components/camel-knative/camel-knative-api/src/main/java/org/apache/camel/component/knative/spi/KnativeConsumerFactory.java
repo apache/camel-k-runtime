@@ -19,23 +19,9 @@ package org.apache.camel.component.knative.spi;
 import org.apache.camel.Consumer;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Processor;
-import org.apache.camel.Producer;
 import org.apache.camel.Service;
 
-public interface KnativeTransport extends Service {
-    /**
-     * Create a camel {@link Producer} in place of the original endpoint for a specific protocol.
-     *
-     * @param endpoint the endpoint for which the producer should be created
-     * @param configuration the general transport configuration
-     * @param service the service definition containing information about how make reach the target service.
-     * @return
-     */
-    Producer createProducer(
-        Endpoint endpoint,
-        KnativeTransportConfiguration configuration,
-        KnativeEnvironment.KnativeResource service);
-
+public interface KnativeConsumerFactory extends Service {
     /**
      * Create a camel {@link Consumer} in place of the original endpoint for a specific protocol.
      *
