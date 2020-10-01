@@ -188,6 +188,8 @@ public class KnativeHttpConsumer extends DefaultConsumer {
             false,
             result -> {
                 try {
+                    Throwable failure = null;
+
                     if (result.succeeded()) {
                         try {
                             HttpServerResponse response = toHttpResponse(request, exchange.getMessage());
@@ -196,10 +198,8 @@ public class KnativeHttpConsumer extends DefaultConsumer {
                             if (request.response().getStatusCode() != 204 && configuration.isReply()) {
                                 body = computeResponseBody(exchange.getMessage());
 
-                                // set the content type in the response.
                                 String contentType = MessageHelper.getContentType(exchange.getMessage());
                                 if (contentType != null) {
-                                    // set content-type
                                     response.putHeader(Exchange.CONTENT_TYPE, contentType);
                                 }
                             }
@@ -211,12 +211,15 @@ public class KnativeHttpConsumer extends DefaultConsumer {
                                 request.response().end();
                             }
                         } catch (Exception e) {
-                            getExceptionHandler().handleException(e);
+                            failure = e;
                         }
                     } else if (result.failed()) {
-                        getExceptionHandler().handleException(result.cause());
+                        failure = result.cause();
+                    }
 
-                        routingContext.fail(result.cause());
+                    if (failure != null) {
+                        getExceptionHandler().handleException(failure);
+                        routingContext.fail(failure);
                     }
                 } finally {
                     doneUoW(exchange);
