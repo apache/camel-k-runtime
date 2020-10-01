@@ -16,6 +16,10 @@
  */
 package org.apache.camel.k.catalog.model;
 
+import java.util.Collections;
+import java.util.Optional;
+import java.util.Set;
+
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.immutables.value.Value;
 
@@ -35,6 +39,18 @@ public interface CamelScheme {
     default boolean passive() {
         return false;
     }
+
+    @Value.Auxiliary
+    @Value.Default
+    default Set<String> getRequiredCapabilities() {
+        return Collections.emptySet();
+    }
+
+    @Value.Auxiliary
+    Optional<CamelScopedArtifact> getProducer();
+
+    @Value.Auxiliary
+    Optional<CamelScopedArtifact> getConsumer();
 
     class Builder extends ImmutableCamelScheme.Builder {
     }

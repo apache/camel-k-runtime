@@ -48,23 +48,44 @@ new File(basedir, "catalog.yaml").withReader {
 
     catalog.spec.artifacts['camel-k-knative'].with {
         assert dependencies == null
+        assert requiredCapabilities == null
         assert schemes.size() == 1
-        assert schemes[0].id == 'knative'
+
+        schemes[0].with {
+            assert id == 'knative'
+            assert consumer.requiredCapabilities == null
+            assert consumer.dependencies[0].groupId == 'org.apache.camel.k'
+            assert consumer.dependencies[0].artifactId == 'camel-k-knative-consumer'
+
+            assert producer.requiredCapabilities == null
+            assert producer.dependencies[0].groupId == 'org.apache.camel.k'
+            assert producer.dependencies[0].artifactId == 'camel-k-knative-producer'
+        }
     }
 
     catalog.spec.artifacts['camel-k-kamelet'].with {
         assert dependencies == null
+        assert requiredCapabilities == null
+
         assert schemes.size() == 1
-        assert schemes[0].id == 'kamelet'
-        assert schemes[0].passive == true
-        assert schemes[0].http == false
+
+        schemes[0].with {
+            assert id == 'kamelet'
+            assert passive == true
+            assert http == false
+        }
     }
 
     catalog.spec.artifacts['camel-k-wrap'].with {
         assert dependencies == null
+        assert requiredCapabilities == null
+
         assert schemes.size() == 1
-        assert schemes[0].id == 'wrap'
-        assert schemes[0].passive == false
-        assert schemes[0].http == false
+
+        schemes[0].with {
+            assert id == 'wrap'
+            assert passive == false
+            assert http == false
+        }
     }
 }

@@ -23,9 +23,6 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import io.quarkus.vertx.core.deployment.CoreVertxBuildItem;
-import io.quarkus.vertx.http.deployment.BodyHandlerBuildItem;
-import io.quarkus.vertx.http.deployment.VertxWebRouterBuildItem;
 import org.apache.camel.component.knative.KnativeComponent;
 import org.apache.camel.component.knative.KnativeConstants;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
@@ -34,7 +31,7 @@ import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilter;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilterBuildItem;
 
-public class DeploymentProcessor {
+public class KnativeProcessor {
     @BuildStep
     List<UnremovableBeanBuildItem> unremovableBeans() {
         return List.of(
@@ -60,19 +57,11 @@ public class DeploymentProcessor {
 
     @Record(ExecutionTime.RUNTIME_INIT)
     @BuildStep
-    CamelRuntimeBeanBuildItem knativeComponent(
-        KnativeRecorder recorder,
-        CoreVertxBuildItem vertx,
-        VertxWebRouterBuildItem router,
-        BodyHandlerBuildItem bodyHandlerBuildItem) {
-
+    CamelRuntimeBeanBuildItem knativeComponent(KnativeRecorder recorder) {
         return new CamelRuntimeBeanBuildItem(
             KnativeConstants.SCHEME,
             KnativeComponent.class.getName(),
-            recorder.createKnativeComponent(
-                vertx.getVertx(),
-                router.getRouter(),
-                bodyHandlerBuildItem.getHandler())
+            recorder.createKnativeComponent()
         );
     }
 }

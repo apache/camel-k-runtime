@@ -27,12 +27,12 @@ import org.apache.camel.catalog.CamelCatalog;
 import org.apache.camel.k.catalog.model.CamelArtifact;
 import org.apache.camel.k.catalog.model.CamelLoader;
 import org.apache.camel.k.catalog.model.CamelScheme;
+import org.apache.camel.k.catalog.model.CamelScopedArtifact;
 import org.apache.camel.k.catalog.model.CatalogComponentDefinition;
 import org.apache.camel.k.catalog.model.CatalogDataFormatDefinition;
 import org.apache.camel.k.catalog.model.CatalogDefinition;
 import org.apache.camel.k.catalog.model.CatalogLanguageDefinition;
 import org.apache.camel.k.catalog.model.CatalogSupport;
-import org.apache.camel.k.catalog.model.MavenArtifact;
 import org.apache.camel.k.catalog.model.k8s.crd.CamelCatalogSpec;
 import org.apache.camel.k.tooling.maven.support.CatalogProcessor;
 import org.apache.commons.lang3.StringUtils;
@@ -103,7 +103,7 @@ public class CatalogProcessor3x implements CatalogProcessor {
         artifacts.computeIfPresent("camel-http",
             (key, artifact) -> new CamelArtifact.Builder()
                 .from(artifact)
-                .addDependencies(MavenArtifact.from("org.apache.camel", "camel-file"))
+                .addDependency("org.apache.camel", "camel-file")
                 .build()
         );
 
@@ -135,6 +135,12 @@ public class CatalogProcessor3x implements CatalogProcessor {
                 .addScheme(new CamelScheme.Builder()
                     .id("knative")
                     .http(true)
+                    .consumer(new CamelScopedArtifact.Builder()
+                        .addDependency("org.apache.camel.k", "camel-k-knative-consumer")
+                        .build())
+                    .producer(new CamelScopedArtifact.Builder()
+                        .addDependency("org.apache.camel.k", "camel-k-knative-producer")
+                        .build())
                     .build())
                 .build()
         );

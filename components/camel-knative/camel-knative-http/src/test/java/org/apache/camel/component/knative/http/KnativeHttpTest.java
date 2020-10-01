@@ -118,7 +118,8 @@ public class KnativeHttpTest {
         context.start();
 
         assertThat(context.getComponent("knative")).isInstanceOfSatisfying(KnativeComponent.class, c -> {
-            assertThat(c.getTransport()).isInstanceOf(KnativeHttpTransport.class);
+            assertThat(c.getProducerFactory()).isInstanceOf(KnativeHttpProducerFactory.class);
+            assertThat(c.getConsumerFactory()).isInstanceOf(KnativeHttpConsumerFactory.class);
         });
     }
 
@@ -1416,51 +1417,6 @@ public class KnativeHttpTest {
 
     @ParameterizedTest
     @EnumSource(CloudEvents.class)
-    void testOrdering(CloudEvent ce) throws Exception {
-        List<KnativeEnvironment.KnativeResource> hops = new Random()
-            .ints(0, 100)
-            .distinct()
-            .limit(10)
-            .mapToObj(i -> sourceEndpoint(
-                "ep-" + i,
-                Map.of(Knative.KNATIVE_FILTER_PREFIX + "MyHeader", "channel-" + i)))
-            .collect(Collectors.toList());
-
-        configureKnativeComponent(context, ce, hops);
-
-        RouteBuilder.addRoutes(context, b -> {
-            b.from("direct:start")
-                .routeId("http")
-                .toF("http://localhost:%d", platformHttpPort)
-                .convertBodyTo(String.class);
-
-            for (KnativeEnvironment.KnativeResource definition : hops) {
-                b.fromF("knative:endpoint/%s", definition.getName())
-                    .routeId(definition.getName())
-                    .setBody().constant(definition.getName());
-            }
-        });
-
-        context.start();
-
-        List<String> hopsDone = new ArrayList<>();
-        for (KnativeEnvironment.KnativeResource definition : hops) {
-            hopsDone.add(definition.getName());
-
-            Exchange result = template.request(
-                "direct:start",
-                e -> {
-                    e.getMessage().setHeader("MyHeader", hopsDone);
-                    e.getMessage().setBody(definition.getName());
-                }
-            );
-
-            assertThat(result.getMessage().getBody()).isEqualTo(definition.getName());
-        }
-    }
-
-    @ParameterizedTest
-    @EnumSource(CloudEvents.class)
     void testHeaders(CloudEvent ce) throws Exception {
         final int port = AvailablePortFinder.getNextAvailable();
         final KnativeHttpServer server = new KnativeHttpServer(context);
@@ -1515,7 +1471,6 @@ public class KnativeHttpTest {
     @ParameterizedTest
     @EnumSource(CloudEvents.class)
     void testHeadersInReply(CloudEvent ce) throws Exception {
-        final int port = AvailablePortFinder.getNextAvailable();
         final KnativeHttpServer server = new KnativeHttpServer(context);
 
         configureKnativeComponent(
@@ -1547,7 +1502,7 @@ public class KnativeHttpTest {
 
             server.start();
 
-            Exchange exchange = template.request("direct:start", e -> e.getMessage().setBody(null));
+            Exchange exchange = template.request("direct:start", e -> e.getMessage().setBody("test"));
             assertThat(exchange.getMessage().getHeaders()).containsEntry("CamelDummyHeader", "test");
         } finally {
             server.stop();

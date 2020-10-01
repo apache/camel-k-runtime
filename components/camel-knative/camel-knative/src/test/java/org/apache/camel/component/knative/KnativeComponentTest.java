@@ -68,7 +68,8 @@ public class KnativeComponentTest {
 
         KnativeComponent component = new KnativeComponent();
         component.setEnvironment(env);
-        component.setTransport(new KnativeTransportNoop());
+        component.setConsumerFactory(new KnativeTransportNoop());
+        component.setProducerFactory(new KnativeTransportNoop());
 
         context.getRegistry().bind("ereg", KnativeEnvironmentSupport.endpoint(Knative.EndpointKind.source, "ereg", null));
         context.getRegistry().bind("creg", KnativeEnvironmentSupport.channel(Knative.EndpointKind.source, "creg", null));

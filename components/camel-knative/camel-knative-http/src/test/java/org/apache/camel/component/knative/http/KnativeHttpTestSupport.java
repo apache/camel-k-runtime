@@ -20,12 +20,18 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.Consumer;
+import org.apache.camel.Endpoint;
+import org.apache.camel.Processor;
+import org.apache.camel.Producer;
 import org.apache.camel.component.knative.KnativeComponent;
 import org.apache.camel.component.knative.spi.CloudEvent;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
+import org.apache.camel.component.knative.spi.KnativeTransportConfiguration;
 import org.apache.camel.component.platform.http.PlatformHttpComponent;
 import org.apache.camel.component.platform.http.PlatformHttpConstants;
 import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpEngine;
+import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpRouter;
 import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpServer;
 import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpServerConfiguration;
 
@@ -41,6 +47,20 @@ public final class KnativeHttpTestSupport {
         KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
         component.setCloudEventsSpecVersion(ce.version());
         component.setEnvironment(new KnativeEnvironment(definitions));
+        component.setConsumerFactory(new KnativeHttpConsumerFactory() {
+            @Override
+            public Consumer createConsumer(Endpoint endpoint, KnativeTransportConfiguration config, KnativeEnvironment.KnativeResource service, Processor processor) {
+                this.setRouter(VertxPlatformHttpRouter.lookup(context));
+                return super.createConsumer(endpoint, config, service, processor);
+            }
+        });
+        component.setProducerFactory(new KnativeHttpProducerFactory() {
+            @Override
+            public Producer createProducer(Endpoint endpoint, KnativeTransportConfiguration config, KnativeEnvironment.KnativeResource service) {
+                this.setVertx(VertxPlatformHttpRouter.lookup(context).vertx());
+                return super.createProducer(endpoint, config, service);
+            }
+        });
 
         return component;
     }

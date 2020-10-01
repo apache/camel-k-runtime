@@ -162,6 +162,16 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-knative-producer</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-knative-consumer</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-cron-impl</artifactId>
                 <version>${project.version}</version>
             </dependency>

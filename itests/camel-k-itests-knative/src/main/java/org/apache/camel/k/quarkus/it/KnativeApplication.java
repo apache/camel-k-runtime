@@ -32,6 +32,7 @@ import javax.ws.rs.core.MediaType;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.CamelContext;
 import org.apache.camel.FluentProducerTemplate;
+import org.apache.camel.component.knative.KnativeComponent;
 import org.apache.camel.component.knative.KnativeEndpoint;
 import org.apache.camel.component.knative.spi.Knative;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
@@ -61,6 +62,11 @@ public class KnativeApplication {
 
         return Json.createObjectBuilder()
             .add("env-meta", envMeta)
+            .add("component", Json.createObjectBuilder()
+                .add("producer-factory", context.getComponent("knative", KnativeComponent.class).getProducerFactory().getClass().getName())
+                .add("consumer-factory", context.getComponent("knative", KnativeComponent.class).getConsumerFactory().getClass().getName())
+                .add("", "")
+                .build())
             .build();
     }
 

@@ -38,6 +38,14 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
+            <artifactId>camel-k-knative-producer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.k</groupId>
+            <artifactId>camel-k-knative-consumer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.k</groupId>
             <artifactId>camel-k-loader-java</artifactId>
         </dependency>
 
