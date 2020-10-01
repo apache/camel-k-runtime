@@ -33,7 +33,9 @@ import io.vertx.core.http.HttpServerRequest;
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelException;
 import org.apache.camel.Exchange;
+import org.apache.camel.FailedToStartRouteException;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.knative.KnativeComponent;
 import org.apache.camel.component.knative.spi.CloudEvent;
@@ -65,6 +67,7 @@ import static org.apache.camel.component.knative.test.KnativeEnvironmentSupport.
 import static org.apache.camel.component.knative.test.KnativeEnvironmentSupport.sourceEndpoint;
 import static org.apache.camel.component.knative.test.KnativeEnvironmentSupport.sourceEvent;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.hamcrest.Matchers.emptyOrNullString;
 import static org.hamcrest.Matchers.is;
 
@@ -250,7 +253,6 @@ public class KnativeHttpTest {
                 "myEndpoint",
                 null,
                 Map.of(
-                    Knative.SERVICE_META_PATH, "/does/not/exist",
                     Knative.SERVICE_META_URL, String.format("http://localhost:%d/a/path", platformHttpPort),
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
@@ -283,8 +285,49 @@ public class KnativeHttpTest {
 
     @ParameterizedTest
     @EnumSource(CloudEvents.class)
-    void testConsumeStructuredContent(CloudEvent ce) throws Exception {
+    void testInvokeEndpointByUrlAndPath(CloudEvent ce) throws Exception {
+        configureKnativeComponent(
+            context,
+            ce,
+            endpoint(
+                Knative.EndpointKind.sink,
+                "myEndpoint",
+                null,
+                Map.of(
+                    Knative.SERVICE_META_PATH, "/with/subpath",
+                    Knative.SERVICE_META_URL, String.format("http://localhost:%d/a/path", platformHttpPort),
+                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.CONTENT_TYPE, "text/plain"
+                ))
+        );
 
+        RouteBuilder.addRoutes(context, b -> {
+            b.from("direct:source")
+                .to("knative:endpoint/myEndpoint");
+            b.from("platform-http:/a/path/with/subpath")
+                .to("mock:ce");
+        });
+
+        context.start();
+
+        MockEndpoint mock = context.getEndpoint("mock:ce", MockEndpoint.class);
+        mock.expectedHeaderReceived(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_VERSION), ce.version());
+        mock.expectedHeaderReceived(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_TYPE), "org.apache.camel.event");
+        mock.expectedHeaderReceived(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_SOURCE), "knative://endpoint/myEndpoint");
+        mock.expectedHeaderReceived(Exchange.CONTENT_TYPE, "text/plain");
+        mock.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_TIME)));
+        mock.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_ID)));
+        mock.expectedBodiesReceived("test");
+        mock.expectedMessageCount(1);
+
+        template.sendBody("direct:source", "test");
+
+        mock.assertIsSatisfied();
+    }
+
+    @ParameterizedTest
+    @EnumSource(CloudEvents.class)
+    void testConsumeStructuredContent(CloudEvent ce) throws Exception {
         configureKnativeComponent(
             context,
             ce,
@@ -773,7 +816,7 @@ public class KnativeHttpTest {
 
     @ParameterizedTest
     @EnumSource(CloudEvents.class)
-    void testInvokeServiceWithoutHost(CloudEvent ce) throws Exception {
+    void testInvokeServiceWithoutUrl(CloudEvent ce) throws Exception {
         configureKnativeComponent(
             context,
             ce,
@@ -794,12 +837,9 @@ public class KnativeHttpTest {
                 .to("mock:start");
         });
 
-        context.start();
-
-        Exchange exchange = template.request("direct:start", e -> e.getMessage().setBody(""));
-        assertThat(exchange.isFailed()).isTrue();
-        assertThat(exchange.getException()).isInstanceOf(CamelException.class);
-        assertThat(exchange.getException()).hasMessageStartingWith("HTTP operation failed because host is not defined");
+        assertThatExceptionOfType(FailedToStartRouteException.class)
+            .isThrownBy(context::start)
+            .withCauseExactlyInstanceOf(RuntimeCamelException.class);
     }
 
     @ParameterizedTest

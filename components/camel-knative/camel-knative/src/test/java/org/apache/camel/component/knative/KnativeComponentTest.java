@@ -82,9 +82,7 @@ public class KnativeComponentTest {
             assertThat(endpoint.lookupServiceDefinition("c1", Knative.EndpointKind.source)).isPresent();
             assertThat(endpoint.lookupServiceDefinition("e1", Knative.EndpointKind.source)).isNotPresent();
             assertThat(endpoint.lookupServiceDefinition("c1", Knative.EndpointKind.source)).isPresent().get()
-                .hasFieldOrPropertyWithValue("url", "http://localhost:8081")
-                .hasFieldOrPropertyWithValue("host", "localhost")
-                .hasFieldOrPropertyWithValue("port", 8081);
+                .hasFieldOrPropertyWithValue("url", "http://localhost:8081");
         }
         {
             KnativeEndpoint endpoint = context.getEndpoint("knative:channel/creg", KnativeEndpoint.class);
@@ -99,9 +97,7 @@ public class KnativeComponentTest {
             assertThat(endpoint.lookupServiceDefinition("e1", Knative.EndpointKind.source)).isPresent();
             assertThat(endpoint.lookupServiceDefinition("c1", Knative.EndpointKind.source)).isNotPresent();
             assertThat(endpoint.lookupServiceDefinition("e1", Knative.EndpointKind.source)).isPresent().get()
-                .hasFieldOrPropertyWithValue("url", "http://localhost:9001")
-                .hasFieldOrPropertyWithValue("host", "localhost")
-                .hasFieldOrPropertyWithValue("port", 9001);
+                .hasFieldOrPropertyWithValue("url", "http://localhost:9001");
         }
         {
             KnativeEndpoint endpoint = context.getEndpoint("knative:endpoint/ereg", KnativeEndpoint.class);
