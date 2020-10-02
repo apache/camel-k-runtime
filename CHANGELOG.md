@@ -11,6 +11,7 @@
 
 **Closed issues:**
 
+- Log runtime version when starting [\#512](https://github.com/apache/camel-k-runtime/issues/512)
 - Sink Kamelet not called [\#500](https://github.com/apache/camel-k-runtime/issues/500)
 - Failed to start Kamelet [\#493](https://github.com/apache/camel-k-runtime/issues/493)
 - Fix kamelet entry in catalog [\#492](https://github.com/apache/camel-k-runtime/issues/492)
@@ -31,6 +32,9 @@
 
 **Merged pull requests:**
 
+- knative: cleanup knative environment definition leftovers [\#520](https://github.com/apache/camel-k-runtime/pull/520) ([lburgazzoli](https://github.com/lburgazzoli))
+- knative\(http\): fix request handler exception handling [\#519](https://github.com/apache/camel-k-runtime/pull/519) ([lburgazzoli](https://github.com/lburgazzoli))
+- Log runtime version when starting [\#518](https://github.com/apache/camel-k-runtime/pull/518) ([lburgazzoli](https://github.com/lburgazzoli))
 - knative\(http\): use async processor to process http requests [\#516](https://github.com/apache/camel-k-runtime/pull/516) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps\): bump junit-pioneer from 0.9.1 to 0.9.2 [\#515](https://github.com/apache/camel-k-runtime/pull/515) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump groovy-version from 3.0.5 to 3.0.6 [\#514](https://github.com/apache/camel-k-runtime/pull/514) ([dependabot[bot]](https://github.com/apps/dependabot))
@@ -337,6 +341,7 @@
 - Add a helper module for setting up master [\#241](https://github.com/apache/camel-k-runtime/issues/241)
 - Allow to load generic secrets and reference entries from integrations [\#239](https://github.com/apache/camel-k-runtime/issues/239)
 - remove support for multiple camel versions [\#229](https://github.com/apache/camel-k-runtime/issues/229)
+- Ad a specific section in the camel-k-runtime catalog to list loaders and related dependencies [\#182](https://github.com/apache/camel-k-runtime/issues/182)
 
 **Merged pull requests:**
 
@@ -417,7 +422,6 @@
 
 - Remove support for java class loader [\#195](https://github.com/apache/camel-k-runtime/issues/195)
 - Upgrade to Camel RC3 [\#189](https://github.com/apache/camel-k-runtime/issues/189)
-- Ad a specific section in the camel-k-runtime catalog to list loaders and related dependencies [\#182](https://github.com/apache/camel-k-runtime/issues/182)
 - CamelCloudEventXXX not converted to CE header [\#177](https://github.com/apache/camel-k-runtime/issues/177)
 - Undertow does not shut down properly in webhook route policy [\#172](https://github.com/apache/camel-k-runtime/issues/172)
 - switch to camel main for quarkus related bits [\#149](https://github.com/apache/camel-k-runtime/issues/149)
