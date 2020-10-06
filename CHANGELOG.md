@@ -327,7 +327,6 @@
 - Allow to configure quarkus through runtime's application properties [\#259](https://github.com/apache/camel-k-runtime/pull/259) ([lburgazzoli](https://github.com/lburgazzoli))
 - Improve catalog [\#256](https://github.com/apache/camel-k-runtime/pull/256) ([lburgazzoli](https://github.com/lburgazzoli))
 - Bump Groovy to version 3.0.2 [\#254](https://github.com/apache/camel-k-runtime/pull/254) ([oscerd](https://github.com/oscerd))
-- Improve actions [\#252](https://github.com/apache/camel-k-runtime/pull/252) ([lburgazzoli](https://github.com/lburgazzoli))
 - Update to camel 3.1, camel-quarkus 1.0.0-M4 [\#251](https://github.com/apache/camel-k-runtime/pull/251) ([lburgazzoli](https://github.com/lburgazzoli))
 - Refactor health support [\#249](https://github.com/apache/camel-k-runtime/pull/249) ([lburgazzoli](https://github.com/lburgazzoli))
 
@@ -345,6 +344,7 @@
 
 **Merged pull requests:**
 
+- Improve actions [\#252](https://github.com/apache/camel-k-runtime/pull/252) ([lburgazzoli](https://github.com/lburgazzoli))
 - Add camel-bean to transitive dependencies by default [\#244](https://github.com/apache/camel-k-runtime/pull/244) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#241: add master helper component [\#242](https://github.com/apache/camel-k-runtime/pull/242) ([nicolaferraro](https://github.com/nicolaferraro))
 - Allow to load generic secrets and reference entries from integrations [\#240](https://github.com/apache/camel-k-runtime/pull/240) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -638,7 +638,6 @@
 - fix platform stream handler [\#33](https://github.com/apache/camel-k-runtime/pull/33) ([lburgazzoli](https://github.com/lburgazzoli))
 - Runtime components should include catalog information [\#32](https://github.com/apache/camel-k-runtime/pull/32) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(version\): Bump Snakeyaml to version 1.24 [\#30](https://github.com/apache/camel-k-runtime/pull/30) ([oscerd](https://github.com/oscerd))
-- Fixed version checking in Catalog to accomodate also x.y.z-something … [\#26](https://github.com/apache/camel-k-runtime/pull/26) ([valdar](https://github.com/valdar))
 
 ## [camel-k-runtime-parent-0.3.1](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-0.3.1) (2019-03-06)
 
@@ -655,6 +654,7 @@
 **Merged pull requests:**
 
 - Please add my pgp key [\#27](https://github.com/apache/camel-k-runtime/pull/27) ([nicolaferraro](https://github.com/nicolaferraro))
+- Fixed version checking in Catalog to accomodate also x.y.z-something … [\#26](https://github.com/apache/camel-k-runtime/pull/26) ([valdar](https://github.com/valdar))
 - camel-knative: set CloudEvents v0.2 as default spec version [\#25](https://github.com/apache/camel-k-runtime/pull/25) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(netty\): improve health service [\#24](https://github.com/apache/camel-k-runtime/pull/24) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(camel-3\): fix camel 3 compatibility layer [\#23](https://github.com/apache/camel-k-runtime/pull/23) ([lburgazzoli](https://github.com/lburgazzoli))
