@@ -32,6 +32,7 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump junit-pioneer from 0.9.2 to 1.0.0 [\#522](https://github.com/apache/camel-k-runtime/pull/522) ([dependabot[bot]](https://github.com/apps/dependabot))
 - knative: cleanup knative environment definition leftovers [\#520](https://github.com/apache/camel-k-runtime/pull/520) ([lburgazzoli](https://github.com/lburgazzoli))
 - knative\(http\): fix request handler exception handling [\#519](https://github.com/apache/camel-k-runtime/pull/519) ([lburgazzoli](https://github.com/lburgazzoli))
 - Log runtime version when starting [\#518](https://github.com/apache/camel-k-runtime/pull/518) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -658,7 +659,6 @@
 - camel-knative: set CloudEvents v0.2 as default spec version [\#25](https://github.com/apache/camel-k-runtime/pull/25) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(netty\): improve health service [\#24](https://github.com/apache/camel-k-runtime/pull/24) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(camel-3\): fix camel 3 compatibility layer [\#23](https://github.com/apache/camel-k-runtime/pull/23) ([lburgazzoli](https://github.com/lburgazzoli))
-- Add runtime health endpoint [\#22](https://github.com/apache/camel-k-runtime/pull/22) ([lburgazzoli](https://github.com/lburgazzoli))
 - Default service definition not taken into account [\#20](https://github.com/apache/camel-k-runtime/pull/20) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-0.3.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-0.3.0) (2019-02-27)
@@ -676,6 +676,7 @@
 
 **Merged pull requests:**
 
+- Add runtime health endpoint [\#22](https://github.com/apache/camel-k-runtime/pull/22) ([lburgazzoli](https://github.com/lburgazzoli))
 - Support for camel 3.x [\#16](https://github.com/apache/camel-k-runtime/pull/16) ([lburgazzoli](https://github.com/lburgazzoli))
 - fix\(deploy\): Camel-k-runtime-merge job is failing, fixes \#14 [\#15](https://github.com/apache/camel-k-runtime/pull/15) ([oscerd](https://github.com/oscerd))
 - Create runtime bom [\#13](https://github.com/apache/camel-k-runtime/pull/13) ([lburgazzoli](https://github.com/lburgazzoli))
