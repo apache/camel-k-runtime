@@ -49,5 +49,7 @@ public final class ApplicationSupport {
                 ctx.getConfiguration().addLogger(logger, config);
             }
         );
+
+        ctx.updateLoggers();
     }
 }
