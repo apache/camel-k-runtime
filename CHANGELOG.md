@@ -4,6 +4,14 @@
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-parent-1.5.0...HEAD)
 
+**Merged pull requests:**
+
+- fix: Update loggers after configuration [\#523](https://github.com/apache/camel-k-runtime/pull/523) ([christophd](https://github.com/christophd))
+
+## [camel-k-runtime-parent-1.5.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.5.0) (2020-10-08)
+
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-parent-1.4.1...camel-k-runtime-parent-1.5.0)
+
 **Implemented enhancements:**
 
 - Remove suport for "configuration" classes [\#480](https://github.com/apache/camel-k-runtime/issues/480)
@@ -112,13 +120,6 @@
 - Upgrade to camel-quarkus v1.0.0 [\#418](https://github.com/apache/camel-k-runtime/pull/418) ([lburgazzoli](https://github.com/lburgazzoli))
 - Disable merge commits on pull requests [\#417](https://github.com/apache/camel-k-runtime/pull/417) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#394: unable to run Groovy routes on Quarkus [\#415](https://github.com/apache/camel-k-runtime/pull/415) ([nicolaferraro](https://github.com/nicolaferraro))
-
-## [camel-k-runtime-parent-1.5.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.5.0) (2020-08-06)
-
-[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-parent-1.4.1...camel-k-runtime-parent-1.5.0)
-
-**Merged pull requests:**
-
 - Upgrade Jackson to version 2.10.5 [\#413](https://github.com/apache/camel-k-runtime/pull/413) ([oscerd](https://github.com/oscerd))
 - Update commons text to version 1.9 [\#412](https://github.com/apache/camel-k-runtime/pull/412) ([oscerd](https://github.com/oscerd))
 - Fix \#365: change sinkbinding to be a customizer unrelated to the knat… [\#411](https://github.com/apache/camel-k-runtime/pull/411) ([nicolaferraro](https://github.com/nicolaferraro))
@@ -155,6 +156,7 @@
 - No type converter warning if final type of body is java.util.Map [\#396](https://github.com/apache/camel-k-runtime/pull/396) ([lburgazzoli](https://github.com/lburgazzoli))
 - Unable to run kotlin routes with quarkus [\#395](https://github.com/apache/camel-k-runtime/pull/395) ([lburgazzoli](https://github.com/lburgazzoli))
 - Property substitution doesn't happen in from URI [\#393](https://github.com/apache/camel-k-runtime/pull/393) ([lburgazzoli](https://github.com/lburgazzoli))
+- chore\(ci\): replace joschi/setup-jdk with AdoptOpenJDK/install-jdk [\#381](https://github.com/apache/camel-k-runtime/pull/381) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-1.4.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.4.0) (2020-07-13)
 
@@ -184,7 +186,6 @@
 - \[yaml\] cleanup schema generator leftovers [\#385](https://github.com/apache/camel-k-runtime/pull/385) ([lburgazzoli](https://github.com/lburgazzoli))
 - Use the new camel-component-maven-plugin from Camel 3.4 [\#384](https://github.com/apache/camel-k-runtime/pull/384) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade Rest Assured to version 4.3.1 [\#382](https://github.com/apache/camel-k-runtime/pull/382) ([oscerd](https://github.com/oscerd))
-- chore\(ci\): replace joschi/setup-jdk with AdoptOpenJDK/install-jdk [\#381](https://github.com/apache/camel-k-runtime/pull/381) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade to Camel 3.4 [\#380](https://github.com/apache/camel-k-runtime/pull/380) ([lburgazzoli](https://github.com/lburgazzoli))
 - Bump Build Helper Maven plugin to version 3.2.0 [\#379](https://github.com/apache/camel-k-runtime/pull/379) ([oscerd](https://github.com/oscerd))
 - Generate schema for YAML DSL [\#378](https://github.com/apache/camel-k-runtime/pull/378) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -659,6 +660,7 @@
 - camel-knative: set CloudEvents v0.2 as default spec version [\#25](https://github.com/apache/camel-k-runtime/pull/25) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(netty\): improve health service [\#24](https://github.com/apache/camel-k-runtime/pull/24) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(camel-3\): fix camel 3 compatibility layer [\#23](https://github.com/apache/camel-k-runtime/pull/23) ([lburgazzoli](https://github.com/lburgazzoli))
+- Add runtime health endpoint [\#22](https://github.com/apache/camel-k-runtime/pull/22) ([lburgazzoli](https://github.com/lburgazzoli))
 - Default service definition not taken into account [\#20](https://github.com/apache/camel-k-runtime/pull/20) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-0.3.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-0.3.0) (2019-02-27)
@@ -676,7 +678,6 @@
 
 **Merged pull requests:**
 
-- Add runtime health endpoint [\#22](https://github.com/apache/camel-k-runtime/pull/22) ([lburgazzoli](https://github.com/lburgazzoli))
 - Support for camel 3.x [\#16](https://github.com/apache/camel-k-runtime/pull/16) ([lburgazzoli](https://github.com/lburgazzoli))
 - fix\(deploy\): Camel-k-runtime-merge job is failing, fixes \#14 [\#15](https://github.com/apache/camel-k-runtime/pull/15) ([oscerd](https://github.com/oscerd))
 - Create runtime bom [\#13](https://github.com/apache/camel-k-runtime/pull/13) ([lburgazzoli](https://github.com/lburgazzoli))
