@@ -156,7 +156,6 @@
 - No type converter warning if final type of body is java.util.Map [\#396](https://github.com/apache/camel-k-runtime/pull/396) ([lburgazzoli](https://github.com/lburgazzoli))
 - Unable to run kotlin routes with quarkus [\#395](https://github.com/apache/camel-k-runtime/pull/395) ([lburgazzoli](https://github.com/lburgazzoli))
 - Property substitution doesn't happen in from URI [\#393](https://github.com/apache/camel-k-runtime/pull/393) ([lburgazzoli](https://github.com/lburgazzoli))
-- chore\(ci\): replace joschi/setup-jdk with AdoptOpenJDK/install-jdk [\#381](https://github.com/apache/camel-k-runtime/pull/381) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-1.4.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.4.0) (2020-07-13)
 
@@ -186,6 +185,7 @@
 - \[yaml\] cleanup schema generator leftovers [\#385](https://github.com/apache/camel-k-runtime/pull/385) ([lburgazzoli](https://github.com/lburgazzoli))
 - Use the new camel-component-maven-plugin from Camel 3.4 [\#384](https://github.com/apache/camel-k-runtime/pull/384) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade Rest Assured to version 4.3.1 [\#382](https://github.com/apache/camel-k-runtime/pull/382) ([oscerd](https://github.com/oscerd))
+- chore\(ci\): replace joschi/setup-jdk with AdoptOpenJDK/install-jdk [\#381](https://github.com/apache/camel-k-runtime/pull/381) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade to Camel 3.4 [\#380](https://github.com/apache/camel-k-runtime/pull/380) ([lburgazzoli](https://github.com/lburgazzoli))
 - Bump Build Helper Maven plugin to version 3.2.0 [\#379](https://github.com/apache/camel-k-runtime/pull/379) ([oscerd](https://github.com/oscerd))
 - Generate schema for YAML DSL [\#378](https://github.com/apache/camel-k-runtime/pull/378) ([lburgazzoli](https://github.com/lburgazzoli))
