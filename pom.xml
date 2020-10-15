@@ -41,9 +41,9 @@
         <camel-version>3.5.0</camel-version>
 
         <!-- quarkus -->
-        <camel-quarkus-version>1.1.0</camel-quarkus-version>
+        <camel-quarkus-version>1.2.0</camel-quarkus-version>
         <graalvm-version>20.2.0</graalvm-version>
-        <quarkus-version>1.8.0.Final</quarkus-version>
+        <quarkus-version>1.9.0.Final</quarkus-version>
 
         <!-- camel-k -->
         <joor-version>0.9.13</joor-version>
@@ -336,6 +336,17 @@
 
     <repositories>
         <repository>
+            <id>apache.staging.camel-quarkus.1.2.0</id>
+            <url>https://repository.apache.org/content/repositories/orgapachecamel-1253</url>
+            <name>apache.staging.camel-quarkus.1.2.0</name>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+        <repository>
             <id>apache.snapshots</id>
             <url>https://repository.apache.org/snapshots/</url>
             <name>Apache Snapshot Repo</name>
@@ -349,6 +360,17 @@
     </repositories>
 
     <pluginRepositories>
+        <pluginRepository>
+            <id>apache.staging.camel-quarkus.1.2.0</id>
+            <url>https://repository.apache.org/content/repositories/orgapachecamel-1253</url>
+            <name>apache.staging.camel-quarkus.1.2.0</name>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>
         <pluginRepository>
             <id>apache.snapshots</id>
             <url>https://repository.apache.org/snapshots/</url>
