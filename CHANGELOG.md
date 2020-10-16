@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- Add workflow dispatch to changelog gh action [\#525](https://github.com/apache/camel-k-runtime/pull/525) ([oscerd](https://github.com/oscerd))
 - fix: Update loggers after configuration [\#523](https://github.com/apache/camel-k-runtime/pull/523) ([christophd](https://github.com/christophd))
 
 ## [camel-k-runtime-parent-1.5.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.5.0) (2020-10-08)
