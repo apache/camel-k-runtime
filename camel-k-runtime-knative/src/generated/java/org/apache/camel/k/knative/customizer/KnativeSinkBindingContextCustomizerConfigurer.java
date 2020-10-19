@@ -15,6 +15,16 @@ import org.apache.camel.k.knative.customizer.KnativeSinkBindingContextCustomizer
 @SuppressWarnings("unchecked")
 public class KnativeSinkBindingContextCustomizerConfigurer extends org.apache.camel.support.component.PropertyConfigurerSupport implements GeneratedPropertyConfigurer, PropertyConfigurerGetter {
 
+    private static final Map<String, Object> ALL_OPTIONS;
+    static {
+        Map<String, Object> map = new CaseInsensitiveMap();
+        map.put("ApiVersion", java.lang.String.class);
+        map.put("Kind", java.lang.String.class);
+        map.put("Name", java.lang.String.class);
+        map.put("Type", org.apache.camel.component.knative.spi.Knative.Type.class);
+        ALL_OPTIONS = map;
+    }
+
     @Override
     public boolean configure(CamelContext camelContext, Object obj, String name, Object value, boolean ignoreCase) {
         org.apache.camel.k.knative.customizer.KnativeSinkBindingContextCustomizer target = (org.apache.camel.k.knative.customizer.KnativeSinkBindingContextCustomizer) obj;
@@ -33,12 +43,7 @@ public class KnativeSinkBindingContextCustomizerConfigurer extends org.apache.ca
 
     @Override
     public Map<String, Object> getAllOptions(Object target) {
-        Map<String, Object> answer = new CaseInsensitiveMap();
-        answer.put("ApiVersion", java.lang.String.class);
-        answer.put("Kind", java.lang.String.class);
-        answer.put("Name", java.lang.String.class);
-        answer.put("Type", org.apache.camel.component.knative.spi.Knative.Type.class);
-        return answer;
+        return ALL_OPTIONS;
     }
 
     @Override

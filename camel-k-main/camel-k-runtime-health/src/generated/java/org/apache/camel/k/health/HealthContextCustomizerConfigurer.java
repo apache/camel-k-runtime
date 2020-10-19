@@ -15,6 +15,16 @@ import org.apache.camel.k.health.HealthContextCustomizer;
 @SuppressWarnings("unchecked")
 public class HealthContextCustomizerConfigurer extends org.apache.camel.support.component.PropertyConfigurerSupport implements GeneratedPropertyConfigurer, PropertyConfigurerGetter {
 
+    private static final Map<String, Object> ALL_OPTIONS;
+    static {
+        Map<String, Object> map = new CaseInsensitiveMap();
+        map.put("HealthGroupFilterExclude", java.lang.String.class);
+        map.put("IncludeContext", boolean.class);
+        map.put("IncludeRoutes", boolean.class);
+        map.put("Path", java.lang.String.class);
+        ALL_OPTIONS = map;
+    }
+
     @Override
     public boolean configure(CamelContext camelContext, Object obj, String name, Object value, boolean ignoreCase) {
         org.apache.camel.k.health.HealthContextCustomizer target = (org.apache.camel.k.health.HealthContextCustomizer) obj;
@@ -33,12 +43,7 @@ public class HealthContextCustomizerConfigurer extends org.apache.camel.support.
 
     @Override
     public Map<String, Object> getAllOptions(Object target) {
-        Map<String, Object> answer = new CaseInsensitiveMap();
-        answer.put("HealthGroupFilterExclude", java.lang.String.class);
-        answer.put("IncludeContext", boolean.class);
-        answer.put("IncludeRoutes", boolean.class);
-        answer.put("Path", java.lang.String.class);
-        return answer;
+        return ALL_OPTIONS;
     }
 
     @Override

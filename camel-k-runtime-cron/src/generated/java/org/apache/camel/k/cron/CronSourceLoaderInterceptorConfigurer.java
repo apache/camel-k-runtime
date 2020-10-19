@@ -15,6 +15,15 @@ import org.apache.camel.k.cron.CronSourceLoaderInterceptor;
 @SuppressWarnings("unchecked")
 public class CronSourceLoaderInterceptorConfigurer extends org.apache.camel.support.component.PropertyConfigurerSupport implements GeneratedPropertyConfigurer, PropertyConfigurerGetter {
 
+    private static final Map<String, Object> ALL_OPTIONS;
+    static {
+        Map<String, Object> map = new CaseInsensitiveMap();
+        map.put("OverridableComponents", java.lang.String.class);
+        map.put("Runtime", org.apache.camel.k.Runtime.class);
+        map.put("TimerUri", java.lang.String.class);
+        ALL_OPTIONS = map;
+    }
+
     @Override
     public boolean configure(CamelContext camelContext, Object obj, String name, Object value, boolean ignoreCase) {
         org.apache.camel.k.cron.CronSourceLoaderInterceptor target = (org.apache.camel.k.cron.CronSourceLoaderInterceptor) obj;
@@ -31,11 +40,7 @@ public class CronSourceLoaderInterceptorConfigurer extends org.apache.camel.supp
 
     @Override
     public Map<String, Object> getAllOptions(Object target) {
-        Map<String, Object> answer = new CaseInsensitiveMap();
-        answer.put("OverridableComponents", java.lang.String.class);
-        answer.put("Runtime", org.apache.camel.k.Runtime.class);
-        answer.put("TimerUri", java.lang.String.class);
-        return answer;
+        return ALL_OPTIONS;
     }
 
     @Override

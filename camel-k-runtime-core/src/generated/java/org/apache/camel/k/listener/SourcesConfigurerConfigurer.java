@@ -15,6 +15,13 @@ import org.apache.camel.k.listener.SourcesConfigurer;
 @SuppressWarnings("unchecked")
 public class SourcesConfigurerConfigurer extends org.apache.camel.support.component.PropertyConfigurerSupport implements GeneratedPropertyConfigurer, PropertyConfigurerGetter {
 
+    private static final Map<String, Object> ALL_OPTIONS;
+    static {
+        Map<String, Object> map = new CaseInsensitiveMap();
+        map.put("Sources", org.apache.camel.k.SourceDefinition[].class);
+        ALL_OPTIONS = map;
+    }
+
     @Override
     public boolean configure(CamelContext camelContext, Object obj, String name, Object value, boolean ignoreCase) {
         org.apache.camel.k.listener.SourcesConfigurer target = (org.apache.camel.k.listener.SourcesConfigurer) obj;
@@ -27,9 +34,7 @@ public class SourcesConfigurerConfigurer extends org.apache.camel.support.compon
 
     @Override
     public Map<String, Object> getAllOptions(Object target) {
-        Map<String, Object> answer = new CaseInsensitiveMap();
-        answer.put("Sources", org.apache.camel.k.SourceDefinition[].class);
-        return answer;
+        return ALL_OPTIONS;
     }
 
     @Override

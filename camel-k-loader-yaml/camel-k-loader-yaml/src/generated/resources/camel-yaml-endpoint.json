@@ -125,7 +125,7 @@
           "type" : "integer"
         },
         "delivery-mode" : {
-          "description" : "Specifies the delivery mode to be used. Possibles values are those defined by javax.jms.DeliveryMode. NON_PERSISTENT = 1 and PERSISTENT = 2.",
+          "description" : "Specifies the delivery mode to be used. Possible values are those defined by javax.jms.DeliveryMode. NON_PERSISTENT = 1 and PERSISTENT = 2.",
           "enum" : [ "1", "2" ],
           "type" : "integer"
         },
@@ -321,7 +321,7 @@
           "type" : "string"
         },
         "reply-to" : {
-          "description" : "Provides an explicit ReplyTo destination, which overrides any incoming value of Message.getJMSReplyTo().",
+          "description" : "Provides an explicit ReplyTo destination (overrides any incoming value of Message.getJMSReplyTo() in consumer).",
           "type" : "string"
         },
         "reply-to-cache-level-name" : {
@@ -779,7 +779,7 @@
           "type" : "integer"
         },
         "delivery-mode" : {
-          "description" : "Specifies the delivery mode to be used. Possibles values are those defined by javax.jms.DeliveryMode. NON_PERSISTENT = 1 and PERSISTENT = 2.",
+          "description" : "Specifies the delivery mode to be used. Possible values are those defined by javax.jms.DeliveryMode. NON_PERSISTENT = 1 and PERSISTENT = 2.",
           "enum" : [ "1", "2" ],
           "type" : "integer"
         },
@@ -975,7 +975,7 @@
           "type" : "string"
         },
         "reply-to" : {
-          "description" : "Provides an explicit ReplyTo destination, which overrides any incoming value of Message.getJMSReplyTo().",
+          "description" : "Provides an explicit ReplyTo destination (overrides any incoming value of Message.getJMSReplyTo() in consumer).",
           "type" : "string"
         },
         "reply-to-cache-level-name" : {
@@ -1338,25 +1338,8 @@
           "enum" : [ "1.0", "1.1" ],
           "type" : "string"
         },
-        "backoff-error-threshold" : {
-          "description" : "The number of subsequent error polls (failed due some error) that should happen before the backoffMultipler should kick-in.",
-          "type" : "integer"
-        },
-        "backoff-idle-threshold" : {
-          "description" : "The number of subsequent idle polls that should happen before the backoffMultipler should kick-in.",
-          "type" : "integer"
-        },
-        "backoff-multiplier" : {
-          "description" : "To let the scheduled polling consumer backoff if there has been a number of subsequent idles/errors in a row. The multiplier is then the number of polls that will be skipped before the next actual attempt is happening again. When this option is in use then backoffIdleThreshold and/or backoffErrorThreshold must also be configured.",
-          "type" : "integer"
-        },
         "basic-property-binding" : {
           "description" : "Whether the endpoint should use basic property binding (Camel 2.x) or the newer property binding with additional capabilities",
-          "default" : "false",
-          "type" : "boolean"
-        },
-        "bridge-error-handler" : {
-          "description" : "Allows for bridging the consumer to the Camel routing Error Handler, which mean any exceptions occurred while the consumer is trying to pickup incoming messages, or the likes, will now be processed as a message and handled by the routing Error Handler. By default the consumer will use the org.apache.camel.spi.ExceptionHandler to deal with exceptions, that will be logged at WARN or ERROR level and ignored.",
           "default" : "false",
           "type" : "boolean"
         },
@@ -1373,11 +1356,6 @@
         "decrypting-private-key" : {
           "description" : "The key used to encrypt the EDI message.",
           "type" : "string"
-        },
-        "delay" : {
-          "description" : "Milliseconds before the next poll.",
-          "default" : "500",
-          "type" : "integer"
         },
         "disposition-notification-to" : {
           "description" : "The value of the Disposition-Notification-To header. Assigning a value to this parameter requests a message disposition notification (MDN) for the AS2 message.",
@@ -1413,19 +1391,9 @@
           "description" : "The value of the From header of AS2 message.",
           "type" : "string"
         },
-        "greedy" : {
-          "description" : "If greedy is enabled, then the ScheduledPollConsumer will run immediately again, if the previous run polled 1 or more messages.",
-          "default" : "false",
-          "type" : "boolean"
-        },
         "in-body" : {
           "description" : "Sets the name of a parameter to be passed in the exchange In Body",
           "type" : "string"
-        },
-        "initial-delay" : {
-          "description" : "Milliseconds before the first poll starts.",
-          "default" : "1000",
-          "type" : "integer"
         },
         "lazy-start-producer" : {
           "description" : "Whether the producer should be started lazy (on the first message). By starting lazy you can use this to allow CamelContext and routes to startup in situations where a producer may otherwise fail during starting and cause the route to fail being started. By deferring this startup to be lazy then the startup failure can be handled during routing messages via Camel's routing error handlers. Beware that when the first message is processed then creating and starting the producer may take a little time and prolong the total processing time of the processing.",
@@ -1436,43 +1404,10 @@
           "description" : "The template used to format MDN message",
           "type" : "string"
         },
-        "poll-strategy" : {
-          "description" : "A pluggable org.apache.camel.PollingConsumerPollingStrategy allowing you to provide your custom implementation to control error handling usually occurred during the poll operation before an Exchange have been created and being routed in Camel.",
-          "type" : "string"
-        },
-        "repeat-count" : {
-          "description" : "Specifies a maximum limit of number of fires. So if you set it to 1, the scheduler will only fire once. If you set it to 5, it will only fire five times. A value of zero or negative means fire forever.",
-          "default" : "0",
-          "type" : "integer"
-        },
         "request-uri" : {
           "description" : "The request URI of EDI message.",
           "default" : "/",
           "type" : "string"
-        },
-        "run-logging-level" : {
-          "description" : "The consumer logs a start/complete log line when it polls. This option allows you to configure the logging level for that.",
-          "default" : "TRACE",
-          "enum" : [ "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "OFF" ],
-          "type" : "string"
-        },
-        "scheduled-executor-service" : {
-          "description" : "Allows for configuring a custom/shared thread pool to use for the consumer. By default each consumer has its own single threaded thread pool.",
-          "type" : "string"
-        },
-        "scheduler" : {
-          "description" : "To use a cron scheduler from either camel-spring or camel-quartz component. Use value spring or quartz for built in scheduler",
-          "default" : "none",
-          "type" : "string"
-        },
-        "scheduler-properties" : {
-          "description" : "To configure additional properties when using a custom scheduler or any of the Quartz, Spring based scheduler.",
-          "type" : "string"
-        },
-        "send-empty-message-when-idle" : {
-          "description" : "If the polling consumer did not poll any files, you can enable this option to send an empty message (no body) instead.",
-          "default" : "false",
-          "type" : "boolean"
         },
         "server" : {
           "description" : "The value included in the Server message header identifying the AS2 Server.",
@@ -1505,11 +1440,6 @@
           "description" : "The key used to sign the EDI message.",
           "type" : "string"
         },
-        "start-scheduler" : {
-          "description" : "Whether the scheduler should be auto started.",
-          "default" : "true",
-          "type" : "boolean"
-        },
         "subject" : {
           "description" : "The value of Subject header of AS2 message.",
           "type" : "string"
@@ -1526,17 +1456,6 @@
         "target-port-number" : {
           "description" : "The port number of target host. -1 indicates the scheme default port.",
           "type" : "integer"
-        },
-        "time-unit" : {
-          "description" : "Time unit for initialDelay and delay options.",
-          "default" : "MILLISECONDS",
-          "enum" : [ "NANOSECONDS", "MICROSECONDS", "MILLISECONDS", "SECONDS", "MINUTES", "HOURS", "DAYS" ],
-          "type" : "string"
-        },
-        "use-fixed-delay" : {
-          "description" : "Controls if fixed delay or fixed rate is used. See ScheduledExecutorService in JDK for details.",
-          "default" : "true",
-          "type" : "boolean"
         },
         "user-agent" : {
           "description" : "The value included in the User-Agent message header identifying the AS2 user agent.",
@@ -5453,6 +5372,86 @@
         }
       }
     },
+    "aws2-eventbridge" : {
+      "type" : "object",
+      "required" : [ "eventbusNameOrArn", "operation" ],
+      "properties" : {
+        "eventbus-name-or-arn" : {
+          "description" : "Event bus name or ARN",
+          "type" : "string"
+        },
+        "access-key" : {
+          "description" : "Amazon AWS Access Key",
+          "type" : "string"
+        },
+        "auto-discover-client" : {
+          "description" : "Setting the autoDiscoverClient mechanism, if true, the component will look for a client instance in the registry automatically otherwise it will skip that checking.",
+          "default" : "true",
+          "type" : "boolean"
+        },
+        "basic-property-binding" : {
+          "description" : "Whether the endpoint should use basic property binding (Camel 2.x) or the newer property binding with additional capabilities",
+          "default" : "false",
+          "type" : "boolean"
+        },
+        "event-pattern-file" : {
+          "description" : "EventPattern File",
+          "type" : "string"
+        },
+        "eventbridge-client" : {
+          "description" : "To use a existing configured AWS Eventbridge as client",
+          "type" : "string"
+        },
+        "lazy-start-producer" : {
+          "description" : "Whether the producer should be started lazy (on the first message). By starting lazy you can use this to allow CamelContext and routes to startup in situations where a producer may otherwise fail during starting and cause the route to fail being started. By deferring this startup to be lazy then the startup failure can be handled during routing messages via Camel's routing error handlers. Beware that when the first message is processed then creating and starting the producer may take a little time and prolong the total processing time of the processing.",
+          "default" : "false",
+          "type" : "boolean"
+        },
+        "operation" : {
+          "description" : "The operation to perform",
+          "default" : "putRule",
+          "enum" : [ "putRule", "putTargets", "removeTargets", "deleteRule", "enableRule", "disableRule", "describeRule", "listRules", "listTargetsByRule", "listRuleNamesByTarget" ],
+          "type" : "string"
+        },
+        "pojo-request" : {
+          "description" : "If we want to use a POJO request as body or not",
+          "default" : "false",
+          "type" : "boolean"
+        },
+        "proxy-host" : {
+          "description" : "To define a proxy host when instantiating the Eventbridge client",
+          "type" : "string"
+        },
+        "proxy-port" : {
+          "description" : "To define a proxy port when instantiating the Eventbridge client",
+          "type" : "integer"
+        },
+        "proxy-protocol" : {
+          "description" : "To define a proxy protocol when instantiating the Eventbridge client",
+          "default" : "HTTPS",
+          "enum" : [ "HTTP", "HTTPS" ],
+          "type" : "string"
+        },
+        "region" : {
+          "description" : "The region in which Eventbridge client needs to work. When using this parameter, the configuration will expect the lowercase name of the region (for example ap-east-1) You'll need to use the name Region.EU_WEST_1.id()",
+          "type" : "string"
+        },
+        "secret-key" : {
+          "description" : "Amazon AWS Secret Key",
+          "type" : "string"
+        },
+        "synchronous" : {
+          "description" : "Sets whether synchronous processing should be strictly used, or Camel is allowed to use asynchronous processing (if supported).",
+          "default" : "false",
+          "type" : "boolean"
+        },
+        "trust-all-certificates" : {
+          "description" : "If we want to trust all certificates in case of overriding the endpoint",
+          "default" : "false",
+          "type" : "boolean"
+        }
+      }
+    },
     "aws2-iam" : {
       "type" : "object",
       "required" : [ "label", "operation" ],
@@ -5570,6 +5569,11 @@
         "bridge-error-handler" : {
           "description" : "Allows for bridging the consumer to the Camel routing Error Handler, which mean any exceptions occurred while the consumer is trying to pickup incoming messages, or the likes, will now be processed as a message and handled by the routing Error Handler. By default the consumer will use the org.apache.camel.spi.ExceptionHandler to deal with exceptions, that will be logged at WARN or ERROR level and ignored.",
           "default" : "false",
+          "type" : "boolean"
+        },
+        "cbor-enabled" : {
+          "description" : "This option will set the CBOR_ENABLED property during the execution",
+          "default" : "true",
           "type" : "boolean"
         },
         "delay" : {
@@ -5735,6 +5739,11 @@
           "default" : "false",
           "type" : "boolean"
         },
+        "cbor-enabled" : {
+          "description" : "This option will set the CBOR_ENABLED property during the execution",
+          "default" : "true",
+          "type" : "boolean"
+        },
         "lazy-start-producer" : {
           "description" : "Whether the producer should be started lazy (on the first message). By starting lazy you can use this to allow CamelContext and routes to startup in situations where a producer may otherwise fail during starting and cause the route to fail being started. By deferring this startup to be lazy then the startup failure can be handled during routing messages via Camel's routing error handlers. Beware that when the first message is processed then creating and starting the producer may take a little time and prolong the total processing time of the processing.",
           "default" : "false",
@@ -5742,7 +5751,7 @@
         },
         "operation" : {
           "description" : "The operation to do in case the user don't want to send only a record",
-          "enum" : [ "sendBatchRecord", "createDeliveryStream", "deleteDeliveryStream", "updateDestination" ],
+          "enum" : [ "sendBatchRecord", "createDeliveryStream", "deleteDeliveryStream", "describeDeliveryStream", "updateDestination" ],
           "type" : "string"
         },
         "proxy-host" : {
@@ -6107,7 +6116,7 @@
           "type" : "boolean"
         },
         "autoclose-body" : {
-          "description" : "If this option is true and includeBody is true, then the S3Object.close() method will be called on exchange completion. This option is strongly related to includeBody option. In case of setting includeBody to true and autocloseBody to false, it will be up to the caller to close the S3Object stream. Setting autocloseBody to true, will close the S3Object stream automatically.",
+          "description" : "If this option is true and includeBody is false, then the S3Object.close() method will be called on exchange completion. This option is strongly related to includeBody option. In case of setting includeBody to false and autocloseBody to false, it will be up to the caller to close the S3Object stream. Setting autocloseBody to true, will close the S3Object stream automatically.",
           "default" : "true",
           "type" : "boolean"
         },
@@ -6199,7 +6208,7 @@
           "type" : "boolean"
         },
         "include-body" : {
-          "description" : "If it is true, the exchange body will be set to a stream to the contents of the file. If false, the headers will be set with the S3 object metadata, but the body will be null. This option is strongly related to autocloseBody option. In case of setting includeBody to true and autocloseBody to false, it will be up to the caller to close the S3Object stream. Setting autocloseBody to true, will close the S3Object stream automatically.",
+          "description" : "If it is true, the S3Object exchange will be consumed and put into the body and closed. If false the S3Object stream will be put raw into the body and the headers will be set with the S3 object metadata. This option is strongly related to autocloseBody option. In case of setting includeBody to true because the S3Object stream will be consumed then it will also be closed in case of includeBody false then it will be up to the caller to close the S3Object stream. However setting autocloseBody to true when includeBody is false it will schedule to close the S3Object stream automatically on exchange completion.",
           "default" : "true",
           "type" : "boolean"
         },
@@ -7217,7 +7226,7 @@
           "type" : "boolean"
         },
         "partition-id" : {
-          "description" : "Sets the identifier of the Event Hub partition that the {link EventData events} will be sent to. If the identifier is not specified, the Event Hubs service will be responsible for routing events that are sent to an available partition.",
+          "description" : "Sets the identifier of the Event Hub partition that the events will be sent to. If the identifier is not specified, the Event Hubs service will be responsible for routing events that are sent to an available partition.",
           "type" : "string"
         },
         "partition-key" : {
@@ -7230,7 +7239,7 @@
           "type" : "integer"
         },
         "producer-async-client" : {
-          "description" : "Sets the EventHubProducerAsyncClient.An asynchronous producer responsible for transmitting EventData to a specific Event Hub, grouped together in batches. Depending on the {link CreateBatchOptions options} specified when creating an {linkEventDataBatch}, the events may be automatically routed to an available partition or specific to a partition. Use by this component to produce the data in camel producer.",
+          "description" : "Sets the EventHubProducerAsyncClient.An asynchronous producer responsible for transmitting EventData to a specific Event Hub, grouped together in batches. Depending on the options specified when creating an {linkEventDataBatch}, the events may be automatically routed to an available partition or specific to a partition. Use by this component to produce the data in camel producer.",
           "type" : "string"
         },
         "shared-access-key" : {
@@ -7352,7 +7361,7 @@
           "type" : "boolean"
         },
         "blob-name" : {
-          "description" : "The blob name, required for consumer. However on producer, is only required for the operations on the blob level",
+          "description" : "The blob name, to consume specific blob from a container. However on producer, is only required for the operations on the blob level",
           "type" : "string"
         },
         "blob-offset" : {
@@ -7466,7 +7475,7 @@
           "type" : "string"
         },
         "service-client" : {
-          "description" : "Client to a storage account. This client does not hold any state about a particular storage account but is instead a convenient way of sending off appropriate requests to the resource on the service. It may also be used to construct URLs to blobs and containers. This client contains operations on a service account. Operations on a container are available on BlobContainerClient through getBlobContainerClient(String), and operations on a blob are available on BlobClient through getBlobContainerClient(String).getBlobClient(String).",
+          "description" : "Client to a storage account. This client does not hold any state about a particular storage account but is instead a convenient way of sending off appropriate requests to the resource on the service. It may also be used to construct URLs to blobs and containers. This client contains operations on a service account. Operations on a container are available on BlobContainerClient through BlobServiceClient#getBlobContainerClient(String), and operations on a blob are available on BlobClient through BlobContainerClient#getBlobClient(String).",
           "type" : "string"
         },
         "synchronous" : {
@@ -7891,25 +7900,8 @@
           "default" : "APP_USER_AUTHENTICATION",
           "type" : "string"
         },
-        "backoff-error-threshold" : {
-          "description" : "The number of subsequent error polls (failed due some error) that should happen before the backoffMultipler should kick-in.",
-          "type" : "integer"
-        },
-        "backoff-idle-threshold" : {
-          "description" : "The number of subsequent idle polls that should happen before the backoffMultipler should kick-in.",
-          "type" : "integer"
-        },
-        "backoff-multiplier" : {
-          "description" : "To let the scheduled polling consumer backoff if there has been a number of subsequent idles/errors in a row. The multiplier is then the number of polls that will be skipped before the next actual attempt is happening again. When this option is in use then backoffIdleThreshold and/or backoffErrorThreshold must also be configured.",
-          "type" : "integer"
-        },
         "basic-property-binding" : {
           "description" : "Whether the endpoint should use basic property binding (Camel 2.x) or the newer property binding with additional capabilities",
-          "default" : "false",
-          "type" : "boolean"
-        },
-        "bridge-error-handler" : {
-          "description" : "Allows for bridging the consumer to the Camel routing Error Handler, which mean any exceptions occurred while the consumer is trying to pickup incoming messages, or the likes, will now be processed as a message and handled by the routing Error Handler. By default the consumer will use the org.apache.camel.spi.ExceptionHandler to deal with exceptions, that will be logged at WARN or ERROR level and ignored.",
           "default" : "false",
           "type" : "boolean"
         },
@@ -7920,11 +7912,6 @@
         "client-secret" : {
           "description" : "Box application client secret",
           "type" : "string"
-        },
-        "delay" : {
-          "description" : "Milliseconds before the next poll.",
-          "default" : "500",
-          "type" : "integer"
         },
         "encryption-algorithm" : {
           "description" : "The type of encryption algorithm for JWT. Supported Algorithms: RSA_SHA_256 RSA_SHA_384 RSA_SHA_512",
@@ -7945,11 +7932,6 @@
           "enum" : [ "InOnly", "InOut", "InOptionalOut" ],
           "type" : "string"
         },
-        "greedy" : {
-          "description" : "If greedy is enabled, then the ScheduledPollConsumer will run immediately again, if the previous run polled 1 or more messages.",
-          "default" : "false",
-          "type" : "boolean"
-        },
         "http-params" : {
           "description" : "Custom HTTP params for settings like proxy host",
           "type" : "string"
@@ -7957,11 +7939,6 @@
         "in-body" : {
           "description" : "Sets the name of a parameter to be passed in the exchange In Body",
           "type" : "string"
-        },
-        "initial-delay" : {
-          "description" : "Milliseconds before the first poll starts.",
-          "default" : "1000",
-          "type" : "integer"
         },
         "lazy-start-producer" : {
           "description" : "Whether the producer should be started lazy (on the first message). By starting lazy you can use this to allow CamelContext and routes to startup in situations where a producer may otherwise fail during starting and cause the route to fail being started. By deferring this startup to be lazy then the startup failure can be handled during routing messages via Camel's routing error handlers. Beware that when the first message is processed then creating and starting the producer may take a little time and prolong the total processing time of the processing.",
@@ -7972,10 +7949,6 @@
           "description" : "The maximum number of access tokens in cache.",
           "default" : "100",
           "type" : "integer"
-        },
-        "poll-strategy" : {
-          "description" : "A pluggable org.apache.camel.PollingConsumerPollingStrategy allowing you to provide your custom implementation to control error handling usually occurred during the poll operation before an Exchange have been created and being routed in Camel.",
-          "type" : "string"
         },
         "private-key-file" : {
           "description" : "The private key for generating the JWT signature.",
@@ -7989,58 +7962,13 @@
           "description" : "The ID for public key for validating the JWT signature.",
           "type" : "string"
         },
-        "repeat-count" : {
-          "description" : "Specifies a maximum limit of number of fires. So if you set it to 1, the scheduler will only fire once. If you set it to 5, it will only fire five times. A value of zero or negative means fire forever.",
-          "default" : "0",
-          "type" : "integer"
-        },
-        "run-logging-level" : {
-          "description" : "The consumer logs a start/complete log line when it polls. This option allows you to configure the logging level for that.",
-          "default" : "TRACE",
-          "enum" : [ "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "OFF" ],
-          "type" : "string"
-        },
-        "scheduled-executor-service" : {
-          "description" : "Allows for configuring a custom/shared thread pool to use for the consumer. By default each consumer has its own single threaded thread pool.",
-          "type" : "string"
-        },
-        "scheduler" : {
-          "description" : "To use a cron scheduler from either camel-spring or camel-quartz component. Use value spring or quartz for built in scheduler",
-          "default" : "none",
-          "type" : "string"
-        },
-        "scheduler-properties" : {
-          "description" : "To configure additional properties when using a custom scheduler or any of the Quartz, Spring based scheduler.",
-          "type" : "string"
-        },
-        "send-empty-message-when-idle" : {
-          "description" : "If the polling consumer did not poll any files, you can enable this option to send an empty message (no body) instead.",
-          "default" : "false",
-          "type" : "boolean"
-        },
         "ssl-context-parameters" : {
           "description" : "To configure security using SSLContextParameters.",
           "type" : "string"
         },
-        "start-scheduler" : {
-          "description" : "Whether the scheduler should be auto started.",
-          "default" : "true",
-          "type" : "boolean"
-        },
         "synchronous" : {
           "description" : "Sets whether synchronous processing should be strictly used, or Camel is allowed to use asynchronous processing (if supported).",
           "default" : "false",
-          "type" : "boolean"
-        },
-        "time-unit" : {
-          "description" : "Time unit for initialDelay and delay options.",
-          "default" : "MILLISECONDS",
-          "enum" : [ "NANOSECONDS", "MICROSECONDS", "MILLISECONDS", "SECONDS", "MINUTES", "HOURS", "DAYS" ],
-          "type" : "string"
-        },
-        "use-fixed-delay" : {
-          "description" : "Controls if fixed delay or fixed rate is used. See ScheduledExecutorService in JDK for details.",
-          "default" : "true",
           "type" : "boolean"
         },
         "user-id" : {
@@ -8059,65 +7987,30 @@
     },
     "braintree" : {
       "type" : "object",
-      "required" : [ "apiName" ],
+      "required" : [ "apiName", "methodName" ],
       "properties" : {
         "api-name" : {
           "description" : "What kind of operation to perform",
-          "enum" : [ "ADDON", "ADDRESS", "CLIENTTOKEN", "CREDITCARDVERIFICATION", "CUSTOMER", "DISCOUNT", "DISPUTE", "DOCUMENTUPLOAD", "MERCHANTACCOUNT", "PAYMENTMETHOD", "PAYMENTMETHODNONCE", "PLAN", "REPORT", "SETTLEMENTBATCHSUMMARY", "SUBSCRIPTION", "TRANSACTION", "WEBHOOKNOTIFICATION" ],
+          "enum" : [ "ADD_ON", "ADDRESS", "CLIENT_TOKEN", "CREDIT_CARD_VERIFICATION", "CUSTOMER", "DISCOUNT", "DISPUTE", "DOCUMENT_UPLOAD", "MERCHANT_ACCOUNT", "PAYMENT_METHOD", "PAYMENT_METHOD_NONCE", "PLAN", "REPORT", "SETTLEMENT_BATCH_SUMMARY", "SUBSCRIPTION", "TRANSACTION", "WEBHOOK_NOTIFICATION" ],
           "type" : "string"
         },
         "method-name" : {
           "description" : "What sub operation to use for the selected operation",
+          "enum" : [ "accept", "addFileEvidence", "addTextEvidence", "cancel", "cancelRelease", "cloneTransaction", "create", "createForCurrency", "credit", "delete", "fetchMerchantAccounts", "finalize", "find", "generate", "grant", "holdInEscrow", "parse", "refund", "releaseFromEscrow", "removeEvidence", "retryCharge", "revoke", "sale", "search", "submitForPartialSettlement", "submitForSettlement", "transactionLevelFees", "update", "updateDetails", "verify", "voidTransaction" ],
           "type" : "string"
         },
         "access-token" : {
           "description" : "The access token granted by a merchant to another in order to process transactions on their behalf. Used in place of environment, merchant id, public key and private key fields.",
           "type" : "string"
         },
-        "backoff-error-threshold" : {
-          "description" : "The number of subsequent error polls (failed due some error) that should happen before the backoffMultipler should kick-in.",
-          "type" : "integer"
-        },
-        "backoff-idle-threshold" : {
-          "description" : "The number of subsequent idle polls that should happen before the backoffMultipler should kick-in.",
-          "type" : "integer"
-        },
-        "backoff-multiplier" : {
-          "description" : "To let the scheduled polling consumer backoff if there has been a number of subsequent idles/errors in a row. The multiplier is then the number of polls that will be skipped before the next actual attempt is happening again. When this option is in use then backoffIdleThreshold and/or backoffErrorThreshold must also be configured.",
-          "type" : "integer"
-        },
         "basic-property-binding" : {
           "description" : "Whether the endpoint should use basic property binding (Camel 2.x) or the newer property binding with additional capabilities",
           "default" : "false",
           "type" : "boolean"
         },
-        "bridge-error-handler" : {
-          "description" : "Allows for bridging the consumer to the Camel routing Error Handler, which mean any exceptions occurred while the consumer is trying to pickup incoming messages, or the likes, will now be processed as a message and handled by the routing Error Handler. By default the consumer will use the org.apache.camel.spi.ExceptionHandler to deal with exceptions, that will be logged at WARN or ERROR level and ignored.",
-          "default" : "false",
-          "type" : "boolean"
-        },
-        "delay" : {
-          "description" : "Milliseconds before the next poll.",
-          "default" : "500",
-          "type" : "integer"
-        },
         "environment" : {
           "description" : "The environment Either SANDBOX or PRODUCTION",
           "type" : "string"
-        },
-        "exception-handler" : {
-          "description" : "To let the consumer use a custom ExceptionHandler. Notice if the option bridgeErrorHandler is enabled then this option is not in use. By default the consumer will deal with exceptions, that will be logged at WARN or ERROR level and ignored.",
-          "type" : "string"
-        },
-        "exchange-pattern" : {
-          "description" : "Sets the exchange pattern when the consumer creates an exchange.",
-          "enum" : [ "InOnly", "InOut", "InOptionalOut" ],
-          "type" : "string"
-        },
-        "greedy" : {
-          "description" : "If greedy is enabled, then the ScheduledPollConsumer will run immediately again, if the previous run polled 1 or more messages.",
-          "default" : "false",
-          "type" : "boolean"
         },
         "http-log-level" : {
           "description" : "Set logging level for http calls, see java.util.logging.Level",
@@ -8137,11 +8030,6 @@
           "description" : "Sets the name of a parameter to be passed in the exchange In Body",
           "type" : "string"
         },
-        "initial-delay" : {
-          "description" : "Milliseconds before the first poll starts.",
-          "default" : "1000",
-          "type" : "integer"
-        },
         "lazy-start-producer" : {
           "description" : "Whether the producer should be started lazy (on the first message). By starting lazy you can use this to allow CamelContext and routes to startup in situations where a producer may otherwise fail during starting and cause the route to fail being started. By deferring this startup to be lazy then the startup failure can be handled during routing messages via Camel's routing error handlers. Beware that when the first message is processed then creating and starting the producer may take a little time and prolong the total processing time of the processing.",
           "default" : "false",
@@ -8154,10 +8042,6 @@
         },
         "merchant-id" : {
           "description" : "The merchant id provided by Braintree.",
-          "type" : "string"
-        },
-        "poll-strategy" : {
-          "description" : "A pluggable org.apache.camel.PollingConsumerPollingStrategy allowing you to provide your custom implementation to control error handling usually occurred during the poll operation before an Exchange have been created and being routed in Camel.",
           "type" : "string"
         },
         "private-key" : {
@@ -8176,54 +8060,9 @@
           "description" : "The public key provided by Braintree.",
           "type" : "string"
         },
-        "repeat-count" : {
-          "description" : "Specifies a maximum limit of number of fires. So if you set it to 1, the scheduler will only fire once. If you set it to 5, it will only fire five times. A value of zero or negative means fire forever.",
-          "default" : "0",
-          "type" : "integer"
-        },
-        "run-logging-level" : {
-          "description" : "The consumer logs a start/complete log line when it polls. This option allows you to configure the logging level for that.",
-          "default" : "TRACE",
-          "enum" : [ "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "OFF" ],
-          "type" : "string"
-        },
-        "scheduled-executor-service" : {
-          "description" : "Allows for configuring a custom/shared thread pool to use for the consumer. By default each consumer has its own single threaded thread pool.",
-          "type" : "string"
-        },
-        "scheduler" : {
-          "description" : "To use a cron scheduler from either camel-spring or camel-quartz component. Use value spring or quartz for built in scheduler",
-          "default" : "none",
-          "type" : "string"
-        },
-        "scheduler-properties" : {
-          "description" : "To configure additional properties when using a custom scheduler or any of the Quartz, Spring based scheduler.",
-          "type" : "string"
-        },
-        "send-empty-message-when-idle" : {
-          "description" : "If the polling consumer did not poll any files, you can enable this option to send an empty message (no body) instead.",
-          "default" : "false",
-          "type" : "boolean"
-        },
-        "start-scheduler" : {
-          "description" : "Whether the scheduler should be auto started.",
-          "default" : "true",
-          "type" : "boolean"
-        },
         "synchronous" : {
           "description" : "Sets whether synchronous processing should be strictly used, or Camel is allowed to use asynchronous processing (if supported).",
           "default" : "false",
-          "type" : "boolean"
-        },
-        "time-unit" : {
-          "description" : "Time unit for initialDelay and delay options.",
-          "default" : "MILLISECONDS",
-          "enum" : [ "NANOSECONDS", "MICROSECONDS", "MILLISECONDS", "SECONDS", "MINUTES", "HOURS", "DAYS" ],
-          "type" : "string"
-        },
-        "use-fixed-delay" : {
-          "description" : "Controls if fixed delay or fixed rate is used. See ScheduledExecutorService in JDK for details.",
-          "default" : "true",
           "type" : "boolean"
         }
       }
@@ -8283,10 +8122,6 @@
           "description" : "Whether the endpoint should use basic property binding (Camel 2.x) or the newer property binding with additional capabilities",
           "default" : "false",
           "type" : "boolean"
-        },
-        "cache" : {
-          "description" : "To configure an already instantiated cache to be used",
-          "type" : "string"
         },
         "cache-loader" : {
           "description" : "To configure a CacheLoader in case of a LoadCache use",
@@ -8376,10 +8211,6 @@
           "description" : "Whether the endpoint should use basic property binding (Camel 2.x) or the newer property binding with additional capabilities",
           "default" : "false",
           "type" : "boolean"
-        },
-        "cache" : {
-          "description" : "To configure an already instantiated cache to be used",
-          "type" : "string"
         },
         "cache-loader" : {
           "description" : "To configure a CacheLoader in case of a LoadCache use",
@@ -10519,12 +10350,12 @@
           "default" : "false",
           "type" : "boolean"
         },
-        "collection-blacklist" : {
-          "description" : "Description is not available here, please check Debezium website for corresponding key 'collection.blacklist' description.",
+        "collection-exclude-list" : {
+          "description" : "A comma-separated list of regular expressions that match the collection names for which changes are to be excluded",
           "type" : "string"
         },
-        "collection-whitelist" : {
-          "description" : "The collections for which changes are to be captured",
+        "collection-include-list" : {
+          "description" : "A comma-separated list of regular expressions that match the collection names for which changes are to be captured",
           "type" : "string"
         },
         "connect-backoff-initial-delay-ms" : {
@@ -10546,16 +10377,16 @@
           "description" : "Optional list of custom converters that would be used instead of default ones. The converters are defined using '.type' config option and configured using options '.'",
           "type" : "string"
         },
-        "database-blacklist" : {
-          "description" : "The databases for which changes are to be excluded",
+        "database-exclude-list" : {
+          "description" : "A comma-separated list of regular expressions that match the database names for which changes are to be excluded",
           "type" : "string"
         },
         "database-history-file-filename" : {
           "description" : "The path to the file that will be used to record the database history",
           "type" : "string"
         },
-        "database-whitelist" : {
-          "description" : "The databases for which changes are to be captured",
+        "database-include-list" : {
+          "description" : "A comma-separated list of regular expressions that match the database names for which changes are to be captured",
           "type" : "string"
         },
         "event-processing-failure-handling-mode" : {
@@ -10572,8 +10403,8 @@
           "enum" : [ "InOnly", "InOut", "InOptionalOut" ],
           "type" : "string"
         },
-        "field-blacklist" : {
-          "description" : "Description is not available here, please check Debezium website for corresponding key 'field.blacklist' description.",
+        "field-exclude-list" : {
+          "description" : "A comma-separated list of the fully-qualified names of fields that should be excluded from change event message values",
           "type" : "string"
         },
         "field-renames" : {
@@ -10620,6 +10451,11 @@
           "default" : "admin",
           "type" : "string"
         },
+        "mongodb-connect-timeout-ms" : {
+          "description" : "The connection timeout in milliseconds",
+          "default" : "10s",
+          "type" : "string"
+        },
         "mongodb-hosts" : {
           "description" : "The hostname and port pairs (in the form 'host' or 'host:port') of the MongoDB server(s) in the replica set.",
           "type" : "string"
@@ -10637,10 +10473,20 @@
           "description" : "Password to be used when connecting to MongoDB, if necessary.",
           "type" : "string"
         },
-        "mongodb-poll-interval-sec" : {
-          "description" : "Frequency in seconds to look for new, removed, or changed replica sets. Defaults to 30 seconds.",
-          "default" : "30",
-          "type" : "integer"
+        "mongodb-poll-interval-ms" : {
+          "description" : "Frequency in milliseconds to look for new, removed, or changed replica sets. Defaults to 30000 milliseconds.",
+          "default" : "30s",
+          "type" : "string"
+        },
+        "mongodb-server-selection-timeout-ms" : {
+          "description" : "The server selection timeout in milliseconds",
+          "default" : "30s",
+          "type" : "string"
+        },
+        "mongodb-socket-timeout-ms" : {
+          "description" : "The socket timeout in milliseconds",
+          "default" : "0ms",
+          "type" : "string"
         },
         "mongodb-ssl-enabled" : {
           "description" : "Should connector use SSL to connect to MongoDB instances",
@@ -10701,6 +10547,16 @@
           "description" : "Enables transaction metadata extraction together with event counting",
           "default" : "false",
           "type" : "boolean"
+        },
+        "query-fetch-size" : {
+          "description" : "The maximum number of records that should be loaded into memory while streaming. A value of 0 uses the default JDBC fetch size.",
+          "default" : "0",
+          "type" : "integer"
+        },
+        "retriable-restart-connector-wait-ms" : {
+          "description" : "Time to wait before restarting connector after retriable exception occurs. Defaults to 10000ms.",
+          "default" : "10s",
+          "type" : "string"
         },
         "sanitize-field-names" : {
           "description" : "Whether field names will be sanitized to Avro naming conventions",
@@ -10780,7 +10636,15 @@
           "type" : "boolean"
         },
         "column-blacklist" : {
+          "description" : "Regular expressions matching columns to exclude from change events (deprecated, use column.exclude.list instead)",
+          "type" : "string"
+        },
+        "column-exclude-list" : {
           "description" : "Regular expressions matching columns to exclude from change events",
+          "type" : "string"
+        },
+        "column-include-list" : {
+          "description" : "Regular expressions matching columns to include in change events",
           "type" : "string"
         },
         "connect-keep-alive" : {
@@ -10798,8 +10662,8 @@
           "default" : "30s",
           "type" : "string"
         },
-        "database-blacklist" : {
-          "description" : "Description is not available here, please check Debezium website for corresponding key 'database.blacklist' description.",
+        "database-exclude-list" : {
+          "description" : "A comma-separated list of regular expressions that match database names to be excluded from monitoring",
           "type" : "string"
         },
         "database-history" : {
@@ -10841,6 +10705,10 @@
         },
         "database-hostname" : {
           "description" : "Resolvable hostname or IP address of the MySQL database server.",
+          "type" : "string"
+        },
+        "database-include-list" : {
+          "description" : "The databases for which changes are to be captured",
           "type" : "string"
         },
         "database-initial-statements" : {
@@ -10897,10 +10765,6 @@
         },
         "database-user" : {
           "description" : "Name of the MySQL database user to be used when connecting to the database.",
-          "type" : "string"
-        },
-        "database-whitelist" : {
-          "description" : "The databases for which changes are to be captured",
           "type" : "string"
         },
         "decimal-handling-mode" : {
@@ -11083,7 +10947,11 @@
           "type" : "boolean"
         },
         "table-blacklist" : {
-          "description" : "Description is not available here, please check Debezium website for corresponding key 'table.blacklist' description.",
+          "description" : "A comma-separated list of regular expressions that match the fully-qualified names of tables to be excluded from monitoring (deprecated, use table.exclude.list instead)",
+          "type" : "string"
+        },
+        "table-exclude-list" : {
+          "description" : "A comma-separated list of regular expressions that match the fully-qualified names of tables to be excluded from monitoring",
           "type" : "string"
         },
         "table-ignore-builtin" : {
@@ -11091,8 +10959,12 @@
           "default" : "true",
           "type" : "boolean"
         },
-        "table-whitelist" : {
+        "table-include-list" : {
           "description" : "The tables for which changes are to be captured",
+          "type" : "string"
+        },
+        "table-whitelist" : {
+          "description" : "The tables for which changes are to be captured (deprecated, use table.include.list instead)",
           "type" : "string"
         },
         "time-precision-mode" : {
@@ -11135,11 +11007,23 @@
           "type" : "boolean"
         },
         "column-blacklist" : {
+          "description" : "Regular expressions matching columns to exclude from change events (deprecated, use column.exclude.list instead)",
+          "type" : "string"
+        },
+        "column-exclude-list" : {
           "description" : "Regular expressions matching columns to exclude from change events",
           "type" : "string"
         },
-        "column-whitelist" : {
+        "column-include-list" : {
           "description" : "Regular expressions matching columns to include in change events",
+          "type" : "string"
+        },
+        "column-propagate-source-type" : {
+          "description" : "A comma-separated list of regular expressions matching fully-qualified names of columns that adds the columns original type and original length as parameters to the corresponding field schemas in the emitted change records.",
+          "type" : "string"
+        },
+        "column-whitelist" : {
+          "description" : "Regular expressions matching columns to include in change events (deprecated, use column.include.list instead)",
           "type" : "string"
         },
         "converters" : {
@@ -11209,6 +11093,10 @@
           "description" : "Name of the Postgres database user to be used when connecting to the database.",
           "type" : "string"
         },
+        "datatype-propagate-source-type" : {
+          "description" : "A comma-separated list of regular expressions matching the database-specific data type names that adds the data type's original type and original length as parameters to the corresponding field schemas in the emitted change records.",
+          "type" : "string"
+        },
         "decimal-handling-mode" : {
           "description" : "Specify how DECIMAL and NUMERIC columns should be represented in change events, including:'precise' (the default) uses java.math.BigDecimal to represent values, which are encoded in the change events using a binary representation and Kafka Connect's 'org.apache.kafka.connect.data.Decimal' type; 'string' uses string to represent values; 'double' represents values using Java's 'double', which may not offer the precision but will be far easier to use in consumers.",
           "default" : "precise",
@@ -11229,7 +11117,7 @@
           "type" : "string"
         },
         "heartbeat-action-query" : {
-          "description" : "The query executed with every heartbeat. Defaults to an empty string.",
+          "description" : "The query executed with every heartbeat.",
           "type" : "string"
         },
         "heartbeat-interval-ms" : {
@@ -11333,7 +11221,7 @@
           "type" : "boolean"
         },
         "publication-autocreate-mode" : {
-          "description" : "Applies only when streaming changes using pgoutput.Determine how creation of a publication should work, the default is all_tables.DISABLED - The connector will not attempt to create a publication at all. The expectation is that the user has created the publication up-front. If the publication isn't found to exist upon startup, the connector will throw an exception and stop.ALL_TABLES - If no publication exists, the connector will create a new publication for all tables. Note this requires that the configured user has access. If the publication already exists, it will be used. i.e CREATE PUBLICATION FOR ALL TABLES;FILTERED - If no publication exists, the connector will create a new publication for all those tables matchingthe current filter configuration (see table/database whitelist/blacklist properties). If the publication already exists, it will be used. i.e CREATE PUBLICATION FOR TABLE",
+          "description" : "Applies only when streaming changes using pgoutput.Determine how creation of a publication should work, the default is all_tables.DISABLED - The connector will not attempt to create a publication at all. The expectation is that the user has created the publication up-front. If the publication isn't found to exist upon startup, the connector will throw an exception and stop.ALL_TABLES - If no publication exists, the connector will create a new publication for all tables. Note this requires that the configured user has access. If the publication already exists, it will be used. i.e CREATE PUBLICATION FOR ALL TABLES;FILTERED - If no publication exists, the connector will create a new publication for all those tables matchingthe current filter configuration (see table/database include/exclude list properties). If the publication already exists, it will be used. i.e CREATE PUBLICATION FOR TABLE",
           "default" : "all_tables",
           "type" : "string"
         },
@@ -11342,13 +11230,31 @@
           "default" : "dbz_publication",
           "type" : "string"
         },
+        "query-fetch-size" : {
+          "description" : "The maximum number of records that should be loaded into memory while streaming. A value of 0 uses the default JDBC fetch size.",
+          "default" : "0",
+          "type" : "integer"
+        },
+        "retriable-restart-connector-wait-ms" : {
+          "description" : "Time to wait before restarting connector after retriable exception occurs. Defaults to 10000ms.",
+          "default" : "10s",
+          "type" : "string"
+        },
         "sanitize-field-names" : {
           "description" : "Whether field names will be sanitized to Avro naming conventions",
           "default" : "false",
           "type" : "boolean"
         },
         "schema-blacklist" : {
+          "description" : "The schemas for which events must not be captured (deprecated, use schema.exclude.list instead)",
+          "type" : "string"
+        },
+        "schema-exclude-list" : {
           "description" : "The schemas for which events must not be captured",
+          "type" : "string"
+        },
+        "schema-include-list" : {
+          "description" : "The schemas for which events should be captured",
           "type" : "string"
         },
         "schema-refresh-mode" : {
@@ -11357,7 +11263,7 @@
           "type" : "string"
         },
         "schema-whitelist" : {
-          "description" : "The schemas for which events should be captured",
+          "description" : "The schemas for which events should be captured (deprecated, use schema.include.list instead)",
           "type" : "string"
         },
         "skipped-operations" : {
@@ -11431,7 +11337,11 @@
           "type" : "boolean"
         },
         "table-blacklist" : {
-          "description" : "Description is not available here, please check Debezium website for corresponding key 'table.blacklist' description.",
+          "description" : "A comma-separated list of regular expressions that match the fully-qualified names of tables to be excluded from monitoring (deprecated, use table.exclude.list instead)",
+          "type" : "string"
+        },
+        "table-exclude-list" : {
+          "description" : "A comma-separated list of regular expressions that match the fully-qualified names of tables to be excluded from monitoring",
           "type" : "string"
         },
         "table-ignore-builtin" : {
@@ -11439,8 +11349,12 @@
           "default" : "true",
           "type" : "boolean"
         },
-        "table-whitelist" : {
+        "table-include-list" : {
           "description" : "The tables for which changes are to be captured",
+          "type" : "string"
+        },
+        "table-whitelist" : {
+          "description" : "The tables for which changes are to be captured (deprecated, use table.include.list instead)",
           "type" : "string"
         },
         "time-precision-mode" : {
@@ -11449,7 +11363,7 @@
           "type" : "string"
         },
         "toasted-value-placeholder" : {
-          "description" : "Specify the constant that will be provided by Debezium to indicate that the original value is a toasted value not provided by the database.If starts with 'hex:' prefix it is expected that the rest of the string repesents hexadecimally encoded octets.",
+          "description" : "Specify the constant that will be provided by Debezium to indicate that the original value is a toasted value not provided by the database. If starts with 'hex:' prefix it is expected that the rest of the string repesents hexadecimally encoded octets.",
           "default" : "__debezium_unavailable_value",
           "type" : "string"
         },
@@ -11488,11 +11402,23 @@
           "type" : "boolean"
         },
         "column-blacklist" : {
+          "description" : "Regular expressions matching columns to exclude from change events (deprecated, use column.exclude.list instead)",
+          "type" : "string"
+        },
+        "column-exclude-list" : {
           "description" : "Regular expressions matching columns to exclude from change events",
           "type" : "string"
         },
-        "column-whitelist" : {
+        "column-include-list" : {
           "description" : "Regular expressions matching columns to include in change events",
+          "type" : "string"
+        },
+        "column-propagate-source-type" : {
+          "description" : "A comma-separated list of regular expressions matching fully-qualified names of columns that adds the columns original type and original length as parameters to the corresponding field schemas in the emitted change records.",
+          "type" : "string"
+        },
+        "column-whitelist" : {
+          "description" : "Regular expressions matching columns to include in change events (deprecated, use column.include.list instead)",
           "type" : "string"
         },
         "converters" : {
@@ -11534,6 +11460,10 @@
           "description" : "Resolvable hostname or IP address of the SQL Server database server.",
           "type" : "string"
         },
+        "database-instance" : {
+          "description" : "The SQL Server instance name",
+          "type" : "string"
+        },
         "database-password" : {
           "description" : "Password of the SQL Server database user to be used when connecting to the database.",
           "type" : "string"
@@ -11553,6 +11483,10 @@
         },
         "database-user" : {
           "description" : "Name of the SQL Server database user to be used when connecting to the database.",
+          "type" : "string"
+        },
+        "datatype-propagate-source-type" : {
+          "description" : "A comma-separated list of regular expressions matching the database-specific data type names that adds the data type's original type and original length as parameters to the corresponding field schemas in the emitted change records.",
           "type" : "string"
         },
         "decimal-handling-mode" : {
@@ -11659,6 +11593,16 @@
           "default" : "false",
           "type" : "boolean"
         },
+        "query-fetch-size" : {
+          "description" : "The maximum number of records that should be loaded into memory while streaming. A value of 0 uses the default JDBC fetch size.",
+          "default" : "0",
+          "type" : "integer"
+        },
+        "retriable-restart-connector-wait-ms" : {
+          "description" : "Time to wait before restarting connector after retriable exception occurs. Defaults to 10000ms.",
+          "default" : "10s",
+          "type" : "string"
+        },
         "sanitize-field-names" : {
           "description" : "Whether field names will be sanitized to Avro naming conventions",
           "default" : "false",
@@ -11712,7 +11656,11 @@
           "type" : "boolean"
         },
         "table-blacklist" : {
-          "description" : "Description is not available here, please check Debezium website for corresponding key 'table.blacklist' description.",
+          "description" : "A comma-separated list of regular expressions that match the fully-qualified names of tables to be excluded from monitoring (deprecated, use table.exclude.list instead)",
+          "type" : "string"
+        },
+        "table-exclude-list" : {
+          "description" : "A comma-separated list of regular expressions that match the fully-qualified names of tables to be excluded from monitoring",
           "type" : "string"
         },
         "table-ignore-builtin" : {
@@ -11720,8 +11668,12 @@
           "default" : "true",
           "type" : "boolean"
         },
-        "table-whitelist" : {
+        "table-include-list" : {
           "description" : "The tables for which changes are to be captured",
+          "type" : "string"
+        },
+        "table-whitelist" : {
+          "description" : "The tables for which changes are to be captured (deprecated, use table.include.list instead)",
           "type" : "string"
         },
         "time-precision-mode" : {
@@ -13606,7 +13558,7 @@
       "properties" : {
         "api-name" : {
           "description" : "What kind of operation to perform",
-          "enum" : [ "capabilities", "create", "delete", "history", "load-page", "meta", "patch", "read", "search", "transaction", "update", "validate" ],
+          "enum" : [ "CAPABILITIES", "CREATE", "DELETE", "HISTORY", "LOAD_PAGE", "META", "OPERATION", "PATCH", "READ", "SEARCH", "TRANSACTION", "UPDATE", "VALIDATE" ],
           "type" : "string"
         },
         "method-name" : {
@@ -16286,6 +16238,7 @@
     },
     "google-calendar-stream" : {
       "type" : "object",
+      "required" : [ "index" ],
       "properties" : {
         "index" : {
           "description" : "Specifies an index for the endpoint",
@@ -16447,7 +16400,7 @@
       "properties" : {
         "api-name" : {
           "description" : "What kind of operation to perform",
-          "enum" : [ "drive-about", "drive-apps", "drive-changes", "drive-channels", "drive-children", "drive-comments", "drive-files", "drive-parents", "drive-permissions", "drive-properties", "drive-realtime", "drive-replies", "drive-revisions" ],
+          "enum" : [ "DRIVE_ABOUT", "DRIVE_APPS", "DRIVE_CHANGES", "DRIVE_CHANNELS", "DRIVE_CHILDREN", "DRIVE_COMMENTS", "DRIVE_FILES", "DRIVE_PARENTS", "DRIVE_PERMISSIONS", "DRIVE_PROPERTIES", "DRIVE_REALTIME", "DRIVE_REPLIES", "DRIVE_REVISIONS" ],
           "type" : "string"
         },
         "method-name" : {
@@ -16741,9 +16694,10 @@
     },
     "google-mail-stream" : {
       "type" : "object",
+      "required" : [ "index" ],
       "properties" : {
         "index" : {
-          "description" : "Specifies an index for the endpoint",
+          "description" : "Currently not in use",
           "type" : "string"
         },
         "access-token" : {
@@ -17077,6 +17031,11 @@
           "default" : "false",
           "type" : "boolean"
         },
+        "split-result" : {
+          "description" : "When consumer return an array or collection this will generate one exchange per element, and their routes will be executed once for each exchange. Set this value to false to use a single exchange for the entire list or array.",
+          "default" : "true",
+          "type" : "boolean"
+        },
         "start-scheduler" : {
           "description" : "Whether the scheduler should be auto started.",
           "default" : "true",
@@ -17102,6 +17061,7 @@
     },
     "google-sheets-stream" : {
       "type" : "object",
+      "required" : [ "apiName" ],
       "properties" : {
         "api-name" : {
           "description" : "Sets the apiName.",
@@ -17182,7 +17142,6 @@
         },
         "max-results" : {
           "description" : "Specify the maximum number of returned results. This will limit the number of rows in a returned value range data set or the number of returned value ranges in a batch request.",
-          "default" : "0",
           "type" : "integer"
         },
         "poll-strategy" : {
@@ -18576,143 +18535,6 @@
         }
       }
     },
-    "hipchat" : {
-      "type" : "object",
-      "required" : [ "host", "protocol" ],
-      "properties" : {
-        "host" : {
-          "description" : "The host for the hipchat server, such as api.hipchat.com",
-          "type" : "string"
-        },
-        "port" : {
-          "description" : "The port for the hipchat server. Is by default 80.",
-          "default" : "80",
-          "type" : "integer"
-        },
-        "protocol" : {
-          "description" : "The protocol for the hipchat server, such as http.",
-          "type" : "string"
-        },
-        "auth-token" : {
-          "description" : "OAuth 2 auth token",
-          "type" : "string"
-        },
-        "backoff-error-threshold" : {
-          "description" : "The number of subsequent error polls (failed due some error) that should happen before the backoffMultipler should kick-in.",
-          "type" : "integer"
-        },
-        "backoff-idle-threshold" : {
-          "description" : "The number of subsequent idle polls that should happen before the backoffMultipler should kick-in.",
-          "type" : "integer"
-        },
-        "backoff-multiplier" : {
-          "description" : "To let the scheduled polling consumer backoff if there has been a number of subsequent idles/errors in a row. The multiplier is then the number of polls that will be skipped before the next actual attempt is happening again. When this option is in use then backoffIdleThreshold and/or backoffErrorThreshold must also be configured.",
-          "type" : "integer"
-        },
-        "basic-property-binding" : {
-          "description" : "Whether the endpoint should use basic property binding (Camel 2.x) or the newer property binding with additional capabilities",
-          "default" : "false",
-          "type" : "boolean"
-        },
-        "bridge-error-handler" : {
-          "description" : "Allows for bridging the consumer to the Camel routing Error Handler, which mean any exceptions occurred while the consumer is trying to pickup incoming messages, or the likes, will now be processed as a message and handled by the routing Error Handler. By default the consumer will use the org.apache.camel.spi.ExceptionHandler to deal with exceptions, that will be logged at WARN or ERROR level and ignored.",
-          "default" : "false",
-          "type" : "boolean"
-        },
-        "consume-users" : {
-          "description" : "Username(s) when consuming messages from the hiptchat server. Multiple user names can be separated by comma.",
-          "type" : "string"
-        },
-        "delay" : {
-          "description" : "Milliseconds before the next poll.",
-          "default" : "5000",
-          "type" : "integer"
-        },
-        "exception-handler" : {
-          "description" : "To let the consumer use a custom ExceptionHandler. Notice if the option bridgeErrorHandler is enabled then this option is not in use. By default the consumer will deal with exceptions, that will be logged at WARN or ERROR level and ignored.",
-          "type" : "string"
-        },
-        "exchange-pattern" : {
-          "description" : "Sets the exchange pattern when the consumer creates an exchange.",
-          "enum" : [ "InOnly", "InOut", "InOptionalOut" ],
-          "type" : "string"
-        },
-        "greedy" : {
-          "description" : "If greedy is enabled, then the ScheduledPollConsumer will run immediately again, if the previous run polled 1 or more messages.",
-          "default" : "false",
-          "type" : "boolean"
-        },
-        "http-client" : {
-          "description" : "The CloseableHttpClient reference from registry to be used during API HTTP requests.",
-          "default" : "CloseableHttpClient default from HttpClient library",
-          "type" : "string"
-        },
-        "initial-delay" : {
-          "description" : "Milliseconds before the first poll starts.",
-          "default" : "1000",
-          "type" : "integer"
-        },
-        "lazy-start-producer" : {
-          "description" : "Whether the producer should be started lazy (on the first message). By starting lazy you can use this to allow CamelContext and routes to startup in situations where a producer may otherwise fail during starting and cause the route to fail being started. By deferring this startup to be lazy then the startup failure can be handled during routing messages via Camel's routing error handlers. Beware that when the first message is processed then creating and starting the producer may take a little time and prolong the total processing time of the processing.",
-          "default" : "false",
-          "type" : "boolean"
-        },
-        "poll-strategy" : {
-          "description" : "A pluggable org.apache.camel.PollingConsumerPollingStrategy allowing you to provide your custom implementation to control error handling usually occurred during the poll operation before an Exchange have been created and being routed in Camel.",
-          "type" : "string"
-        },
-        "repeat-count" : {
-          "description" : "Specifies a maximum limit of number of fires. So if you set it to 1, the scheduler will only fire once. If you set it to 5, it will only fire five times. A value of zero or negative means fire forever.",
-          "default" : "0",
-          "type" : "integer"
-        },
-        "run-logging-level" : {
-          "description" : "The consumer logs a start/complete log line when it polls. This option allows you to configure the logging level for that.",
-          "default" : "TRACE",
-          "enum" : [ "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "OFF" ],
-          "type" : "string"
-        },
-        "scheduled-executor-service" : {
-          "description" : "Allows for configuring a custom/shared thread pool to use for the consumer. By default each consumer has its own single threaded thread pool.",
-          "type" : "string"
-        },
-        "scheduler" : {
-          "description" : "To use a cron scheduler from either camel-spring or camel-quartz component. Use value spring or quartz for built in scheduler",
-          "default" : "none",
-          "type" : "string"
-        },
-        "scheduler-properties" : {
-          "description" : "To configure additional properties when using a custom scheduler or any of the Quartz, Spring based scheduler.",
-          "type" : "string"
-        },
-        "send-empty-message-when-idle" : {
-          "description" : "If the polling consumer did not poll any files, you can enable this option to send an empty message (no body) instead.",
-          "default" : "false",
-          "type" : "boolean"
-        },
-        "start-scheduler" : {
-          "description" : "Whether the scheduler should be auto started.",
-          "default" : "true",
-          "type" : "boolean"
-        },
-        "synchronous" : {
-          "description" : "Sets whether synchronous processing should be strictly used, or Camel is allowed to use asynchronous processing (if supported).",
-          "default" : "false",
-          "type" : "boolean"
-        },
-        "time-unit" : {
-          "description" : "Time unit for initialDelay and delay options.",
-          "default" : "MILLISECONDS",
-          "enum" : [ "NANOSECONDS", "MICROSECONDS", "MILLISECONDS", "SECONDS", "MINUTES", "HOURS", "DAYS" ],
-          "type" : "string"
-        },
-        "use-fixed-delay" : {
-          "description" : "Controls if fixed delay or fixed rate is used. See ScheduledExecutorService in JDK for details.",
-          "default" : "true",
-          "type" : "boolean"
-        }
-      }
-    },
     "http" : {
       "type" : "object",
       "required" : [ "httpUri" ],
@@ -20002,6 +19824,10 @@
           "description" : "Returns the custom listener in use, if provided",
           "type" : "string"
         },
+        "default-value" : {
+          "description" : "Set a specific default value for some producer operations",
+          "type" : "string"
+        },
         "event-types" : {
           "description" : "Specifies the set of event types to register by the consumer. Multiple event can be separated by comma. The possible event types are: CACHE_ENTRY_ACTIVATED, CACHE_ENTRY_PASSIVATED, CACHE_ENTRY_VISITED, CACHE_ENTRY_LOADED, CACHE_ENTRY_EVICTED, CACHE_ENTRY_CREATED, CACHE_ENTRY_REMOVED, CACHE_ENTRY_MODIFIED, TRANSACTION_COMPLETED, TRANSACTION_REGISTERED, CACHE_ENTRY_INVALIDATED, DATA_REHASHED, TOPOLOGY_CHANGED, PARTITION_STATUS_CHANGED",
           "type" : "string"
@@ -20023,15 +19849,27 @@
           "description" : "Specifies the host of the cache on Infinispan instance",
           "type" : "string"
         },
+        "key" : {
+          "description" : "Set a specific key for producer operations",
+          "type" : "string"
+        },
         "lazy-start-producer" : {
           "description" : "Whether the producer should be started lazy (on the first message). By starting lazy you can use this to allow CamelContext and routes to startup in situations where a producer may otherwise fail during starting and cause the route to fail being started. By deferring this startup to be lazy then the startup failure can be handled during routing messages via Camel's routing error handlers. Beware that when the first message is processed then creating and starting the producer may take a little time and prolong the total processing time of the processing.",
           "default" : "false",
           "type" : "boolean"
         },
+        "old-value" : {
+          "description" : "Set a specific old value for some producer operations",
+          "type" : "string"
+        },
         "operation" : {
           "description" : "The operation to perform.",
           "default" : "PUT",
           "enum" : [ "PUT", "PUTASYNC", "PUTALL", "PUTALLASYNC", "PUTIFABSENT", "PUTIFABSENTASYNC", "GET", "GETORDEFAULT", "CONTAINSKEY", "CONTAINSVALUE", "REMOVE", "REMOVEASYNC", "REPLACE", "REPLACEASYNC", "SIZE", "CLEAR", "CLEARASYNC", "QUERY", "STATS", "COMPUTE", "COMPUTEASYNC" ],
+          "type" : "string"
+        },
+        "password" : {
+          "description" : "Define the password to access the infinispan instance",
           "type" : "string"
         },
         "query-builder" : {
@@ -20046,6 +19884,23 @@
           "description" : "Store the operation result in a header instead of the message body. By default, resultHeader == null and the query result is stored in the message body, any existing content in the message body is discarded. If resultHeader is set, the value is used as the name of the header to store the query result and the original message body is preserved. This value can be overridden by an in message header named: CamelInfinispanOperationResultHeader",
           "type" : "string"
         },
+        "sasl-mechanism" : {
+          "description" : "Define the SASL Mechanism to access the infinispan instance",
+          "type" : "string"
+        },
+        "secure" : {
+          "description" : "Define if we are connecting to a secured Infinispan instance",
+          "default" : "false",
+          "type" : "boolean"
+        },
+        "security-realm" : {
+          "description" : "Define the security realm to access the infinispan instance",
+          "type" : "string"
+        },
+        "security-server-name" : {
+          "description" : "Define the security server name to access the infinispan instance",
+          "type" : "string"
+        },
         "sync" : {
           "description" : "If true, the consumer will receive notifications synchronously",
           "default" : "true",
@@ -20055,6 +19910,14 @@
           "description" : "Sets whether synchronous processing should be strictly used, or Camel is allowed to use asynchronous processing (if supported).",
           "default" : "false",
           "type" : "boolean"
+        },
+        "username" : {
+          "description" : "Define the username to access the infinispan instance",
+          "type" : "string"
+        },
+        "value" : {
+          "description" : "Set a specific value for producer operations",
+          "type" : "string"
         }
       }
     },
@@ -21534,7 +21397,7 @@
           "type" : "integer"
         },
         "delivery-mode" : {
-          "description" : "Specifies the delivery mode to be used. Possibles values are those defined by javax.jms.DeliveryMode. NON_PERSISTENT = 1 and PERSISTENT = 2.",
+          "description" : "Specifies the delivery mode to be used. Possible values are those defined by javax.jms.DeliveryMode. NON_PERSISTENT = 1 and PERSISTENT = 2.",
           "enum" : [ "1", "2" ],
           "type" : "integer"
         },
@@ -21730,7 +21593,7 @@
           "type" : "string"
         },
         "reply-to" : {
-          "description" : "Provides an explicit ReplyTo destination, which overrides any incoming value of Message.getJMSReplyTo().",
+          "description" : "Provides an explicit ReplyTo destination (overrides any incoming value of Message.getJMSReplyTo() in consumer).",
           "type" : "string"
         },
         "reply-to-cache-level-name" : {
@@ -23172,7 +23035,6 @@
         },
         "ssl-enabled-protocols" : {
           "description" : "The list of protocols enabled for SSL connections. TLSv1.2, TLSv1.1 and TLSv1 are enabled by default.",
-          "default" : "TLSv1.2",
           "type" : "string"
         },
         "ssl-endpoint-algorithm" : {
@@ -23204,7 +23066,6 @@
         },
         "ssl-protocol" : {
           "description" : "The SSL protocol used to generate the SSLContext. Default setting is TLS, which is fine for most cases. Allowed values in recent JVMs are TLS, TLSv1.1 and TLSv1.2. SSL, SSLv2 and SSLv3 may be supported in older JVMs, but their usage is discouraged due to known security vulnerabilities.",
-          "default" : "TLSv1.2",
           "type" : "string"
         },
         "ssl-provider" : {
@@ -28161,6 +28022,10 @@
           "description" : "The NSQ channel",
           "type" : "string"
         },
+        "custom-nsq-lookup" : {
+          "description" : "A Custom NSQ lookup implementation",
+          "type" : "string"
+        },
         "exception-handler" : {
           "description" : "To let the consumer use a custom ExceptionHandler. Notice if the option bridgeErrorHandler is enabled then this option is not in use. By default the consumer will deal with exceptions, that will be logged at WARN or ERROR level and ignored.",
           "type" : "string"
@@ -29303,7 +29168,7 @@
       "required" : [ "configFile" ],
       "properties" : {
         "config-file" : {
-          "description" : "Specifies the location to the solver file",
+          "description" : "Specifies the location to the solver file. If useSolverManager=FALSE, Camel uses this file and create the Solver. If useSolverManager=TRUE and SolverManager is set in the header {OptaPlannerConstants.SOLVER_MANAGER} : this file is ignored by Camel usage of SolverManager. SolverManager can be injected by DI in Quarkus or Spring.",
           "type" : "string"
         },
         "async" : {
@@ -29335,6 +29200,11 @@
           "default" : "false",
           "type" : "boolean"
         },
+        "problem-id" : {
+          "description" : "In case of using SolverManager : the problem id",
+          "default" : "1L",
+          "type" : "integer"
+        },
         "solver-id" : {
           "description" : "Specifies the solverId to user for the solver instance key",
           "default" : "DEFAULT_SOLVER",
@@ -29349,6 +29219,11 @@
           "description" : "Specifies the thread pool size to use when async is true",
           "default" : "10",
           "type" : "integer"
+        },
+        "use-solver-manager" : {
+          "description" : "use SolverManager instead of XML file config. Use this mode on Quarkus app.",
+          "default" : "false",
+          "type" : "boolean"
         }
       }
     },
@@ -29535,7 +29410,7 @@
         },
         "font-size" : {
           "description" : "Font size in pixels",
-          "default" : "14",
+          "default" : "14.0",
           "type" : "number"
         },
         "lazy-start-producer" : {
@@ -30251,7 +30126,7 @@
       "required" : [ "configurationName" ],
       "properties" : {
         "configuration-name" : {
-          "description" : "The configFile is the name of the QuickFIX/J configuration to use for the FIX engine (located as a resource found in your classpath).",
+          "description" : "Path to the quickfix configuration file. You can prefix with: classpath, file, http, ref, or bean. classpath, file and http loads the configuration file using these protocols (classpath is default). ref will lookup the configuration file in the registry. bean will call a method on a bean to be used as the configuration. For bean you can specify the method name after dot, eg bean:myBean.myMethod",
           "type" : "string"
         },
         "basic-property-binding" : {
@@ -30300,6 +30175,14 @@
       "properties" : {
         "exchange-name" : {
           "description" : "The exchange name determines the exchange to which the produced messages will be sent to. In the case of consumers, the exchange name determines the exchange the queue will be bound to.",
+          "type" : "string"
+        },
+        "additional-headers" : {
+          "description" : "Map of additional headers. These headers will be set only when the 'allowCustomHeaders' is set to true",
+          "type" : "string"
+        },
+        "additional-properties" : {
+          "description" : "Map of additional properties. These are standard RabbitMQ properties as defined in com.rabbitmq.client.AMQP.BasicProperties. The map keys should be from org.apache.camel.component.rabbitmq.RabbitMQConstants. Any other keys will be ignored.",
           "type" : "string"
         },
         "addresses" : {
@@ -30517,6 +30400,11 @@
         "queue" : {
           "description" : "The queue to receive messages from",
           "type" : "string"
+        },
+        "re-queue" : {
+          "description" : "This is used by the consumer to control rejection of the message. When the consumer is complete processing the exchange, and if the exchange failed, then the consumer is going to reject the message from the RabbitMQ broker. If the header CamelRabbitmqRequeue is present then the value of the header will be used, otherwise this endpoint value is used as fallback. If the value is false (by default) then the message is discarded/dead-lettered. If the value is true, then the message is re-queued.",
+          "default" : "false",
+          "type" : "boolean"
         },
         "request-timeout" : {
           "description" : "Set timeout for waiting for a reply when using the InOut Exchange Pattern (in milliseconds)",
@@ -35362,11 +35250,11 @@
           "type" : "string"
         },
         "fault-action" : {
-          "description" : "Signifies the value for the faultAction response WS-Addressing Fault Action header that is provided by the method.",
+          "description" : "Signifies the value for the faultAction response WS-Addressing Fault Action header that is provided by the method. See org.springframework.ws.soap.addressing.server.annotation.Action annotation for more details.",
           "type" : "string"
         },
         "fault-to" : {
-          "description" : "Signifies the value for the faultAction response WS-Addressing FaultTo header that is provided by the method.",
+          "description" : "Signifies the value for the faultAction response WS-Addressing FaultTo header that is provided by the method. See org.springframework.ws.soap.addressing.server.annotation.Action annotation for more details.",
           "type" : "string"
         },
         "lazy-start-producer" : {
@@ -35383,7 +35271,7 @@
           "type" : "string"
         },
         "message-id-strategy" : {
-          "description" : "Option to provide a custom MessageIdStrategy to control generation of unique message ids.",
+          "description" : "Option to provide a custom MessageIdStrategy to control generation of WS-Addressing unique message ids.",
           "type" : "string"
         },
         "message-sender" : {
@@ -35391,11 +35279,11 @@
           "type" : "string"
         },
         "output-action" : {
-          "description" : "Signifies the value for the response WS-Addressing Action header that is provided by the method.",
+          "description" : "Signifies the value for the response WS-Addressing Action header that is provided by the method. See org.springframework.ws.soap.addressing.server.annotation.Action annotation for more details.",
           "type" : "string"
         },
         "reply-to" : {
-          "description" : "Signifies the value for the replyTo response WS-Addressing ReplyTo header that is provided by the method.",
+          "description" : "Signifies the value for the replyTo response WS-Addressing ReplyTo header that is provided by the method. See org.springframework.ws.soap.addressing.server.annotation.Action annotation for more details.",
           "type" : "string"
         },
         "soap-action" : {
@@ -39790,6 +39678,7 @@
       "properties" : {
         "method-name" : {
           "description" : "What operation to use",
+          "enum" : [ "ADD_TAG_TO_ORGANISATIONS", "ADD_TAG_TO_TICKET", "ADD_TAG_TO_TOPICS", "ASSOCIATE_ATTACHMENTS_TO_ARTICLE", "CHANGE_USER_PASSWORD", "CREATE_ARTICLE", "CREATE_ARTICLE_1", "CREATE_ARTICLE_TRANSLATION", "CREATE_AUTOMATION", "CREATE_CATEGORY", "CREATE_CATEGORY_TRANSLATION", "CREATE_COMMENT", "CREATE_DYNAMIC_CONTENT_ITEM", "CREATE_DYNAMIC_CONTENT_ITEM_VARIANT", "CREATE_FORUM", "CREATE_GROUP", "CREATE_GROUP_MEMBERSHIP", "CREATE_GROUP_MEMBERSHIP_1", "CREATE_MACRO", "CREATE_OR_UPDATE_USER", "CREATE_OR_UPDATE_USERS", "CREATE_OR_UPDATE_USERS_1", "CREATE_OR_UPDATE_USERS_ASYNC", "CREATE_ORGANIZATION", "CREATE_ORGANIZATION_MEMBERSHIP", "CREATE_ORGANIZATION_MEMBERSHIP_1", "CREATE_ORGANIZATION_MEMBERSHIPS", "CREATE_ORGANIZATION_MEMBERSHIPS_1", "CREATE_ORGANIZATION_MEMBERSHIPS_ASYNC", "CREATE_ORGANIZATIONS", "CREATE_ORGANIZATIONS_1", "CREATE_ORGANIZATIONS_ASYNC", "CREATE_PERMISSION_GROUP", "CREATE_REQUEST", "CREATE_SATISFACTION_RATING", "CREATE_SATISFACTION_RATING_1", "CREATE_SECTION", "CREATE_SECTION_TRANSLATION", "CREATE_TARGET", "CREATE_TICKET", "CREATE_TICKET_ASYNC", "CREATE_TICKET_FIELD", "CREATE_TICKET_FORM", "CREATE_TICKET_FROM_TWEET", "CREATE_TICKETS", "CREATE_TICKETS_1", "CREATE_TICKETS_ASYNC", "CREATE_TOPIC", "CREATE_TRIGGER", "CREATE_UPLOAD", "CREATE_UPLOAD_1", "CREATE_UPLOAD_2", "CREATE_UPLOAD_ARTICLE", "CREATE_UPLOAD_ARTICLE_1", "CREATE_USER", "CREATE_USER_IDENTITY", "CREATE_USER_IDENTITY_1", "CREATE_USER_SEGMENT", "CREATE_USERS", "CREATE_USERS_1", "CREATE_USERS_ASYNC", "DELETE_ARTICLE", "DELETE_ARTICLE_ATTACHMENT", "DELETE_ARTICLE_ATTACHMENT_1", "DELETE_ATTACHMENT", "DELETE_ATTACHMENT_1", "DELETE_AUTOMATION", "DELETE_CATEGORY", "DELETE_DYNAMIC_CONTENT_ITEM", "DELETE_DYNAMIC_CONTENT_ITEM_VARIANT", "DELETE_FORUM", "DELETE_GROUP", "DELETE_GROUP_1", "DELETE_GROUP_MEMBERSHIP", "DELETE_GROUP_MEMBERSHIP_1", "DELETE_GROUP_MEMBERSHIP_2", "DELETE_GROUP_MEMBERSHIP_3", "DELETE_ORGANIZATION", "DELETE_ORGANIZATION_1", "DELETE_ORGANIZATION_MEMBERSHIP", "DELETE_ORGANIZATION_MEMBERSHIP_1", "DELETE_ORGANIZATION_MEMBERSHIP_2", "DELETE_ORGANIZATION_MEMBERSHIPS", "DELETE_PERMISSION_GROUP", "DELETE_PERMISSION_GROUP_1", "DELETE_SECTION", "DELETE_SUSPENDED_TICKET", "DELETE_SUSPENDED_TICKET_1", "DELETE_TARGET", "DELETE_TICKET", "DELETE_TICKET_1", "DELETE_TICKET_FIELD", "DELETE_TICKET_FIELD_1", "DELETE_TICKETS", "DELETE_TOPIC", "DELETE_TRANSLATION", "DELETE_TRANSLATION_1", "DELETE_TRIGGER", "DELETE_UPLOAD", "DELETE_UPLOAD_1", "DELETE_USER", "DELETE_USER_1", "DELETE_USER_IDENTITY", "DELETE_USER_IDENTITY_1", "DELETE_USER_IDENTITY_2", "DELETE_USER_SEGMENT", "DELETE_USER_SEGMENT_1", "GET_ARTICLE", "GET_ARTICLE_FROM_SEARCH", "GET_ARTICLE_FROM_SEARCH_1", "GET_ARTICLE_SUBSCRIPTIONS", "GET_ARTICLE_SUBSCRIPTIONS_1", "GET_ARTICLE_TRANSLATIONS", "GET_ARTICLES", "GET_ARTICLES_1", "GET_ARTICLES_2", "GET_ARTICLES_3", "GET_ARTICLES_FROM_ALL_LABELS", "GET_ARTICLES_FROM_ANY_LABELS", "GET_ARTICLES_FROM_PAGE", "GET_ARTICLES_INCREMENTALLY", "GET_ASSIGNABLE_GROUP_MEMBERSHIPS", "GET_ASSIGNABLE_GROUP_MEMBERSHIPS_1", "GET_ASSIGNABLE_GROUPS", "GET_ATTACHMENT", "GET_ATTACHMENT_1", "GET_ATTACHMENTS_FROM_ARTICLE", "GET_AUTHENTICATED_USER", "GET_AUTO_COMPLETE_ORGANIZATIONS", "GET_AUTOMATION", "GET_AUTOMATIONS", "GET_BRANDS", "GET_CC_REQUESTS", "GET_CATEGORIES", "GET_CATEGORY", "GET_CATEGORY_TRANSLATIONS", "GET_COMPLIANCE_DELETION_STATUSES", "GET_CURRENT_USER", "GET_CUSTOM_AGENT_ROLES", "GET_DELETED_TICKETS", "GET_DELETED_TICKETS_1", "GET_DYNAMIC_CONTENT_ITEM", "GET_DYNAMIC_CONTENT_ITEM_VARIANT", "GET_DYNAMIC_CONTENT_ITEM_VARIANTS", "GET_DYNAMIC_CONTENT_ITEMS", "GET_FORUM", "GET_FORUMS", "GET_FORUMS_1", "GET_GROUP", "GET_GROUP_MEMBERSHIP", "GET_GROUP_MEMBERSHIP_1", "GET_GROUP_MEMBERSHIP_BY_USER", "GET_GROUP_MEMBERSHIPS", "GET_GROUP_MEMBERSHIPS_1", "GET_GROUP_ORGANIZATION", "GET_GROUP_USERS", "GET_GROUPS", "GET_HELP_CENTER_LOCALES", "GET_HOLIDAYS_FOR_SCHEDULE", "GET_HOLIDAYS_FOR_SCHEDULE_1", "GET_INCREMENTAL_TICKETS_RESULT", "GET_JOB_STATUS", "GET_JOB_STATUS_ASYNC", "GET_JOB_STATUSES", "GET_JOB_STATUSES_ASYNC", "GET_MACRO", "GET_MACROS", "GET_OPEN_REQUESTS", "GET_ORGANIZATION", "GET_ORGANIZATION_FIELDS", "GET_ORGANIZATION_MEMBERSHIP", "GET_ORGANIZATION_MEMBERSHIP_BY_USER", "GET_ORGANIZATION_MEMBERSHIP_FOR_USER", "GET_ORGANIZATION_MEMBERSHIPS", "GET_ORGANIZATION_MEMBERSHIPS_FOR_ORG", "GET_ORGANIZATION_MEMBERSHIPS_FOR_USER", "GET_ORGANIZATION_TICKETS", "GET_ORGANIZATION_USERS", "GET_ORGANIZATIONS", "GET_ORGANIZATIONS_INCREMENTALLY", "GET_PERMISSION_GROUP", "GET_PERMISSION_GROUPS", "GET_RECENT_TICKETS", "GET_REQUEST", "GET_REQUEST_COMMENT", "GET_REQUEST_COMMENT_1", "GET_REQUEST_COMMENT_2", "GET_REQUEST_COMMENTS", "GET_REQUEST_COMMENTS_1", "GET_REQUESTS", "GET_SATISFACTION_RATING", "GET_SATISFACTION_RATINGS", "GET_SCHEDULE", "GET_SCHEDULE_1", "GET_SCHEDULES", "GET_SEARCH_RESULTS", "GET_SEARCH_RESULTS_1", "GET_SEARCH_RESULTS_2", "GET_SEARCH_RESULTS_3", "GET_SEARCH_RESULTS_4", "GET_SECTION", "GET_SECTION_SUBSCRIPTIONS", "GET_SECTION_SUBSCRIPTIONS_1", "GET_SECTION_TRANSLATIONS", "GET_SECTIONS", "GET_SECTIONS_1", "GET_SECTIONS_2", "GET_SOLVED_REQUESTS", "GET_SUSPENDED_TICKETS", "GET_TARGET", "GET_TARGETS", "GET_TICKET", "GET_TICKET_AUDIT", "GET_TICKET_AUDIT_1", "GET_TICKET_AUDIT_2", "GET_TICKET_AUDITS", "GET_TICKET_AUDITS_1", "GET_TICKET_COLLABORATORS", "GET_TICKET_COMMENTS", "GET_TICKET_COMMENTS_1", "GET_TICKET_FIELD", "GET_TICKET_FIELDS", "GET_TICKET_FORM", "GET_TICKET_FORMS", "GET_TICKET_INCIDENTS", "GET_TICKET_METRIC", "GET_TICKET_METRIC_BY_TICKET", "GET_TICKET_METRICS", "GET_TICKETS", "GET_TICKETS_1", "GET_TICKETS_BY_EXTERNAL_ID", "GET_TICKETS_BY_EXTERNAL_ID_1", "GET_TICKETS_FROM_SEARCH", "GET_TICKETS_INCREMENTALLY", "GET_TICKETS_INCREMENTALLY_1", "GET_TOPIC", "GET_TOPICS", "GET_TOPICS_1", "GET_TOPICS_2", "GET_TOPICS_3", "GET_TOPICS_BY_USER", "GET_TRIGGER", "GET_TRIGGERS", "GET_TWITTER_MONITORS", "GET_USER", "GET_USER_CCD_TICKETS", "GET_USER_FIELDS", "GET_USER_IDENTITIES", "GET_USER_IDENTITIES_1", "GET_USER_IDENTITY", "GET_USER_IDENTITY_1", "GET_USER_IDENTITY_2", "GET_USER_RELATED_INFO", "GET_USER_REQUESTED_TICKETS", "GET_USER_REQUESTS", "GET_USER_REQUESTS_1", "GET_USER_SEGMENT", "GET_USER_SEGMENTS", "GET_USER_SEGMENTS_1", "GET_USER_SEGMENTS_APPLICABLE", "GET_USER_SUBSCRIPTIONS", "GET_USER_SUBSCRIPTIONS_1", "GET_USERS", "GET_USERS_BY_ROLE", "GET_USERS_INCREMENTALLY", "IMPORT_TICKET", "IMPORT_TOPIC", "LOOKUP_ORGANIZATIONS_BY_EXTERNAL_ID", "LOOKUP_USER_BY_EMAIL", "LOOKUP_USER_BY_EXTERNAL_ID", "MACROS_SHOW_CHANGES_TO_TICKET", "MACROS_SHOW_TICKET_AFTER_CHANGES", "MAKE_PRIVATE_TICKET_AUDIT", "MAKE_PRIVATE_TICKET_AUDIT_1", "MAKE_PRIVATE_TICKET_AUDIT_2", "MARK_TICKET_AS_SPAM", "MARK_TICKET_AS_SPAM_1", "MERGE_USERS", "NOTIFY_APP", "PERMANENTLY_DELETE_TICKET", "PERMANENTLY_DELETE_TICKET_1", "PERMANENTLY_DELETE_TICKETS", "PERMANENTLY_DELETE_USER", "PERMANENTLY_DELETE_USER_1", "QUEUE_CREATE_TICKET_ASYNC", "REMOVE_TAG_FROM_ORGANISATIONS", "REMOVE_TAG_FROM_TICKET", "REMOVE_TAG_FROM_TOPICS", "REQUEST_VERIFY_USER_IDENTITY", "REQUEST_VERIFY_USER_IDENTITY_1", "REQUEST_VERIFY_USER_IDENTITY_2", "RESET_USER_PASSWORD", "RESET_USER_PASSWORD_1", "SET_GROUP_MEMBERSHIP_AS_DEFAULT", "SET_ORGANIZATION_MEMBERSHIP_AS_DEFAULT", "SET_TAG_ON_ORGANISATIONS", "SET_TAG_ON_TICKET", "SET_TAG_ON_TOPICS", "SET_USER_PRIMARY_IDENTITY", "SET_USER_PRIMARY_IDENTITY_1", "SET_USER_PRIMARY_IDENTITY_2", "SUSPEND_USER", "TRUST_TICKET_AUDIT", "TRUST_TICKET_AUDIT_1", "TRUST_TICKET_AUDIT_2", "UNSUSPEND_USER", "UPDATE_ARTICLE", "UPDATE_ARTICLE_TRANSLATION", "UPDATE_AUTOMATION", "UPDATE_CATEGORY", "UPDATE_CATEGORY_TRANSLATION", "UPDATE_DYNAMIC_CONTENT_ITEM", "UPDATE_DYNAMIC_CONTENT_ITEM_VARIANT", "UPDATE_FORUM", "UPDATE_GROUP", "UPDATE_INSTALLATION", "UPDATE_MACRO", "UPDATE_ORGANIZATION", "UPDATE_ORGANIZATIONS", "UPDATE_ORGANIZATIONS_1", "UPDATE_ORGANIZATIONS_ASYNC", "UPDATE_PERMISSION_GROUP", "UPDATE_REQUEST", "UPDATE_SECTION", "UPDATE_SECTION_TRANSLATION", "UPDATE_TICKET", "UPDATE_TICKET_FIELD", "UPDATE_TICKETS", "UPDATE_TICKETS_1", "UPDATE_TICKETS_ASYNC", "UPDATE_TOPIC", "UPDATE_TRIGGER", "UPDATE_USER", "UPDATE_USER_IDENTITY", "UPDATE_USER_IDENTITY_1", "UPDATE_USER_SEGMENT", "UPDATE_USERS", "UPDATE_USERS_1", "UPDATE_USERS_ASYNC", "VERIFY_USER_IDENTITY", "VERIFY_USER_IDENTITY_1", "VERIFY_USER_IDENTITY_2" ],
           "type" : "string"
         },
         "backoff-error-threshold" : {
