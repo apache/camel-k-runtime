@@ -43,7 +43,7 @@ class RoutesWithEndpointTest extends TestSupport {
                 timeout == 1_234_000
             }
             with (te, TelegramEndpoint) {
-                endpointUri == 'telegram://bots?authorizationToken=%23property:telegram.token'
+                endpointUri == 'telegram://bots?authorizationToken=RAW(myToken+)'
                 configuration.authorizationToken == 'myToken+'
             }
             with (me, MockEndpoint) {
@@ -74,7 +74,7 @@ class RoutesWithEndpointTest extends TestSupport {
                 timeout == 1_234_000
             }
             with (te, TelegramEndpoint) {
-                endpointUri == 'telegram://bots?authorizationToken=%23property:telegram.token'
+                endpointUri == 'telegram://bots?authorizationToken=RAW(myToken+)'
                 configuration.authorizationToken == 'myToken+'
             }
             with (me, MockEndpoint) {
