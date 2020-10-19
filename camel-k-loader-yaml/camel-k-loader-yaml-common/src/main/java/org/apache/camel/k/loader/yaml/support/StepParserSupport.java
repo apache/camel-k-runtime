@@ -19,7 +19,6 @@ package org.apache.camel.k.loader.yaml.support;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
@@ -31,6 +30,7 @@ import org.apache.camel.model.OutputNode;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.spi.EndpointUriFactory;
 import org.apache.camel.util.ObjectHelper;
+import org.apache.camel.util.URISupport;
 
 public final class StepParserSupport {
     private StepParserSupport() {
@@ -74,13 +74,15 @@ public final class StepParserSupport {
         String answer = uri;
 
         if (parameters != null) {
-            String queryString = parameters.entrySet().stream()
-                .filter(entry -> entry.getValue() != null)
-                .map(entry -> String.format("%s=%s", entry.getKey(), entry.getValue()))
-                .collect(Collectors.joining("&"));
+            String queryString;
 
-            if (ObjectHelper.isNotEmpty(queryString)) {
-                answer += "?" + queryString;
+            try {
+                queryString = URISupport.createQueryString(parameters, false);
+                if (ObjectHelper.isNotEmpty(queryString)) {
+                    answer += "?" + queryString;
+                }
+            } catch (URISyntaxException e) {
+                throw new IllegalArgumentException(e);
             }
         }
 
