@@ -17,10 +17,8 @@
 package org.apache.camel.k.loader.yaml.support;
 
 import java.net.URISyntaxException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.apache.camel.CamelContext;
@@ -31,6 +29,7 @@ import org.apache.camel.k.loader.yaml.spi.StepParser;
 import org.apache.camel.k.loader.yaml.spi.StepParserException;
 import org.apache.camel.model.OutputNode;
 import org.apache.camel.model.ProcessorDefinition;
+import org.apache.camel.spi.EndpointUriFactory;
 import org.apache.camel.util.ObjectHelper;
 
 public final class StepParserSupport {
@@ -89,11 +88,17 @@ public final class StepParserSupport {
     }
 
     public static String createEndpointUri(CamelContext context, String scheme, Map<String, Object> parameters) {
-        try {
-            Map<String, String> params = new HashMap<>();
-            parameters.forEach((k, v) -> params.put(k, Objects.toString(v)));
+        final EndpointUriFactory factory = context.adapt(ExtendedCamelContext.class).getEndpointUriFactory(scheme);
 
-            return context.adapt(ExtendedCamelContext.class).getRuntimeCamelCatalog().asEndpointUri(scheme, params, false);
+        if (factory == null) {
+            throw new IllegalArgumentException("Cannot compute endpoint URI: unable to find an EndpointUriFactory for scheme " + scheme);
+        }
+        if (!factory.isEnabled(scheme)) {
+            throw new IllegalArgumentException("Cannot compute endpoint URI: scheme " + scheme + " is not enabled");
+        }
+
+        try {
+            return factory.buildUri(scheme, parameters);
         } catch (URISyntaxException e) {
             throw new IllegalArgumentException(e);
         }

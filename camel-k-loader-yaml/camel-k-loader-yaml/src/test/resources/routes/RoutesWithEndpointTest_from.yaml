@@ -21,6 +21,6 @@
     steps:
       - telegram:
           type: "bots"
-          authorization-token: "#property:telegram.token"
+          authorization-token: "{{telegram.token}}"
       - mock:
           name: "telegram"
