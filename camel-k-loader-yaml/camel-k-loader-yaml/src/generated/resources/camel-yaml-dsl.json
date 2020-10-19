@@ -169,6 +169,10 @@
             "header-name" : {
               "type" : "string"
             },
+            "option" : {
+              "type" : "string",
+              "enum" : [ "DEFAULT_PATH_LEAF_TO_NULL", "ALWAYS_RETURN_LIST", "AS_PATH_LIST", "SUPPRESS_EXCEPTIONS", "REQUIRE_PROPERTIES" ]
+            },
             "result-type" : {
               "type" : "string"
             },
@@ -223,6 +227,10 @@
             },
             "ref" : {
               "type" : "string"
+            },
+            "scope" : {
+              "type" : "string",
+              "enum" : [ "Singleton", "Request", "Prototype" ]
             },
             "expression" : {
               "type" : "string"
@@ -405,6 +413,9 @@
             "object-model" : {
               "type" : "string"
             },
+            "pre-compile" : {
+              "type" : "string"
+            },
             "result-type" : {
               "type" : "string",
               "enum" : [ "NUMBER", "STRING", "BOOLEAN", "NODESET", "NODE" ]
@@ -466,7 +477,8 @@
               "type" : "string"
             },
             "mode" : {
-              "type" : "string"
+              "type" : "string",
+              "enum" : [ "i", "w", "u", "t" ]
             },
             "expression" : {
               "type" : "string"
@@ -1612,6 +1624,9 @@
           "allow-empty-directory" : {
             "type" : "string"
           },
+          "max-decompressed-size" : {
+            "type" : "string"
+          },
           "preserve-path-elements" : {
             "type" : "string"
           },
@@ -1945,6 +1960,9 @@
         "type" : "object",
         "properties" : {
           "allow-empty-directory" : {
+            "type" : "string"
+          },
+          "max-decompressed-size" : {
             "type" : "string"
           },
           "preserve-path-elements" : {

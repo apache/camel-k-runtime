@@ -15,6 +15,22 @@ import org.apache.camel.k.SourceDefinition;
 @SuppressWarnings("unchecked")
 public class SourceDefinitionConfigurer extends org.apache.camel.support.component.PropertyConfigurerSupport implements GeneratedPropertyConfigurer, PropertyConfigurerGetter {
 
+    private static final Map<String, Object> ALL_OPTIONS;
+    static {
+        Map<String, Object> map = new CaseInsensitiveMap();
+        map.put("Compressed", boolean.class);
+        map.put("Content", byte[].class);
+        map.put("Id", java.lang.String.class);
+        map.put("Interceptors", java.util.List.class);
+        map.put("Language", java.lang.String.class);
+        map.put("Loader", java.lang.String.class);
+        map.put("Location", java.lang.String.class);
+        map.put("Name", java.lang.String.class);
+        map.put("PropertyNames", java.util.List.class);
+        map.put("Type", org.apache.camel.k.SourceType.class);
+        ALL_OPTIONS = map;
+    }
+
     @Override
     public boolean configure(CamelContext camelContext, Object obj, String name, Object value, boolean ignoreCase) {
         org.apache.camel.k.SourceDefinition target = (org.apache.camel.k.SourceDefinition) obj;
@@ -45,18 +61,7 @@ public class SourceDefinitionConfigurer extends org.apache.camel.support.compone
 
     @Override
     public Map<String, Object> getAllOptions(Object target) {
-        Map<String, Object> answer = new CaseInsensitiveMap();
-        answer.put("Compressed", boolean.class);
-        answer.put("Content", byte[].class);
-        answer.put("Id", java.lang.String.class);
-        answer.put("Interceptors", java.util.List.class);
-        answer.put("Language", java.lang.String.class);
-        answer.put("Loader", java.lang.String.class);
-        answer.put("Location", java.lang.String.class);
-        answer.put("Name", java.lang.String.class);
-        answer.put("PropertyNames", java.util.List.class);
-        answer.put("Type", org.apache.camel.k.SourceType.class);
-        return answer;
+        return ALL_OPTIONS;
     }
 
     @Override

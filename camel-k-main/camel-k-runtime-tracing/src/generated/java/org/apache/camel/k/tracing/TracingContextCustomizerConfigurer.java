@@ -15,6 +15,16 @@ import org.apache.camel.k.tracing.TracingContextCustomizer;
 @SuppressWarnings("unchecked")
 public class TracingContextCustomizerConfigurer extends org.apache.camel.support.component.PropertyConfigurerSupport implements GeneratedPropertyConfigurer, PropertyConfigurerGetter {
 
+    private static final Map<String, Object> ALL_OPTIONS;
+    static {
+        Map<String, Object> map = new CaseInsensitiveMap();
+        map.put("Reporter", io.jaegertracing.Configuration.ReporterConfiguration.class);
+        map.put("Sampler", io.jaegertracing.Configuration.SamplerConfiguration.class);
+        map.put("ServiceName", java.lang.String.class);
+        map.put("Tags", java.util.Map.class);
+        ALL_OPTIONS = map;
+    }
+
     @Override
     public boolean configure(CamelContext camelContext, Object obj, String name, Object value, boolean ignoreCase) {
         org.apache.camel.k.tracing.TracingContextCustomizer target = (org.apache.camel.k.tracing.TracingContextCustomizer) obj;
@@ -33,12 +43,7 @@ public class TracingContextCustomizerConfigurer extends org.apache.camel.support
 
     @Override
     public Map<String, Object> getAllOptions(Object target) {
-        Map<String, Object> answer = new CaseInsensitiveMap();
-        answer.put("Reporter", io.jaegertracing.Configuration.ReporterConfiguration.class);
-        answer.put("Sampler", io.jaegertracing.Configuration.SamplerConfiguration.class);
-        answer.put("ServiceName", java.lang.String.class);
-        answer.put("Tags", java.util.Map.class);
-        return answer;
+        return ALL_OPTIONS;
     }
 
     @Override

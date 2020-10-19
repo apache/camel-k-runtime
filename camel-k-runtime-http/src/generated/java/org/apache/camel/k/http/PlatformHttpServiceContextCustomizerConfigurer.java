@@ -15,6 +15,20 @@ import org.apache.camel.k.http.PlatformHttpServiceContextCustomizer;
 @SuppressWarnings("unchecked")
 public class PlatformHttpServiceContextCustomizerConfigurer extends org.apache.camel.support.component.PropertyConfigurerSupport implements GeneratedPropertyConfigurer, PropertyConfigurerGetter {
 
+    private static final Map<String, Object> ALL_OPTIONS;
+    static {
+        Map<String, Object> map = new CaseInsensitiveMap();
+        map.put("BindHost", java.lang.String.class);
+        map.put("BindPort", int.class);
+        map.put("BodyHandler", org.apache.camel.component.platform.http.vertx.VertxPlatformHttpServerConfiguration.BodyHandler.class);
+        map.put("Cors", org.apache.camel.component.platform.http.vertx.VertxPlatformHttpServerConfiguration.Cors.class);
+        map.put("MaxBodySize", java.math.BigInteger.class);
+        map.put("Path", java.lang.String.class);
+        map.put("SslContextParameters", org.apache.camel.support.jsse.SSLContextParameters.class);
+        map.put("UseGlobalSslContextParameters", boolean.class);
+        ALL_OPTIONS = map;
+    }
+
     @Override
     public boolean configure(CamelContext camelContext, Object obj, String name, Object value, boolean ignoreCase) {
         org.apache.camel.k.http.PlatformHttpServiceContextCustomizer target = (org.apache.camel.k.http.PlatformHttpServiceContextCustomizer) obj;
@@ -41,16 +55,7 @@ public class PlatformHttpServiceContextCustomizerConfigurer extends org.apache.c
 
     @Override
     public Map<String, Object> getAllOptions(Object target) {
-        Map<String, Object> answer = new CaseInsensitiveMap();
-        answer.put("BindHost", java.lang.String.class);
-        answer.put("BindPort", int.class);
-        answer.put("BodyHandler", org.apache.camel.component.platform.http.vertx.VertxPlatformHttpServerConfiguration.BodyHandler.class);
-        answer.put("Cors", org.apache.camel.component.platform.http.vertx.VertxPlatformHttpServerConfiguration.Cors.class);
-        answer.put("MaxBodySize", java.math.BigInteger.class);
-        answer.put("Path", java.lang.String.class);
-        answer.put("SslContextParameters", org.apache.camel.support.jsse.SSLContextParameters.class);
-        answer.put("UseGlobalSslContextParameters", boolean.class);
-        return answer;
+        return ALL_OPTIONS;
     }
 
     @Override

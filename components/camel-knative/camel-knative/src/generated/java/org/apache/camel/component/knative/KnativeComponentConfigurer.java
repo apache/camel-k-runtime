@@ -15,6 +15,29 @@ import org.apache.camel.support.component.PropertyConfigurerSupport;
 @SuppressWarnings("unchecked")
 public class KnativeComponentConfigurer extends PropertyConfigurerSupport implements GeneratedPropertyConfigurer, PropertyConfigurerGetter {
 
+    private static final Map<String, Object> ALL_OPTIONS;
+    static {
+        Map<String, Object> map = new CaseInsensitiveMap();
+        map.put("ceOverride", java.util.Map.class);
+        map.put("cloudEventsSpecVersion", java.lang.String.class);
+        map.put("cloudEventsType", java.lang.String.class);
+        map.put("configuration", org.apache.camel.component.knative.KnativeConfiguration.class);
+        map.put("environment", org.apache.camel.component.knative.spi.KnativeEnvironment.class);
+        map.put("environmentPath", java.lang.String.class);
+        map.put("filters", java.util.Map.class);
+        map.put("serviceName", java.lang.String.class);
+        map.put("transport", org.apache.camel.component.knative.spi.KnativeTransport.class);
+        map.put("transportOptions", java.util.Map.class);
+        map.put("bridgeErrorHandler", boolean.class);
+        map.put("replyWithCloudEvent", boolean.class);
+        map.put("reply", java.lang.Boolean.class);
+        map.put("lazyStartProducer", boolean.class);
+        map.put("apiVersion", java.lang.String.class);
+        map.put("basicPropertyBinding", boolean.class);
+        map.put("kind", java.lang.String.class);
+        ALL_OPTIONS = map;
+    }
+
     private org.apache.camel.component.knative.KnativeConfiguration getOrCreateConfiguration(KnativeComponent target) {
         if (target.getConfiguration() == null) {
             target.setConfiguration(new org.apache.camel.component.knative.KnativeConfiguration());
@@ -60,25 +83,7 @@ public class KnativeComponentConfigurer extends PropertyConfigurerSupport implem
 
     @Override
     public Map<String, Object> getAllOptions(Object target) {
-        Map<String, Object> answer = new CaseInsensitiveMap();
-        answer.put("apiVersion", java.lang.String.class);
-        answer.put("basicPropertyBinding", boolean.class);
-        answer.put("bridgeErrorHandler", boolean.class);
-        answer.put("ceOverride", java.util.Map.class);
-        answer.put("cloudEventsSpecVersion", java.lang.String.class);
-        answer.put("cloudEventsType", java.lang.String.class);
-        answer.put("configuration", org.apache.camel.component.knative.KnativeConfiguration.class);
-        answer.put("environment", org.apache.camel.component.knative.spi.KnativeEnvironment.class);
-        answer.put("environmentPath", java.lang.String.class);
-        answer.put("filters", java.util.Map.class);
-        answer.put("kind", java.lang.String.class);
-        answer.put("lazyStartProducer", boolean.class);
-        answer.put("reply", java.lang.Boolean.class);
-        answer.put("replyWithCloudEvent", boolean.class);
-        answer.put("serviceName", java.lang.String.class);
-        answer.put("transport", org.apache.camel.component.knative.spi.KnativeTransport.class);
-        answer.put("transportOptions", java.util.Map.class);
-        return answer;
+        return ALL_OPTIONS;
     }
 
     @Override

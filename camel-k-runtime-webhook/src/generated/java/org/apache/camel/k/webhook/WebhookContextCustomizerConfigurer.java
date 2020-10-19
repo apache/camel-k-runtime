@@ -15,6 +15,13 @@ import org.apache.camel.k.webhook.WebhookContextCustomizer;
 @SuppressWarnings("unchecked")
 public class WebhookContextCustomizerConfigurer extends org.apache.camel.support.component.PropertyConfigurerSupport implements GeneratedPropertyConfigurer, PropertyConfigurerGetter {
 
+    private static final Map<String, Object> ALL_OPTIONS;
+    static {
+        Map<String, Object> map = new CaseInsensitiveMap();
+        map.put("Action", org.apache.camel.k.webhook.WebhookAction.class);
+        ALL_OPTIONS = map;
+    }
+
     @Override
     public boolean configure(CamelContext camelContext, Object obj, String name, Object value, boolean ignoreCase) {
         org.apache.camel.k.webhook.WebhookContextCustomizer target = (org.apache.camel.k.webhook.WebhookContextCustomizer) obj;
@@ -27,9 +34,7 @@ public class WebhookContextCustomizerConfigurer extends org.apache.camel.support
 
     @Override
     public Map<String, Object> getAllOptions(Object target) {
-        Map<String, Object> answer = new CaseInsensitiveMap();
-        answer.put("Action", org.apache.camel.k.webhook.WebhookAction.class);
-        return answer;
+        return ALL_OPTIONS;
     }
 
     @Override
