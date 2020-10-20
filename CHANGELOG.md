@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- Jenkinsfile build: changed the JDK name following INFRA new approach [\#527](https://github.com/apache/camel-k-runtime/pull/527) ([oscerd](https://github.com/oscerd))
 - Add workflow dispatch to changelog gh action [\#525](https://github.com/apache/camel-k-runtime/pull/525) ([oscerd](https://github.com/oscerd))
 - fix: Update loggers after configuration [\#523](https://github.com/apache/camel-k-runtime/pull/523) ([christophd](https://github.com/christophd))
 
