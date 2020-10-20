@@ -11,7 +11,7 @@
     "supportLevel": "Preview",
     "groupId": "org.apache.camel.k",
     "artifactId": "camel-kamelet",
-    "version": "1.5.1-SNAPSHOT",
+    "version": "1.6.0-SNAPSHOT",
     "scheme": "kamelet",
     "extendsScheme": "",
     "syntax": "kamelet:templateId\/routeId",
