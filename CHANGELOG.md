@@ -8,6 +8,7 @@
 
 - Jenkinsfile build: changed the JDK name following INFRA new approach [\#527](https://github.com/apache/camel-k-runtime/pull/527) ([oscerd](https://github.com/oscerd))
 - Add workflow dispatch to changelog gh action [\#525](https://github.com/apache/camel-k-runtime/pull/525) ([oscerd](https://github.com/oscerd))
+- build\(deps\): bump gmavenplus-plugin from 1.10.1 to 1.11.0 [\#524](https://github.com/apache/camel-k-runtime/pull/524) ([dependabot[bot]](https://github.com/apps/dependabot))
 - fix: Update loggers after configuration [\#523](https://github.com/apache/camel-k-runtime/pull/523) ([christophd](https://github.com/christophd))
 
 ## [camel-k-runtime-parent-1.5.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.5.0) (2020-10-08)
@@ -536,6 +537,7 @@
 - Knative component filters out all headers [\#120](https://github.com/apache/camel-k-runtime/pull/120) ([lburgazzoli](https://github.com/lburgazzoli))
 - maven dependencies for java.xml.bind \(jaxb\) issue \#103 [\#119](https://github.com/apache/camel-k-runtime/pull/119) ([ipolyzos](https://github.com/ipolyzos))
 - chore\(dsl\): add bean dsl for kotlin and groovy [\#117](https://github.com/apache/camel-k-runtime/pull/117) ([lburgazzoli](https://github.com/lburgazzoli))
+- loader\(groovy\): add default imports [\#110](https://github.com/apache/camel-k-runtime/pull/110) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-1.0.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.0.0) (2019-07-25)
 
@@ -565,7 +567,6 @@
 - chore\(js\): add test for rest dsl/definition [\#114](https://github.com/apache/camel-k-runtime/pull/114) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix JS symbol export [\#113](https://github.com/apache/camel-k-runtime/pull/113) ([lburgazzoli](https://github.com/lburgazzoli))
 - loader\(kotlin\): add default imports [\#111](https://github.com/apache/camel-k-runtime/pull/111) ([lburgazzoli](https://github.com/lburgazzoli))
-- loader\(groovy\): add default imports [\#110](https://github.com/apache/camel-k-runtime/pull/110) ([lburgazzoli](https://github.com/lburgazzoli))
 - loader\(java\): support for bean registration [\#109](https://github.com/apache/camel-k-runtime/pull/109) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix the camel-k-runtime-example running issue [\#108](https://github.com/apache/camel-k-runtime/pull/108) ([WillemJiang](https://github.com/WillemJiang))
 - chore\(js\): wrap script with a  block to make it easy to extend the DSL [\#107](https://github.com/apache/camel-k-runtime/pull/107) ([lburgazzoli](https://github.com/lburgazzoli))
