@@ -2885,6 +2885,9 @@
       "org.apache.camel.k.loader.yaml.parser.RouteStepParser$Definition" : {
         "type" : "object",
         "properties" : {
+          "auto-startup" : {
+            "type" : "boolean"
+          },
           "from" : {
             "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.RouteStepParser$From"
           },
