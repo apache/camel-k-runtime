@@ -31,7 +31,7 @@ public class ToStepParser implements ProcessorStepParser {
     @Override
     public ProcessorDefinition<?> toProcessor(Context context) {
         final Definition definition = context.node(Definition.class);
-        final String uri = StepParserSupport.createEndpointUri(definition.getUri(), definition.parameters);
+        final String uri = StepParserSupport.createEndpointUri(context.getCamelContext(), definition.getUri(), definition.parameters);
         final ToDefinition answer = new ToDefinition(uri);
 
         return answer;

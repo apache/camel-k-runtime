@@ -19,6 +19,7 @@ package org.apache.camel.k.loader.yaml.support;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
@@ -30,6 +31,7 @@ import org.apache.camel.model.OutputNode;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.spi.EndpointUriFactory;
 import org.apache.camel.util.ObjectHelper;
+import org.apache.camel.util.StringHelper;
 import org.apache.camel.util.URISupport;
 
 public final class StepParserSupport {
@@ -70,17 +72,40 @@ public final class StepParserSupport {
         return parent;
     }
 
-    public static String createEndpointUri(String uri, Map<String, Object> parameters) {
+    public static String createEndpointUri(CamelContext context, String uri, Map<String, Object> parameters) {
         String answer = uri;
 
-        if (parameters != null) {
-            String queryString;
+        if (parameters == null || parameters.isEmpty()) {
+            return answer;
+        }
+
+        if (uri.contains(":")) {
+            final String scheme = StringHelper.before(uri, ":");
+            final EndpointUriFactory factory = getEndpointUriFactory(context, scheme);
+
+            // we want sorted parameters
+            Map<String, Object> map = new TreeMap<>(parameters);
+            for (String secretParameter : factory.secretPropertyNames()) {
+                Object val = map.get(secretParameter);
+                if (val instanceof String) {
+                    String newVal = (String) val;
+                    if (!newVal.startsWith("#") && !newVal.startsWith("RAW(")) {
+                        map.put(secretParameter, "RAW(" + val + ")");
+                    }
+                }
+            }
 
             try {
-                queryString = URISupport.createQueryString(parameters, false);
+                String queryString = URISupport.createQueryString(map, false);
                 if (ObjectHelper.isNotEmpty(queryString)) {
                     answer += "?" + queryString;
                 }
+            } catch (URISyntaxException e) {
+                throw new IllegalArgumentException(e);
+            }
+        } else {
+            try {
+                answer = getEndpointUriFactory(context, uri).buildUri(uri, parameters);
             } catch (URISyntaxException e) {
                 throw new IllegalArgumentException(e);
             }
@@ -89,7 +114,7 @@ public final class StepParserSupport {
         return answer;
     }
 
-    public static String createEndpointUri(CamelContext context, String scheme, Map<String, Object> parameters) {
+    public static EndpointUriFactory getEndpointUriFactory(CamelContext context, String scheme) {
         final EndpointUriFactory factory = context.adapt(ExtendedCamelContext.class).getEndpointUriFactory(scheme);
 
         if (factory == null) {
@@ -99,10 +124,6 @@ public final class StepParserSupport {
             throw new IllegalArgumentException("Cannot compute endpoint URI: scheme " + scheme + " is not enabled");
         }
 
-        try {
-            return factory.buildUri(scheme, parameters);
-        } catch (URISyntaxException e) {
-            throw new IllegalArgumentException(e);
-        }
+        return factory;
     }
 }

@@ -38,6 +38,7 @@ class RoutesWithPlaceholdersTest extends TestSupport {
         cleanup:
             context?.stop()
     }
+
     def 'from'() {
         setup:
             def parameters = [

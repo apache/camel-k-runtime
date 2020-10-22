@@ -36,9 +36,10 @@ public class FromStepParser implements StartStepParser {
             throw new IllegalArgumentException("Either uri or scheme must be set");
         }
 
-        String uri = definition.uri != null
-            ? StepParserSupport.createEndpointUri(definition.uri, definition.parameters)
-            : StepParserSupport.createEndpointUri(context.getCamelContext(), definition.scheme, definition.parameters);
+        String uri = StepParserSupport.createEndpointUri(
+            context.getCamelContext(),
+            definition.uri != null ? definition.uri : definition.scheme,
+            definition.parameters);
 
         // as this is a start converter, steps are mandatory
         StepParserSupport.notNull(definition.steps, "steps");
