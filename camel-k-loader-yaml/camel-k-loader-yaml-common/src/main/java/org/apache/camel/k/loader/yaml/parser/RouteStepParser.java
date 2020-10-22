@@ -38,14 +38,16 @@ public class RouteStepParser implements StartStepParser {
             throw new IllegalArgumentException("Either uri or scheme must be set");
         }
 
-        String uri = definition.from.uri != null
-            ? StepParserSupport.createEndpointUri(definition.from.uri, definition.from.parameters)
-            : StepParserSupport.createEndpointUri(context.getCamelContext(), definition.from.scheme, definition.from.parameters);
+        String uri = StepParserSupport.createEndpointUri(
+            context.getCamelContext(),
+            definition.from.uri != null ? definition.from.uri : definition.from.scheme,
+            definition.from.parameters);
 
         RouteDefinition route = context.builder().from(uri);
 
         ObjectHelper.ifNotEmpty(definition.id, route::routeId);
         ObjectHelper.ifNotEmpty(definition.group, route::routeGroup);
+        ObjectHelper.ifNotEmpty(definition.autoStartup, route::autoStartup);
 
         // as this is a start converter, steps are mandatory
         StepParserSupport.notNull(definition.steps, "steps");
@@ -63,6 +65,8 @@ public class RouteStepParser implements StartStepParser {
         public String id;
         @JsonProperty
         public String group;
+        @JsonProperty
+        public Boolean autoStartup;
         @JsonProperty(required = true)
         public From from;
         @JsonProperty(required = true)

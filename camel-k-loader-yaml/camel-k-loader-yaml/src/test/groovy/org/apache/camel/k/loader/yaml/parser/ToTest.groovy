@@ -37,6 +37,51 @@ class ToTest extends TestSupport {
             }
     }
 
+    def "definition with secrets"() {
+        given:
+            def stepContext = stepContext('''
+                 uri: "telegram://bots"
+                 parameters:
+                   authorizationToken: "s3cret"
+            ''')
+        when:
+            def processor = new ToStepParser().toProcessor(stepContext)
+        then:
+            with(processor, ToDefinition) {
+                endpointUri == 'telegram://bots?authorizationToken=RAW(s3cret)'
+            }
+    }
+
+    def "definition with secrets (raw)"() {
+        given:
+            def stepContext = stepContext('''
+                 uri: "telegram://bots"
+                 parameters:
+                   authorizationToken: "RAW(s3cret)"
+            ''')
+        when:
+            def processor = new ToStepParser().toProcessor(stepContext)
+        then:
+            with(processor, ToDefinition) {
+                endpointUri == 'telegram://bots?authorizationToken=RAW(s3cret)'
+            }
+    }
+
+    def "definition with secrets (property)"() {
+        given:
+            def stepContext = stepContext('''
+                 uri: "telegram://bots"
+                 parameters:
+                   authorizationToken: "#property:telegram.token"
+            ''')
+        when:
+            def processor = new ToStepParser().toProcessor(stepContext)
+        then:
+            with(processor, ToDefinition) {
+                endpointUri == 'telegram://bots?authorizationToken=#property:telegram.token'
+            }
+    }
+
     def "definition compact"() {
         given:
             def node = TextNode.valueOf('seda://test')

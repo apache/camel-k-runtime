@@ -54,7 +54,7 @@ public class WireTapStepParser implements ProcessorStepParser {
         }
 
         answer.setUri(
-            StepParserSupport.createEndpointUri(definition.getUri(), definition.parameters)
+            StepParserSupport.createEndpointUri(context.getCamelContext(), definition.getUri(), definition.parameters)
         );
 
         return answer;

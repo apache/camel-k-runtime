@@ -30,8 +30,7 @@ class FromTest extends TestSupport {
                  parameters:
                    period: "1s"
                  steps:
-                   - log:
-                       message: "test"
+                   - log: "test"
             ''')
         when:
             def processor = new FromStepParser().process(stepContext)
@@ -39,6 +38,60 @@ class FromTest extends TestSupport {
             with(processor, RouteDefinition) {
                 input instanceof FromDefinition
                 input.endpointUri == 'timer://tick?period=1s'
+            }
+    }
+
+    def "definition with secrets"() {
+        given:
+            def stepContext = stepContext('''
+                 uri: "telegram://bots"
+                 parameters:
+                   authorizationToken: "s3cret"
+                 steps:
+                   - log: "test"
+            ''')
+        when:
+            def processor = new FromStepParser().process(stepContext)
+        then:
+            with(processor, RouteDefinition) {
+                input instanceof FromDefinition
+                input.endpointUri == 'telegram://bots?authorizationToken=RAW(s3cret)'
+            }
+    }
+
+    def "definition with secrets (raw)"() {
+        given:
+            def stepContext = stepContext('''
+                 uri: "telegram://bots"
+                 parameters:
+                   authorizationToken: "RAW(s3cret)"
+                 steps:
+                   - log: "test"
+            ''')
+        when:
+            def processor = new FromStepParser().process(stepContext)
+        then:
+            with(processor, RouteDefinition) {
+                input instanceof FromDefinition
+                input.endpointUri == 'telegram://bots?authorizationToken=RAW(s3cret)'
+            }
+    }
+
+    def "definition with secrets (property)"() {
+        given:
+            def stepContext = stepContext('''
+                 uri: "telegram://bots"
+                 parameters:
+                   authorizationToken: "#property:telegram.token"
+                 steps:
+                   - log: "test"
+            ''')
+        when:
+            def processor = new FromStepParser().process(stepContext)
+        then:
+            with(processor, RouteDefinition) {
+                input instanceof FromDefinition
+                input.endpointUri == 'telegram://bots?authorizationToken=#property:telegram.token'
             }
     }
 
