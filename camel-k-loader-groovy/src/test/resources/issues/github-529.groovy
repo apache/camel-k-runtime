@@ -14,26 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.loader.groovy.dsl
-
-import org.apache.camel.Exchange
-import org.apache.camel.Predicate
-import org.apache.camel.Processor
-
-trait Support {
-    Processor processor(@DelegatesTo(Exchange) Closure<?> callable) {
-        callable.resolveStrategy = Closure.DELEGATE_FIRST
-
-        return {
-            callable.call(it)
-        } as Processor
-    }
-
-    Predicate predicate(@DelegatesTo(Exchange) Closure<?> callable) {
-        callable.resolveStrategy = Closure.DELEGATE_FIRST
-
-        return {
-            return callable.call(it)
-        } as Predicate
+beans {
+    processInvoice = processor {
+        it.out.body = [
+            orderId: 'myOderId',
+            datetime: System.currentTimeMillis(),
+            currency: 'USD',
+            invoiceId: 'B-0' + (Math.floor(1000 + Math.random() * 9999))
+        ]
     }
 }
+
+from('direct:process')
+    .process('processInvoice')

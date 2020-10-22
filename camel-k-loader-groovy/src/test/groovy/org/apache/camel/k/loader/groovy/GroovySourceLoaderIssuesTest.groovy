@@ -14,26 +14,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.loader.groovy.dsl
+package org.apache.camel.k.loader.groovy
 
-import org.apache.camel.Exchange
-import org.apache.camel.Predicate
-import org.apache.camel.Processor
 
-trait Support {
-    Processor processor(@DelegatesTo(Exchange) Closure<?> callable) {
-        callable.resolveStrategy = Closure.DELEGATE_FIRST
+import org.apache.camel.k.loader.groovy.support.TestRuntime
+import spock.lang.AutoCleanup
+import spock.lang.Specification
 
-        return {
-            callable.call(it)
-        } as Processor
-    }
+class GroovySourceLoaderIssuesTest extends Specification{
+    @AutoCleanup
+    def runtime = new TestRuntime()
 
-    Predicate predicate(@DelegatesTo(Exchange) Closure<?> callable) {
-        callable.resolveStrategy = Closure.DELEGATE_FIRST
+    // https://github.com/apache/camel-k-runtime/issues/529
+    def "github-529"() {
+        when:
+            runtime.loadRoutes("classpath:issues/github-529.groovy")
+            runtime.start()
 
-        return {
-            return callable.call(it)
-        } as Predicate
+            def result = runtime.camelContext.createFluentProducerTemplate()
+                .to('direct:process')
+                .request(Map.class)
+        then:
+            result['orderId'] == 'myOderId'
     }
 }
