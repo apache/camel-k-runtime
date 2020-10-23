@@ -16,6 +16,10 @@
 #
 name: Build
 
+env:
+  MAVEN_OPTS: -Xmx3000m
+  MAVEN_ARGS: -V -ntp -Dhttp.keepAlive=false -e
+
 on:
   push:
     branches:
@@ -70,7 +74,7 @@ jobs:
           version:  ${{ matrix.java }}
       - name: Build on ${{ matrix.java }}
         run: |
-          ./mvnw -V -B -ntp clean install
+          ./mvnw ${MAVEN_ARGS} -B clean install
   build-native:
     runs-on: ubuntu-latest
     needs: build
@@ -109,7 +113,7 @@ jobs:
         run: tar -xzf maven-repo-${{ github.run_id }}-${{ github.run_number }}.tgz -C ~
       - name: Integration Test - ${{ matrix.native-image-project }}
         run: |
-          ./mvnw -V -B -ntp -nsu clean install \
+          ./mvnw ${MAVEN_ARGS} -B -nsu clean install \
             -Dnative \
             -Dnative-image.xmx=6g \
             -Ddocker \
@@ -128,7 +132,7 @@ jobs:
       with:
         version: '11'
     - name: Deploy to ASF Snapshots Repository
-      run: ./mvnw -V clean deploy -DskipTests -DskipITs --settings .github/asf-deploy-settings.xml
+      run: ./mvnw ${MAVEN_ARGS} clean deploy -DskipTests -DskipITs --settings .github/asf-deploy-settings.xml
 
 #
 # JS build disabled as fails for OOM
