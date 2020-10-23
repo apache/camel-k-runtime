@@ -35,6 +35,7 @@ import org.apache.camel.spi.annotations.Component;
 import org.apache.camel.support.DefaultComponent;
 import org.apache.camel.support.LifecycleStrategySupport;
 import org.apache.camel.support.service.ServiceHelper;
+import org.apache.camel.util.StringHelper;
 import org.apache.camel.util.URISupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -124,7 +125,7 @@ public class KameletComponent extends DefaultComponent {
 
             // determine the parameters that the kamelet should take by using the original
             // uri as we need to preserve the original format.
-            final String query = URISupport.extractQuery(uri);
+            final String query = StringHelper.after(uri, "?");
             final Map<String, Object> queryParams = URISupport.parseQuery(query, true, true);
 
             // replace resolved params with the original ones
@@ -172,6 +173,12 @@ public class KameletComponent extends DefaultComponent {
      */
     public void setTimeout(long timeout) {
         this.timeout = timeout;
+    }
+
+    @Override
+    public boolean useRawUri() {
+        // should use encoded uri by default
+        return true;
     }
 
     @Override
