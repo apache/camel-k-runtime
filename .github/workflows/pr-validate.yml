@@ -16,6 +16,10 @@
 #
 name: Validate PR
 
+env:
+  MAVEN_OPTS: -Xmx3000m
+  MAVEN_ARGS: -V -ntp -Dhttp.keepAlive=false -e
+
 on:
   pull_request:
     branches:
@@ -36,7 +40,9 @@ jobs:
         version: '11'
     - name: mvn package
       run: |
-        ./mvnw -ntp clean verify \
+        ./mvnw ${MAVEN_ARGS} \
+          -Dhttp.keepAlive=false \
           -Dcheckstyle.failOnViolation=true \
           -DskipTests \
-          -Psourcecheck,license
+          -Psourcecheck,license \
+          clean verify
