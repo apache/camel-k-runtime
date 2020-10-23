@@ -30,4 +30,4 @@ jobs:
         uses: n1hility/cancel-previous-runs@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          workflow: ci-build.yaml
+          workflow: ci-build.yml
