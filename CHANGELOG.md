@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- Automatic changelog: Remove deprecated github action commands [\#530](https://github.com/apache/camel-k-runtime/pull/530) ([oscerd](https://github.com/oscerd))
 - update to camel-quarkus 1.3.0 [\#528](https://github.com/apache/camel-k-runtime/pull/528) ([lburgazzoli](https://github.com/lburgazzoli))
 - Jenkinsfile build: changed the JDK name following INFRA new approach [\#527](https://github.com/apache/camel-k-runtime/pull/527) ([oscerd](https://github.com/oscerd))
 - Add workflow dispatch to changelog gh action [\#525](https://github.com/apache/camel-k-runtime/pull/525) ([oscerd](https://github.com/oscerd))
