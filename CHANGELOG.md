@@ -4,8 +4,18 @@
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-parent-1.5.0...HEAD)
 
+**Closed issues:**
+
+- Use default event type with broker [\#536](https://github.com/apache/camel-k-runtime/issues/536)
+- Groovy - such property: DELEGATE\_FIRST when mapping beans [\#529](https://github.com/apache/camel-k-runtime/issues/529)
+
 **Merged pull requests:**
 
+- build\(actions\): cancel stale workflow runs [\#537](https://github.com/apache/camel-k-runtime/pull/537) ([lburgazzoli](https://github.com/lburgazzoli))
+- kamelet: use raw url [\#534](https://github.com/apache/camel-k-runtime/pull/534) ([lburgazzoli](https://github.com/lburgazzoli))
+- kamelet: ensure properties are correctly propagated to the route template engine [\#533](https://github.com/apache/camel-k-runtime/pull/533) ([lburgazzoli](https://github.com/lburgazzoli))
+- Groovy - such property: DELEGATE\_FIRST when mapping beans [\#532](https://github.com/apache/camel-k-runtime/pull/532) ([lburgazzoli](https://github.com/lburgazzoli))
+- yaml: auto wrap secret values wit RAW [\#531](https://github.com/apache/camel-k-runtime/pull/531) ([lburgazzoli](https://github.com/lburgazzoli))
 - Automatic changelog: Remove deprecated github action commands [\#530](https://github.com/apache/camel-k-runtime/pull/530) ([oscerd](https://github.com/oscerd))
 - update to camel-quarkus 1.3.0 [\#528](https://github.com/apache/camel-k-runtime/pull/528) ([lburgazzoli](https://github.com/lburgazzoli))
 - Jenkinsfile build: changed the JDK name following INFRA new approach [\#527](https://github.com/apache/camel-k-runtime/pull/527) ([oscerd](https://github.com/oscerd))
