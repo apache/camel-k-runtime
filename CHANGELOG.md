@@ -655,6 +655,7 @@
 - fix platform stream handler [\#33](https://github.com/apache/camel-k-runtime/pull/33) ([lburgazzoli](https://github.com/lburgazzoli))
 - Runtime components should include catalog information [\#32](https://github.com/apache/camel-k-runtime/pull/32) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(version\): Bump Snakeyaml to version 1.24 [\#30](https://github.com/apache/camel-k-runtime/pull/30) ([oscerd](https://github.com/oscerd))
+- Fixed version checking in Catalog to accomodate also x.y.z-something … [\#26](https://github.com/apache/camel-k-runtime/pull/26) ([valdar](https://github.com/valdar))
 
 ## [camel-k-runtime-parent-0.3.1](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-0.3.1) (2019-03-06)
 
@@ -671,7 +672,6 @@
 **Merged pull requests:**
 
 - Please add my pgp key [\#27](https://github.com/apache/camel-k-runtime/pull/27) ([nicolaferraro](https://github.com/nicolaferraro))
-- Fixed version checking in Catalog to accomodate also x.y.z-something … [\#26](https://github.com/apache/camel-k-runtime/pull/26) ([valdar](https://github.com/valdar))
 - camel-knative: set CloudEvents v0.2 as default spec version [\#25](https://github.com/apache/camel-k-runtime/pull/25) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(netty\): improve health service [\#24](https://github.com/apache/camel-k-runtime/pull/24) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(camel-3\): fix camel 3 compatibility layer [\#23](https://github.com/apache/camel-k-runtime/pull/23) ([lburgazzoli](https://github.com/lburgazzoli))
