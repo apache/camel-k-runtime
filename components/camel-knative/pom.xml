@@ -34,6 +34,7 @@
         <module>camel-knative-test</module>
         <module>camel-knative</module>
         <module>camel-knative-http</module>
+        <module>camel-knative-eventing</module>
     </modules>
 
 </project>

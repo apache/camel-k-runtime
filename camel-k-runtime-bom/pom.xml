@@ -136,6 +136,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-knative-eventing</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-kamelet</artifactId>
                 <version>${project.version}</version>
             </dependency>
