@@ -119,12 +119,12 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <environmentVariables>
-                        <CAMEL_K_CONF>${project.basedir}/src/test/resources/test.properties</CAMEL_K_CONF>
+                        <CAMEL_K_CONF>${project.basedir}/src/test/resources/conf.properties</CAMEL_K_CONF>
+                        <CAMEL_K_CONF_D>${project.basedir}/src/test/resources/conf.d</CAMEL_K_CONF_D>
                     </environmentVariables>
                     <systemProperties>
                         <quarkus.http.test-port>${test.http.port.jvm}</quarkus.http.test-port>
                         <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-                        <camel.k.conf>${project.basedir}/src/test/resources/test.properties</camel.k.conf>
                     </systemProperties>
                 </configuration>
             </plugin>
@@ -155,7 +155,8 @@
                                 </goals>
                                 <configuration>
                                     <environmentVariables>
-                                        <CAMEL_K_CONF>${project.basedir}/src/test/resources/test.properties</CAMEL_K_CONF>
+                                        <CAMEL_K_CONF>${project.basedir}/src/test/resources/conf.properties</CAMEL_K_CONF>
+                                        <CAMEL_K_CONF_D>${project.basedir}/src/test/resources/conf.d</CAMEL_K_CONF_D>
                                     </environmentVariables>
                                     <systemProperties>
                                         <quarkus.http.test-port>${test.http.port.native}</quarkus.http.test-port>

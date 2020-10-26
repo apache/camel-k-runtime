@@ -46,8 +46,8 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-runtime-http</artifactId>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-platform-http-vertx</artifactId>
         </dependency>
 
         <dependency>
@@ -96,6 +96,11 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-http</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-core-languages</artifactId>
             <scope>test</scope>
         </dependency>
 

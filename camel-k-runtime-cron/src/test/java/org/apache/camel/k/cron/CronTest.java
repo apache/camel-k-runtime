@@ -16,14 +16,21 @@
  */
 package org.apache.camel.k.cron;
 
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.RoutesBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.k.main.ApplicationRuntime;
-import org.apache.camel.k.support.SourcesSupport;
+import org.apache.camel.impl.DefaultCamelContext;
+import org.apache.camel.k.Runtime;
+import org.apache.camel.k.Source;
+import org.apache.camel.k.SourceLoader;
+import org.apache.camel.k.Sources;
+import org.apache.camel.k.loader.yaml.YamlSourceLoader;
 import org.apache.camel.support.LifecycleStrategySupport;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -34,18 +41,26 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CronTest {
     @ParameterizedTest
     @MethodSource("parameters")
-    public void testCronTimerActivation(String routes, String cronOverride) throws Exception {
-        ApplicationRuntime runtime = new ApplicationRuntime();
-        runtime.setProperties(
-            "loader.interceptor.cron.overridable-components", cronOverride
-        );
-        runtime.addListener(SourcesSupport.forRoutes(routes));
+    public void testCronTimerActivation(String code, String cronOverride) throws Exception {
+        final Runtime runtime = Runtime.on(new DefaultCamelContext());
+        final SourceLoader loader = new YamlSourceLoader();
+        final Source source = Sources.fromBytes("my-cron", "yaml", null, List.of("cron"), code.getBytes(StandardCharsets.UTF_8));
 
-        // To check auto-termination of Camel context
+        final CronSourceLoaderInterceptor interceptor = new CronSourceLoaderInterceptor();
+        interceptor.setRuntime(runtime);
+        interceptor.setOverridableComponents(cronOverride);
+
+        RoutesBuilder builder = interceptor.afterLoad(
+            loader,
+            source,
+            loader.load(runtime, source));
+
+        runtime.getCamelContext().addRoutes(builder);
+
         CountDownLatch termination = new CountDownLatch(1);
         runtime.getCamelContext().addLifecycleStrategy(new LifecycleStrategySupport() {
             @Override
-            public void onContextStop(CamelContext context) {
+            public void onContextStopped(CamelContext context) {
                 termination.countDown();
             }
         });
@@ -54,7 +69,7 @@ public class CronTest {
         mock.expectedMessageCount(1);
         mock.setResultWaitTime(10000);
 
-        runtime.run();
+        runtime.getCamelContext().start();
         mock.assertIsSatisfied();
 
         termination.await(10, TimeUnit.SECONDS);
@@ -63,9 +78,27 @@ public class CronTest {
 
     static Stream<Arguments> parameters() {
         return Stream.of(
-            Arguments.arguments("classpath:routes-timer.js?interceptors=cron", "timer"),
-            Arguments.arguments("classpath:routes-quartz.js?interceptors=cron", "quartz"),
-            Arguments.arguments("classpath:routes-quartz.js?interceptors=cron", "timer,quartz")
+            Arguments.arguments(
+                ""
+                + "\n- from:"
+                + "\n    uri: \"timer:tick?period=1&delay=600000\""
+                + "\n    steps:"
+                + "\n      - to: \"mock:result\"",
+                "timer"),
+            Arguments.arguments(
+                ""
+                + "\n- from:"
+                + "\n    uri: \"quartz:tick?cron=0 0 0 * * ? 2099\""
+                + "\n    steps:"
+                + "\n      - to: \"mock:result\"",
+                "quartz"),
+            Arguments.arguments(
+                ""
+                + "\n- from:"
+                + "\n    uri: \"quartz:tick?cron=0 0 0 * * ? 2099\""
+                + "\n    steps:"
+                + "\n      - to: \"mock:result\"",
+                "timer,quartz")
         );
     }
 

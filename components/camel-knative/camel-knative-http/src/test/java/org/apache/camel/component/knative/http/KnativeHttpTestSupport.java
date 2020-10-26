@@ -23,6 +23,11 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.component.knative.KnativeComponent;
 import org.apache.camel.component.knative.spi.CloudEvent;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
+import org.apache.camel.component.platform.http.PlatformHttpComponent;
+import org.apache.camel.component.platform.http.PlatformHttpConstants;
+import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpEngine;
+import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpServer;
+import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpServerConfiguration;
 
 public final class KnativeHttpTestSupport {
     private KnativeHttpTestSupport() {
@@ -42,5 +47,30 @@ public final class KnativeHttpTestSupport {
 
     public static String httpAttribute(CloudEvent ce, String name) {
         return ce.mandatoryAttribute(name).http();
+    }
+
+    public static void configurePlatformHttpComponent(CamelContext camelContext, int bindPort) {
+        VertxPlatformHttpServerConfiguration configuration = new VertxPlatformHttpServerConfiguration();
+        configuration.setBindPort(bindPort);
+
+        try {
+            camelContext.addService(new VertxPlatformHttpServer(configuration) {
+                @Override
+                protected void doInit() throws Exception {
+                    initializeServer();
+                }
+                @Override
+                protected void doStart() throws Exception {
+                    startServer();
+                }
+            });
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        PlatformHttpComponent component = new PlatformHttpComponent(camelContext);
+        component.setEngine(new VertxPlatformHttpEngine());
+
+        camelContext.getRegistry().bind(PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME, component);
     }
 }

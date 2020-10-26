@@ -18,7 +18,6 @@ package org.apache.camel.k.tooling.maven.model;
 
 import java.util.Collections;
 import java.util.Set;
-import java.util.function.BooleanSupplier;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -66,11 +65,5 @@ public interface CamelArtifact extends Artifact {
     }
 
     class Builder extends ImmutableCamelArtifact.Builder {
-        public Builder addDependencies(BooleanSupplier condition, Artifact... artifacts) {
-            if (condition.getAsBoolean()) {
-                addDependencies(artifacts);
-            }
-            return this;
-        }
     }
 }

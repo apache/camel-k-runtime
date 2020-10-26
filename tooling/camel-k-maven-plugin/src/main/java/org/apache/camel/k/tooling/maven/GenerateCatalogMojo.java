@@ -33,7 +33,6 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import org.apache.camel.catalog.DefaultCamelCatalog;
-import org.apache.camel.catalog.DefaultRuntimeProvider;
 import org.apache.camel.catalog.quarkus.QuarkusRuntimeProvider;
 import org.apache.camel.impl.engine.AbstractCamelContext;
 import org.apache.camel.k.tooling.maven.model.CamelCapability;
@@ -70,9 +69,6 @@ public class GenerateCatalogMojo extends AbstractMojo {
     @Parameter(property = "catalog.file", defaultValue = "camel-catalog-${runtime.version}.yaml")
     private String outputFile;
 
-    @Parameter(property = "catalog.runtime", defaultValue = "main")
-    private String runtime;
-
     // ********************
     //
     // ********************
@@ -93,13 +89,14 @@ public class GenerateCatalogMojo extends AbstractMojo {
         }
 
         final org.apache.camel.catalog.CamelCatalog catalog = new DefaultCamelCatalog();
+        catalog.setRuntimeProvider(new QuarkusRuntimeProvider());
+
         final String runtimeVersion = MavenSupport.getVersion(getClass(), "/META-INF/maven/org.apache.camel.k/camel-k-maven-plugin/pom.properties");
-        final String catalogName = String.format("camel-catalog-%s-%s", runtimeVersion.toLowerCase(Locale.US), runtime);
+        final String catalogName = String.format("camel-catalog-%s", runtimeVersion.toLowerCase(Locale.US));
 
         try {
             RuntimeSpec.Builder runtimeSpec = new RuntimeSpec.Builder()
-                .version(runtimeVersion)
-                .provider(runtime);
+                .version(runtimeVersion);
 
             MavenSupport.getVersion(
                 AbstractCamelContext.class,
@@ -114,80 +111,38 @@ public class GenerateCatalogMojo extends AbstractMojo {
                 "org.apache.camel.quarkus", "camel-quarkus-catalog",
                 version -> runtimeSpec.putMetadata("camel-quarkus.version", version));
 
-            switch (runtime) {
-                case "main":
-                    catalog.setRuntimeProvider(new DefaultRuntimeProvider());
-                    runtimeSpec.applicationClass("org.apache.camel.k.main.Application");
-                    runtimeSpec.addDependency("org.apache.camel.k", "camel-k-runtime-main");
-                    runtimeSpec.putCapability(
-                        "cron",
-                        CamelCapability.forArtifact(
-                            "org.apache.camel.k", "camel-k-runtime-cron"));
-                    runtimeSpec.putCapability(
-                        "health",
-                        CamelCapability.forArtifact(
-                            "org.apache.camel.k", "camel-k-runtime-health"));
-                    runtimeSpec.putCapability(
-                        "platform-http",
-                        CamelCapability.forArtifact(
-                            "org.apache.camel.k", "camel-k-runtime-http"));
-                    runtimeSpec.putCapability(
-                        "rest",
-                        new CamelCapability.Builder()
-                            .addDependency("org.apache.camel", "camel-rest")
-                            .addDependency("org.apache.camel.k", "camel-k-runtime-http")
-                            .build());
-                    runtimeSpec.putCapability(
-                        "circuit-breaker",
-                        CamelCapability.forArtifact(
-                            "org.apache.camel", "camel-microprofile-fault-tolerance"));
-                    runtimeSpec.putCapability(
-                        "tracing",
-                        CamelCapability.forArtifact(
-                            "org.apache.camel.k", "camel-k-runtime-tracing"));
-                    runtimeSpec.putCapability(
-                        "master",
-                        CamelCapability.forArtifact(
-                            "org.apache.camel.k", "camel-k-runtime-master"));
-                    break;
-                case "quarkus":
-                    catalog.setRuntimeProvider(new QuarkusRuntimeProvider());
-                    runtimeSpec.applicationClass("io.quarkus.runner.GeneratedMain");
-                    runtimeSpec.addDependency("org.apache.camel.k", "camel-k-runtime-quarkus");
-                    runtimeSpec.putCapability(
-                        "cron",
-                        CamelCapability.forArtifact(
-                            "org.apache.camel.k", "camel-k-quarkus-cron"));
-                    runtimeSpec.putCapability(
-                        "health",
-                        CamelCapability.forArtifact(
-                            "org.apache.camel.quarkus", "camel-quarkus-microprofile-health"));
-                    runtimeSpec.putCapability(
-                        "platform-http",
-                        CamelCapability.forArtifact(
-                            "org.apache.camel.quarkus", "camel-quarkus-platform-http"));
-                    runtimeSpec.putCapability(
-                        "rest",
-                        new CamelCapability.Builder()
-                            .addDependency("org.apache.camel.quarkus", "camel-quarkus-rest")
-                            .addDependency("org.apache.camel.quarkus", "camel-quarkus-platform-http")
-                            .build());
-                    runtimeSpec.putCapability(
-                        "circuit-breaker",
-                        CamelCapability.forArtifact(
-                            "org.apache.camel.quarkus", "camel-quarkus-microprofile-fault-tolerance"));
-                    runtimeSpec.putCapability(
-                        "tracing",
-                        CamelCapability.forArtifact(
-                            "org.apache.camel.quarkus", "camel-quarkus-opentracing"));
-                    runtimeSpec.putCapability(
-                        "master",
-                        CamelCapability.forArtifact(
-                            "org.apache.camel.k", "camel-k-quarkus-master"));
-                    break;
-                default:
-                    throw new IllegalArgumentException("catalog.runtime parameter value [" + runtime + "] is not supported!");
-            }
+            runtimeSpec.applicationClass("io.quarkus.runner.GeneratedMain");
+            runtimeSpec.addDependency("org.apache.camel.k", "camel-k-runtime-quarkus");
+            runtimeSpec.putCapability(
+                "cron",
+                CamelCapability.forArtifact(
+                    "org.apache.camel.k", "camel-k-quarkus-cron"));
+            runtimeSpec.putCapability(
+                "health",
+                CamelCapability.forArtifact(
+                    "org.apache.camel.quarkus", "camel-quarkus-microprofile-health"));
+            runtimeSpec.putCapability(
+                "platform-http",
+                CamelCapability.forArtifact(
+                    "org.apache.camel.quarkus", "camel-quarkus-platform-http"));
+            runtimeSpec.putCapability(
+                "rest",
+                new CamelCapability.Builder()
+                    .addDependency("org.apache.camel.quarkus", "camel-quarkus-rest")
+                    .addDependency("org.apache.camel.quarkus", "camel-quarkus-platform-http")
+                    .build());
+            runtimeSpec.putCapability(
+                "circuit-breaker",
+                CamelCapability.forArtifact(
+                    "org.apache.camel.quarkus", "camel-quarkus-microprofile-fault-tolerance"));
+            runtimeSpec.putCapability(
+                "tracing",
+                CamelCapability.forArtifact(
+                    "org.apache.camel.quarkus", "camel-quarkus-opentracing"));
+            runtimeSpec.putCapability(
+                "master",
+                CamelCapability.forArtifact(
+                    "org.apache.camel.k", "camel-k-quarkus-master"));
 
             CamelCatalogSpec.Builder catalogSpec = new CamelCatalogSpec.Builder()
                 .runtime(runtimeSpec.build());
@@ -203,8 +158,7 @@ public class GenerateCatalogMojo extends AbstractMojo {
                 .putLabels("app", "camel-k")
                 .putLabels("camel.apache.org/catalog.version", catalog.getCatalogVersion())
                 .putLabels("camel.apache.org/catalog.loader.version", catalog.getLoadedVersion())
-                .putLabels("camel.apache.org/runtime.version", runtimeVersion)
-                .putLabels("camel.apache.org/runtime.provider", runtime);
+                .putLabels("camel.apache.org/runtime.version", runtimeVersion);
 
             CamelCatalog cr = new CamelCatalog.Builder()
                 .metadata(metadata.build())

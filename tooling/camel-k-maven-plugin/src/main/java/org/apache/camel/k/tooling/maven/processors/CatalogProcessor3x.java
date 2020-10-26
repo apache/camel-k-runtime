@@ -24,8 +24,6 @@ import java.util.Objects;
 
 import com.vdurmont.semver4j.Semver;
 import org.apache.camel.catalog.CamelCatalog;
-import org.apache.camel.catalog.DefaultRuntimeProvider;
-import org.apache.camel.catalog.quarkus.QuarkusRuntimeProvider;
 import org.apache.camel.k.tooling.maven.model.CamelArtifact;
 import org.apache.camel.k.tooling.maven.model.CamelLoader;
 import org.apache.camel.k.tooling.maven.model.CamelScheme;
@@ -100,7 +98,7 @@ public class CatalogProcessor3x implements CatalogProcessor {
         processComponents(catalog, artifacts);
         processLanguages(catalog, artifacts);
         processDataFormats(catalog, artifacts);
-        processLoaders(catalog, specBuilder);
+        processLoaders(specBuilder);
 
         artifacts.computeIfPresent("camel-http",
             (key, artifact) -> new CamelArtifact.Builder()
@@ -111,41 +109,73 @@ public class CatalogProcessor3x implements CatalogProcessor {
 
         specBuilder.putAllArtifacts(artifacts);
 
-        specBuilder.putArtifact("org.apache.camel.k", "camel-k-loader-yaml");
-        specBuilder.putArtifact("org.apache.camel.k", "camel-k-loader-groovy");
-        specBuilder.putArtifact("org.apache.camel.k", "camel-k-loader-kotlin");
-        specBuilder.putArtifact("org.apache.camel.k", "camel-k-loader-js");
-        specBuilder.putArtifact("org.apache.camel.k", "camel-k-loader-xml");
-        specBuilder.putArtifact("org.apache.camel.k", "camel-k-loader-java");
-
         specBuilder.putArtifact(
             new CamelArtifact.Builder()
                 .groupId("org.apache.camel.k")
-                .artifactId("camel-k-runtime-main")
+                .artifactId("camel-k-quarkus-cron")
+                .addScheme(new CamelScheme.Builder()
+                    .id("cron")
+                    .http(true)
+                    .build())
                 .build()
         );
         specBuilder.putArtifact(
             new CamelArtifact.Builder()
                 .groupId("org.apache.camel.k")
-                .artifactId("camel-k-runtime-health")
+                .artifactId("camel-k-quarkus-kamelet")
+                .addScheme(new CamelScheme.Builder()
+                    .id("kamelet")
+                    .http(false)
+                    .passive(true)
+                    .build())
                 .build()
         );
         specBuilder.putArtifact(
             new CamelArtifact.Builder()
                 .groupId("org.apache.camel.k")
-                .artifactId("camel-k-runtime-http")
+                .artifactId("camel-k-quarkus-knative")
+                .addScheme(new CamelScheme.Builder()
+                    .id("knative")
+                    .http(true)
+                    .build())
                 .build()
         );
         specBuilder.putArtifact(
             new CamelArtifact.Builder()
                 .groupId("org.apache.camel.k")
-                .artifactId("camel-k-runtime-webhook")
+                .artifactId("camel-k-quarkus-webhook")
+                .addScheme(new CamelScheme.Builder()
+                    .id("wrap")
+                    .build())
                 .build()
         );
         specBuilder.putArtifact(
             new CamelArtifact.Builder()
                 .groupId("org.apache.camel.k")
-                .artifactId("camel-k-runtime-cron")
+                .artifactId("camel-k-quarkus-master")
+                .addScheme(new CamelScheme.Builder()
+                    .id("master")
+                    .build())
+                .build()
+        );
+        specBuilder.putArtifact(
+            new CamelArtifact.Builder()
+                .groupId("org.apache.camel.k")
+                .artifactId("camel-k-quarkus-webhook")
+                .addScheme(new CamelScheme.Builder()
+                    .id("webhook")
+                    .http(true)
+                    .passive(true)
+                    .build())
+                .build()
+        );
+        specBuilder.putArtifact(
+            new CamelArtifact.Builder()
+                .groupId("org.apache.camel.k")
+                .artifactId("camel-k-quarkus-wrap")
+                .addScheme(new CamelScheme.Builder()
+                    .id("wrap")
+                    .build())
                 .build()
         );
 
@@ -154,33 +184,6 @@ public class CatalogProcessor3x implements CatalogProcessor {
                 .groupId("org.apache.camel.k")
                 .artifactId("camel-k-runtime-knative")
                 .addDependencies(
-                    () -> catalog.getRuntimeProvider() instanceof DefaultRuntimeProvider,
-                    MavenArtifact.from("org.apache.camel.k", "camel-k-loader-yaml"),
-                    MavenArtifact.from("org.apache.camel.k", "camel-knative-api"),
-                    MavenArtifact.from("org.apache.camel.k", "camel-knative"),
-                    MavenArtifact.from("org.apache.camel.k", "camel-knative-http"))
-                .addDependencies(
-                    () -> catalog.getRuntimeProvider() instanceof QuarkusRuntimeProvider,
-                    MavenArtifact.from("org.apache.camel.k", "camel-k-quarkus-knative"),
-                    MavenArtifact.from("org.apache.camel.k", "camel-k-quarkus-loader-yaml"))
-                .build()
-        );
-
-        specBuilder.putArtifact(
-            new CamelArtifact.Builder()
-                .groupId("org.apache.camel.k")
-                .artifactId("camel-knative")
-                .addScheme(new CamelScheme.Builder()
-                    .id("knative")
-                    .http(true)
-                    .build())
-                .addDependencies(
-                    () -> catalog.getRuntimeProvider() instanceof DefaultRuntimeProvider,
-                    MavenArtifact.from("org.apache.camel.k", "camel-knative-api"),
-                    MavenArtifact.from("org.apache.camel.k", "camel-knative"),
-                    MavenArtifact.from("org.apache.camel.k", "camel-knative-http"))
-                .addDependencies(
-                    () -> catalog.getRuntimeProvider() instanceof QuarkusRuntimeProvider,
                     MavenArtifact.from("org.apache.camel.k", "camel-k-quarkus-knative"))
                 .build()
         );
@@ -188,120 +191,61 @@ public class CatalogProcessor3x implements CatalogProcessor {
         specBuilder.putArtifact(
             new CamelArtifact.Builder()
                 .groupId("org.apache.camel.k")
-                .artifactId("camel-kamelet")
-                .addScheme(new CamelScheme.Builder()
-                    .id("kamelet")
-                    .http(false)
-                    .passive(true)
-                    .build())
-                .addDependencies(
-                    () -> catalog.getRuntimeProvider() instanceof DefaultRuntimeProvider,
-                    MavenArtifact.from("org.apache.camel.k", "camel-kamelet"))
-                .addDependencies(
-                    () -> catalog.getRuntimeProvider() instanceof QuarkusRuntimeProvider,
-                    MavenArtifact.from("org.apache.camel.k", "camel-k-quarkus-kamelet"))
+                .artifactId("camel-k-runtime-quarkus")
                 .build()
         );
 
         specBuilder.putArtifact(
             new CamelArtifact.Builder()
                 .groupId("org.apache.camel.k")
-                .artifactId("camel-wrap")
-                .addScheme(new CamelScheme.Builder()
-                    .id("wrap")
-                    .build())
-                .addDependencies(
-                    () -> catalog.getRuntimeProvider() instanceof DefaultRuntimeProvider,
-                    MavenArtifact.from("org.apache.camel.k", "camel-wrap"))
-                .addDependencies(
-                    () -> catalog.getRuntimeProvider() instanceof QuarkusRuntimeProvider,
-                    MavenArtifact.from("org.apache.camel.k", "camel-k-quarkus-wrap"))
+                .artifactId("camel-k-quarkus-core")
                 .build()
         );
     }
 
-    private static void processLoaders(CamelCatalog catalog, CamelCatalogSpec.Builder specBuilder) {
-        if (catalog.getRuntimeProvider() instanceof QuarkusRuntimeProvider) {
-            specBuilder.putLoader(
-                "yaml",
-                CamelLoader.fromArtifact("org.apache.camel.k", "camel-k-quarkus-loader-yaml")
-                    .addLanguage("yaml")
-                    .putMetadata("native", "true")
-                    .build()
-            );
-            specBuilder.putLoader(
-                "groovy",
-                CamelLoader.fromArtifact("org.apache.camel.k", "camel-k-quarkus-loader-groovy")
-                    .addLanguage("groovy")
-                    .putMetadata("native", "false")
-                    .build()
-            );
-            specBuilder.putLoader(
-                "kts",
-                CamelLoader.fromArtifact("org.apache.camel.k", "camel-k-quarkus-loader-kotlin")
-                    .addLanguage("kts")
-                    .putMetadata("native", "false")
-                    .build()
-            );
-            specBuilder.putLoader(
-                "js",
-                CamelLoader.fromArtifact("org.apache.camel.k", "camel-k-quarkus-loader-js")
-                    .addLanguage("js")
-                    .putMetadata("native", "true")
-                    .build()
-            );
-            specBuilder.putLoader(
-                "xml",
-                CamelLoader.fromArtifact("org.apache.camel.k", "camel-k-quarkus-loader-xml")
-                    .addLanguage("xml")
-                    .putMetadata("native", "true")
-                    .build()
-            );
-            specBuilder.putLoader(
-                "java",
-                CamelLoader.fromArtifact("org.apache.camel.k", "camel-k-quarkus-loader-java")
-                    .addLanguage("java")
-                    .putMetadata("native", "false")
-                    .build()
-            );
-        } else {
-            specBuilder.putLoader(
-                "yaml",
-                CamelLoader.fromArtifact("org.apache.camel.k", "camel-k-loader-yaml")
-                    .addLanguage("yaml")
-                    .build()
-            );
-            specBuilder.putLoader(
-                "groovy",
-                CamelLoader.fromArtifact("org.apache.camel.k", "camel-k-loader-groovy")
-                    .addLanguage("groovy")
-                    .build()
-            );
-            specBuilder.putLoader(
-                "kts",
-                CamelLoader.fromArtifact("org.apache.camel.k", "camel-k-loader-kotlin")
-                    .addLanguage("kts")
-                    .build()
-            );
-            specBuilder.putLoader(
-                "js",
-                CamelLoader.fromArtifact("org.apache.camel.k", "camel-k-loader-js")
-                    .addLanguage("js")
-                    .build()
-            );
-            specBuilder.putLoader(
-                "xml",
-                CamelLoader.fromArtifact("org.apache.camel.k", "camel-k-loader-xml")
-                    .addLanguage("xml")
-                    .build()
-            );
-            specBuilder.putLoader(
-                "java",
-                CamelLoader.fromArtifact("org.apache.camel.k", "camel-k-loader-java")
-                    .addLanguage("java")
-                    .build()
-            );
-        }
+    private static void processLoaders(CamelCatalogSpec.Builder specBuilder) {
+        specBuilder.putLoader(
+            "yaml",
+            CamelLoader.fromArtifact("org.apache.camel.k", "camel-k-quarkus-loader-yaml")
+                .addLanguage("yaml")
+                .putMetadata("native", "true")
+                .build()
+        );
+        specBuilder.putLoader(
+            "groovy",
+            CamelLoader.fromArtifact("org.apache.camel.k", "camel-k-quarkus-loader-groovy")
+                .addLanguage("groovy")
+                .putMetadata("native", "false")
+                .build()
+        );
+        specBuilder.putLoader(
+            "kts",
+            CamelLoader.fromArtifact("org.apache.camel.k", "camel-k-quarkus-loader-kotlin")
+                .addLanguage("kts")
+                .putMetadata("native", "false")
+                .build()
+        );
+        specBuilder.putLoader(
+            "js",
+            CamelLoader.fromArtifact("org.apache.camel.k", "camel-k-quarkus-loader-js")
+                .addLanguage("js")
+                .putMetadata("native", "true")
+                .build()
+        );
+        specBuilder.putLoader(
+            "xml",
+            CamelLoader.fromArtifact("org.apache.camel.k", "camel-k-quarkus-loader-xml")
+                .addLanguage("xml")
+                .putMetadata("native", "true")
+                .build()
+        );
+        specBuilder.putLoader(
+            "java",
+            CamelLoader.fromArtifact("org.apache.camel.k", "camel-k-quarkus-loader-java")
+                .addLanguage("java")
+                .putMetadata("native", "false")
+                .build()
+        );
     }
 
     private static void processComponents(CamelCatalog catalog, Map<String, CamelArtifact> artifacts) {

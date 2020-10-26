@@ -28,7 +28,33 @@
 
     <artifactId>camel-k-quarkus-itests</artifactId>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-quarkus-itests-loader-support</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-quarkus-itests-runtime-support</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-quarkus-itests-bootstrap</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-quarkus-itests-bootstrap-deployment</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <modules>
+        <module>camel-k-quarkus-itests-bootstrap</module>
+
         <module>camel-k-quarkus-itests-core</module>
         <module>camel-k-quarkus-itests-loader-support</module>
         <module>camel-k-quarkus-itests-loader-groovy</module>
@@ -38,12 +64,20 @@
         <module>camel-k-quarkus-itests-loader-xml</module>
         <module>camel-k-quarkus-itests-loader-yaml</module>
         <module>camel-k-quarkus-itests-polyglot</module>
+
+        <module>camel-k-quarkus-itests-runtime-support</module>
         <module>camel-k-quarkus-itests-runtime</module>
+        <module>camel-k-quarkus-itests-runtime-xml</module>
+        <module>camel-k-quarkus-itests-runtime-yaml</module>
+
         <module>camel-k-quarkus-itests-cron</module>
         <module>camel-k-quarkus-itests-master</module>
         <module>camel-k-quarkus-itests-knative</module>
+        <module>camel-k-quarkus-itests-knative-sinkbinding</module>
+        <module>camel-k-quarkus-itests-knative-source</module>
         <module>camel-k-quarkus-itests-kamelet</module>
         <module>camel-k-quarkus-itests-wrap</module>
+        <module>camel-k-quarkus-itests-webhook</module>
     </modules>
 
 </project>

@@ -16,6 +16,9 @@
  */
 package org.apache.camel.k.quarkus.it;
 
+import java.util.Collections;
+import java.util.Map;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -27,10 +30,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.component.properties.PropertiesComponent;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.main.BaseMainSupport;
 import org.apache.camel.quarkus.main.CamelMain;
-import org.eclipse.microprofile.config.Config;
 
 import static org.apache.camel.k.quarkus.Application.instance;
 
@@ -38,16 +41,40 @@ import static org.apache.camel.k.quarkus.Application.instance;
 @ApplicationScoped
 public class Application {
     @Inject
-    Config config;
+    CamelContext camelContext;
 
     @GET
     @Path("/inspect")
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject inspect() {
         return Json.createObjectBuilder()
-            .add("camel-context", instance(CamelContext.class).map(Object::getClass).map(Class::getName).orElse(""))
-            .add("camel-k-runtime", instance(Runtime.class).map(Object::getClass).map(Class::getName).orElse(""))
-            .add("routes-collector", instance(CamelMain.class).map(BaseMainSupport::getRoutesCollector).map(Object::getClass).map(Class::getName).orElse(""))
+            .add(
+                "camel-context",
+                instance(CamelContext.class).map(Object::getClass).map(Class::getName).orElse(""))
+            .add(
+                "camel-k-runtime",
+                instance(Runtime.class).map(Object::getClass).map(Class::getName).orElse(""))
+            .add(
+                "routes-collector",
+                instance(CamelMain.class).map(BaseMainSupport::getRoutesCollector).map(Object::getClass).map(Class::getName).orElse(""))
+            .add(
+                "properties-locations",
+                Json.createArrayBuilder(instance(CamelContext.class)
+                    .map(CamelContext::getPropertiesComponent)
+                    .map(PropertiesComponent.class::cast)
+                    .map(PropertiesComponent::getLocations)
+                    .orElseGet(Collections::emptyList)))
+            .build();
+    }
+
+    @GET
+    @Path("/inspect/context")
+    @Produces(MediaType.APPLICATION_JSON)
+    public JsonObject inspectContext() {
+        return Json.createObjectBuilder()
+            .add("message-history", camelContext.isMessageHistory())
+            .add("load-type-converters", camelContext.isLoadTypeConverters())
+            .add("name", camelContext.getName())
             .build();
     }
 
@@ -55,6 +82,35 @@ public class Application {
     @Path("/property/{name}")
     @Produces(MediaType.TEXT_PLAIN)
     public String property(@PathParam("name") String name) {
-        return config.getValue(name, String.class);
+        return instance(CamelContext.class)
+            .map(CamelContext::getPropertiesComponent)
+            .map(PropertiesComponent.class::cast)
+            .flatMap(pc -> pc.resolveProperty(name)).orElse("");
+    }
+
+    @GET
+    @Path("/initial-property/{name}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String initialProperty(@PathParam("name") String name) {
+        return (String)instance(CamelContext.class)
+            .map(CamelContext::getPropertiesComponent)
+            .map(PropertiesComponent.class::cast)
+            .map(pc -> pc.getInitialProperties().get(name))
+            .orElse("");
+    }
+
+    @SuppressWarnings("unchecked")
+    @GET
+    @Path("/initial-properties")
+    @Produces(MediaType.APPLICATION_JSON)
+    public JsonObject initialProperties() {
+        return Json.createObjectBuilder(
+            instance(CamelContext.class)
+                .map(CamelContext::getPropertiesComponent)
+                .map(PropertiesComponent.class::cast)
+                .map(PropertiesComponent::getInitialProperties)
+                .map(Map.class::cast)
+                .orElseGet(Collections::emptyMap)
+        ).build();
     }
 }

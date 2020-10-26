@@ -58,49 +58,6 @@
             <artifactId>camel-k-annotations</artifactId>
             <scope>provided</scope>
         </dependency>
-
-        <!-- ****************************** -->
-        <!--                                -->
-        <!-- TESTS                          -->
-        <!--                                -->
-        <!-- ****************************** -->
-
-        <dependency>
-            <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-loader-js</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-runtime-main</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-rest</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-undertow</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-log</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-timer</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>

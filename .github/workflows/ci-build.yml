@@ -42,8 +42,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      MAVEN_OPTS: -Xmx3000m
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 11
@@ -83,16 +81,48 @@ jobs:
       matrix:
         native-image-project:
           - :camel-k-quarkus-itests-core
-          - :camel-k-quarkus-itests-runtime
           - :camel-k-quarkus-itests-cron
-          - :camel-k-quarkus-itests-master
           - :camel-k-quarkus-itests-kamelet
           - :camel-k-quarkus-itests-knative
-          - :camel-k-quarkus-itests-wrap
+          - :camel-k-quarkus-itests-knative-sinkbinding
           - :camel-k-quarkus-itests-loader-xml
           - :camel-k-quarkus-itests-loader-yaml
           - :camel-k-quarkus-itests-loader-js
+          - :camel-k-quarkus-itests-master
           - :camel-k-quarkus-itests-polyglot
+          - :camel-k-quarkus-itests-runtime
+          - :camel-k-quarkus-itests-runtime-xml
+          - :camel-k-quarkus-itests-runtime-yaml
+          - :camel-k-quarkus-itests-wrap
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up JDK 11
+        uses: AdoptOpenJDK/install-jdk@v1
+        with:
+          version: '11'
+      - name: Download Maven Repo
+        uses: actions/download-artifact@v1
+        with:
+          name: maven-repo-${{ github.run_id }}-${{ github.run_number }}
+          path: .
+      - name: Extract Maven Repo
+        shell: bash
+        run: tar -xzf maven-repo-${{ github.run_id }}-${{ github.run_number }}.tgz -C ~
+      - name: Integration Test - ${{ matrix.native-image-project }}
+        run: |
+          ./mvnw ${MAVEN_ARGS} -B -nsu clean install \
+            -Dnative \
+            -Dnative-image.xmx=6g \
+            -Ddocker \
+            -pl ${{ matrix.native-image-project }}
+  build-native-examples:
+    runs-on: ubuntu-latest
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        native-image-project:
           - :camel-k-runtime-example-quarkus-xml
           - :camel-k-runtime-example-quarkus-yaml
           - :camel-k-runtime-example-quarkus-knative
@@ -120,7 +150,9 @@ jobs:
             -pl ${{ matrix.native-image-project }}
   deploy:
     runs-on: ubuntu-latest
-    needs: build-native
+    needs:
+      - build-native
+      - build-native-examples
     if: github.ref == 'refs/heads/master'
     env:
       NEXUS_DEPLOY_USERNAME: ${{ secrets.NEXUS_USER }}

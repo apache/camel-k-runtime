@@ -16,22 +16,26 @@
  */
 package org.apache.camel.k.quarkus.it;
 
+import java.util.Map;
+
 import javax.ws.rs.core.MediaType;
 
 import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import org.apache.camel.k.quarkus.Application;
+import org.apache.camel.k.support.PropertiesSupport;
 import org.apache.camel.quarkus.core.FastCamelContext;
 import org.junit.jupiter.api.Test;
 
+import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 public class RuntimeTest {
     @Test
     public void inspect() {
-        JsonPath p = RestAssured.given()
+        JsonPath p = given()
             .accept(MediaType.APPLICATION_JSON)
             .get("/test/inspect")
             .then()
@@ -40,22 +44,39 @@ public class RuntimeTest {
                 .body()
                 .jsonPath();
 
-        assertThat(p.getString("camel-context")).isEqualTo(FastCamelContext.class.getName());
-        assertThat(p.getString("camel-k-runtime")).isEqualTo(Application.Runtime.class.getName());
-        assertThat(p.getString("routes-collector")).isEqualTo(Application.NoRoutesCollector.class.getName());
+        assertThat(p.getString("camel-context"))
+            .isEqualTo(FastCamelContext.class.getName());
+        assertThat(p.getString("camel-k-runtime"))
+            .isEqualTo(Application.Runtime.class.getName());
+        assertThat(p.getString("routes-collector"))
+            .isEqualTo(Application.NoRoutesCollector.class.getName());
+        assertThat(p.getList("properties-locations", String.class))
+            .contains("file:" + System.getProperty("camel.k.conf.d", System.getenv("CAMEL_K_CONF_D")) + "/001/conf.properties")
+            .contains("file:" + System.getProperty("camel.k.conf.d", System.getenv("CAMEL_K_CONF_D")) + "/002/conf.properties");
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void initialProperties() {
+        Map<String, String> initialProperties = given()
+            .accept(MediaType.APPLICATION_JSON)
+            .get("/test/initial-properties")
+            .then()
+            .statusCode(200)
+            .extract()
+                .body().jsonPath().getMap(".", String.class, String.class);
+
+        assertThat(initialProperties).containsExactlyEntriesOf((Map)PropertiesSupport.loadApplicationProperties());
+        assertThat(initialProperties).containsEntry("root.key", "root.value");
+        assertThat(initialProperties).containsEntry("a.key", "a.root");
     }
 
     @Test
-    public void configSourceProvider() {
-        String result = RestAssured.given()
-            .accept(MediaType.TEXT_PLAIN)
-            .get("/test/property/quarkus.my-property")
-            .then()
-                .statusCode(200)
-            .extract()
-                .body()
-                .asString();
-
-        assertThat(result).isEqualTo("my-test-value");
+    public void properties() {
+        given().get("/test/property/my-property").then().statusCode(200).body(is("my-test-value"));
+        given().get("/test/property/root.key").then().statusCode(200).body(is("root.value"));
+        given().get("/test/property/001.key").then().statusCode(200).body(is("001.value"));
+        given().get("/test/property/002.key").then().statusCode(200).body(is("002.value"));
+        given().get("/test/property/a.key").then().statusCode(200).body(is("a.002"));
     }
 }

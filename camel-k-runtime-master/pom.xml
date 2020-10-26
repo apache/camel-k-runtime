@@ -58,33 +58,6 @@
             <artifactId>camel-k-annotations</artifactId>
             <scope>provided</scope>
         </dependency>
-
-        <!-- ****************************** -->
-        <!--                                -->
-        <!-- TESTS                          -->
-        <!--                                -->
-        <!-- ****************************** -->
-
-        <dependency>
-            <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-runtime-main</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-master</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-main</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>

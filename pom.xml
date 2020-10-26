@@ -311,7 +311,6 @@
         <module>components</module>
 
         <module>camel-k-runtime-core</module>
-        <module>camel-k-main</module>
         <module>camel-k-quarkus</module>
 
         <module>camel-k-loader-groovy</module>
@@ -322,7 +321,6 @@
         <module>camel-k-loader-java</module>
 
         <module>camel-k-runtime-cron</module>
-        <module>camel-k-runtime-http</module>
         <module>camel-k-runtime-knative</module>
         <module>camel-k-runtime-master</module>
         <module>camel-k-runtime-webhook</module>
@@ -434,26 +432,6 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-runtime-main</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-runtime-health</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-runtime-tracing</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-runtime-http</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-runtime-knative</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -465,6 +443,11 @@
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-runtime-master</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-runtime-webhook</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -599,12 +582,14 @@
                 <artifactId>camel-k-quarkus-wrap-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
-            <!-- runtime - quarkus (tests)-->
-
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-itests-loader-support</artifactId>
+                <artifactId>camel-k-quarkus-webhook</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-quarkus-webhook-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

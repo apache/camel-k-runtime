@@ -32,7 +32,6 @@ import org.immutables.value.Value;
 @JsonPropertyOrder({ "version", "runtimeVersion", "artifacts" })
 public interface RuntimeSpec {
     String getVersion();
-    String getProvider();
     String getApplicationClass();
 
     @Value.Default

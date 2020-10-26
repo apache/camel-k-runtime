@@ -70,7 +70,7 @@ public class CatalogProcessor3Test extends AbstractCatalogProcessorTest {
         CatalogProcessor processor = new CatalogProcessor3x();
         CamelCatalog catalog = versionCamelCatalog("3.0.0");
 
-        RuntimeSpec runtime = new RuntimeSpec.Builder().version("1.0.0").provider("main").applicationClass("unknown").build();
+        RuntimeSpec runtime = new RuntimeSpec.Builder().version("1.0.0").applicationClass("unknown").build();
         CamelCatalogSpec.Builder builder = new CamelCatalogSpec.Builder().runtime(runtime);
 
         assertThat(processor.accepts(catalog)).isTrue();
@@ -79,25 +79,7 @@ public class CatalogProcessor3Test extends AbstractCatalogProcessorTest {
         CamelCatalogSpec spec = builder.build();
         Map<String, CamelArtifact> artifactMap = spec.getArtifacts();
 
-        assertThat(artifactMap).containsKeys("camel-k-runtime-health");
-        assertThat(artifactMap).containsKeys("camel-k-runtime-http");
-        assertThat(artifactMap).containsKeys("camel-k-runtime-webhook");
-
-        assertThat(artifactMap.get("camel-k-runtime-knative")).satisfies(a -> {
-            assertThat(a.getDependencies()).anyMatch(
-                d -> d.getGroupId().equals("org.apache.camel.k") && d.getArtifactId().equals("camel-knative-api")
-            );
-            assertThat(a.getDependencies()).anyMatch(
-                d -> d.getGroupId().equals("org.apache.camel.k") && d.getArtifactId().equals("camel-knative")
-            );
-            assertThat(a.getDependencies()).anyMatch(
-                d -> d.getGroupId().equals("org.apache.camel.k") && d.getArtifactId().equals("camel-knative-http")
-            );
-            assertThat(a.getDependencies()).anyMatch(
-                d -> d.getGroupId().equals("org.apache.camel.k") && d.getArtifactId().equals("camel-k-loader-yaml")
-            );
-        });
-
+        assertThat(artifactMap).containsKey("camel-k-quarkus-knative");
         assertThat(artifactMap.get("camel-http")).satisfies(a -> {
             assertThat(a.getDependencies()).anyMatch(
                 d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-file")
@@ -110,7 +92,7 @@ public class CatalogProcessor3Test extends AbstractCatalogProcessorTest {
         CatalogProcessor processor = new CatalogProcessor3x();
         CamelCatalog catalog = versionCamelCatalog("3.0.0");
 
-        RuntimeSpec runtime = new RuntimeSpec.Builder().version("1.0.0").provider("main").applicationClass("unknown").build();
+        RuntimeSpec runtime = new RuntimeSpec.Builder().version("1.0.0").applicationClass("unknown").build();
         CamelCatalogSpec.Builder builder = new CamelCatalogSpec.Builder().runtime(runtime);
 
         assertThat(processor.accepts(catalog)).isTrue();

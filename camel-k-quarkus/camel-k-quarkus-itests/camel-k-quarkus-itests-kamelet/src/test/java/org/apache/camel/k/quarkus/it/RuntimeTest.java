@@ -41,7 +41,7 @@ public class RuntimeTest {
             .get("/test/inspect")
             .then()
                 .statusCode(200)
-                .extract()
+            .extract()
                 .body()
                 .jsonPath();
 
@@ -54,8 +54,8 @@ public class RuntimeTest {
             .accept(MediaType.TEXT_PLAIN)
             .get("/test/execute")
             .then()
-            .statusCode(200)
-            .body(is("template"));
+                .statusCode(200)
+                .body(is("template"));
     }
 
     @Test
@@ -66,11 +66,11 @@ public class RuntimeTest {
             .body(payload)
             .header(Exchange.CONTENT_TYPE, "text/plain")
             .when()
-            .post("/test/execute/{templateId}", "to-upper")
+                .post("/test/execute/{templateId}", "to-upper")
             .then()
-            .statusCode(200)
+                .statusCode(200)
             .extract()
-            .asString();
+                .asString();
 
         assertThat(result).isEqualTo(payload.toUpperCase(Locale.US));
     }
