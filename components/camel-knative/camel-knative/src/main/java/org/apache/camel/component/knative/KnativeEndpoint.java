@@ -46,14 +46,14 @@ import org.apache.camel.util.ObjectHelper;
 @UriEndpoint(
     firstVersion = "3.0.0",
     scheme = "knative",
-    syntax = "knative:type/name",
+    syntax = "knative:type/typeId",
     title = "Knative",
     label = "cloud,eventing")
 public class KnativeEndpoint extends DefaultEndpoint {
     @UriPath(description = "The Knative resource type")
     private final Knative.Type type;
-    @UriPath(description = "The name that identifies the Knative resource")
-    private final String name;
+    @UriPath(description = "The identifier of the Knative resource")
+    private final String typeId;
     private final CloudEventProcessor cloudEvent;
     @UriParam
     private KnativeConfiguration configuration;
@@ -62,7 +62,7 @@ public class KnativeEndpoint extends DefaultEndpoint {
         super(uri, component);
 
         this.type = type;
-        this.name = name;
+        this.typeId = name;
         this.configuration = configuration;
         this.cloudEvent = CloudEventProcessors.fromSpecVersion(configuration.getCloudEventsSpecVersion());
     }
@@ -117,8 +117,8 @@ public class KnativeEndpoint extends DefaultEndpoint {
         return type;
     }
 
-    public String getName() {
-        return name;
+    public String getTypeId() {
+        return typeId;
     }
 
     public KnativeConfiguration getConfiguration() {
@@ -131,13 +131,13 @@ public class KnativeEndpoint extends DefaultEndpoint {
 
     @Override
     protected void doInit() throws Exception {
-        if (ObjectHelper.isEmpty(this.configuration .getServiceName())) {
-            this.configuration .setServiceName(this.name);
+        if (ObjectHelper.isEmpty(this.configuration.getTypeId())) {
+            this.configuration.setTypeId(this.typeId);
         }
     }
 
     KnativeEnvironment.KnativeResource lookupServiceDefinition(Knative.EndpointKind endpointKind) {
-        String serviceName = configuration.getServiceName();
+        String serviceName = configuration.getTypeId();
 
         //
         // look-up service definition by service name first then if not found try to look it up by using
@@ -229,6 +229,11 @@ public class KnativeEndpoint extends DefaultEndpoint {
 
             final String kind = s.getMetadata(Knative.KNATIVE_KIND);
             if (configuration.getKind() != null && !Objects.equals(kind, configuration.getKind())) {
+                return false;
+            }
+
+            final String name = s.getMetadata(Knative.KNATIVE_NAME);
+            if (configuration.getName() != null && !Objects.equals(name, configuration.getName())) {
                 return false;
             }
 

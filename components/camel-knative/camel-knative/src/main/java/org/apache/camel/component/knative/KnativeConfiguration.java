@@ -30,7 +30,7 @@ public class KnativeConfiguration implements Cloneable {
     @UriParam
     private KnativeEnvironment environment;
     @UriParam
-    private String serviceName;
+    private String typeId;
     @UriParam(defaultValue = "1.0", enums = "0.1,0.2,0.3,1.0")
     private String cloudEventsSpecVersion = CloudEvents.v1_0.version();
     @UriParam(defaultValue = "org.apache.camel.event")
@@ -45,6 +45,8 @@ public class KnativeConfiguration implements Cloneable {
     private String apiVersion;
     @UriParam(label = "advanced")
     private String kind;
+    @UriParam(label = "advanced")
+    private String name;
     @UriParam(label = "consumer", defaultValue = "false")
     private boolean replyWithCloudEvent;
     @UriParam(label = "consumer,advanced", defaultValue = "true")
@@ -67,15 +69,15 @@ public class KnativeConfiguration implements Cloneable {
         this.environment = environment;
     }
 
-    public String getServiceName() {
-        return serviceName;
+    public String getTypeId() {
+        return typeId;
     }
 
     /**
      * The name of the service to lookup from the {@link KnativeEnvironment}.
      */
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
+    public void setTypeId(String typeId) {
+        this.typeId = typeId;
     }
 
     public boolean isReplyWithCloudEvent() {
@@ -181,6 +183,17 @@ public class KnativeConfiguration implements Cloneable {
      */
     public void setKind(String kind) {
         this.kind = kind;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * The name of the k8s resource referenced by the endpoint.
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Boolean getReply() {

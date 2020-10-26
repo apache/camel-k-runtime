@@ -19,13 +19,12 @@ public class KnativeEndpointConfigurer extends PropertyConfigurerSupport impleme
     static {
         Map<String, Object> map = new CaseInsensitiveMap();
         map.put("type", org.apache.camel.component.knative.spi.Knative.Type.class);
-        map.put("name", java.lang.String.class);
+        map.put("typeId", java.lang.String.class);
         map.put("ceOverride", java.util.Map.class);
         map.put("cloudEventsSpecVersion", java.lang.String.class);
         map.put("cloudEventsType", java.lang.String.class);
         map.put("environment", org.apache.camel.component.knative.spi.KnativeEnvironment.class);
         map.put("filters", java.util.Map.class);
-        map.put("serviceName", java.lang.String.class);
         map.put("transportOptions", java.util.Map.class);
         map.put("bridgeErrorHandler", boolean.class);
         map.put("replyWithCloudEvent", boolean.class);
@@ -36,6 +35,7 @@ public class KnativeEndpointConfigurer extends PropertyConfigurerSupport impleme
         map.put("apiVersion", java.lang.String.class);
         map.put("basicPropertyBinding", boolean.class);
         map.put("kind", java.lang.String.class);
+        map.put("name", java.lang.String.class);
         map.put("synchronous", boolean.class);
         ALL_OPTIONS = map;
     }
@@ -65,11 +65,10 @@ public class KnativeEndpointConfigurer extends PropertyConfigurerSupport impleme
         case "kind": target.getConfiguration().setKind(property(camelContext, java.lang.String.class, value)); return true;
         case "lazystartproducer":
         case "lazyStartProducer": target.setLazyStartProducer(property(camelContext, boolean.class, value)); return true;
+        case "name": target.getConfiguration().setName(property(camelContext, java.lang.String.class, value)); return true;
         case "reply": target.getConfiguration().setReply(property(camelContext, java.lang.Boolean.class, value)); return true;
         case "replywithcloudevent":
         case "replyWithCloudEvent": target.getConfiguration().setReplyWithCloudEvent(property(camelContext, boolean.class, value)); return true;
-        case "servicename":
-        case "serviceName": target.getConfiguration().setServiceName(property(camelContext, java.lang.String.class, value)); return true;
         case "synchronous": target.setSynchronous(property(camelContext, boolean.class, value)); return true;
         case "transportoptions":
         case "transportOptions": target.getConfiguration().setTransportOptions(property(camelContext, java.util.Map.class, value)); return true;
@@ -107,11 +106,10 @@ public class KnativeEndpointConfigurer extends PropertyConfigurerSupport impleme
         case "kind": return target.getConfiguration().getKind();
         case "lazystartproducer":
         case "lazyStartProducer": return target.isLazyStartProducer();
+        case "name": return target.getConfiguration().getName();
         case "reply": return target.getConfiguration().getReply();
         case "replywithcloudevent":
         case "replyWithCloudEvent": return target.getConfiguration().isReplyWithCloudEvent();
-        case "servicename":
-        case "serviceName": return target.getConfiguration().getServiceName();
         case "synchronous": return target.isSynchronous();
         case "transportoptions":
         case "transportOptions": return target.getConfiguration().getTransportOptions();
