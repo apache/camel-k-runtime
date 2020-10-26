@@ -28,6 +28,7 @@ public final class Knative {
     public static final String KNATIVE_TYPE = "knative.type";
     public static final String KNATIVE_EVENT_TYPE = "knative.event.type";
     public static final String KNATIVE_KIND = "knative.kind";
+    public static final String KNATIVE_NAME = "knative.name";
     public static final String KNATIVE_API_VERSION = "knative.apiVersion";
     public static final String KNATIVE_REPLY = "knative.reply";
     public static final String CONTENT_TYPE = "content.type";

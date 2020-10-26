@@ -38,6 +38,7 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.knative.KnativeComponent;
+import org.apache.camel.component.knative.KnativeEndpoint;
 import org.apache.camel.component.knative.spi.CloudEvent;
 import org.apache.camel.component.knative.spi.CloudEvents;
 import org.apache.camel.component.knative.spi.Knative;
@@ -1061,7 +1062,7 @@ public class KnativeHttpTest {
 
     @ParameterizedTest
     @EnumSource(CloudEvents.class)
-    void testEventsWithTypeAndVersion(CloudEvent ce) throws Exception {
+    void testEventsWithResourceRef(CloudEvent ce) throws Exception {
         configureKnativeComponent(
             context,
             ce,
@@ -1073,7 +1074,8 @@ public class KnativeHttpTest {
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain",
                     Knative.KNATIVE_KIND, "MyObject",
-                    Knative.KNATIVE_API_VERSION, "v1"
+                    Knative.KNATIVE_API_VERSION, "v1",
+                    Knative.KNATIVE_NAME, "myName1"
                 )),
             sourceEvent(
                 "default",
@@ -1081,18 +1083,32 @@ public class KnativeHttpTest {
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain",
                     Knative.KNATIVE_KIND, "MyOtherObject",
-                    Knative.KNATIVE_API_VERSION, "v2"
+                    Knative.KNATIVE_API_VERSION, "v2",
+                    Knative.KNATIVE_NAME, "myName2"
                 ))
         );
 
         RouteBuilder.addRoutes(context, b -> {
             b.from("direct:source")
-                .to("knative:event/myEvent?kind=MyObject&apiVersion=v1");
-            b.from("knative:event/myEvent?kind=MyOtherObject&apiVersion=v2")
+                .to("knative:event/myEvent?kind=MyObject&apiVersion=v1&name=myName1");
+            b.from("knative:event/myEvent?kind=MyOtherObject&apiVersion=v2&name=myName2")
                 .to("mock:ce");
         });
 
         context.start();
+
+        assertThat(context.getEndpoint("knative:event/myEvent?kind=MyObject&apiVersion=v1&name=myName1", KnativeEndpoint.class)).satisfies(e -> {
+            assertThat(e.getType()).isEqualTo(Knative.Type.event);
+            assertThat(e.getTypeId()).isEqualTo("myEvent");
+            assertThat(e.getConfiguration().getTypeId()).isEqualTo("myEvent");
+            assertThat(e.getConfiguration().getName()).isEqualTo("myName1");
+        });
+        assertThat(context.getEndpoint("knative:event/myEvent?kind=MyOtherObject&apiVersion=v2&name=myName2", KnativeEndpoint.class)).satisfies(e -> {
+            assertThat(e.getType()).isEqualTo(Knative.Type.event);
+            assertThat(e.getTypeId()).isEqualTo("myEvent");
+            assertThat(e.getConfiguration().getTypeId()).isEqualTo("myEvent");
+            assertThat(e.getConfiguration().getName()).isEqualTo("myName2");
+        });
 
         MockEndpoint mock = context.getEndpoint("mock:ce", MockEndpoint.class);
         mock.expectedHeaderReceived(CloudEvent.CAMEL_CLOUD_EVENT_VERSION, ce.version());
@@ -1110,7 +1126,7 @@ public class KnativeHttpTest {
 
     @ParameterizedTest
     @EnumSource(CloudEvents.class)
-    void testConsumeContentWithTypeAndVersion(CloudEvent ce) throws Exception {
+    void testConsumeContentWithResourceRef(CloudEvent ce) throws Exception {
         configureKnativeComponent(
             context,
             ce,
@@ -1120,7 +1136,8 @@ public class KnativeHttpTest {
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain",
                     Knative.KNATIVE_KIND, "MyObject",
-                    Knative.KNATIVE_API_VERSION, "v1"
+                    Knative.KNATIVE_API_VERSION, "v1",
+                    Knative.KNATIVE_NAME, "myName1"
                 )),
             sourceEndpoint(
                 "myEndpoint",
@@ -1128,16 +1145,24 @@ public class KnativeHttpTest {
                     Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain",
                     Knative.KNATIVE_KIND, "MyObject",
-                    Knative.KNATIVE_API_VERSION, "v2"
+                    Knative.KNATIVE_API_VERSION, "v2",
+                    Knative.KNATIVE_NAME, "myName2"
                 ))
         );
 
         RouteBuilder.addRoutes(context, b -> {
-            b.from("knative:endpoint/myEndpoint?kind=MyObject&apiVersion=v2")
+            b.from("knative:endpoint/myEndpoint?kind=MyObject&apiVersion=v2&name=myName2")
                 .to("mock:ce");
         });
 
         context.start();
+
+        assertThat(context.getEndpoint("knative:endpoint/myEndpoint?kind=MyObject&apiVersion=v2&name=myName2", KnativeEndpoint.class)).satisfies(e -> {
+            assertThat(e.getType()).isEqualTo(Knative.Type.endpoint);
+            assertThat(e.getTypeId()).isEqualTo("myEndpoint");
+            assertThat(e.getConfiguration().getTypeId()).isEqualTo("myEndpoint");
+            assertThat(e.getConfiguration().getName()).isEqualTo("myName2");
+        });
 
         MockEndpoint mock = context.getEndpoint("mock:ce", MockEndpoint.class);
         mock.expectedHeaderReceived(CloudEvent.CAMEL_CLOUD_EVENT_VERSION, ce.version());

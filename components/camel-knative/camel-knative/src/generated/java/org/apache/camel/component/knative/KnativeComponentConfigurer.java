@@ -25,9 +25,9 @@ public class KnativeComponentConfigurer extends PropertyConfigurerSupport implem
         map.put("environment", org.apache.camel.component.knative.spi.KnativeEnvironment.class);
         map.put("environmentPath", java.lang.String.class);
         map.put("filters", java.util.Map.class);
-        map.put("serviceName", java.lang.String.class);
         map.put("transport", org.apache.camel.component.knative.spi.KnativeTransport.class);
         map.put("transportOptions", java.util.Map.class);
+        map.put("typeId", java.lang.String.class);
         map.put("bridgeErrorHandler", boolean.class);
         map.put("replyWithCloudEvent", boolean.class);
         map.put("reply", java.lang.Boolean.class);
@@ -35,6 +35,7 @@ public class KnativeComponentConfigurer extends PropertyConfigurerSupport implem
         map.put("apiVersion", java.lang.String.class);
         map.put("basicPropertyBinding", boolean.class);
         map.put("kind", java.lang.String.class);
+        map.put("name", java.lang.String.class);
         ALL_OPTIONS = map;
     }
 
@@ -69,14 +70,15 @@ public class KnativeComponentConfigurer extends PropertyConfigurerSupport implem
         case "kind": getOrCreateConfiguration(target).setKind(property(camelContext, java.lang.String.class, value)); return true;
         case "lazystartproducer":
         case "lazyStartProducer": target.setLazyStartProducer(property(camelContext, boolean.class, value)); return true;
+        case "name": getOrCreateConfiguration(target).setName(property(camelContext, java.lang.String.class, value)); return true;
         case "reply": getOrCreateConfiguration(target).setReply(property(camelContext, java.lang.Boolean.class, value)); return true;
         case "replywithcloudevent":
         case "replyWithCloudEvent": getOrCreateConfiguration(target).setReplyWithCloudEvent(property(camelContext, boolean.class, value)); return true;
-        case "servicename":
-        case "serviceName": getOrCreateConfiguration(target).setServiceName(property(camelContext, java.lang.String.class, value)); return true;
         case "transport": target.setTransport(property(camelContext, org.apache.camel.component.knative.spi.KnativeTransport.class, value)); return true;
         case "transportoptions":
         case "transportOptions": getOrCreateConfiguration(target).setTransportOptions(property(camelContext, java.util.Map.class, value)); return true;
+        case "typeid":
+        case "typeId": getOrCreateConfiguration(target).setTypeId(property(camelContext, java.lang.String.class, value)); return true;
         default: return false;
         }
     }
@@ -110,14 +112,15 @@ public class KnativeComponentConfigurer extends PropertyConfigurerSupport implem
         case "kind": return getOrCreateConfiguration(target).getKind();
         case "lazystartproducer":
         case "lazyStartProducer": return target.isLazyStartProducer();
+        case "name": return getOrCreateConfiguration(target).getName();
         case "reply": return getOrCreateConfiguration(target).getReply();
         case "replywithcloudevent":
         case "replyWithCloudEvent": return getOrCreateConfiguration(target).isReplyWithCloudEvent();
-        case "servicename":
-        case "serviceName": return getOrCreateConfiguration(target).getServiceName();
         case "transport": return target.getTransport();
         case "transportoptions":
         case "transportOptions": return getOrCreateConfiguration(target).getTransportOptions();
+        case "typeid":
+        case "typeId": return getOrCreateConfiguration(target).getTypeId();
         default: return null;
         }
     }
