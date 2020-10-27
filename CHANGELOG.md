@@ -7,10 +7,12 @@
 **Closed issues:**
 
 - Use default event type with broker [\#536](https://github.com/apache/camel-k-runtime/issues/536)
+- Can't set Knative broker name [\#535](https://github.com/apache/camel-k-runtime/issues/535)
 - Groovy - such property: DELEGATE\_FIRST when mapping beans [\#529](https://github.com/apache/camel-k-runtime/issues/529)
 
 **Merged pull requests:**
 
+- Can't set Knative broker name [\#539](https://github.com/apache/camel-k-runtime/pull/539) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(actions\): cancel stale workflow runs [\#537](https://github.com/apache/camel-k-runtime/pull/537) ([lburgazzoli](https://github.com/lburgazzoli))
 - kamelet: use raw url [\#534](https://github.com/apache/camel-k-runtime/pull/534) ([lburgazzoli](https://github.com/lburgazzoli))
 - kamelet: ensure properties are correctly propagated to the route template engine [\#533](https://github.com/apache/camel-k-runtime/pull/533) ([lburgazzoli](https://github.com/lburgazzoli))
