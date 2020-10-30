@@ -16,6 +16,7 @@
  */
 package org.apache.camel.component.kamelet;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,7 @@ import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.apache.camel.AfterPropertiesConfigured;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.RuntimeCamelException;
@@ -33,10 +35,11 @@ import org.apache.camel.spi.Metadata;
 import org.apache.camel.spi.PropertiesComponent;
 import org.apache.camel.spi.annotations.Component;
 import org.apache.camel.support.DefaultComponent;
+import org.apache.camel.support.DefaultEndpoint;
 import org.apache.camel.support.LifecycleStrategySupport;
 import org.apache.camel.support.service.ServiceHelper;
-import org.apache.camel.util.StringHelper;
 import org.apache.camel.util.URISupport;
+import org.apache.camel.util.UnsafeUriCharactersEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,6 +65,102 @@ public class KameletComponent extends DefaultComponent {
     public KameletComponent() {
         this.lifecycleHandler = new LifecycleHandler();
         this.consumers = new ConcurrentHashMap<>();
+    }
+
+    @Override
+    public Endpoint createEndpoint(String uri, Map<String, Object> properties) throws Exception {
+        // need to encode before its safe to parse with java.net.Uri
+        String encodedUri = UnsafeUriCharactersEncoder.encode(uri);
+        URI u = new URI(encodedUri);
+        String path;
+        if (u.getScheme() != null) {
+            // if there is a scheme then there is also a path
+            path = URISupport.extractRemainderPath(u, useRawUri());
+        } else {
+            // this uri has no context-path as the leading text is the component name (scheme)
+            path = null;
+        }
+
+        // use encoded or raw uri?
+        Map<String, Object> parameters;
+        if (useRawUri()) {
+            // when using raw uri then the query is taking from the uri as is
+            String query;
+            int idx = uri.indexOf('?');
+            if (idx > -1) {
+                query = uri.substring(idx + 1);
+            } else {
+                query = u.getRawQuery();
+            }
+            // and use method parseQuery
+            parameters = URISupport.parseQuery(query, true);
+        } else {
+            // however when using the encoded (default mode) uri then the query,
+            // is taken from the URI (ensures values is URI encoded)
+            // and use method parseParameters
+            parameters = URISupport.parseParameters(u);
+        }
+        if (properties != null) {
+            parameters.putAll(properties);
+        }
+        // This special property is only to identify endpoints in a unique manner
+        parameters.remove("hash");
+
+        // use encoded or raw uri?
+        uri = useRawUri() ? uri : encodedUri;
+
+        validateURI(uri, path, parameters);
+        if (LOGGER.isTraceEnabled()) {
+            // at trace level its okay to have parameters logged, that may contain passwords
+            LOGGER.trace("Creating endpoint uri=[{}], path=[{}], parameters=[{}]", URISupport.sanitizeUri(uri),
+                URISupport.sanitizePath(path), parameters);
+        } else if (LOGGER.isDebugEnabled()) {
+            // but at debug level only output sanitized uris
+            LOGGER.debug("Creating endpoint uri=[{}], path=[{}]", URISupport.sanitizeUri(uri), URISupport.sanitizePath(path));
+        }
+
+        // extract these global options and infer their value based on global/component level configuration
+        boolean basic = getAndRemoveParameter(parameters, "basicPropertyBinding", boolean.class, isBasicPropertyBinding()
+            ? isBasicPropertyBinding() : getCamelContext().getGlobalEndpointConfiguration().isBasicPropertyBinding());
+        boolean bridge = getAndRemoveParameter(parameters, "bridgeErrorHandler", boolean.class, isBridgeErrorHandler()
+            ? isBridgeErrorHandler() : getCamelContext().getGlobalEndpointConfiguration().isBridgeErrorHandler());
+        boolean lazy = getAndRemoveParameter(parameters, "lazyStartProducer", boolean.class, isLazyStartProducer()
+            ? isLazyStartProducer() : getCamelContext().getGlobalEndpointConfiguration().isLazyStartProducer());
+
+        // create endpoint
+        Endpoint endpoint = createEndpoint(uri, path, parameters);
+        if (endpoint == null) {
+            return null;
+        }
+        // inject camel context
+        endpoint.setCamelContext(getCamelContext());
+
+        // and setup those global options afterwards
+        if (endpoint instanceof DefaultEndpoint) {
+            DefaultEndpoint de = (DefaultEndpoint) endpoint;
+            de.setBasicPropertyBinding(basic);
+            de.setBridgeErrorHandler(bridge);
+            de.setLazyStartProducer(lazy);
+        }
+
+        URISupport.resolveRawParameterValues(parameters);
+
+        // configure remainder of the parameters
+        setProperties(endpoint, parameters);
+
+        // if endpoint is strict (not lenient) and we have unknown parameters configured then
+        // fail if there are parameters that could not be set, then they are probably misspell or not supported at all
+        if (!endpoint.isLenientProperties()) {
+            validateParameters(uri, parameters, null);
+        }
+
+        // allow custom configuration after properties has been configured
+        if (endpoint instanceof AfterPropertiesConfigured) {
+            ((AfterPropertiesConfigured) endpoint).afterPropertiesConfigured(getCamelContext());
+        }
+
+        afterConfiguration(uri, path, endpoint, parameters);
+        return endpoint;
     }
 
     @Override
@@ -123,14 +222,6 @@ public class KameletComponent extends DefaultComponent {
             // set endpoint specific properties
             setProperties(endpoint, parameters);
 
-            // determine the parameters that the kamelet should take by using the original
-            // uri as we need to preserve the original format.
-            final String query = StringHelper.after(uri, "?");
-            final Map<String, Object> queryParams = URISupport.parseQuery(query, true, true);
-
-            // replace resolved params with the original ones
-            parameters.replaceAll(queryParams::getOrDefault);
-
             //
             // The properties for the kamelets are determined by global properties
             // and local endpoint parameters,
@@ -173,12 +264,6 @@ public class KameletComponent extends DefaultComponent {
      */
     public void setTimeout(long timeout) {
         this.timeout = timeout;
-    }
-
-    @Override
-    public boolean useRawUri() {
-        // should use encoded uri by default
-        return true;
     }
 
     @Override
