@@ -108,6 +108,14 @@ public class KameletPropertiesTest extends CamelTestSupport {
             .hasFieldOrPropertyWithValue("proxyAuthPassword", "p+wd");
     }
 
+    @Test
+    public void urlEncodingIsRespected() {
+        assertThat(context.getEndpoint("kamelet:timer-source?message=Hello+Kamelets&period=1000", KameletEndpoint.class).getKameletProperties())
+            .containsEntry("message", "Hello Kamelets");
+        assertThat(context.getEndpoint("kamelet:timer-source?message=messaging.knative.dev%2Fv1beta1&period=1000", KameletEndpoint.class).getKameletProperties())
+            .containsEntry("message", "messaging.knative.dev/v1beta1");
+    }
+
     // **********************************************
     //
     // test set-up
@@ -145,6 +153,14 @@ public class KameletPropertiesTest extends CamelTestSupport {
                     .from("kamelet:source")
                         .log("info")
                         .to("http://localhost:8080?proxyAuthUsername={{proxyUsr}}&proxyAuthPassword={{proxyPwd}}");
+
+                // template
+                routeTemplate("timer-source")
+                    .templateParameter("period")
+                    .templateParameter("message")
+                    .from("timer:tick")
+                        .setBody().constant("{{message}}")
+                        .to("kamelet:sink");
             }
         };
     }
