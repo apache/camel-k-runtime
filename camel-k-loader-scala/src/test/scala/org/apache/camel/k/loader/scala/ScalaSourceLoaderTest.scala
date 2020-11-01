@@ -16,55 +16,15 @@
  */
 package org.apache.camel.k.loader.scala
 
-import java.util
-
-import org.apache.camel.Predicate
-import org.apache.camel.Processor
-import org.apache.camel.RuntimeCamelException
-import org.apache.camel.component.jackson.JacksonDataFormat
-import org.apache.camel.component.log.LogComponent
-import org.apache.camel.component.seda.SedaComponent
 import org.apache.camel.k.loader.scala.support.TestRuntime
-import org.apache.camel.language.bean.BeanLanguage
-import org.apache.camel.model.{FromDefinition, ProcessDefinition, ToDefinition}
-import org.apache.camel.model.rest.GetVerbDefinition
-import org.apache.camel.model.rest.PostVerbDefinition
-import org.apache.camel.processor.FatalFallbackErrorHandler
-import org.apache.camel.processor.SendProcessor
-import org.apache.camel.processor.channel.DefaultChannel
-import org.apache.camel.spi.HeaderFilterStrategy
-import org.apache.camel.support.DefaultHeaderFilterStrategy
-import spock.lang.AutoCleanup
-import spock.lang.Specification
-import org.scalatest.funsuite.AnyFunSuite
+import org.apache.camel.model.{ProcessDefinition, ToDefinition}
 import org.junit.runner.RunWith
-//import org.scalatestplus.junit.JUnitRunner
-//import org.scalatest.junit.JUnitRunner
-import org.scalatest.funsuite.AnyFunSuite
-//import org.scalatest.junit.JUnitSuite
-//import org.scalatest.junit.ShouldMatchersForJUnit
-
-import scala.collection.mutable.ListBuffer
-import org.junit.Test
-import org.junit.Before
-import org.scalatest.matchers.should.Matchers
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
+import org.scalatestplus.junit.JUnitRunner
 
+@RunWith(classOf[JUnitRunner])
 class ScalaSourceLoaderTest extends AnyFunSuite with Matchers {
-
-//  test("test") {
-//    assert(true)
-//  }
-
-  test("An empty Set should have size 0") {
-    assert(Set.empty.size == 0)
-  }
-
-//  @Test
-//  def test(): Unit = {
-//    assert(Set.empty.size == 0)
-//  }
 
   test("load routes") {
     val runtime = new TestRuntime()
@@ -72,9 +32,9 @@ class ScalaSourceLoaderTest extends AnyFunSuite with Matchers {
 
     val routes = runtime.context.getRouteDefinitions()
     routes should have size 1
-    routes.get(0).getInput().getEndpointUri should ===("timer:tick")
-    routes.get(0).getOutputs.get(0) shouldBe a[ProcessDefinition]
-    routes.get(0).getOutputs.get(1) shouldBe a[ToDefinition]
+    routes.get(0).getInput().getEndpointUri() should ===("timer:tick")
+    routes.get(0).getOutputs().get(0) shouldBe a[ProcessDefinition]
+    routes.get(0).getOutputs().get(1) shouldBe a[ToDefinition]
   }
 
 //    @AutoCleanup

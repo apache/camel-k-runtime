@@ -3,9 +3,12 @@ package org.apache.camel.k.loader.scala.`extension`
 import org.apache.camel.component.log.LogComponent
 import org.apache.camel.impl.DefaultCamelContext
 import org.apache.camel.support.DefaultExchange
+import org.junit.runner.RunWith
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
+import org.scalatestplus.junit.JUnitRunner
 
+@RunWith(classOf[JUnitRunner])
 class LogExtensionTest extends AnyFunSuite with Matchers {
   test("invoke extension method - formatter") {
     val ctx = new DefaultCamelContext()
