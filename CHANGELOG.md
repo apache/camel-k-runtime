@@ -16,7 +16,6 @@
 - build\(actions\): cancel stale workflow runs [\#537](https://github.com/apache/camel-k-runtime/pull/537) ([lburgazzoli](https://github.com/lburgazzoli))
 - kamelet: use raw url [\#534](https://github.com/apache/camel-k-runtime/pull/534) ([lburgazzoli](https://github.com/lburgazzoli))
 - kamelet: ensure properties are correctly propagated to the route template engine [\#533](https://github.com/apache/camel-k-runtime/pull/533) ([lburgazzoli](https://github.com/lburgazzoli))
-- Groovy - such property: DELEGATE\_FIRST when mapping beans [\#532](https://github.com/apache/camel-k-runtime/pull/532) ([lburgazzoli](https://github.com/lburgazzoli))
 - yaml: auto wrap secret values wit RAW [\#531](https://github.com/apache/camel-k-runtime/pull/531) ([lburgazzoli](https://github.com/lburgazzoli))
 - Automatic changelog: Remove deprecated github action commands [\#530](https://github.com/apache/camel-k-runtime/pull/530) ([oscerd](https://github.com/oscerd))
 - update to camel-quarkus 1.3.0 [\#528](https://github.com/apache/camel-k-runtime/pull/528) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -57,6 +56,7 @@
 
 **Merged pull requests:**
 
+- Groovy - such property: DELEGATE\_FIRST when mapping beans [\#532](https://github.com/apache/camel-k-runtime/pull/532) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps\): bump junit-pioneer from 0.9.2 to 1.0.0 [\#522](https://github.com/apache/camel-k-runtime/pull/522) ([dependabot[bot]](https://github.com/apps/dependabot))
 - knative: cleanup knative environment definition leftovers [\#520](https://github.com/apache/camel-k-runtime/pull/520) ([lburgazzoli](https://github.com/lburgazzoli))
 - knative\(http\): fix request handler exception handling [\#519](https://github.com/apache/camel-k-runtime/pull/519) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -502,6 +502,7 @@
 - knative: add some checks about supported http methods and mandatory body [\#161](https://github.com/apache/camel-k-runtime/pull/161) ([lburgazzoli](https://github.com/lburgazzoli))
 - Support cloud events spec v3 [\#158](https://github.com/apache/camel-k-runtime/pull/158) ([lburgazzoli](https://github.com/lburgazzoli))
 - Remove legacy artifacts and version from catalog [\#157](https://github.com/apache/camel-k-runtime/pull/157) ([lburgazzoli](https://github.com/lburgazzoli))
+- Support Knative broker/trigger model [\#153](https://github.com/apache/camel-k-runtime/pull/153) ([lburgazzoli](https://github.com/lburgazzoli))
 - Disbale deploy task for examples [\#147](https://github.com/apache/camel-k-runtime/pull/147) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-1.0.4](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.0.4) (2019-10-04)
@@ -517,7 +518,6 @@
 
 **Merged pull requests:**
 
-- Support Knative broker/trigger model [\#153](https://github.com/apache/camel-k-runtime/pull/153) ([lburgazzoli](https://github.com/lburgazzoli))
 - add \(initial\) support for quarkus [\#145](https://github.com/apache/camel-k-runtime/pull/145) ([lburgazzoli](https://github.com/lburgazzoli))
 - Update deps [\#144](https://github.com/apache/camel-k-runtime/pull/144) ([lburgazzoli](https://github.com/lburgazzoli))
 - groovy: improve rest dsl [\#143](https://github.com/apache/camel-k-runtime/pull/143) ([lburgazzoli](https://github.com/lburgazzoli))
