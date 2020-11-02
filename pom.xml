@@ -49,7 +49,7 @@
         <joor-version>0.9.13</joor-version>
         <groovy-version>3.0.6</groovy-version>
         <kotlin-version>1.4.10</kotlin-version>
-        <spock-version>2.0-M3-groovy-3.0</spock-version>
+        <spock-version>2.0-M4-groovy-3.0</spock-version>
         <jaxb-api-version>2.3.1</jaxb-api-version>
         <jaxb-core-version>2.3.0.1</jaxb-core-version>
         <immutables-version>2.8.8</immutables-version>
