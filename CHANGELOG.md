@@ -16,6 +16,7 @@
 - build\(actions\): cancel stale workflow runs [\#537](https://github.com/apache/camel-k-runtime/pull/537) ([lburgazzoli](https://github.com/lburgazzoli))
 - kamelet: use raw url [\#534](https://github.com/apache/camel-k-runtime/pull/534) ([lburgazzoli](https://github.com/lburgazzoli))
 - kamelet: ensure properties are correctly propagated to the route template engine [\#533](https://github.com/apache/camel-k-runtime/pull/533) ([lburgazzoli](https://github.com/lburgazzoli))
+- Groovy - such property: DELEGATE\_FIRST when mapping beans [\#532](https://github.com/apache/camel-k-runtime/pull/532) ([lburgazzoli](https://github.com/lburgazzoli))
 - yaml: auto wrap secret values wit RAW [\#531](https://github.com/apache/camel-k-runtime/pull/531) ([lburgazzoli](https://github.com/lburgazzoli))
 - Automatic changelog: Remove deprecated github action commands [\#530](https://github.com/apache/camel-k-runtime/pull/530) ([oscerd](https://github.com/oscerd))
 - update to camel-quarkus 1.3.0 [\#528](https://github.com/apache/camel-k-runtime/pull/528) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -56,7 +57,6 @@
 
 **Merged pull requests:**
 
-- Groovy - such property: DELEGATE\_FIRST when mapping beans [\#532](https://github.com/apache/camel-k-runtime/pull/532) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps\): bump junit-pioneer from 0.9.2 to 1.0.0 [\#522](https://github.com/apache/camel-k-runtime/pull/522) ([dependabot[bot]](https://github.com/apps/dependabot))
 - knative: cleanup knative environment definition leftovers [\#520](https://github.com/apache/camel-k-runtime/pull/520) ([lburgazzoli](https://github.com/lburgazzoli))
 - knative\(http\): fix request handler exception handling [\#519](https://github.com/apache/camel-k-runtime/pull/519) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -527,7 +527,6 @@
 - \#137 Throw exception when setting component property failed  [\#138](https://github.com/apache/camel-k-runtime/pull/138) ([WillemJiang](https://github.com/WillemJiang))
 - Cleanup module dependencies [\#136](https://github.com/apache/camel-k-runtime/pull/136) ([lburgazzoli](https://github.com/lburgazzoli))
 - Update to Camel RC1 [\#135](https://github.com/apache/camel-k-runtime/pull/135) ([lburgazzoli](https://github.com/lburgazzoli))
-- groovy: add extension methods for expression clause [\#133](https://github.com/apache/camel-k-runtime/pull/133) ([lburgazzoli](https://github.com/lburgazzoli))
 - Update deps [\#132](https://github.com/apache/camel-k-runtime/pull/132) ([lburgazzoli](https://github.com/lburgazzoli))
 - knative-http component does not return response [\#131](https://github.com/apache/camel-k-runtime/pull/131) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(deps\): update kotlin to v1.3.50 [\#129](https://github.com/apache/camel-k-runtime/pull/129) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -543,6 +542,7 @@
 
 **Merged pull requests:**
 
+- groovy: add extension methods for expression clause [\#133](https://github.com/apache/camel-k-runtime/pull/133) ([lburgazzoli](https://github.com/lburgazzoli))
 - Base knative-http component to vertx-web as the next undertow major release \(3\) will be based on it \#126 [\#128](https://github.com/apache/camel-k-runtime/pull/128) ([lburgazzoli](https://github.com/lburgazzoli))
 - Re-organize repo and update deps [\#127](https://github.com/apache/camel-k-runtime/pull/127) ([lburgazzoli](https://github.com/lburgazzoli))
 - knative: add custom loader for sources [\#125](https://github.com/apache/camel-k-runtime/pull/125) ([lburgazzoli](https://github.com/lburgazzoli))
