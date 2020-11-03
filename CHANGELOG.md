@@ -12,6 +12,7 @@
 
 **Merged pull requests:**
 
+- kamelet: ensure URL encoded values is properly handled [\#541](https://github.com/apache/camel-k-runtime/pull/541) ([lburgazzoli](https://github.com/lburgazzoli))
 - Can't set Knative broker name [\#539](https://github.com/apache/camel-k-runtime/pull/539) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(actions\): cancel stale workflow runs [\#537](https://github.com/apache/camel-k-runtime/pull/537) ([lburgazzoli](https://github.com/lburgazzoli))
 - kamelet: use raw url [\#534](https://github.com/apache/camel-k-runtime/pull/534) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -168,7 +169,6 @@
 - Include a test collecting all \*.camelk.yaml files in the repository and validating it against the yaml schema [\#402](https://github.com/apache/camel-k-runtime/pull/402) ([lburgazzoli](https://github.com/lburgazzoli))
 - publish the camel-k catalog as artifact [\#401](https://github.com/apache/camel-k-runtime/pull/401) ([lburgazzoli](https://github.com/lburgazzoli))
 - camel-knative: don't replace message when the producers completes [\#400](https://github.com/apache/camel-k-runtime/pull/400) ([lburgazzoli](https://github.com/lburgazzoli))
-- publish the camel-k yaml dsl schema as artifact \#389 [\#398](https://github.com/apache/camel-k-runtime/pull/398) ([lburgazzoli](https://github.com/lburgazzoli))
 - \[js\] use proxy for global bindings [\#397](https://github.com/apache/camel-k-runtime/pull/397) ([lburgazzoli](https://github.com/lburgazzoli))
 - No type converter warning if final type of body is java.util.Map [\#396](https://github.com/apache/camel-k-runtime/pull/396) ([lburgazzoli](https://github.com/lburgazzoli))
 - Unable to run kotlin routes with quarkus [\#395](https://github.com/apache/camel-k-runtime/pull/395) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -198,6 +198,7 @@
 
 **Merged pull requests:**
 
+- publish the camel-k yaml dsl schema as artifact \#389 [\#398](https://github.com/apache/camel-k-runtime/pull/398) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(release\): bump version to 1.4.0-SNAPSHOT [\#391](https://github.com/apache/camel-k-runtime/pull/391) ([nicolaferraro](https://github.com/nicolaferraro))
 - \[yaml\] cleanup schema generator leftovers [\#385](https://github.com/apache/camel-k-runtime/pull/385) ([lburgazzoli](https://github.com/lburgazzoli))
 - Use the new camel-component-maven-plugin from Camel 3.4 [\#384](https://github.com/apache/camel-k-runtime/pull/384) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -527,6 +528,7 @@
 - \#137 Throw exception when setting component property failed  [\#138](https://github.com/apache/camel-k-runtime/pull/138) ([WillemJiang](https://github.com/WillemJiang))
 - Cleanup module dependencies [\#136](https://github.com/apache/camel-k-runtime/pull/136) ([lburgazzoli](https://github.com/lburgazzoli))
 - Update to Camel RC1 [\#135](https://github.com/apache/camel-k-runtime/pull/135) ([lburgazzoli](https://github.com/lburgazzoli))
+- groovy: add extension methods for expression clause [\#133](https://github.com/apache/camel-k-runtime/pull/133) ([lburgazzoli](https://github.com/lburgazzoli))
 - Update deps [\#132](https://github.com/apache/camel-k-runtime/pull/132) ([lburgazzoli](https://github.com/lburgazzoli))
 - knative-http component does not return response [\#131](https://github.com/apache/camel-k-runtime/pull/131) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(deps\): update kotlin to v1.3.50 [\#129](https://github.com/apache/camel-k-runtime/pull/129) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -542,7 +544,6 @@
 
 **Merged pull requests:**
 
-- groovy: add extension methods for expression clause [\#133](https://github.com/apache/camel-k-runtime/pull/133) ([lburgazzoli](https://github.com/lburgazzoli))
 - Base knative-http component to vertx-web as the next undertow major release \(3\) will be based on it \#126 [\#128](https://github.com/apache/camel-k-runtime/pull/128) ([lburgazzoli](https://github.com/lburgazzoli))
 - Re-organize repo and update deps [\#127](https://github.com/apache/camel-k-runtime/pull/127) ([lburgazzoli](https://github.com/lburgazzoli))
 - knative: add custom loader for sources [\#125](https://github.com/apache/camel-k-runtime/pull/125) ([lburgazzoli](https://github.com/lburgazzoli))
