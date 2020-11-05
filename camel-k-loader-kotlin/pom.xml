@@ -30,7 +30,6 @@
 
     <modules>
         <module>impl</module>
-        <module>impl-itests</module>
         <module>runtime</module>
         <module>deployment</module>
     </modules>
