@@ -173,7 +173,17 @@
 
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-knative-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-knative</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-knative-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -218,16 +228,6 @@
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-quarkus-core-deployment</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-knative</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-knative-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

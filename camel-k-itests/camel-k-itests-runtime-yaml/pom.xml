@@ -38,7 +38,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-quarkus-knative</artifactId>
+            <artifactId>camel-k-knative</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
@@ -125,7 +125,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-quarkus-knative-deployment</artifactId>
+            <artifactId>camel-k-knative-deployment</artifactId>
             <version>${project.version}</version>
             <type>pom</type>
             <scope>test</scope>

@@ -320,15 +320,14 @@
         <module>camel-k-loader-java</module>
 
         <module>camel-k-cron</module>
+        <module>camel-k-kamelet</module>
         <module>camel-k-knative</module>
         <module>camel-k-master</module>
         <module>camel-k-webhook</module>
+        <module>camel-k-wrap</module>
 
         <module>camel-k-quarkus-core</module>
-        <module>camel-k-kamelet</module>
-        <module>camel-k-quarkus-knative</module>
         <module>camel-k-quarkus-master</module>
-        <module>camel-k-wrap</module>
 
         <module>camel-k-runtime</module>
         <module>camel-k-itests</module>
@@ -453,12 +452,23 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-master</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-knative-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-knative</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-master</artifactId>
+                <artifactId>camel-k-knative-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -507,32 +517,12 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-loader-yaml</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-loader-yaml-deployment</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-quarkus-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-quarkus-core-deployment</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-knative</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-knative-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
