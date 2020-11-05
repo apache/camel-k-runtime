@@ -325,7 +325,7 @@
         <module>camel-k-webhook</module>
 
         <module>camel-k-quarkus-core</module>
-        <module>camel-k-quarkus-kamelet</module>
+        <module>camel-k-kamelet</module>
         <module>camel-k-quarkus-knative</module>
         <module>camel-k-quarkus-cron</module>
         <module>camel-k-quarkus-master</module>
@@ -527,12 +527,12 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-kamelet</artifactId>
+                <artifactId>camel-k-kamelet</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-kamelet-deployment</artifactId>
+                <artifactId>camel-k-kamelet-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
