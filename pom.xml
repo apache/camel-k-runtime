@@ -333,10 +333,8 @@
         <module>camel-k-quarkus-webhook</module>
 
         <module>camel-k-runtime</module>
-
         <module>camel-k-itests</module>
-
-        <module>camel-k-runtime-bom</module>
+        <module>camel-k-bom</module>
 
         <module>examples</module>
         <module>distribution</module>
