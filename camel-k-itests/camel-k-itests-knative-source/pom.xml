@@ -42,7 +42,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-quarkus-loader-groovy</artifactId>
+            <artifactId>camel-k-loader-groovy</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
@@ -141,6 +141,19 @@
         <dependency>
             <groupId>org.apache.camel.k</groupId>
             <artifactId>camel-k-quarkus-loader-yaml</artifactId>
+            <version>${project.version}</version>
+            <type>pom</type>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.k</groupId>
+            <artifactId>camel-k-loader-groovy</artifactId>
             <version>${project.version}</version>
             <type>pom</type>
             <scope>test</scope>

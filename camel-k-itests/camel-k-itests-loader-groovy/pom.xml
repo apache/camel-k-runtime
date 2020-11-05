@@ -30,7 +30,7 @@
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-quarkus-loader-groovy</artifactId>
+            <artifactId>camel-k-loader-groovy</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
@@ -67,7 +67,7 @@
         <!-- The following dependencies guarantee that this module is built after them.  -->
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-quarkus-loader-groovy-deployment</artifactId>
+            <artifactId>camel-k-loader-groovy-deployment</artifactId>
             <version>${project.version}</version>
             <type>pom</type>
             <scope>test</scope>

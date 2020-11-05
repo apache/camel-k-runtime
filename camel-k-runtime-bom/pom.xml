@@ -233,16 +233,6 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-loader-groovy</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-loader-groovy-deployment</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-quarkus-loader-kotlin</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -325,9 +315,20 @@
             <!-- loaders -->
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-loader-kotlin</artifactId>
+                <artifactId>camel-k-loader-groovy-impl</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-loader-groovy</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-loader-groovy-deployment</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-loader-groovy</artifactId>

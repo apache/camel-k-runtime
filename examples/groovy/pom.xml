@@ -52,7 +52,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-quarkus-loader-groovy</artifactId>
+            <artifactId>camel-k-loader-groovy</artifactId>
         </dependency>
 
         <dependency>
