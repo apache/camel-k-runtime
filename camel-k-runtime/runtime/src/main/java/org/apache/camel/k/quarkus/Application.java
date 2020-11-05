@@ -49,6 +49,7 @@ public final class Application {
 
         public Runtime(BaseMainSupport main) {
             this.main = main;
+            this.main.configure().setAutoConfigurationLogSummary(false);
             this.stopped = new AtomicBoolean();
         }
 
