@@ -34,7 +34,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-quarkus-master</artifactId>
+            <artifactId>camel-k-master</artifactId>
         </dependency>
 
         <!-- quarkus dependencies -->
@@ -89,7 +89,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-quarkus-master-deployment</artifactId>
+            <artifactId>camel-k-master-deployment</artifactId>
             <version>${project.version}</version>
             <type>pom</type>
             <scope>test</scope>

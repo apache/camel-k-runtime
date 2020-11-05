@@ -327,7 +327,6 @@
         <module>camel-k-wrap</module>
 
         <module>camel-k-quarkus-core</module>
-        <module>camel-k-quarkus-master</module>
 
         <module>camel-k-runtime</module>
         <module>camel-k-itests</module>
@@ -450,9 +449,20 @@
                 <artifactId>camel-k-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-master-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-master</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-master-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -533,16 +543,6 @@
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-kamelet-deployment</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-master</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-master-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
