@@ -30,14 +30,14 @@ import javax.ws.rs.core.MediaType;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.RoutesBuilder;
-import org.apache.camel.k.Constants;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceLoader;
-import org.apache.camel.k.Sources;
 import org.apache.camel.k.cron.CronSourceLoaderInterceptor;
 import org.apache.camel.k.loader.yaml.YamlSourceLoader;
+import org.apache.camel.k.support.Constants;
 import org.apache.camel.k.support.DelegatingRuntime;
+import org.apache.camel.k.support.Sources;
 
 @Path("/test")
 @ApplicationScoped

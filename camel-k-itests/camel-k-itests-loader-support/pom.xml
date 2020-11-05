@@ -30,7 +30,7 @@
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-quarkus-core</artifactId>
+            <artifactId>camel-k-core</artifactId>
         </dependency>
 
         <!-- quarkus dependencies -->

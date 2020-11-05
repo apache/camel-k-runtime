@@ -45,7 +45,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-core</artifactId>
+            <artifactId>camel-k-core-support</artifactId>
         </dependency>
 
         <dependency>

@@ -30,7 +30,7 @@
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-quarkus</artifactId>
+            <artifactId>camel-k-runtime</artifactId>
         </dependency>
 
         <!-- quarkus dependencies -->

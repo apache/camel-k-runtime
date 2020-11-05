@@ -32,7 +32,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <camel-version>3.3.0</camel-version>
+        <camel-version>3.6.0</camel-version>
     </properties>
 
     <developers>
@@ -57,7 +57,7 @@
         <connection>scm:git:http://gitbox.apache.org/repos/asf/camel-k-runtime.git</connection>
         <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/camel-k-runtime.git</developerConnection>
         <url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary</url>
-        <tag>camel-k-runtime-parent-1.5.0</tag>
+        <tag>camel-k-runtime-project-1.5.0</tag>
     </scm>
 
     <repositories>
@@ -89,30 +89,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- workarounds -->
-            <dependency>
-                <groupId>org.apache.camel</groupId>
-                <artifactId>camel-openapi-java</artifactId>
-                <version>${camel-version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel</groupId>
-                <artifactId>camel-swagger-java</artifactId>
-                <version>${camel-version}</version>
-            </dependency>
-
-            <!-- tools -->
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-annotations</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-apt</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
             <!-- camel-k -->
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
@@ -151,10 +127,24 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-core-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-core-support</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-core-deployment</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-webhook-impl</artifactId>
@@ -170,7 +160,6 @@
                 <artifactId>camel-k-webhook-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-knative-impl</artifactId>
@@ -186,7 +175,6 @@
                 <artifactId>camel-k-knative-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-cron-impl</artifactId>
@@ -202,7 +190,6 @@
                 <artifactId>camel-k-cron-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-master-impl</artifactId>
@@ -216,28 +203,6 @@
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-master-deployment</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <!-- runtime - quarkus -->
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-deployment</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-core</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-core-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -258,6 +223,16 @@
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-wrap-deployment</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-runtime</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-runtime-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

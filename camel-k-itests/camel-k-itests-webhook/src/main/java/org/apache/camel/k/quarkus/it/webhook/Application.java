@@ -37,9 +37,9 @@ import javax.ws.rs.core.Response;
 import io.quarkus.arc.Unremovable;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceLoader;
-import org.apache.camel.k.Sources;
 import org.apache.camel.k.loader.yaml.YamlSourceLoader;
 import org.apache.camel.k.quarkus.it.webhook.support.DummyWebhookComponent;
+import org.apache.camel.k.support.Sources;
 import org.apache.camel.k.webhook.WebhookAction;
 import org.apache.camel.quarkus.core.CamelRuntime;
 

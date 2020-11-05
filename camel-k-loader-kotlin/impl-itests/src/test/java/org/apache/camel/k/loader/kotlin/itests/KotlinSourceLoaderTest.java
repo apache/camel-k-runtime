@@ -20,7 +20,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
-import org.apache.camel.k.Sources;
+import org.apache.camel.k.support.Sources;
 import org.apache.camel.k.support.SourcesSupport;
 import org.junit.jupiter.api.Test;
 

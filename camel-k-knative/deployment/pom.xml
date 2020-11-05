@@ -34,7 +34,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-quarkus-core-deployment</artifactId>
+            <artifactId>camel-k-core-deployment</artifactId>
         </dependency>
 
         <dependency>

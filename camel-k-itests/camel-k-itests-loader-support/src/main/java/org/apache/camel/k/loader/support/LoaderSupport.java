@@ -27,7 +27,7 @@ import org.apache.camel.RoutesBuilder;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceLoader;
-import org.apache.camel.k.Sources;
+import org.apache.camel.k.support.Sources;
 
 public final class LoaderSupport {
     private LoaderSupport() {

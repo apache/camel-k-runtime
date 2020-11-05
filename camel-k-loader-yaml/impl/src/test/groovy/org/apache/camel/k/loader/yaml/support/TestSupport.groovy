@@ -25,12 +25,12 @@ import org.apache.camel.component.mock.MockEndpoint
 import org.apache.camel.impl.DefaultCamelContext
 import org.apache.camel.k.Runtime
 import org.apache.camel.k.Source
-import org.apache.camel.k.Sources
 import org.apache.camel.k.loader.yaml.YamlSourceLoader
 import org.apache.camel.k.loader.yaml.YamlStepResolver
 import org.apache.camel.k.loader.yaml.spi.ProcessorStepParser
 import org.apache.camel.k.loader.yaml.spi.StartStepParser
 import org.apache.camel.k.loader.yaml.spi.StepParser
+import org.apache.camel.k.support.Sources
 import org.apache.camel.model.ProcessorDefinition
 import org.apache.camel.model.RouteDefinition
 import spock.lang.Specification
