@@ -326,7 +326,6 @@
 
 
         <module>camel-k-quarkus-loader-xml</module>
-        <module>camel-k-quarkus-loader-js</module>
         <module>camel-k-quarkus-loader-yaml</module>
         <module>camel-k-quarkus-loader-kotlin</module>
 
@@ -515,16 +514,6 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-loader-js</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-loader-js-deployment</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-quarkus-loader-kotlin</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -635,6 +624,23 @@
                 <artifactId>camel-k-loader-java-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-loader-js-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-loader-js</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-loader-js-deployment</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+
 
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
@@ -654,11 +660,6 @@
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-loader-yaml-support</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-loader-js</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

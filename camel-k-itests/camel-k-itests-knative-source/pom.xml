@@ -50,7 +50,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-quarkus-loader-js</artifactId>
+            <artifactId>camel-k-loader-js</artifactId>
         </dependency>
         <!--
         <dependency>
