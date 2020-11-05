@@ -38,7 +38,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-quarkus-webhook</artifactId>
+            <artifactId>camel-k-webhook</artifactId>
         </dependency>
 
         <!-- camel quarkus -->

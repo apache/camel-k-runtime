@@ -154,11 +154,23 @@
                 <artifactId>camel-k-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-webhook-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-webhook</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-webhook-deployment</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-knative</artifactId>
@@ -244,16 +256,6 @@
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-quarkus-wrap-deployment</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-webhok</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-webhok-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

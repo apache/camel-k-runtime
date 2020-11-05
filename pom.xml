@@ -330,7 +330,6 @@
         <module>camel-k-quarkus-cron</module>
         <module>camel-k-quarkus-master</module>
         <module>camel-k-quarkus-wrap</module>
-        <module>camel-k-quarkus-webhook</module>
 
         <module>camel-k-runtime</module>
         <module>camel-k-itests</module>
@@ -468,9 +467,20 @@
                 <artifactId>camel-k-master</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-webhook-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-webhook</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-webhook-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -553,16 +563,6 @@
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-quarkus-wrap-deployment</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-webhook</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-webhook-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
