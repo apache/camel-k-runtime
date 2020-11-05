@@ -250,12 +250,12 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-wrap</artifactId>
+                <artifactId>camel-k-wrap</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-wrap-deployment</artifactId>
+                <artifactId>camel-k-wrap-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
