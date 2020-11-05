@@ -178,12 +178,12 @@
             <!-- runtime - quarkus -->
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-runtime-quarkus</artifactId>
+                <artifactId>camel-k-quarkus</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-runtime-quarkus-deployment</artifactId>
+                <artifactId>camel-k-quarkus-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

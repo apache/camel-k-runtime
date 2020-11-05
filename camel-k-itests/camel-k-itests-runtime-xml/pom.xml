@@ -30,7 +30,7 @@
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-runtime-quarkus</artifactId>
+            <artifactId>camel-k-quarkus</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
@@ -95,7 +95,7 @@
         <!-- The following dependencies guarantee that this module is built after them.  -->
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-runtime-quarkus-deployment</artifactId>
+            <artifactId>camel-k-quarkus-deployment</artifactId>
             <version>${project.version}</version>
             <type>pom</type>
             <scope>test</scope>
