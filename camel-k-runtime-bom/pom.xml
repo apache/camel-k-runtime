@@ -151,27 +151,27 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-runtime-core</artifactId>
+                <artifactId>camel-k-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-runtime-webhook</artifactId>
+                <artifactId>camel-k-webhook</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-runtime-knative</artifactId>
+                <artifactId>camel-k-knative</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-runtime-cron</artifactId>
+                <artifactId>camel-k-cron</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-runtime-master</artifactId>
+                <artifactId>camel-k-master</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

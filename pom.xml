@@ -310,8 +310,7 @@
         <module>tooling</module>
         <module>components</module>
 
-        <module>camel-k-runtime-core</module>
-        <module>camel-k-quarkus</module>
+        <module>camel-k-core</module>
 
         <module>camel-k-loader-groovy</module>
         <module>camel-k-loader-kotlin</module>
@@ -320,10 +319,30 @@
         <module>camel-k-loader-xml</module>
         <module>camel-k-loader-java</module>
 
-        <module>camel-k-runtime-cron</module>
-        <module>camel-k-runtime-knative</module>
-        <module>camel-k-runtime-master</module>
-        <module>camel-k-runtime-webhook</module>
+        <module>camel-k-cron</module>
+        <module>camel-k-knative</module>
+        <module>camel-k-master</module>
+        <module>camel-k-webhook</module>
+
+
+        <module>camel-k-quarkus-loader-xml</module>
+        <module>camel-k-quarkus-loader-js</module>
+        <module>camel-k-quarkus-loader-yaml</module>
+        <module>camel-k-quarkus-loader-java</module>
+        <module>camel-k-quarkus-loader-groovy</module>
+        <module>camel-k-quarkus-loader-kotlin</module>
+
+        <module>camel-k-quarkus-core</module>
+        <module>camel-k-quarkus-kamelet</module>
+        <module>camel-k-quarkus-knative</module>
+        <module>camel-k-quarkus-cron</module>
+        <module>camel-k-quarkus-master</module>
+        <module>camel-k-quarkus-wrap</module>
+        <module>camel-k-quarkus-webhook</module>
+
+        <module>camel-k-runtime-quarkus</module>
+
+        <module>camel-k-itests</module>
 
         <module>camel-k-runtime-bom</module>
 
@@ -373,6 +392,20 @@
                 <version>${jackson2-version}</version>
                 <scope>import</scope>
                 <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-bom</artifactId>
+                <version>${kotlin-version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-bom</artifactId>
+                <version>${camel-quarkus-version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
 
             <!-- tools -->
@@ -427,27 +460,27 @@
             <!-- runtime -->
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-runtime-core</artifactId>
+                <artifactId>camel-k-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-runtime-knative</artifactId>
+                <artifactId>camel-k-knative</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-runtime-cron</artifactId>
+                <artifactId>camel-k-cron</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-runtime-master</artifactId>
+                <artifactId>camel-k-master</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-runtime-webhook</artifactId>
+                <artifactId>camel-k-webhook</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

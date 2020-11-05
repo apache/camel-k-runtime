@@ -42,14 +42,9 @@
                         <configuration>
                             <artifacts>
                                 <artifact>
-                                    <file>${project.build.directory}/camel-k-catalog-${project.version}-main.yaml</file>
+                                    <file>${project.build.directory}/camel-k-catalog-${project.version}.yaml</file>
                                     <type>yaml</type>
-                                    <classifier>main</classifier>
-                                </artifact>
-                                <artifact>
-                                    <file>${project.build.directory}/camel-k-catalog-${project.version}-quarkus.yaml</file>
-                                    <type>yaml</type>
-                                    <classifier>quarkus</classifier>
+                                    <classifier>catalog</classifier>
                                 </artifact>
                             </artifacts>
                         </configuration>
@@ -62,25 +57,14 @@
                 <version>${project.version}</version>
                 <executions>
                     <execution>
-                        <id>generate-catalog-main</id>
+                        <id>generate-catalog</id>
                         <goals>
                             <goal>generate-catalog</goal>
                         </goals>
                         <configuration>
                             <outputPath>${project.build.directory}</outputPath>
-                            <outputFile>camel-k-catalog-${project.version}-main.yaml</outputFile>
+                            <outputFile>camel-k-catalog-${project.version}.yaml</outputFile>
                             <runtime>main</runtime>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>generate-catalog-quarkus</id>
-                        <goals>
-                            <goal>generate-catalog</goal>
-                        </goals>
-                        <configuration>
-                            <outputPath>${project.build.directory}</outputPath>
-                            <outputFile>camel-k-catalog-${project.version}-quarkus.yaml</outputFile>
-                            <runtime>quarkus</runtime>
                         </configuration>
                     </execution>
                 </executions>
