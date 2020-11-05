@@ -29,8 +29,10 @@
     <artifactId>camel-k-loader-kotlin-parent</artifactId>
 
     <modules>
-        <module>camel-k-loader-kotlin</module>
-        <module>camel-k-loader-kotlin-itests</module>
+        <module>impl</module>
+        <module>impl-itests</module>
+        <module>runtime</module>
+        <module>deployment</module>
     </modules>
 
 </project>

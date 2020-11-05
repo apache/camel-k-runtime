@@ -20,21 +20,45 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.apache.camel.k</groupId>
-        <artifactId>camel-k-quarkus-loader-kotlin-parent</artifactId>
+        <artifactId>camel-k-loader-kotlin-parent</artifactId>
         <version>1.6.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>camel-k-quarkus-loader-kotlin-deployment</artifactId>
+    <artifactId>camel-k-loader-kotlin-impl-itests</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-quarkus-core-deployment</artifactId>
+            <artifactId>camel-k-loader-kotlin-impl</artifactId>
         </dependency>
+
+        <!-- ****************************** -->
+        <!--                                -->
+        <!-- TESTS                          -->
+        <!--                                -->
+        <!-- ****************************** -->
+
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-quarkus-loader-kotlin</artifactId>
+            <artifactId>camel-k-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-timer</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-log</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-direct</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -42,15 +66,10 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
+                <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>io.quarkus</groupId>
-                            <artifactId>quarkus-extension-processor</artifactId>
-                            <version>${quarkus-version}</version>
-                        </path>
-                    </annotationProcessorPaths>
+                  <forkCount>1</forkCount>
+                  <reuseForks>false</reuseForks>
                 </configuration>
             </plugin>
         </plugins>

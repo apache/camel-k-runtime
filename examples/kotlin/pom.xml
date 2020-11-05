@@ -59,7 +59,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-quarkus-loader-kotlin</artifactId>
+            <artifactId>camel-k-loader-kotlin</artifactId>
         </dependency>
 
         <dependency>

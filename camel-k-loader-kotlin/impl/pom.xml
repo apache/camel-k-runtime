@@ -25,7 +25,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>camel-k-loader-kotlin</artifactId>
+    <artifactId>camel-k-loader-kotlin-impl</artifactId>
 
     <dependencyManagement>
         <dependencies>
