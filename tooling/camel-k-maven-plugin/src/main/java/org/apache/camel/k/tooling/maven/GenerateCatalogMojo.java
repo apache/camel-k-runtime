@@ -112,11 +112,11 @@ public class GenerateCatalogMojo extends AbstractMojo {
                 version -> runtimeSpec.putMetadata("camel-quarkus.version", version));
 
             runtimeSpec.applicationClass("io.quarkus.runner.GeneratedMain");
-            runtimeSpec.addDependency("org.apache.camel.k", "camel-k-runtime-quarkus");
+            runtimeSpec.addDependency("org.apache.camel.k", "camel-k-runtime");
             runtimeSpec.putCapability(
                 "cron",
                 CamelCapability.forArtifact(
-                    "org.apache.camel.k", "camel-k-quarkus-cron"));
+                    "org.apache.camel.k", "camel-k-cron"));
             runtimeSpec.putCapability(
                 "health",
                 CamelCapability.forArtifact(
@@ -142,7 +142,7 @@ public class GenerateCatalogMojo extends AbstractMojo {
             runtimeSpec.putCapability(
                 "master",
                 CamelCapability.forArtifact(
-                    "org.apache.camel.k", "camel-k-quarkus-master"));
+                    "org.apache.camel.k", "camel-k-master"));
 
             CamelCatalogSpec.Builder catalogSpec = new CamelCatalogSpec.Builder()
                 .runtime(runtimeSpec.build());

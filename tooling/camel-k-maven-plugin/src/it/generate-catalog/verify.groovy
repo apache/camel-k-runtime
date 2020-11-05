@@ -25,8 +25,12 @@ new File(basedir, "catalog.yaml").withReader {
     assert catalog.spec.runtime.metadata['camel-quarkus.version'] == camelQuarkusVersion
 
 
+    assert catalog.spec.runtime.dependencies.any {
+        it.groupId == 'org.apache.camel.k' && it.artifactId == 'camel-k-runtime'
+    }
+
     assert catalog.spec.runtime.capabilities['cron'].dependencies[0].groupId == 'org.apache.camel.k'
-    assert catalog.spec.runtime.capabilities['cron'].dependencies[0].artifactId == 'camel-k-quarkus-cron'
+    assert catalog.spec.runtime.capabilities['cron'].dependencies[0].artifactId == 'camel-k-cron'
     assert catalog.spec.runtime.capabilities['health'].dependencies[0].groupId == 'org.apache.camel.quarkus'
     assert catalog.spec.runtime.capabilities['health'].dependencies[0].artifactId == 'camel-quarkus-microprofile-health'
     assert catalog.spec.runtime.capabilities['rest'].dependencies.any { it.groupId == 'org.apache.camel.quarkus' && it.artifactId == 'camel-quarkus-rest' }
@@ -38,17 +42,17 @@ new File(basedir, "catalog.yaml").withReader {
     assert catalog.spec.runtime.capabilities['tracing'].dependencies[0].groupId == 'org.apache.camel.quarkus'
     assert catalog.spec.runtime.capabilities['tracing'].dependencies[0].artifactId == 'camel-quarkus-opentracing'
     assert catalog.spec.runtime.capabilities['master'].dependencies[0].groupId == 'org.apache.camel.k'
-    assert catalog.spec.runtime.capabilities['master'].dependencies[0].artifactId == 'camel-k-quarkus-master'
+    assert catalog.spec.runtime.capabilities['master'].dependencies[0].artifactId == 'camel-k-master'
 
     assert catalog.metadata.labels['camel.apache.org/runtime.version'] == runtimeVersion
 
-    catalog.spec.artifacts['camel-k-quarkus-knative'].with {
+    catalog.spec.artifacts['camel-k-knative'].with {
         assert dependencies == null
         assert schemes.size() == 1
         assert schemes[0].id == 'knative'
     }
 
-    catalog.spec.artifacts['camel-k-quarkus-kamelet'].with {
+    catalog.spec.artifacts['camel-k-kamelet'].with {
         assert dependencies == null
         assert schemes.size() == 1
         assert schemes[0].id == 'kamelet'
@@ -56,7 +60,7 @@ new File(basedir, "catalog.yaml").withReader {
         assert schemes[0].http == false
     }
 
-    catalog.spec.artifacts['camel-k-quarkus-wrap'].with {
+    catalog.spec.artifacts['camel-k-wrap'].with {
         assert dependencies == null
         assert schemes.size() == 1
         assert schemes[0].id == 'wrap'

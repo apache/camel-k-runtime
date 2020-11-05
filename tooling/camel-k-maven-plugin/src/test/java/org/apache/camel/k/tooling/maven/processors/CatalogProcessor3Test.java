@@ -79,7 +79,7 @@ public class CatalogProcessor3Test extends AbstractCatalogProcessorTest {
         CamelCatalogSpec spec = builder.build();
         Map<String, CamelArtifact> artifactMap = spec.getArtifacts();
 
-        assertThat(artifactMap).containsKey("camel-k-quarkus-knative");
+        assertThat(artifactMap).containsKey("camel-k-knative");
         assertThat(artifactMap.get("camel-http")).satisfies(a -> {
             assertThat(a.getDependencies()).anyMatch(
                 d -> d.getGroupId().equals("org.apache.camel") && d.getArtifactId().equals("camel-file")
