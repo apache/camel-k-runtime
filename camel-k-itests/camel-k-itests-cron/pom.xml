@@ -38,7 +38,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-quarkus-cron</artifactId>
+            <artifactId>camel-k-cron</artifactId>
         </dependency>
 
         <!-- camel quarkus -->
@@ -118,7 +118,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-quarkus-cron-deployment</artifactId>
+            <artifactId>camel-k-cron-deployment</artifactId>
             <version>${project.version}</version>
             <type>pom</type>
             <scope>test</scope>

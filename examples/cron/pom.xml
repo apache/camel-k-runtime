@@ -52,7 +52,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-quarkus-cron</artifactId>
+            <artifactId>camel-k-cron</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>

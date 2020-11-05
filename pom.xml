@@ -327,7 +327,6 @@
         <module>camel-k-quarkus-core</module>
         <module>camel-k-kamelet</module>
         <module>camel-k-quarkus-knative</module>
-        <module>camel-k-quarkus-cron</module>
         <module>camel-k-quarkus-master</module>
         <module>camel-k-wrap</module>
 
@@ -459,12 +458,23 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-master</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-cron-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-cron</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-master</artifactId>
+                <artifactId>camel-k-cron-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -533,16 +543,6 @@
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-kamelet-deployment</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-cron</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-cron-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
