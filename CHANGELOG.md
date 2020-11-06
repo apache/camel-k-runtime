@@ -434,6 +434,7 @@
 - Allow to use any class as configuration source [\#198](https://github.com/apache/camel-k-runtime/pull/198) ([lburgazzoli](https://github.com/lburgazzoli))
 - Update deps and actions [\#197](https://github.com/apache/camel-k-runtime/pull/197) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(tools\): make sure quarkus catalog name start with "camel-catalog-" [\#196](https://github.com/apache/camel-k-runtime/pull/196) ([nicolaferraro](https://github.com/nicolaferraro))
+- Enable GitHub Actions [\#187](https://github.com/apache/camel-k-runtime/pull/187) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-1.0.7](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.0.7) (2019-11-13)
 
@@ -454,7 +455,6 @@
 - Remove docker-maven-plugin in pom.xml which is not in use [\#192](https://github.com/apache/camel-k-runtime/pull/192) ([davsclaus](https://github.com/davsclaus))
 - Fixes \#189 to update to Camel 3.0 RC3 [\#190](https://github.com/apache/camel-k-runtime/pull/190) ([davsclaus](https://github.com/davsclaus))
 - Update deps [\#188](https://github.com/apache/camel-k-runtime/pull/188) ([lburgazzoli](https://github.com/lburgazzoli))
-- Enable GitHub Actions [\#187](https://github.com/apache/camel-k-runtime/pull/187) ([lburgazzoli](https://github.com/lburgazzoli))
 - update to quarkus 0.3.1 [\#181](https://github.com/apache/camel-k-runtime/pull/181) ([lburgazzoli](https://github.com/lburgazzoli))
 - CamelCloudEventXXX not converted to CE header [\#178](https://github.com/apache/camel-k-runtime/pull/178) ([lburgazzoli](https://github.com/lburgazzoli))
 - Camel Quarkus 0.3.0 support [\#167](https://github.com/apache/camel-k-runtime/pull/167) ([astefanutti](https://github.com/astefanutti))
