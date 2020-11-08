@@ -623,6 +623,7 @@
 - add servlet support [\#68](https://github.com/apache/camel-k-runtime/pull/68) ([lburgazzoli](https://github.com/lburgazzoli))
 - Refactor customizer activation [\#67](https://github.com/apache/camel-k-runtime/pull/67) ([lburgazzoli](https://github.com/lburgazzoli))
 - rest: support configuring rest's configuration component/endpoint properties [\#66](https://github.com/apache/camel-k-runtime/pull/66) ([lburgazzoli](https://github.com/lburgazzoli))
+- chore\(cleanup\): remove platform stream handler [\#64](https://github.com/apache/camel-k-runtime/pull/64) ([lburgazzoli](https://github.com/lburgazzoli))
 - Update dependencies [\#63](https://github.com/apache/camel-k-runtime/pull/63) ([lburgazzoli](https://github.com/lburgazzoli))
 - remove spring boot support [\#62](https://github.com/apache/camel-k-runtime/pull/62) ([lburgazzoli](https://github.com/lburgazzoli))
 - update to Camel 2.24.0 [\#61](https://github.com/apache/camel-k-runtime/pull/61) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -641,7 +642,6 @@
 
 **Merged pull requests:**
 
-- chore\(cleanup\): remove platform stream handler [\#64](https://github.com/apache/camel-k-runtime/pull/64) ([lburgazzoli](https://github.com/lburgazzoli))
 - Rollback to 0.3.2-SNAPSHOT and re-enable missing module [\#53](https://github.com/apache/camel-k-runtime/pull/53) ([nicolaferraro](https://github.com/nicolaferraro))
 - Align the snapshot version for camel-k-adapter-camel-3 module [\#52](https://github.com/apache/camel-k-runtime/pull/52) ([oscerd](https://github.com/oscerd))
 - Fix \#48: add a default type to cloudevents [\#50](https://github.com/apache/camel-k-runtime/pull/50) ([nicolaferraro](https://github.com/nicolaferraro))
