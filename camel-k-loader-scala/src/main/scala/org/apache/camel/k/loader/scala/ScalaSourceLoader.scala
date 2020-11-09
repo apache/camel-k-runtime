@@ -19,7 +19,7 @@ package org.apache.camel.k.loader.scala
 import java.io.{BufferedReader, Reader}
 import java.util
 
-import org.apache.camel.RoutesBuilder
+import org.apache.camel.{RoutesBuilder, RuntimeCamelException}
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder
 import org.apache.camel.k.loader.scala.ScalaSourceLoader._
 import org.apache.camel.k.loader.scala.dsl.IntegrationConfiguration
@@ -33,20 +33,18 @@ import scala.util.control.NonFatal
 
 class ScalaSourceLoader extends SourceLoader {
 
-  /**
-   * Provides a list of the languages supported by this loader.
-   *
-   * @return the supported languages.
-   */
+  /** Provides a list of the languages supported by this loader.
+    *
+    * @return the supported languages.
+    */
   override def getSupportedLanguages: util.List[String] = util.List.of("scala")
 
-  /**
-   * Creates a camel `RoutesBuilder` from the given resource.
-   *
-   * @param runtime the runtime.
-   * @param source  the source to load.
-   * @return the RoutesBuilder.
-   */
+  /** Creates a camel `RoutesBuilder` from the given resource.
+    *
+    * @param runtime the runtime.
+    * @param source  the source to load.
+    * @return the RoutesBuilder.
+    */
   override def load(runtime: Runtime, source: Source): RoutesBuilder =
     RouteBuilders.endpoint(source, { (reader, builder) => doLoad(reader, builder) })
 
@@ -54,18 +52,15 @@ class ScalaSourceLoader extends SourceLoader {
 
     val result = for {
       source <- loadSource(reader)
-      executable <- compile[Any](source)
+      executable <- compile(source)
       result <- execute(builder)(executable)
     } yield result
 
     val logger = LoggerFactory.getLogger(classOf[ScalaSourceLoader])
     result match {
-      case Left(ScalaError.SourceLoading(e)) =>
-        logger.error("Error while loading Scala source", e)
-      case Left(ScalaError.Compilation(e)) =>
-        logger.error("Error while compiling Scala code", e)
-      case Left(ScalaError.Execution(e)) =>
-        logger.error("Error while executing Scala code", e)
+      case Left(e) =>
+        logger.error("Error while loading Scala", e)
+        throw new RuntimeCamelException(e)
       case Right(_) => ()
     }
   }
@@ -81,28 +76,32 @@ class ScalaSourceLoader extends SourceLoader {
     case NonFatal(e) => Left(ScalaError.SourceLoading(e))
   }
 
-  private def compile[A](source: String): Either[ScalaError.Compilation, IntegrationConfiguration => A] =
+  private def compile(
+      source: String,
+  ): Either[ScalaError.Compilation, EndpointRouteBuilder => IntegrationConfiguration] =
     try {
       val tb = runtimeMirror(classOf[IntegrationConfiguration].getClassLoader).mkToolBox()
       val tree = tb.parse(s"""
-        |def wrapper(integrationConfiguration: org.apache.camel.k.loader.scala.dsl.IntegrationConfiguration): Any = {
-        |  import integrationConfiguration._
-        |  $source
-        |}
+        |def wrapper(builder: org.apache.camel.builder.endpoint.EndpointRouteBuilder): org.apache.camel.k.loader.scala.dsl.IntegrationConfiguration =
+        |  new org.apache.camel.k.loader.scala.dsl.IntegrationConfiguration(builder) {
+        |    $source
+        |  }
         |wrapper _
       """.stripMargin)
       val f = tb.compile(tree)
       val wrapper = f()
-      val result = wrapper.asInstanceOf[IntegrationConfiguration => A]
+      val result = wrapper.asInstanceOf[EndpointRouteBuilder => IntegrationConfiguration]
       Right(result)
     } catch {
       case NonFatal(e) => Left(ScalaError.Compilation(e))
     }
 
-  private def execute[A](
+  private def execute[IntegrationConfiguration](
       builder: EndpointRouteBuilder,
-  )(executable: IntegrationConfiguration => A): Either[ScalaError.Execution, A] = try {
-    val result = executable(new IntegrationConfiguration(builder) {})
+  )(
+      executable: EndpointRouteBuilder => IntegrationConfiguration,
+  ): Either[ScalaError.Execution, IntegrationConfiguration] = try {
+    val result = executable(builder)
     Right(result)
   } catch {
     case NonFatal(e) => Left(ScalaError.Execution(e))
@@ -111,10 +110,13 @@ class ScalaSourceLoader extends SourceLoader {
 }
 
 object ScalaSourceLoader {
-  sealed abstract class ScalaError(cause: Throwable) extends Exception(cause) with Product with Serializable
+  sealed abstract class ScalaError(message: String, cause: Throwable)
+      extends Exception(message, cause)
+      with Product
+      with Serializable
   object ScalaError {
-    case class SourceLoading(cause: Throwable) extends ScalaError(cause)
-    case class Compilation(cause: Throwable) extends ScalaError(cause)
-    case class Execution(cause: Throwable) extends ScalaError(cause)
+    case class SourceLoading(cause: Throwable) extends ScalaError("Error while loading Scala source", cause)
+    case class Compilation(cause: Throwable) extends ScalaError("Error while compiling Scala code", cause)
+    case class Execution(cause: Throwable) extends ScalaError("Error while executing Scala code", cause)
   }
 }
