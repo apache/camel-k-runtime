@@ -46,7 +46,6 @@ import org.apache.camel.component.knative.spi.KnativeEnvironment;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.http.base.HttpOperationFailedException;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.k.http.PlatformHttpServiceContextCustomizer;
 import org.apache.camel.k.test.AvailablePortFinder;
 import org.apache.camel.support.service.ServiceHelper;
 import org.apache.camel.util.ObjectHelper;
@@ -60,6 +59,7 @@ import static io.restassured.RestAssured.config;
 import static io.restassured.RestAssured.given;
 import static io.restassured.config.EncoderConfig.encoderConfig;
 import static org.apache.camel.component.knative.http.KnativeHttpTestSupport.configureKnativeComponent;
+import static org.apache.camel.component.knative.http.KnativeHttpTestSupport.configurePlatformHttpComponent;
 import static org.apache.camel.component.knative.http.KnativeHttpTestSupport.httpAttribute;
 import static org.apache.camel.component.knative.test.KnativeEnvironmentSupport.channel;
 import static org.apache.camel.component.knative.test.KnativeEnvironmentSupport.endpoint;
@@ -92,9 +92,7 @@ public class KnativeHttpTest {
         this.platformHttpHost = "localhost";
         this.platformHttpPort = AvailablePortFinder.getNextAvailable();
 
-        PlatformHttpServiceContextCustomizer httpService = new PlatformHttpServiceContextCustomizer();
-        httpService.setBindPort(this.platformHttpPort);
-        httpService.apply(context);
+        configurePlatformHttpComponent(context, this.platformHttpPort);
 
         RestAssured.port = platformHttpPort;
         RestAssured.config = config().encoderConfig(encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));

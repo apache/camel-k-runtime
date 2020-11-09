@@ -20,7 +20,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.apache.camel.k</groupId>
-        <artifactId>camel-k-runtime-parent</artifactId>
+        <artifactId>camel-k-runtime-project</artifactId>
         <version>1.6.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -33,21 +33,15 @@
     </properties>
 
     <modules>
-        <module>camel-k-runtime-example-api</module>
-        <module>camel-k-runtime-example-rest</module>
-        <module>camel-k-runtime-example-groovy</module>
-        <module>camel-k-runtime-example-yaml</module>
-        <module>camel-k-runtime-example-kamelets</module>
-        <module>camel-k-runtime-example-knative</module>
-        <module>camel-k-runtime-example-quarkus-js</module>
-        <module>camel-k-runtime-example-quarkus-yaml</module>
-        <module>camel-k-runtime-example-quarkus-kamelets</module>
-        <module>camel-k-runtime-example-quarkus-knative</module>
-        <module>camel-k-runtime-example-quarkus-kotlin</module>
-        <module>camel-k-runtime-example-quarkus-groovy</module>
-        <module>camel-k-runtime-example-quarkus-java</module>
-        <module>camel-k-runtime-example-quarkus-xml</module>
-        <module>camel-k-runtime-example-quarkus-cron</module>
+        <module>js</module>
+        <module>yaml</module>
+        <module>kamelets</module>
+        <module>knative</module>
+        <module>kotlin</module>
+        <module>groovy</module>
+        <module>java</module>
+        <module>xml</module>
+        <module>cron</module>
     </modules>
 
     <build>
