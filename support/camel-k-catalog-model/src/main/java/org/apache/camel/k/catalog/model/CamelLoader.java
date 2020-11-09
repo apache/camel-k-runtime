@@ -14,24 +14,47 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.tooling.maven.model.k8s;
+package org.apache.camel.k.catalog.model;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.immutables.value.Value;
 
 @Value.Immutable
-@JsonDeserialize(builder = ObjectMeta.Builder.class)
-public interface ObjectMeta {
-    String getName();
-
+@Value.Style(depluralize = true)
+@JsonDeserialize(builder = CamelLoader.Builder.class)
+@JsonPropertyOrder({"groupId", "artifactId", "version"})
+public interface CamelLoader extends Artifact {
+    @Value.Auxiliary
     @Value.Default
-    default Map<String, String> getLabels() {
+    default Set<String> getLanguages() {
+        return Collections.emptySet();
+    }
+
+    @Value.Auxiliary
+    @Value.Default
+    default Set<Artifact> getDependencies() {
+        return Collections.emptySet();
+    }
+
+    @Value.Auxiliary
+    @Value.Default
+    default Map<String, String> getMetadata() {
         return Collections.emptyMap();
     }
 
-    class Builder extends ImmutableObjectMeta.Builder {
+    static Builder fromArtifact(String groupId, String artifactId) {
+        return new Builder().groupId(groupId).artifactId(artifactId);
+    }
+
+    class Builder extends ImmutableCamelLoader.Builder {
+        public Builder addDependency(String groupId, String artifactId) {
+            addDependencies(MavenArtifact.from(groupId, artifactId));
+            return this;
+        }
     }
 }

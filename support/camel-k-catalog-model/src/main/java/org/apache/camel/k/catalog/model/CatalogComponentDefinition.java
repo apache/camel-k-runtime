@@ -14,23 +14,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.tooling.maven.model;
+package org.apache.camel.k.catalog.model;
+
+import java.util.stream.Stream;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.apache.camel.util.StringHelper;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public final class CatalogLanguageDefinition extends CatalogDefinition {
-    private String name;
+public final class CatalogComponentDefinition extends CatalogDefinition {
+    private String scheme;
+    private String alternativeSchemes;
     private String javaType;
 
-    public String getName() {
-        return name;
+    public Stream<String> getSchemes() {
+        final String schemeIDs = StringHelper.trimToNull(alternativeSchemes);
+
+        return schemeIDs == null
+            ? Stream.of(scheme)
+            : Stream.concat(
+                Stream.of(scheme),
+                StringHelper.splitAsStream(schemeIDs, ","));
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getScheme() {
+        return scheme;
+    }
+
+    public void setScheme(String scheme) {
+        this.scheme = scheme;
+    }
+
+    public String getAlternativeSchemes() {
+        return alternativeSchemes;
+    }
+
+    public void setAlternativeSchemes(String alternativeSchemes) {
+        this.alternativeSchemes = alternativeSchemes;
     }
 
     public String getJavaType() {
@@ -43,15 +65,15 @@ public final class CatalogLanguageDefinition extends CatalogDefinition {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Container {
-        private final CatalogLanguageDefinition delegate;
+        private final CatalogComponentDefinition delegate;
 
         @JsonCreator
         public Container(
-            @JsonProperty("language") CatalogLanguageDefinition delegate) {
+            @JsonProperty("component") CatalogComponentDefinition delegate) {
             this.delegate = delegate;
         }
 
-        public CatalogLanguageDefinition unwrap() {
+        public CatalogComponentDefinition unwrap() {
             return delegate;
         }
     }

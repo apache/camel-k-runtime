@@ -24,17 +24,17 @@ import java.util.Objects;
 
 import com.vdurmont.semver4j.Semver;
 import org.apache.camel.catalog.CamelCatalog;
-import org.apache.camel.k.tooling.maven.model.CamelArtifact;
-import org.apache.camel.k.tooling.maven.model.CamelLoader;
-import org.apache.camel.k.tooling.maven.model.CamelScheme;
-import org.apache.camel.k.tooling.maven.model.CatalogComponentDefinition;
-import org.apache.camel.k.tooling.maven.model.CatalogDataFormatDefinition;
-import org.apache.camel.k.tooling.maven.model.CatalogDefinition;
-import org.apache.camel.k.tooling.maven.model.CatalogLanguageDefinition;
-import org.apache.camel.k.tooling.maven.model.CatalogProcessor;
-import org.apache.camel.k.tooling.maven.model.CatalogSupport;
-import org.apache.camel.k.tooling.maven.model.MavenArtifact;
-import org.apache.camel.k.tooling.maven.model.crd.CamelCatalogSpec;
+import org.apache.camel.k.catalog.model.CamelArtifact;
+import org.apache.camel.k.catalog.model.CamelLoader;
+import org.apache.camel.k.catalog.model.CamelScheme;
+import org.apache.camel.k.catalog.model.CatalogComponentDefinition;
+import org.apache.camel.k.catalog.model.CatalogDataFormatDefinition;
+import org.apache.camel.k.catalog.model.CatalogDefinition;
+import org.apache.camel.k.catalog.model.CatalogLanguageDefinition;
+import org.apache.camel.k.catalog.model.CatalogSupport;
+import org.apache.camel.k.catalog.model.MavenArtifact;
+import org.apache.camel.k.catalog.model.k8s.crd.CamelCatalogSpec;
+import org.apache.camel.k.tooling.maven.support.CatalogProcessor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.project.MavenProject;
 

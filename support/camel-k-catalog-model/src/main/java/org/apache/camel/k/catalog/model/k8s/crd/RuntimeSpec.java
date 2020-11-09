@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.tooling.maven.model.crd;
+package org.apache.camel.k.catalog.model.k8s.crd;
 
 import java.util.Collections;
 import java.util.Map;
@@ -22,8 +22,8 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import org.apache.camel.k.tooling.maven.model.CamelCapability;
-import org.apache.camel.k.tooling.maven.model.MavenArtifact;
+import org.apache.camel.k.catalog.model.CamelCapability;
+import org.apache.camel.k.catalog.model.MavenArtifact;
 import org.immutables.value.Value;
 
 @Value.Immutable
@@ -31,6 +31,7 @@ import org.immutables.value.Value;
 @JsonDeserialize(builder = RuntimeSpec.Builder.class)
 @JsonPropertyOrder({ "version", "runtimeVersion", "artifacts" })
 public interface RuntimeSpec {
+    String getProvider();
     String getVersion();
     String getApplicationClass();
 

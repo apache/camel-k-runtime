@@ -14,14 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.tooling.maven.model;
+package org.apache.camel.k.catalog.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public final class CatalogDataFormatDefinition extends CatalogDefinition {
+public final class CatalogLanguageDefinition extends CatalogDefinition {
     private String name;
     private String javaType;
 
@@ -43,15 +43,15 @@ public final class CatalogDataFormatDefinition extends CatalogDefinition {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Container {
-        private final CatalogDataFormatDefinition delegate;
+        private final CatalogLanguageDefinition delegate;
 
         @JsonCreator
         public Container(
-            @JsonProperty("dataformat") CatalogDataFormatDefinition delegate) {
+            @JsonProperty("language") CatalogLanguageDefinition delegate) {
             this.delegate = delegate;
         }
 
-        public CatalogDataFormatDefinition unwrap() {
+        public CatalogLanguageDefinition unwrap() {
             return delegate;
         }
     }

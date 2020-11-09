@@ -14,14 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.tooling.maven.model.k8s;
+package org.apache.camel.k.catalog.model.k8s.crd;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.apache.camel.k.catalog.model.k8s.ObjectMeta;
 import org.immutables.value.Value;
 
 @Value.Immutable
-@JsonDeserialize(builder = TypeMeta.Builder.class)
-public interface TypeMeta {
+@JsonDeserialize(builder = CamelCatalog.Builder.class)
+@JsonPropertyOrder({ "apiVersion", "kind", "metadata", "spec" })
+public interface CamelCatalog {
     @Value.Default
     default String getApiVersion() {
         return "camel.apache.org/v1";
@@ -32,6 +35,10 @@ public interface TypeMeta {
         return "CamelCatalog";
     }
 
-    class Builder extends ImmutableTypeMeta.Builder {
+    ObjectMeta getMetadata();
+
+    CamelCatalogSpec getSpec();
+
+    class Builder extends ImmutableCamelCatalog.Builder {
     }
 }

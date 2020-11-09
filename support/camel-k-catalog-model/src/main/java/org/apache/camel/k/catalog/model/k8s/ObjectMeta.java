@@ -14,28 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.tooling.maven.model;
+package org.apache.camel.k.catalog.model.k8s;
 
-import org.apache.camel.catalog.CamelCatalog;
-import org.apache.camel.k.tooling.maven.model.crd.CamelCatalogSpec;
-import org.apache.maven.project.MavenProject;
+import java.util.Collections;
+import java.util.Map;
 
-public interface CatalogProcessor {
-    /**
-     * The highest precedence
-     */
-    int HIGHEST = Integer.MIN_VALUE;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.immutables.value.Value;
 
-    /**
-     * The lowest precedence
-     */
-    int LOWEST = Integer.MAX_VALUE;
+@Value.Immutable
+@JsonDeserialize(builder = ObjectMeta.Builder.class)
+public interface ObjectMeta {
+    String getName();
 
-    boolean accepts(CamelCatalog catalog);
+    @Value.Default
+    default Map<String, String> getLabels() {
+        return Collections.emptyMap();
+    }
 
-    void process(MavenProject project, CamelCatalog catalog, CamelCatalogSpec.Builder specBuilder);
-
-    default int getOrder() {
-        return LOWEST;
+    class Builder extends ImmutableObjectMeta.Builder {
     }
 }

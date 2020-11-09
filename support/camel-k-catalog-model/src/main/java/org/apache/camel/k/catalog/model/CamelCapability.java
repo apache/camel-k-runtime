@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.tooling.maven.model;
+package org.apache.camel.k.catalog.model;
 
 import java.util.Collections;
 import java.util.Set;
@@ -25,45 +25,23 @@ import org.immutables.value.Value;
 
 @Value.Immutable
 @Value.Style(depluralize = true)
-@JsonDeserialize(builder = CamelArtifact.Builder.class)
+@JsonDeserialize(builder = CamelCapability.Builder.class)
 @JsonPropertyOrder({"groupId", "artifactId", "version"})
-public interface CamelArtifact extends Artifact {
-    @Value.Auxiliary
-    @Value.Default
-    default Set<CamelScheme> getSchemes() {
-        return Collections.emptySet();
-    }
-
-    @Value.Auxiliary
-    @Value.Default
-    default Set<String> getLanguages() {
-        return Collections.emptySet();
-    }
-
-    @Value.Auxiliary
-    @Value.Default
-    default Set<String> getDataformats() {
-        return Collections.emptySet();
-    }
-
+public interface CamelCapability {
     @Value.Auxiliary
     @Value.Default
     default Set<Artifact> getDependencies() {
         return Collections.emptySet();
     }
 
-    @Value.Auxiliary
-    @Value.Default
-    default Set<Artifact> getExclusions() {
-        return Collections.emptySet();
+    static CamelCapability forArtifact(String groupId, String artifactId) {
+        return new Builder().addDependency(groupId, artifactId).build();
     }
 
-    @Value.Auxiliary
-    @Value.Default
-    default Set<String> getJavaTypes() {
-        return Collections.emptySet();
-    }
-
-    class Builder extends ImmutableCamelArtifact.Builder {
+    class Builder extends ImmutableCamelCapability.Builder {
+        public Builder addDependency(String groupId, String artifactId) {
+            addDependencies(MavenArtifact.from(groupId, artifactId));
+            return this;
+        }
     }
 }

@@ -14,46 +14,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.tooling.maven.model;
+package org.apache.camel.k.catalog.model.k8s.crd;
 
 import java.util.Collections;
 import java.util.Map;
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.apache.camel.k.catalog.model.CamelArtifact;
+import org.apache.camel.k.catalog.model.CamelLoader;
 import org.immutables.value.Value;
 
 @Value.Immutable
 @Value.Style(depluralize = true)
-@JsonDeserialize(builder = CamelLoader.Builder.class)
-@JsonPropertyOrder({"groupId", "artifactId", "version"})
-public interface CamelLoader extends Artifact {
-    @Value.Auxiliary
-    @Value.Default
-    default Set<String> getLanguages() {
-        return Collections.emptySet();
-    }
+@JsonDeserialize(builder = CamelCatalogSpec.Builder.class)
+@JsonPropertyOrder({ "runtime", "artifacts" })
+public interface CamelCatalogSpec {
+    RuntimeSpec getRuntime();
 
-    @Value.Auxiliary
     @Value.Default
-    default Set<Artifact> getDependencies() {
-        return Collections.emptySet();
-    }
-
-    @Value.Auxiliary
-    @Value.Default
-    default Map<String, String> getMetadata() {
+    default Map<String, CamelArtifact> getArtifacts() {
         return Collections.emptyMap();
     }
 
-    static Builder fromArtifact(String groupId, String artifactId) {
-        return new Builder().groupId(groupId).artifactId(artifactId);
+    @Value.Default
+    default Map<String, CamelLoader> getLoaders() {
+        return Collections.emptyMap();
     }
 
-    class Builder extends ImmutableCamelLoader.Builder {
-        public Builder addDependency(String groupId, String artifactId) {
-            addDependencies(MavenArtifact.from(groupId, artifactId));
+    class Builder extends ImmutableCamelCatalogSpec.Builder {
+        public Builder putArtifact(CamelArtifact artifact) {
+            putArtifact(artifact.getArtifactId(), artifact);
+            return this;
+        }
+        public Builder putArtifact(String groupId, String artifactId) {
+            putArtifact(new CamelArtifact.Builder().groupId(groupId).artifactId(artifactId).build());
             return this;
         }
     }

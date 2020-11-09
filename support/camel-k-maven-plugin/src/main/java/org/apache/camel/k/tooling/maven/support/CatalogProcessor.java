@@ -14,12 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.tooling.maven.model;
+package org.apache.camel.k.tooling.maven.support;
 
-import java.util.Optional;
+import org.apache.camel.catalog.CamelCatalog;
+import org.apache.camel.k.catalog.model.k8s.crd.CamelCatalogSpec;
+import org.apache.maven.project.MavenProject;
 
-public interface Artifact {
-    String getGroupId();;
-    String getArtifactId();
-    Optional<String> getVersion();
+public interface CatalogProcessor {
+    /**
+     * The highest precedence
+     */
+    int HIGHEST = Integer.MIN_VALUE;
+
+    /**
+     * The lowest precedence
+     */
+    int LOWEST = Integer.MAX_VALUE;
+
+    boolean accepts(CamelCatalog catalog);
+
+    void process(MavenProject project, CamelCatalog catalog, CamelCatalogSpec.Builder specBuilder);
+
+    default int getOrder() {
+        return LOWEST;
+    }
 }

@@ -14,34 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.tooling.maven.model;
+package org.apache.camel.k.catalog.model.k8s;
 
-import java.util.Collections;
-import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.immutables.value.Value;
 
 @Value.Immutable
-@Value.Style(depluralize = true)
-@JsonDeserialize(builder = CamelCapability.Builder.class)
-@JsonPropertyOrder({"groupId", "artifactId", "version"})
-public interface CamelCapability {
-    @Value.Auxiliary
+@JsonDeserialize(builder = TypeMeta.Builder.class)
+public interface TypeMeta {
     @Value.Default
-    default Set<Artifact> getDependencies() {
-        return Collections.emptySet();
+    default String getApiVersion() {
+        return "camel.apache.org/v1";
     }
 
-    static CamelCapability forArtifact(String groupId, String artifactId) {
-        return new Builder().addDependency(groupId, artifactId).build();
+    @Value.Default
+    default String getKind() {
+        return "CamelCatalog";
     }
 
-    class Builder extends ImmutableCamelCapability.Builder {
-        public Builder addDependency(String groupId, String artifactId) {
-            addDependencies(MavenArtifact.from(groupId, artifactId));
-            return this;
-        }
+    class Builder extends ImmutableTypeMeta.Builder {
     }
 }

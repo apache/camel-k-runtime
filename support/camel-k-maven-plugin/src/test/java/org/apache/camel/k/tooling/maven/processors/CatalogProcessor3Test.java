@@ -19,11 +19,11 @@ package org.apache.camel.k.tooling.maven.processors;
 import java.util.Map;
 
 import org.apache.camel.catalog.CamelCatalog;
-import org.apache.camel.k.tooling.maven.model.Artifact;
-import org.apache.camel.k.tooling.maven.model.CamelArtifact;
-import org.apache.camel.k.tooling.maven.model.CatalogProcessor;
-import org.apache.camel.k.tooling.maven.model.crd.CamelCatalogSpec;
-import org.apache.camel.k.tooling.maven.model.crd.RuntimeSpec;
+import org.apache.camel.k.catalog.model.Artifact;
+import org.apache.camel.k.catalog.model.CamelArtifact;
+import org.apache.camel.k.catalog.model.k8s.crd.CamelCatalogSpec;
+import org.apache.camel.k.catalog.model.k8s.crd.RuntimeSpec;
+import org.apache.camel.k.tooling.maven.support.CatalogProcessor;
 import org.apache.maven.project.MavenProject;
 import org.junit.jupiter.api.Test;
 
@@ -70,7 +70,7 @@ public class CatalogProcessor3Test extends AbstractCatalogProcessorTest {
         CatalogProcessor processor = new CatalogProcessor3x();
         CamelCatalog catalog = versionCamelCatalog("3.0.0");
 
-        RuntimeSpec runtime = new RuntimeSpec.Builder().version("1.0.0").applicationClass("unknown").build();
+        RuntimeSpec runtime = new RuntimeSpec.Builder().version("1.0.0").applicationClass("unknown").provider("quarkus").build();
         CamelCatalogSpec.Builder builder = new CamelCatalogSpec.Builder().runtime(runtime);
 
         assertThat(processor.accepts(catalog)).isTrue();
@@ -92,7 +92,7 @@ public class CatalogProcessor3Test extends AbstractCatalogProcessorTest {
         CatalogProcessor processor = new CatalogProcessor3x();
         CamelCatalog catalog = versionCamelCatalog("3.0.0");
 
-        RuntimeSpec runtime = new RuntimeSpec.Builder().version("1.0.0").applicationClass("unknown").build();
+        RuntimeSpec runtime = new RuntimeSpec.Builder().version("1.0.0").applicationClass("unknown").provider("quarkus").build();
         CamelCatalogSpec.Builder builder = new CamelCatalogSpec.Builder().runtime(runtime);
 
         assertThat(processor.accepts(catalog)).isTrue();

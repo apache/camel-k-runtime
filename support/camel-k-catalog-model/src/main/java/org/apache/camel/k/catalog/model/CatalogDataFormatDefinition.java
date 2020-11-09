@@ -14,44 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.tooling.maven.model;
-
-import java.util.stream.Stream;
+package org.apache.camel.k.catalog.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.apache.commons.lang3.StringUtils;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public final class CatalogComponentDefinition extends CatalogDefinition {
-    private String scheme;
-    private String alternativeSchemes;
+public final class CatalogDataFormatDefinition extends CatalogDefinition {
+    private String name;
     private String javaType;
 
-    public Stream<String> getSchemes() {
-        String schemeIDs = StringUtils.trimToEmpty(alternativeSchemes);
-
-        return Stream.concat(
-            Stream.of(scheme),
-            Stream.of(StringUtils.split(schemeIDs, ','))
-        );
+    public String getName() {
+        return name;
     }
 
-    public String getScheme() {
-        return scheme;
-    }
-
-    public void setScheme(String scheme) {
-        this.scheme = scheme;
-    }
-
-    public String getAlternativeSchemes() {
-        return alternativeSchemes;
-    }
-
-    public void setAlternativeSchemes(String alternativeSchemes) {
-        this.alternativeSchemes = alternativeSchemes;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getJavaType() {
@@ -64,15 +43,15 @@ public final class CatalogComponentDefinition extends CatalogDefinition {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Container {
-        private final CatalogComponentDefinition delegate;
+        private final CatalogDataFormatDefinition delegate;
 
         @JsonCreator
         public Container(
-            @JsonProperty("component") CatalogComponentDefinition delegate) {
+            @JsonProperty("dataformat") CatalogDataFormatDefinition delegate) {
             this.delegate = delegate;
         }
 
-        public CatalogComponentDefinition unwrap() {
+        public CatalogDataFormatDefinition unwrap() {
             return delegate;
         }
     }

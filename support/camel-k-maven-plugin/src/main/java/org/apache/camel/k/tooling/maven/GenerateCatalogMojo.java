@@ -35,12 +35,12 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import org.apache.camel.catalog.DefaultCamelCatalog;
 import org.apache.camel.catalog.quarkus.QuarkusRuntimeProvider;
 import org.apache.camel.impl.engine.AbstractCamelContext;
-import org.apache.camel.k.tooling.maven.model.CamelCapability;
-import org.apache.camel.k.tooling.maven.model.CatalogProcessor;
-import org.apache.camel.k.tooling.maven.model.crd.CamelCatalog;
-import org.apache.camel.k.tooling.maven.model.crd.CamelCatalogSpec;
-import org.apache.camel.k.tooling.maven.model.crd.RuntimeSpec;
-import org.apache.camel.k.tooling.maven.model.k8s.ObjectMeta;
+import org.apache.camel.k.catalog.model.CamelCapability;
+import org.apache.camel.k.catalog.model.k8s.ObjectMeta;
+import org.apache.camel.k.catalog.model.k8s.crd.CamelCatalog;
+import org.apache.camel.k.catalog.model.k8s.crd.CamelCatalogSpec;
+import org.apache.camel.k.catalog.model.k8s.crd.RuntimeSpec;
+import org.apache.camel.k.tooling.maven.support.CatalogProcessor;
 import org.apache.camel.k.tooling.maven.support.MavenSupport;
 import org.apache.camel.quarkus.core.FastCamelContext;
 import org.apache.maven.plugin.AbstractMojo;
@@ -96,7 +96,8 @@ public class GenerateCatalogMojo extends AbstractMojo {
 
         try {
             RuntimeSpec.Builder runtimeSpec = new RuntimeSpec.Builder()
-                .version(runtimeVersion);
+                .version(runtimeVersion)
+                .provider("quarkus");
 
             MavenSupport.getVersion(
                 AbstractCamelContext.class,

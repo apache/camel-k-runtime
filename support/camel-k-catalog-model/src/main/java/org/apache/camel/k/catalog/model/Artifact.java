@@ -14,31 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.tooling.maven.model.crd;
+package org.apache.camel.k.catalog.model;
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import org.apache.camel.k.tooling.maven.model.k8s.ObjectMeta;
-import org.immutables.value.Value;
+import java.util.Optional;
 
-@Value.Immutable
-@JsonDeserialize(builder = CamelCatalog.Builder.class)
-@JsonPropertyOrder({ "apiVersion", "kind", "metadata", "spec" })
-public interface CamelCatalog {
-    @Value.Default
-    default String getApiVersion() {
-        return "camel.apache.org/v1";
-    }
-
-    @Value.Default
-    default String getKind() {
-        return "CamelCatalog";
-    }
-
-    ObjectMeta getMetadata();
-
-    CamelCatalogSpec getSpec();
-
-    class Builder extends ImmutableCamelCatalog.Builder {
-    }
+public interface Artifact {
+    String getGroupId();;
+    String getArtifactId();
+    Optional<String> getVersion();
 }
