@@ -115,7 +115,6 @@ public class CatalogProcessor3x implements CatalogProcessor {
                 .artifactId("camel-k-cron")
                 .addScheme(new CamelScheme.Builder()
                     .id("cron")
-                    .http(true)
                     .build())
                 .build()
         );
@@ -125,7 +124,6 @@ public class CatalogProcessor3x implements CatalogProcessor {
                 .artifactId("camel-k-kamelet")
                 .addScheme(new CamelScheme.Builder()
                     .id("kamelet")
-                    .http(false)
                     .passive(true)
                     .build())
                 .build()
@@ -137,15 +135,6 @@ public class CatalogProcessor3x implements CatalogProcessor {
                 .addScheme(new CamelScheme.Builder()
                     .id("knative")
                     .http(true)
-                    .build())
-                .build()
-        );
-        specBuilder.putArtifact(
-            new CamelArtifact.Builder()
-                .groupId("org.apache.camel.k")
-                .artifactId("camel-k-webhook")
-                .addScheme(new CamelScheme.Builder()
-                    .id("wrap")
                     .build())
                 .build()
         );
