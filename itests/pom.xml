@@ -47,7 +47,11 @@
         <module>camel-k-itests-master</module>
         <module>camel-k-itests-knative</module>
         <module>camel-k-itests-knative-sinkbinding</module>
-        <module>camel-k-itests-knative-source</module>
+        <module>camel-k-itests-knative-source-groovy</module>
+        <module>camel-k-itests-knative-source-java</module>
+        <module>camel-k-itests-knative-source-js</module>
+        <module>camel-k-itests-knative-source-xml</module>
+        <module>camel-k-itests-knative-source-yaml</module>
         <module>camel-k-itests-kamelet</module>
         <module>camel-k-itests-wrap</module>
         <module>camel-k-itests-webhook</module>
