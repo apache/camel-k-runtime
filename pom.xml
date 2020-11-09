@@ -307,7 +307,7 @@
     </build>
 
     <modules>
-        <module>tooling</module>
+        <module>support</module>
         <module>components</module>
 
         <module>camel-k-core</module>
@@ -327,9 +327,8 @@
         <module>camel-k-wrap</module>
 
         <module>camel-k-runtime</module>
-        <module>camel-k-itests</module>
-        <module>camel-k-bom</module>
 
+        <module>itests</module>
         <module>examples</module>
         <module>distribution</module>
     </modules>
@@ -652,6 +651,28 @@
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-loader-yaml-deployment</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- itests -->
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-itests-loader-inspector</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-itests-runtime-inspector</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-itests-runtime-bootstrap</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-itests-runtime-bootstrap-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -995,7 +1016,7 @@
                         </executions>
                         <configuration>
                             <rulesets>
-                                <ruleset>file:///${camel-k.project.root}/tooling/pmd-ruleset.xml</ruleset>
+                                <ruleset>file:///${camel-k.project.root}/support/pmd-ruleset.xml</ruleset>
                             </rulesets>
                             <analysisCache>false</analysisCache>
                             <printFailingErrors>true</printFailingErrors>
