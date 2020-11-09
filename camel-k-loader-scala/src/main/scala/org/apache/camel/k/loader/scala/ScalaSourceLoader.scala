@@ -1,4 +1,4 @@
-/*
+/**
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -33,18 +33,20 @@ import scala.util.control.NonFatal
 
 class ScalaSourceLoader extends SourceLoader {
 
-  /** Provides a list of the languages supported by this loader.
-    *
-    * @return the supported languages.
-    */
+  /**
+   * Provides a list of the languages supported by this loader.
+   *
+   * @return the supported languages.
+   */
   override def getSupportedLanguages: util.List[String] = util.List.of("scala")
 
-  /** Creates a camel `RoutesBuilder` from the given resource.
-    *
-    * @param runtime the runtime.
-    * @param source  the source to load.
-    * @return the RoutesBuilder.
-    */
+  /**
+   * Creates a camel `RoutesBuilder` from the given resource.
+   *
+   * @param runtime the runtime.
+   * @param source  the source to load.
+   * @return the RoutesBuilder.
+   */
   override def load(runtime: Runtime, source: Source): RoutesBuilder =
     RouteBuilders.endpoint(source, { (reader, builder) => doLoad(reader, builder) })
 
