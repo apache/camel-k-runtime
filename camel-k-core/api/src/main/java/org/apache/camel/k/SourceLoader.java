@@ -34,7 +34,6 @@ public interface SourceLoader {
      * @param runtime the runtime.
      * @param source the source to load.
      * @return the RoutesBuilder.
-     * @throws Exception
      */
     RoutesBuilder load(Runtime runtime, Source source);
 
