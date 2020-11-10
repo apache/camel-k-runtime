@@ -64,11 +64,6 @@ public final class Application {
         }
 
         @Override
-        public void setInitialProperties(Properties properties) {
-            main.setInitialProperties(properties);
-        }
-
-        @Override
         public void setProperties(Properties properties) {
             main.setOverrideProperties(properties);
         }

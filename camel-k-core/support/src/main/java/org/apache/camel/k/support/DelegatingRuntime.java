@@ -16,7 +16,6 @@
  */
 package org.apache.camel.k.support;
 
-import java.util.Collection;
 import java.util.Map;
 import java.util.Properties;
 
@@ -43,21 +42,6 @@ public class DelegatingRuntime implements Runtime {
     }
 
     @Override
-    public void setInitialProperties(Properties properties) {
-        runtime.setInitialProperties(properties);
-    }
-
-    @Override
-    public void setInitialProperties(Map<String, String> properties) {
-        runtime.setInitialProperties(properties);
-    }
-
-    @Override
-    public void setInitialProperties(String key, String value, String... keyVals) {
-        runtime.setInitialProperties(key, value, keyVals);
-    }
-
-    @Override
     public void setProperties(Properties properties) {
         runtime.setProperties(properties);
     }
@@ -75,16 +59,6 @@ public class DelegatingRuntime implements Runtime {
     @Override
     public void addRoutes(RoutesBuilder builder) {
         runtime.addRoutes(builder);
-    }
-
-    @Override
-    public void setPropertiesLocations(Collection<String> locations) {
-        runtime.setPropertiesLocations(locations);
-    }
-
-    @Override
-    public void setPropertiesLocations(String... locations) {
-        runtime.setPropertiesLocations(locations);
     }
 
     @Override
