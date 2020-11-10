@@ -12,6 +12,7 @@
 
 **Merged pull requests:**
 
+- Switch to Quarkus as runtime \#359 [\#543](https://github.com/apache/camel-k-runtime/pull/543) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps-dev\): bump spock-core from 2.0-M3-groovy-3.0 to 2.0-M4-groovy-3.0 [\#542](https://github.com/apache/camel-k-runtime/pull/542) ([dependabot[bot]](https://github.com/apps/dependabot))
 - kamelet: ensure URL encoded values is properly handled [\#541](https://github.com/apache/camel-k-runtime/pull/541) ([lburgazzoli](https://github.com/lburgazzoli))
 - Can't set Knative broker name [\#539](https://github.com/apache/camel-k-runtime/pull/539) ([lburgazzoli](https://github.com/lburgazzoli))
