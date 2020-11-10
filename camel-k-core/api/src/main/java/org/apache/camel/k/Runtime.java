@@ -16,12 +16,9 @@
  */
 package org.apache.camel.k;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-import java.util.stream.Collectors;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Ordered;
@@ -43,23 +40,6 @@ public interface Runtime extends HasCamelContext, AutoCloseable {
      */
     default Registry getRegistry() {
         return getCamelContext().getRegistry();
-    }
-
-    default void setInitialProperties(Properties properties) {
-        getCamelContext().getPropertiesComponent().setInitialProperties(properties);
-    }
-
-    default void setInitialProperties(Map<String, String> properties) {
-        Properties p = new Properties();
-        p.putAll(properties);
-
-        setInitialProperties(p);
-    }
-
-    default void setInitialProperties(String key, String value, String... keyVals) {
-        setInitialProperties(
-            mapOf(HashMap::new, key, value, keyVals)
-        );
     }
 
     default void setProperties(Properties properties) {
@@ -85,20 +65,6 @@ public interface Runtime extends HasCamelContext, AutoCloseable {
         } catch (Exception e) {
             throw RuntimeCamelException.wrapRuntimeCamelException(e);
         }
-    }
-
-    default void setPropertiesLocations(Collection<String> locations) {
-        getCamelContext().getPropertiesComponent().setLocation(
-            locations.stream()
-                .map(location -> location.startsWith("file:") ? location : "file:" + location)
-                .distinct()
-                .sorted()
-                .collect(Collectors.joining(","))
-        );
-    }
-
-    default void setPropertiesLocations(String... locations) {
-        setPropertiesLocations(Arrays.asList(locations));
     }
 
     /**
