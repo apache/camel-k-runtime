@@ -16,28 +16,23 @@
  */
 package org.apache.camel.k.quarkus;
 
-import java.util.Collections;
-import java.util.Properties;
+import java.util.List;
+import java.util.Map;
 
 import io.smallrye.config.PropertiesConfigSource;
-import org.apache.camel.k.support.PropertiesSupport;
+import org.apache.camel.k.support.RuntimeSupport;
 import org.eclipse.microprofile.config.spi.ConfigSource;
 import org.eclipse.microprofile.config.spi.ConfigSourceProvider;
 
 public class ApplicationConfigSourceProvider implements ConfigSourceProvider {
     @Override
     public Iterable<ConfigSource> getConfigSources(ClassLoader forClassLoader) {
-        final Properties applicationProperties = PropertiesSupport.loadProperties();
-        final Properties quarkusProperties = new Properties();
+        final Map<String, String> appProperties = RuntimeSupport.loadApplicationProperties();
+        final Map<String, String> usrProperties = RuntimeSupport.loadUserProperties();
 
-        for (String name : applicationProperties.stringPropertyNames()) {
-            if (name.startsWith("quarkus.")) {
-                quarkusProperties.put(name, applicationProperties.get(name));
-            }
-        }
-
-        return Collections.singletonList(
-            new PropertiesConfigSource(quarkusProperties, "camel-k")
+        return List.of(
+            new PropertiesConfigSource(appProperties, "camel-k-app", ConfigSource.DEFAULT_ORDINAL),
+            new PropertiesConfigSource(usrProperties, "camel-k-usr", ConfigSource.DEFAULT_ORDINAL + 1)
         );
     }
 }

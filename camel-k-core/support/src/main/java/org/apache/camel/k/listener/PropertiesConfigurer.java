@@ -20,7 +20,6 @@ import org.apache.camel.Ordered;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.support.Constants;
 import org.apache.camel.k.support.KubernetesPropertiesFunction;
-import org.apache.camel.k.support.PropertiesSupport;
 
 public class PropertiesConfigurer extends AbstractPhaseListener {
     public PropertiesConfigurer() {
@@ -34,13 +33,6 @@ public class PropertiesConfigurer extends AbstractPhaseListener {
 
     @Override
     protected void accept(Runtime runtime) {
-        runtime.setInitialProperties(
-            PropertiesSupport.loadApplicationProperties()
-        );
-        runtime.setPropertiesLocations(
-            PropertiesSupport.resolveUserPropertiesLocations()
-        );
-
         //
         // Register properties functions to resolve k8s secrets or config maps like:
         //
