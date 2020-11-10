@@ -322,7 +322,7 @@ public final class RuntimeSupport {
         try {
             Path confPath = Paths.get(conf);
 
-            if (Files.exists(confPath)) {
+            if (Files.exists(confPath) && !Files.isDirectory(confPath)) {
                 try (Reader reader = Files.newBufferedReader(confPath)) {
                     Properties p = new Properties();
                     p.load(reader);
@@ -349,6 +349,10 @@ public final class RuntimeSupport {
             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
                 Objects.requireNonNull(file);
                 Objects.requireNonNull(attrs);
+
+                if (Files.isDirectory(file)) {
+                    return FileVisitResult.CONTINUE;
+                }
 
                 if (file.toFile().getAbsolutePath().endsWith(".properties")) {
                     try (Reader reader = Files.newBufferedReader(file)) {
