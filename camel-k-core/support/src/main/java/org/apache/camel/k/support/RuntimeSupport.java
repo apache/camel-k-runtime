@@ -16,8 +16,19 @@
  */
 package org.apache.camel.k.support;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.FileVisitResult;
+import java.nio.file.FileVisitor;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -294,4 +305,77 @@ public final class RuntimeSupport {
         return Objects.requireNonNull(version, "Could not determine Camel K Runtime version");
     }
 
+    // *********************************
+    //
+    // Properties
+    //
+    // *********************************
+
+    public static Map<String, String> loadApplicationProperties() {
+        final String conf = System.getProperty(Constants.PROPERTY_CAMEL_K_CONF, System.getenv(Constants.ENV_CAMEL_K_CONF));
+        final Map<String, String> properties = new HashMap<>();
+
+        if (ObjectHelper.isEmpty(conf)) {
+            return properties;
+        }
+
+        try {
+            Path confPath = Paths.get(conf);
+
+            if (Files.exists(confPath)) {
+                try (Reader reader = Files.newBufferedReader(confPath)) {
+                    Properties p = new Properties();
+                    p.load(reader);
+                    p.forEach((key, value) -> properties.put(String.valueOf(key), String.valueOf(value)));
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return properties;
+    }
+
+    public static Map<String, String> loadUserProperties() {
+        final String conf = System.getProperty(Constants.PROPERTY_CAMEL_K_CONF_D, System.getenv(Constants.ENV_CAMEL_K_CONF_D));
+        final Map<String, String> properties = new HashMap<>();
+
+        if (ObjectHelper.isEmpty(conf)) {
+            return properties;
+        }
+
+        FileVisitor<Path> visitor = new SimpleFileVisitor<>() {
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                Objects.requireNonNull(file);
+                Objects.requireNonNull(attrs);
+
+                if (file.toFile().getAbsolutePath().endsWith(".properties")) {
+                    try (Reader reader = Files.newBufferedReader(file)) {
+                        Properties p = new Properties();
+                        p.load(reader);
+                        p.forEach((key, value) -> properties.put(String.valueOf(key), String.valueOf(value)));
+                    }
+                } else {
+                    properties.put(
+                        file.getFileName().toString(),
+                        Files.readString(file, StandardCharsets.UTF_8));
+                }
+
+                return FileVisitResult.CONTINUE;
+            }
+        };
+
+        Path root = Paths.get(conf);
+
+        if (Files.exists(root)) {
+            try {
+                Files.walkFileTree(root, visitor);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        return properties;
+    }
 }

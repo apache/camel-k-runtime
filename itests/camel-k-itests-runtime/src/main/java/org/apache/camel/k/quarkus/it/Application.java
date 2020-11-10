@@ -57,13 +57,6 @@ public class Application {
             .add(
                 "routes-collector",
                 instance(CamelMain.class).map(BaseMainSupport::getRoutesCollector).map(Object::getClass).map(Class::getName).orElse(""))
-            .add(
-                "properties-locations",
-                Json.createArrayBuilder(instance(CamelContext.class)
-                    .map(CamelContext::getPropertiesComponent)
-                    .map(PropertiesComponent.class::cast)
-                    .map(PropertiesComponent::getLocations)
-                    .orElseGet(Collections::emptyList)))
             .build();
     }
 
@@ -88,27 +81,16 @@ public class Application {
             .flatMap(pc -> pc.resolveProperty(name)).orElse("");
     }
 
-    @GET
-    @Path("/initial-property/{name}")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String initialProperty(@PathParam("name") String name) {
-        return (String)instance(CamelContext.class)
-            .map(CamelContext::getPropertiesComponent)
-            .map(PropertiesComponent.class::cast)
-            .map(pc -> pc.getInitialProperties().get(name))
-            .orElse("");
-    }
-
     @SuppressWarnings("unchecked")
     @GET
-    @Path("/initial-properties")
+    @Path("/properties")
     @Produces(MediaType.APPLICATION_JSON)
-    public JsonObject initialProperties() {
+    public JsonObject properties() {
         return Json.createObjectBuilder(
             instance(CamelContext.class)
                 .map(CamelContext::getPropertiesComponent)
                 .map(PropertiesComponent.class::cast)
-                .map(PropertiesComponent::getInitialProperties)
+                .map(PropertiesComponent::loadProperties)
                 .map(Map.class::cast)
                 .orElseGet(Collections::emptyMap)
         ).build();

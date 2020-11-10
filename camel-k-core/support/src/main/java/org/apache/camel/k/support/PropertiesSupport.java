@@ -16,22 +16,9 @@
  */
 package org.apache.camel.k.support;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.FileVisitResult;
-import java.nio.file.FileVisitor;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Properties;
-import java.util.Set;
 import java.util.function.Predicate;
 
 import org.apache.camel.CamelContext;
@@ -41,7 +28,6 @@ import org.apache.camel.spi.PropertiesComponent;
 import org.apache.camel.spi.PropertyConfigurer;
 import org.apache.camel.support.PropertyBindingSupport;
 import org.apache.camel.support.service.ServiceHelper;
-import org.apache.camel.util.ObjectHelper;
 
 public final class PropertiesSupport {
     private PropertiesSupport() {
@@ -103,93 +89,4 @@ public final class PropertiesSupport {
         return target;
     }
 
-    public static String resolveApplicationPropertiesLocation() {
-        return System.getProperty(Constants.PROPERTY_CAMEL_K_CONF, System.getenv(Constants.ENV_CAMEL_K_CONF));
-    }
-
-    public static Properties loadApplicationProperties() {
-        final String conf = resolveApplicationPropertiesLocation();
-        final Properties properties = new Properties();
-
-        if (ObjectHelper.isEmpty(conf)) {
-            return properties;
-        }
-
-        try {
-            Path confPath = Paths.get(conf);
-
-            if (Files.exists(confPath)) {
-                try (Reader reader = Files.newBufferedReader(confPath)) {
-                    properties.load(reader);
-                }
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        return properties;
-    }
-
-    public static String resolveUserPropertiesLocation() {
-        return System.getProperty(Constants.PROPERTY_CAMEL_K_CONF_D, System.getenv(Constants.ENV_CAMEL_K_CONF_D));
-    }
-
-    public static Properties loadUserProperties() {
-        final Properties properties = new Properties();
-
-        try {
-            for (String location: resolveUserPropertiesLocations()) {
-                try (Reader reader = Files.newBufferedReader(Paths.get(location))) {
-                    properties.load(reader);
-                }
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        return properties;
-    }
-
-    public static Properties loadProperties() {
-        final Properties app = loadApplicationProperties();
-        final Properties usr = loadUserProperties();
-
-        app.putAll(usr);
-
-        return app;
-    }
-
-    public static Collection<String> resolveUserPropertiesLocations() {
-        final String conf = resolveUserPropertiesLocation();
-        final Set<String> locations = new LinkedHashSet<>();
-
-        // Additional locations
-        if (ObjectHelper.isNotEmpty(conf)) {
-            Path root = Paths.get(conf);
-            FileVisitor<Path> visitor = new SimpleFileVisitor<>() {
-                @Override
-                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                    Objects.requireNonNull(file);
-                    Objects.requireNonNull(attrs);
-
-                    final String path = file.toFile().getAbsolutePath();
-                    if (path.endsWith(".properties")) {
-                        locations.add(path);
-                    }
-
-                    return FileVisitResult.CONTINUE;
-                }
-            };
-
-            if (Files.exists(root)) {
-                try {
-                    Files.walkFileTree(root, visitor);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
-
-        return locations;
-    }
 }
