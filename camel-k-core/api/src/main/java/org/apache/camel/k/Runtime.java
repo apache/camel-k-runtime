@@ -30,7 +30,14 @@ import org.apache.camel.spi.Registry;
 import static org.apache.camel.util.CollectionHelper.mapOf;
 
 public interface Runtime extends HasCamelContext, AutoCloseable {
-
+    /**
+     * Returns the camel context adapting it to the specialized type.
+     *
+     * @see HasCamelContext#getCamelContext()
+     * @see CamelContext#adapt(Class)
+     *
+     * @return the camel context.
+     */
     default <T extends CamelContext> T getCamelContext(Class<T> type) {
         return getCamelContext().adapt(type);
     }
@@ -42,10 +49,22 @@ public interface Runtime extends HasCamelContext, AutoCloseable {
         return getCamelContext().getRegistry();
     }
 
+    /**
+     * Sets a special list of properties that take precedence and will use first, if a property exist.
+     *
+     * @see org.apache.camel.spi.PropertiesComponent#setOverrideProperties(Properties)
+     * @param properties the properties to set
+     */
     default void setProperties(Properties properties) {
         getCamelContext().getPropertiesComponent().setOverrideProperties(properties);
     }
 
+    /**
+     * Sets a special list of properties that take precedence and will use first, if a property exist.
+     *
+     * @see org.apache.camel.spi.PropertiesComponent#setOverrideProperties(Properties)
+     * @param properties the properties to set
+     */
     default void setProperties(Map<String, String> properties) {
         Properties p = new Properties();
         p.putAll(properties);
@@ -53,12 +72,27 @@ public interface Runtime extends HasCamelContext, AutoCloseable {
         setProperties(p);
     }
 
-    default void setProperties(String key, String value, String... keyVals) {
+    /**
+     * Sets a special list of properties that take precedence and will use first, if a property exist.
+     *
+     * @see org.apache.camel.spi.PropertiesComponent#setOverrideProperties(Properties)
+     * @param key the mapping's key
+     * @param value the mapping's value
+     * @param entries containing the keys and values from which the map is populated
+     *
+     */
+    default void setProperties(String key, String value, String... entries) {
         setProperties(
-            mapOf(HashMap::new, key, value, keyVals)
+            mapOf(HashMap::new, key, value, entries)
         );
     }
 
+    /**
+     * Sets a special list of properties that take precedence and will use first, if a property exist.
+     *
+     * @see org.apache.camel.spi.PropertiesComponent#setOverrideProperties(Properties)
+     * @param builder the builder which will create the routes
+     */
     default void addRoutes(RoutesBuilder builder) {
         try {
             getCamelContext().addRoutes(builder);
