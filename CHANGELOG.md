@@ -6,12 +6,18 @@
 
 **Closed issues:**
 
+- Error with leader election examples [\#548](https://github.com/apache/camel-k-runtime/issues/548)
 - Use default event type with broker [\#536](https://github.com/apache/camel-k-runtime/issues/536)
 - Can't set Knative broker name [\#535](https://github.com/apache/camel-k-runtime/issues/535)
 - Groovy - such property: DELEGATE\_FIRST when mapping beans [\#529](https://github.com/apache/camel-k-runtime/issues/529)
+- Simplify examples  [\#422](https://github.com/apache/camel-k-runtime/issues/422)
+- Switch to Quarkus as runtime  [\#359](https://github.com/apache/camel-k-runtime/issues/359)
 
 **Merged pull requests:**
 
+- Error with leader election examples [\#549](https://github.com/apache/camel-k-runtime/pull/549) ([lburgazzoli](https://github.com/lburgazzoli))
+- Cleanup examples [\#547](https://github.com/apache/camel-k-runtime/pull/547) ([lburgazzoli](https://github.com/lburgazzoli))
+- Leveragte MP Config to load application and user properties [\#546](https://github.com/apache/camel-k-runtime/pull/546) ([lburgazzoli](https://github.com/lburgazzoli))
 - Switch to Quarkus as runtime \#359 [\#543](https://github.com/apache/camel-k-runtime/pull/543) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps-dev\): bump spock-core from 2.0-M3-groovy-3.0 to 2.0-M4-groovy-3.0 [\#542](https://github.com/apache/camel-k-runtime/pull/542) ([dependabot[bot]](https://github.com/apps/dependabot))
 - kamelet: ensure URL encoded values is properly handled [\#541](https://github.com/apache/camel-k-runtime/pull/541) ([lburgazzoli](https://github.com/lburgazzoli))
