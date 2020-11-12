@@ -24,7 +24,7 @@ import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.component.webhook.WebhookConfiguration;
 
 public class WebhookFeature {
-    private static final String FEATURE = "camel-k-runtime-webhook";
+    private static final String FEATURE = "camel-k-webhook";
 
     @BuildStep
     FeatureBuildItem feature() {
