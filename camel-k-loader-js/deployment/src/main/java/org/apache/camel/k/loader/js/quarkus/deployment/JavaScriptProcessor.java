@@ -61,7 +61,7 @@ import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
 
-public class DeploymentProcessor {
+public class JavaScriptProcessor {
     private static final List<Class<?>> JAVA_CLASSES = Arrays.asList(
         Character.class,
         Byte.class,

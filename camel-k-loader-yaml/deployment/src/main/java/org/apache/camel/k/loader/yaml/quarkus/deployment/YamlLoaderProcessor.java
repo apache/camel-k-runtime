@@ -35,12 +35,12 @@ import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
 
-import static org.apache.camel.k.core.quarkus.deployment.DeploymentSupport.getAllKnownImplementors;
-import static org.apache.camel.k.core.quarkus.deployment.DeploymentSupport.getAllKnownSubclasses;
-import static org.apache.camel.k.core.quarkus.deployment.DeploymentSupport.getAnnotated;
-import static org.apache.camel.k.core.quarkus.deployment.DeploymentSupport.reflectiveClassBuildItem;
+import static org.apache.camel.k.core.quarkus.deployment.support.DeploymentSupport.getAllKnownImplementors;
+import static org.apache.camel.k.core.quarkus.deployment.support.DeploymentSupport.getAllKnownSubclasses;
+import static org.apache.camel.k.core.quarkus.deployment.support.DeploymentSupport.getAnnotated;
+import static org.apache.camel.k.core.quarkus.deployment.support.DeploymentSupport.reflectiveClassBuildItem;
 
-public class DeploymentProcessor {
+public class YamlLoaderProcessor {
     public static final DotName YAML_STEP_PARSER_ANNOTATION = DotName.createSimple("org.apache.camel.k.annotation.yaml.YAMLStepParser");
     public static final DotName YAML_STEP_DEFINITION_ANNOTATION = DotName.createSimple("org.apache.camel.k.annotation.yaml.YAMLNodeDefinition");
     public static final DotName YAML_MIXIN_ANNOTATION = DotName.createSimple("org.apache.camel.k.annotation.yaml.YAMLMixIn");

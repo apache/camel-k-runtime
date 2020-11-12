@@ -33,11 +33,11 @@ import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem
 import org.apache.camel.spi.StreamCachingStrategy;
 import org.jboss.jandex.IndexView;
 
-import static org.apache.camel.k.core.quarkus.deployment.DeploymentSupport.getAllKnownImplementors;
-import static org.apache.camel.k.core.quarkus.deployment.DeploymentSupport.reflectiveClassBuildItem;
-import static org.apache.camel.k.core.quarkus.deployment.DeploymentSupport.stream;
+import static org.apache.camel.k.core.quarkus.deployment.support.DeploymentSupport.getAllKnownImplementors;
+import static org.apache.camel.k.core.quarkus.deployment.support.DeploymentSupport.reflectiveClassBuildItem;
+import static org.apache.camel.k.core.quarkus.deployment.support.DeploymentSupport.stream;
 
-public class DeploymentProcessor {
+public class CoreProcessor {
     @BuildStep
     List<CamelServicePatternBuildItem> servicePatterns() {
         return List.of(
