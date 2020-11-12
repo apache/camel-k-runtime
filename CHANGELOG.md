@@ -15,6 +15,7 @@
 
 **Merged pull requests:**
 
+- chore\(ci\): temporarily disable flacky jobs [\#550](https://github.com/apache/camel-k-runtime/pull/550) ([nicolaferraro](https://github.com/nicolaferraro))
 - Error with leader election examples [\#549](https://github.com/apache/camel-k-runtime/pull/549) ([lburgazzoli](https://github.com/lburgazzoli))
 - Cleanup examples [\#547](https://github.com/apache/camel-k-runtime/pull/547) ([lburgazzoli](https://github.com/lburgazzoli))
 - Leveragte MP Config to load application and user properties [\#546](https://github.com/apache/camel-k-runtime/pull/546) ([lburgazzoli](https://github.com/lburgazzoli))
