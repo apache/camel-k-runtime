@@ -14,13 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.quarkus.kamelet.deployment;
+package org.apache.camel.k.core.quarkus.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 
-public class Feature {
-    private static final String FEATURE = "camel-k-kamelet";
+public class CoreFeature {
+    private static final String FEATURE = "camel-k-core";
 
     @BuildStep
     FeatureBuildItem feature() {

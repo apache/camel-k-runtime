@@ -14,13 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.loader.js.quarkus.deployment;
+package org.apache.camel.k.quarkus.master.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 
-public class Feature {
-    private static final String FEATURE = "camel-k-loader-js";
+public class MasterFeature {
+    private static final String FEATURE = "camel-k-master";
 
     @BuildStep
     FeatureBuildItem feature() {

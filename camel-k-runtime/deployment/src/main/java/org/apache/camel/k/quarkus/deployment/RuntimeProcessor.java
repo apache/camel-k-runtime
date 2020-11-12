@@ -36,7 +36,7 @@ import org.apache.camel.quarkus.main.deployment.spi.CamelMainBuildItem;
 import org.apache.camel.quarkus.main.deployment.spi.CamelMainListenerBuildItem;
 import org.apache.camel.quarkus.main.deployment.spi.CamelRoutesCollectorBuildItem;
 
-public class DeploymentProcessor {
+public class RuntimeProcessor {
     @Record(ExecutionTime.STATIC_INIT)
     @BuildStep
     CamelMainListenerBuildItem mainListener(ApplicationRecorder recorder) {

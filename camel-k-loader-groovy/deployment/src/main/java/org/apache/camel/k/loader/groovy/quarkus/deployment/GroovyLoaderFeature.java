@@ -14,13 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.quarkus.cron.deployment;
+package org.apache.camel.k.loader.groovy.quarkus.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 
-public class Feature {
-    private static final String FEATURE = "camel-k-cron";
+public class GroovyLoaderFeature {
+    private static final String FEATURE = "camel-k-loader-groovy";
 
     @BuildStep
     FeatureBuildItem feature() {
