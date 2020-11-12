@@ -20,7 +20,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 
 public class Feature {
-    private static final String FEATURE = "camel-k-runtime-wrap";
+    private static final String FEATURE = "camel-k-wrap";
 
     @BuildStep
     FeatureBuildItem feature() {
