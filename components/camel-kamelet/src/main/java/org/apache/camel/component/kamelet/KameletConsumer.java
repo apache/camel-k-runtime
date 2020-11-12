@@ -23,8 +23,14 @@ import org.apache.camel.spi.ShutdownAware;
 import org.apache.camel.support.DefaultConsumer;
 
 final class KameletConsumer extends DefaultConsumer implements ShutdownAware, Suspendable {
-    public KameletConsumer(KameletEndpoint endpoint, Processor processor) {
+
+    private final KameletComponent component;
+    private final String key;
+
+    public KameletConsumer(KameletEndpoint endpoint, Processor processor, String key) {
         super(endpoint, processor);
+        this.component = endpoint.getComponent();
+        this.key = key;
     }
 
     @Override
@@ -34,22 +40,25 @@ final class KameletConsumer extends DefaultConsumer implements ShutdownAware, Su
 
     @Override
     protected void doStart() throws Exception {
-        getEndpoint().addConsumer(this);
+        super.doStart();
+        component.addConsumer(key, this);
     }
 
     @Override
     protected void doStop() throws Exception {
-        getEndpoint().removeConsumer(this);
+        component.removeConsumer(key, this);
+        super.doStop();
     }
 
     @Override
     protected void doSuspend() throws Exception {
-        getEndpoint().removeConsumer(this);
+        component.removeConsumer(key, this);
     }
 
     @Override
     protected void doResume() throws Exception {
-        getEndpoint().addConsumer(this);
+        // resume by using the start logic
+        component.addConsumer(key, this);
     }
 
     @Override

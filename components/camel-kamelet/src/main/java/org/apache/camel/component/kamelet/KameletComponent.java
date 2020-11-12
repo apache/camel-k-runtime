@@ -18,6 +18,7 @@ package org.apache.camel.component.kamelet;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -38,6 +39,7 @@ import org.apache.camel.support.DefaultComponent;
 import org.apache.camel.support.DefaultEndpoint;
 import org.apache.camel.support.LifecycleStrategySupport;
 import org.apache.camel.support.service.ServiceHelper;
+import org.apache.camel.util.StopWatch;
 import org.apache.camel.util.URISupport;
 import org.apache.camel.util.UnsafeUriCharactersEncoder;
 import org.slf4j.Logger;
@@ -54,8 +56,15 @@ import static org.apache.camel.component.kamelet.Kamelet.addRouteFromTemplate;
 public class KameletComponent extends DefaultComponent {
     private static final Logger LOGGER = LoggerFactory.getLogger(KameletComponent.class);
 
-    private final Map<String, KameletConsumer> consumers;
-    private final LifecycleHandler lifecycleHandler;
+    // active consumers
+    private final Map<String, KameletConsumer> consumers = new HashMap<>();
+    // counter that is used for producers to keep track if any consumer was added/removed since they last checked
+    // this is used for optimization to avoid each producer to get consumer for each message processed
+    // (locking via synchronized, and then lookup in the map as the cost)
+    // consumers and producers are only added/removed during startup/shutdown or if routes is manually controlled
+    private volatile int stateCounter;
+
+    private final LifecycleHandler lifecycleHandler = new LifecycleHandler();
 
     @Metadata(label = "producer", defaultValue = "true")
     private boolean block = true;
@@ -63,8 +72,6 @@ public class KameletComponent extends DefaultComponent {
     private long timeout = 30000L;
 
     public KameletComponent() {
-        this.lifecycleHandler = new LifecycleHandler();
-        this.consumers = new ConcurrentHashMap<>();
     }
 
     @Override
@@ -194,7 +201,7 @@ public class KameletComponent extends DefaultComponent {
             // Note that at the moment, there's no enforcement around `source`
             // and `sink' to be defined on the right side (producer or consumer)
             //
-            endpoint = new KameletEndpoint(uri, this, templateId, routeId, consumers);
+            endpoint = new KameletEndpoint(uri, this, templateId, routeId);
 
             // forward component properties
             endpoint.setBlock(block);
@@ -203,7 +210,7 @@ public class KameletComponent extends DefaultComponent {
             // set endpoint specific properties
             setProperties(endpoint, parameters);
         } else {
-            endpoint = new KameletEndpoint(uri, this, templateId, routeId, consumers) {
+            endpoint = new KameletEndpoint(uri, this, templateId, routeId) {
                 @Override
                 protected void doInit() throws Exception {
                     super.doInit();
@@ -266,6 +273,53 @@ public class KameletComponent extends DefaultComponent {
         this.timeout = timeout;
     }
 
+    int getStateCounter() {
+        return stateCounter;
+    }
+
+    public void addConsumer(String key, KameletConsumer consumer) {
+        synchronized (consumers) {
+            if (consumers.putIfAbsent(key, consumer) != null) {
+                throw new IllegalArgumentException(
+                        "Cannot add a 2nd consumer to the same endpoint: " + key
+                                + ". KameletEndpoint only allows one consumer.");
+            }
+            // state changed so inc counter
+            stateCounter++;
+            consumers.notifyAll();
+        }
+    }
+
+    public void removeConsumer(String key, KameletConsumer consumer) {
+        synchronized (consumers) {
+            consumers.remove(key, consumer);
+            // state changed so inc counter
+            stateCounter++;
+            consumers.notifyAll();
+        }
+    }
+
+    protected KameletConsumer getConsumer(String key, boolean block, long timeout) throws InterruptedException {
+        synchronized (consumers) {
+            KameletConsumer answer = consumers.get(key);
+            if (answer == null && block) {
+                StopWatch watch = new StopWatch();
+                for (;;) {
+                    answer = consumers.get(key);
+                    if (answer != null) {
+                        break;
+                    }
+                    long rem = timeout - watch.taken();
+                    if (rem <= 0) {
+                        break;
+                    }
+                    consumers.wait(rem);
+                }
+            }
+            return answer;
+        }
+    }
+
     @Override
     protected void doInit() throws Exception {
         getCamelContext().addLifecycleStrategy(lifecycleHandler);
@@ -278,13 +332,12 @@ public class KameletComponent extends DefaultComponent {
     }
 
     @Override
-    protected void doStop() throws Exception {
+    protected void doShutdown() throws Exception {
         getCamelContext().getLifecycleStrategies().remove(lifecycleHandler);
 
-        ServiceHelper.stopService(consumers.values());
+        ServiceHelper.stopAndShutdownService(consumers);
         consumers.clear();
-
-        super.doStop();
+        super.doShutdown();
     }
 
     /*
