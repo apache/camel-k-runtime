@@ -4,17 +4,25 @@
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-parent-1.5.0...HEAD)
 
+**Implemented enhancements:**
+
+- Fixes \#544: Kamelet component - optimize as we did for direct component [\#553](https://github.com/apache/camel-k-runtime/pull/553) ([davsclaus](https://github.com/davsclaus))
+
 **Closed issues:**
 
 - Error with leader election examples [\#548](https://github.com/apache/camel-k-runtime/issues/548)
+- Kamelet component - optimize as we did for direct component [\#544](https://github.com/apache/camel-k-runtime/issues/544)
 - Use default event type with broker [\#536](https://github.com/apache/camel-k-runtime/issues/536)
 - Can't set Knative broker name [\#535](https://github.com/apache/camel-k-runtime/issues/535)
 - Groovy - such property: DELEGATE\_FIRST when mapping beans [\#529](https://github.com/apache/camel-k-runtime/issues/529)
+- knative: split producer and consumer transport to avoid requiring platorm-http also for the producer   [\#521](https://github.com/apache/camel-k-runtime/issues/521)
 - Simplify examples  [\#422](https://github.com/apache/camel-k-runtime/issues/422)
 - Switch to Quarkus as runtime  [\#359](https://github.com/apache/camel-k-runtime/issues/359)
 
 **Merged pull requests:**
 
+- Cleanup extensions [\#552](https://github.com/apache/camel-k-runtime/pull/552) ([lburgazzoli](https://github.com/lburgazzoli))
+- knative: split producer and consumer [\#551](https://github.com/apache/camel-k-runtime/pull/551) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(ci\): temporarily disable flacky jobs [\#550](https://github.com/apache/camel-k-runtime/pull/550) ([nicolaferraro](https://github.com/nicolaferraro))
 - Error with leader election examples [\#549](https://github.com/apache/camel-k-runtime/pull/549) ([lburgazzoli](https://github.com/lburgazzoli))
 - Cleanup examples [\#547](https://github.com/apache/camel-k-runtime/pull/547) ([lburgazzoli](https://github.com/lburgazzoli))
