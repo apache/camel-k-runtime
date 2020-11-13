@@ -31,7 +31,7 @@ public class Application {
         return KnativeEnvironment.on(
             KnativeEnvironment.serviceBuilder(Knative.Type.endpoint, "sink")
                 .withUrl("http://localhost:8080")
-                .withMeta(Knative.CAMEL_ENDPOINT_KIND, Knative.EndpointKind.sink)
+                .withEndpointKind(Knative.EndpointKind.sink)
                 .build()
         );
     }

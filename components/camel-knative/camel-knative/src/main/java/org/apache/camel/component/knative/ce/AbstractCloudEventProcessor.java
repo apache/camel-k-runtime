@@ -30,7 +30,7 @@ import org.apache.camel.Processor;
 import org.apache.camel.component.knative.KnativeEndpoint;
 import org.apache.camel.component.knative.spi.CloudEvent;
 import org.apache.camel.component.knative.spi.Knative;
-import org.apache.camel.component.knative.spi.KnativeEnvironment;
+import org.apache.camel.component.knative.spi.KnativeResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,17 +48,16 @@ abstract class AbstractCloudEventProcessor implements CloudEventProcessor {
 
     @SuppressWarnings("unchecked")
     @Override
-    public Processor consumer(KnativeEndpoint endpoint, KnativeEnvironment.KnativeResource service) {
+    public Processor consumer(KnativeEndpoint endpoint, KnativeResource service) {
         return exchange -> {
             if (Objects.equals(exchange.getIn().getHeader(Exchange.CONTENT_TYPE), Knative.MIME_BATCH_CONTENT_MODE)) {
                 throw new UnsupportedOperationException("Batched CloudEvents are not yet supported");
             }
 
             if (!Objects.equals(exchange.getIn().getHeader(Exchange.CONTENT_TYPE), Knative.MIME_STRUCTURED_CONTENT_MODE)) {
-                final CloudEvent ce = cloudEvent();
                 final Map<String, Object> headers = exchange.getIn().getHeaders();
 
-                for (CloudEvent.Attribute attribute: ce.attributes()) {
+                for (CloudEvent.Attribute attribute: cloudEvent.attributes()) {
                     Object val = headers.remove(attribute.http());
                     if (val != null) {
                         headers.put(attribute.id(), val);
@@ -75,12 +74,12 @@ abstract class AbstractCloudEventProcessor implements CloudEventProcessor {
     protected abstract void decodeStructuredContent(Exchange exchange, Map<String, Object> content);
 
     @Override
-    public Processor producer(KnativeEndpoint endpoint, KnativeEnvironment.KnativeResource service) {
+    public Processor producer(KnativeEndpoint endpoint, KnativeResource service) {
         final CloudEvent ce = cloudEvent();
         final Logger logger = LoggerFactory.getLogger(getClass());
+        final String contentType = service.getContentType();
 
         return exchange -> {
-            final String contentType = service.getMetadata().get(Knative.CONTENT_TYPE);
             final Map<String, Object> headers = exchange.getMessage().getHeaders();
 
             for (CloudEvent.Attribute attribute: ce.attributes()) {
@@ -90,7 +89,9 @@ abstract class AbstractCloudEventProcessor implements CloudEventProcessor {
                 }
             }
 
-            headers.putIfAbsent(Exchange.CONTENT_TYPE, contentType);
+            if (contentType != null) {
+                headers.putIfAbsent(Exchange.CONTENT_TYPE, contentType);
+            }
 
             //
             // in case of events, if the type of the event is defined as URI param so we need
@@ -108,10 +109,11 @@ abstract class AbstractCloudEventProcessor implements CloudEventProcessor {
                 headers.put(cloudEvent().mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).http(), endpoint.getTypeId());
             } else {
                 setCloudEventHeader(headers, CloudEvent.CAMEL_CLOUD_EVENT_TYPE, () -> {
-                    return service.getMetadata().getOrDefault(
-                        Knative.KNATIVE_EVENT_TYPE,
-                        endpoint.getConfiguration().getCloudEventsType()
-                    );
+                    String eventType = service.getCloudEventType();
+                    if (eventType == null) {
+                        eventType = endpoint.getConfiguration().getCloudEventsType();
+                    }
+                    return eventType;
                 });
             }
 
@@ -125,14 +127,7 @@ abstract class AbstractCloudEventProcessor implements CloudEventProcessor {
                 return eventTime;
             });
 
-            for (Map.Entry<String, String> entry: service.getMetadata().entrySet()) {
-                if (entry.getKey().startsWith(Knative.KNATIVE_CE_OVERRIDE_PREFIX)) {
-                    final String key = entry.getKey().substring(Knative.KNATIVE_CE_OVERRIDE_PREFIX.length());
-                    final String val = entry.getValue();
-
-                    headers.put(key, val);
-                }
-            }
+            headers.putAll(service.getCeOverrides());
         };
     }
 

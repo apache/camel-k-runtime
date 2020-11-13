@@ -33,5 +33,5 @@ public interface KnativeConsumerFactory extends Service {
     Consumer createConsumer(
         Endpoint endpoint,
         KnativeTransportConfiguration configuration,
-        KnativeEnvironment.KnativeResource service, Processor processor);
+        KnativeResource service, Processor processor);
 }

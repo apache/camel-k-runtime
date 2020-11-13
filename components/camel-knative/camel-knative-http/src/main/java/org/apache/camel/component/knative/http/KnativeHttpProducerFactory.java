@@ -24,8 +24,8 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.CamelContextAware;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Producer;
-import org.apache.camel.component.knative.spi.KnativeEnvironment;
 import org.apache.camel.component.knative.spi.KnativeProducerFactory;
+import org.apache.camel.component.knative.spi.KnativeResource;
 import org.apache.camel.component.knative.spi.KnativeTransportConfiguration;
 import org.apache.camel.support.service.ServiceSupport;
 
@@ -62,7 +62,7 @@ public class KnativeHttpProducerFactory extends ServiceSupport implements CamelC
     }
 
     @Override
-    public Producer createProducer(Endpoint endpoint, KnativeTransportConfiguration config, KnativeEnvironment.KnativeResource service) {
+    public Producer createProducer(Endpoint endpoint, KnativeTransportConfiguration config, KnativeResource service) {
         Objects.requireNonNull(this.vertx, "vertx");
 
         return new KnativeHttpProducer(

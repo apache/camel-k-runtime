@@ -25,7 +25,7 @@ import org.apache.camel.Consumer;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Processor;
 import org.apache.camel.component.knative.spi.KnativeConsumerFactory;
-import org.apache.camel.component.knative.spi.KnativeEnvironment;
+import org.apache.camel.component.knative.spi.KnativeResource;
 import org.apache.camel.component.knative.spi.KnativeTransportConfiguration;
 import org.apache.camel.support.service.ServiceSupport;
 
@@ -53,7 +53,7 @@ public class KnativeHttpConsumerFactory extends ServiceSupport implements CamelC
     }
 
     @Override
-    public Consumer createConsumer(Endpoint endpoint, KnativeTransportConfiguration config, KnativeEnvironment.KnativeResource service, Processor processor) {
+    public Consumer createConsumer(Endpoint endpoint, KnativeTransportConfiguration config, KnativeResource service, Processor processor) {
         Objects.requireNonNull(this.router, "router");
 
         return new KnativeHttpConsumer(

@@ -20,80 +20,81 @@ import java.util.Map;
 
 import org.apache.camel.component.knative.spi.Knative;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
+import org.apache.camel.component.knative.spi.KnativeResource;
 
 public final class KnativeEnvironmentSupport {
     private KnativeEnvironmentSupport() {
     }
 
-    public static KnativeEnvironment.KnativeResource endpoint(Knative.EndpointKind endpointKind, String name, String url) {
+    public static KnativeResource endpoint(Knative.EndpointKind endpointKind, String name, String url) {
         return KnativeEnvironment.serviceBuilder(Knative.Type.endpoint, name)
             .withUrl(url)
-            .withMeta(Knative.CAMEL_ENDPOINT_KIND, endpointKind)
+            .withEndpointKind(endpointKind)
             .build();
     }
 
-    public static KnativeEnvironment.KnativeResource endpoint(Knative.EndpointKind endpointKind, String name, String url, Map<String, String> metadata) {
+    public static KnativeResource endpoint(Knative.EndpointKind endpointKind, String name, String url, Map<String, String> metadata) {
         return KnativeEnvironment.serviceBuilder(Knative.Type.endpoint, name)
             .withUrl(url)
             .withMeta(metadata)
-            .withMeta(Knative.CAMEL_ENDPOINT_KIND, endpointKind)
+            .withEndpointKind(endpointKind)
             .build();
     }
 
-    public static KnativeEnvironment.KnativeResource sourceEndpoint(String name, Map<String, String> metadata) {
+    public static KnativeResource sourceEndpoint(String name, Map<String, String> metadata) {
         return KnativeEnvironment.serviceBuilder(Knative.Type.endpoint, name)
             .withMeta(metadata)
-            .withMeta(Knative.CAMEL_ENDPOINT_KIND, Knative.EndpointKind.source.name())
+            .withEndpointKind(Knative.EndpointKind.source)
             .build();
     }
 
-    public static KnativeEnvironment.KnativeResource channel(Knative.EndpointKind endpointKind, String name, String url) {
+    public static KnativeResource channel(Knative.EndpointKind endpointKind, String name, String url) {
         return KnativeEnvironment.serviceBuilder(Knative.Type.channel, name)
             .withUrl(url)
-            .withMeta(Knative.CAMEL_ENDPOINT_KIND, endpointKind)
+            .withEndpointKind(endpointKind)
             .build();
     }
 
-    public static KnativeEnvironment.KnativeResource channel(Knative.EndpointKind endpointKind, String name, String url, Map<String, String> metadata) {
+    public static KnativeResource channel(Knative.EndpointKind endpointKind, String name, String url, Map<String, String> metadata) {
         return KnativeEnvironment.serviceBuilder(Knative.Type.channel, name)
             .withUrl(url)
             .withMeta(metadata)
-            .withMeta(Knative.CAMEL_ENDPOINT_KIND, endpointKind)
+            .withEndpointKind(endpointKind)
             .build();
     }
 
-    public static KnativeEnvironment.KnativeResource sourceChannel(String name, Map<String, String> metadata) {
+    public static KnativeResource sourceChannel(String name, Map<String, String> metadata) {
         return KnativeEnvironment.serviceBuilder(Knative.Type.channel, name)
             .withMeta(metadata)
-            .withMeta(Knative.CAMEL_ENDPOINT_KIND, Knative.EndpointKind.source)
+            .withEndpointKind(Knative.EndpointKind.source)
             .build();
     }
 
-    public static KnativeEnvironment.KnativeResource event(Knative.EndpointKind endpointKind, String name, String url) {
+    public static KnativeResource event(Knative.EndpointKind endpointKind, String name, String url) {
         return KnativeEnvironment.serviceBuilder(Knative.Type.event, name)
             .withUrl(url)
-            .withMeta(Knative.CAMEL_ENDPOINT_KIND, endpointKind)
+            .withEndpointKind(endpointKind)
             .build();
     }
 
-    public static KnativeEnvironment.KnativeResource sourceEvent(String name) {
+    public static KnativeResource sourceEvent(String name) {
         return KnativeEnvironment.serviceBuilder(Knative.Type.event, name)
-            .withMeta(Knative.CAMEL_ENDPOINT_KIND, Knative.EndpointKind.source)
+            .withEndpointKind(Knative.EndpointKind.source)
             .build();
     }
 
-    public static KnativeEnvironment.KnativeResource sourceEvent(String name, Map<String, String> metadata) {
+    public static KnativeResource sourceEvent(String name, Map<String, String> metadata) {
         return KnativeEnvironment.serviceBuilder(Knative.Type.event, name)
             .withMeta(metadata)
-            .withMeta(Knative.CAMEL_ENDPOINT_KIND, Knative.EndpointKind.source)
+            .withEndpointKind(Knative.EndpointKind.source)
             .build();
     }
 
-    public static KnativeEnvironment.KnativeResource event(Knative.EndpointKind endpointKind, String name, String url, Map<String, String> metadata) {
+    public static KnativeResource event(Knative.EndpointKind endpointKind, String name, String url, Map<String, String> metadata) {
         return KnativeEnvironment.serviceBuilder(Knative.Type.event, name)
             .withUrl(url)
             .withMeta(metadata)
-            .withMeta(Knative.CAMEL_ENDPOINT_KIND, endpointKind)
+            .withEndpointKind(endpointKind)
             .build();
     }
 }

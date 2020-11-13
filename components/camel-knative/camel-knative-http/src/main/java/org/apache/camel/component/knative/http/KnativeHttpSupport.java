@@ -17,17 +17,16 @@
 package org.apache.camel.component.knative.http;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import io.vertx.core.http.HttpServerRequest;
 import org.apache.camel.Message;
 import org.apache.camel.component.knative.spi.CloudEvent;
-import org.apache.camel.component.knative.spi.Knative;
-import org.apache.camel.component.knative.spi.KnativeEnvironment;
+import org.apache.camel.component.knative.spi.KnativeResource;
 
 public final class KnativeHttpSupport {
     private KnativeHttpSupport() {
@@ -51,40 +50,47 @@ public final class KnativeHttpSupport {
         headers.put(key, value);
     }
 
-    public static Predicate<HttpServerRequest> createFilter(KnativeEnvironment.KnativeResource serviceDefinition) {
-        Map<String, String> filters = serviceDefinition.getMetadata().entrySet().stream()
-            .filter(e -> e.getKey().startsWith(Knative.KNATIVE_FILTER_PREFIX))
-            .collect(Collectors.toMap(
-                e -> e.getKey().substring(Knative.KNATIVE_FILTER_PREFIX.length()),
-                Map.Entry::getValue
-            ));
+    public static Predicate<HttpServerRequest> createFilter(CloudEvent cloudEvent, KnativeResource resource) {
+        final Map<String, String> filters = new HashMap<>();
 
-        return v -> {
-            if (filters.isEmpty()) {
+        for (Map.Entry<String, String> entry: resource.getFilters().entrySet()) {
+            cloudEvent.attribute(entry.getKey())
+                .map(CloudEvent.Attribute::http)
+                .ifPresentOrElse(
+                    k -> filters.put(k, entry.getValue()),
+                    () -> filters.put(entry.getKey(), entry.getValue())
+                );
+        }
+
+        return new Predicate<HttpServerRequest>() {
+            @Override
+            public boolean test(HttpServerRequest request) {
+                if (filters.isEmpty()) {
+                    return true;
+                }
+
+                for (Map.Entry<String, String> entry : filters.entrySet()) {
+                    final List<String> values = request.headers().getAll(entry.getKey());
+                    if (values.isEmpty()) {
+                        return false;
+                    }
+
+                    String val = values.get(values.size() - 1);
+                    int idx = val.lastIndexOf(',');
+
+                    if (values.size() == 1 && idx != -1) {
+                        val = val.substring(idx + 1);
+                        val = val.trim();
+                    }
+
+                    boolean matches = Objects.equals(entry.getValue(), val) || val.matches(entry.getValue());
+                    if (!matches) {
+                        return false;
+                    }
+                }
+
                 return true;
             }
-
-            for (Map.Entry<String, String> entry : filters.entrySet()) {
-                final List<String> values = v.headers().getAll(entry.getKey());
-                if (values.isEmpty()) {
-                    return false;
-                }
-
-                String val = values.get(values.size() - 1);
-                int idx = val.lastIndexOf(',');
-
-                if (values.size() == 1 && idx != -1) {
-                    val = val.substring(idx + 1);
-                    val = val.trim();
-                }
-
-                boolean matches = Objects.equals(entry.getValue(), val) || val.matches(entry.getValue());
-                if (!matches) {
-                    return false;
-                }
-            }
-
-            return true;
         };
     }
 

@@ -105,7 +105,7 @@ public class KnativeSourceApplication {
         return KnativeEnvironment.on(
             KnativeEnvironment.serviceBuilder(Knative.Type.endpoint, "sink")
                 .withUrl("http://localhost:" + port + "/test/toUpper")
-                .withMeta(Knative.CAMEL_ENDPOINT_KIND,  Knative.EndpointKind.sink)
+                .withEndpointKind(Knative.EndpointKind.sink)
                 .build()
         );
     }

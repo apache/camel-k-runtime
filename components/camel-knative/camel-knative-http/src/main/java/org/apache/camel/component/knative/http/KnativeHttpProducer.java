@@ -34,7 +34,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.InvalidPayloadException;
 import org.apache.camel.Message;
 import org.apache.camel.RuntimeCamelException;
-import org.apache.camel.component.knative.spi.KnativeEnvironment;
+import org.apache.camel.component.knative.spi.KnativeResource;
 import org.apache.camel.spi.HeaderFilterStrategy;
 import org.apache.camel.support.DefaultAsyncProducer;
 import org.apache.camel.support.MessageHelper;
@@ -46,7 +46,7 @@ import org.slf4j.LoggerFactory;
 public class KnativeHttpProducer extends DefaultAsyncProducer {
     private static final Logger LOGGER = LoggerFactory.getLogger(KnativeHttpProducer.class);
 
-    private final KnativeEnvironment.KnativeResource serviceDefinition;
+    private final KnativeResource serviceDefinition;
     private final Vertx vertx;
     private final WebClientOptions clientOptions;
     private final HeaderFilterStrategy headerFilterStrategy;
@@ -57,7 +57,7 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
 
     public KnativeHttpProducer(
             Endpoint endpoint,
-            KnativeEnvironment.KnativeResource serviceDefinition,
+            KnativeResource serviceDefinition,
             Vertx vertx,
             WebClientOptions clientOptions) {
         super(endpoint);
@@ -171,7 +171,7 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
         }
     }
 
-    private String getUrl(KnativeEnvironment.KnativeResource definition) {
+    private String getUrl(KnativeResource definition) {
         String url = definition.getUrl();
         if (url == null) {
             throw new RuntimeCamelException("Unable to determine the `url` for definition: " + definition);
@@ -192,7 +192,7 @@ public class KnativeHttpProducer extends DefaultAsyncProducer {
         return getEndpoint().getCamelContext().resolvePropertyPlaceholders(url);
     }
 
-    private String getHost(KnativeEnvironment.KnativeResource definition) {
+    private String getHost(KnativeResource definition) {
         String url = getUrl(definition);
 
         try {

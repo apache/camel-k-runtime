@@ -16,33 +16,22 @@
  */
 package org.apache.camel.k.quarkus.it;
 
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-
 import javax.ws.rs.core.MediaType;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
-import org.apache.camel.Exchange;
 import org.apache.camel.component.knative.http.KnativeHttpConsumerFactory;
 import org.apache.camel.component.knative.http.KnativeHttpProducerFactory;
-import org.apache.camel.component.knative.spi.CloudEvent;
-import org.apache.camel.component.knative.spi.CloudEvents;
-import org.apache.camel.component.knative.spi.Knative;
 import org.junit.jupiter.api.Test;
 
-import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 public class KnativeTest {
-
     @Test
     public void inspect() {
         JsonPath p = RestAssured.given()
-            .contentType(MediaType.TEXT_PLAIN)
             .accept(MediaType.APPLICATION_JSON)
             .get("/test/inspect")
             .then()
@@ -51,47 +40,9 @@ public class KnativeTest {
                 .body()
                 .jsonPath();
 
-        assertThat(p.getMap("env-meta", String.class, String.class))
-            .containsEntry(Knative.KNATIVE_EVENT_TYPE, "camel.k.evt")
-            .containsEntry(Knative.SERVICE_META_PATH, "/knative")
-            .containsEntry("camel.endpoint.kind", "source");
-
-
-        assertThat(p.getString("component.consumer-factory"))
+        assertThat(p.getString("consumer-factory"))
             .isEqualTo(KnativeHttpConsumerFactory.class.getName());
-        assertThat(p.getString("component.producer-factory"))
+        assertThat(p.getString("producer-factory"))
             .isEqualTo(KnativeHttpProducerFactory.class.getName());
-    }
-
-    @Test
-    public void invokeEndpoint() {
-        final String payload = "test";
-
-        given()
-            .body(payload)
-            .header(Exchange.CONTENT_TYPE, "text/plain")
-            .header(CloudEvents.v1_0.httpAttribute(CloudEvent.CAMEL_CLOUD_EVENT_VERSION), CloudEvents.v1_0.version())
-            .header(CloudEvents.v1_0.httpAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE), "org.apache.camel.event")
-            .header(CloudEvents.v1_0.httpAttribute(CloudEvent.CAMEL_CLOUD_EVENT_ID), "myEventID")
-            .header(CloudEvents.v1_0.httpAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TIME), DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(ZonedDateTime.now()))
-            .header(CloudEvents.v1_0.httpAttribute(CloudEvent.CAMEL_CLOUD_EVENT_SOURCE), "/somewhere")
-            .when()
-                .post("/knative")
-            .then()
-                .statusCode(200)
-                .body(is(payload.toUpperCase()));
-    }
-
-    @Test
-    public void invokeRoute() {
-        final String payload = "hello";
-
-        RestAssured.given()
-            .accept(MediaType.TEXT_PLAIN)
-            .body(payload)
-            .post("/test/execute")
-            .then()
-                .statusCode(200)
-                .body(is(payload.toUpperCase()));
     }
 }

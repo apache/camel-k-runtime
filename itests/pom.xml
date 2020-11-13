@@ -46,6 +46,8 @@
         <module>camel-k-itests-cron</module>
         <module>camel-k-itests-master</module>
         <module>camel-k-itests-knative</module>
+        <module>camel-k-itests-knative-env-from-registry</module>
+        <module>camel-k-itests-knative-env-from-properties</module>
         <module>camel-k-itests-knative-producer</module>
         <module>camel-k-itests-knative-consumer</module>
         <module>camel-k-itests-knative-sinkbinding</module>

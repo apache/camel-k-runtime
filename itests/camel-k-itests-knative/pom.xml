@@ -165,12 +165,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <environmentVariables>
-                        <CAMEL_K_ROUTES>file:${project.basedir}/src/test/resources/routes.yaml</CAMEL_K_ROUTES>
-                        <CAMEL_K_CONF>${project.basedir}/src/test/resources/routes.properties</CAMEL_K_CONF>
-                        <__CAMEL_KNATIVE_CONFIGURATION>file:${project.basedir}/src/test/resources/env.json</__CAMEL_KNATIVE_CONFIGURATION>
-                        <CAMEL_KNATIVE_LISTENING_PORT>${test.http.port.jvm}</CAMEL_KNATIVE_LISTENING_PORT>
-                    </environmentVariables>
                     <systemProperties>
                         <quarkus.http.test-port>${test.http.port.jvm}</quarkus.http.test-port>
                         <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
@@ -203,12 +197,6 @@
                                     <goal>verify</goal>
                                 </goals>
                                 <configuration>
-                                    <environmentVariables>
-                                        <CAMEL_K_ROUTES>file:${project.basedir}/src/test/resources/routes.yaml</CAMEL_K_ROUTES>
-                                        <CAMEL_K_CONF>${project.basedir}/src/test/resources/routes.properties</CAMEL_K_CONF>
-                                        <__CAMEL_KNATIVE_CONFIGURATION>file:${project.basedir}/src/test/resources/env.json</__CAMEL_KNATIVE_CONFIGURATION>
-                                        <CAMEL_KNATIVE_LISTENING_PORT>${test.http.port.native}</CAMEL_KNATIVE_LISTENING_PORT>
-                                    </environmentVariables>
                                     <systemProperties>
                                         <quarkus.http.test-port>${test.http.port.native}</quarkus.http.test-port>
                                         <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>

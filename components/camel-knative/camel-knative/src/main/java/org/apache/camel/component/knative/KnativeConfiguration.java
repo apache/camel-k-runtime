@@ -38,9 +38,9 @@ public class KnativeConfiguration implements Cloneable {
     @UriParam(prefix = "transport.")
     private Map<String, Object> transportOptions;
     @UriParam(prefix = "filter.")
-    private Map<String, Object> filters;
+    private Map<String, String> filters;
     @UriParam(prefix = "ce.override.")
-    private Map<String, Object> ceOverride;
+    private Map<String, String> ceOverride;
     @UriParam(label = "advanced")
     private String apiVersion;
     @UriParam(label = "advanced")
@@ -141,25 +141,25 @@ public class KnativeConfiguration implements Cloneable {
         this.transportOptions.put(key, value);
     }
 
-    public Map<String, Object> getFilters() {
+    public Map<String, String> getFilters() {
         return filters;
     }
 
     /**
      * Set the filters.
      */
-    public void setFilters(Map<String, Object> filters) {
+    public void setFilters(Map<String, String> filters) {
         this.filters = new HashMap<>(filters);
     }
 
-    public Map<String, Object> getCeOverride() {
+    public Map<String, String> getCeOverride() {
         return ceOverride;
     }
 
     /**
      * CloudEvent headers to override
      */
-    public void setCeOverride(Map<String, Object> ceOverride) {
+    public void setCeOverride(Map<String, String> ceOverride) {
         this.ceOverride = new HashMap<>(ceOverride);
     }
 

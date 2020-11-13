@@ -19,10 +19,10 @@ package org.apache.camel.component.knative.ce;
 import org.apache.camel.Processor;
 import org.apache.camel.component.knative.KnativeEndpoint;
 import org.apache.camel.component.knative.spi.CloudEvent;
-import org.apache.camel.component.knative.spi.KnativeEnvironment;
+import org.apache.camel.component.knative.spi.KnativeResource;
 
 public interface CloudEventProcessor {
     CloudEvent cloudEvent();
-    Processor consumer(KnativeEndpoint endpoint, KnativeEnvironment.KnativeResource service);
-    Processor producer(KnativeEndpoint endpoint, KnativeEnvironment.KnativeResource service);
+    Processor consumer(KnativeEndpoint endpoint, KnativeResource service);
+    Processor producer(KnativeEndpoint endpoint, KnativeResource service);
 }

@@ -32,5 +32,5 @@ public interface KnativeProducerFactory extends Service {
     Producer createProducer(
         Endpoint endpoint,
         KnativeTransportConfiguration configuration,
-        KnativeEnvironment.KnativeResource service);
+        KnativeResource service);
 }

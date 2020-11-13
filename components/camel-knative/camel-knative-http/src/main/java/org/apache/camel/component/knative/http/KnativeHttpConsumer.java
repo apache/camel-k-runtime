@@ -39,12 +39,13 @@ import org.apache.camel.Message;
 import org.apache.camel.NoTypeConversionAvailableException;
 import org.apache.camel.Processor;
 import org.apache.camel.TypeConverter;
-import org.apache.camel.component.knative.spi.KnativeEnvironment;
+import org.apache.camel.component.knative.spi.KnativeResource;
 import org.apache.camel.component.knative.spi.KnativeTransportConfiguration;
 import org.apache.camel.spi.HeaderFilterStrategy;
 import org.apache.camel.support.DefaultConsumer;
 import org.apache.camel.support.ExchangeHelper;
 import org.apache.camel.support.MessageHelper;
+import org.apache.camel.util.IOHelper;
 import org.apache.camel.util.ObjectHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,7 +55,7 @@ public class KnativeHttpConsumer extends DefaultConsumer {
 
     private final KnativeTransportConfiguration configuration;
     private final Predicate<HttpServerRequest> filter;
-    private final KnativeEnvironment.KnativeResource serviceDefinition;
+    private final KnativeResource resource;
     private final Router router;
     private final HeaderFilterStrategy headerFilterStrategy;
 
@@ -66,17 +67,17 @@ public class KnativeHttpConsumer extends DefaultConsumer {
     public KnativeHttpConsumer(
         KnativeTransportConfiguration configuration,
         Endpoint endpoint,
-        KnativeEnvironment.KnativeResource serviceDefinition,
+        KnativeResource resource,
         Router router,
         Processor processor) {
 
         super(endpoint, processor);
 
         this.configuration = configuration;
-        this.serviceDefinition = serviceDefinition;
+        this.resource = resource;
         this.router = router;
         this.headerFilterStrategy = new KnativeHttpHeaderFilterStrategy();
-        this.filter = KnativeHttpSupport.createFilter(serviceDefinition);
+        this.filter = KnativeHttpSupport.createFilter(this.configuration.getCloudEvent(), resource);
         this.preallocateBodyBuffer = true;
     }
 
@@ -107,7 +108,7 @@ public class KnativeHttpConsumer extends DefaultConsumer {
     @Override
     protected void doStart() throws Exception {
         if (route == null) {
-            String path = serviceDefinition.getPath();
+            String path = resource.getPath();
             if (ObjectHelper.isEmpty(path)) {
                 path = "/";
             }
@@ -261,8 +262,8 @@ public class KnativeHttpConsumer extends DefaultConsumer {
         Message message = exchange.getMessage();
         String path = request.path();
 
-        if (serviceDefinition.getPath() != null) {
-            String endpointPath = serviceDefinition.getPath();
+        if (resource.getPath() != null) {
+            String endpointPath = resource.getPath();
             String matchPath = path.toLowerCase(Locale.US);
             String match = endpointPath.toLowerCase(Locale.US);
 
@@ -332,16 +333,21 @@ public class KnativeHttpConsumer extends DefaultConsumer {
             // we failed due an exception so print it as plain text
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
-            exception.printStackTrace(pw);
 
-            // the body should then be the stacktrace
-            body = sw.toString().getBytes(StandardCharsets.UTF_8);
-            // force content type to be text/plain as that is what the stacktrace is
-            message.setHeader(Exchange.CONTENT_TYPE, "text/plain");
+            try {
+                exception.printStackTrace(pw);
 
-            // and mark the exception as failure handled, as we handled it by returning
-            // it as the response
-            ExchangeHelper.setFailureHandled(message.getExchange());
+                // the body should then be the stacktrace
+                body = sw.toString().getBytes(StandardCharsets.UTF_8);
+                // force content type to be text/plain as that is what the stacktrace is
+                message.setHeader(Exchange.CONTENT_TYPE, "text/plain");
+
+                // and mark the exception as failure handled, as we handled it by returning
+                // it as the response
+                ExchangeHelper.setFailureHandled(message.getExchange());
+            } finally {
+                IOHelper.close(pw, sw);
+            }
         }
 
         return body != null

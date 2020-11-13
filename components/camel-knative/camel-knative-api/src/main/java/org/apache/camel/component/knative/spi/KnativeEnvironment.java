@@ -25,19 +25,20 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.camel.CamelContext;
+import org.apache.camel.ExtendedCamelContext;
+import org.apache.camel.spi.Configurer;
+import org.apache.camel.support.PropertyBindingSupport;
 import org.apache.camel.support.ResourceHelper;
 
 /*
  * Assuming it is loaded from a json for now
  */
+@Configurer
 public class KnativeEnvironment {
     private final List<KnativeResource> resources;
 
@@ -55,6 +56,13 @@ public class KnativeEnvironment {
         return resources;
     }
 
+    @JsonAlias("services")
+    @JsonProperty(value = "resources", required = true)
+    public void setResources(List<KnativeResource> resources) {
+        this.resources.clear();
+        this.resources.addAll(resources);
+    }
+
     public Stream<KnativeResource> stream() {
         return resources.stream();
     }
@@ -69,37 +77,104 @@ public class KnativeEnvironment {
     //
     // ************************
 
-    public static KnativeEnvironment mandatoryLoadFromSerializedString(CamelContext context, String configuration) throws IOException {
+    /**
+     * Construct an instance o a {@link KnativeEnvironment} from a json serialized string.
+     * <pre>{@code
+     * {
+     *     "resources": [
+     *         {
+     *              "type": "channel|endpoint|event",
+     *              "name": "",
+     *              "url": "",
+     *              "path": "",
+     *              "eventType": "",
+     *              "objectKind": "",
+     *              "objectApiVersion": "",
+     *              "endpointKind": "source|sink",
+     *              "filters": {
+     *                  "header": "value"
+     *              },
+     *              "ceOverrides": {
+     *                  "ce-type": "something"
+     *              }
+     *         },
+     *     ]
+     * }
+     * }</pre>
+     *
+     * @param configuration the serialized representation of the Knative environment
+     * @return an instance of {@link KnativeEnvironment}
+     * @throws IOException if an error occur while parsing the file
+     */
+    public static KnativeEnvironment mandatoryLoadFromSerializedString(String configuration) throws IOException {
         try (Reader reader = new StringReader(configuration)) {
             return Knative.MAPPER.readValue(reader, KnativeEnvironment.class);
         }
     }
 
+    /**
+     * Construct an instance o a {@link KnativeEnvironment} from a properties.
+     * <pre>{@code
+     * resources[0].name = ...
+     * resources[0].type = channel|endpoint|event
+     * resources[0].endpointKind = source|sink
+     * resources[0].url = ...
+     * }</pre>
+     *
+     * @param context the {@link CamelContext}
+     * @param properties the properties from which to construct the {@link KnativeEnvironment}
+     * @return an instance of {@link KnativeEnvironment}
+     * @throws IOException if an error occur while parsing the file
+     */
+    public static KnativeEnvironment mandatoryLoadFromProperties(CamelContext context, Map<String, Object> properties) {
+        final ExtendedCamelContext econtext = context.adapt(ExtendedCamelContext.class);
+        final KnativeEnvironment environment = new KnativeEnvironment();
+
+        PropertyBindingSupport.build()
+            .withIgnoreCase(true)
+            .withCamelContext(context)
+            .withTarget(environment)
+            .withProperties(properties)
+            .withRemoveParameters(true)
+            .withConfigurer(econtext.getConfigurerResolver().resolvePropertyConfigurer(KnativeEnvironment.class.getName(), context))
+            .withMandatory(true)
+            .bind();
+
+        return environment;
+    }
+
+    /**
+     * Construct an instance o a {@link KnativeEnvironment} from a json file.
+     * <pre>{@code
+     * {
+     *     "resources": [
+     *         {
+     *              "type": "channel|endpoint|event",
+     *              "name": "",
+     *              "url": "",
+     *              "path": "",
+     *              "eventType": "",
+     *              "objectKind": "",
+     *              "objectApiVersion": "",
+     *              "endpointKind": "source|sink",
+     *              "filters": {
+     *                  "header": "value"
+     *              },
+     *              "ceOverrides": {
+     *                  "ce-type": "something"
+     *              }
+     *         },
+     *     ]
+     * }
+     * }</pre>
+     *
+     * @param context the {@link CamelContext}
+     * @param path URI of the resource
+     * @return an instance of {@link KnativeEnvironment}
+     * @throws IOException if an error occur while parsing the file
+     */
     public static KnativeEnvironment mandatoryLoadFromResource(CamelContext context, String path) throws IOException {
         try (InputStream is = ResourceHelper.resolveMandatoryResourceAsInputStream(context, path)) {
-            //
-            // read the knative environment from a file formatted as json, i.e. :
-            //
-            // {
-            //     "services": [
-            //         {
-            //              "type": "channel|endpoint|event",
-            //              "name": "",
-            //              "url": "",
-            //              "metadata": {
-            //                  "service.path": "",
-            //                  "filter.header": "value",
-            //                  "knative.event.type": "",
-            //                  "knative.kind": "",
-            //                  "knative.apiVersion": "",
-            //                  "camel.endpoint.kind": "source|sink",
-            //                  "ce.override.ce-type": "something",
-            //              }
-            //         },
-            //     ]
-            // }
-            //
-            //
             return Knative.MAPPER.readValue(is, KnativeEnvironment.class);
         }
     }
@@ -126,6 +201,7 @@ public class KnativeEnvironment {
     public static final class KnativeServiceBuilder {
         private final Knative.Type type;
         private final String name;
+        private Knative.EndpointKind endpointKind;
         private String url;
         private Map<String, String> metadata;
 
@@ -136,6 +212,15 @@ public class KnativeEnvironment {
 
         public KnativeServiceBuilder withUrl(String url) {
             this.url = url;
+            return this;
+        }
+
+        public KnativeServiceBuilder withUrlf(String format, Object... args) {
+            return withUrl(String.format(format, args));
+        }
+
+        public KnativeServiceBuilder withEndpointKind(Knative.EndpointKind endpointKind) {
+            this.endpointKind = endpointKind;
             return this;
         }
 
@@ -173,75 +258,15 @@ public class KnativeEnvironment {
         }
 
         public KnativeResource build() {
-            return new KnativeResource(type, name, url, metadata);
+            KnativeResource answer = new KnativeResource();
+            answer.setType(type);
+            answer.setEndpointKind(endpointKind);
+            answer.setName(name);
+            answer.setUrl(url);
+            answer.setMetadata(metadata);
+
+            return answer;
         }
     }
 
-    public static final class KnativeResource {
-        private final String name;
-        private final String url;
-        private final Map<String, String> meta;
-
-        @JsonCreator
-        public KnativeResource(
-            @JsonProperty(value = "type", required = true) Knative.Type type,
-            @JsonProperty(value = "name", required = true) String name,
-            @JsonProperty(value = "url", required = false) String url,
-            @JsonProperty(value = "metadata", required = false) Map<String, String> metadata) {
-
-            this.name = name;
-            this.url = url;
-            this.meta = KnativeSupport.mergeMaps(
-                metadata,
-                Map.of(
-                    Knative.KNATIVE_TYPE, type.name())
-            );
-        }
-
-        public String getName() {
-            return this.name;
-        }
-
-        public Map<String, String> getMetadata() {
-            return this.meta;
-        }
-
-        public Knative.Type getType() {
-            return Knative.Type.valueOf(getMetadata().get(Knative.KNATIVE_TYPE));
-        }
-
-        public String getPath() {
-            return getMetadata(Knative.SERVICE_META_PATH);
-        }
-
-        public String getEventType() {
-            return getMetadata(Knative.KNATIVE_EVENT_TYPE);
-        }
-
-        public String getUrl() {
-            return this.url != null ? this.url : getMetadata(Knative.SERVICE_META_URL);
-        }
-
-        public String getMetadata(String key) {
-            return getMetadata().get(key);
-        }
-
-        public Optional<String> getOptionalMetadata(String key) {
-            return Optional.ofNullable(getMetadata(key));
-        }
-
-        public boolean matches(Knative.Type type, String name) {
-            return Objects.equals(type.name(), getMetadata(Knative.KNATIVE_TYPE))
-                && Objects.equals(name, getName());
-        }
-
-        @Override
-        public String toString() {
-            return "KnativeResource{" +
-                "name='" + name + '\'' +
-                ", url='" + url + '\'' +
-                ", meta=" + meta +
-                '}';
-        }
-    }
 }
