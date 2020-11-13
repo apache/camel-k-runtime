@@ -26,7 +26,7 @@ import org.apache.camel.Processor;
 import org.apache.camel.component.knative.KnativeEndpoint;
 import org.apache.camel.component.knative.spi.CloudEvent;
 import org.apache.camel.component.knative.spi.CloudEvents;
-import org.apache.camel.component.knative.spi.KnativeEnvironment;
+import org.apache.camel.component.knative.spi.KnativeResource;
 
 import static org.apache.camel.util.ObjectHelper.ifNotEmpty;
 
@@ -159,12 +159,12 @@ public enum CloudEventProcessors implements CloudEventProcessor {
     }
 
     @Override
-    public Processor consumer(KnativeEndpoint endpoint, KnativeEnvironment.KnativeResource service) {
+    public Processor consumer(KnativeEndpoint endpoint, KnativeResource service) {
         return instance.consumer(endpoint, service);
     }
 
     @Override
-    public Processor producer(KnativeEndpoint endpoint, KnativeEnvironment.KnativeResource service) {
+    public Processor producer(KnativeEndpoint endpoint, KnativeResource service) {
         return instance.producer(endpoint, service);
     }
 

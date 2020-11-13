@@ -219,6 +219,7 @@ public class KnativeComponent extends DefaultComponent {
     //
     // ************************
 
+    @SuppressWarnings("unchecked")
     @Override
     protected Endpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters) throws Exception {
         if (ObjectHelper.isEmpty(remaining)) {
@@ -230,13 +231,13 @@ public class KnativeComponent extends DefaultComponent {
         final KnativeConfiguration conf = getKnativeConfiguration();
 
         conf.getFilters().putAll(
-            PropertiesHelper.extractProperties(parameters, "filter.", true)
+            (Map)PropertiesHelper.extractProperties(parameters, "filter.", true)
+        );
+        conf.getCeOverride().putAll(
+            (Map)PropertiesHelper.extractProperties(parameters, "ce.override.", true)
         );
         conf.getTransportOptions().putAll(
             PropertiesHelper.extractProperties(parameters, "transport.", true)
-        );
-        conf.getCeOverride().putAll(
-            PropertiesHelper.extractProperties(parameters, "ce.override.", true)
         );
 
         KnativeEndpoint endpoint = new KnativeEndpoint(uri, this, Knative.Type.valueOf(type), name, conf);
@@ -277,7 +278,7 @@ public class KnativeComponent extends DefaultComponent {
                     );
                 } else {
                     conf.setEnvironment(
-                        KnativeEnvironment.mandatoryLoadFromSerializedString(getCamelContext(), envConfig)
+                        KnativeEnvironment.mandatoryLoadFromSerializedString(envConfig)
                     );
                 }
             } else {

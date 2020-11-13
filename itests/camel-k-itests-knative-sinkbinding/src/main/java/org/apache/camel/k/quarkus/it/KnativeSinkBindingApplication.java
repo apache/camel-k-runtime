@@ -27,8 +27,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.component.knative.spi.Knative;
-import org.apache.camel.component.knative.spi.KnativeEnvironment;
+import org.apache.camel.component.knative.spi.KnativeResource;
 import org.apache.camel.k.knative.customizer.KnativeSinkBindingContextCustomizer;
 
 @Path("/test")
@@ -58,7 +57,7 @@ public class KnativeSinkBindingApplication {
     @Path("/resource/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject resource(@PathParam("name") String name) {
-        var resource = context.getRegistry().lookupByNameAndType(name, KnativeEnvironment.KnativeResource.class);
+        var resource = context.getRegistry().lookupByNameAndType(name, KnativeResource.class);
         if (resource == null) {
             return Json.createObjectBuilder().build();
         }
@@ -67,8 +66,8 @@ public class KnativeSinkBindingApplication {
             .add("url", resource.getUrl())
             .add("name", resource.getName())
             .add("type", resource.getType().name())
-            .add("apiVersion", resource.getMetadata(Knative.KNATIVE_API_VERSION))
-            .add("kind", resource.getMetadata(Knative.KNATIVE_KIND))
+            .add("apiVersion", resource.getObjectApiVersion())
+            .add("kind", resource.getObjectKind())
             .build();
     }
 }

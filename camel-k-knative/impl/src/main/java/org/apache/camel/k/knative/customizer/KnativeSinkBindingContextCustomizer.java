@@ -20,12 +20,11 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.HashMap;
-import java.util.Optional;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.knative.spi.Knative;
-import org.apache.camel.component.knative.spi.KnativeEnvironment;
+import org.apache.camel.component.knative.spi.KnativeResource;
 import org.apache.camel.k.ContextCustomizer;
 import org.apache.camel.k.annotation.Customizer;
 import org.apache.camel.spi.Configurer;
@@ -34,71 +33,10 @@ import org.apache.camel.util.ObjectHelper;
 @Configurer
 @Customizer("sinkbinding")
 public class KnativeSinkBindingContextCustomizer implements ContextCustomizer {
-
     private String name;
-
     private Knative.Type type;
-
     private String kind;
-
     private String apiVersion;
-
-    @Override
-    public void apply(CamelContext camelContext) {
-        createSyntheticDefinition(camelContext, name).ifPresent(serviceDefinition -> {
-            // publish the synthetic service definition
-            camelContext.getRegistry().bind(name, serviceDefinition);
-        });
-    }
-
-    private Optional<KnativeEnvironment.KnativeResource> createSyntheticDefinition(
-            CamelContext camelContext,
-            String sinkName) {
-
-        final String kSinkUrl = camelContext.resolvePropertyPlaceholders("{{k.sink:}}");
-        final String kCeOverride = camelContext.resolvePropertyPlaceholders("{{k.ce.overrides:}}");
-
-        if (ObjectHelper.isNotEmpty(kSinkUrl)) {
-            // create a synthetic service definition to target the K_SINK url
-            var serviceBuilder = KnativeEnvironment.serviceBuilder(type, sinkName)
-                    .withMeta(Knative.CAMEL_ENDPOINT_KIND, Knative.EndpointKind.sink)
-                    .withMeta(Knative.SERVICE_META_URL, kSinkUrl);
-
-            if (ObjectHelper.isNotEmpty(kind)) {
-                serviceBuilder = serviceBuilder.withMeta(Knative.KNATIVE_KIND, kind);
-            }
-
-            if (ObjectHelper.isNotEmpty(apiVersion)) {
-                serviceBuilder = serviceBuilder.withMeta(Knative.KNATIVE_API_VERSION, apiVersion);
-            }
-
-            if (ObjectHelper.isNotEmpty(kCeOverride)) {
-                try (Reader reader = new StringReader(kCeOverride)) {
-                    // assume K_CE_OVERRIDES is defined as simple key/val json
-                    var overrides = Knative.MAPPER.readValue(
-                            reader,
-                            new TypeReference<HashMap<String, String>>() {
-                            }
-                    );
-
-                    for (var entry : overrides.entrySet()) {
-                        // generate proper ce-override meta-data for the service
-                        // definition
-                        serviceBuilder.withMeta(
-                                Knative.KNATIVE_CE_OVERRIDE_PREFIX + entry.getKey(),
-                                entry.getValue()
-                        );
-                    }
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-
-            return Optional.of(serviceBuilder.build());
-        }
-
-        return Optional.empty();
-    }
 
     public String getName() {
         return name;
@@ -132,4 +70,35 @@ public class KnativeSinkBindingContextCustomizer implements ContextCustomizer {
         this.apiVersion = apiVersion;
     }
 
+    @Override
+    public void apply(CamelContext camelContext) {
+        final String kSinkUrl = camelContext.resolvePropertyPlaceholders("{{k.sink:}}");
+        final String kCeOverride = camelContext.resolvePropertyPlaceholders("{{k.ce.overrides:}}");
+
+        if (ObjectHelper.isNotEmpty(kSinkUrl)) {
+            // create a synthetic service definition to target the K_SINK url
+            KnativeResource resource = new KnativeResource();
+            resource.setEndpointKind(Knative.EndpointKind.sink);
+            resource.setType(type);
+            resource.setName(name);
+            resource.setUrl(kSinkUrl);
+            resource.setObjectApiVersion(apiVersion);
+            resource.setObjectKind(kind);
+
+            if (ObjectHelper.isNotEmpty(kCeOverride)) {
+                try (Reader reader = new StringReader(kCeOverride)) {
+                    // assume K_CE_OVERRIDES is defined as simple key/val json
+                    Knative.MAPPER.readValue(
+                        reader,
+                        new TypeReference<HashMap<String, String>>() {
+                        }
+                    ).forEach(resource::addCeOverride);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+            camelContext.getRegistry().bind(name, resource);
+        }
+    }
 }

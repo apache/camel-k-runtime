@@ -26,6 +26,7 @@ import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.component.knative.KnativeComponent;
 import org.apache.camel.component.knative.KnativeConstants;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
+import org.apache.camel.component.knative.spi.KnativeResource;
 import org.apache.camel.k.quarkus.knative.KnativeRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilter;
@@ -43,7 +44,7 @@ public class KnativeProcessor {
     List<ReflectiveClassBuildItem> reflectiveClasses() {
         return List.of(
             new ReflectiveClassBuildItem(true, false, KnativeEnvironment.class),
-            new ReflectiveClassBuildItem(true, false, KnativeEnvironment.KnativeResource.class)
+            new ReflectiveClassBuildItem(true, false, KnativeResource.class)
         );
     }
 
