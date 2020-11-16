@@ -490,7 +490,6 @@
 - Provide support for statically defined cloudevent headers [\#176](https://github.com/apache/camel-k-runtime/pull/176) ([lburgazzoli](https://github.com/lburgazzoli))
 - Wrong CloudEvent Headers used [\#174](https://github.com/apache/camel-k-runtime/pull/174) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#170: add support for webhook endpoints [\#171](https://github.com/apache/camel-k-runtime/pull/171) ([nicolaferraro](https://github.com/nicolaferraro))
-- HTTP multi-headers are randomized in camel-knative-http [\#168](https://github.com/apache/camel-k-runtime/pull/168) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-1.0.5](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.0.5) (2019-10-18)
 
@@ -514,6 +513,7 @@
 **Merged pull requests:**
 
 - Improve DSL for groovy and kotlin [\#169](https://github.com/apache/camel-k-runtime/pull/169) ([lburgazzoli](https://github.com/lburgazzoli))
+- HTTP multi-headers are randomized in camel-knative-http [\#168](https://github.com/apache/camel-k-runtime/pull/168) ([lburgazzoli](https://github.com/lburgazzoli))
 - Can't bridge two Knative channels with new component [\#166](https://github.com/apache/camel-k-runtime/pull/166) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix issue 164 to update the runtime version [\#165](https://github.com/apache/camel-k-runtime/pull/165) ([zhfeng](https://github.com/zhfeng))
 - kotlin: improve rest dsl [\#162](https://github.com/apache/camel-k-runtime/pull/162) ([lburgazzoli](https://github.com/lburgazzoli))
