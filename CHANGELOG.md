@@ -21,6 +21,7 @@
 
 **Merged pull requests:**
 
+- knative: fix wrong dependencies [\#555](https://github.com/apache/camel-k-runtime/pull/555) ([lburgazzoli](https://github.com/lburgazzoli))
 - Cleanup extensions [\#552](https://github.com/apache/camel-k-runtime/pull/552) ([lburgazzoli](https://github.com/lburgazzoli))
 - knative: split producer and consumer [\#551](https://github.com/apache/camel-k-runtime/pull/551) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(ci\): temporarily disable flacky jobs [\#550](https://github.com/apache/camel-k-runtime/pull/550) ([nicolaferraro](https://github.com/nicolaferraro))
