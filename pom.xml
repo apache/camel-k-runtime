@@ -323,7 +323,7 @@
         <module>camel-k-knative</module>
         <module>camel-k-master</module>
         <module>camel-k-webhook</module>
-        <module>camel-k-wrap</module>
+        <module>camel-k-kamelet-reify</module>
 
         <module>camel-k-runtime</module>
 
@@ -418,7 +418,7 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-wrap</artifactId>
+                <artifactId>camel-kamelet-reify</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -535,12 +535,12 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-wrap</artifactId>
+                <artifactId>camel-k-kamelet-reify</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-wrap-deployment</artifactId>
+                <artifactId>camel-k-kamelet-reify-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
