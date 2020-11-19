@@ -631,7 +631,6 @@
 - update to Camel 2.24.0 [\#60](https://github.com/apache/camel-k-runtime/issues/60)
 - remove spring boot support [\#55](https://github.com/apache/camel-k-runtime/issues/55)
 - Release 0.3.2 [\#51](https://github.com/apache/camel-k-runtime/issues/51)
-- Refactor customizer activation [\#46](https://github.com/apache/camel-k-runtime/issues/46)
 
 **Merged pull requests:**
 
@@ -653,6 +652,7 @@
 **Closed issues:**
 
 - Provide a default "type" for cloudevents [\#48](https://github.com/apache/camel-k-runtime/issues/48)
+- Refactor customizer activation [\#46](https://github.com/apache/camel-k-runtime/issues/46)
 - Support StreamCaching configuration trough a ContextCustomizer [\#44](https://github.com/apache/camel-k-runtime/issues/44)
 - Runtime components should include catalog information [\#31](https://github.com/apache/camel-k-runtime/issues/31)
 - Release 0.3.1 [\#28](https://github.com/apache/camel-k-runtime/issues/28)
