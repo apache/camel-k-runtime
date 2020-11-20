@@ -21,6 +21,7 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump kotlin-version from 1.4.10 to 1.4.20 [\#558](https://github.com/apache/camel-k-runtime/pull/558) ([dependabot[bot]](https://github.com/apps/dependabot))
 - knative: fix wrong dependencies [\#555](https://github.com/apache/camel-k-runtime/pull/555) ([lburgazzoli](https://github.com/lburgazzoli))
 - Cleanup extensions [\#552](https://github.com/apache/camel-k-runtime/pull/552) ([lburgazzoli](https://github.com/lburgazzoli))
 - knative: split producer and consumer [\#551](https://github.com/apache/camel-k-runtime/pull/551) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -631,6 +632,7 @@
 - update to Camel 2.24.0 [\#60](https://github.com/apache/camel-k-runtime/issues/60)
 - remove spring boot support [\#55](https://github.com/apache/camel-k-runtime/issues/55)
 - Release 0.3.2 [\#51](https://github.com/apache/camel-k-runtime/issues/51)
+- Refactor customizer activation [\#46](https://github.com/apache/camel-k-runtime/issues/46)
 
 **Merged pull requests:**
 
@@ -652,7 +654,6 @@
 **Closed issues:**
 
 - Provide a default "type" for cloudevents [\#48](https://github.com/apache/camel-k-runtime/issues/48)
-- Refactor customizer activation [\#46](https://github.com/apache/camel-k-runtime/issues/46)
 - Support StreamCaching configuration trough a ContextCustomizer [\#44](https://github.com/apache/camel-k-runtime/issues/44)
 - Runtime components should include catalog information [\#31](https://github.com/apache/camel-k-runtime/issues/31)
 - Release 0.3.1 [\#28](https://github.com/apache/camel-k-runtime/issues/28)
