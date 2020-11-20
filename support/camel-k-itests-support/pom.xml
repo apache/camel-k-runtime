@@ -31,7 +31,6 @@
 
     <modules>
         <module>camel-k-itests-loader-inspector</module>
-        <module>camel-k-itests-runtime-bootstrap</module>
         <module>camel-k-itests-runtime-inspector</module>
     </modules>
 
