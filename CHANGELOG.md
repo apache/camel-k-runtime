@@ -6,6 +6,7 @@
 
 **Implemented enhancements:**
 
+- knative: support configuring the knative environment using properties [\#506](https://github.com/apache/camel-k-runtime/issues/506)
 - Fixes \#544: Kamelet component - optimize as we did for direct component [\#553](https://github.com/apache/camel-k-runtime/pull/553) ([davsclaus](https://github.com/davsclaus))
 
 **Closed issues:**
@@ -23,6 +24,7 @@
 
 - build\(deps\): bump kotlin-version from 1.4.10 to 1.4.20 [\#558](https://github.com/apache/camel-k-runtime/pull/558) ([dependabot[bot]](https://github.com/apps/dependabot))
 - knative: fix wrong dependencies [\#555](https://github.com/apache/camel-k-runtime/pull/555) ([lburgazzoli](https://github.com/lburgazzoli))
+- knative: support configuring the knative environment using properties [\#554](https://github.com/apache/camel-k-runtime/pull/554) ([lburgazzoli](https://github.com/lburgazzoli))
 - Cleanup extensions [\#552](https://github.com/apache/camel-k-runtime/pull/552) ([lburgazzoli](https://github.com/lburgazzoli))
 - knative: split producer and consumer [\#551](https://github.com/apache/camel-k-runtime/pull/551) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(ci\): temporarily disable flacky jobs [\#550](https://github.com/apache/camel-k-runtime/pull/550) ([nicolaferraro](https://github.com/nicolaferraro))
