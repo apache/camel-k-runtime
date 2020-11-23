@@ -25,7 +25,6 @@ public class KameletEndpointConfigurer extends PropertyConfigurerSupport impleme
         map.put("exchangePattern", org.apache.camel.ExchangePattern.class);
         map.put("block", boolean.class);
         map.put("failIfNoConsumers", boolean.class);
-        map.put("kameletProperties", java.util.Map.class);
         map.put("lazyStartProducer", boolean.class);
         map.put("timeout", long.class);
         map.put("basicPropertyBinding", boolean.class);
@@ -48,8 +47,6 @@ public class KameletEndpointConfigurer extends PropertyConfigurerSupport impleme
         case "exchangePattern": target.setExchangePattern(property(camelContext, org.apache.camel.ExchangePattern.class, value)); return true;
         case "failifnoconsumers":
         case "failIfNoConsumers": target.setFailIfNoConsumers(property(camelContext, boolean.class, value)); return true;
-        case "kameletproperties":
-        case "kameletProperties": target.setKameletProperties(property(camelContext, java.util.Map.class, value)); return true;
         case "lazystartproducer":
         case "lazyStartProducer": target.setLazyStartProducer(property(camelContext, boolean.class, value)); return true;
         case "synchronous": target.setSynchronous(property(camelContext, boolean.class, value)); return true;
@@ -78,8 +75,6 @@ public class KameletEndpointConfigurer extends PropertyConfigurerSupport impleme
         case "exchangePattern": return target.getExchangePattern();
         case "failifnoconsumers":
         case "failIfNoConsumers": return target.isFailIfNoConsumers();
-        case "kameletproperties":
-        case "kameletProperties": return target.getKameletProperties();
         case "lazystartproducer":
         case "lazyStartProducer": return target.isLazyStartProducer();
         case "synchronous": return target.isSynchronous();

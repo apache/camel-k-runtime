@@ -39,8 +39,8 @@ import org.apache.camel.util.ObjectHelper;
         lenientProperties = true,
         category = Category.CORE)
 public class KameletEndpoint extends DefaultEndpoint {
-
     private final String key;
+    private final Map<String, Object> kameletProperties;
 
     @Metadata(required = true)
     @UriPath(description = "The Route Template ID")
@@ -53,8 +53,6 @@ public class KameletEndpoint extends DefaultEndpoint {
     private boolean block = true;
     @UriParam(label = "producer", defaultValue = "30000")
     private long timeout = 30000L;
-    @UriParam(label = "producer")
-    private final Map<String, Object> kameletProperties;
     @UriParam(label = "producer", defaultValue = "true")
     private boolean failIfNoConsumers = true;
 

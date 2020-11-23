@@ -87,9 +87,8 @@ public final class Kamelet {
         return answer;
     }
 
-    public static Map<String, Object> extractKameletProperties(CamelContext context, String... elements) {
+    public static Map<String, Object> extractKameletProperties(CamelContext context, Map<String, Object> properties, String... elements) {
         PropertiesComponent pc = context.getPropertiesComponent();
-        Map<String, Object> properties = new HashMap<>();
         String prefix = Kamelet.PROPERTIES_PREFIX;
 
         for (String element: elements) {

@@ -70,6 +70,9 @@ public class KameletComponent extends DefaultComponent {
     @Metadata(label = "producer", defaultValue = "30000")
     private long timeout = 30000L;
 
+    @Metadata
+    private KameletConfiguration configuration;
+
     public KameletComponent() {
     }
 
@@ -225,20 +228,56 @@ public class KameletComponent extends DefaultComponent {
             endpoint.setBlock(block);
             endpoint.setTimeout(timeout);
 
-            // set endpoint specific properties
+            // set and remove endpoint specific properties
             setProperties(endpoint, parameters);
 
+            Map<String, Object> kameletProperties = new HashMap<>();
+
             //
-            // The properties for the kamelets are determined by global properties
-            // and local endpoint parameters,
+            // Load properties from the component configuration. Template and route specific properties
+            // can be set through properties, as example:
             //
-            // Global parameters are loaded in the following order:
+            //     camel.component.kamelet.configuration.template-properties[templateId].key = val
+            //     camel.component.kamelet.configuration.route-properties[templateId].key = val
             //
-            //   camel.kamelet." + templateId
-            //   camel.kamelet." + templateId + "." routeId
+            if (configuration != null && configuration.getTemplateProperties() != null) {
+                Properties props = configuration.getTemplateProperties().get(routeId);
+                if (props != null) {
+                    props.stringPropertyNames().forEach(name -> kameletProperties.put(name, props.get(name)));
+                }
+            }
+            if (configuration != null && configuration.getRouteProperties() != null) {
+                Properties props = configuration.getRouteProperties().get(routeId);
+                if (props != null) {
+                    props.stringPropertyNames().forEach(name -> kameletProperties.put(name, props.get(name)));
+                }
+            }
+
             //
-            Map<String, Object> kameletProperties = Kamelet.extractKameletProperties(getCamelContext(), templateId, routeId);
+            // We can't mix configuration styles so if properties are not configured through the component,
+            // then fallback to the old - deprecated - style.
+            //
+            if (kameletProperties.isEmpty()) {
+                //
+                // The properties for the kamelets are determined by global properties
+                // and local endpoint parameters,
+                //
+                // Global parameters are loaded in the following order:
+                //
+                //   camel.kamelet." + templateId
+                //   camel.kamelet." + templateId + "." routeId
+                //
+                Kamelet.extractKameletProperties(getCamelContext(), kameletProperties, templateId, routeId);
+            }
+
+            //
+            // Uri params have the highest precedence
+            //
             kameletProperties.putAll(parameters);
+
+            //
+            // And finally we have some specific properties that cannot be changed by the user.
+            //
             kameletProperties.put(PARAM_TEMPLATE_ID, templateId);
             kameletProperties.put(PARAM_ROUTE_ID, routeId);
 
@@ -270,6 +309,17 @@ public class KameletComponent extends DefaultComponent {
      */
     public void setTimeout(long timeout) {
         this.timeout = timeout;
+    }
+
+    public KameletConfiguration getConfiguration() {
+        return configuration;
+    }
+
+    /**
+     * The configuration.
+     */
+    public void setConfiguration(KameletConfiguration configuration) {
+        this.configuration = configuration;
     }
 
     int getStateCounter() {
@@ -415,4 +465,5 @@ public class KameletComponent extends DefaultComponent {
             LOGGER.debug("Route with id={} created from template={}", id, endpoint.getTemplateId());
         }
     }
+
 }
