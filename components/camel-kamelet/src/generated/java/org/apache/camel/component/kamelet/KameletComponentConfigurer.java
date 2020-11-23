@@ -18,6 +18,7 @@ public class KameletComponentConfigurer extends PropertyConfigurerSupport implem
     private static final Map<String, Object> ALL_OPTIONS;
     static {
         Map<String, Object> map = new CaseInsensitiveMap();
+        map.put("configuration", org.apache.camel.component.kamelet.KameletConfiguration.class);
         map.put("bridgeErrorHandler", boolean.class);
         map.put("block", boolean.class);
         map.put("lazyStartProducer", boolean.class);
@@ -35,6 +36,7 @@ public class KameletComponentConfigurer extends PropertyConfigurerSupport implem
         case "block": target.setBlock(property(camelContext, boolean.class, value)); return true;
         case "bridgeerrorhandler":
         case "bridgeErrorHandler": target.setBridgeErrorHandler(property(camelContext, boolean.class, value)); return true;
+        case "configuration": target.setConfiguration(property(camelContext, org.apache.camel.component.kamelet.KameletConfiguration.class, value)); return true;
         case "lazystartproducer":
         case "lazyStartProducer": target.setLazyStartProducer(property(camelContext, boolean.class, value)); return true;
         case "timeout": target.setTimeout(property(camelContext, long.class, value)); return true;
@@ -56,6 +58,7 @@ public class KameletComponentConfigurer extends PropertyConfigurerSupport implem
         case "block": return target.isBlock();
         case "bridgeerrorhandler":
         case "bridgeErrorHandler": return target.isBridgeErrorHandler();
+        case "configuration": return target.getConfiguration();
         case "lazystartproducer":
         case "lazyStartProducer": return target.isLazyStartProducer();
         case "timeout": return target.getTimeout();
