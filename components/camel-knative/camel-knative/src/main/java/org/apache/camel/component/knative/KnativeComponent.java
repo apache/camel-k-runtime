@@ -29,6 +29,7 @@ import org.apache.camel.component.knative.spi.KnativeEnvironment;
 import org.apache.camel.component.knative.spi.KnativeProducerFactory;
 import org.apache.camel.spi.Metadata;
 import org.apache.camel.spi.annotations.Component;
+import org.apache.camel.support.CamelContextHelper;
 import org.apache.camel.support.DefaultComponent;
 import org.apache.camel.support.service.ServiceHelper;
 import org.apache.camel.util.ObjectHelper;
@@ -213,12 +214,6 @@ public class KnativeComponent extends DefaultComponent {
         }
     }
 
-    // ************************
-    //
-    //
-    //
-    // ************************
-
     @SuppressWarnings("unchecked")
     @Override
     protected Endpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters) throws Exception {
@@ -253,7 +248,8 @@ public class KnativeComponent extends DefaultComponent {
     // ************************
 
     private KnativeConfiguration getKnativeConfiguration() throws Exception {
-        KnativeConfiguration conf = configuration.copy();
+        final String envConfig = System.getenv(KnativeConstants.CONFIGURATION_ENV_VARIABLE);
+        final KnativeConfiguration conf = configuration.copy();
 
         if (conf.getTransportOptions() == null) {
             conf.setTransportOptions(new HashMap<>());
@@ -266,24 +262,23 @@ public class KnativeComponent extends DefaultComponent {
         }
 
         if (conf.getEnvironment() == null) {
-            String envConfig = System.getenv(KnativeConstants.CONFIGURATION_ENV_VARIABLE);
+            KnativeEnvironment env;
+
             if (environmentPath != null) {
-                conf.setEnvironment(
-                    KnativeEnvironment.mandatoryLoadFromResource(getCamelContext(), this.environmentPath)
-                );
+                env = KnativeEnvironment.mandatoryLoadFromResource(getCamelContext(), this.environmentPath);
             } else if (envConfig != null) {
-                if (envConfig.startsWith("file:") || envConfig.startsWith("classpath:")) {
-                    conf.setEnvironment(
-                        KnativeEnvironment.mandatoryLoadFromResource(getCamelContext(), envConfig)
-                    );
-                } else {
-                    conf.setEnvironment(
-                        KnativeEnvironment.mandatoryLoadFromSerializedString(envConfig)
-                    );
-                }
+                env = envConfig.startsWith("file:") || envConfig.startsWith("classpath:")
+                    ? KnativeEnvironment.mandatoryLoadFromResource(getCamelContext(), envConfig)
+                    : KnativeEnvironment.mandatoryLoadFromSerializedString(envConfig);
             } else {
+                env = CamelContextHelper.findByType(getCamelContext(), KnativeEnvironment.class);
+            }
+
+            if (env == null) {
                 throw new IllegalStateException("Cannot load Knative configuration from file or env variable");
             }
+
+            conf.setEnvironment(env);
         }
 
         return conf;
@@ -291,7 +286,7 @@ public class KnativeComponent extends DefaultComponent {
 
     private void setUpProducerFactory() throws Exception {
         if (producerFactory == null) {
-            this.producerFactory = getCamelContext().getRegistry().lookupByNameAndType(protocol.name(), KnativeProducerFactory.class);
+            this.producerFactory = CamelContextHelper.lookup(getCamelContext(), protocol.name(), KnativeProducerFactory.class);
 
             if (this.producerFactory == null) {
                 this.producerFactory = getCamelContext()
@@ -319,7 +314,7 @@ public class KnativeComponent extends DefaultComponent {
 
     private void setUpConsumerFactory() throws Exception {
         if (consumerFactory == null) {
-            this.consumerFactory = getCamelContext().getRegistry().lookupByNameAndType(protocol.name(), KnativeConsumerFactory.class);
+            this.consumerFactory = CamelContextHelper.lookup(getCamelContext(), protocol.name(), KnativeConsumerFactory.class);
 
             if (this.consumerFactory == null) {
                 this.consumerFactory = getCamelContext()
@@ -328,7 +323,7 @@ public class KnativeComponent extends DefaultComponent {
                     .newInstance(protocol.name() + "-consumer", KnativeConsumerFactory.class)
                     .orElse(null);
 
-                if (this.producerFactory == null) {
+                if (this.consumerFactory == null) {
                     return;
                 }
                 if (configuration.getTransportOptions() != null) {

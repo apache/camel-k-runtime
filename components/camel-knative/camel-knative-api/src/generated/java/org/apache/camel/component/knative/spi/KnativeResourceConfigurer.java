@@ -4,8 +4,10 @@ package org.apache.camel.component.knative.spi;
 import java.util.Map;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.spi.GeneratedPropertyConfigurer;
+import org.apache.camel.spi.ExtendedPropertyConfigurerGetter;
 import org.apache.camel.spi.PropertyConfigurerGetter;
+import org.apache.camel.spi.ConfigurerStrategy;
+import org.apache.camel.spi.GeneratedPropertyConfigurer;
 import org.apache.camel.util.CaseInsensitiveMap;
 import org.apache.camel.component.knative.spi.KnativeResource;
 
@@ -14,26 +16,6 @@ import org.apache.camel.component.knative.spi.KnativeResource;
  */
 @SuppressWarnings("unchecked")
 public class KnativeResourceConfigurer extends org.apache.camel.support.component.PropertyConfigurerSupport implements GeneratedPropertyConfigurer, PropertyConfigurerGetter {
-
-    private static final Map<String, Object> ALL_OPTIONS;
-    static {
-        Map<String, Object> map = new CaseInsensitiveMap();
-        map.put("CeOverrides", java.util.Map.class);
-        map.put("CloudEventType", java.lang.String.class);
-        map.put("ContentType", java.lang.String.class);
-        map.put("EndpointKind", org.apache.camel.component.knative.spi.Knative.EndpointKind.class);
-        map.put("Filters", java.util.Map.class);
-        map.put("Metadata", java.util.Map.class);
-        map.put("Name", java.lang.String.class);
-        map.put("ObjectApiVersion", java.lang.String.class);
-        map.put("ObjectKind", java.lang.String.class);
-        map.put("ObjectName", java.lang.String.class);
-        map.put("Path", java.lang.String.class);
-        map.put("Reply", java.lang.Boolean.class);
-        map.put("Type", org.apache.camel.component.knative.spi.Knative.Type.class);
-        map.put("Url", java.lang.String.class);
-        ALL_OPTIONS = map;
-    }
 
     @Override
     public boolean configure(CamelContext camelContext, Object obj, String name, Object value, boolean ignoreCase) {
@@ -72,8 +54,38 @@ public class KnativeResourceConfigurer extends org.apache.camel.support.componen
     }
 
     @Override
-    public Map<String, Object> getAllOptions(Object target) {
-        return ALL_OPTIONS;
+    public Class<?> getOptionType(String name, boolean ignoreCase) {
+        switch (ignoreCase ? name.toLowerCase() : name) {
+        case "ceoverrides":
+        case "CeOverrides": return java.util.Map.class;
+        case "cloudeventtype":
+        case "CloudEventType": return java.lang.String.class;
+        case "contenttype":
+        case "ContentType": return java.lang.String.class;
+        case "endpointkind":
+        case "EndpointKind": return org.apache.camel.component.knative.spi.Knative.EndpointKind.class;
+        case "filters":
+        case "Filters": return java.util.Map.class;
+        case "metadata":
+        case "Metadata": return java.util.Map.class;
+        case "name":
+        case "Name": return java.lang.String.class;
+        case "objectapiversion":
+        case "ObjectApiVersion": return java.lang.String.class;
+        case "objectkind":
+        case "ObjectKind": return java.lang.String.class;
+        case "objectname":
+        case "ObjectName": return java.lang.String.class;
+        case "path":
+        case "Path": return java.lang.String.class;
+        case "reply":
+        case "Reply": return java.lang.Boolean.class;
+        case "type":
+        case "Type": return org.apache.camel.component.knative.spi.Knative.Type.class;
+        case "url":
+        case "Url": return java.lang.String.class;
+        default: return null;
+        }
     }
 
     @Override

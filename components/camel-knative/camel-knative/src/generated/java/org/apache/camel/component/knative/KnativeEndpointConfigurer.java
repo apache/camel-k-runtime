@@ -4,8 +4,10 @@ package org.apache.camel.component.knative;
 import java.util.Map;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.spi.GeneratedPropertyConfigurer;
+import org.apache.camel.spi.ExtendedPropertyConfigurerGetter;
 import org.apache.camel.spi.PropertyConfigurerGetter;
+import org.apache.camel.spi.ConfigurerStrategy;
+import org.apache.camel.spi.GeneratedPropertyConfigurer;
 import org.apache.camel.util.CaseInsensitiveMap;
 import org.apache.camel.support.component.PropertyConfigurerSupport;
 
@@ -15,39 +17,12 @@ import org.apache.camel.support.component.PropertyConfigurerSupport;
 @SuppressWarnings("unchecked")
 public class KnativeEndpointConfigurer extends PropertyConfigurerSupport implements GeneratedPropertyConfigurer, PropertyConfigurerGetter {
 
-    private static final Map<String, Object> ALL_OPTIONS;
-    static {
-        Map<String, Object> map = new CaseInsensitiveMap();
-        map.put("type", org.apache.camel.component.knative.spi.Knative.Type.class);
-        map.put("typeId", java.lang.String.class);
-        map.put("ceOverride", java.util.Map.class);
-        map.put("cloudEventsSpecVersion", java.lang.String.class);
-        map.put("cloudEventsType", java.lang.String.class);
-        map.put("environment", org.apache.camel.component.knative.spi.KnativeEnvironment.class);
-        map.put("filters", java.util.Map.class);
-        map.put("transportOptions", java.util.Map.class);
-        map.put("bridgeErrorHandler", boolean.class);
-        map.put("replyWithCloudEvent", boolean.class);
-        map.put("exceptionHandler", org.apache.camel.spi.ExceptionHandler.class);
-        map.put("exchangePattern", org.apache.camel.ExchangePattern.class);
-        map.put("reply", java.lang.Boolean.class);
-        map.put("lazyStartProducer", boolean.class);
-        map.put("apiVersion", java.lang.String.class);
-        map.put("basicPropertyBinding", boolean.class);
-        map.put("kind", java.lang.String.class);
-        map.put("name", java.lang.String.class);
-        map.put("synchronous", boolean.class);
-        ALL_OPTIONS = map;
-    }
-
     @Override
     public boolean configure(CamelContext camelContext, Object obj, String name, Object value, boolean ignoreCase) {
         KnativeEndpoint target = (KnativeEndpoint) obj;
         switch (ignoreCase ? name.toLowerCase() : name) {
         case "apiversion":
         case "apiVersion": target.getConfiguration().setApiVersion(property(camelContext, java.lang.String.class, value)); return true;
-        case "basicpropertybinding":
-        case "basicPropertyBinding": target.setBasicPropertyBinding(property(camelContext, boolean.class, value)); return true;
         case "bridgeerrorhandler":
         case "bridgeErrorHandler": target.setBridgeErrorHandler(property(camelContext, boolean.class, value)); return true;
         case "ceoverride":
@@ -77,8 +52,36 @@ public class KnativeEndpointConfigurer extends PropertyConfigurerSupport impleme
     }
 
     @Override
-    public Map<String, Object> getAllOptions(Object target) {
-        return ALL_OPTIONS;
+    public Class<?> getOptionType(String name, boolean ignoreCase) {
+        switch (ignoreCase ? name.toLowerCase() : name) {
+        case "apiversion":
+        case "apiVersion": return java.lang.String.class;
+        case "bridgeerrorhandler":
+        case "bridgeErrorHandler": return boolean.class;
+        case "ceoverride":
+        case "ceOverride": return java.util.Map.class;
+        case "cloudeventsspecversion":
+        case "cloudEventsSpecVersion": return java.lang.String.class;
+        case "cloudeventstype":
+        case "cloudEventsType": return java.lang.String.class;
+        case "environment": return org.apache.camel.component.knative.spi.KnativeEnvironment.class;
+        case "exceptionhandler":
+        case "exceptionHandler": return org.apache.camel.spi.ExceptionHandler.class;
+        case "exchangepattern":
+        case "exchangePattern": return org.apache.camel.ExchangePattern.class;
+        case "filters": return java.util.Map.class;
+        case "kind": return java.lang.String.class;
+        case "lazystartproducer":
+        case "lazyStartProducer": return boolean.class;
+        case "name": return java.lang.String.class;
+        case "reply": return java.lang.Boolean.class;
+        case "replywithcloudevent":
+        case "replyWithCloudEvent": return boolean.class;
+        case "synchronous": return boolean.class;
+        case "transportoptions":
+        case "transportOptions": return java.util.Map.class;
+        default: return null;
+        }
     }
 
     @Override
@@ -87,8 +90,6 @@ public class KnativeEndpointConfigurer extends PropertyConfigurerSupport impleme
         switch (ignoreCase ? name.toLowerCase() : name) {
         case "apiversion":
         case "apiVersion": return target.getConfiguration().getApiVersion();
-        case "basicpropertybinding":
-        case "basicPropertyBinding": return target.isBasicPropertyBinding();
         case "bridgeerrorhandler":
         case "bridgeErrorHandler": return target.isBridgeErrorHandler();
         case "ceoverride":
@@ -113,6 +114,18 @@ public class KnativeEndpointConfigurer extends PropertyConfigurerSupport impleme
         case "synchronous": return target.isSynchronous();
         case "transportoptions":
         case "transportOptions": return target.getConfiguration().getTransportOptions();
+        default: return null;
+        }
+    }
+
+    @Override
+    public Object getCollectionValueType(Object target, String name, boolean ignoreCase) {
+        switch (ignoreCase ? name.toLowerCase() : name) {
+        case "ceoverride":
+        case "ceOverride": return java.lang.String.class;
+        case "filters": return java.lang.String.class;
+        case "transportoptions":
+        case "transportOptions": return java.lang.Object.class;
         default: return null;
         }
     }

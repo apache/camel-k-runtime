@@ -4,8 +4,10 @@ package org.apache.camel.k.knative.customizer;
 import java.util.Map;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.spi.GeneratedPropertyConfigurer;
+import org.apache.camel.spi.ExtendedPropertyConfigurerGetter;
 import org.apache.camel.spi.PropertyConfigurerGetter;
+import org.apache.camel.spi.ConfigurerStrategy;
+import org.apache.camel.spi.GeneratedPropertyConfigurer;
 import org.apache.camel.util.CaseInsensitiveMap;
 import org.apache.camel.k.knative.customizer.KnativeSinkBindingContextCustomizer;
 
@@ -14,16 +16,6 @@ import org.apache.camel.k.knative.customizer.KnativeSinkBindingContextCustomizer
  */
 @SuppressWarnings("unchecked")
 public class KnativeSinkBindingContextCustomizerConfigurer extends org.apache.camel.support.component.PropertyConfigurerSupport implements GeneratedPropertyConfigurer, PropertyConfigurerGetter {
-
-    private static final Map<String, Object> ALL_OPTIONS;
-    static {
-        Map<String, Object> map = new CaseInsensitiveMap();
-        map.put("ApiVersion", java.lang.String.class);
-        map.put("Kind", java.lang.String.class);
-        map.put("Name", java.lang.String.class);
-        map.put("Type", org.apache.camel.component.knative.spi.Knative.Type.class);
-        ALL_OPTIONS = map;
-    }
 
     @Override
     public boolean configure(CamelContext camelContext, Object obj, String name, Object value, boolean ignoreCase) {
@@ -42,8 +34,18 @@ public class KnativeSinkBindingContextCustomizerConfigurer extends org.apache.ca
     }
 
     @Override
-    public Map<String, Object> getAllOptions(Object target) {
-        return ALL_OPTIONS;
+    public Class<?> getOptionType(String name, boolean ignoreCase) {
+        switch (ignoreCase ? name.toLowerCase() : name) {
+        case "apiversion":
+        case "ApiVersion": return java.lang.String.class;
+        case "kind":
+        case "Kind": return java.lang.String.class;
+        case "name":
+        case "Name": return java.lang.String.class;
+        case "type":
+        case "Type": return org.apache.camel.component.knative.spi.Knative.Type.class;
+        default: return null;
+        }
     }
 
     @Override

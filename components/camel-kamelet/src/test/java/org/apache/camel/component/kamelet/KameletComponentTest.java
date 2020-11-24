@@ -39,17 +39,17 @@ public class KameletComponentTest {
             .withTarget(component)
             .withConfigurer(component.getComponentPropertyConfigurer())
             .withProperties(Map.of(
-                "configuration.template-properties[myTemplate].foo", "bar",
-                "configuration.route-properties[myRoute].foo", "baz"
+                "template-properties[myTemplate].foo", "bar",
+                "route-properties[myRoute].foo", "baz"
             ))
             .bind();
 
 
-        assertThat(component.getConfiguration().getTemplateProperties()).isNotEmpty();
-        assertThat(component.getConfiguration().getTemplateProperties()).containsKey("myTemplate");
-        assertThat(component.getConfiguration().getTemplateProperties().get("myTemplate")).containsEntry("foo", "bar");
-        assertThat(component.getConfiguration().getRouteProperties()).isNotEmpty();
-        assertThat(component.getConfiguration().getRouteProperties()).containsKey("myRoute");
-        assertThat(component.getConfiguration().getRouteProperties().get("myRoute")).containsEntry("foo", "baz");
+        assertThat(component.getTemplateProperties()).isNotEmpty();
+        assertThat(component.getTemplateProperties()).containsKey("myTemplate");
+        assertThat(component.getTemplateProperties().get("myTemplate")).containsEntry("foo", "bar");
+        assertThat(component.getRouteProperties()).isNotEmpty();
+        assertThat(component.getRouteProperties()).containsKey("myRoute");
+        assertThat(component.getRouteProperties().get("myRoute")).containsEntry("foo", "baz");
     }
 }
