@@ -13,6 +13,7 @@
 
 - Error with leader election examples [\#548](https://github.com/apache/camel-k-runtime/issues/548)
 - Kamelet component - optimize as we did for direct component [\#544](https://github.com/apache/camel-k-runtime/issues/544)
+- Allow to programmatically enable a route [\#540](https://github.com/apache/camel-k-runtime/issues/540)
 - Use default event type with broker [\#536](https://github.com/apache/camel-k-runtime/issues/536)
 - Can't set Knative broker name [\#535](https://github.com/apache/camel-k-runtime/issues/535)
 - Groovy - such property: DELEGATE\_FIRST when mapping beans [\#529](https://github.com/apache/camel-k-runtime/issues/529)
@@ -22,6 +23,9 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump value from 2.8.8 to 2.8.9-ea-1 [\#562](https://github.com/apache/camel-k-runtime/pull/562) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump maven-pmd-plugin from 3.13.0 to 3.14.0 [\#561](https://github.com/apache/camel-k-runtime/pull/561) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Update to camel-quarkus 1.4.0 and quarkus 1.10.0.Final [\#559](https://github.com/apache/camel-k-runtime/pull/559) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps\): bump kotlin-version from 1.4.10 to 1.4.20 [\#558](https://github.com/apache/camel-k-runtime/pull/558) ([dependabot[bot]](https://github.com/apps/dependabot))
 - knative: fix wrong dependencies [\#555](https://github.com/apache/camel-k-runtime/pull/555) ([lburgazzoli](https://github.com/lburgazzoli))
 - knative: support configuring the knative environment using properties [\#554](https://github.com/apache/camel-k-runtime/pull/554) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -521,7 +525,6 @@
 - Can't bridge two Knative channels with new component [\#166](https://github.com/apache/camel-k-runtime/pull/166) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix issue 164 to update the runtime version [\#165](https://github.com/apache/camel-k-runtime/pull/165) ([zhfeng](https://github.com/zhfeng))
 - kotlin: improve rest dsl [\#162](https://github.com/apache/camel-k-runtime/pull/162) ([lburgazzoli](https://github.com/lburgazzoli))
-- knative: add some checks about supported http methods and mandatory body [\#161](https://github.com/apache/camel-k-runtime/pull/161) ([lburgazzoli](https://github.com/lburgazzoli))
 - Support cloud events spec v3 [\#158](https://github.com/apache/camel-k-runtime/pull/158) ([lburgazzoli](https://github.com/lburgazzoli))
 - Remove legacy artifacts and version from catalog [\#157](https://github.com/apache/camel-k-runtime/pull/157) ([lburgazzoli](https://github.com/lburgazzoli))
 - Support Knative broker/trigger model [\#153](https://github.com/apache/camel-k-runtime/pull/153) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -540,6 +543,7 @@
 
 **Merged pull requests:**
 
+- knative: add some checks about supported http methods and mandatory body [\#161](https://github.com/apache/camel-k-runtime/pull/161) ([lburgazzoli](https://github.com/lburgazzoli))
 - add \(initial\) support for quarkus [\#145](https://github.com/apache/camel-k-runtime/pull/145) ([lburgazzoli](https://github.com/lburgazzoli))
 - Update deps [\#144](https://github.com/apache/camel-k-runtime/pull/144) ([lburgazzoli](https://github.com/lburgazzoli))
 - groovy: improve rest dsl [\#143](https://github.com/apache/camel-k-runtime/pull/143) ([lburgazzoli](https://github.com/lburgazzoli))
