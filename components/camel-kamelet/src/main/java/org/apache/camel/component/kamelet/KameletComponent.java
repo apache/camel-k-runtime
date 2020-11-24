@@ -16,7 +16,6 @@
  */
 package org.apache.camel.component.kamelet;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +23,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import org.apache.camel.AfterPropertiesConfigured;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.RuntimeCamelException;
@@ -32,21 +30,16 @@ import org.apache.camel.VetoCamelContextStartException;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.spi.Metadata;
-import org.apache.camel.spi.PropertiesComponent;
 import org.apache.camel.spi.annotations.Component;
 import org.apache.camel.support.DefaultComponent;
-import org.apache.camel.support.DefaultEndpoint;
 import org.apache.camel.support.LifecycleStrategySupport;
 import org.apache.camel.support.service.ServiceHelper;
 import org.apache.camel.util.StopWatch;
-import org.apache.camel.util.URISupport;
-import org.apache.camel.util.UnsafeUriCharactersEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static org.apache.camel.component.kamelet.Kamelet.PARAM_ROUTE_ID;
 import static org.apache.camel.component.kamelet.Kamelet.PARAM_TEMPLATE_ID;
-import static org.apache.camel.component.kamelet.Kamelet.addRouteFromTemplate;
 
 /**
  * The Kamelet Component provides support for materializing routes templates.
@@ -71,105 +64,11 @@ public class KameletComponent extends DefaultComponent {
     private long timeout = 30000L;
 
     @Metadata
-    private KameletConfiguration configuration;
+    private Map<String, Properties> templateProperties;
+    @Metadata
+    private Map<String, Properties> routeProperties;
 
     public KameletComponent() {
-    }
-
-    @Override
-    public Endpoint createEndpoint(String uri, Map<String, Object> properties) throws Exception {
-        // need to encode before its safe to parse with java.net.Uri
-        String encodedUri = UnsafeUriCharactersEncoder.encode(uri);
-        URI u = new URI(encodedUri);
-        String path;
-        if (u.getScheme() != null) {
-            // if there is a scheme then there is also a path
-            path = URISupport.extractRemainderPath(u, useRawUri());
-        } else {
-            // this uri has no context-path as the leading text is the component name (scheme)
-            path = null;
-        }
-
-        // use encoded or raw uri?
-        Map<String, Object> parameters;
-        if (useRawUri()) {
-            // when using raw uri then the query is taking from the uri as is
-            String query;
-            int idx = uri.indexOf('?');
-            if (idx > -1) {
-                query = uri.substring(idx + 1);
-            } else {
-                query = u.getRawQuery();
-            }
-            // and use method parseQuery
-            parameters = URISupport.parseQuery(query, true);
-        } else {
-            // however when using the encoded (default mode) uri then the query,
-            // is taken from the URI (ensures values is URI encoded)
-            // and use method parseParameters
-            parameters = URISupport.parseParameters(u);
-        }
-        if (properties != null) {
-            parameters.putAll(properties);
-        }
-        // This special property is only to identify endpoints in a unique manner
-        parameters.remove("hash");
-
-        // use encoded or raw uri?
-        uri = useRawUri() ? uri : encodedUri;
-
-        validateURI(uri, path, parameters);
-        if (LOGGER.isTraceEnabled()) {
-            // at trace level its okay to have parameters logged, that may contain passwords
-            LOGGER.trace("Creating endpoint uri=[{}], path=[{}], parameters=[{}]", URISupport.sanitizeUri(uri),
-                URISupport.sanitizePath(path), parameters);
-        } else if (LOGGER.isDebugEnabled()) {
-            // but at debug level only output sanitized uris
-            LOGGER.debug("Creating endpoint uri=[{}], path=[{}]", URISupport.sanitizeUri(uri), URISupport.sanitizePath(path));
-        }
-
-        // extract these global options and infer their value based on global/component level configuration
-        boolean basic = getAndRemoveParameter(parameters, "basicPropertyBinding", boolean.class, isBasicPropertyBinding()
-            ? isBasicPropertyBinding() : getCamelContext().getGlobalEndpointConfiguration().isBasicPropertyBinding());
-        boolean bridge = getAndRemoveParameter(parameters, "bridgeErrorHandler", boolean.class, isBridgeErrorHandler()
-            ? isBridgeErrorHandler() : getCamelContext().getGlobalEndpointConfiguration().isBridgeErrorHandler());
-        boolean lazy = getAndRemoveParameter(parameters, "lazyStartProducer", boolean.class, isLazyStartProducer()
-            ? isLazyStartProducer() : getCamelContext().getGlobalEndpointConfiguration().isLazyStartProducer());
-
-        // create endpoint
-        Endpoint endpoint = createEndpoint(uri, path, parameters);
-        if (endpoint == null) {
-            return null;
-        }
-        // inject camel context
-        endpoint.setCamelContext(getCamelContext());
-
-        // and setup those global options afterwards
-        if (endpoint instanceof DefaultEndpoint) {
-            DefaultEndpoint de = (DefaultEndpoint) endpoint;
-            de.setBasicPropertyBinding(basic);
-            de.setBridgeErrorHandler(bridge);
-            de.setLazyStartProducer(lazy);
-        }
-
-        URISupport.resolveRawParameterValues(parameters);
-
-        // configure remainder of the parameters
-        setProperties(endpoint, parameters);
-
-        // if endpoint is strict (not lenient) and we have unknown parameters configured then
-        // fail if there are parameters that could not be set, then they are probably misspell or not supported at all
-        if (!endpoint.isLenientProperties()) {
-            validateParameters(uri, parameters, null);
-        }
-
-        // allow custom configuration after properties has been configured
-        if (endpoint instanceof AfterPropertiesConfigured) {
-            ((AfterPropertiesConfigured) endpoint).afterPropertiesConfigured(getCamelContext());
-        }
-
-        afterConfiguration(uri, path, endpoint, parameters);
-        return endpoint;
     }
 
     @Override
@@ -237,17 +136,17 @@ public class KameletComponent extends DefaultComponent {
             // Load properties from the component configuration. Template and route specific properties
             // can be set through properties, as example:
             //
-            //     camel.component.kamelet.configuration.template-properties[templateId].key = val
-            //     camel.component.kamelet.configuration.route-properties[templateId].key = val
+            //     camel.component.kamelet.template-properties[templateId].key = val
+            //     camel.component.kamelet.route-properties[templateId].key = val
             //
-            if (configuration != null && configuration.getTemplateProperties() != null) {
-                Properties props = configuration.getTemplateProperties().get(routeId);
+            if (templateProperties != null) {
+                Properties props = templateProperties.get(routeId);
                 if (props != null) {
                     props.stringPropertyNames().forEach(name -> kameletProperties.put(name, props.get(name)));
                 }
             }
-            if (configuration != null && configuration.getRouteProperties() != null) {
-                Properties props = configuration.getRouteProperties().get(routeId);
+            if (routeProperties != null) {
+                Properties props = routeProperties.get(routeId);
                 if (props != null) {
                     props.stringPropertyNames().forEach(name -> kameletProperties.put(name, props.get(name)));
                 }
@@ -283,9 +182,23 @@ public class KameletComponent extends DefaultComponent {
 
             // set kamelet specific properties
             endpoint.setKameletProperties(kameletProperties);
+
+            //
+            // Add a custom converter to convert a RouteTemplateDefinition to a RouteDefinition
+            // and make sure consumerU URIs are unique.
+            //
+            getCamelContext().adapt(ModelCamelContext.class).addRouteTemplateDefinitionConverter(
+                templateId,
+                Kamelet::templateToRoute
+            );
         }
 
         return endpoint;
+    }
+
+    @Override
+    protected boolean resolveRawParameterValues() {
+        return false;
     }
 
     public boolean isBlock() {
@@ -311,15 +224,27 @@ public class KameletComponent extends DefaultComponent {
         this.timeout = timeout;
     }
 
-    public KameletConfiguration getConfiguration() {
-        return configuration;
+
+    public Map<String, Properties> getTemplateProperties() {
+        return templateProperties;
     }
 
     /**
-     * The configuration.
+     * Set template local parameters.
      */
-    public void setConfiguration(KameletConfiguration configuration) {
-        this.configuration = configuration;
+    public void setTemplateProperties(Map<String, Properties> templateProperties) {
+        this.templateProperties = templateProperties;
+    }
+
+    public Map<String, Properties> getRouteProperties() {
+        return routeProperties;
+    }
+
+    /**
+     * Set route local parameters.
+     */
+    public void setRouteProperties(Map<String, Properties> routeProperties) {
+        this.routeProperties = routeProperties;
     }
 
     int getStateCounter() {
@@ -442,24 +367,11 @@ public class KameletComponent extends DefaultComponent {
             LOGGER.debug("Creating route from template={} and id={}", endpoint.getTemplateId(), endpoint.getRouteId());
 
             final ModelCamelContext context = endpoint.getCamelContext().adapt(ModelCamelContext.class);
-            final String id = addRouteFromTemplate(context, endpoint.getRouteId(), endpoint.getTemplateId(), endpoint.getKameletProperties());
+            final String id = context.addRouteFromTemplate(endpoint.getRouteId(), endpoint.getTemplateId(), endpoint.getKameletProperties());
             final RouteDefinition def = context.getRouteDefinition(id);
 
             if (!def.isPrepared()) {
-                // when starting the route that was created from the template
-                // then we must provide the route id as local properties to the
-                // properties component as this route id is used internal by
-                // kamelets when they are starting
-                PropertiesComponent pc = context.getPropertiesComponent();
-                try {
-                    Properties prop = new Properties();
-                    prop.put(PARAM_TEMPLATE_ID, endpoint.getTemplateId());
-                    prop.put(PARAM_ROUTE_ID, id);
-                    pc.setLocalProperties(prop);
-                    context.startRouteDefinitions(List.of(def));
-                } finally {
-                    pc.setLocalProperties(null);
-                }
+                context.startRouteDefinitions(List.of(def));
             }
 
             LOGGER.debug("Route with id={} created from template={}", id, endpoint.getTemplateId());

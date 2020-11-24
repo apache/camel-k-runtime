@@ -22,6 +22,7 @@ import org.apache.camel.RuntimeCamelException
 import org.apache.camel.component.jackson.JacksonDataFormat
 import org.apache.camel.component.log.LogComponent
 import org.apache.camel.component.seda.SedaComponent
+import org.apache.camel.impl.engine.DefaultChannel
 import org.apache.camel.k.loader.groovy.support.MyBean
 import org.apache.camel.k.loader.groovy.support.TestRuntime
 import org.apache.camel.language.bean.BeanLanguage
@@ -31,7 +32,6 @@ import org.apache.camel.model.rest.GetVerbDefinition
 import org.apache.camel.model.rest.PostVerbDefinition
 import org.apache.camel.processor.FatalFallbackErrorHandler
 import org.apache.camel.processor.SendProcessor
-import org.apache.camel.processor.channel.DefaultChannel
 import org.apache.camel.spi.HeaderFilterStrategy
 import org.apache.camel.support.DefaultHeaderFilterStrategy
 import spock.lang.AutoCleanup

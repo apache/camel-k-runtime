@@ -40,6 +40,9 @@
           "hl7terser" : {
             "$ref" : "#/items/definitions/org.apache.camel.model.language.Hl7TerserExpression"
           },
+          "joor" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.JoorExpression"
+          },
           "jsonpath" : {
             "$ref" : "#/items/definitions/org.apache.camel.model.language.JsonPathExpression"
           },
@@ -141,6 +144,34 @@
         }, {
           "type" : "object",
           "properties" : {
+            "expression" : {
+              "type" : "string"
+            },
+            "id" : {
+              "type" : "string"
+            },
+            "trim" : {
+              "type" : "string"
+            }
+          },
+          "required" : [ "expression" ]
+        } ]
+      },
+      "org.apache.camel.model.language.JoorExpression" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "pre-compile" : {
+              "type" : "string"
+            },
+            "result-type" : {
+              "type" : "string"
+            },
+            "single-quotes" : {
+              "type" : "string"
+            },
             "expression" : {
               "type" : "string"
             },
@@ -445,6 +476,9 @@
         }, {
           "type" : "object",
           "properties" : {
+            "configuration-ref" : {
+              "type" : "string"
+            },
             "header-name" : {
               "type" : "string"
             },
@@ -1343,7 +1377,7 @@
             "type" : "string"
           },
           "library" : {
-            "enum" : [ "XStream", "Jackson", "Johnzon", "Gson", "Fastjson" ]
+            "enum" : [ "XStream", "Jackson", "Johnzon", "Gson", "Fastjson", "Jsonb" ]
           },
           "module-class-names" : {
             "type" : "string"
@@ -3120,6 +3154,9 @@
                 "$ref" : "#/items/definitions/step"
               }
             },
+            "delimiter" : {
+              "type" : "string"
+            },
             "executor-service-ref" : {
               "type" : "string"
             },
@@ -3375,7 +3412,12 @@
         "anyOf" : [ {
           "type" : "string"
         }, {
-          "type" : "object"
+          "type" : "object",
+          "properties" : {
+            "support-transacted" : {
+              "type" : "boolean"
+            }
+          }
         } ]
       },
       "org.apache.camel.builder.ErrorHandlerBuilderSupport" : {
