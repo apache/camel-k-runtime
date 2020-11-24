@@ -4,8 +4,10 @@ package org.apache.camel.k;
 import java.util.Map;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.spi.GeneratedPropertyConfigurer;
+import org.apache.camel.spi.ExtendedPropertyConfigurerGetter;
 import org.apache.camel.spi.PropertyConfigurerGetter;
+import org.apache.camel.spi.ConfigurerStrategy;
+import org.apache.camel.spi.GeneratedPropertyConfigurer;
 import org.apache.camel.util.CaseInsensitiveMap;
 import org.apache.camel.k.SourceDefinition;
 
@@ -14,22 +16,6 @@ import org.apache.camel.k.SourceDefinition;
  */
 @SuppressWarnings("unchecked")
 public class SourceDefinitionConfigurer extends org.apache.camel.support.component.PropertyConfigurerSupport implements GeneratedPropertyConfigurer, PropertyConfigurerGetter {
-
-    private static final Map<String, Object> ALL_OPTIONS;
-    static {
-        Map<String, Object> map = new CaseInsensitiveMap();
-        map.put("Compressed", boolean.class);
-        map.put("Content", byte[].class);
-        map.put("Id", java.lang.String.class);
-        map.put("Interceptors", java.util.List.class);
-        map.put("Language", java.lang.String.class);
-        map.put("Loader", java.lang.String.class);
-        map.put("Location", java.lang.String.class);
-        map.put("Name", java.lang.String.class);
-        map.put("PropertyNames", java.util.List.class);
-        map.put("Type", org.apache.camel.k.SourceType.class);
-        ALL_OPTIONS = map;
-    }
 
     @Override
     public boolean configure(CamelContext camelContext, Object obj, String name, Object value, boolean ignoreCase) {
@@ -60,8 +46,30 @@ public class SourceDefinitionConfigurer extends org.apache.camel.support.compone
     }
 
     @Override
-    public Map<String, Object> getAllOptions(Object target) {
-        return ALL_OPTIONS;
+    public Class<?> getOptionType(String name, boolean ignoreCase) {
+        switch (ignoreCase ? name.toLowerCase() : name) {
+        case "compressed":
+        case "Compressed": return boolean.class;
+        case "content":
+        case "Content": return byte[].class;
+        case "id":
+        case "Id": return java.lang.String.class;
+        case "interceptors":
+        case "Interceptors": return java.util.List.class;
+        case "language":
+        case "Language": return java.lang.String.class;
+        case "loader":
+        case "Loader": return java.lang.String.class;
+        case "location":
+        case "Location": return java.lang.String.class;
+        case "name":
+        case "Name": return java.lang.String.class;
+        case "propertynames":
+        case "PropertyNames": return java.util.List.class;
+        case "type":
+        case "Type": return org.apache.camel.k.SourceType.class;
+        default: return null;
+        }
     }
 
     @Override
