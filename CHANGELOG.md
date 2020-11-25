@@ -525,6 +525,7 @@
 - Can't bridge two Knative channels with new component [\#166](https://github.com/apache/camel-k-runtime/pull/166) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix issue 164 to update the runtime version [\#165](https://github.com/apache/camel-k-runtime/pull/165) ([zhfeng](https://github.com/zhfeng))
 - kotlin: improve rest dsl [\#162](https://github.com/apache/camel-k-runtime/pull/162) ([lburgazzoli](https://github.com/lburgazzoli))
+- knative: add some checks about supported http methods and mandatory body [\#161](https://github.com/apache/camel-k-runtime/pull/161) ([lburgazzoli](https://github.com/lburgazzoli))
 - Support cloud events spec v3 [\#158](https://github.com/apache/camel-k-runtime/pull/158) ([lburgazzoli](https://github.com/lburgazzoli))
 - Remove legacy artifacts and version from catalog [\#157](https://github.com/apache/camel-k-runtime/pull/157) ([lburgazzoli](https://github.com/lburgazzoli))
 - Support Knative broker/trigger model [\#153](https://github.com/apache/camel-k-runtime/pull/153) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -543,7 +544,6 @@
 
 **Merged pull requests:**
 
-- knative: add some checks about supported http methods and mandatory body [\#161](https://github.com/apache/camel-k-runtime/pull/161) ([lburgazzoli](https://github.com/lburgazzoli))
 - add \(initial\) support for quarkus [\#145](https://github.com/apache/camel-k-runtime/pull/145) ([lburgazzoli](https://github.com/lburgazzoli))
 - Update deps [\#144](https://github.com/apache/camel-k-runtime/pull/144) ([lburgazzoli](https://github.com/lburgazzoli))
 - groovy: improve rest dsl [\#143](https://github.com/apache/camel-k-runtime/pull/143) ([lburgazzoli](https://github.com/lburgazzoli))
