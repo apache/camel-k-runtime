@@ -340,6 +340,7 @@
 - Add a check to ensure Maven 3.6.3+ is used [\#278](https://github.com/apache/camel-k-runtime/pull/278) ([lburgazzoli](https://github.com/lburgazzoli))
 - Bump Jandex to version 2.1.3.Final [\#276](https://github.com/apache/camel-k-runtime/pull/276) ([oscerd](https://github.com/oscerd))
 - Bump Junit Jupiter to version 5.6.1 [\#275](https://github.com/apache/camel-k-runtime/pull/275) ([oscerd](https://github.com/oscerd))
+- Bump Maven Build Helper to version 3.1.0 [\#273](https://github.com/apache/camel-k-runtime/pull/273) ([oscerd](https://github.com/oscerd))
 - create platform http service and other stuffs [\#270](https://github.com/apache/camel-k-runtime/pull/270) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-1.2.1](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.2.1) (2020-03-20)
@@ -362,7 +363,6 @@
 
 **Merged pull requests:**
 
-- Bump Maven Build Helper to version 3.1.0 [\#273](https://github.com/apache/camel-k-runtime/pull/273) ([oscerd](https://github.com/oscerd))
 - Bump Rest-assured to version 4.3.0 [\#272](https://github.com/apache/camel-k-runtime/pull/272) ([oscerd](https://github.com/oscerd))
 - Update camel-quarkus to v1.0.0-M5 [\#271](https://github.com/apache/camel-k-runtime/pull/271) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade Jackson to version 2.10.3 [\#269](https://github.com/apache/camel-k-runtime/pull/269) ([oscerd](https://github.com/oscerd))
