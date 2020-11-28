@@ -50,7 +50,6 @@
 - Add workflow dispatch to changelog gh action [\#525](https://github.com/apache/camel-k-runtime/pull/525) ([oscerd](https://github.com/oscerd))
 - build\(deps\): bump gmavenplus-plugin from 1.10.1 to 1.11.0 [\#524](https://github.com/apache/camel-k-runtime/pull/524) ([dependabot[bot]](https://github.com/apps/dependabot))
 - fix: Update loggers after configuration [\#523](https://github.com/apache/camel-k-runtime/pull/523) ([christophd](https://github.com/christophd))
-- kamelet source/sink component [\#511](https://github.com/apache/camel-k-runtime/pull/511) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-1.5.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.5.0) (2020-10-08)
 
@@ -91,6 +90,7 @@
 - knative\(http\): use async processor to process http requests [\#516](https://github.com/apache/camel-k-runtime/pull/516) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps\): bump junit-pioneer from 0.9.1 to 0.9.2 [\#515](https://github.com/apache/camel-k-runtime/pull/515) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump groovy-version from 3.0.5 to 3.0.6 [\#514](https://github.com/apache/camel-k-runtime/pull/514) ([dependabot[bot]](https://github.com/apps/dependabot))
+- kamelet source/sink component [\#511](https://github.com/apache/camel-k-runtime/pull/511) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps\): bump junit-pioneer from 0.9.0 to 0.9.1 [\#510](https://github.com/apache/camel-k-runtime/pull/510) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Fixes changelog to run only on master [\#509](https://github.com/apache/camel-k-runtime/pull/509) ([oscerd](https://github.com/oscerd))
 - yaml dsl: add documentation for endpoint-dsl support [\#508](https://github.com/apache/camel-k-runtime/pull/508) ([lburgazzoli](https://github.com/lburgazzoli))
