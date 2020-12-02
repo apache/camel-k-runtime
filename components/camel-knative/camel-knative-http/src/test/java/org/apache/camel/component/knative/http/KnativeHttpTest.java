@@ -1059,6 +1059,49 @@ public class KnativeHttpTest {
 
     @ParameterizedTest
     @EnumSource(CloudEvents.class)
+    void testEventsNoName(CloudEvent ce) throws Exception {
+        configureKnativeComponent(
+                context,
+                ce,
+                event(
+                        Knative.EndpointKind.sink,
+                        "default",
+                        String.format("http://%s:%d", platformHttpHost, platformHttpPort),
+                        Map.of(
+                                Knative.CONTENT_TYPE, "text/plain"
+                        )),
+                sourceEvent(
+                        "default",
+                        Map.of(
+                                Knative.CONTENT_TYPE, "text/plain"
+                        ))
+        );
+
+        RouteBuilder.addRoutes(context, b -> {
+            b.from("direct:source")
+                    .to("knative:event");
+            b.from("knative:event")
+                    .to("mock:ce");
+        });
+
+        context.start();
+
+        MockEndpoint mock = context.getEndpoint("mock:ce", MockEndpoint.class);
+        mock.expectedHeaderReceived(CloudEvent.CAMEL_CLOUD_EVENT_VERSION, ce.version());
+        mock.expectedHeaderReceived(CloudEvent.CAMEL_CLOUD_EVENT_TYPE, "org.apache.camel.event");
+        mock.expectedHeaderReceived(Exchange.CONTENT_TYPE, "text/plain");
+        mock.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(CloudEvent.CAMEL_CLOUD_EVENT_TIME));
+        mock.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(CloudEvent.CAMEL_CLOUD_EVENT_ID));
+        mock.expectedBodiesReceived("test");
+        mock.expectedMessageCount(1);
+
+        template.sendBody("direct:source", "test");
+
+        mock.assertIsSatisfied();
+    }
+
+    @ParameterizedTest
+    @EnumSource(CloudEvents.class)
     void testEventsWithResourceRef(CloudEvent ce) throws Exception {
         configureKnativeComponent(
             context,
@@ -1836,6 +1879,45 @@ public class KnativeHttpTest {
             HttpServerRequest request = server.poll(30, TimeUnit.SECONDS);
             assertThat(request.getHeader(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_VERSION))).isEqualTo(ce.version());
             assertThat(request.getHeader(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_TYPE))).isEqualTo("event.sink");
+            assertThat(request.getHeader(Exchange.CONTENT_TYPE)).isEqualTo("text/plain");
+        } finally {
+            server.stop();
+        }
+    }
+
+    @ParameterizedTest
+    @EnumSource(CloudEvents.class)
+    void testEventDefaultType(CloudEvent ce) throws Exception {
+        final KnativeHttpServer server = new KnativeHttpServer(context);
+
+        configureKnativeComponent(
+                context,
+                ce,
+                event(
+                        Knative.EndpointKind.sink,
+                        "default",
+                        String.format("http://%s:%d", server.getHost(), server.getPort()),
+                        Map.of(
+                                Knative.CONTENT_TYPE, "text/plain"
+                        )
+                )
+        );
+
+        RouteBuilder.addRoutes(context, b -> {
+            b.from("direct:start")
+                    .to("knative:event");
+        });
+
+        context.start();
+        try {
+            server.start();
+            template.sendBody("direct:start", "");
+
+            HttpServerRequest request = server.poll(30, TimeUnit.SECONDS);
+            assertThat(request.getHeader(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_VERSION))).isEqualTo(ce.version());
+            assertThat(request.getHeader(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_TYPE))).isEqualTo("org.apache.camel.event");
+            assertThat(request.getHeader(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_ID))).isNotNull();
+            assertThat(request.getHeader(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_SOURCE))).isNotNull();
             assertThat(request.getHeader(Exchange.CONTENT_TYPE)).isEqualTo("text/plain");
         } finally {
             server.stop();
