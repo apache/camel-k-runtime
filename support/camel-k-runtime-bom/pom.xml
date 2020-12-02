@@ -137,7 +137,7 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-wrap</artifactId>
+                <artifactId>camel-kamelet-reify</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -197,7 +197,7 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-wrap</artifactId>
+                <artifactId>camel-k-kamelet-reify</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
