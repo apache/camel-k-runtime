@@ -23,6 +23,7 @@
 
 **Merged pull requests:**
 
+- Fix https://github.com/apache/camel-k/issues/1813 [\#565](https://github.com/apache/camel-k-runtime/pull/565) ([nicolaferraro](https://github.com/nicolaferraro))
 - build\(deps\): bump value from 2.8.8 to 2.8.9-ea-1 [\#562](https://github.com/apache/camel-k-runtime/pull/562) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-pmd-plugin from 3.13.0 to 3.14.0 [\#561](https://github.com/apache/camel-k-runtime/pull/561) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Update to camel-quarkus 1.4.0 and quarkus 1.10.0.Final [\#559](https://github.com/apache/camel-k-runtime/pull/559) ([lburgazzoli](https://github.com/lburgazzoli))
