@@ -100,7 +100,7 @@ jobs:
           - :camel-k-itests-runtime
           - :camel-k-itests-runtime-xml
           - :camel-k-itests-runtime-yaml
-          - :camel-k-itests-wrap
+          - :camel-k-itests-kamelet-reify
     steps:
       - name: Checkout
         uses: actions/checkout@v2

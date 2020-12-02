@@ -76,7 +76,7 @@ new File(basedir, "catalog.yaml").withReader {
         }
     }
 
-    catalog.spec.artifacts['camel-k-wrap'].with {
+    catalog.spec.artifacts['camel-k-kamelet-reify'].with {
         assert dependencies == null
         assert requiredCapabilities == null
 
