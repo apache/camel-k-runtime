@@ -199,7 +199,7 @@ public class KnativeEndpoint extends DefaultEndpoint {
         // For event type endpoints se need to add an additional filter to filter out events received
         // based on the given type.
         //
-        if (resource.getType() == Knative.Type.event) {
+        if (resource.getType() == Knative.Type.event && ObjectHelper.isNotEmpty(resourceName)) {
             answer.setCloudEventType(resourceName);
             answer.addFilter(CloudEvent.CAMEL_CLOUD_EVENT_TYPE, resourceName);
         }
