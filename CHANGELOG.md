@@ -11,10 +11,10 @@
 
 **Closed issues:**
 
+- Rename wrap component to kamelet-reify [\#556](https://github.com/apache/camel-k-runtime/issues/556)
 - Error with leader election examples [\#548](https://github.com/apache/camel-k-runtime/issues/548)
 - Kamelet component - optimize as we did for direct component [\#544](https://github.com/apache/camel-k-runtime/issues/544)
 - Allow to programmatically enable a route [\#540](https://github.com/apache/camel-k-runtime/issues/540)
-- Use default event type with broker [\#536](https://github.com/apache/camel-k-runtime/issues/536)
 - Can't set Knative broker name [\#535](https://github.com/apache/camel-k-runtime/issues/535)
 - Groovy - such property: DELEGATE\_FIRST when mapping beans [\#529](https://github.com/apache/camel-k-runtime/issues/529)
 - knative: split producer and consumer transport to avoid requiring platorm-http also for the producer   [\#521](https://github.com/apache/camel-k-runtime/issues/521)
@@ -23,11 +23,13 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump gmavenplus-plugin from 1.11.0 to 1.11.1 [\#567](https://github.com/apache/camel-k-runtime/pull/567) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Fix https://github.com/apache/camel-k/issues/1813 [\#565](https://github.com/apache/camel-k-runtime/pull/565) ([nicolaferraro](https://github.com/nicolaferraro))
 - build\(deps\): bump value from 2.8.8 to 2.8.9-ea-1 [\#562](https://github.com/apache/camel-k-runtime/pull/562) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-pmd-plugin from 3.13.0 to 3.14.0 [\#561](https://github.com/apache/camel-k-runtime/pull/561) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Update to camel-quarkus 1.4.0 and quarkus 1.10.0.Final [\#559](https://github.com/apache/camel-k-runtime/pull/559) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps\): bump kotlin-version from 1.4.10 to 1.4.20 [\#558](https://github.com/apache/camel-k-runtime/pull/558) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Fixes \#556, Renamed wrap component to kamelet-reify [\#557](https://github.com/apache/camel-k-runtime/pull/557) ([dhirajsb](https://github.com/dhirajsb))
 - knative: fix wrong dependencies [\#555](https://github.com/apache/camel-k-runtime/pull/555) ([lburgazzoli](https://github.com/lburgazzoli))
 - knative: support configuring the knative environment using properties [\#554](https://github.com/apache/camel-k-runtime/pull/554) ([lburgazzoli](https://github.com/lburgazzoli))
 - Cleanup extensions [\#552](https://github.com/apache/camel-k-runtime/pull/552) ([lburgazzoli](https://github.com/lburgazzoli))
