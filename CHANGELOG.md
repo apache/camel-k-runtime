@@ -15,6 +15,7 @@
 - Error with leader election examples [\#548](https://github.com/apache/camel-k-runtime/issues/548)
 - Kamelet component - optimize as we did for direct component [\#544](https://github.com/apache/camel-k-runtime/issues/544)
 - Allow to programmatically enable a route [\#540](https://github.com/apache/camel-k-runtime/issues/540)
+- Use default event type with broker [\#536](https://github.com/apache/camel-k-runtime/issues/536)
 - Can't set Knative broker name [\#535](https://github.com/apache/camel-k-runtime/issues/535)
 - Groovy - such property: DELEGATE\_FIRST when mapping beans [\#529](https://github.com/apache/camel-k-runtime/issues/529)
 - knative: split producer and consumer transport to avoid requiring platorm-http also for the producer   [\#521](https://github.com/apache/camel-k-runtime/issues/521)
@@ -23,6 +24,8 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump groovy-version from 3.0.6 to 3.0.7 [\#569](https://github.com/apache/camel-k-runtime/pull/569) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Fix \#536: enable knative:event endpoints without path [\#568](https://github.com/apache/camel-k-runtime/pull/568) ([nicolaferraro](https://github.com/nicolaferraro))
 - build\(deps\): bump gmavenplus-plugin from 1.11.0 to 1.11.1 [\#567](https://github.com/apache/camel-k-runtime/pull/567) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Fix https://github.com/apache/camel-k/issues/1813 [\#565](https://github.com/apache/camel-k-runtime/pull/565) ([nicolaferraro](https://github.com/nicolaferraro))
 - build\(deps\): bump value from 2.8.8 to 2.8.9-ea-1 [\#562](https://github.com/apache/camel-k-runtime/pull/562) ([dependabot[bot]](https://github.com/apps/dependabot))
