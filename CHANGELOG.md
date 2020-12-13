@@ -382,7 +382,6 @@
 - Improve actions [\#252](https://github.com/apache/camel-k-runtime/pull/252) ([lburgazzoli](https://github.com/lburgazzoli))
 - Update to camel 3.1, camel-quarkus 1.0.0-M4 [\#251](https://github.com/apache/camel-k-runtime/pull/251) ([lburgazzoli](https://github.com/lburgazzoli))
 - Refactor health support [\#249](https://github.com/apache/camel-k-runtime/pull/249) ([lburgazzoli](https://github.com/lburgazzoli))
-- Add camel-bean to transitive dependencies by default [\#244](https://github.com/apache/camel-k-runtime/pull/244) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-1.1.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.1.0) (2020-02-24)
 
@@ -398,6 +397,7 @@
 
 **Merged pull requests:**
 
+- Add camel-bean to transitive dependencies by default [\#244](https://github.com/apache/camel-k-runtime/pull/244) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#241: add master helper component [\#242](https://github.com/apache/camel-k-runtime/pull/242) ([nicolaferraro](https://github.com/nicolaferraro))
 - Allow to load generic secrets and reference entries from integrations [\#240](https://github.com/apache/camel-k-runtime/pull/240) ([lburgazzoli](https://github.com/lburgazzoli))
 - Add a repository distribution [\#237](https://github.com/apache/camel-k-runtime/pull/237) ([cunningt](https://github.com/cunningt))
