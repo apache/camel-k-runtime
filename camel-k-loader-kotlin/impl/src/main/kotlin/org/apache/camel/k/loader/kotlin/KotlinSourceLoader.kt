@@ -16,11 +16,11 @@
  */
 package org.apache.camel.k.loader.kotlin
 
+import org.apache.camel.CamelContext
 import org.apache.camel.Experimental
 import org.apache.camel.RoutesBuilder
 import org.apache.camel.RuntimeCamelException
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder
-import org.apache.camel.k.Runtime
 import org.apache.camel.k.Source
 import org.apache.camel.k.SourceLoader
 import org.apache.camel.k.loader.kotlin.dsl.IntegrationConfiguration
@@ -38,11 +38,11 @@ import kotlin.script.experimental.jvmhost.createJvmCompilationConfigurationFromT
 
 @Experimental
 class KotlinSourceLoader : SourceLoader {
-    override fun getSupportedLanguages(): List<String> {
+    override fun getSupportedLanguages(): Collection<String>? {
         return listOf("kts")
     }
 
-    override fun load(runtime: Runtime, source: Source): RoutesBuilder {
+    override fun load(camelContext: CamelContext, source: Source): RoutesBuilder? {
         return RouteBuilders.endpoint(source) {
             reader, builder -> doLoad(reader, builder)
         }

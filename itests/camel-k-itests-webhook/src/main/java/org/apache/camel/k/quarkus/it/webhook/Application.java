@@ -68,7 +68,7 @@ public class Application {
 
         try {
             runtime.getCamelContext().addRoutes(
-                loader.load(org.apache.camel.k.Runtime.on(runtime), source)
+                loader.load(runtime.getCamelContext(), source)
             );
 
             return Response.status(Response.Status.OK).build();

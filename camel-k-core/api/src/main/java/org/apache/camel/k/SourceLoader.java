@@ -16,8 +16,9 @@
  */
 package org.apache.camel.k;
 
-import java.util.List;
+import java.util.Collection;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
 
 public interface SourceLoader {
@@ -26,16 +27,16 @@ public interface SourceLoader {
      *
      * @return the supported languages.
      */
-    List<String> getSupportedLanguages();
+    Collection<String> getSupportedLanguages();
 
     /**
      * Creates a camel {@link RoutesBuilder} from the given resource.
      *
-     * @param runtime the runtime.
+     * @param camelContext the runtime.
      * @param source the source to load.
      * @return the RoutesBuilder.
      */
-    RoutesBuilder load(Runtime runtime, Source source);
+    RoutesBuilder load(CamelContext camelContext, Source source);
 
     /**
      * Define some entry point to intercept the creation fo routes from a {@link Source}

@@ -17,13 +17,13 @@
 package org.apache.camel.k.loader.xml;
 
 import java.io.InputStream;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceLoader;
 import org.apache.camel.k.annotation.Loader;
@@ -39,18 +39,18 @@ public class XmlSourceLoader implements SourceLoader {
     private static final Logger LOGGER = LoggerFactory.getLogger(XmlSourceLoader.class);
 
     @Override
-    public List<String> getSupportedLanguages() {
+    public Collection<String> getSupportedLanguages() {
         return Collections.singletonList("xml");
     }
 
     @Override
-    public RoutesBuilder load(Runtime runtime, Source source) {
+    public RoutesBuilder load(CamelContext camelContext, Source source) {
+        final ExtendedCamelContext context = camelContext.adapt(ExtendedCamelContext.class);
+        final XMLRoutesDefinitionLoader loader = context.getXMLRoutesDefinitionLoader();
+
         return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                final ExtendedCamelContext context = getContext().adapt(ExtendedCamelContext.class);
-                final XMLRoutesDefinitionLoader loader = context.getXMLRoutesDefinitionLoader();
-
                 try (InputStream is = source.resolveAsInputStream(getContext())) {
                     try {
                         Object result = loader.loadRoutesDefinition(getContext(), is);

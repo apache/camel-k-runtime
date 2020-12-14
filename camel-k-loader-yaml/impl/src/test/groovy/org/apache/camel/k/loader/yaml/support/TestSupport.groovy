@@ -23,7 +23,6 @@ import org.apache.camel.FluentProducerTemplate
 import org.apache.camel.builder.RouteBuilder
 import org.apache.camel.component.mock.MockEndpoint
 import org.apache.camel.impl.DefaultCamelContext
-import org.apache.camel.k.Runtime
 import org.apache.camel.k.Source
 import org.apache.camel.k.loader.yaml.YamlSourceLoader
 import org.apache.camel.k.loader.yaml.YamlStepResolver
@@ -76,7 +75,7 @@ class TestSupport extends Specification {
             Source source,
             @DelegatesTo(CamelContext) Closure closure) {
         def context = new DefaultCamelContext()
-        def builder = new YamlSourceLoader().load(Runtime.on(context), source)
+        def builder = new YamlSourceLoader().load(context, source)
 
         assert builder != null
 
@@ -138,7 +137,7 @@ class TestSupport extends Specification {
 
     static def load(CamelContext context, String content) {
         def source = Sources.fromBytes('yaml', content.stripMargin().getBytes(StandardCharsets.UTF_8))
-        def builder = new YamlSourceLoader().load(Runtime.on(context), source)
+        def builder = new YamlSourceLoader().load(context, source)
 
         assert builder != null
 
