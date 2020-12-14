@@ -86,7 +86,7 @@ public class Application {
         RoutesBuilder builder = interceptor.afterLoad(
             loader,
             source,
-            loader.load(rt, source));
+            loader.load(rt.getCamelContext(), source));
 
         try {
             context.addRoutes(builder);

@@ -100,7 +100,7 @@ public final class SourcesSupport {
                 interceptor.beforeLoad(loader, source);
             }
 
-            RoutesBuilder result = loader.load(runtime, source);
+            RoutesBuilder result = loader.load(runtime.getCamelContext(), source);
 
             for (SourceLoader.Interceptor interceptor: interceptors) {
                 result = interceptor.afterLoad(loader, source, result);

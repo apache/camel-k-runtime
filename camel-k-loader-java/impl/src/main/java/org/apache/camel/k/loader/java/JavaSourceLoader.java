@@ -18,14 +18,14 @@ package org.apache.camel.k.loader.java;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.k.CompositeClassloader;
-import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceLoader;
 import org.apache.camel.k.annotation.Loader;
@@ -38,13 +38,13 @@ public class JavaSourceLoader implements SourceLoader {
     private static final Pattern PACKAGE_PATTERN = Pattern.compile("^\\s*package\\s+([a-zA-Z][\\.\\w]*)\\s*;.*$", Pattern.MULTILINE);
 
     @Override
-    public List<String> getSupportedLanguages() {
+    public Collection<String> getSupportedLanguages() {
         return Collections.singletonList("java");
     }
 
     @Override
-    public RoutesBuilder load(Runtime runtime, Source source) {
-        try (InputStream is = source.resolveAsInputStream(runtime.getCamelContext())) {
+    public RoutesBuilder load(CamelContext camelContext, Source source) {
+        try (InputStream is = source.resolveAsInputStream(camelContext)) {
             final String content = IOHelper.loadText(is);
             final String name = determineQualifiedName(source, content);
             final Reflect compiled = Reflect.compile(name, content);
@@ -53,7 +53,7 @@ public class JavaSourceLoader implements SourceLoader {
             // The given source may contains additional nested classes which are unknown to Camel
             // as they are associated to the ClassLoader used to compile the source thus we need
             // to add it to the ApplicationContextClassLoader.
-            final ClassLoader loader = runtime.getCamelContext().getApplicationContextClassLoader();
+            final ClassLoader loader = camelContext.getApplicationContextClassLoader();
             if (loader instanceof CompositeClassloader) {
                 ((CompositeClassloader) loader).addClassLoader(instance.getClass().getClassLoader());
             }
@@ -65,13 +65,11 @@ public class JavaSourceLoader implements SourceLoader {
     }
 
     private static String determineQualifiedName(Source source, String content) {
-        String name = StringSupport.substringBefore(source.getName(), ".java");
-        Matcher matcher = PACKAGE_PATTERN.matcher(content);
+        final String name = StringSupport.substringBefore(source.getName(), ".java");
+        final Matcher matcher = PACKAGE_PATTERN.matcher(content);
 
-        if (matcher.find()) {
-            name = matcher.group(1) + "." + name;
-        }
-
-        return name;
+        return matcher.find()
+            ? matcher.group(1) + "." + name
+            : name;
     }
 }

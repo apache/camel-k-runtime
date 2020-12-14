@@ -16,8 +16,8 @@
  */
 package org.apache.camel.k.loader.yaml;
 
+import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -27,8 +27,8 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
+import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
-import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceLoader;
 import org.apache.camel.k.annotation.Loader;
@@ -59,12 +59,12 @@ public class YamlSourceLoader implements SourceLoader {
     }
 
     @Override
-    public List<String> getSupportedLanguages() {
+    public Collection<String> getSupportedLanguages() {
         return Collections.singletonList("yaml");
     }
 
     @Override
-    public RoutesBuilder load(Runtime runtime, Source source) {
+    public RoutesBuilder load(CamelContext camelContext, Source source) {
         return RouteBuilders.route(source, (reader, builder) -> {
             final StepParser.Resolver resolver = StepParser.Resolver.caching(new YamlStepResolver());
 

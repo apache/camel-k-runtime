@@ -53,7 +53,7 @@ public class CronTest {
         RoutesBuilder builder = interceptor.afterLoad(
             loader,
             source,
-            loader.load(runtime, source));
+            loader.load(runtime.getCamelContext(), source));
 
         runtime.getCamelContext().addRoutes(builder);
 

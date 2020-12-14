@@ -16,8 +16,8 @@
  */
 package org.apache.camel.k.loader.groovy
 
+import org.apache.camel.CamelContext
 import org.apache.camel.RoutesBuilder
-import org.apache.camel.k.Runtime
 import org.apache.camel.k.Source
 import org.apache.camel.k.SourceLoader
 import org.apache.camel.k.loader.groovy.dsl.IntegrationConfiguration
@@ -27,12 +27,12 @@ import org.codehaus.groovy.control.customizers.ImportCustomizer
 
 class GroovySourceLoader implements SourceLoader {
     @Override
-    List<String> getSupportedLanguages() {
+    Collection<String> getSupportedLanguages() {
         return Collections.singletonList('groovy')
     }
 
     @Override
-    RoutesBuilder load(Runtime runtime, Source source) {
+    RoutesBuilder load(CamelContext camelContext, Source source) {
         return RouteBuilders.endpoint(source, { reader, builder ->
             def ic = new ImportCustomizer()
             ic.addStarImports('org.apache.camel')
