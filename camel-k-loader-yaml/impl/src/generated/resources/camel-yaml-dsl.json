@@ -28,6 +28,12 @@
           "constant" : {
             "$ref" : "#/items/definitions/org.apache.camel.model.language.ConstantExpression"
           },
+          "csimple" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.CSimpleExpression"
+          },
+          "datasonnet" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.language.DatasonnetExpression"
+          },
           "exchange-property" : {
             "$ref" : "#/items/definitions/org.apache.camel.model.language.ExchangePropertyExpression"
           },
@@ -80,6 +86,56 @@
             "$ref" : "#/items/definitions/org.apache.camel.model.language.XMLTokenizerExpression"
           }
         }
+      },
+      "org.apache.camel.model.language.CSimpleExpression" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "result-type" : {
+              "type" : "string"
+            },
+            "expression" : {
+              "type" : "string"
+            },
+            "id" : {
+              "type" : "string"
+            },
+            "trim" : {
+              "type" : "string"
+            }
+          },
+          "required" : [ "expression" ]
+        } ]
+      },
+      "org.apache.camel.model.language.DatasonnetExpression" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "body-media-type" : {
+              "type" : "string"
+            },
+            "output-media-type" : {
+              "type" : "string"
+            },
+            "result-type" : {
+              "type" : "string"
+            },
+            "expression" : {
+              "type" : "string"
+            },
+            "id" : {
+              "type" : "string"
+            },
+            "trim" : {
+              "type" : "string"
+            }
+          },
+          "required" : [ "expression" ]
+        } ]
       },
       "org.apache.camel.model.language.ExchangePropertyExpression" : {
         "anyOf" : [ {
@@ -540,9 +596,6 @@
               "type" : "string",
               "enum" : [ "NTRIPLES", "TURTLE", "NQUADS", "RDFXML", "JSONLD", "RDFJSON", "RDF4JMODEL" ]
             },
-            "content-type-header" : {
-              "type" : "string"
-            },
             "id" : {
               "type" : "string"
             }
@@ -689,9 +742,6 @@
             "using-iterator" : {
               "type" : "string"
             },
-            "content-type-header" : {
-              "type" : "string"
-            },
             "id" : {
               "type" : "string"
             }
@@ -705,9 +755,6 @@
           "type" : "object",
           "properties" : {
             "instance-class-name" : {
-              "type" : "string"
-            },
-            "content-type-header" : {
               "type" : "string"
             },
             "id" : {
@@ -731,9 +778,6 @@
           "width" : {
             "type" : "string"
           },
-          "content-type-header" : {
-            "type" : "string"
-          },
           "id" : {
             "type" : "string"
           }
@@ -749,9 +793,6 @@
             "type" : "string"
           },
           "url-safe" : {
-            "type" : "string"
-          },
-          "content-type-header" : {
             "type" : "string"
           },
           "id" : {
@@ -786,9 +827,6 @@
           "unmarshal-single-object" : {
             "type" : "string"
           },
-          "content-type-header" : {
-            "type" : "string"
-          },
           "id" : {
             "type" : "string"
           }
@@ -811,9 +849,6 @@
             "enum" : [ "Csv", "Fixed", "KeyValue" ]
           },
           "unwrap-single-instance" : {
-            "type" : "string"
-          },
-          "content-type-header" : {
             "type" : "string"
           },
           "id" : {
@@ -855,9 +890,6 @@
           "use-list" : {
             "type" : "string"
           },
-          "content-type-header" : {
-            "type" : "string"
-          },
           "id" : {
             "type" : "string"
           }
@@ -891,9 +923,6 @@
             "type" : "string"
           },
           "should-append-hmac" : {
-            "type" : "string"
-          },
-          "content-type-header" : {
             "type" : "string"
           },
           "id" : {
@@ -989,9 +1018,6 @@
             "use-ordered-maps" : {
               "type" : "string"
             },
-            "content-type-header" : {
-              "type" : "string"
-            },
             "id" : {
               "type" : "string"
             }
@@ -1007,9 +1033,6 @@
             "ref" : {
               "type" : "string"
             },
-            "content-type-header" : {
-              "type" : "string"
-            },
             "id" : {
               "type" : "string"
             }
@@ -1019,6 +1042,9 @@
       "org.apache.camel.model.dataformat.FhirJsonDataFormat" : {
         "type" : "object",
         "properties" : {
+          "content-type-header" : {
+            "type" : "string"
+          },
           "dont-encode-elements" : {
             "type" : "array",
             "items" : {
@@ -1063,9 +1089,6 @@
             "type" : "string"
           },
           "suppress-narratives" : {
-            "type" : "string"
-          },
-          "content-type-header" : {
             "type" : "string"
           },
           "id" : {
@@ -1076,6 +1099,9 @@
       "org.apache.camel.model.dataformat.FhirXmlDataFormat" : {
         "type" : "object",
         "properties" : {
+          "content-type-header" : {
+            "type" : "string"
+          },
           "dont-encode-elements" : {
             "type" : "array",
             "items" : {
@@ -1120,9 +1146,6 @@
             "type" : "string"
           },
           "suppress-narratives" : {
-            "type" : "string"
-          },
-          "content-type-header" : {
             "type" : "string"
           },
           "id" : {
@@ -1157,9 +1180,6 @@
           "text-qualifier" : {
             "type" : "string"
           },
-          "content-type-header" : {
-            "type" : "string"
-          },
           "id" : {
             "type" : "string"
           }
@@ -1180,9 +1200,6 @@
           "pattern" : {
             "type" : "string"
           },
-          "content-type-header" : {
-            "type" : "string"
-          },
           "id" : {
             "type" : "string"
           }
@@ -1191,9 +1208,6 @@
       "org.apache.camel.model.dataformat.GzipDataFormat" : {
         "type" : "object",
         "properties" : {
-          "content-type-header" : {
-            "type" : "string"
-          },
           "id" : {
             "type" : "string"
           }
@@ -1205,9 +1219,6 @@
           "validate" : {
             "type" : "string"
           },
-          "content-type-header" : {
-            "type" : "string"
-          },
           "id" : {
             "type" : "string"
           }
@@ -1217,9 +1228,6 @@
         "type" : "object",
         "properties" : {
           "validating" : {
-            "type" : "string"
-          },
-          "content-type-header" : {
             "type" : "string"
           },
           "id" : {
@@ -1237,6 +1245,9 @@
             "type" : "string"
           },
           "collection-type-name" : {
+            "type" : "string"
+          },
+          "content-type-header" : {
             "type" : "string"
           },
           "disable-features" : {
@@ -1272,9 +1283,6 @@
           "xml-mapper" : {
             "type" : "string"
           },
-          "content-type-header" : {
-            "type" : "string"
-          },
           "id" : {
             "type" : "string"
           }
@@ -1283,6 +1291,9 @@
       "org.apache.camel.model.dataformat.JaxbDataFormat" : {
         "type" : "object",
         "properties" : {
+          "content-type-header" : {
+            "type" : "string"
+          },
           "context-path" : {
             "type" : "string"
           },
@@ -1338,9 +1349,6 @@
           "xml-stream-writer-wrapper" : {
             "type" : "string"
           },
-          "content-type-header" : {
-            "type" : "string"
-          },
           "id" : {
             "type" : "string"
           }
@@ -1359,6 +1367,9 @@
             "type" : "string"
           },
           "collection-type-name" : {
+            "type" : "string"
+          },
+          "content-type-header" : {
             "type" : "string"
           },
           "disable-features" : {
@@ -1406,9 +1417,6 @@
           "use-list" : {
             "type" : "string"
           },
-          "content-type-header" : {
-            "type" : "string"
-          },
           "id" : {
             "type" : "string"
           }
@@ -1426,9 +1434,6 @@
           "main-format-type" : {
             "type" : "string"
           },
-          "content-type-header" : {
-            "type" : "string"
-          },
           "id" : {
             "type" : "string"
           }
@@ -1438,9 +1443,6 @@
         "type" : "object",
         "properties" : {
           "using-parallel-compression" : {
-            "type" : "string"
-          },
-          "content-type-header" : {
             "type" : "string"
           },
           "id" : {
@@ -1464,9 +1466,6 @@
             "type" : "string"
           },
           "multipart-without-attachment" : {
-            "type" : "string"
-          },
-          "content-type-header" : {
             "type" : "string"
           },
           "id" : {
@@ -1519,9 +1518,6 @@
           "signature-verification-option" : {
             "type" : "string"
           },
-          "content-type-header" : {
-            "type" : "string"
-          },
           "id" : {
             "type" : "string"
           }
@@ -1537,10 +1533,10 @@
               "type" : "string",
               "enum" : [ "native", "json" ]
             },
-            "instance-class" : {
+            "content-type-header" : {
               "type" : "string"
             },
-            "content-type-header" : {
+            "instance-class" : {
               "type" : "string"
             },
             "id" : {
@@ -1552,9 +1548,6 @@
       "org.apache.camel.model.dataformat.RssDataFormat" : {
         "type" : "object",
         "properties" : {
-          "content-type-header" : {
-            "type" : "string"
-          },
           "id" : {
             "type" : "string"
           }
@@ -1600,9 +1593,6 @@
           "xml-cipher-algorithm" : {
             "type" : "string"
           },
-          "content-type-header" : {
-            "type" : "string"
-          },
           "id" : {
             "type" : "string"
           }
@@ -1632,9 +1622,6 @@
             "version" : {
               "type" : "string"
             },
-            "content-type-header" : {
-              "type" : "string"
-            },
             "id" : {
               "type" : "string"
             }
@@ -1644,9 +1631,6 @@
       "org.apache.camel.model.dataformat.SyslogDataFormat" : {
         "type" : "object",
         "properties" : {
-          "content-type-header" : {
-            "type" : "string"
-          },
           "id" : {
             "type" : "string"
           }
@@ -1667,9 +1651,6 @@
           "using-iterator" : {
             "type" : "string"
           },
-          "content-type-header" : {
-            "type" : "string"
-          },
           "id" : {
             "type" : "string"
           }
@@ -1685,10 +1666,10 @@
               "type" : "string",
               "enum" : [ "binary", "json", "sjson" ]
             },
-            "instance-class" : {
+            "content-type-header" : {
               "type" : "string"
             },
-            "content-type-header" : {
+            "instance-class" : {
               "type" : "string"
             },
             "id" : {
@@ -1704,9 +1685,6 @@
             "type" : "string"
           },
           "omit-xml-declaration" : {
-            "type" : "string"
-          },
-          "content-type-header" : {
             "type" : "string"
           },
           "id" : {
@@ -1768,9 +1746,6 @@
           "skip-empty-lines" : {
             "type" : "string"
           },
-          "content-type-header" : {
-            "type" : "string"
-          },
           "id" : {
             "type" : "string"
           }
@@ -1827,9 +1802,6 @@
           "skip-empty-lines" : {
             "type" : "string"
           },
-          "content-type-header" : {
-            "type" : "string"
-          },
           "id" : {
             "type" : "string"
           }
@@ -1880,9 +1852,6 @@
           "skip-empty-lines" : {
             "type" : "string"
           },
-          "content-type-header" : {
-            "type" : "string"
-          },
           "id" : {
             "type" : "string"
           }
@@ -1892,9 +1861,6 @@
         "type" : "object",
         "properties" : {
           "request" : {
-            "type" : "string"
-          },
-          "content-type-header" : {
             "type" : "string"
           },
           "id" : {
@@ -1908,6 +1874,9 @@
         }, {
           "type" : "object",
           "properties" : {
+            "content-type-header" : {
+              "type" : "string"
+            },
             "driver" : {
               "type" : "string"
             },
@@ -1921,9 +1890,6 @@
               "type" : "string"
             },
             "permissions" : {
-              "type" : "string"
-            },
-            "content-type-header" : {
               "type" : "string"
             },
             "id" : {
@@ -1968,9 +1934,6 @@
           "use-application-context-class-loader" : {
             "type" : "string"
           },
-          "content-type-header" : {
-            "type" : "string"
-          },
           "id" : {
             "type" : "string"
           }
@@ -1980,9 +1943,6 @@
         "type" : "object",
         "properties" : {
           "compression-level" : {
-            "type" : "string"
-          },
-          "content-type-header" : {
             "type" : "string"
           },
           "id" : {
@@ -2003,9 +1963,6 @@
             "type" : "string"
           },
           "using-iterator" : {
-            "type" : "string"
-          },
-          "content-type-header" : {
             "type" : "string"
           },
           "id" : {
