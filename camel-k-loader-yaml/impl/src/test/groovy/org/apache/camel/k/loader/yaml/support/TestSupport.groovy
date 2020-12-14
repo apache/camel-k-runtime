@@ -25,7 +25,6 @@ import org.apache.camel.component.mock.MockEndpoint
 import org.apache.camel.impl.DefaultCamelContext
 import org.apache.camel.k.Source
 import org.apache.camel.k.loader.yaml.YamlSourceLoader
-import org.apache.camel.k.loader.yaml.YamlStepResolver
 import org.apache.camel.k.loader.yaml.spi.ProcessorStepParser
 import org.apache.camel.k.loader.yaml.spi.StartStepParser
 import org.apache.camel.k.loader.yaml.spi.StepParser
@@ -38,18 +37,15 @@ import java.nio.charset.StandardCharsets
 
 @Slf4j
 class TestSupport extends Specification {
-    static def RESOLVER =  new YamlStepResolver()
-    static def MAPPER = YamlSourceLoader.MAPPER
-
     static StepParser.Context stepContext(String content) {
-        def node = MAPPER.readTree(content.stripMargin())
+        def node = YamlSourceLoader.MAPPER.readTree(content.stripMargin())
         def builder = new RouteBuilder(new DefaultCamelContext()) {
             @Override
             void configure() throws Exception {
             }
         }
 
-        return new StepParser.Context(builder, new RouteDefinition(), MAPPER, node, RESOLVER)
+        return new StepParser.Context(builder, new RouteDefinition(), YamlSourceLoader.MAPPER, node, YamlSourceLoader.RESOLVER)
     }
 
     static StepParser.Context stepContext(JsonNode content) {
@@ -59,7 +55,7 @@ class TestSupport extends Specification {
             }
         }
 
-        return new StepParser.Context(builder, new RouteDefinition(), MAPPER, content, RESOLVER)
+        return new StepParser.Context(builder, new RouteDefinition(), YamlSourceLoader.MAPPER, content, YamlSourceLoader.RESOLVER)
     }
 
     static CamelContext startContext(
@@ -120,7 +116,7 @@ class TestSupport extends Specification {
 
     static Object toProcessor(String id, String content) {
         def ctx = stepContext(content)
-        def parser = RESOLVER.resolve(ctx.camelContext, id)
+        def parser = YamlSourceLoader.RESOLVER.resolve(ctx.camelContext, id)
 
         if (parser instanceof ProcessorStepParser) {
             return parser.toProcessor(ctx)
