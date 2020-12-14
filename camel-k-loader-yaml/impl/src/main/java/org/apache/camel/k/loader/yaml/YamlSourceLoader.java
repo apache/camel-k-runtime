@@ -16,6 +16,7 @@
  */
 package org.apache.camel.k.loader.yaml;
 
+import java.io.Reader;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -29,6 +30,7 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
+import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceLoader;
 import org.apache.camel.k.annotation.Loader;
@@ -36,15 +38,21 @@ import org.apache.camel.k.loader.yaml.model.Step;
 import org.apache.camel.k.loader.yaml.spi.StartStepParser;
 import org.apache.camel.k.loader.yaml.spi.StepParser;
 import org.apache.camel.k.support.RouteBuilders;
+import org.apache.camel.util.function.ThrowingBiConsumer;
 
 @Loader("yaml")
 public class YamlSourceLoader implements SourceLoader {
+    public static final StepParser.Resolver RESOLVER;
     public static final ObjectMapper MAPPER;
 
     static {
         // register custom reifiers auto-generated from the step parser definitions
         YamlReifiers.registerReifiers();
 
+        // Use a global caching resolver
+        RESOLVER = StepParser.Resolver.caching(new YamlStepResolver());
+
+        // Create the object mapper
         MAPPER = new ObjectMapper(
             new YAMLFactory()
                 .configure(YAMLGenerator.Feature.MINIMIZE_QUOTES, true)
@@ -65,13 +73,14 @@ public class YamlSourceLoader implements SourceLoader {
 
     @Override
     public RoutesBuilder load(CamelContext camelContext, Source source) {
-        return RouteBuilders.route(source, (reader, builder) -> {
-            final StepParser.Resolver resolver = StepParser.Resolver.caching(new YamlStepResolver());
-
-            for (Step step : MAPPER.readValue(reader, Step[].class)) {
-                StartStepParser.invoke(
-                    new StepParser.Context(builder, null, MAPPER, step.node, resolver),
-                    step.id);
+        return RouteBuilders.route(source, new ThrowingBiConsumer<Reader, RouteBuilder, Exception>() {
+            @Override
+            public void accept(Reader reader, RouteBuilder builder) throws Exception {
+                for (Step step : MAPPER.readValue(reader, Step[].class)) {
+                    StartStepParser.invoke(
+                        new StepParser.Context(builder, null, MAPPER, step.node, RESOLVER),
+                        step.id);
+                }
             }
         });
     }
