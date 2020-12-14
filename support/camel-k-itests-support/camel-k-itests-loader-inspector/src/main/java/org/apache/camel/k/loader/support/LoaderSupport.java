@@ -37,7 +37,7 @@ public final class LoaderSupport {
         final SourceLoader loader = context.getRegistry().lookupByNameAndType(loaderId, SourceLoader.class);
         final Runtime runtime = Runtime.on(context);
         final Source source = Sources.fromBytes(name, loaderId, null, code);
-        final RoutesBuilder builder = loader.load(Runtime.on(context), source);
+        final RoutesBuilder builder = loader.load(context, source);
 
         runtime.addRoutes(builder);
 

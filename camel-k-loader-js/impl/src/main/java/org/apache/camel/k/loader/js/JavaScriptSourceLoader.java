@@ -17,13 +17,12 @@
 package org.apache.camel.k.loader.js;
 
 import java.io.Reader;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
-import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceLoader;
 import org.apache.camel.k.annotation.Loader;
@@ -40,12 +39,12 @@ public class JavaScriptSourceLoader implements SourceLoader {
     private static final String LANGUAGE_ID = "js";
 
     @Override
-    public List<String> getSupportedLanguages() {
+    public Collection<String> getSupportedLanguages() {
         return Collections.singletonList(LANGUAGE_ID);
     }
 
     @Override
-    public RoutesBuilder load(Runtime runtime, Source source) {
+    public RoutesBuilder load(CamelContext camelContext, Source source) {
         return RouteBuilders.endpoint(source, JavaScriptSourceLoader::doLoad);
     }
 
