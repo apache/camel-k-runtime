@@ -18,14 +18,8 @@ package org.apache.camel.k.loader.kotlin.dsl
 
 import org.apache.camel.CamelContext
 import org.apache.camel.Component
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 
 class ComponentsConfiguration(val context: CamelContext) {
-    companion object {
-        val LOGGER: Logger = LoggerFactory.getLogger(ComponentsConfiguration::class.java)
-    }
-
     inline fun <reified T : Component> component(name: String, block: T.() -> Unit) : T {
         var target = context.getComponent(name, true, false)
         var bind = false
