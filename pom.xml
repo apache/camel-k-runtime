@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-dependencies</artifactId>
-        <version>3.7.0-SNAPSHOT</version>
+        <version>3.7.0</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -38,20 +38,18 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
 
-        <camel-version>3.7.0-SNAPSHOT</camel-version>
+        <camel-version>3.7.0</camel-version>
 
         <!-- quarkus -->
         <camel-quarkus-version>1.5.0-SNAPSHOT</camel-quarkus-version>
         <graalvm-version>20.2.0</graalvm-version>
-        <quarkus-version>1.10.2.Final</quarkus-version>
+        <quarkus-version>1.10.3.Final</quarkus-version>
 
         <!-- camel-k -->
         <joor-version>0.9.13</joor-version>
         <groovy-version>3.0.7</groovy-version>
         <kotlin-version>1.4.21</kotlin-version>
         <spock-version>2.0-M4-groovy-3.0</spock-version>
-        <jaxb-api-version>2.3.1</jaxb-api-version>
-        <jaxb-core-version>2.3.0.1</jaxb-core-version>
         <immutables-version>2.8.9-ea-1</immutables-version>
         <semver4j-version>3.1.0</semver4j-version>
 
@@ -334,6 +332,17 @@
 
     <repositories>
         <repository>
+            <id>camel-3.7.0</id>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <url>https://repository.apache.org/content/repositories/orgapachecamel-1263</url>
+            <layout>default</layout>
+        </repository>
+        <repository>
             <id>apache.snapshots</id>
             <url>https://repository.apache.org/snapshots/</url>
             <name>Apache Snapshot Repo</name>
@@ -347,6 +356,17 @@
     </repositories>
 
     <pluginRepositories>
+        <pluginRepository>
+            <id>camel-3.7.0</id>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <url>https://repository.apache.org/content/repositories/orgapachecamel-1263</url>
+            <layout>default</layout>
+        </pluginRepository>
         <pluginRepository>
             <id>apache.snapshots</id>
             <url>https://repository.apache.org/snapshots/</url>
