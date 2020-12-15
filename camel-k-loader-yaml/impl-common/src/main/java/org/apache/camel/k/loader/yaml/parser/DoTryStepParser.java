@@ -20,6 +20,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.apache.camel.k.annotation.yaml.YAMLElement;
 import org.apache.camel.k.annotation.yaml.YAMLNodeDefinition;
 import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.k.loader.yaml.model.Step;
@@ -89,14 +90,17 @@ public class DoTryStepParser implements ProcessorStepParser {
         public TryDefinition delegate = new TryDefinition();
         @JsonProperty
         public List<Step> steps;
+        @YAMLElement
         @JsonAlias("do-catch")
         public DoCatchDefinition doCatch;
+        @YAMLElement
         @JsonAlias("do-finally")
         public DoFinallyDefinition doFinally;
     }
 
     @YAMLNodeDefinition(reifiers = CatchReifier.class)
     public static final class DoCatchDefinition extends CatchDefinition {
+        @YAMLElement
         @JsonAlias("do-when")
         public When when;
         @JsonProperty
@@ -110,6 +114,7 @@ public class DoTryStepParser implements ProcessorStepParser {
 
     @YAMLNodeDefinition(reifiers = FinallyReifier.class)
     public static final class DoFinallyDefinition extends FinallyDefinition {
+        @JsonProperty
         public List<Step> steps;
     }
 }

@@ -32,9 +32,10 @@ public class ToDynamicStepParser implements ProcessorStepParser {
     public ProcessorDefinition<?> toProcessor(Context context) {
         final Definition definition = context.node(Definition.class);
         final String uri = StepParserSupport.createEndpointUri(context.getCamelContext(), definition.getUri(), definition.parameters);
-        final ToDynamicDefinition answer = new ToDynamicDefinition(uri);
 
-        return answer;
+        definition.setUri(uri);
+
+        return definition;
     }
 
     @YAMLNodeDefinition

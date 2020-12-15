@@ -33,6 +33,7 @@
         <module>camel-k-apt</module>
         <module>camel-k-catalog-model</module>
         <module>camel-k-maven-plugin</module>
+        <module>camel-k-yaml-maven-plugin</module>
         <module>camel-k-test</module>
         <module>camel-k-itests-support</module>
         <module>camel-k-catalog</module>

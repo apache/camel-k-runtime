@@ -22,13 +22,11 @@ import org.apache.camel.model.MarshalDefinition
 class MarshalTest extends TestSupport {
 
     def "definition with data format"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('marshal', '''
                  json: 
                    library: Gson
             ''')
-        when:
-            def processor = new MarshalStepParser().toProcessor(stepContext)
         then:
             with(processor, MarshalDefinition) {
                 dataFormatType.dataFormatName == 'json-gson'
@@ -36,14 +34,12 @@ class MarshalTest extends TestSupport {
     }
 
     def "definition with data format block"() {
-        given:
-            def stepContext = stepContext('''
-                 data-format:
+        when:
+            def processor = toProcessor('marshal', '''
+                 data-format-type:
                    json:
                      library: Gson
             ''')
-        when:
-            def processor = new MarshalStepParser().toProcessor(stepContext)
         then:
             with(processor, MarshalDefinition) {
                 dataFormatType.dataFormatName == 'json-gson'
@@ -51,12 +47,10 @@ class MarshalTest extends TestSupport {
     }
 
     def "definition with default data format"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('marshal', '''
                  json: {}
             ''')
-        when:
-            def processor = new MarshalStepParser().toProcessor(stepContext)
         then:
             with(processor, MarshalDefinition) {
                 dataFormatType.dataFormatName == 'json-jackson'
@@ -64,13 +58,11 @@ class MarshalTest extends TestSupport {
     }
 
     def "definition with default data format block"() {
-        given:
-            def stepContext = stepContext('''
-                 data-format:
+        when:
+            def processor = toProcessor('marshal', '''
+                 data-format-type:
                    json: {}
             ''')
-        when:
-            def processor = new MarshalStepParser().toProcessor(stepContext)
         then:
             with(processor, MarshalDefinition) {
                 dataFormatType.dataFormatName == 'json-jackson'

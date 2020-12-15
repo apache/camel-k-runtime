@@ -22,12 +22,10 @@ import org.apache.camel.model.IdempotentConsumerDefinition
 class IdempotentConsumerTest extends TestSupport {
 
     def "definition with expression"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('idempotent-consumer', '''
                  simple: "${header.id}"
             ''')
-        when:
-            def processor = new IdempotentConsumerParser().toProcessor(stepContext)
         then:
             def p = processor as IdempotentConsumerDefinition
 
@@ -36,13 +34,11 @@ class IdempotentConsumerTest extends TestSupport {
     }
 
     def "definition with expression block"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('idempotent-consumer', '''
                  expression:
                    simple: "${header.id}"
             ''')
-        when:
-            def processor = new IdempotentConsumerParser().toProcessor(stepContext)
         then:
             with(processor, IdempotentConsumerDefinition) {
                 expression.language == 'simple'

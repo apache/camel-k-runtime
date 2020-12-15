@@ -25,7 +25,7 @@ class ServiceCallTest extends TestSupport {
 
     def "definition"() {
         when:
-            def processor = toProcessor(ServiceCallStepParser, '''
+            def processor = toProcessor('service-call', '''
                  name: "foo"
                  uri: "undertow:http://foo/hello"
             ''')
@@ -38,7 +38,7 @@ class ServiceCallTest extends TestSupport {
 
     def "definition (inline)"() {
         when:
-            def processor = toProcessor(ServiceCallStepParser, '''foo''')
+            def processor = toProcessor('service-call', '''foo''')
         then:
             with (processor, ServiceCallDefinition) {
                 name == "foo"
@@ -47,7 +47,7 @@ class ServiceCallTest extends TestSupport {
 
     def "definition with expression"() {
         when:
-            def processor = toProcessor(ServiceCallStepParser, '''
+            def processor = toProcessor('service-call', '''
                  expression: 
                     simple: "undertow:http://${header.service}/hello"
             ''')
@@ -62,7 +62,7 @@ class ServiceCallTest extends TestSupport {
 
     def "definition with expression (inline)"() {
         when:
-            def processor = toProcessor(ServiceCallStepParser, '''
+            def processor = toProcessor('service-call', '''
                  simple: "undertow:http://${header.service}/hello"
             ''')
         then:
@@ -76,12 +76,32 @@ class ServiceCallTest extends TestSupport {
 
     def "definition with configurations"() {
         when:
-            def processor = toProcessor(ServiceCallStepParser,  '''
-                 service-discovery-configuration: !org.apache.camel.model.cloud.StaticServiceCallServiceDiscoveryConfiguration
+            def processor = toProcessor('service-call',  '''
+                 service-discovery-configuration:
+                     static-service-discovery:
+                         servers:
+                             - "service1@host1"
+                             - "service1@host2"                         
+                 service-filter-configuration: 
+                     blacklist-service-filter:
+                         servers:
+                             - "service2@host1"
+            ''')
+        then:
+            with (processor, ServiceCallDefinition) {
+                serviceDiscoveryConfiguration != null
+                serviceFilterConfiguration != null
+            }
+    }
+
+    def "definition with configurations (inline)"() {
+        when:
+            def processor = toProcessor('service-call',  '''
+                 static-service-discovery:
                      servers:
                          - "service1@host1"
-                         - "service1@host2"                         
-                 service-filter-configuration: !org.apache.camel.model.cloud.BlacklistServiceCallServiceFilterConfiguration
+                         - "service1@host2"   
+                 blacklist-service-filter:
                      servers:
                          - "service2@host1"
             ''')
@@ -94,7 +114,7 @@ class ServiceCallTest extends TestSupport {
 
     def "definition with expression configuration"() {
         when:
-            def processor = toProcessor(ServiceCallStepParser, '''
+            def processor = toProcessor('service-call', '''
                  expression-configuration:
                      host-header: MyCamelServiceCallServiceHost
                      port-header: MyCamelServiceCallServicePort
@@ -115,7 +135,7 @@ class ServiceCallTest extends TestSupport {
 
     def "definition with expression configuration (inline)"() {
         when:
-            def processor = toProcessor(ServiceCallStepParser, '''
+            def processor = toProcessor('service-call', '''
                  expression-configuration:
                      host-header: MyCamelServiceCallServiceHost
                      port-header: MyCamelServiceCallServicePort

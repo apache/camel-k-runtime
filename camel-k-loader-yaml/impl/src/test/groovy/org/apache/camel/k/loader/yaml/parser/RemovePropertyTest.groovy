@@ -31,15 +31,4 @@ class RemovePropertyTest extends TestSupport {
                 propertyName == 'test'
             }
     }
-
-    def "definition (alias)"() {
-        when:
-            def processor = toProcessor('remove-property', '''
-                 name: test
-            ''')
-        then:
-            with(processor, RemovePropertyDefinition) {
-                propertyName == 'test'
-            }
-    }
 }

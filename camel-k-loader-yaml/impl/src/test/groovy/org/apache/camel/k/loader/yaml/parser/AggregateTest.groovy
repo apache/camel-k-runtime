@@ -23,25 +23,18 @@ import org.apache.camel.model.language.SimpleExpression
 class AggregateTest extends TestSupport {
 
     def "definition"() {
-        given:
-            def stepContext = stepContext('''
-                 expression:
-                     simple: "${header.ID}"
+        when:
+            def processor = toProcessor('aggregate', '''
                  correlation-expression:
                      simple: "${header.Count}"
                  strategy-ref: "myAppender"
                  completion-size: 10
             ''')
-        when:
-            def processor = new AggregateStepParser().toProcessor(stepContext)
         then:
             with(processor, AggregateDefinition) {
                 strategyRef == 'myAppender'
                 completionSize == '10'
 
-                with(expression, SimpleExpression) {
-                    expression ==  '${header.ID}'
-                }
                 with(correlationExpression?.expressionType, SimpleExpression) {
                     expression == '${header.Count}'
                 }
@@ -49,24 +42,18 @@ class AggregateTest extends TestSupport {
     }
 
     def "compact definition"() {
-        given:
-            def stepContext = stepContext('''
-                 simple: "${header.ID}"
+        when:
+            def processor = toProcessor('aggregate', '''
                  correlation-expression:
                      simple: "${header.Count}"
                  strategy-ref: "myAppender"
                  completion-size: 10
             ''')
-        when:
-            def processor = new AggregateStepParser().toProcessor(stepContext)
         then:
             with(processor, AggregateDefinition) {
                 strategyRef == 'myAppender'
                 completionSize == '10'
 
-                with(expression, SimpleExpression) {
-                    expression ==  '${header.ID}'
-                }
                 with(correlationExpression?.expressionType, SimpleExpression) {
                     expression == '${header.Count}'
                 }

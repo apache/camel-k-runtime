@@ -31,16 +31,4 @@ class RemoveHeaderTest extends TestSupport {
                 headerName == 'test'
             }
     }
-
-    def "definition (alias)"() {
-        when:
-            def processor = toProcessor('remove-header', '''
-                 name: test
-            ''')
-        then:
-            with(processor, RemoveHeaderDefinition) {
-                headerName == 'test'
-            }
-    }
-
 }

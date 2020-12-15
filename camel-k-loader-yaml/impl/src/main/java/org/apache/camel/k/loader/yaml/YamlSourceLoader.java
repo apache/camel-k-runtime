@@ -24,6 +24,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
@@ -73,10 +74,12 @@ public class YamlSourceLoader implements SourceLoader {
 
     @Override
     public RoutesBuilder load(CamelContext camelContext, Source source) {
+        final ObjectReader objectReader = MAPPER.readerForArrayOf(Step.class).withAttribute(CamelContext.class, camelContext);
+
         return RouteBuilders.route(source, new ThrowingBiConsumer<Reader, RouteBuilder, Exception>() {
             @Override
             public void accept(Reader reader, RouteBuilder builder) throws Exception {
-                for (Step step : MAPPER.readValue(reader, Step[].class)) {
+                for (Step step : (Step[])objectReader.readValue(reader)) {
                     StartStepParser.invoke(
                         new StepParser.Context(builder, null, MAPPER, step.node, RESOLVER),
                         step.id);

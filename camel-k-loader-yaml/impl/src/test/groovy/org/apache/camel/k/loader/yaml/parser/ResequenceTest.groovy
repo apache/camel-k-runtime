@@ -24,18 +24,16 @@ import org.apache.camel.model.language.SimpleExpression
 class ResequenceTest extends TestSupport {
 
     def "definition with expression"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('resequence', '''
                 simple: "${in.header.seqnum}"
                 stream-config:
                     capacity: 5000
-                    timeout: 4000  
+                    timeout: 4000
                 steps:
                   - to: "direct:a"
                   - to: "direct:b"
             ''')
-        when:
-            def processor = new ResequenceStepParser().toProcessor(stepContext)
         then:
             with (processor, ResequenceDefinition) {
                 with (expression, SimpleExpression) {
@@ -52,8 +50,8 @@ class ResequenceTest extends TestSupport {
     }
 
     def "definition with expression block"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('resequence', '''
                 expression:
                     simple: "${in.header.seqnum}"
                 stream-config:
@@ -63,8 +61,6 @@ class ResequenceTest extends TestSupport {
                   - to: "direct:a"
                   - to: "direct:b"
             ''')
-        when:
-            def processor = new ResequenceStepParser().toProcessor(stepContext)
         then:
             with (processor, ResequenceDefinition) {
                 with (expression, SimpleExpression) {

@@ -22,13 +22,11 @@ import org.apache.camel.model.SetPropertyDefinition
 class SetPropertyTest extends TestSupport {
 
     def "definition with expression"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('set-property','''
                  name: test
                  simple: "${body}"
             ''')
-        when:
-            def processor = new SetPropertyStepParser().toProcessor(stepContext)
         then:
             with(processor, SetPropertyDefinition) {
                 name == 'test'
@@ -38,14 +36,12 @@ class SetPropertyTest extends TestSupport {
     }
 
     def "definition with expression block"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('set-property','''
                  name: test
                  expression:
                    simple: "${body}"
             ''')
-        when:
-            def processor = new SetPropertyStepParser().toProcessor(stepContext)
         then:
             with(processor, SetPropertyDefinition) {
                 name == 'test'

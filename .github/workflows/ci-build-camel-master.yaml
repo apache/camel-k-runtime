@@ -65,6 +65,6 @@ jobs:
         git clone --depth 1 --branch camel-master https://github.com/apache/camel-quarkus.git \
           && cd camel-quarkus \
           && echo "Current Camel Quarkus commit:" $(git rev-parse HEAD) \
-          && ./mvnw ${MAVEN_ARGS} clean install -Dquickly -s $(pwd)/settings-camel-3.7.0.xml
+          && ./mvnw ${MAVEN_ARGS} clean install -Dquickly
     - name: Build camel-k-runtime
       run: ./mvnw ${MAVEN_ARGS} -Dcheckstyle.failOnViolation=true -Psourcecheck clean install

@@ -22,12 +22,10 @@ import org.apache.camel.model.ScriptDefinition
 class ScriptTest extends TestSupport {
 
     def "definition with expression"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('script','''
                  simple: "Hello ${body}"
             ''')
-        when:
-            def processor = new ScriptStepParser().toProcessor(stepContext)
         then:
             with(processor, ScriptDefinition) {
                 expression.language == 'simple'
@@ -36,13 +34,11 @@ class ScriptTest extends TestSupport {
     }
 
     def "definition with expression block"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('script','''
                  expression:
                    simple: "Bye ${body}"
             ''')
-        when:
-            def processor = new ScriptStepParser().toProcessor(stepContext)
         then:
             with(processor, ScriptDefinition) {
                 expression.language == 'simple'

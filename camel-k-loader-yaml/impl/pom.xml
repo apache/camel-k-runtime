@@ -187,8 +187,27 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-maven-plugin</artifactId>
+                <artifactId>camel-k-yaml-maven-plugin</artifactId>
                 <version>${project.version}</version>
+                <configuration>
+                    <additionalDefinitions>
+                        <transacted>org.apache.camel.model.TransactedDefinition</transacted>
+                        <throw-exception>org.apache.camel.model.ThrowExceptionDefinition</throw-exception>
+                        <marshal>org.apache.camel.model.MarshalDefinition</marshal>
+                        <unmarshal>org.apache.camel.model.UnmarshalDefinition</unmarshal>
+                        <set-exchange-pattern>org.apache.camel.model.SetExchangePatternDefinition</set-exchange-pattern>
+                    </additionalDefinitions>
+                    <bannedDefinitions>
+                        <bannedDefinition>org.apache.camel.model.Resilience4jConfigurationDefinition</bannedDefinition>
+                        <bannedDefinition>org.apache.camel.model.HystrixConfigurationDefinition</bannedDefinition>
+                        <bannedDefinition>org.apache.camel.model.FaultToleranceConfigurationDefinition</bannedDefinition>
+                        <bannedDefinition>org.apache.camel.model.OnFallbackDefinition</bannedDefinition>
+                        <bannedDefinition>org.apache.camel.model.InOnlyDefinition</bannedDefinition>
+                        <bannedDefinition>org.apache.camel.model.InOutDefinition</bannedDefinition>
+                        <bannedDefinition>org.apache.camel.model.WireTapDefinition</bannedDefinition>
+                        <bannedDefinition>org.apache.camel.model.ToDynamicDefinition</bannedDefinition>
+                    </bannedDefinitions>
+                </configuration>
                 <executions>
                     <execution>
                         <id>generate-yaml-schema</id>
@@ -198,21 +217,6 @@
                         </goals>
                         <configuration>
                             <outputFile>${project.basedir}/src/generated/resources/camel-yaml-dsl.json</outputFile>
-                            <bannedDefinitions>
-                                <bannedDefinition>org.apache.camel.model.Resilience4jConfigurationDefinition</bannedDefinition>
-                                <bannedDefinition>org.apache.camel.model.HystrixConfigurationDefinition</bannedDefinition>
-                                <bannedDefinition>org.apache.camel.model.FaultToleranceConfigurationDefinition</bannedDefinition>
-                                <bannedDefinition>org.apache.camel.model.OnFallbackDefinition</bannedDefinition>
-                                <bannedDefinition>org.apache.camel.model.InOnlyDefinition</bannedDefinition>
-                                <bannedDefinition>org.apache.camel.model.InOutDefinition</bannedDefinition>
-                                <bannedDefinition>org.apache.camel.model.OtherwiseDefinition</bannedDefinition>
-                                <bannedDefinition>org.apache.camel.model.WhenDefinition</bannedDefinition>
-                                <bannedDefinition>org.apache.camel.model.config.StreamResequencerConfig</bannedDefinition>
-                                <bannedDefinition>org.apache.camel.model.config.BatchResequencerConfig</bannedDefinition>
-                                <bannedDefinition>org.apache.camel.model.loadbalancer/**</bannedDefinition>
-                                <bannedDefinition>org.apache.camel.model.WireTapDefinition</bannedDefinition>
-                                <bannedDefinition>org.apache.camel.model.ToDynamicDefinition</bannedDefinition>
-                            </bannedDefinitions>
                         </configuration>
                     </execution>
                     <execution>

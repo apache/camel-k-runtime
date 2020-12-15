@@ -22,12 +22,10 @@ import org.apache.camel.model.FilterDefinition
 class FilterTest extends TestSupport {
 
     def "definition with expression"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('filter', '''
                  simple: "${body}"
             ''')
-        when:
-            def processor = new FilterStepParser().toProcessor(stepContext)
         then:
             with (processor, FilterDefinition) {
                 with (expression) {
@@ -38,13 +36,11 @@ class FilterTest extends TestSupport {
     }
 
     def "definition with expression block"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('filter', '''
                  expression:
                    simple: "${body}"
             ''')
-        when:
-            def processor = new FilterStepParser().toProcessor(stepContext)
         then:
             with (processor, FilterDefinition) {
                 with (expression) {

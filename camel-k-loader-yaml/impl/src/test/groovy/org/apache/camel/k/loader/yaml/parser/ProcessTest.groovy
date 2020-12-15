@@ -27,7 +27,7 @@ class ProcessTest extends TestSupport {
                  ref: "test"
             ''')
         when:
-            def processor = new ProcessStepParser().toProcessor(stepContext)
+            def processor = new TypedProcessorStepParser(ProcessDefinition.class).toProcessor(stepContext)
         then:
             with(processor, ProcessDefinition) {
                 ref == 'test'

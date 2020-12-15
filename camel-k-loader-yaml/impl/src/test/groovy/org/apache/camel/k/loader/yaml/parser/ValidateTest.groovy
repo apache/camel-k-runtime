@@ -22,12 +22,10 @@ import org.apache.camel.model.ValidateDefinition
 class ValidateTest extends TestSupport {
 
     def "definition with expression"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('validate','''
                  simple: "${in.header.bar} == 100"
             ''')
-        when:
-            def processor = new ValidateStepParser().toProcessor(stepContext)
         then:
             with (processor, ValidateDefinition) {
                 with (expression) {
@@ -38,13 +36,11 @@ class ValidateTest extends TestSupport {
     }
 
     def "definition with expression block"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('validate','''
                  expression:
                    simple: "${in.header.bar} == 100"
             ''')
-        when:
-            def processor = new ValidateStepParser().toProcessor(stepContext)
         then:
             with (processor, ValidateDefinition) {
                 with (expression) {

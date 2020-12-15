@@ -22,12 +22,10 @@ import org.apache.camel.model.SetBodyDefinition
 class SetBodyTest extends TestSupport {
 
     def "definition with expression"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('set-body', '''
                  simple: "${body}"
             ''')
-        when:
-            def processor = new SetBodyStepParser().toProcessor(stepContext)
         then:
             with(processor, SetBodyDefinition) {
                 expression.language == 'simple'
@@ -36,13 +34,11 @@ class SetBodyTest extends TestSupport {
     }
 
     def "definition with expression block"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('set-body', '''
                  expression:
                    simple: "${body}"
             ''')
-        when:
-            def processor = new SetBodyStepParser().toProcessor(stepContext)
         then:
             with(processor, SetBodyDefinition) {
                 expression.language == 'simple'

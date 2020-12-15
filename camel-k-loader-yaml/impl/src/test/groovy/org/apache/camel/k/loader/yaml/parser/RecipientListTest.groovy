@@ -23,14 +23,12 @@ import org.apache.camel.model.language.ConstantExpression
 class RecipientListTest extends TestSupport {
 
     def "definition with expression"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('recipient-list', '''
                 constant: "direct:a,direct:b"
                 stop-on-exception: true
                 parallel-processing: true
             ''')
-        when:
-            def processor = new RecipientListStepParser().toProcessor(stepContext)
         then:
             with (processor, RecipientListDefinition) {
                 stopOnException == 'true'
@@ -44,15 +42,13 @@ class RecipientListTest extends TestSupport {
     }
 
     def "definition with expression block"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('recipient-list', '''
                 expression:
                     constant: "direct:a,direct:b"
                 stop-on-exception: true
                 parallel-processing: true
             ''')
-        when:
-            def processor = new RecipientListStepParser().toProcessor(stepContext)
         then:
             with (processor, RecipientListDefinition) {
                 stopOnException == 'true'

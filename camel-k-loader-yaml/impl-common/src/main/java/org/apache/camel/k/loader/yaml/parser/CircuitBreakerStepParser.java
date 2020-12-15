@@ -18,7 +18,6 @@ package org.apache.camel.k.loader.yaml.parser;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.camel.k.annotation.yaml.YAMLNodeDefinition;
 import org.apache.camel.k.annotation.yaml.YAMLStepParser;
@@ -62,7 +61,7 @@ public class CircuitBreakerStepParser implements ProcessorStepParser {
     @YAMLNodeDefinition(reifiers = CircuitBreakerReifier.class)
     public static final class CBDefinition {
         public CircuitBreakerDefinition delegate = new CircuitBreakerDefinition();
-
+        @JsonProperty
         public FBDefinition onFallback;
         @JsonProperty
         public List<Step> steps;
@@ -105,17 +104,6 @@ public class CircuitBreakerStepParser implements ProcessorStepParser {
     public static final class FBDefinition extends OnFallbackDefinition {
         @JsonProperty
         public List<Step> steps;
-
-        @Override
-        public String getFallbackViaNetwork() {
-            return super.getFallbackViaNetwork();
-        }
-
-        @JsonAlias("fallback-via-network")
-        @Override
-        public void setFallbackViaNetwork(String fallbackViaNetwork) {
-            super.setFallbackViaNetwork(fallbackViaNetwork);
-        }
     }
 }
 

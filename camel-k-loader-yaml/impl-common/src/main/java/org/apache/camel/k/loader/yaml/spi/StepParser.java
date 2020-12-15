@@ -17,6 +17,7 @@
 package org.apache.camel.k.loader.yaml.spi;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -118,13 +119,64 @@ public interface StepParser {
             return definition;
         }
 
+        public <T> Optional<T> node(String fieldName, Class<T> type) {
+            ObjectHelper.notNull(node, "node");
+            ObjectHelper.notNull(type, "type");
+
+            JsonNode root = node.get(fieldName);
+            if (root == null) {
+                return Optional.empty();
+            }
+
+            final T definition;
+
+            try {
+
+                definition = mapper.reader().forType(type).readValue(root);
+            } catch (IOException e) {
+                throw new IllegalStateException(e);
+            }
+
+            return Optional.ofNullable(definition);
+        }
+
+        public <T> Optional<T> node(String fieldName, TypeReference<T> type) {
+            ObjectHelper.notNull(node, "node");
+            ObjectHelper.notNull(type, "type");
+
+            JsonNode root = node.get(fieldName);
+            if (root == null) {
+                return Optional.empty();
+            }
+
+            final T definition;
+
+            try {
+
+                definition = mapper.reader().forType(type).readValue(root);
+            } catch (IOException e) {
+                throw new IllegalStateException(e);
+            }
+
+            return Optional.ofNullable(definition);
+        }
+
         public <T extends StepParser> T lookup(Class<T> type, String stepId) {
-            StepParser parser = resolver.resolve(builder.getContext(), stepId);
+            StepParser parser = lookup(stepId);
             if (type.isInstance(parser)) {
                 return type.cast(parser);
             }
 
             throw new RuntimeException("No handler for step with id: " + stepId);
+        }
+
+        public StepParser lookup(String stepId) {
+            StepParser parser = resolver.resolve(builder.getContext(), stepId);
+            if (parser == null) {
+                throw new RuntimeException("No handler for step with id: " + stepId);
+            }
+
+            return parser;
         }
 
         public static Context of(Context context, ProcessorDefinition<?> processor, JsonNode step) {

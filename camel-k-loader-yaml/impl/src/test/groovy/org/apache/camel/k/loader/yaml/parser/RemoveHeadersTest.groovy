@@ -26,17 +26,11 @@ class RemoveHeadersTest extends TestSupport {
             def processor = toProcessor('remove-headers', '''
                  pattern: toRemove
                  exclude-pattern: toExclude
-                 exclude-patterns:
-                   - toExclude1
-                   - toExclude2
             ''')
         then:
             with(processor, RemoveHeadersDefinition) {
                 pattern == 'toRemove'
                 excludePattern == 'toExclude'
-
-                excludePatterns.contains('toExclude1')
-                excludePatterns.contains('toExclude2')
             }
     }
 

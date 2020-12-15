@@ -19,6 +19,7 @@ package org.apache.camel.k.loader.yaml.parser;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.apache.camel.k.annotation.yaml.YAMLElement;
 import org.apache.camel.k.annotation.yaml.YAMLNodeDefinition;
 import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.k.loader.yaml.model.Step;
@@ -63,8 +64,10 @@ public class ChoiceStepParser implements ProcessorStepParser {
 
     @YAMLNodeDefinition
     public static final class Definition {
+        @YAMLElement
         @JsonProperty
         public List<When> when;
+        @YAMLElement
         @JsonProperty
         public Otherwise otherwise;
 

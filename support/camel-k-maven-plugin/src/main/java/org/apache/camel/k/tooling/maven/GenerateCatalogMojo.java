@@ -41,6 +41,7 @@ import org.apache.camel.k.catalog.model.k8s.crd.CamelCatalog;
 import org.apache.camel.k.catalog.model.k8s.crd.CamelCatalogSpec;
 import org.apache.camel.k.catalog.model.k8s.crd.RuntimeSpec;
 import org.apache.camel.k.tooling.maven.support.CatalogProcessor;
+import org.apache.camel.k.tooling.maven.support.GenerateSupport;
 import org.apache.camel.k.tooling.maven.support.MavenSupport;
 import org.apache.camel.quarkus.core.FastCamelContext;
 import org.apache.maven.plugin.AbstractMojo;

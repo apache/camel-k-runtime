@@ -22,10 +22,6 @@ import org.apache.camel.model.ThreadsDefinition
 class ThreadsTest extends TestSupport {
 
     def "definition"() {
-        given:
-            def stepContext = stepContext('''
-                 pool-size: 5
-            ''')
         when:
             def processor = toProcessor('threads', '''
                  pool-size: 5

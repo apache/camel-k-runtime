@@ -22,13 +22,11 @@ import org.apache.camel.model.EnrichDefinition
 class EnrichTest extends TestSupport {
 
     def "definition with expression"() {
-        given:
-            def stepContext = stepContext('''
-                 simple: "${body}"
-                 strategy-ref: "myStrategy"
-            ''')
         when:
-            def processor = new EnrichStepParser().toProcessor(stepContext)
+            def processor = toProcessor('enrich', '''
+                 simple: "${body}"
+                 aggregation-strategy-ref: "myStrategy"
+            ''')
         then:
             with(processor, EnrichDefinition) {
                 with(expression) {
@@ -40,14 +38,13 @@ class EnrichTest extends TestSupport {
     }
 
     def "definition with expression block"() {
-        given:
-            def stepContext = stepContext('''
+
+        when:
+            def processor = toProcessor('enrich', '''
                  expression:
                    simple: "${body}"
-                 strategy-ref: "myStrategy"
+                 aggregation-strategy-ref: "myStrategy"
             ''')
-        when:
-            def processor = new EnrichStepParser().toProcessor(stepContext)
         then:
             with(processor, EnrichDefinition) {
                 with(expression) {

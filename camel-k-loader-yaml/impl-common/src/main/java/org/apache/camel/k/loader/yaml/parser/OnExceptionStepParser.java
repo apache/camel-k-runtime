@@ -26,13 +26,12 @@ import org.apache.camel.k.loader.yaml.model.Step;
 import org.apache.camel.k.loader.yaml.spi.ProcessorStepParser;
 import org.apache.camel.k.loader.yaml.spi.StartStepParser;
 import org.apache.camel.k.loader.yaml.support.StepParserSupport;
-import org.apache.camel.model.ExpressionSubElementDefinition;
+import org.apache.camel.k.loader.yaml.support.element.ExpressionSubElement;
+import org.apache.camel.k.loader.yaml.support.element.MaybeBooleanExpressionElement;
 import org.apache.camel.model.OnExceptionDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.RedeliveryPolicyDefinition;
 import org.apache.camel.model.WhenDefinition;
-import org.apache.camel.model.language.ConstantExpression;
-import org.apache.camel.model.language.ExpressionDefinition;
 import org.apache.camel.reifier.OnExceptionReifier;
 
 import static org.apache.camel.util.ObjectHelper.ifNotEmpty;
@@ -116,7 +115,7 @@ public class OnExceptionStepParser implements StartStepParser, ProcessorStepPars
         @JsonAlias("when")
         public When onWhen;
         @JsonAlias("retry-while")
-        public ExpressionElement retryWhile;
+        public ExpressionSubElement retryWhile;
         @JsonAlias("handled")
         public MaybeBooleanExpressionElement handled;
         @JsonAlias("continued")
@@ -142,38 +141,7 @@ public class OnExceptionStepParser implements StartStepParser, ProcessorStepPars
             public List<Step> steps;
         }
 
-        @YAMLNodeDefinition
-        public static final class ExpressionElement extends ExpressionSubElementDefinition implements HasExpression {
-            @Override
-            public void setExpression(ExpressionDefinition expressionDefinition) {
-                super.setExpressionType(expressionDefinition);
-            }
-
-            @Override
-            public ExpressionDefinition getExpression() {
-                return super.getExpressionType();
-            }
-        }
-
-        @YAMLNodeDefinition
-        public static final class MaybeBooleanExpressionElement extends ExpressionSubElementDefinition implements HasExpression {
-            public MaybeBooleanExpressionElement() {
-            }
-
-            public MaybeBooleanExpressionElement(boolean argument) {
-                setExpression(new ConstantExpression(Boolean.toString(argument)));
-            }
-
-            @Override
-            public void setExpression(ExpressionDefinition expressionDefinition) {
-                super.setExpressionType(expressionDefinition);
-            }
-
-            @Override
-            public ExpressionDefinition getExpression() {
-                return super.getExpressionType();
-            }
-        }
     }
+
 }
 

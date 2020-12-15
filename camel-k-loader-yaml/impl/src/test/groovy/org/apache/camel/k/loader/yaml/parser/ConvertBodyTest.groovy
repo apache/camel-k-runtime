@@ -24,13 +24,11 @@ class ConvertBodyTest extends TestSupport {
         when:
             def processor = toProcessor('convert-body-to','''
                  type: "java.lang.String"
-                 type-class: "java.lang.String"
                  charset: "UTF8"
             ''')
         then:
             with(processor, ConvertBodyDefinition) {
                 type == 'java.lang.String'
-                typeClass == String.class
                 charset == 'UTF8'
             }
     }

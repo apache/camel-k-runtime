@@ -16,39 +16,24 @@
  */
 package org.apache.camel.k.loader.yaml.parser
 
-import org.apache.camel.k.loader.yaml.YamlSourceLoader
 import org.apache.camel.k.loader.yaml.support.TestSupport
-import org.apache.camel.k.loader.yaml.spi.StepParserException
 import org.apache.camel.model.StepDefinition
 
 class StepTest extends TestSupport {
 
     def "definition"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('step','''
                  steps:
                    - log:
                        message: "test"
                    - to:
                        uri: "seda:foo"    
             ''')
-        when:
-            def processor = new StepStepParser().toProcessor(stepContext)
         then:
             with(processor, StepDefinition) {
                 !outputs.empty
             }
-    }
-
-    def "should fail without steps"() {
-        given:
-            def stepContext = stepContext(YamlSourceLoader.MAPPER.createObjectNode());
-        when:
-            new StepStepParser().toProcessor(stepContext)
-        then:
-            def ex = thrown(StepParserException)
-
-            ex.properties.contains('steps')
     }
 
 }

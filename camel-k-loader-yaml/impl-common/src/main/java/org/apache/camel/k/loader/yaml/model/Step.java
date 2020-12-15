@@ -17,9 +17,11 @@
 package org.apache.camel.k.loader.yaml.model;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -27,6 +29,9 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
 @JsonDeserialize(using = Step.Deserializer.class)
 public final class Step {
+    public static final String STEPS_NODE_ID = "steps";
+    public static final TypeReference<List<Step>> STEPS_TYPE = new TypeReference<>() {};
+
     public final String id;
     public final JsonNode node;
 
@@ -37,11 +42,7 @@ public final class Step {
 
     public static class Deserializer extends StdDeserializer<Step> {
         public Deserializer() {
-            this(null);
-        }
-
-        protected Deserializer(Class<?> vc) {
-            super(vc);
+            super(Step.class);
         }
 
         @Override

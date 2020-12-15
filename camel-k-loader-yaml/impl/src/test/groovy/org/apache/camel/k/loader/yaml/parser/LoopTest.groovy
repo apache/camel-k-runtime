@@ -22,13 +22,11 @@ import org.apache.camel.model.LoopDefinition
 class LoopTest extends TestSupport {
 
     def "definition with expression"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('loop', '''
                  constant: "3"
                  do-while: true
             ''')
-        when:
-            def processor = new LoopStepParser().toProcessor(stepContext)
         then:
             with(processor, LoopDefinition) {
                 with(expression) {
@@ -40,14 +38,12 @@ class LoopTest extends TestSupport {
     }
 
     def "definition with expression block"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('loop', '''
                  expression:
                    constant: "3"
                  do-while: true
             ''')
-        when:
-            def processor = new LoopStepParser().toProcessor(stepContext)
         then:
             with(processor, LoopDefinition) {
                 with(expression) {

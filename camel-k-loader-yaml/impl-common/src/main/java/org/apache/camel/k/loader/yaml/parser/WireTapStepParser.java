@@ -19,16 +19,16 @@ package org.apache.camel.k.loader.yaml.parser;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.camel.k.annotation.yaml.YAMLNodeDefinition;
 import org.apache.camel.k.annotation.yaml.YAMLStepParser;
 import org.apache.camel.k.loader.yaml.spi.ProcessorStepParser;
 import org.apache.camel.k.loader.yaml.support.StepParserSupport;
-import org.apache.camel.model.ExpressionSubElementDefinition;
+import org.apache.camel.k.loader.yaml.support.element.ExpressionSubElement;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.SetHeaderDefinition;
 import org.apache.camel.model.ToDynamicDefinition;
 import org.apache.camel.model.WireTapDefinition;
-import org.apache.camel.model.language.ExpressionDefinition;
 import org.apache.camel.reifier.WireTapReifier;
 import org.apache.camel.util.ObjectHelper;
 
@@ -72,18 +72,9 @@ public class WireTapStepParser implements ProcessorStepParser {
     }
 
     @YAMLNodeDefinition
-    public static final class NewExchangeDefinition extends ExpressionSubElementDefinition implements HasExpression {
+    public static final class NewExchangeDefinition extends ExpressionSubElement {
+        @JsonProperty
         public List<HeaderDefinition> headers;
-
-        @Override
-        public void setExpression(ExpressionDefinition expressionDefinition) {
-            super.setExpressionType(expressionDefinition);
-        }
-
-        @Override
-        public ExpressionDefinition getExpression() {
-            return super.getExpressionType();
-        }
     }
 
     @YAMLNodeDefinition

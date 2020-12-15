@@ -23,13 +23,11 @@ import org.apache.camel.model.language.SimpleExpression
 class RoutingSlipTest extends TestSupport {
 
     def "definition with expression"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('routing-slip', '''
                  simple: "${header.MyHeader}"
                  uri-delimiter: "|"
             ''')
-        when:
-            def processor = new RoutingSlipStepParser().toProcessor(stepContext)
         then:
             with(processor, RoutingSlipDefinition) {
                 with(expression, SimpleExpression) {
@@ -41,14 +39,12 @@ class RoutingSlipTest extends TestSupport {
     }
 
     def "definition with expression block"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('routing-slip', '''
                  expression:
                     simple: "${header.MyHeader}"
                  uri-delimiter: "|"
             ''')
-        when:
-            def processor = new RoutingSlipStepParser().toProcessor(stepContext)
         then:
             with(processor, RoutingSlipDefinition) {
                 with(expression, SimpleExpression) {

@@ -22,16 +22,14 @@ import org.apache.camel.model.MulticastDefinition
 class MulticastTest extends TestSupport {
 
     def "definition"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('multicast', '''
                  stop-on-exception: true
                  parallel-processing: true
                  steps:
                    - to: "direct:a"
                    - to: "direct:b"
             ''')
-        when:
-            def processor = new MulticastStepParser().toProcessor(stepContext)
         then:
             with (processor, MulticastDefinition) {
                 stopOnException == 'true'

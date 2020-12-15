@@ -22,12 +22,10 @@ import org.apache.camel.model.DynamicRouterDefinition
 class DynamicRouterTest extends TestSupport {
 
     def "definition with expression"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('dynamic-router', '''
                  simple: "${body}"
             ''')
-        when:
-            def processor = new DynamicRouterStepParser().toProcessor(stepContext)
         then:
             def p = processor as DynamicRouterDefinition
 
@@ -36,13 +34,11 @@ class DynamicRouterTest extends TestSupport {
     }
 
     def "definition with expression block"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('dynamic-router', '''
                  expression:
                    simple: "${body}"
             ''')
-        when:
-            def processor = new DynamicRouterStepParser().toProcessor(stepContext)
         then:
             with(processor, DynamicRouterDefinition) {
                 expression.language == 'simple'

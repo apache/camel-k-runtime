@@ -22,6 +22,7 @@ import org.apache.camel.model.loadbalancer.CustomLoadBalancerDefinition
 import org.apache.camel.model.loadbalancer.FailoverLoadBalancerDefinition
 import org.apache.camel.model.loadbalancer.RandomLoadBalancerDefinition
 import org.apache.camel.model.loadbalancer.RoundRobinLoadBalancerDefinition
+import org.apache.camel.model.loadbalancer.StickyLoadBalancerDefinition
 import org.apache.camel.model.loadbalancer.TopicLoadBalancerDefinition
 import org.apache.camel.model.loadbalancer.WeightedLoadBalancerDefinition
 
@@ -29,7 +30,7 @@ class LoadBalanceTest extends TestSupport {
 
     def "random load balancer"() {
         when:
-            def processor = toProcessor(LoadBalanceStepParser,'''
+            def processor = toProcessor('load-balance', '''
                  random: {}
             ''')
         then:
@@ -40,7 +41,7 @@ class LoadBalanceTest extends TestSupport {
 
     def "custom load balancer"() {
         when:
-            def processor = toProcessor(LoadBalanceStepParser,'''
+            def processor = toProcessor('load-balance', '''
                  custom-load-balancer: 
                    ref: my-lb
             ''')
@@ -54,8 +55,8 @@ class LoadBalanceTest extends TestSupport {
 
     def "custom load balancer (alias)"() {
         when:
-            def processor = toProcessor(LoadBalanceStepParser,'''
-                 custom: 
+            def processor = toProcessor('load-balance', '''
+                 custom-load-balancer: 
                    ref: my-lb
             ''')
         then:
@@ -68,7 +69,7 @@ class LoadBalanceTest extends TestSupport {
 
     def "failover load balancer"() {
         when:
-            def processor = toProcessor(LoadBalanceStepParser,'''
+            def processor = toProcessor('load-balance', '''
                  failover: 
                    exceptions: 
                      - java.lang.Exception
@@ -83,13 +84,14 @@ class LoadBalanceTest extends TestSupport {
 
     def "sticky load balancer"() {
         when:
-            def processor = toProcessor(LoadBalanceStepParser, '''
-                 sticky: 
-                   simple: '${header.id}'
+            def processor = toProcessor('load-balance',  '''
+                 sticky:
+                   correlation-expression: 
+                     simple: '${header.id}'
             ''')
         then:
             with(processor, LoadBalanceDefinition) {
-                with(loadBalancerType, LoadBalanceStepParser.Definition.Sticky) {
+                with(loadBalancerType, StickyLoadBalancerDefinition) {
                     correlationExpression.expressionType.expression == '${header.id}'
                 }
             }
@@ -97,14 +99,14 @@ class LoadBalanceTest extends TestSupport {
 
     def "sticky load balancer (expression)"() {
         when:
-            def processor = toProcessor(LoadBalanceStepParser, '''
+            def processor = toProcessor('load-balance',  '''
                  sticky: 
-                   expression:
+                   correlation-expression:
                      simple: '${header.id}'
             ''')
         then:
             with(processor, LoadBalanceDefinition) {
-                with(loadBalancerType, LoadBalanceStepParser.Definition.Sticky) {
+                with(loadBalancerType, StickyLoadBalancerDefinition) {
                     correlationExpression.expressionType.expression == '${header.id}'
                 }
             }
@@ -112,7 +114,7 @@ class LoadBalanceTest extends TestSupport {
 
     def "topic load balancer"() {
         when:
-            def processor = toProcessor(LoadBalanceStepParser, '''
+            def processor = toProcessor('load-balance',  '''
                  topic: {}
             ''')
         then:
@@ -123,7 +125,7 @@ class LoadBalanceTest extends TestSupport {
 
     def "weighted load balancer"() {
         when:
-            def processor = toProcessor(LoadBalanceStepParser, '''
+            def processor = toProcessor('load-balance',  '''
                  weighted:
                    distribution-ratio: "1;2;3"
                    distribution-ratio-delimiter: ";"
@@ -139,7 +141,7 @@ class LoadBalanceTest extends TestSupport {
 
     def "round-robin load balancer"() {
         when:
-            def processor = toProcessor(LoadBalanceStepParser, '''
+            def processor = toProcessor('load-balance',  '''
                  roundRobin: {}
             ''')
         then:
@@ -150,7 +152,7 @@ class LoadBalanceTest extends TestSupport {
 
     def "round-robin load balancer (alias)"() {
         when:
-            def processor = toProcessor(LoadBalanceStepParser, '''
+            def processor = toProcessor('load-balance',  '''
                  round-robin: {}
             ''')
         then:
@@ -161,7 +163,7 @@ class LoadBalanceTest extends TestSupport {
 
     def "load balancer (type)"() {
         when:
-            def processor = toProcessor(LoadBalanceStepParser,'''
+            def processor = toProcessor('load-balance', '''
                  load-balancer-type:
                    random: {}
             ''')
@@ -170,17 +172,4 @@ class LoadBalanceTest extends TestSupport {
                 loadBalancerType instanceof RandomLoadBalancerDefinition
             }
     }
-
-    def "load balancer (type alias)"() {
-        when:
-            def processor = toProcessor(LoadBalanceStepParser,'''
-                 type:
-                   random: {}
-            ''')
-        then:
-            with(processor, LoadBalanceDefinition) {
-                loadBalancerType instanceof RandomLoadBalancerDefinition
-            }
-    }
-
 }

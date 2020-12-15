@@ -23,7 +23,7 @@ class SagaTest extends TestSupport {
 
     def "definition"() {
         when:
-            def processor = toProcessor(SagaStepParser, '''
+            def processor = toProcessor('saga', '''
                  propagation: "MANDATORY"
                  completion-mode: "MANUAL"
                  compensation: 
@@ -45,7 +45,7 @@ class SagaTest extends TestSupport {
 
     def "definition short"() {
         when:
-            def processor = toProcessor(SagaStepParser, '''
+            def processor = toProcessor('saga', '''
                  propagation: "MANDATORY"
                  completion-mode: "MANUAL"
                  compensation: "direct:compensation"

@@ -16,37 +16,22 @@
  */
 package org.apache.camel.k.loader.yaml.parser
 
-import org.apache.camel.k.loader.yaml.YamlSourceLoader
+
 import org.apache.camel.k.loader.yaml.support.TestSupport
-import org.apache.camel.k.loader.yaml.spi.StepParserException
 import org.apache.camel.model.PipelineDefinition
 
 class PipelineTest extends TestSupport {
 
     def "definition"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('pipeline', '''
                  steps:
                    - log:
                        message: "test"
             ''')
-        when:
-            def processor = new PipelineStepParser().toProcessor(stepContext)
         then:
             with(processor, PipelineDefinition) {
                 !outputs.empty
             }
     }
-
-    def "should fail without steps"() {
-        given:
-            def stepContext = stepContext(YamlSourceLoader.MAPPER.createObjectNode());
-        when:
-            new PipelineStepParser().toProcessor(stepContext)
-        then:
-            def ex = thrown(StepParserException)
-
-            ex.properties.contains('steps')
-    }
-
 }

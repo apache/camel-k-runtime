@@ -23,32 +23,34 @@ import org.apache.camel.model.language.ConstantExpression
 class ThrottleTest extends TestSupport {
 
     def "definition with expression"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('throttle', '''
                  constant: "5s"
                  executor-service-ref: "myExecutor"
+                 correlation-expression:
+                    constant: "test"
             ''')
-        when:
-            def processor = new ThrottleStepParser().toProcessor(stepContext)
         then:
             with (processor, ThrottleDefinition) {
                 with (expression, ConstantExpression) {
                     language == 'constant'
                     expression == '5s'
                 }
+                with (correlationExpression.expressionType, ConstantExpression) {
+                    language == 'constant'
+                    expression == 'test'
+                }
                 executorServiceRef == 'myExecutor'
             }
     }
 
     def "definition with expression block"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('throttle', '''
                  expression:
                      constant: "5s"
                  executor-service-ref: "myExecutor"
             ''')
-        when:
-            def processor = new ThrottleStepParser().toProcessor(stepContext)
         then:
             with (processor, ThrottleDefinition) {
                 with (expression, ConstantExpression) {

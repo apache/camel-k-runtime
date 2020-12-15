@@ -22,13 +22,11 @@ import org.apache.camel.model.SetHeaderDefinition
 class SetHeaderTest extends TestSupport {
 
     def "definition with expression"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('set-header', '''
                  name: test
                  simple: "${body}"
             ''')
-        when:
-            def processor = new SetHeaderStepParser().toProcessor(stepContext)
         then:
             with(processor, SetHeaderDefinition) {
                 name == 'test'
@@ -38,14 +36,12 @@ class SetHeaderTest extends TestSupport {
     }
 
     def "definition with expression block"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('set-header', '''
                  name: test
                  expression:
                    simple: "${body}"
             ''')
-        when:
-            def processor = new SetHeaderStepParser().toProcessor(stepContext)
         then:
             with(processor, SetHeaderDefinition) {
                 name == 'test'

@@ -22,12 +22,10 @@ import org.apache.camel.model.SamplingDefinition
 class SampleTest extends TestSupport {
 
     def "definition"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('sample', '''
                  message-frequency: "5"
             ''')
-        when:
-            def processor = new SampleStepParser().toProcessor(stepContext)
         then:
             with (processor, SamplingDefinition) {
                 messageFrequency == "5"

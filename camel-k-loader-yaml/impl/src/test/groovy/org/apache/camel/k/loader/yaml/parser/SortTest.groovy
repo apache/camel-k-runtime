@@ -22,12 +22,10 @@ import org.apache.camel.model.SortDefinition
 class SortTest extends TestSupport {
 
     def "definition"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('sort','''
                  comparator-ref: "myComparator"
             ''')
-        when:
-            def processor = new SortStepParser().toProcessor(stepContext)
         then:
             with (processor, SortDefinition) {
                 comparatorRef == 'myComparator'

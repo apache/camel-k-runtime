@@ -22,29 +22,15 @@ import org.apache.camel.model.RemovePropertiesDefinition
 class RemovePropertiesTest extends TestSupport {
 
     def "definition"() {
-        given:
-            def stepContext = stepContext('''
-                 pattern: toRemove
-                 exclude-pattern: toExclude
-                 exclude-patterns:
-                   - toExclude1
-                   - toExclude2
-            ''')
         when:
             def processor = toProcessor('remove-properties', '''
                  pattern: toRemove
                  exclude-pattern: toExclude
-                 exclude-patterns:
-                   - toExclude1
-                   - toExclude2
             ''')
         then:
             with(processor, RemovePropertiesDefinition) {
                 pattern == 'toRemove'
                 excludePattern == 'toExclude'
-
-                excludePatterns.contains('toExclude1')
-                excludePatterns.contains('toExclude2')
             }
     }
 

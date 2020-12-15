@@ -22,13 +22,11 @@ import org.apache.camel.model.PollEnrichDefinition
 class PollEnrichTest extends TestSupport {
 
     def "definition with expression"() {
-        given:
-            def stepContext = stepContext('''
-                 simple: "${body}"
-                 strategy-ref: "myStrategy"
-            ''')
         when:
-            def processor = new PollEnrichStepParser().toProcessor(stepContext)
+            def processor = toProcessor('poll-enrich', '''
+                 simple: "${body}"
+                 aggregation-strategy-ref: "myStrategy"
+            ''');
         then:
             with(processor, PollEnrichDefinition) {
                 with(expression) {
@@ -40,14 +38,12 @@ class PollEnrichTest extends TestSupport {
     }
 
     def "definition with expression block"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('poll-enrich', '''
                  expression:
                    simple: "${body}"
-                 strategy-ref: "myStrategy"
-            ''')
-        when:
-            def processor = new PollEnrichStepParser().toProcessor(stepContext)
+                 aggregation-strategy-ref: "myStrategy"
+            ''');
         then:
             with(processor, PollEnrichDefinition) {
                 with(expression) {

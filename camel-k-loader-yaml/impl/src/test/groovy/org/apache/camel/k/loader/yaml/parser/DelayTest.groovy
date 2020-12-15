@@ -22,13 +22,11 @@ import org.apache.camel.model.DelayDefinition
 class DelayTest extends TestSupport {
 
     def "definition with expression"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('delay', '''
                  simple: "${body}"
                  async-delayed: true
             ''')
-        when:
-            def processor = new DelayStepParser().toProcessor(stepContext)
         then:
             with(processor, DelayDefinition) {
                 asyncDelayed == 'true'
@@ -39,14 +37,12 @@ class DelayTest extends TestSupport {
     }
 
     def "definition with expression block"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('delay', '''
                  async-delayed: true
                  expression:
                    simple: "${body}"
             ''')
-        when:
-            def processor = new DelayStepParser().toProcessor(stepContext)
         then:
             with(processor, DelayDefinition) {
                 asyncDelayed == 'true'

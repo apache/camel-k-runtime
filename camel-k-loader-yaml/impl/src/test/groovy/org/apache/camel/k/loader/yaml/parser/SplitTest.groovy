@@ -22,27 +22,23 @@ import org.apache.camel.model.SplitDefinition
 class SplitTest extends TestSupport {
 
     def "definition with expression"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('split','''
                  simple: "${body}"
             ''')
-        when:
-            def processor = new SplitStepParser().toProcessor(stepContext)
         then:
-            def p = processor as SplitDefinition
-
-            p.expression.language == 'simple'
-            p.expression.expression == '${body}'
+            with(processor, SplitDefinition) {
+                expression.language == 'simple'
+                expression.expression == '${body}'
+            }
     }
 
     def "definition with expression block"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('split','''
                  expression:
                    simple: "${body}"
             ''')
-        when:
-            def processor = new SplitStepParser().toProcessor(stepContext)
         then:
             with(processor, SplitDefinition) {
                 expression.language == 'simple'
