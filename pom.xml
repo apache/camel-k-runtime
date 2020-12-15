@@ -41,7 +41,7 @@
         <camel-version>3.7.0</camel-version>
 
         <!-- quarkus -->
-        <camel-quarkus-version>1.5.0-SNAPSHOT</camel-quarkus-version>
+        <camel-quarkus-version>1.5.0</camel-quarkus-version>
         <graalvm-version>20.2.0</graalvm-version>
         <quarkus-version>1.10.3.Final</quarkus-version>
 
@@ -340,8 +340,17 @@
                 <enabled>false</enabled>
             </snapshots>
             <url>https://repository.apache.org/content/repositories/orgapachecamel-1263</url>
-            <layout>default</layout>
         </repository>
+        <repository>
+            <id>camel-quarkus-1.5.0</id>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <url>https://repository.apache.org/content/repositories/orgapachecamel-1266</url>
+        </repository>        
         <repository>
             <id>apache.snapshots</id>
             <url>https://repository.apache.org/snapshots/</url>
@@ -365,8 +374,17 @@
                 <enabled>false</enabled>
             </snapshots>
             <url>https://repository.apache.org/content/repositories/orgapachecamel-1263</url>
-            <layout>default</layout>
         </pluginRepository>
+        <pluginRepository>
+            <id>camel-quarkus-1.5.0</id>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <url>https://repository.apache.org/content/repositories/orgapachecamel-1266</url>
+        </pluginRepository>        
         <pluginRepository>
             <id>apache.snapshots</id>
             <url>https://repository.apache.org/snapshots/</url>
