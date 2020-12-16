@@ -24,6 +24,8 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump gmavenplus-plugin from 1.11.1 to 1.12.0 [\#572](https://github.com/apache/camel-k-runtime/pull/572) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Cleanup [\#571](https://github.com/apache/camel-k-runtime/pull/571) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps\): bump kotlin-version from 1.4.20 to 1.4.21 [\#570](https://github.com/apache/camel-k-runtime/pull/570) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump groovy-version from 3.0.6 to 3.0.7 [\#569](https://github.com/apache/camel-k-runtime/pull/569) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Fix \#536: enable knative:event endpoints without path [\#568](https://github.com/apache/camel-k-runtime/pull/568) ([nicolaferraro](https://github.com/nicolaferraro))
