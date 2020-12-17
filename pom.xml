@@ -332,16 +332,6 @@
 
     <repositories>
         <repository>
-            <id>camel-3.7.0</id>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <url>https://repository.apache.org/content/repositories/orgapachecamel-1263</url>
-        </repository>
-        <repository>
             <id>camel-quarkus-1.5.0</id>
             <releases>
                 <enabled>true</enabled>
@@ -350,7 +340,7 @@
                 <enabled>false</enabled>
             </snapshots>
             <url>https://repository.apache.org/content/repositories/orgapachecamel-1266</url>
-        </repository>        
+        </repository>
         <repository>
             <id>apache.snapshots</id>
             <url>https://repository.apache.org/snapshots/</url>
@@ -366,16 +356,6 @@
 
     <pluginRepositories>
         <pluginRepository>
-            <id>camel-3.7.0</id>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <url>https://repository.apache.org/content/repositories/orgapachecamel-1263</url>
-        </pluginRepository>
-        <pluginRepository>
             <id>camel-quarkus-1.5.0</id>
             <releases>
                 <enabled>true</enabled>
@@ -384,7 +364,7 @@
                 <enabled>false</enabled>
             </snapshots>
             <url>https://repository.apache.org/content/repositories/orgapachecamel-1266</url>
-        </pluginRepository>        
+        </pluginRepository>
         <pluginRepository>
             <id>apache.snapshots</id>
             <url>https://repository.apache.org/snapshots/</url>
