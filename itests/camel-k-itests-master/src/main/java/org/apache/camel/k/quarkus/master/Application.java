@@ -27,6 +27,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.kubernetes.cluster.KubernetesClusterService;
+import org.apache.camel.support.cluster.RebalancingCamelClusterService;
 
 @Path("/test")
 @ApplicationScoped
@@ -38,11 +39,12 @@ public class Application {
     @Path("/inspect")
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject inspect() {
-        var service = context.hasService(KubernetesClusterService.class);
+        var rebalancingService = context.hasService(RebalancingCamelClusterService.class);
+        var service = (KubernetesClusterService) rebalancingService.getDelegate();
 
         return Json.createObjectBuilder()
-            .add("cluster-service", service != null ? service.getClass().getName() : "")
-            .add("cluster-service-cm", service != null ? service.getConfigMapName() : "")
+            .add("cluster-service", service != null ? rebalancingService.getClass().getName() : "")
+            .add("cluster-service-res", service != null ? service.getKubernetesResourceName() : "")
             .build();
     }
 }

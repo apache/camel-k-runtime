@@ -18,7 +18,7 @@ package org.apache.camel.k.quarkus.master;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.path.json.JsonPath;
-import org.apache.camel.component.kubernetes.cluster.KubernetesClusterService;
+import org.apache.camel.support.cluster.RebalancingCamelClusterService;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.when;
@@ -34,7 +34,7 @@ public class MasterTest {
             .statusCode(200)
             .extract().jsonPath();
 
-        assertThat(path.getString("cluster-service")).isEqualTo(KubernetesClusterService.class.getName());
-        assertThat(path.getString("cluster-service-cm")).isEqualTo("camel-k-cm");
+        assertThat(path.getString("cluster-service")).isEqualTo(RebalancingCamelClusterService.class.getName());
+        assertThat(path.getString("cluster-service-res")).isEqualTo("camel-k-res");
     }
 }
