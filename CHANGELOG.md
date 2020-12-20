@@ -408,7 +408,6 @@
 - Remove deprecated properties and processors in camel-knative [\#235](https://github.com/apache/camel-k-runtime/pull/235) ([lburgazzoli](https://github.com/lburgazzoli))
 - Remove the need of jaxb in camel-k-runtime-core [\#234](https://github.com/apache/camel-k-runtime/pull/234) ([lburgazzoli](https://github.com/lburgazzoli))
 - Update camel-quarkus to v1.0.0-M3 [\#233](https://github.com/apache/camel-k-runtime/pull/233) ([lburgazzoli](https://github.com/lburgazzoli))
-- remove support for multiple camel versions [\#231](https://github.com/apache/camel-k-runtime/pull/231) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade AssertJ to version 3.15.0 [\#230](https://github.com/apache/camel-k-runtime/pull/230) ([oscerd](https://github.com/oscerd))
 - Upgrade Vertx to version 3.8.5 [\#228](https://github.com/apache/camel-k-runtime/pull/228) ([oscerd](https://github.com/oscerd))
 - Update junit5 to v5.6.0 [\#225](https://github.com/apache/camel-k-runtime/pull/225) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -438,6 +437,7 @@
 
 **Merged pull requests:**
 
+- remove support for multiple camel versions [\#231](https://github.com/apache/camel-k-runtime/pull/231) ([lburgazzoli](https://github.com/lburgazzoli))
 - Dependencies updates and test improvements [\#216](https://github.com/apache/camel-k-runtime/pull/216) ([lburgazzoli](https://github.com/lburgazzoli))
 - \[quarkus\] create loaders for java, groovy and kotlin in JVM mode [\#214](https://github.com/apache/camel-k-runtime/pull/214) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(plugin\): switch from v1alpha1 to v1 [\#213](https://github.com/apache/camel-k-runtime/pull/213) ([nicolaferraro](https://github.com/nicolaferraro))
@@ -655,11 +655,13 @@
 
 - Added a servletregistration customizer and improved examples. [\#71](https://github.com/apache/camel-k-runtime/pull/71) ([valdar](https://github.com/valdar))
 - servlet: update catalog and bom [\#70](https://github.com/apache/camel-k-runtime/pull/70) ([lburgazzoli](https://github.com/lburgazzoli))
+- add servlet support [\#68](https://github.com/apache/camel-k-runtime/pull/68) ([lburgazzoli](https://github.com/lburgazzoli))
 - Refactor customizer activation [\#67](https://github.com/apache/camel-k-runtime/pull/67) ([lburgazzoli](https://github.com/lburgazzoli))
 - rest: support configuring rest's configuration component/endpoint properties [\#66](https://github.com/apache/camel-k-runtime/pull/66) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(cleanup\): remove platform stream handler [\#64](https://github.com/apache/camel-k-runtime/pull/64) ([lburgazzoli](https://github.com/lburgazzoli))
 - Update dependencies [\#63](https://github.com/apache/camel-k-runtime/pull/63) ([lburgazzoli](https://github.com/lburgazzoli))
 - remove spring boot support [\#62](https://github.com/apache/camel-k-runtime/pull/62) ([lburgazzoli](https://github.com/lburgazzoli))
+- update to Camel 2.24.0 [\#61](https://github.com/apache/camel-k-runtime/pull/61) ([lburgazzoli](https://github.com/lburgazzoli))
 - knative: fix wrong content type [\#54](https://github.com/apache/camel-k-runtime/pull/54) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-0.3.2](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-0.3.2) (2019-04-26)
@@ -675,7 +677,6 @@
 
 **Merged pull requests:**
 
-- update to Camel 2.24.0 [\#61](https://github.com/apache/camel-k-runtime/pull/61) ([lburgazzoli](https://github.com/lburgazzoli))
 - Rollback to 0.3.2-SNAPSHOT and re-enable missing module [\#53](https://github.com/apache/camel-k-runtime/pull/53) ([nicolaferraro](https://github.com/nicolaferraro))
 - Align the snapshot version for camel-k-adapter-camel-3 module [\#52](https://github.com/apache/camel-k-runtime/pull/52) ([oscerd](https://github.com/oscerd))
 - Fix \#48: add a default type to cloudevents [\#50](https://github.com/apache/camel-k-runtime/pull/50) ([nicolaferraro](https://github.com/nicolaferraro))
