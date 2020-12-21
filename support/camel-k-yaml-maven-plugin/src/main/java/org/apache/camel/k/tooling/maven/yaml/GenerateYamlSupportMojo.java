@@ -96,6 +96,8 @@ public abstract class GenerateYamlSupportMojo extends AbstractMojo {
         DotName.createSimple("org.apache.camel.model.MarshalDefinition");
     public static final DotName UNMARSHAL_DEFINITION_CLASS =
         DotName.createSimple("org.apache.camel.model.UnmarshalDefinition");
+    public static final DotName PROCESSOR_DEFINITION_CLASS =
+        DotName.createSimple("org.apache.camel.model.ProcessorDefinition");
 
     public static final DotName EXPRESSION_NODE_CLASS =
         DotName.createSimple("org.apache.camel.model.ExpressionNode");
@@ -183,10 +185,16 @@ public abstract class GenerateYamlSupportMojo extends AbstractMojo {
     }
 
     protected static boolean hasAnnotation(FieldInfo target, DotName annotationName) {
+        if (target == null) {
+            return false;
+        }
         return target.annotation(annotationName) != null;
     }
 
     protected static boolean hasAnnotationValue(ClassInfo target, DotName annotationName, String name) {
+        if (target == null) {
+            return false;
+        }
         return annotationValue(
             target.classAnnotation(annotationName),
             name
@@ -199,6 +207,9 @@ public abstract class GenerateYamlSupportMojo extends AbstractMojo {
     }
 
     protected static Optional<AnnotationValue> annotationValue(ClassInfo target, DotName annotationName, String name) {
+        if (target == null) {
+            return Optional.empty();
+        }
         return annotationValue(
             target.classAnnotation(annotationName),
             name
@@ -206,6 +217,9 @@ public abstract class GenerateYamlSupportMojo extends AbstractMojo {
     }
 
     protected static Optional<AnnotationValue> annotationValue(FieldInfo target, DotName annotationName, String name) {
+        if (target == null) {
+            return Optional.empty();
+        }
         return annotationValue(
             target.annotation(annotationName),
             name
@@ -213,6 +227,9 @@ public abstract class GenerateYamlSupportMojo extends AbstractMojo {
     }
 
     protected static Optional<AnnotationValue> annotationValue(MethodInfo target, DotName annotationName, String name) {
+        if (target == null) {
+            return Optional.empty();
+        }
         return annotationValue(
             target.annotation(annotationName),
             name
@@ -435,5 +452,17 @@ public abstract class GenerateYamlSupportMojo extends AbstractMojo {
         }
 
         return fields;
+    }
+
+
+    @SafeVarargs
+    protected final <T> Optional<T> firstPresent(Optional<T>... optionals) {
+        for (Optional<T> optional: optionals) {
+            if (optional.isPresent()) {
+                return optional;
+            }
+        }
+
+        return Optional.empty();
     }
 }

@@ -32,6 +32,9 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.node.JsonNodeType;
+import org.apache.camel.CamelContext;
+import org.apache.camel.model.OutputNode;
+import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.util.StringHelper;
 
 public abstract class DeserializerSupport<T> extends StdDeserializer<T> {
@@ -50,6 +53,11 @@ public abstract class DeserializerSupport<T> extends StdDeserializer<T> {
             } else {
                 target = handledTypeInstance();
                 setProperties(parser, target, node);
+
+                if (target instanceof OutputNode) {
+                    ProcessorDefinition<?> def = (ProcessorDefinition<?>)target;
+                    CamelContext ctx = (CamelContext)context.getAttribute(CamelContext.class);
+                }
             }
         } catch (Exception e) {
             throw new DeserializerException(e);

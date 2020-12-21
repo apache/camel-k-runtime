@@ -520,10 +520,101 @@ public class GenerateYamlParserSupportClassesMojo extends GenerateYamlSupportMoj
             return;
         }
 
+        //
+        // Skip XmlElementRef when it is related to ExpressionDefinition as such case
+        // is handled at upper level
+        //
+        if (hasAnnotation(field, XML_ELEMENT_REF_ANNOTATION_CLASS) && field.type().name().equals(EXPRESSION_DEFINITION_CLASS)) {
+            return;
+        }
+
+        //
+        // Skip elements with unsupported annotations.
+        //
         if (!hasAnnotation(field, XML_ATTRIBUTE_ANNOTATION_CLASS) &&
             !hasAnnotation(field, XML_VALUE_ANNOTATION_CLASS) &&
-            !hasAnnotation(field, XML_ELEMENT_ANNOTATION_CLASS)) {
+            !hasAnnotation(field, XML_ELEMENT_ANNOTATION_CLASS) &&
+            !hasAnnotation(field, XML_ELEMENT_REF_ANNOTATION_CLASS)) {
             return;
+        }
+
+        //
+        // Parametrized
+        //
+        if (field.type().kind() == Type.Kind.PARAMETERIZED_TYPE) {
+            ParameterizedType parameterized = field.type().asParameterizedType();
+
+            if (!parameterized.name().equals(CLASS_CLASS) && parameterized.arguments().size() == 1) {
+                final Type parametrizedType = parameterized.arguments().get(0);
+                if (parametrizedType.name().equals(PROCESSOR_DEFINITION_CLASS)) {
+                    return;
+                }
+
+                switch (parameterized.name().toString()) {
+                    case "java.util.List":
+                        if (parametrizedType.name().equals(STRING_CLASS)) {
+                            cb.beginControlFlow("case $S:", StringHelper.camelCaseToDash(field.name()).toLowerCase(Locale.US));
+                            cb.addStatement("target.set$L(asStringList(node.asText()))", StringHelper.capitalize(field.name()));
+                            cb.addStatement("break");
+                            cb.endControlFlow();
+                        } else {
+                            ClassInfo ci = view.get().getClassByName(parametrizedType.name());
+
+                            String name = firstPresent(
+                                annotationValue(field, XML_VALUE_ANNOTATION_CLASS, "name")
+                                    .map(AnnotationValue::asString)
+                                    .filter(value -> !"##default".equals(value)),
+                                annotationValue(field, XML_ATTRIBUTE_ANNOTATION_CLASS, "name")
+                                    .map(AnnotationValue::asString)
+                                    .filter(value -> !"##default".equals(value)),
+                                annotationValue(field, XML_ELEMENT_ANNOTATION_CLASS, "name")
+                                    .map(AnnotationValue::asString)
+                                    .filter(value -> !"##default".equals(value)),
+                                annotationValue(ci, XML_ROOT_ELEMENT_ANNOTATION_CLASS, "name")
+                                    .map(AnnotationValue::asString)
+                                    .filter(value -> !"##default".equals(value))
+                            ).orElseGet(field::name);
+
+                            cb.beginControlFlow("case $S:", StringHelper.camelCaseToDash(name).toLowerCase(Locale.US));
+                            cb.addStatement("target.set$L(asList(parser, node, $L.class))", StringHelper.capitalize(field.name()), parametrizedType.name().toString());
+                            cb.addStatement("break");
+                            cb.endControlFlow();
+                        }
+                        return;
+                    case "java.util.Set":
+                        if (parametrizedType.name().equals(STRING_CLASS)) {
+                            cb.beginControlFlow("case $S:", StringHelper.camelCaseToDash(field.name()).toLowerCase(Locale.US));
+                            cb.addStatement("target.set$L(asStringSet(node.asText()))", StringHelper.capitalize(field.name()));
+                            cb.addStatement("break");
+                            cb.endControlFlow();
+                        } else {
+                            ClassInfo ci = view.get().getClassByName(parametrizedType.name());
+
+                            String name = firstPresent(
+                                annotationValue(field, XML_VALUE_ANNOTATION_CLASS, "name")
+                                    .map(AnnotationValue::asString)
+                                    .filter(value -> !"##default".equals(value)),
+                                annotationValue(field, XML_ATTRIBUTE_ANNOTATION_CLASS, "name")
+                                    .map(AnnotationValue::asString)
+                                    .filter(value -> !"##default".equals(value)),
+                                annotationValue(field, XML_ELEMENT_ANNOTATION_CLASS, "name")
+                                    .map(AnnotationValue::asString)
+                                    .filter(value -> !"##default".equals(value)),
+                                annotationValue(ci, XML_ROOT_ELEMENT_ANNOTATION_CLASS, "name")
+                                    .map(AnnotationValue::asString)
+                                    .filter(value -> !"##default".equals(value))
+                            ).orElseGet(field::name);
+
+                            cb.beginControlFlow("case $S:", StringHelper.camelCaseToDash(name).toLowerCase(Locale.US));
+                            cb.addStatement("target.set$L(asSet(parser, node, $L.class))", StringHelper.capitalize(field.name()), parametrizedType.name().toString());
+                            cb.addStatement("break");
+                            cb.endControlFlow();
+                        }
+                        return;
+                    default:
+                        throw new UnsupportedOperationException("Unable to handle field: " + field.name() + " with type: " + field.type().name());
+                }
+            }
         }
 
         //
@@ -531,38 +622,6 @@ public class GenerateYamlParserSupportClassesMojo extends GenerateYamlSupportMoj
         //
         cb.beginControlFlow("case $S:", StringHelper.camelCaseToDash(field.name()).toLowerCase(Locale.US));
 
-        if (field.type().kind() == Type.Kind.PARAMETERIZED_TYPE) {
-            ParameterizedType parameterized = field.type().asParameterizedType();
-
-            if (!parameterized.name().equals(CLASS_CLASS) && parameterized.arguments().size() == 1) {
-                final Type parametrizedType = parameterized.arguments().get(0);
-
-                switch (parameterized.name().toString()) {
-                    case "java.util.List":
-                        if (parametrizedType.name().equals(STRING_CLASS)) {
-                            cb.addStatement("target.set$L(asStringList(node.asText()))", StringHelper.capitalize(field.name()));
-                            cb.addStatement("break");
-                        } else {
-                            cb.addStatement("target.set$L(asList(parser, node, $L.class))", StringHelper.capitalize(field.name()), parametrizedType.name().toString());
-                            cb.addStatement("break");
-                        }
-                        cb.endControlFlow();
-                        return;
-                    case "java.util.Set":
-                        if (parametrizedType.name().equals(STRING_CLASS)) {
-                            cb.addStatement("target.set$L(asStringSet(node.asText()))", StringHelper.capitalize(field.name()));
-                            cb.addStatement("break");
-                        } else {
-                            cb.addStatement("target.set$L(asSet(parser, node, $L.class))", StringHelper.capitalize(field.name()), parametrizedType.name().toString());
-                            cb.addStatement("break");
-                        }
-                        cb.endControlFlow();
-                        return;
-                    default:
-                        throw new UnsupportedOperationException("Unable to handle field: " + field.name() + " with type: " + field.type().name());
-                }
-            }
-        }
 
         ClassInfo c = view.get().getClassByName(field.type().name());
         if (c != null && c.isEnum()) {

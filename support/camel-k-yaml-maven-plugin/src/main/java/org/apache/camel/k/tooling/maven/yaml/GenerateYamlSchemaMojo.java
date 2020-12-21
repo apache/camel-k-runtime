@@ -24,7 +24,6 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -521,18 +520,5 @@ public class GenerateYamlSchemaMojo extends GenerateYamlSupportMojo {
                     }
                 }
         }
-    }
-
-
-    @SafeVarargs
-    protected final <T> Optional<T> firstPresent(Optional<T>... optionals) {
-        for (Optional<T> optional: optionals) {
-            if (optional.isPresent()) {
-                return optional;
-            }
-        }
-
-        return Optional.empty();
-
     }
 }

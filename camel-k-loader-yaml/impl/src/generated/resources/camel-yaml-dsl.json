@@ -3,62 +3,6 @@
   "type" : "array",
   "items" : {
     "definitions" : {
-      "org.apache.camel.model.OutputDefinition" : {
-        "type" : "object",
-        "properties" : {
-          "steps" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/items/definitions/step"
-            }
-          },
-          "inherit-error-handler" : {
-            "type" : "boolean"
-          }
-        }
-      },
-      "org.apache.camel.model.OtherwiseDefinition" : {
-        "type" : "object",
-        "properties" : {
-          "steps" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/items/definitions/step"
-            }
-          },
-          "inherit-error-handler" : {
-            "type" : "boolean"
-          }
-        }
-      },
-      "org.apache.camel.k.loader.yaml.parser.ChoiceStepParser$Definition$Otherwise" : {
-        "type" : "object",
-        "properties" : {
-          "steps" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/items/definitions/step"
-            }
-          },
-          "inherit-error-handler" : {
-            "type" : "boolean"
-          }
-        }
-      },
-      "org.apache.camel.k.loader.yaml.parser.ChoiceStepParser$Definition" : {
-        "type" : "object",
-        "properties" : {
-          "otherwise" : {
-            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.ChoiceStepParser$Definition$Otherwise"
-          },
-          "when" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.ChoiceStepParser$Definition$When"
-            }
-          }
-        }
-      },
       "org.apache.camel.model.cloud.ServiceCallExpressionConfiguration" : {
         "type" : "object",
         "properties" : {
@@ -347,6 +291,20 @@
             }
           }
         } ]
+      },
+      "org.apache.camel.model.OutputDefinition" : {
+        "type" : "object",
+        "properties" : {
+          "steps" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/items/definitions/step"
+            }
+          },
+          "inherit-error-handler" : {
+            "type" : "boolean"
+          }
+        }
       },
       "org.apache.camel.model.CatchDefinition" : {
         "type" : "object",
@@ -708,6 +666,20 @@
             }
           }
         } ]
+      },
+      "org.apache.camel.model.OtherwiseDefinition" : {
+        "type" : "object",
+        "properties" : {
+          "steps" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/items/definitions/step"
+            }
+          },
+          "inherit-error-handler" : {
+            "type" : "boolean"
+          }
+        }
       },
       "org.apache.camel.model.ChoiceDefinition" : {
         "type" : "object",
@@ -4216,24 +4188,6 @@
           }
         }
       },
-      "org.apache.camel.k.loader.yaml.parser.ChoiceStepParser$Definition$When" : {
-        "type" : "object",
-        "allOf" : [ {
-          "$ref" : "#/items/definitions/expressions"
-        }, {
-          "properties" : {
-            "steps" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/items/definitions/step"
-              }
-            },
-            "inherit-error-handler" : {
-              "type" : "boolean"
-            }
-          }
-        } ]
-      },
       "org.apache.camel.k.loader.yaml.parser.CircuitBreakerStepParser$FBDefinition" : {
         "type" : "object",
         "properties" : {
@@ -4378,9 +4332,6 @@
         "type" : "object",
         "maxProperties" : 1,
         "properties" : {
-          "choice" : {
-            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.ChoiceStepParser$Definition"
-          },
           "circuit-breaker" : {
             "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.CircuitBreakerStepParser$CBDefinition"
           },
@@ -4413,6 +4364,9 @@
           },
           "bean" : {
             "$ref" : "#/items/definitions/org.apache.camel.model.BeanDefinition"
+          },
+          "choice" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.ChoiceDefinition"
           },
           "claim-check" : {
             "$ref" : "#/items/definitions/org.apache.camel.model.ClaimCheckDefinition"

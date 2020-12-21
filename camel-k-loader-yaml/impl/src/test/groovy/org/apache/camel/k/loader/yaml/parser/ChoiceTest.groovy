@@ -17,14 +17,13 @@
 package org.apache.camel.k.loader.yaml.parser
 
 import org.apache.camel.k.loader.yaml.support.TestSupport
-import org.apache.camel.k.loader.yaml.spi.StepParserException
 import org.apache.camel.model.ChoiceDefinition
 
 class ChoiceTest extends TestSupport {
 
     def "definition"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def processor = toProcessor('choice', '''
                  when:
                    - simple: "${body.size()} == 1"
                      steps:
@@ -40,8 +39,6 @@ class ChoiceTest extends TestSupport {
                        - to:
                            uri: "log:otherwise"
             ''')
-        when:
-            def processor = new ChoiceStepParser().toProcessor(stepContext)
         then:
             with(processor, ChoiceDefinition) {
                 whenClauses.size() == 2
@@ -54,56 +51,4 @@ class ChoiceTest extends TestSupport {
                 otherwise.outputs.size() == 1
             }
     }
-
-    def "should fail without when"() {
-        given:
-            def stepContext = stepContext('''
-                 otherwise:
-                     steps:
-                       - to:
-                           uri: "log:otherwise"
-            ''')
-        when:
-            new ChoiceStepParser().toProcessor(stepContext)
-        then:
-            def ex = thrown(StepParserException)
-
-            ex.properties.contains('when')
-    }
-
-    def "should fail without when steps"() {
-        given:
-            def stepContext = stepContext('''
-                 when:
-                   - simple: "${body.size()} == 1"
-                   - expression:
-                       simple: "${body.size()} == 2"
-            ''')
-        when:
-            new ChoiceStepParser().toProcessor(stepContext)
-        then:
-            def ex = thrown(StepParserException)
-
-            ex.properties.contains('when.steps')
-    }
-
-    def "should fail without otherwise steps"() {
-        given:
-            def stepContext = stepContext('''
-                 when:
-                   - simple: "${body.size()} == 1"
-                     steps:
-                       - to:
-                           uri: "log:when-a"
-                 otherwise:
-                   foo: "bar"
-            ''')
-        when:
-            new ChoiceStepParser().toProcessor(stepContext)
-        then:
-            def ex = thrown(StepParserException)
-
-            ex.properties.contains('otherwise.steps')
-    }
-
 }

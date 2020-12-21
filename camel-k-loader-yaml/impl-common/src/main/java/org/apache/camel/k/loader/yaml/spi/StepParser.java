@@ -81,6 +81,12 @@ public interface StepParser {
             return this.mapper;
         }
 
+        public <T> Optional<JsonNode> node(String fieldName) {
+            ObjectHelper.notNull(node, "node");
+
+            return Optional.ofNullable(node.get(fieldName));
+        }
+
         public <T> T node(Class<T> type) {
             ObjectHelper.notNull(node, "node");
             ObjectHelper.notNull(type, "type");
@@ -152,7 +158,6 @@ public interface StepParser {
             final T definition;
 
             try {
-
                 definition = mapper.reader().forType(type).readValue(root);
             } catch (IOException e) {
                 throw new IllegalStateException(e);

@@ -74,7 +74,9 @@ public class YamlSourceLoader implements SourceLoader {
 
     @Override
     public RoutesBuilder load(CamelContext camelContext, Source source) {
-        final ObjectReader objectReader = MAPPER.readerForArrayOf(Step.class).withAttribute(CamelContext.class, camelContext);
+        final ObjectReader objectReader = MAPPER.readerForArrayOf(Step.class)
+            .withAttribute(StepParser.Resolver.class, RESOLVER)
+            .withAttribute(CamelContext.class, camelContext);
 
         return RouteBuilders.route(source, new ThrowingBiConsumer<Reader, RouteBuilder, Exception>() {
             @Override

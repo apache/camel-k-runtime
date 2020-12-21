@@ -26,6 +26,10 @@ public interface ProcessorStepParser extends StepParser {
      */
     ProcessorDefinition<?> toProcessor(Context context);
 
+    default <T extends ProcessorDefinition<?>> T toProcessor(Context context, Class<T> type) {
+        return type.cast(toProcessor(context));
+    }
+
     static ProcessorDefinition<?> invoke(Context context, String stepId) {
         return context.lookup(ProcessorStepParser.class, stepId).toProcessor(context);
     }
