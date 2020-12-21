@@ -408,6 +408,7 @@
 - Remove deprecated properties and processors in camel-knative [\#235](https://github.com/apache/camel-k-runtime/pull/235) ([lburgazzoli](https://github.com/lburgazzoli))
 - Remove the need of jaxb in camel-k-runtime-core [\#234](https://github.com/apache/camel-k-runtime/pull/234) ([lburgazzoli](https://github.com/lburgazzoli))
 - Update camel-quarkus to v1.0.0-M3 [\#233](https://github.com/apache/camel-k-runtime/pull/233) ([lburgazzoli](https://github.com/lburgazzoli))
+- remove support for multiple camel versions [\#231](https://github.com/apache/camel-k-runtime/pull/231) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade AssertJ to version 3.15.0 [\#230](https://github.com/apache/camel-k-runtime/pull/230) ([oscerd](https://github.com/oscerd))
 - Upgrade Vertx to version 3.8.5 [\#228](https://github.com/apache/camel-k-runtime/pull/228) ([oscerd](https://github.com/oscerd))
 - Update junit5 to v5.6.0 [\#225](https://github.com/apache/camel-k-runtime/pull/225) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -437,7 +438,6 @@
 
 **Merged pull requests:**
 
-- remove support for multiple camel versions [\#231](https://github.com/apache/camel-k-runtime/pull/231) ([lburgazzoli](https://github.com/lburgazzoli))
 - Dependencies updates and test improvements [\#216](https://github.com/apache/camel-k-runtime/pull/216) ([lburgazzoli](https://github.com/lburgazzoli))
 - \[quarkus\] create loaders for java, groovy and kotlin in JVM mode [\#214](https://github.com/apache/camel-k-runtime/pull/214) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(plugin\): switch from v1alpha1 to v1 [\#213](https://github.com/apache/camel-k-runtime/pull/213) ([nicolaferraro](https://github.com/nicolaferraro))
@@ -649,7 +649,6 @@
 - update to Camel 2.24.0 [\#60](https://github.com/apache/camel-k-runtime/issues/60)
 - remove spring boot support [\#55](https://github.com/apache/camel-k-runtime/issues/55)
 - Release 0.3.2 [\#51](https://github.com/apache/camel-k-runtime/issues/51)
-- Refactor customizer activation [\#46](https://github.com/apache/camel-k-runtime/issues/46)
 
 **Merged pull requests:**
 
@@ -701,6 +700,7 @@
 
 **Closed issues:**
 
+- Refactor customizer activation [\#46](https://github.com/apache/camel-k-runtime/issues/46)
 - Upgrade spring boot [\#29](https://github.com/apache/camel-k-runtime/issues/29)
 - Add runtime health endpoint [\#21](https://github.com/apache/camel-k-runtime/issues/21)
 - Default service definition not taken into account [\#19](https://github.com/apache/camel-k-runtime/issues/19)
