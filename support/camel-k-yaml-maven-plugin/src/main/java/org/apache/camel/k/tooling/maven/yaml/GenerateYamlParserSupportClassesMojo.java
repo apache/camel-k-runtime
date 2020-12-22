@@ -288,7 +288,7 @@ public class GenerateYamlParserSupportClassesMojo extends GenerateYamlSupportMoj
             .flatMap(component -> combine(component.getScheme(), component.getAlternativeSchemes()))
             .sorted()
             .distinct()
-            .forEach(scheme -> generateHasEndpointProducer(scheme, type));
+            .forEach(scheme -> generateHasEndpoint(scheme, type));
 
         return type.build();
     }
@@ -305,12 +305,12 @@ public class GenerateYamlParserSupportClassesMojo extends GenerateYamlSupportMoj
             .flatMap(component -> combine(component.getScheme(), component.getAlternativeSchemes()))
             .sorted()
             .distinct()
-            .forEach(scheme -> generateHasEndpointProducer(scheme, type));
+            .forEach(scheme -> generateHasEndpoint(scheme, type));
 
         return type.build();
     }
 
-    private static void generateHasEndpointProducer(String scheme, TypeSpec.Builder type) {
+    private static void generateHasEndpoint(String scheme, TypeSpec.Builder type) {
         String name = StringHelper.dashToCamelCase(scheme);
         name = name.replaceAll("[^a-zA-Z0-9]", "");
         name = name.toLowerCase();
