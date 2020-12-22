@@ -649,6 +649,7 @@
 - update to Camel 2.24.0 [\#60](https://github.com/apache/camel-k-runtime/issues/60)
 - remove spring boot support [\#55](https://github.com/apache/camel-k-runtime/issues/55)
 - Release 0.3.2 [\#51](https://github.com/apache/camel-k-runtime/issues/51)
+- Refactor customizer activation [\#46](https://github.com/apache/camel-k-runtime/issues/46)
 
 **Merged pull requests:**
 
@@ -700,7 +701,6 @@
 
 **Closed issues:**
 
-- Refactor customizer activation [\#46](https://github.com/apache/camel-k-runtime/issues/46)
 - Upgrade spring boot [\#29](https://github.com/apache/camel-k-runtime/issues/29)
 - Add runtime health endpoint [\#21](https://github.com/apache/camel-k-runtime/issues/21)
 - Default service definition not taken into account [\#19](https://github.com/apache/camel-k-runtime/issues/19)
