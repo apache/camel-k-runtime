@@ -28,6 +28,7 @@ import org.apache.camel.k.loader.yaml.YamlSourceLoader
 import org.apache.camel.k.loader.yaml.spi.ProcessorStepParser
 import org.apache.camel.k.loader.yaml.spi.StartStepParser
 import org.apache.camel.k.loader.yaml.spi.StepParser
+import org.apache.camel.k.loader.yaml.spi.TypeResolver
 import org.apache.camel.k.support.Sources
 import org.apache.camel.model.ProcessorDefinition
 import org.apache.camel.model.RouteDefinition
@@ -45,7 +46,7 @@ class TestSupport extends Specification {
             }
         }
 
-        return new StepParser.Context(builder, new RouteDefinition(), YamlSourceLoader.MAPPER, node, YamlSourceLoader.RESOLVER)
+        return new StepParser.Context(builder, new RouteDefinition(), YamlSourceLoader.MAPPER, node, YamlSourceLoader.STEP_RESOLVER)
     }
 
     static StepParser.Context stepContext(JsonNode content) {
@@ -55,7 +56,7 @@ class TestSupport extends Specification {
             }
         }
 
-        return new StepParser.Context(builder, new RouteDefinition(), YamlSourceLoader.MAPPER, content, YamlSourceLoader.RESOLVER)
+        return new StepParser.Context(builder, new RouteDefinition(), YamlSourceLoader.MAPPER, content, YamlSourceLoader.STEP_RESOLVER)
     }
 
     static CamelContext startContext(
@@ -116,7 +117,7 @@ class TestSupport extends Specification {
 
     static Object toProcessor(String id, String content) {
         def ctx = stepContext(content)
-        def parser = YamlSourceLoader.RESOLVER.resolve(ctx.camelContext, id)
+        def parser = YamlSourceLoader.STEP_RESOLVER.resolve(ctx.camelContext, id)
 
         if (parser instanceof ProcessorStepParser) {
             return parser.toProcessor(ctx)
@@ -125,6 +126,21 @@ class TestSupport extends Specification {
             return parser.process(ctx)
         }
         throw new IllegalArgumentException("No parser of ${id}")
+    }
+
+    static Object toDefinition(String id, String content) {
+        def ctx = new DefaultCamelContext()
+        def type = YamlSourceLoader.TYPE_RESOLVER.resolve(ctx, id)
+
+        if (type == null) {
+            throw new IllegalArgumentException("No type for${id}")
+        }
+
+        YamlSourceLoader.MAPPER.deserializationConfig.withAttribute(CamelContext.class, ctx)
+        YamlSourceLoader.MAPPER.deserializationConfig.withAttribute(TypeResolver.class, YamlSourceLoader.TYPE_RESOLVER)
+        YamlSourceLoader.MAPPER.deserializationConfig.withAttribute(StepParser.Resolver.class, YamlSourceLoader.STEP_RESOLVER)
+
+        return YamlSourceLoader.MAPPER.readerFor(type).readValue(content)
     }
 
     static FluentProducerTemplate template(CamelContext context) {

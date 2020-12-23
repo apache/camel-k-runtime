@@ -20,10 +20,12 @@ package org.apache.camel.k.tooling.maven.yaml;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import javax.lang.model.element.Modifier;
@@ -97,6 +99,10 @@ public class GenerateYamlParserSupportClassesMojo extends GenerateYamlSupportMoj
                 .build()
                 .writeTo(Paths.get(output));
             JavaFile.builder("org.apache.camel.k.loader.yaml.parser", generateModelDeserializers())
+                .indent("    ")
+                .build()
+                .writeTo(Paths.get(output));
+            JavaFile.builder("org.apache.camel.k.loader.yaml.parser", generateEndpointDeserializers())
                 .indent("    ")
                 .build()
                 .writeTo(Paths.get(output));
@@ -369,6 +375,58 @@ public class GenerateYamlParserSupportClassesMojo extends GenerateYamlSupportMoj
         );
     }
 
+    private TypeSpec generateEndpointDeserializers() throws Exception {
+        final CamelCatalog catalog = new DefaultCamelCatalog();
+        final Set<String> schemes = catalog.findComponentNames().stream()
+            .map(catalog::componentModel)
+            .filter(component -> !component.isProducerOnly())
+            .flatMap(component -> combine(component.getScheme(), component.getAlternativeSchemes()))
+            .collect(Collectors.toCollection(TreeSet::new));
+
+        return buildType(
+            "EndpointDeserializers",
+            schemes.stream()
+                .map(this::generateEndpointDeserializer)
+                .collect(Collectors.toList())
+        );
+    }
+
+    private TypeSpec generateEndpointDeserializer(String scheme) {
+        final ClassName serdeSupport = ClassName.get("org.apache.camel.k.loader.yaml.support.serde", "EndpointDeserializerSupport");
+        final ClassName targetType = ClassName.get("org.apache.camel.model", "ToDefinition");
+
+        String name = scheme.replaceAll("[^a-zA-Z0-9\\-]", "-");
+        name = StringHelper.capitalize(name, true);
+
+        TypeSpec.Builder type = TypeSpec.classBuilder(name + "EndpointDeserializer");
+        type.addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL);
+        type.superclass(ParameterizedTypeName.get(serdeSupport, targetType));
+
+        //
+        // Constructors
+        //
+        type.addMethod(MethodSpec.constructorBuilder()
+            .addModifiers(Modifier.PUBLIC)
+            .addStatement("super($T.class, $S)", targetType, scheme)
+            .build());
+
+        //
+        // T createInstance(String uri)
+        //
+        type.addMethod(MethodSpec.methodBuilder("createInstance")
+            .addAnnotation(AnnotationSpec.builder(Override.class).build())
+            .addModifiers(Modifier.PROTECTED)
+            .addParameter(String.class, "uri")
+            .returns(targetType)
+            .addCode(
+                CodeBlock.builder()
+                    .addStatement("return new $T(uri)", targetType)
+                    .build())
+            .build());
+
+        return type.build();
+    }
+
     // ********************************
     //
     // Helpers
@@ -382,8 +440,17 @@ public class GenerateYamlParserSupportClassesMojo extends GenerateYamlSupportMoj
 
         TypeSpec.Builder type = TypeSpec.classBuilder(info.simpleName() + "Deserializer");
         type.addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL);
-        type.addAnnotation(AnnotationSpec.builder(serdeAnnotation).addMember("value", "$L.class", info.name().toString()).build());
         type.superclass(ParameterizedTypeName.get(serdeSupport, targetType));
+
+        AnnotationSpec.Builder ab = AnnotationSpec.builder(serdeAnnotation);
+        ab.addMember("value", "$L.class", info.name().toString());
+        annotationValue(info, XML_ROOT_ELEMENT_ANNOTATION_CLASS, "name")
+            .map(AnnotationValue::asString)
+            .filter(value -> !"##default".equals(value))
+            .map(StringHelper::camelCaseToDash)
+            .ifPresent(v -> ab.addMember("id", "$S", v));
+
+        type.addAnnotation(ab.build());
 
         //
         // Constructors
@@ -487,7 +554,13 @@ public class GenerateYamlParserSupportClassesMojo extends GenerateYamlSupportMoj
 
     private void generateSetValue(CodeBlock.Builder cb, FieldInfo field) {
         if(hasAnnotation(field, XML_TRANSIENT_CLASS)) {
-            return;
+            ClassInfo ci = view.get().getClassByName(field.type().name());
+            if (ci == null) {
+                return;
+            }
+            if (!ci.name().toString().equals("org.apache.camel.model.OnFallbackDefinition")) {
+                return;
+            }
         }
 
         //
@@ -534,7 +607,8 @@ public class GenerateYamlParserSupportClassesMojo extends GenerateYamlSupportMoj
         if (!hasAnnotation(field, XML_ATTRIBUTE_ANNOTATION_CLASS) &&
             !hasAnnotation(field, XML_VALUE_ANNOTATION_CLASS) &&
             !hasAnnotation(field, XML_ELEMENT_ANNOTATION_CLASS) &&
-            !hasAnnotation(field, XML_ELEMENT_REF_ANNOTATION_CLASS)) {
+            !hasAnnotation(field, XML_ELEMENT_REF_ANNOTATION_CLASS) &&
+            !hasAnnotation(field, XML_TRANSIENT_CLASS)) {
             return;
         }
 
@@ -682,11 +756,24 @@ public class GenerateYamlParserSupportClassesMojo extends GenerateYamlSupportMoj
         cb.endControlFlow();
     }
 
-    private TypeSpec buildType(String name, Collection<TypeSpec> types) throws Exception {
+    private TypeSpec buildType(String name, Collection<TypeSpec> types) {
+        return buildType(name, types, Collections.emptyList());
+    }
+
+    private TypeSpec buildType(String name, Collection<TypeSpec> types, Collection<MethodSpec> methods) {
         TypeSpec.Builder type = TypeSpec.classBuilder(name);
         type.addModifiers(Modifier.PUBLIC, Modifier.FINAL);
 
+        // add private constructor
+        type.addMethod(MethodSpec.constructorBuilder()
+            .addModifiers(Modifier.PRIVATE)
+            .build());
+
+        // add inner classes
         types.forEach(type::addType);
+
+        // add methods
+        methods.forEach(type::addMethod);
 
         return type.build();
     }

@@ -3,6 +3,104 @@
   "type" : "array",
   "items" : {
     "definitions" : {
+      "org.apache.camel.model.ToDefinition" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "pattern" : {
+              "type" : "string",
+              "enum" : [ "InOnly", "InOut", "InOptionalOut" ]
+            },
+            "uri" : {
+              "type" : "string"
+            },
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          },
+          "required" : [ "uri" ]
+        } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.ToStepParser$Definition" : {
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "parameters" : {
+              "type" : "object"
+            },
+            "pattern" : {
+              "type" : "string",
+              "enum" : [ "InOnly", "InOut", "InOptionalOut" ]
+            },
+            "uri" : {
+              "type" : "string"
+            },
+            "inherit-error-handler" : {
+              "type" : "boolean"
+            }
+          },
+          "required" : [ "uri" ]
+        } ]
+      },
+      "org.apache.camel.k.loader.yaml.parser.OnExceptionStepParser$Definition" : {
+        "type" : "object",
+        "properties" : {
+          "steps" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/items/definitions/step"
+            }
+          }
+        }
+      },
+      "org.apache.camel.k.loader.yaml.parser.RestStepParser$Definition" : {
+        "type" : "object",
+        "properties" : {
+          "api-docs" : {
+            "type" : "boolean"
+          },
+          "binding-mode" : {
+            "enum" : [ "auto", "off", "json", "xml", "json_xml" ]
+          },
+          "consumes" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "enable-cors" : {
+            "type" : "boolean"
+          },
+          "id" : {
+            "type" : "string"
+          },
+          "out-type" : {
+            "type" : "string"
+          },
+          "produces" : {
+            "type" : "string"
+          },
+          "steps" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/items/definitions/step"
+            }
+          },
+          "type" : {
+            "type" : "string"
+          },
+          "uri" : {
+            "type" : "string"
+          },
+          "verb" : {
+            "type" : "string"
+          }
+        }
+      },
       "org.apache.camel.model.cloud.ServiceCallExpressionConfiguration" : {
         "type" : "object",
         "properties" : {
@@ -105,20 +203,6 @@
         },
         "required" : [ "name", "pattern" ]
       },
-      "org.apache.camel.k.loader.yaml.parser.CircuitBreakerStepParser$CBDefinition" : {
-        "type" : "object",
-        "properties" : {
-          "on-fallback" : {
-            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.CircuitBreakerStepParser$FBDefinition"
-          },
-          "steps" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/items/definitions/step"
-            }
-          }
-        }
-      },
       "org.apache.camel.k.loader.yaml.parser.RouteStepParser$Definition" : {
         "type" : "object",
         "properties" : {
@@ -198,49 +282,6 @@
             },
             "ignore-invalid-endpoint" : {
               "type" : "string"
-            },
-            "pattern" : {
-              "type" : "string",
-              "enum" : [ "InOnly", "InOut", "InOptionalOut" ]
-            },
-            "uri" : {
-              "type" : "string"
-            },
-            "inherit-error-handler" : {
-              "type" : "boolean"
-            }
-          },
-          "required" : [ "uri" ]
-        } ]
-      },
-      "org.apache.camel.model.ToDefinition" : {
-        "anyOf" : [ {
-          "type" : "string"
-        }, {
-          "type" : "object",
-          "properties" : {
-            "pattern" : {
-              "type" : "string",
-              "enum" : [ "InOnly", "InOut", "InOptionalOut" ]
-            },
-            "uri" : {
-              "type" : "string"
-            },
-            "inherit-error-handler" : {
-              "type" : "boolean"
-            }
-          },
-          "required" : [ "uri" ]
-        } ]
-      },
-      "org.apache.camel.k.loader.yaml.parser.ToStepParser$Definition" : {
-        "anyOf" : [ {
-          "type" : "string"
-        }, {
-          "type" : "object",
-          "properties" : {
-            "parameters" : {
-              "type" : "object"
             },
             "pattern" : {
               "type" : "string",
@@ -391,17 +432,6 @@
           }
         }
       },
-      "org.apache.camel.k.loader.yaml.parser.OnExceptionStepParser$Definition" : {
-        "type" : "object",
-        "properties" : {
-          "steps" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/items/definitions/step"
-            }
-          }
-        }
-      },
       "org.apache.camel.k.loader.yaml.parser.BeansStepParser$Definition" : {
         "type" : "object",
         "properties" : {
@@ -456,50 +486,6 @@
           }
         },
         "required" : [ "uri" ]
-      },
-      "org.apache.camel.k.loader.yaml.parser.RestStepParser$Definition" : {
-        "type" : "object",
-        "properties" : {
-          "api-docs" : {
-            "type" : "boolean"
-          },
-          "binding-mode" : {
-            "enum" : [ "auto", "off", "json", "xml", "json_xml" ]
-          },
-          "consumes" : {
-            "type" : "string"
-          },
-          "description" : {
-            "type" : "string"
-          },
-          "enable-cors" : {
-            "type" : "boolean"
-          },
-          "id" : {
-            "type" : "string"
-          },
-          "out-type" : {
-            "type" : "string"
-          },
-          "produces" : {
-            "type" : "string"
-          },
-          "steps" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/items/definitions/step"
-            }
-          },
-          "type" : {
-            "type" : "string"
-          },
-          "uri" : {
-            "type" : "string"
-          },
-          "verb" : {
-            "type" : "string"
-          }
-        }
       },
       "org.apache.camel.model.ExpressionSubElementDefinition" : {
         "type" : "object"
@@ -1472,6 +1458,23 @@
             "type" : "string"
           },
           "timeout" : {
+            "type" : "string"
+          },
+          "inherit-error-handler" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "org.apache.camel.model.OnFallbackDefinition" : {
+        "type" : "object",
+        "properties" : {
+          "steps" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/items/definitions/step"
+            }
+          },
+          "fallback-via-network" : {
             "type" : "string"
           },
           "inherit-error-handler" : {
@@ -4188,23 +4191,6 @@
           }
         }
       },
-      "org.apache.camel.k.loader.yaml.parser.CircuitBreakerStepParser$FBDefinition" : {
-        "type" : "object",
-        "properties" : {
-          "steps" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/items/definitions/step"
-            }
-          },
-          "fallback-via-network" : {
-            "type" : "string"
-          },
-          "inherit-error-handler" : {
-            "type" : "boolean"
-          }
-        }
-      },
       "org.apache.camel.k.loader.yaml.parser.OnExceptionStepParser$Definition$When" : {
         "type" : "object",
         "allOf" : [ {
@@ -4332,9 +4318,6 @@
         "type" : "object",
         "maxProperties" : 1,
         "properties" : {
-          "circuit-breaker" : {
-            "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.CircuitBreakerStepParser$CBDefinition"
-          },
           "do-try" : {
             "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.DoTryStepParser$DoTryDefinition"
           },
@@ -4367,6 +4350,9 @@
           },
           "choice" : {
             "$ref" : "#/items/definitions/org.apache.camel.model.ChoiceDefinition"
+          },
+          "circuit-breaker" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.CircuitBreakerDefinition"
           },
           "claim-check" : {
             "$ref" : "#/items/definitions/org.apache.camel.model.ClaimCheckDefinition"
@@ -4409,6 +4395,9 @@
           },
           "multicast" : {
             "$ref" : "#/items/definitions/org.apache.camel.model.MulticastDefinition"
+          },
+          "on-fallback" : {
+            "$ref" : "#/items/definitions/org.apache.camel.model.OnFallbackDefinition"
           },
           "otherwise" : {
             "$ref" : "#/items/definitions/org.apache.camel.model.OtherwiseDefinition"

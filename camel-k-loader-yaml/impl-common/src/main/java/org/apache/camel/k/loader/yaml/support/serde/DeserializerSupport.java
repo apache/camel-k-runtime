@@ -33,6 +33,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.node.JsonNodeType;
 import org.apache.camel.CamelContext;
+import org.apache.camel.k.loader.yaml.model.Step;
+import org.apache.camel.k.loader.yaml.spi.TypeResolver;
 import org.apache.camel.model.OutputNode;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.util.StringHelper;
@@ -55,8 +57,30 @@ public abstract class DeserializerSupport<T> extends StdDeserializer<T> {
                 setProperties(parser, target, node);
 
                 if (target instanceof OutputNode) {
-                    ProcessorDefinition<?> def = (ProcessorDefinition<?>)target;
-                    CamelContext ctx = (CamelContext)context.getAttribute(CamelContext.class);
+                    final CamelContext ctx = (CamelContext)context.getAttribute(CamelContext.class);
+                    final TypeResolver tr = (TypeResolver)context.getAttribute(TypeResolver.class);
+                    final ProcessorDefinition<?> def = (ProcessorDefinition<?>)target;
+                    final JsonNode steps = node.get("steps");
+
+                    if (steps != null) {
+                        if (!steps.isArray()) {
+                            throw new IllegalArgumentException("Steps should be an array");
+                        }
+
+                        for (Step step : parser.getCodec().treeToValue(steps, Step[].class)) {
+                            Class<?> type = tr.lookup(ctx, step.id);
+                            if (type == null) {
+                                throw new IllegalArgumentException("Unable to determine type of step: " + step.id);
+                            }
+                            if (!ProcessorDefinition.class.isAssignableFrom(type)) {
+                                throw new IllegalArgumentException("The resolved type is not of type ProcessorDefinition: " + type);
+                            }
+
+                            def.addOutput(
+                                (ProcessorDefinition<?>)parser.getCodec().treeToValue(step.node, type)
+                            );
+                        }
+                    }
                 }
             }
         } catch (Exception e) {

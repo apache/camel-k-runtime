@@ -38,12 +38,14 @@ import org.apache.camel.k.annotation.Loader;
 import org.apache.camel.k.loader.yaml.model.Step;
 import org.apache.camel.k.loader.yaml.spi.StartStepParser;
 import org.apache.camel.k.loader.yaml.spi.StepParser;
+import org.apache.camel.k.loader.yaml.spi.TypeResolver;
 import org.apache.camel.k.support.RouteBuilders;
 import org.apache.camel.util.function.ThrowingBiConsumer;
 
 @Loader("yaml")
 public class YamlSourceLoader implements SourceLoader {
-    public static final StepParser.Resolver RESOLVER;
+    public static final StepParser.Resolver STEP_RESOLVER;
+    public static final TypeResolver TYPE_RESOLVER;
     public static final ObjectMapper MAPPER;
 
     static {
@@ -51,7 +53,10 @@ public class YamlSourceLoader implements SourceLoader {
         YamlReifiers.registerReifiers();
 
         // Use a global caching resolver
-        RESOLVER = StepParser.Resolver.caching(new YamlStepResolver());
+        STEP_RESOLVER = StepParser.Resolver.caching(new YamlStepResolver());
+
+        // Use a global caching type resolver
+        TYPE_RESOLVER = TypeResolver.caching(new YamlTypeResolver());
 
         // Create the object mapper
         MAPPER = new ObjectMapper(
@@ -75,7 +80,8 @@ public class YamlSourceLoader implements SourceLoader {
     @Override
     public RoutesBuilder load(CamelContext camelContext, Source source) {
         final ObjectReader objectReader = MAPPER.readerForArrayOf(Step.class)
-            .withAttribute(StepParser.Resolver.class, RESOLVER)
+            .withAttribute(StepParser.Resolver.class, STEP_RESOLVER)
+            .withAttribute(TypeResolver.class, TYPE_RESOLVER)
             .withAttribute(CamelContext.class, camelContext);
 
         return RouteBuilders.route(source, new ThrowingBiConsumer<Reader, RouteBuilder, Exception>() {
@@ -83,7 +89,7 @@ public class YamlSourceLoader implements SourceLoader {
             public void accept(Reader reader, RouteBuilder builder) throws Exception {
                 for (Step step : (Step[])objectReader.readValue(reader)) {
                     StartStepParser.invoke(
-                        new StepParser.Context(builder, null, MAPPER, step.node, RESOLVER),
+                        new StepParser.Context(builder, null, MAPPER, step.node, STEP_RESOLVER),
                         step.id);
                 }
             }

@@ -25,4 +25,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface YAMLDeserializer {
     Class<?> value();
+    String id() default "";
 }

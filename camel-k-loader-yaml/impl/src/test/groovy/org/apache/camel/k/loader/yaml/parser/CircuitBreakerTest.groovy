@@ -18,12 +18,12 @@ package org.apache.camel.k.loader.yaml.parser
 
 import org.apache.camel.k.loader.yaml.support.TestSupport
 import org.apache.camel.model.CircuitBreakerDefinition
-import org.apache.camel.model.ToDefinition
+import org.apache.camel.model.LogDefinition
 
 class CircuitBreakerTest extends TestSupport {
     def "definition"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def definition = toDefinition('circuit-breaker\'', '''
                  configuration-ref: "my-config"
                  resilience4j-configuration:
                    failure-rate-threshold: "10"
@@ -35,10 +35,8 @@ class CircuitBreakerTest extends TestSupport {
                    - log:
                        message: "test"
             ''')
-        when:
-            def processor = new CircuitBreakerStepParser().toProcessor(stepContext)
         then:
-            with(processor, CircuitBreakerDefinition) {
+            with(definition, CircuitBreakerDefinition) {
                 configurationRef == 'my-config'
 
                 resilience4jConfiguration != null
@@ -53,23 +51,21 @@ class CircuitBreakerTest extends TestSupport {
     }
 
     def "definition with steps"() {
-        given:
-            def stepContext = stepContext('''
+        when:
+            def definition = toDefinition('circuit-breaker', '''
                  steps:
-                   - to: "log:cb"
+                   - log: "info"
                  on-fallback:
                      steps:
-                       - to: "log:fb"
+                       - log: "fallback"
             ''')
-        when:
-            def processor = new CircuitBreakerStepParser().toProcessor(stepContext)
         then:
-            with(processor, CircuitBreakerDefinition) {
-                with (outputs[0], ToDefinition) {
-                    endpointUri == "log:cb"
+            with(definition, CircuitBreakerDefinition) {
+                with (outputs[0], LogDefinition) {
+                    message == "info"
                 }
-                with (onFallback.outputs[0], ToDefinition) {
-                    endpointUri == "log:fb"
+                with (onFallback.outputs[0], LogDefinition) {
+                    message == "fallback"
                 }
             }
     }

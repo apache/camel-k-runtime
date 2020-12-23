@@ -191,6 +191,13 @@ public abstract class GenerateYamlSupportMojo extends AbstractMojo {
         return target.annotation(annotationName) != null;
     }
 
+    protected static boolean hasAnnotation(ClassInfo target, DotName annotationName) {
+        if (target == null) {
+            return false;
+        }
+        return target.classAnnotation(annotationName) != null;
+    }
+
     protected static boolean hasAnnotationValue(ClassInfo target, DotName annotationName, String name) {
         if (target == null) {
             return false;

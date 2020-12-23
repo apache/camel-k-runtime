@@ -70,6 +70,10 @@ public class GenerateYamlLoaderSupportClassesMojo extends GenerateYamlSupportMoj
                 .indent("    ")
                 .build()
                 .writeTo(Paths.get(output));
+            JavaFile.builder("org.apache.camel.k.loader.yaml", generateTypeResolver())
+                .indent("    ")
+                .build()
+                .writeTo(Paths.get(output));
         } catch (IOException e) {
             throw new MojoFailureException(e.getMessage(), e);
         }
@@ -259,6 +263,45 @@ public class GenerateYamlLoaderSupportClassesMojo extends GenerateYamlSupportMoj
         return TypeSpec.classBuilder("YamlStepResolver")
             .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
             .addSuperinterface(ClassName.get("org.apache.camel.k.loader.yaml.spi", "StepParser.Resolver"))
+            .addMethod(mb.build())
+            .build();
+    }
+
+    public final TypeSpec generateTypeResolver() {
+        MethodSpec.Builder mb = MethodSpec.methodBuilder("resolve")
+            .addAnnotation(Override.class)
+            .addModifiers(Modifier.PUBLIC)
+            .addParameter(ClassName.get("org.apache.camel", "CamelContext"), "camelContext")
+            .addParameter(ClassName.get("java.lang", "String"), "id")
+            .returns(Class.class);
+
+        mb.beginControlFlow("switch(id)");
+
+        annotated(YAML_DESERIALIZER_ANNOTATION)
+            .sorted(Comparator.comparing(i -> i.name().toString()))
+            .forEachOrdered(
+                ci -> {
+                    var v = ci.classAnnotation(YAML_DESERIALIZER_ANNOTATION).value("value");
+                    var i = ci.classAnnotation(YAML_DESERIALIZER_ANNOTATION).value("id");
+                    if (v == null || i == null) {
+                        return;
+                    }
+
+                    mb.beginControlFlow("case $S:", i.asString());
+                    mb.addStatement("return $L.class", v.asString());
+                    mb.endControlFlow();
+                }
+            );
+
+        mb.beginControlFlow("default:");
+        mb.addStatement("return null");
+        mb.endControlFlow();
+
+        mb.endControlFlow();
+
+        return TypeSpec.classBuilder("YamlTypeResolver")
+            .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
+            .addSuperinterface(ClassName.get("org.apache.camel.k.loader.yaml.spi", "TypeResolver"))
             .addMethod(mb.build())
             .build();
     }

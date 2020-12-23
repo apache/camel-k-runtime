@@ -108,7 +108,6 @@
                         <bannedDefinition>org.apache.camel.model.Resilience4jConfigurationDefinition</bannedDefinition>
                         <bannedDefinition>org.apache.camel.model.HystrixConfigurationDefinition</bannedDefinition>
                         <bannedDefinition>org.apache.camel.model.FaultToleranceConfigurationDefinition</bannedDefinition>
-                        <bannedDefinition>org.apache.camel.model.OnFallbackDefinition</bannedDefinition>
                         <bannedDefinition>org.apache.camel.model.InOnlyDefinition</bannedDefinition>
                         <bannedDefinition>org.apache.camel.model.InOutDefinition</bannedDefinition>
                         <bannedDefinition>org.apache.camel.model.WireTapDefinition</bannedDefinition>
