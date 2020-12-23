@@ -1,8 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/apache/camel-k-runtime/tree/HEAD)
+## [camel-k-runtime-project-1.6.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.6.0) (2020-12-22)
 
-[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-parent-1.5.0...HEAD)
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-parent-1.5.0...camel-k-runtime-project-1.6.0)
 
 **Implemented enhancements:**
 
@@ -25,6 +25,8 @@
 
 **Merged pull requests:**
 
+- chore: align kotlin libs to Quarkus release [\#577](https://github.com/apache/camel-k-runtime/pull/577) ([nicolaferraro](https://github.com/nicolaferraro))
+- chore: enable new rebalacing features in customizer [\#575](https://github.com/apache/camel-k-runtime/pull/575) ([nicolaferraro](https://github.com/nicolaferraro))
 - Update to camel 3.7.0 and camel-quarkus 1.5.0 [\#573](https://github.com/apache/camel-k-runtime/pull/573) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps\): bump gmavenplus-plugin from 1.11.1 to 1.12.0 [\#572](https://github.com/apache/camel-k-runtime/pull/572) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Cleanup [\#571](https://github.com/apache/camel-k-runtime/pull/571) ([lburgazzoli](https://github.com/lburgazzoli))
