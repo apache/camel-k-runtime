@@ -17,15 +17,16 @@
 package org.apache.camel.k.catalog.model;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Optional;
-import java.util.Set;
+import java.util.SortedSet;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.immutables.value.Value;
 
 @Value.Immutable
 @JsonDeserialize(builder = CamelScheme.Builder.class)
-public interface CamelScheme {
+public interface CamelScheme extends Comparable<CamelScheme> {
     String getId();
 
     @Value.Auxiliary
@@ -42,8 +43,9 @@ public interface CamelScheme {
 
     @Value.Auxiliary
     @Value.Default
-    default Set<String> getRequiredCapabilities() {
-        return Collections.emptySet();
+    @Value.NaturalOrder
+    default SortedSet<String> getRequiredCapabilities() {
+        return Collections.emptySortedSet();
     }
 
     @Value.Auxiliary
@@ -51,6 +53,13 @@ public interface CamelScheme {
 
     @Value.Auxiliary
     Optional<CamelScopedArtifact> getConsumer();
+
+    @Override
+    default int compareTo(CamelScheme o) {
+        return Comparator
+            .comparing(CamelScheme::getId)
+            .compare(this, o);
+    }
 
     class Builder extends ImmutableCamelScheme.Builder {
     }

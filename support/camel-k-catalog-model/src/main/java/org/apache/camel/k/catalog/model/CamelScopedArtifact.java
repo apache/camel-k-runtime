@@ -17,7 +17,7 @@
 package org.apache.camel.k.catalog.model;
 
 import java.util.Collections;
-import java.util.Set;
+import java.util.SortedSet;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -30,19 +30,21 @@ import org.immutables.value.Value;
 public interface CamelScopedArtifact {
     @Value.Auxiliary
     @Value.Default
-    default Set<Artifact> getDependencies() {
-        return Collections.emptySet();
+    @Value.NaturalOrder
+    default SortedSet<Artifact> getDependencies() {
+        return Collections.emptySortedSet();
     }
 
     @Value.Auxiliary
     @Value.Default
-    default Set<String> getRequiredCapabilities() {
-        return Collections.emptySet();
+    @Value.NaturalOrder
+    default SortedSet<String> getRequiredCapabilities() {
+        return Collections.emptySortedSet();
     }
 
     class Builder extends ImmutableCamelScopedArtifact.Builder {
         public Builder addDependency(String groupId, String artifactId) {
-            return super.addDependencies(MavenArtifact.from(groupId, artifactId));
+            return super.addDependencies(Artifact.from(groupId, artifactId));
         }
     }
 }

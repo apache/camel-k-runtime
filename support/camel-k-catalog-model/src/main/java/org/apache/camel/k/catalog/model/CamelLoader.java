@@ -17,8 +17,8 @@
 package org.apache.camel.k.catalog.model;
 
 import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
+import java.util.SortedMap;
+import java.util.SortedSet;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -31,20 +31,23 @@ import org.immutables.value.Value;
 public interface CamelLoader extends Artifact {
     @Value.Auxiliary
     @Value.Default
-    default Set<String> getLanguages() {
-        return Collections.emptySet();
+    @Value.NaturalOrder
+    default SortedSet<String> getLanguages() {
+        return Collections.emptySortedSet();
     }
 
     @Value.Auxiliary
     @Value.Default
-    default Set<Artifact> getDependencies() {
-        return Collections.emptySet();
+    @Value.NaturalOrder
+    default SortedSet<Artifact> getDependencies() {
+        return Collections.emptySortedSet();
     }
 
     @Value.Auxiliary
     @Value.Default
-    default Map<String, String> getMetadata() {
-        return Collections.emptyMap();
+    @Value.NaturalOrder
+    default SortedMap<String, String> getMetadata() {
+        return Collections.emptySortedMap();
     }
 
     static Builder fromArtifact(String groupId, String artifactId) {
@@ -53,8 +56,7 @@ public interface CamelLoader extends Artifact {
 
     class Builder extends ImmutableCamelLoader.Builder {
         public Builder addDependency(String groupId, String artifactId) {
-            addDependencies(MavenArtifact.from(groupId, artifactId));
-            return this;
+            return super.addDependencies(Artifact.from(groupId, artifactId));
         }
     }
 }
