@@ -58,10 +58,10 @@ public class Application {
     }
 
     @GET
-    @Path("/execute")
+    @Path("/execute/{id}")
     @Produces(MediaType.TEXT_PLAIN)
-    public String execute() {
-        return template.to("direct:process").request(String.class);
+    public String execute(@PathParam("id") String id) {
+        return template.to("direct:" + id).request(String.class);
     }
 
     @POST

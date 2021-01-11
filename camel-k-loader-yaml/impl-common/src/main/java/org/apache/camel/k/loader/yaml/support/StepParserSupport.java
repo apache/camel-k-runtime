@@ -76,54 +76,65 @@ public final class StepParserSupport {
         String answer = uri;
 
         if (parameters == null || parameters.isEmpty()) {
+            //
+            // nothing to do here, there are no parameters so we can return the
+            // uri as it is.
+            //
             return answer;
         }
+        if (uri.indexOf('?') != -1) {
+            //
+            // we support URIs defined as scheme only or scheme and path params,
+            // query params are not supported so a definition like:
+            //
+            // - from:
+            //     uri: "foo:bar?option1=value1"
+            //     parameters:
+            //         option2: value2
+            //
+            // is not supported and leads to the an IllegalArgumentException being
+            // thrown.
+            //
+            throw new IllegalArgumentException("Uri should not contains query params (uri: " + uri + ")");
+        }
 
-        if (uri.contains(":")) {
-            final String scheme = StringHelper.before(uri, ":");
-            final EndpointUriFactory factory = getEndpointUriFactory(context, scheme);
+        final String scheme = uri.contains(":") ? StringHelper.before(uri, ":") : uri;
+        final EndpointUriFactory factory = context.adapt(ExtendedCamelContext.class).getEndpointUriFactory(scheme);
 
-            // we want sorted parameters
-            Map<String, Object> map = new TreeMap<>(parameters);
-            for (String secretParameter : factory.secretPropertyNames()) {
-                Object val = map.get(secretParameter);
-                if (val instanceof String) {
-                    String newVal = (String) val;
-                    if (!newVal.startsWith("#") && !newVal.startsWith("RAW(")) {
-                        map.put(secretParameter, "RAW(" + val + ")");
+        try {
+            if (factory != null && factory.isEnabled(scheme)) {
+                if (scheme.equals(uri)) {
+                    //
+                    // if the uri is expressed as simple scheme, then we can use the
+                    // discovered EndpointUriFactory to build the uri
+                    //
+                    answer = factory.buildUri(scheme, parameters, false);
+                } else {
+                    //
+                    // otherwise we have to compose it but we can still leverage the
+                    // discovered EndpointUriFactory to properly handle secrets
+                    //
+                    Map<String, Object> options = new TreeMap<>(parameters);
+
+                    for (String secretParameter : factory.secretPropertyNames()) {
+                        Object val = options.get(secretParameter);
+                        if (val instanceof String) {
+                            String newVal = (String) val;
+                            if (!newVal.startsWith("#") && !newVal.startsWith("RAW(")) {
+                                options.put(secretParameter, "RAW(" + val + ")");
+                            }
+                        }
                     }
-                }
-            }
 
-            try {
-                String queryString = URISupport.createQueryString(map, false);
-                if (ObjectHelper.isNotEmpty(queryString)) {
-                    answer += "?" + queryString;
+                    answer += "?" + URISupport.createQueryString(options, false);
                 }
-            } catch (URISyntaxException e) {
-                throw new IllegalArgumentException(e);
+            } else {
+                answer += "?" + URISupport.createQueryString(parameters, false);
             }
-        } else {
-            try {
-                answer = getEndpointUriFactory(context, uri).buildUri(uri, parameters);
-            } catch (URISyntaxException e) {
-                throw new IllegalArgumentException(e);
-            }
+        } catch (URISyntaxException e) {
+            throw new IllegalArgumentException(e);
         }
 
         return answer;
-    }
-
-    public static EndpointUriFactory getEndpointUriFactory(CamelContext context, String scheme) {
-        final EndpointUriFactory factory = context.adapt(ExtendedCamelContext.class).getEndpointUriFactory(scheme);
-
-        if (factory == null) {
-            throw new IllegalArgumentException("Cannot compute endpoint URI: unable to find an EndpointUriFactory for scheme " + scheme);
-        }
-        if (!factory.isEnabled(scheme)) {
-            throw new IllegalArgumentException("Cannot compute endpoint URI: scheme " + scheme + " is not enabled");
-        }
-
-        return factory;
     }
 }
