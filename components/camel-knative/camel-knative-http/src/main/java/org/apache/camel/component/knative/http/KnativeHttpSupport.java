@@ -25,7 +25,7 @@ import java.util.function.Predicate;
 
 import io.vertx.core.http.HttpServerRequest;
 import org.apache.camel.Message;
-import org.apache.camel.component.knative.spi.CloudEvent;
+import org.apache.camel.component.cloudevents.CloudEvent;
 import org.apache.camel.component.knative.spi.KnativeResource;
 
 public final class KnativeHttpSupport {

@@ -318,6 +318,7 @@
 
         <module>camel-k-cron</module>
         <module>camel-k-kamelet</module>
+        <module>camel-k-cloudevents</module>
         <module>camel-k-knative</module>
         <module>camel-k-master</module>
         <module>camel-k-webhook</module>
@@ -391,6 +392,11 @@
             <!-- components -->
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-cloudevents</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-knative-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -439,6 +445,16 @@
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-core-deployment</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-cloudevents</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-cloudevents-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
