@@ -16,10 +16,42 @@
  */
 package org.apache.camel.k.catalog.model;
 
+import java.util.Comparator;
 import java.util.Optional;
 
-public interface Artifact {
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+@JsonPropertyOrder({"groupId", "artifactId", "version"})
+public interface Artifact extends Comparable<Artifact> {
     String getGroupId();;
     String getArtifactId();
     Optional<String> getVersion();
+
+    @Override
+    default int compareTo(Artifact o) {
+        return Comparator
+            .comparing(Artifact::getGroupId)
+            .thenComparing(Artifact::getArtifactId)
+            .thenComparing(Artifact::getVersion, Comparator.comparing(c -> c.orElse("")))
+            .compare(this, o);
+    }
+
+    static Artifact from(String groupId, String artifactId) {
+        return new Artifact() {
+            @Override
+            public String getGroupId() {
+                return groupId;
+            }
+
+            @Override
+            public String getArtifactId() {
+                return artifactId;
+            }
+
+            @Override
+            public Optional<String> getVersion() {
+                return Optional.empty();
+            }
+        };
+    }
 }

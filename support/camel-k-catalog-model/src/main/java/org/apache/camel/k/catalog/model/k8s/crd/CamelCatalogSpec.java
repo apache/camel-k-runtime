@@ -17,7 +17,7 @@
 package org.apache.camel.k.catalog.model.k8s.crd;
 
 import java.util.Collections;
-import java.util.Map;
+import java.util.SortedMap;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -33,23 +33,24 @@ public interface CamelCatalogSpec {
     RuntimeSpec getRuntime();
 
     @Value.Default
-    default Map<String, CamelArtifact> getArtifacts() {
-        return Collections.emptyMap();
+    @Value.NaturalOrder
+    default SortedMap<String, CamelArtifact> getArtifacts() {
+        return Collections.emptySortedMap();
     }
 
     @Value.Default
-    default Map<String, CamelLoader> getLoaders() {
-        return Collections.emptyMap();
+    @Value.NaturalOrder
+    default SortedMap<String, CamelLoader> getLoaders() {
+        return Collections.emptySortedMap();
     }
 
     class Builder extends ImmutableCamelCatalogSpec.Builder {
         public Builder putArtifact(CamelArtifact artifact) {
-            putArtifact(artifact.getArtifactId(), artifact);
-            return this;
+            return putArtifact(artifact.getArtifactId(), artifact);
         }
+
         public Builder putArtifact(String groupId, String artifactId) {
-            putArtifact(new CamelArtifact.Builder().groupId(groupId).artifactId(artifactId).build());
-            return this;
+            return putArtifact(new CamelArtifact.Builder().groupId(groupId).artifactId(artifactId).build());
         }
     }
 }
