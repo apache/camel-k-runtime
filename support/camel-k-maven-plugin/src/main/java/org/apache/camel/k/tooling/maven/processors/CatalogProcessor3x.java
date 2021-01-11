@@ -17,10 +17,12 @@
 package org.apache.camel.k.tooling.maven.processors;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import com.vdurmont.semver4j.Semver;
 import org.apache.camel.catalog.CamelCatalog;
@@ -93,7 +95,7 @@ public class CatalogProcessor3x implements CatalogProcessor {
 
     @Override
     public void process(MavenProject project, CamelCatalog catalog, CamelCatalogSpec.Builder specBuilder) {
-        Map<String, CamelArtifact> artifacts = new HashMap<>();
+        Map<String, CamelArtifact> artifacts = new TreeMap<>();
 
         processComponents(catalog, artifacts);
         processLanguages(catalog, artifacts);
@@ -221,7 +223,9 @@ public class CatalogProcessor3x implements CatalogProcessor {
     }
 
     private static void processComponents(CamelCatalog catalog, Map<String, CamelArtifact> artifacts) {
-        for (String name : catalog.findComponentNames()) {
+        final Set<String> elements = new TreeSet<>(catalog.findComponentNames());
+
+        for (String name : elements) {
             String json = catalog.componentJSonSchema(name);
             CatalogComponentDefinition definition = CatalogSupport.unmarshallComponent(json);
 
@@ -244,7 +248,9 @@ public class CatalogProcessor3x implements CatalogProcessor {
     }
 
     private static void processLanguages(CamelCatalog catalog, Map<String, CamelArtifact> artifacts) {
-        for (String name : catalog.findLanguageNames()) {
+        final Set<String> elements = new TreeSet<>(catalog.findLanguageNames());
+
+        for (String name : elements) {
             String json = catalog.languageJSonSchema(name);
             CatalogLanguageDefinition definition = CatalogSupport.unmarshallLanguage(json);
 
@@ -259,7 +265,9 @@ public class CatalogProcessor3x implements CatalogProcessor {
     }
 
     private static void processDataFormats(CamelCatalog catalog, Map<String, CamelArtifact> artifacts) {
-        for (String name : catalog.findDataFormatNames()) {
+        final Set<String> elements = new TreeSet<>(catalog.findDataFormatNames());
+
+        for (String name : elements) {
             String json = catalog.dataFormatJSonSchema(name);
             CatalogDataFormatDefinition definition = CatalogSupport.unmarshallDataFormat(json);
 

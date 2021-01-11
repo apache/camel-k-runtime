@@ -148,7 +148,6 @@ public class GenerateCatalogMojo extends AbstractMojo {
             CamelCatalogSpec.Builder catalogSpec = new CamelCatalogSpec.Builder()
                 .runtime(runtimeSpec.build());
 
-
             StreamSupport.stream(ServiceLoader.load(CatalogProcessor.class).spliterator(), false)
                 .sorted(Comparator.comparingInt(CatalogProcessor::getOrder))
                 .filter(p -> p.accepts(catalog))

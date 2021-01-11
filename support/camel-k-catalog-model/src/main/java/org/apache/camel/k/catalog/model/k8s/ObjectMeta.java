@@ -17,7 +17,7 @@
 package org.apache.camel.k.catalog.model.k8s;
 
 import java.util.Collections;
-import java.util.Map;
+import java.util.SortedMap;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.immutables.value.Value;
@@ -28,8 +28,9 @@ public interface ObjectMeta {
     String getName();
 
     @Value.Default
-    default Map<String, String> getLabels() {
-        return Collections.emptyMap();
+    @Value.NaturalOrder
+    default SortedMap<String, String> getLabels() {
+        return Collections.emptySortedMap();
     }
 
     class Builder extends ImmutableObjectMeta.Builder {

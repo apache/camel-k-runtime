@@ -17,13 +17,13 @@
 package org.apache.camel.k.catalog.model.k8s.crd;
 
 import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
+import java.util.SortedMap;
+import java.util.SortedSet;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.apache.camel.k.catalog.model.Artifact;
 import org.apache.camel.k.catalog.model.CamelCapability;
-import org.apache.camel.k.catalog.model.MavenArtifact;
 import org.immutables.value.Value;
 
 @Value.Immutable
@@ -36,24 +36,26 @@ public interface RuntimeSpec {
     String getApplicationClass();
 
     @Value.Default
-    default Map<String, String> getMetadata() {
-        return Collections.emptyMap();
+    @Value.NaturalOrder
+    default SortedMap<String, String> getMetadata() {
+        return Collections.emptySortedMap();
     }
 
     @Value.Default
-    default Set<MavenArtifact> getDependencies() {
-        return Collections.emptySet();
+    @Value.NaturalOrder
+    default SortedSet<Artifact> getDependencies() {
+        return Collections.emptySortedSet();
     }
 
     @Value.Default
-    default Map<String, CamelCapability> getCapabilities() {
-        return Collections.emptyMap();
+    @Value.NaturalOrder
+    default SortedMap<String, CamelCapability> getCapabilities() {
+        return Collections.emptySortedMap();
     }
 
     class Builder extends ImmutableRuntimeSpec.Builder {
         public Builder addDependency(String groupId, String artifactId) {
-            addDependencies(MavenArtifact.from(groupId, artifactId));
-            return this;
+            return super.addDependencies(Artifact.from(groupId, artifactId));
         }
     }
 }
