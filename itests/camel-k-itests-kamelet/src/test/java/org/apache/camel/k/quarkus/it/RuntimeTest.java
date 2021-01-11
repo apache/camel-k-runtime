@@ -49,10 +49,20 @@ public class RuntimeTest {
     }
 
     @Test
-    public void execute() {
+    public void invokeProcess() {
         RestAssured.given()
             .accept(MediaType.TEXT_PLAIN)
-            .get("/test/execute")
+            .get("/test/execute/process")
+            .then()
+                .statusCode(200)
+                .body(is("template"));
+    }
+
+    @Test
+    public void invokeProcessWithParams() {
+        RestAssured.given()
+            .accept(MediaType.TEXT_PLAIN)
+            .get("/test/execute/process-params")
             .then()
                 .statusCode(200)
                 .body(is("template"));
