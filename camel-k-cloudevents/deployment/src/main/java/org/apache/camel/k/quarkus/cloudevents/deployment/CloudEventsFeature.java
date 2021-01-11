@@ -14,17 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.component.knative.spi;
+package org.apache.camel.k.quarkus.cloudevents.deployment;
 
-import org.apache.camel.Converter;
+import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.FeatureBuildItem;
 
-@Converter(generateLoader = true)
-public final class CloudEventTypeConverter {
-    private CloudEventTypeConverter() {
-    }
+public class CloudEventsFeature {
+    private static final String FEATURE = "camel-k-cloudevents";
 
-    @Converter
-    public static CloudEvent fromSpecVersion(String version) {
-        return CloudEvents.fromSpecVersion(version);
+    @BuildStep
+    FeatureBuildItem feature() {
+        return new FeatureBuildItem(FEATURE);
     }
 }
