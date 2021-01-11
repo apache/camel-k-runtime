@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Cancel Previous Runs
-        uses: n1hility/cancel-previous-runs@v2
+        uses: potiuk/cancel-workflow-runs@v4_7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           workflow: ci-build.yml
