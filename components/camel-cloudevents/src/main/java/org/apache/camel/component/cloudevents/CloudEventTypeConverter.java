@@ -14,31 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.component.knative.spi;
+package org.apache.camel.component.cloudevents;
 
-import org.apache.camel.component.cloudevents.CloudEvent;
+import org.apache.camel.Converter;
 
-public final class KnativeTransportConfiguration {
-
-    private final CloudEvent cloudEvent;
-    private final boolean removeCloudEventHeadersInReply;
-    private final boolean reply;
-
-    public KnativeTransportConfiguration(CloudEvent cloudEvent, boolean removeCloudEventHeadersInReply, boolean reply) {
-        this.cloudEvent = cloudEvent;
-        this.removeCloudEventHeadersInReply = removeCloudEventHeadersInReply;
-        this.reply = reply;
+@Converter(generateLoader = true)
+public final class CloudEventTypeConverter {
+    private CloudEventTypeConverter() {
     }
 
-    public CloudEvent getCloudEvent() {
-        return cloudEvent;
-    }
-
-    public boolean isRemoveCloudEventHeadersInReply() {
-        return removeCloudEventHeadersInReply;
-    }
-
-    public boolean isReply() {
-        return reply;
+    @Converter
+    public static CloudEvent fromSpecVersion(String version) {
+        return CloudEvents.fromSpecVersion(version);
     }
 }

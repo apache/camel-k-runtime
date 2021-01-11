@@ -17,8 +17,8 @@
 package org.apache.camel.component.knative.ce;
 
 import org.apache.camel.Processor;
+import org.apache.camel.component.cloudevents.CloudEvent;
 import org.apache.camel.component.knative.KnativeEndpoint;
-import org.apache.camel.component.knative.spi.CloudEvent;
 import org.apache.camel.component.knative.spi.KnativeResource;
 
 public interface CloudEventProcessor {
