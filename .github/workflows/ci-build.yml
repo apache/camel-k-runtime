@@ -96,7 +96,7 @@ jobs:
           - :camel-k-itests-loader-yaml
           #- :camel-k-itests-loader-js
           - :camel-k-itests-loader-polyglot
-          - :camel-k-itests-master
+          #- :camel-k-itests-master
           - :camel-k-itests-runtime
           - :camel-k-itests-runtime-xml
           - :camel-k-itests-runtime-yaml
