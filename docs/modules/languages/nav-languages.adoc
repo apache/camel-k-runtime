@@ -3,5 +3,6 @@
 ** xref:languages:kotlin.adoc[Kotlin]
 ** xref:languages:javascript.adoc[JavaScript]
 ** xref:languages:java.adoc[Java]
+** xref:languages:jsh.adoc[Java (JShell)]
 ** xref:languages:xml.adoc[XML]
 ** xref:languages:yaml.adoc[YAML]

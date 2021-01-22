@@ -27,6 +27,7 @@ import org.apache.camel.RoutesBuilder;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceLoader;
+import org.apache.camel.k.support.RuntimeSupport;
 import org.apache.camel.k.support.Sources;
 
 public final class LoaderSupport {
@@ -34,9 +35,10 @@ public final class LoaderSupport {
     }
 
     public static JsonObject inspectSource(CamelContext context, String name, String loaderId, byte[] code) throws Exception {
-        final SourceLoader loader = context.getRegistry().lookupByNameAndType(loaderId, SourceLoader.class);
+
         final Runtime runtime = Runtime.on(context);
         final Source source = Sources.fromBytes(name, loaderId, null, code);
+        final SourceLoader loader = RuntimeSupport.loaderFor(context, source);
         final RoutesBuilder builder = loader.load(context, source);
 
         runtime.addRoutes(builder);

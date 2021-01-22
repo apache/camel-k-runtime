@@ -30,6 +30,11 @@ public class CompositeClassloader extends ClassLoader {
         super(parent);
     }
 
+    public CompositeClassloader(ClassLoader parent, ClassLoader... loaders) {
+        super(parent);
+        this.loaders.addAll(List.of(loaders));
+    }
+
     public void addClassLoader(ClassLoader loader) {
         loaders.add(loader);
     }
