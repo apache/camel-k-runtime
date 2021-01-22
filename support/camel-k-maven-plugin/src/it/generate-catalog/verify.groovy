@@ -83,7 +83,7 @@ new File(basedir, "catalog.yaml").withReader {
         assert schemes.size() == 1
 
         schemes[0].with {
-            assert id == 'wrap'
+            assert id == 'kamelet-reify'
             assert passive == false
             assert http == false
         }
