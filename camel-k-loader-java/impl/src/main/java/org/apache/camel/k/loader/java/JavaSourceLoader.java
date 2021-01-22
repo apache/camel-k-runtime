@@ -33,6 +33,10 @@ import org.apache.camel.k.support.StringSupport;
 import org.apache.camel.util.IOHelper;
 import org.joor.Reflect;
 
+/**
+ * A {@link SourceLoader} implementation based on jOOR (https://github.com/jOOQ/jOOR)
+ * to compile Java source file at runtime.
+ */
 @Loader(value = "java")
 public class JavaSourceLoader implements SourceLoader {
     private static final Pattern PACKAGE_PATTERN = Pattern.compile("^\\s*package\\s+([a-zA-Z][\\.\\w]*)\\s*;.*$", Pattern.MULTILINE);

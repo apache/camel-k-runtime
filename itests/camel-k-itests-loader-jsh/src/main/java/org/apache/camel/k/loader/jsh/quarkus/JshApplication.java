@@ -14,12 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.loader.java.quarkus;
+package org.apache.camel.k.loader.jsh.quarkus;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.JsonObject;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -32,7 +31,7 @@ import org.apache.camel.k.loader.support.LoaderSupport;
 
 @Path("/test")
 @ApplicationScoped
-public class Application {
+public class JshApplication {
     @Inject
     CamelContext context;
 
@@ -41,13 +40,6 @@ public class Application {
     @Consume(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject loadRoutes(@PathParam("name") String name, String code) throws Exception {
-        return LoaderSupport.inspectSource(context, name, "java", code);
-    }
-
-    @GET
-    @Path("/application-classloader")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getApplicationClassloader() {
-        return context.getApplicationContextClassLoader().getClass().getName();
+        return LoaderSupport.inspectSource(context, name, "jsh", code);
     }
 }

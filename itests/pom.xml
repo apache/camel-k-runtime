@@ -34,6 +34,7 @@
         <module>camel-k-itests-loader-groovy</module>
         <module>camel-k-itests-loader-kotlin</module>
         <module>camel-k-itests-loader-java</module>
+        <module>camel-k-itests-loader-jsh</module>
         <module>camel-k-itests-loader-js</module>
         <module>camel-k-itests-loader-xml</module>
         <module>camel-k-itests-loader-yaml</module>
