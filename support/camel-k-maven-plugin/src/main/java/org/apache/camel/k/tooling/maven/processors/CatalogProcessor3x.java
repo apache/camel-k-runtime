@@ -171,7 +171,7 @@ public class CatalogProcessor3x implements CatalogProcessor {
                 .groupId("org.apache.camel.k")
                 .artifactId("camel-k-kamelet-reify")
                 .addScheme(new CamelScheme.Builder()
-                    .id("wrap")
+                    .id("kamelet-reify")
                     .build())
                 .build()
         );
