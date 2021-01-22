@@ -206,7 +206,14 @@ public class CatalogProcessor3x implements CatalogProcessor {
         specBuilder.putLoader(
             "java",
             CamelLoader.fromArtifact("org.apache.camel.k", "camel-k-loader-java")
-                .addLanguage("java")
+                .addLanguages("java")
+                .putMetadata("native", "false")
+                .build()
+        );
+        specBuilder.putLoader(
+            "jsh",
+            CamelLoader.fromArtifact("org.apache.camel.k", "camel-k-loader-jsh")
+                .addLanguages("jsh")
                 .putMetadata("native", "false")
                 .build()
         );
