@@ -115,11 +115,21 @@ public class CatalogProcessor3x implements CatalogProcessor {
             new CamelArtifact.Builder()
                 .groupId("org.apache.camel.k")
                 .artifactId("camel-k-cron")
-                .addScheme(new CamelScheme.Builder()
-                    .id("cron")
-                    .build())
                 .build()
         );
+        specBuilder.putArtifact(
+            new CamelArtifact.Builder()
+                .groupId("org.apache.camel.k")
+                .artifactId("camel-k-webhook")
+                .build()
+        );
+        specBuilder.putArtifact(
+            new CamelArtifact.Builder()
+                .groupId("org.apache.camel.k")
+                .artifactId("camel-k-master")
+                .build()
+        );
+
         specBuilder.putArtifact(
             new CamelArtifact.Builder()
                 .groupId("org.apache.camel.k")
@@ -143,26 +153,6 @@ public class CatalogProcessor3x implements CatalogProcessor {
                     .producer(new CamelScopedArtifact.Builder()
                         .addDependency("org.apache.camel.k", "camel-k-knative-producer")
                         .build())
-                    .build())
-                .build()
-        );
-        specBuilder.putArtifact(
-            new CamelArtifact.Builder()
-                .groupId("org.apache.camel.k")
-                .artifactId("camel-k-master")
-                .addScheme(new CamelScheme.Builder()
-                    .id("master")
-                    .build())
-                .build()
-        );
-        specBuilder.putArtifact(
-            new CamelArtifact.Builder()
-                .groupId("org.apache.camel.k")
-                .artifactId("camel-k-webhook")
-                .addScheme(new CamelScheme.Builder()
-                    .id("webhook")
-                    .http(true)
-                    .passive(true)
                     .build())
                 .build()
         );
