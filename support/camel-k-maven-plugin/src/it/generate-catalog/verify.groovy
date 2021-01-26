@@ -46,6 +46,30 @@ new File(basedir, "catalog.yaml").withReader {
 
     assert catalog.metadata.labels['camel.apache.org/runtime.version'] == runtimeVersion
 
+    catalog.spec.artifacts['camel-k-master'].with {
+        schemes == null
+    }
+    catalog.spec.artifacts['camel-k-cron'].with {
+        schemes == null
+    }
+    catalog.spec.artifacts['camel-k-webhook'].with {
+        schemes == null
+    }
+
+    def diff = org.apache.commons.collections4.CollectionUtils.disjunction(
+            catalog.spec.artifacts.values()
+                    .findAll { it.schemes != null }
+                    .collect { it.schemes.collect { it.id } }
+                    .flatten(),
+            catalog.spec.artifacts.values()
+                    .findAll { it.schemes != null }
+                    .collect { it.schemes.collect { it.id } }
+                    .flatten()
+                    .unique()
+    )
+
+    assert diff.size() == 0 : "Duplicated schemes: ${diff}"
+
     catalog.spec.artifacts['camel-k-knative'].with {
         assert dependencies == null
         assert requiredCapabilities == null

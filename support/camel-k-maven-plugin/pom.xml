@@ -251,6 +251,11 @@
                         <artifactId>groovy-xml</artifactId>
                         <version>${groovy-version}</version>
                     </dependency>
+                    <dependency>
+                        <groupId>org.apache.commons</groupId>
+                        <artifactId>commons-collections4</artifactId>
+                        <version>${commons-collections4-version}</version>
+                    </dependency>
                 </dependencies>
             </plugin>
         </plugins>
