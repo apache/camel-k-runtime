@@ -19,7 +19,7 @@ new File(basedir, "catalog.yaml").withReader {
     def catalog = new groovy.yaml.YamlSlurper().parse(it)
 
     assert catalog.spec.runtime.version == runtimeVersion
-    assert catalog.spec.runtime.applicationClass == 'io.quarkus.bootstrap.runner.QuarkusEntryPoint'
+    assert catalog.spec.runtime.applicationClass == 'io.quarkus.runner.GeneratedMain'
     assert catalog.spec.runtime.metadata['camel.version'] == camelVersion
     assert catalog.spec.runtime.metadata['quarkus.version'] == quarkusVersion
     assert catalog.spec.runtime.metadata['camel-quarkus.version'] == camelQuarkusVersion
