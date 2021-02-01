@@ -7,4 +7,3 @@ image:https://img.shields.io/badge/zulip-join_chat-brightgreen.svg["Chat on Zuli
 image:https://github.com/apache/camel-k-runtime/workflows/Build/badge.svg["Build Status", link="https://github.com/apache/camel-k-runtime/actions?query=workflow%3ABuild"]
 
 This repository contains the Apache Camel-K Runtime bits used by the https://github.com/apache/camel-k[_main project_]
-
