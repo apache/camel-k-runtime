@@ -32,6 +32,7 @@ jobs:
         with:
           persist-credentials: false
           submodules: recursive
+          path: camel-k-runtime-clone
       - name: setup Node
         uses: actions/setup-node@v2
       - name: Backport
