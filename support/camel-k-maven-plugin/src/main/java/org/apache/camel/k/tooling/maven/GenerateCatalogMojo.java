@@ -112,7 +112,7 @@ public class GenerateCatalogMojo extends AbstractMojo {
                 "org.apache.camel.quarkus", "camel-quarkus-catalog",
                 version -> runtimeSpec.putMetadata("camel-quarkus.version", version));
 
-            runtimeSpec.applicationClass("io.quarkus.bootstrap.runner.QuarkusEntryPoint");
+            runtimeSpec.applicationClass("io.quarkus.runner.GeneratedMain");
             runtimeSpec.addDependency("org.apache.camel.k", "camel-k-runtime");
             runtimeSpec.putCapability(
                 "cron",
