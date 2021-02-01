@@ -36,6 +36,6 @@ jobs:
       - name: setup Node
         uses: actions/setup-node@v2
       - name: Backport
-        uses: ./.github/actions/backport
+        uses: .././.github/actions/backport
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
