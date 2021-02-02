@@ -1,5 +1,44 @@
 # Changelog
 
+## [Unreleased](https://github.com/apache/camel-k-runtime/tree/HEAD)
+
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.6.0...HEAD)
+
+**Closed issues:**
+
+- Make changelog action work again [\#612](https://github.com/apache/camel-k-runtime/issues/612)
+- Catalog contains duplicate entry for same schema \(cron\) [\#592](https://github.com/apache/camel-k-runtime/issues/592)
+- Fix missing wrap component error in camelk catalog [\#589](https://github.com/apache/camel-k-runtime/issues/589)
+- Cannot use kamelets in yaml integrations [\#581](https://github.com/apache/camel-k-runtime/issues/581)
+- Catalog json keys should be sorted [\#576](https://github.com/apache/camel-k-runtime/issues/576)
+- Thread blocked calling knative REST [\#513](https://github.com/apache/camel-k-runtime/issues/513)
+
+**Merged pull requests:**
+
+- Changelog action [\#613](https://github.com/apache/camel-k-runtime/pull/613) ([oscerd](https://github.com/oscerd))
+- Revert "Test PR" [\#611](https://github.com/apache/camel-k-runtime/pull/611) ([oscerd](https://github.com/oscerd))
+- Test PR [\#609](https://github.com/apache/camel-k-runtime/pull/609) ([oscerd](https://github.com/oscerd))
+- build\(deps\): bump maven-checkstyle-plugin from 3.1.1 to 3.1.2 [\#608](https://github.com/apache/camel-k-runtime/pull/608) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump maven-common-artifact-filters from 3.1.0 to 3.1.1 [\#607](https://github.com/apache/camel-k-runtime/pull/607) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Update backport.yml [\#605](https://github.com/apache/camel-k-runtime/pull/605) ([oscerd](https://github.com/oscerd))
+- Backport action [\#602](https://github.com/apache/camel-k-runtime/pull/602) ([oscerd](https://github.com/oscerd))
+- Revert "Test PR" [\#600](https://github.com/apache/camel-k-runtime/pull/600) ([oscerd](https://github.com/oscerd))
+- Fixed backport action [\#599](https://github.com/apache/camel-k-runtime/pull/599) ([oscerd](https://github.com/oscerd))
+- Test PR [\#598](https://github.com/apache/camel-k-runtime/pull/598) ([oscerd](https://github.com/oscerd))
+- Backport action  [\#597](https://github.com/apache/camel-k-runtime/pull/597) ([oscerd](https://github.com/oscerd))
+- Github actions: Do not persist credentials for Checkout action [\#596](https://github.com/apache/camel-k-runtime/pull/596) ([oscerd](https://github.com/oscerd))
+- Revert "Support fast-jar packaging for quarkus" [\#595](https://github.com/apache/camel-k-runtime/pull/595) ([jamesnetherton](https://github.com/jamesnetherton))
+- Catalog contains duplicate entry for same schema [\#594](https://github.com/apache/camel-k-runtime/pull/594) ([lburgazzoli](https://github.com/lburgazzoli))
+- loader\(java\): support for jshell scripts [\#591](https://github.com/apache/camel-k-runtime/pull/591) ([lburgazzoli](https://github.com/lburgazzoli))
+- Fixes \#589, fixed kamelet-reify component scheme in CamelK catalog [\#590](https://github.com/apache/camel-k-runtime/pull/590) ([dhirajsb](https://github.com/dhirajsb))
+- Support fast-jar packaging for quarkus [\#588](https://github.com/apache/camel-k-runtime/pull/588) ([jamesnetherton](https://github.com/jamesnetherton))
+- update camel-quarkus to v1.6.0 [\#587](https://github.com/apache/camel-k-runtime/pull/587) ([lburgazzoli](https://github.com/lburgazzoli))
+- chore\(actions\): switch to potiuk/cancel-workflow-runs [\#586](https://github.com/apache/camel-k-runtime/pull/586) ([lburgazzoli](https://github.com/lburgazzoli))
+- Move CloudEvents related code to camel-cloudevents [\#585](https://github.com/apache/camel-k-runtime/pull/585) ([lburgazzoli](https://github.com/lburgazzoli))
+- Catalog json keys should be sorted [\#584](https://github.com/apache/camel-k-runtime/pull/584) ([lburgazzoli](https://github.com/lburgazzoli))
+- Cannot use kamelets in yaml integrations [\#583](https://github.com/apache/camel-k-runtime/pull/583) ([lburgazzoli](https://github.com/lburgazzoli))
+- build\(deps\): bump gmavenplus-plugin from 1.12.0 to 1.12.1 [\#580](https://github.com/apache/camel-k-runtime/pull/580) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [camel-k-runtime-project-1.6.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.6.0) (2020-12-22)
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-parent-1.5.0...camel-k-runtime-project-1.6.0)
