@@ -482,8 +482,10 @@
 - Dependencies updates and test improvements [\#216](https://github.com/apache/camel-k-runtime/pull/216) ([lburgazzoli](https://github.com/lburgazzoli))
 - \[quarkus\] create loaders for java, groovy and kotlin in JVM mode [\#214](https://github.com/apache/camel-k-runtime/pull/214) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(plugin\): switch from v1alpha1 to v1 [\#213](https://github.com/apache/camel-k-runtime/pull/213) ([nicolaferraro](https://github.com/nicolaferraro))
+- Ignore package when working with Java classes [\#211](https://github.com/apache/camel-k-runtime/pull/211) ([lburgazzoli](https://github.com/lburgazzoli))
 - groovy: workaround for https://issues.apache.org/jira/browse/CAMEL-14300 [\#210](https://github.com/apache/camel-k-runtime/pull/210) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(plugin\): generate lower case names for resources [\#209](https://github.com/apache/camel-k-runtime/pull/209) ([nicolaferraro](https://github.com/nicolaferraro))
+- Update to Camel 3.0.0 and Camel-Quarkus 1.0.0-M1 [\#206](https://github.com/apache/camel-k-runtime/pull/206) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-1.0.8](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.0.8) (2019-12-16)
 
@@ -497,10 +499,8 @@
 
 **Merged pull requests:**
 
-- Ignore package when working with Java classes [\#211](https://github.com/apache/camel-k-runtime/pull/211) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix apache/camel-k\#1119: do not return cloud events by default [\#208](https://github.com/apache/camel-k-runtime/pull/208) ([nicolaferraro](https://github.com/nicolaferraro))
 - runtime-main: disable routes collector as routes are discovered through camel-k specific mechanic [\#207](https://github.com/apache/camel-k-runtime/pull/207) ([lburgazzoli](https://github.com/lburgazzoli))
-- Update to Camel 3.0.0 and Camel-Quarkus 1.0.0-M1 [\#206](https://github.com/apache/camel-k-runtime/pull/206) ([lburgazzoli](https://github.com/lburgazzoli))
 - Provide basic description for KNative component to have a valid catalog [\#205](https://github.com/apache/camel-k-runtime/pull/205) ([apupier](https://github.com/apupier))
 - Add type information to catalog [\#204](https://github.com/apache/camel-k-runtime/pull/204) ([jamesnetherton](https://github.com/jamesnetherton))
 - Update kotlin to v1.3.61 [\#202](https://github.com/apache/camel-k-runtime/pull/202) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -679,7 +679,6 @@
 - Support camel 3.0.0 M3 \#79 [\#81](https://github.com/apache/camel-k-runtime/pull/81) ([lburgazzoli](https://github.com/lburgazzoli))
 - catalog: generate license header \(camel 3\) [\#77](https://github.com/apache/camel-k-runtime/pull/77) ([lburgazzoli](https://github.com/lburgazzoli))
 - Camel 3 cleanup [\#75](https://github.com/apache/camel-k-runtime/pull/75) ([lburgazzoli](https://github.com/lburgazzoli))
-- Switch to Camel 3 by default [\#73](https://github.com/apache/camel-k-runtime/pull/73) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-0.3.3](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-0.3.3) (2019-05-28)
 
