@@ -18,30 +18,34 @@ package org.apache.camel.component.knative.http;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import java.util.Map;
 import java.util.function.Predicate;
 
+import io.vertx.core.Handler;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.Route;
+import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
+import io.vertx.ext.web.handler.BodyHandler;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.NoTypeConversionAvailableException;
 import org.apache.camel.Processor;
 import org.apache.camel.TypeConverter;
-import org.apache.camel.component.knative.spi.KnativeEnvironment;
+import org.apache.camel.component.knative.spi.KnativeResource;
 import org.apache.camel.component.knative.spi.KnativeTransportConfiguration;
-import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpRouter;
 import org.apache.camel.spi.HeaderFilterStrategy;
 import org.apache.camel.support.DefaultConsumer;
 import org.apache.camel.support.ExchangeHelper;
 import org.apache.camel.support.MessageHelper;
+import org.apache.camel.util.IOHelper;
 import org.apache.camel.util.ObjectHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,27 +55,30 @@ public class KnativeHttpConsumer extends DefaultConsumer {
 
     private final KnativeTransportConfiguration configuration;
     private final Predicate<HttpServerRequest> filter;
-    private final KnativeEnvironment.KnativeResource serviceDefinition;
-    private final VertxPlatformHttpRouter router;
+    private final KnativeResource resource;
+    private final Router router;
     private final HeaderFilterStrategy headerFilterStrategy;
 
     private String basePath;
     private Route route;
+    private BigInteger maxBodySize;
+    private boolean preallocateBodyBuffer;
 
     public KnativeHttpConsumer(
         KnativeTransportConfiguration configuration,
         Endpoint endpoint,
-        KnativeEnvironment.KnativeResource serviceDefinition,
-        VertxPlatformHttpRouter router,
+        KnativeResource resource,
+        Router router,
         Processor processor) {
 
         super(endpoint, processor);
 
         this.configuration = configuration;
-        this.serviceDefinition = serviceDefinition;
+        this.resource = resource;
         this.router = router;
         this.headerFilterStrategy = new KnativeHttpHeaderFilterStrategy();
-        this.filter = KnativeHttpSupport.createFilter(serviceDefinition);
+        this.filter = KnativeHttpSupport.createFilter(this.configuration.getCloudEvent(), resource);
+        this.preallocateBodyBuffer = true;
     }
 
     public String getBasePath() {
@@ -82,10 +89,29 @@ public class KnativeHttpConsumer extends DefaultConsumer {
         this.basePath = basePath;
     }
 
+    public BigInteger getMaxBodySize() {
+        return maxBodySize;
+    }
+
+    public void setMaxBodySize(BigInteger maxBodySize) {
+        this.maxBodySize = maxBodySize;
+    }
+
+    public boolean isPreallocateBodyBuffer() {
+        return preallocateBodyBuffer;
+    }
+
+    public void setPreallocateBodyBuffer(boolean preallocateBodyBuffer) {
+        this.preallocateBodyBuffer = preallocateBodyBuffer;
+    }
+
     @Override
     protected void doStart() throws Exception {
         if (route == null) {
-            String path = ObjectHelper.supplyIfEmpty(serviceDefinition.getPath(), () -> KnativeHttpTransport.DEFAULT_PATH);
+            String path = resource.getPath();
+            if (ObjectHelper.isEmpty(path)) {
+                path = "/";
+            }
             if (ObjectHelper.isNotEmpty(basePath)) {
                 path = basePath + path;
             }
@@ -97,8 +123,20 @@ public class KnativeHttpConsumer extends DefaultConsumer {
                 path
             );
 
+            BodyHandler bodyHandler = BodyHandler.create();
+            bodyHandler.setPreallocateBodyBuffer(this.preallocateBodyBuffer);
+            if (this.maxBodySize != null) {
+                bodyHandler.setBodyLimit(this.maxBodySize.longValueExact());
+            }
+
             // add body handler
-            route.handler(router.bodyHandler());
+            route.handler(new Handler<RoutingContext>() {
+                @Override
+                public void handle(RoutingContext event) {
+                    event.request().resume();
+                    bodyHandler.handle(event);
+                }
+            });
 
             // add knative handler
             route.handler(routingContext -> {
@@ -161,7 +199,7 @@ public class KnativeHttpConsumer extends DefaultConsumer {
         // from("knative:event/my.event")
         //        .to("http://{{env:PROJECT}}.{{env:NAMESPACE}}.svc.cluster.local/service");
         //
-        router.vertx().executeBlocking(
+        routingContext.vertx().executeBlocking(
             promise -> {
                 try {
                     createUoW(exchange);
@@ -224,8 +262,8 @@ public class KnativeHttpConsumer extends DefaultConsumer {
         Message message = exchange.getMessage();
         String path = request.path();
 
-        if (serviceDefinition.getPath() != null) {
-            String endpointPath = serviceDefinition.getPath();
+        if (resource.getPath() != null) {
+            String endpointPath = resource.getPath();
             String matchPath = path.toLowerCase(Locale.US);
             String match = endpointPath.toLowerCase(Locale.US);
 
@@ -295,16 +333,21 @@ public class KnativeHttpConsumer extends DefaultConsumer {
             // we failed due an exception so print it as plain text
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
-            exception.printStackTrace(pw);
 
-            // the body should then be the stacktrace
-            body = sw.toString().getBytes(StandardCharsets.UTF_8);
-            // force content type to be text/plain as that is what the stacktrace is
-            message.setHeader(Exchange.CONTENT_TYPE, "text/plain");
+            try {
+                exception.printStackTrace(pw);
 
-            // and mark the exception as failure handled, as we handled it by returning
-            // it as the response
-            ExchangeHelper.setFailureHandled(message.getExchange());
+                // the body should then be the stacktrace
+                body = sw.toString().getBytes(StandardCharsets.UTF_8);
+                // force content type to be text/plain as that is what the stacktrace is
+                message.setHeader(Exchange.CONTENT_TYPE, "text/plain");
+
+                // and mark the exception as failure handled, as we handled it by returning
+                // it as the response
+                ExchangeHelper.setFailureHandled(message.getExchange());
+            } finally {
+                IOHelper.close(pw, sw);
+            }
         }
 
         return body != null

@@ -18,14 +18,10 @@ package org.apache.camel.component.knative.http;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 import io.restassured.RestAssured;
 import io.restassured.mapper.ObjectMapperType;
@@ -37,16 +33,14 @@ import org.apache.camel.FailedToStartRouteException;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.cloudevents.CloudEvent;
+import org.apache.camel.component.cloudevents.CloudEvents;
 import org.apache.camel.component.knative.KnativeComponent;
 import org.apache.camel.component.knative.KnativeEndpoint;
-import org.apache.camel.component.knative.spi.CloudEvent;
-import org.apache.camel.component.knative.spi.CloudEvents;
 import org.apache.camel.component.knative.spi.Knative;
-import org.apache.camel.component.knative.spi.KnativeEnvironment;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.http.base.HttpOperationFailedException;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.k.http.PlatformHttpServiceContextCustomizer;
 import org.apache.camel.k.test.AvailablePortFinder;
 import org.apache.camel.support.service.ServiceHelper;
 import org.apache.camel.util.ObjectHelper;
@@ -60,6 +54,7 @@ import static io.restassured.RestAssured.config;
 import static io.restassured.RestAssured.given;
 import static io.restassured.config.EncoderConfig.encoderConfig;
 import static org.apache.camel.component.knative.http.KnativeHttpTestSupport.configureKnativeComponent;
+import static org.apache.camel.component.knative.http.KnativeHttpTestSupport.configurePlatformHttpComponent;
 import static org.apache.camel.component.knative.http.KnativeHttpTestSupport.httpAttribute;
 import static org.apache.camel.component.knative.test.KnativeEnvironmentSupport.channel;
 import static org.apache.camel.component.knative.test.KnativeEnvironmentSupport.endpoint;
@@ -92,9 +87,7 @@ public class KnativeHttpTest {
         this.platformHttpHost = "localhost";
         this.platformHttpPort = AvailablePortFinder.getNextAvailable();
 
-        PlatformHttpServiceContextCustomizer httpService = new PlatformHttpServiceContextCustomizer();
-        httpService.setBindPort(this.platformHttpPort);
-        httpService.apply(context);
+        configurePlatformHttpComponent(context, this.platformHttpPort);
 
         RestAssured.port = platformHttpPort;
         RestAssured.config = config().encoderConfig(encoderConfig().appendDefaultContentCharsetToContentTypeIfUndefined(false));
@@ -120,7 +113,8 @@ public class KnativeHttpTest {
         context.start();
 
         assertThat(context.getComponent("knative")).isInstanceOfSatisfying(KnativeComponent.class, c -> {
-            assertThat(c.getTransport()).isInstanceOf(KnativeHttpTransport.class);
+            assertThat(c.getProducerFactory()).isInstanceOf(KnativeHttpProducerFactory.class);
+            assertThat(c.getConsumerFactory()).isInstanceOf(KnativeHttpConsumerFactory.class);
         });
     }
 
@@ -132,7 +126,7 @@ public class KnativeHttpTest {
                 "myEndpoint",
                 Map.of(
                     Knative.SERVICE_META_PATH, ObjectHelper.supplyIfEmpty(path, () -> "/"),
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 ))
         );
@@ -214,13 +208,14 @@ public class KnativeHttpTest {
                 "myEndpoint",
                 String.format("http://%s:%d/a/path", platformHttpHost, platformHttpPort),
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 ))
         );
 
         RouteBuilder.addRoutes(context, b -> {
             b.from("direct:source")
+                .routeId("my-source")
                 .to("knative:endpoint/myEndpoint");
             b.from("platform-http:/a/path")
                 .to("mock:ce");
@@ -231,7 +226,7 @@ public class KnativeHttpTest {
         MockEndpoint mock = context.getEndpoint("mock:ce", MockEndpoint.class);
         mock.expectedHeaderReceived(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_VERSION), ce.version());
         mock.expectedHeaderReceived(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_TYPE), "org.apache.camel.event");
-        mock.expectedHeaderReceived(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_SOURCE), "knative://endpoint/myEndpoint");
+        mock.expectedHeaderReceived(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_SOURCE), "my-source");
         mock.expectedHeaderReceived(Exchange.CONTENT_TYPE, "text/plain");
         mock.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_TIME)));
         mock.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_ID)));
@@ -255,13 +250,14 @@ public class KnativeHttpTest {
                 null,
                 Map.of(
                     Knative.SERVICE_META_URL, String.format("http://localhost:%d/a/path", platformHttpPort),
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 ))
         );
 
         RouteBuilder.addRoutes(context, b -> {
             b.from("direct:source")
+                .routeId("my-source")
                 .to("knative:endpoint/myEndpoint");
             b.from("platform-http:/a/path")
                 .to("mock:ce");
@@ -272,7 +268,7 @@ public class KnativeHttpTest {
         MockEndpoint mock = context.getEndpoint("mock:ce", MockEndpoint.class);
         mock.expectedHeaderReceived(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_VERSION), ce.version());
         mock.expectedHeaderReceived(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_TYPE), "org.apache.camel.event");
-        mock.expectedHeaderReceived(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_SOURCE), "knative://endpoint/myEndpoint");
+        mock.expectedHeaderReceived(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_SOURCE), "my-source");
         mock.expectedHeaderReceived(Exchange.CONTENT_TYPE, "text/plain");
         mock.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_TIME)));
         mock.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_ID)));
@@ -297,13 +293,14 @@ public class KnativeHttpTest {
                 Map.of(
                     Knative.SERVICE_META_PATH, "/with/subpath",
                     Knative.SERVICE_META_URL, String.format("http://localhost:%d/a/path", platformHttpPort),
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 ))
         );
 
         RouteBuilder.addRoutes(context, b -> {
             b.from("direct:source")
+                .routeId("my-source")
                 .to("knative:endpoint/myEndpoint");
             b.from("platform-http:/a/path/with/subpath")
                 .to("mock:ce");
@@ -314,7 +311,7 @@ public class KnativeHttpTest {
         MockEndpoint mock = context.getEndpoint("mock:ce", MockEndpoint.class);
         mock.expectedHeaderReceived(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_VERSION), ce.version());
         mock.expectedHeaderReceived(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_TYPE), "org.apache.camel.event");
-        mock.expectedHeaderReceived(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_SOURCE), "knative://endpoint/myEndpoint");
+        mock.expectedHeaderReceived(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_SOURCE), "my-source");
         mock.expectedHeaderReceived(Exchange.CONTENT_TYPE, "text/plain");
         mock.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_TIME)));
         mock.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_ID)));
@@ -335,7 +332,7 @@ public class KnativeHttpTest {
             sourceEndpoint(
                 "myEndpoint",
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 ))
         );
@@ -449,7 +446,7 @@ public class KnativeHttpTest {
             sourceEndpoint(
                 "myEndpoint",
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 ))
         );
@@ -496,14 +493,14 @@ public class KnativeHttpTest {
             sourceEndpoint(
                 "ep1",
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain",
                     Knative.KNATIVE_FILTER_PREFIX + httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_SOURCE), "CE1"
                 )),
             sourceEndpoint(
                 "ep2",
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain",
                     Knative.KNATIVE_FILTER_PREFIX + httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_SOURCE), "CE2"
                 ))
@@ -579,14 +576,14 @@ public class KnativeHttpTest {
             sourceEndpoint(
                 "ep1",
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain",
                     Knative.KNATIVE_FILTER_PREFIX + httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_SOURCE), "CE[01234]"
                 )),
             sourceEndpoint(
                 "ep2",
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain",
                     Knative.KNATIVE_FILTER_PREFIX + httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_SOURCE), "CE[56789]"
                 ))
@@ -732,7 +729,7 @@ public class KnativeHttpTest {
             sourceEndpoint(
                 "from",
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event.from",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event.from",
                     Knative.CONTENT_TYPE, "text/plain"
                 )),
             endpoint(
@@ -740,7 +737,7 @@ public class KnativeHttpTest {
                 "to",
                 String.format("http://%s:%d", platformHttpHost, platformHttpPort),
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event.to",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event.to",
                     Knative.CONTENT_TYPE, "text/plain"
                 ))
         );
@@ -778,7 +775,7 @@ public class KnativeHttpTest {
             sourceEndpoint(
                 "from",
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 )),
             endpoint(
@@ -786,7 +783,7 @@ public class KnativeHttpTest {
                 "to",
                 String.format("http://%s:%d", platformHttpHost, platformHttpPort),
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 ))
         );
@@ -826,7 +823,7 @@ public class KnativeHttpTest {
                 "test",
                 null,
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 )
             )
@@ -854,7 +851,7 @@ public class KnativeHttpTest {
                 "test",
                 String.format("http://%s:%d", platformHttpHost, platformHttpPort),
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 )
             )
@@ -883,7 +880,7 @@ public class KnativeHttpTest {
             sourceEndpoint(
                 "ep1",
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain",
                     Knative.KNATIVE_FILTER_PREFIX + "h", "h1"
                 )
@@ -891,7 +888,7 @@ public class KnativeHttpTest {
             sourceEndpoint(
                 "ep2",
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain",
                     Knative.KNATIVE_FILTER_PREFIX + "h", "h2"
                 )
@@ -934,7 +931,7 @@ public class KnativeHttpTest {
             sourceEndpoint(
                 "ep1",
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain",
                     Knative.KNATIVE_FILTER_PREFIX + "h", "h1"
                 )
@@ -942,7 +939,7 @@ public class KnativeHttpTest {
             sourceEndpoint(
                 "ep2",
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain",
                     Knative.KNATIVE_FILTER_PREFIX + "h", "h2"
                 )
@@ -989,7 +986,7 @@ public class KnativeHttpTest {
                 "ep",
                 String.format("http://%s:%d", platformHttpHost, platformHttpPort),
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 )
             )
@@ -1026,13 +1023,13 @@ public class KnativeHttpTest {
                 "default",
                 String.format("http://%s:%d", platformHttpHost, platformHttpPort),
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 )),
             sourceEvent(
                 "default",
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 ))
         );
@@ -1062,6 +1059,49 @@ public class KnativeHttpTest {
 
     @ParameterizedTest
     @EnumSource(CloudEvents.class)
+    void testEventsNoName(CloudEvent ce) throws Exception {
+        configureKnativeComponent(
+                context,
+                ce,
+                event(
+                        Knative.EndpointKind.sink,
+                        "default",
+                        String.format("http://%s:%d", platformHttpHost, platformHttpPort),
+                        Map.of(
+                                Knative.CONTENT_TYPE, "text/plain"
+                        )),
+                sourceEvent(
+                        "default",
+                        Map.of(
+                                Knative.CONTENT_TYPE, "text/plain"
+                        ))
+        );
+
+        RouteBuilder.addRoutes(context, b -> {
+            b.from("direct:source")
+                    .to("knative:event");
+            b.from("knative:event")
+                    .to("mock:ce");
+        });
+
+        context.start();
+
+        MockEndpoint mock = context.getEndpoint("mock:ce", MockEndpoint.class);
+        mock.expectedHeaderReceived(CloudEvent.CAMEL_CLOUD_EVENT_VERSION, ce.version());
+        mock.expectedHeaderReceived(CloudEvent.CAMEL_CLOUD_EVENT_TYPE, "org.apache.camel.event");
+        mock.expectedHeaderReceived(Exchange.CONTENT_TYPE, "text/plain");
+        mock.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(CloudEvent.CAMEL_CLOUD_EVENT_TIME));
+        mock.expectedMessagesMatches(e -> e.getMessage().getHeaders().containsKey(CloudEvent.CAMEL_CLOUD_EVENT_ID));
+        mock.expectedBodiesReceived("test");
+        mock.expectedMessageCount(1);
+
+        template.sendBody("direct:source", "test");
+
+        mock.assertIsSatisfied();
+    }
+
+    @ParameterizedTest
+    @EnumSource(CloudEvents.class)
     void testEventsWithResourceRef(CloudEvent ce) throws Exception {
         configureKnativeComponent(
             context,
@@ -1071,20 +1111,20 @@ public class KnativeHttpTest {
                 "default",
                 String.format("http://%s:%d", platformHttpHost, platformHttpPort),
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain",
-                    Knative.KNATIVE_KIND, "MyObject",
-                    Knative.KNATIVE_API_VERSION, "v1",
-                    Knative.KNATIVE_NAME, "myName1"
+                    Knative.KNATIVE_OBJECT_KIND, "MyObject",
+                    Knative.KNATIVE_OBJECT_API_VERSION, "v1",
+                    Knative.KNATIVE_OBJECT_NAME, "myName1"
                 )),
             sourceEvent(
                 "default",
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain",
-                    Knative.KNATIVE_KIND, "MyOtherObject",
-                    Knative.KNATIVE_API_VERSION, "v2",
-                    Knative.KNATIVE_NAME, "myName2"
+                    Knative.KNATIVE_OBJECT_KIND, "MyOtherObject",
+                    Knative.KNATIVE_OBJECT_API_VERSION, "v2",
+                    Knative.KNATIVE_OBJECT_NAME, "myName2"
                 ))
         );
 
@@ -1133,20 +1173,20 @@ public class KnativeHttpTest {
             sourceEndpoint(
                 "myEndpoint",
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain",
-                    Knative.KNATIVE_KIND, "MyObject",
-                    Knative.KNATIVE_API_VERSION, "v1",
-                    Knative.KNATIVE_NAME, "myName1"
+                    Knative.KNATIVE_OBJECT_KIND, "MyObject",
+                    Knative.KNATIVE_OBJECT_API_VERSION, "v1",
+                    Knative.KNATIVE_OBJECT_NAME, "myName1"
                 )),
             sourceEndpoint(
                 "myEndpoint",
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain",
-                    Knative.KNATIVE_KIND, "MyObject",
-                    Knative.KNATIVE_API_VERSION, "v2",
-                    Knative.KNATIVE_NAME, "myName2"
+                    Knative.KNATIVE_OBJECT_KIND, "MyObject",
+                    Knative.KNATIVE_OBJECT_API_VERSION, "v2",
+                    Knative.KNATIVE_OBJECT_NAME, "myName2"
                 ))
         );
 
@@ -1199,7 +1239,7 @@ public class KnativeHttpTest {
             sourceEndpoint(
                 "myEndpoint",
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 ))
         );
@@ -1231,7 +1271,7 @@ public class KnativeHttpTest {
                 "myEndpoint",
                 String.format("http://%s:%d", platformHttpHost, platformHttpPort),
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 ))
         );
@@ -1265,7 +1305,7 @@ public class KnativeHttpTest {
                 "messages",
                 null,
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 )),
             channel(
@@ -1273,7 +1313,7 @@ public class KnativeHttpTest {
                 "messages",
                 String.format("http://%s:%d", platformHttpHost, platformHttpPort),
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 )),
             channel(
@@ -1281,7 +1321,7 @@ public class KnativeHttpTest {
                 "words",
                 String.format("http://%s:%d", server.getHost(), server.getPort()),
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 ))
         );
@@ -1315,7 +1355,7 @@ public class KnativeHttpTest {
             sourceChannel(
                 "channel",
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 ))
         );
@@ -1351,7 +1391,7 @@ public class KnativeHttpTest {
             sourceChannel(
                 "channel",
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain",
                     Knative.KNATIVE_REPLY, "false"
                 ))
@@ -1388,7 +1428,7 @@ public class KnativeHttpTest {
             sourceChannel(
                 "channel",
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain",
                     Knative.KNATIVE_REPLY, "true"
                 ))
@@ -1418,51 +1458,6 @@ public class KnativeHttpTest {
 
     @ParameterizedTest
     @EnumSource(CloudEvents.class)
-    void testOrdering(CloudEvent ce) throws Exception {
-        List<KnativeEnvironment.KnativeResource> hops = new Random()
-            .ints(0, 100)
-            .distinct()
-            .limit(10)
-            .mapToObj(i -> sourceEndpoint(
-                "ep-" + i,
-                Map.of(Knative.KNATIVE_FILTER_PREFIX + "MyHeader", "channel-" + i)))
-            .collect(Collectors.toList());
-
-        configureKnativeComponent(context, ce, hops);
-
-        RouteBuilder.addRoutes(context, b -> {
-            b.from("direct:start")
-                .routeId("http")
-                .toF("http://localhost:%d", platformHttpPort)
-                .convertBodyTo(String.class);
-
-            for (KnativeEnvironment.KnativeResource definition : hops) {
-                b.fromF("knative:endpoint/%s", definition.getName())
-                    .routeId(definition.getName())
-                    .setBody().constant(definition.getName());
-            }
-        });
-
-        context.start();
-
-        List<String> hopsDone = new ArrayList<>();
-        for (KnativeEnvironment.KnativeResource definition : hops) {
-            hopsDone.add(definition.getName());
-
-            Exchange result = template.request(
-                "direct:start",
-                e -> {
-                    e.getMessage().setHeader("MyHeader", hopsDone);
-                    e.getMessage().setBody(definition.getName());
-                }
-            );
-
-            assertThat(result.getMessage().getBody()).isEqualTo(definition.getName());
-        }
-    }
-
-    @ParameterizedTest
-    @EnumSource(CloudEvents.class)
     void testHeaders(CloudEvent ce) throws Exception {
         final int port = AvailablePortFinder.getNextAvailable();
         final KnativeHttpServer server = new KnativeHttpServer(context);
@@ -1475,7 +1470,7 @@ public class KnativeHttpTest {
                 "ep",
                 String.format("http://%s:%d", server.getHost(), server.getPort()),
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 )
             )
@@ -1507,7 +1502,7 @@ public class KnativeHttpTest {
             assertThat(request.getHeader(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_VERSION))).isEqualTo(ce.version());
             assertThat(request.getHeader(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_TYPE))).isEqualTo("org.apache.camel.event");
             assertThat(request.getHeader(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_ID))).isNotNull();
-            assertThat(request.getHeader(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_SOURCE))).isEqualTo("knative://endpoint/ep");
+            assertThat(request.getHeader(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_SOURCE))).isNotNull();
             assertThat(request.getHeader(Exchange.CONTENT_TYPE)).isEqualTo("text/plain");
         } finally {
             server.stop();
@@ -1517,7 +1512,6 @@ public class KnativeHttpTest {
     @ParameterizedTest
     @EnumSource(CloudEvents.class)
     void testHeadersInReply(CloudEvent ce) throws Exception {
-        final int port = AvailablePortFinder.getNextAvailable();
         final KnativeHttpServer server = new KnativeHttpServer(context);
 
         configureKnativeComponent(
@@ -1528,7 +1522,7 @@ public class KnativeHttpTest {
                 "ep",
                 String.format("http://%s:%d", server.getHost(), server.getPort()),
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 )
             )
@@ -1549,7 +1543,7 @@ public class KnativeHttpTest {
 
             server.start();
 
-            Exchange exchange = template.request("direct:start", e -> e.getMessage().setBody(null));
+            Exchange exchange = template.request("direct:start", e -> e.getMessage().setBody("test"));
             assertThat(exchange.getMessage().getHeaders()).containsEntry("CamelDummyHeader", "test");
         } finally {
             server.stop();
@@ -1573,7 +1567,7 @@ public class KnativeHttpTest {
                 "ep",
                 String.format("http://%s:%d", server.getHost(), server.getPort()),
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain",
                     Knative.KNATIVE_CE_OVERRIDE_PREFIX + typeHeaderKey, typeHeaderVal,
                     Knative.KNATIVE_CE_OVERRIDE_PREFIX + sourceHeaderKey, sourceHeaderVal
@@ -1619,7 +1613,7 @@ public class KnativeHttpTest {
                 "ep",
                 String.format("http://%s:%d", server.getHost(), server.getPort()),
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 )
             )
@@ -1665,7 +1659,7 @@ public class KnativeHttpTest {
                 "ep",
                 String.format("http://%s:%d", server.getHost(), server.getPort()),
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 )
             )
@@ -1710,7 +1704,7 @@ public class KnativeHttpTest {
                 "ep",
                 String.format("http://%s:%d", server.getHost(), server.getPort()),
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 )
             )
@@ -1718,6 +1712,7 @@ public class KnativeHttpTest {
 
         RouteBuilder.addRoutes(context, b -> {
             b.from("direct:start")
+                .routeId("my-source")
                 .setHeader(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).constant("myType")
                 .to("knative:endpoint/ep");
         });
@@ -1731,7 +1726,7 @@ public class KnativeHttpTest {
             assertThat(request.getHeader(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_VERSION))).isEqualTo(ce.version());
             assertThat(request.getHeader(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_TYPE))).isEqualTo("myType");
             assertThat(request.getHeader(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_ID))).isNotNull();
-            assertThat(request.getHeader(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_SOURCE))).isEqualTo("knative://endpoint/ep");
+            assertThat(request.getHeader(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_SOURCE))).isEqualTo("my-source");
             assertThat(request.getHeader(Exchange.CONTENT_TYPE)).isEqualTo("text/plain");
         } finally {
             server.stop();
@@ -1751,7 +1746,7 @@ public class KnativeHttpTest {
                 "ep",
                 String.format("http://%s:%d", server.getHost(), server.getPort()),
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 )
             )
@@ -1759,6 +1754,7 @@ public class KnativeHttpTest {
 
         RouteBuilder.addRoutes(context, b -> {
             b.from("direct:start")
+                .routeId("my-source-x")
                 .setHeader(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_TYPE)).constant("fromCEHeader")
                 .setHeader(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).constant("fromCamelHeader")
                 .to("knative:endpoint/ep");
@@ -1773,7 +1769,7 @@ public class KnativeHttpTest {
             assertThat(request.getHeader(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_VERSION))).isEqualTo(ce.version());
             assertThat(request.getHeader(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_TYPE))).isEqualTo("fromCEHeader");
             assertThat(request.getHeader(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_ID))).isNotNull();
-            assertThat(request.getHeader(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_SOURCE))).isEqualTo("knative://endpoint/ep");
+            assertThat(request.getHeader(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_SOURCE))).isEqualTo("my-source-x");
             assertThat(request.getHeader(Exchange.CONTENT_TYPE)).isEqualTo("text/plain");
         } finally {
             server.stop();
@@ -1891,6 +1887,45 @@ public class KnativeHttpTest {
 
     @ParameterizedTest
     @EnumSource(CloudEvents.class)
+    void testEventDefaultType(CloudEvent ce) throws Exception {
+        final KnativeHttpServer server = new KnativeHttpServer(context);
+
+        configureKnativeComponent(
+                context,
+                ce,
+                event(
+                        Knative.EndpointKind.sink,
+                        "default",
+                        String.format("http://%s:%d", server.getHost(), server.getPort()),
+                        Map.of(
+                                Knative.CONTENT_TYPE, "text/plain"
+                        )
+                )
+        );
+
+        RouteBuilder.addRoutes(context, b -> {
+            b.from("direct:start")
+                    .to("knative:event");
+        });
+
+        context.start();
+        try {
+            server.start();
+            template.sendBody("direct:start", "");
+
+            HttpServerRequest request = server.poll(30, TimeUnit.SECONDS);
+            assertThat(request.getHeader(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_VERSION))).isEqualTo(ce.version());
+            assertThat(request.getHeader(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_TYPE))).isEqualTo("org.apache.camel.event");
+            assertThat(request.getHeader(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_ID))).isNotNull();
+            assertThat(request.getHeader(httpAttribute(ce, CloudEvent.CAMEL_CLOUD_EVENT_SOURCE))).isNotNull();
+            assertThat(request.getHeader(Exchange.CONTENT_TYPE)).isEqualTo("text/plain");
+        } finally {
+            server.stop();
+        }
+    }
+
+    @ParameterizedTest
+    @EnumSource(CloudEvents.class)
     void testSlowConsumer(CloudEvent ce) throws Exception {
         final KnativeHttpServer server = new KnativeHttpServer(context, event -> {
             event.vertx().executeBlocking(
@@ -1916,7 +1951,7 @@ public class KnativeHttpTest {
             sourceEndpoint(
                 "start",
                 Map.of(
-                    Knative.KNATIVE_EVENT_TYPE, "org.apache.camel.event",
+                    Knative.KNATIVE_CLOUD_EVENT_TYPE, "org.apache.camel.event",
                     Knative.CONTENT_TYPE, "text/plain"
                 ))
         );

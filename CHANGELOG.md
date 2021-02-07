@@ -2,16 +2,92 @@
 
 ## [Unreleased](https://github.com/apache/camel-k-runtime/tree/HEAD)
 
-[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-parent-1.5.0...HEAD)
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.6.0...HEAD)
 
 **Closed issues:**
 
-- Use default event type with broker [\#536](https://github.com/apache/camel-k-runtime/issues/536)
-- Can't set Knative broker name [\#535](https://github.com/apache/camel-k-runtime/issues/535)
-- Groovy - such property: DELEGATE\_FIRST when mapping beans [\#529](https://github.com/apache/camel-k-runtime/issues/529)
+- Make changelog action work again [\#612](https://github.com/apache/camel-k-runtime/issues/612)
+- Catalog contains duplicate entry for same schema \(cron\) [\#592](https://github.com/apache/camel-k-runtime/issues/592)
+- Fix missing wrap component error in camelk catalog [\#589](https://github.com/apache/camel-k-runtime/issues/589)
+- Cannot use kamelets in yaml integrations [\#581](https://github.com/apache/camel-k-runtime/issues/581)
+- Catalog json keys should be sorted [\#576](https://github.com/apache/camel-k-runtime/issues/576)
+- Thread blocked calling knative REST [\#513](https://github.com/apache/camel-k-runtime/issues/513)
 
 **Merged pull requests:**
 
+- Changelog action [\#613](https://github.com/apache/camel-k-runtime/pull/613) ([oscerd](https://github.com/oscerd))
+- Revert "Test PR" [\#611](https://github.com/apache/camel-k-runtime/pull/611) ([oscerd](https://github.com/oscerd))
+- Test PR [\#609](https://github.com/apache/camel-k-runtime/pull/609) ([oscerd](https://github.com/oscerd))
+- build\(deps\): bump maven-checkstyle-plugin from 3.1.1 to 3.1.2 [\#608](https://github.com/apache/camel-k-runtime/pull/608) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump maven-common-artifact-filters from 3.1.0 to 3.1.1 [\#607](https://github.com/apache/camel-k-runtime/pull/607) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Update backport.yml [\#605](https://github.com/apache/camel-k-runtime/pull/605) ([oscerd](https://github.com/oscerd))
+- Backport action [\#602](https://github.com/apache/camel-k-runtime/pull/602) ([oscerd](https://github.com/oscerd))
+- Revert "Test PR" [\#600](https://github.com/apache/camel-k-runtime/pull/600) ([oscerd](https://github.com/oscerd))
+- Fixed backport action [\#599](https://github.com/apache/camel-k-runtime/pull/599) ([oscerd](https://github.com/oscerd))
+- Test PR [\#598](https://github.com/apache/camel-k-runtime/pull/598) ([oscerd](https://github.com/oscerd))
+- Backport action  [\#597](https://github.com/apache/camel-k-runtime/pull/597) ([oscerd](https://github.com/oscerd))
+- Github actions: Do not persist credentials for Checkout action [\#596](https://github.com/apache/camel-k-runtime/pull/596) ([oscerd](https://github.com/oscerd))
+- Revert "Support fast-jar packaging for quarkus" [\#595](https://github.com/apache/camel-k-runtime/pull/595) ([jamesnetherton](https://github.com/jamesnetherton))
+- Catalog contains duplicate entry for same schema [\#594](https://github.com/apache/camel-k-runtime/pull/594) ([lburgazzoli](https://github.com/lburgazzoli))
+- loader\(java\): support for jshell scripts [\#591](https://github.com/apache/camel-k-runtime/pull/591) ([lburgazzoli](https://github.com/lburgazzoli))
+- Fixes \#589, fixed kamelet-reify component scheme in CamelK catalog [\#590](https://github.com/apache/camel-k-runtime/pull/590) ([dhirajsb](https://github.com/dhirajsb))
+- Support fast-jar packaging for quarkus [\#588](https://github.com/apache/camel-k-runtime/pull/588) ([jamesnetherton](https://github.com/jamesnetherton))
+- update camel-quarkus to v1.6.0 [\#587](https://github.com/apache/camel-k-runtime/pull/587) ([lburgazzoli](https://github.com/lburgazzoli))
+- chore\(actions\): switch to potiuk/cancel-workflow-runs [\#586](https://github.com/apache/camel-k-runtime/pull/586) ([lburgazzoli](https://github.com/lburgazzoli))
+- Move CloudEvents related code to camel-cloudevents [\#585](https://github.com/apache/camel-k-runtime/pull/585) ([lburgazzoli](https://github.com/lburgazzoli))
+- Catalog json keys should be sorted [\#584](https://github.com/apache/camel-k-runtime/pull/584) ([lburgazzoli](https://github.com/lburgazzoli))
+- Cannot use kamelets in yaml integrations [\#583](https://github.com/apache/camel-k-runtime/pull/583) ([lburgazzoli](https://github.com/lburgazzoli))
+- build\(deps\): bump gmavenplus-plugin from 1.12.0 to 1.12.1 [\#580](https://github.com/apache/camel-k-runtime/pull/580) ([dependabot[bot]](https://github.com/apps/dependabot))
+
+## [camel-k-runtime-project-1.6.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.6.0) (2020-12-22)
+
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-parent-1.5.0...camel-k-runtime-project-1.6.0)
+
+**Implemented enhancements:**
+
+- knative: support configuring the knative environment using properties [\#506](https://github.com/apache/camel-k-runtime/issues/506)
+- Fixes \#544: Kamelet component - optimize as we did for direct component [\#553](https://github.com/apache/camel-k-runtime/pull/553) ([davsclaus](https://github.com/davsclaus))
+
+**Closed issues:**
+
+- camel-kamelet: improve global properties handling [\#560](https://github.com/apache/camel-k-runtime/issues/560)
+- Rename wrap component to kamelet-reify [\#556](https://github.com/apache/camel-k-runtime/issues/556)
+- Error with leader election examples [\#548](https://github.com/apache/camel-k-runtime/issues/548)
+- Kamelet component - optimize as we did for direct component [\#544](https://github.com/apache/camel-k-runtime/issues/544)
+- Allow to programmatically enable a route [\#540](https://github.com/apache/camel-k-runtime/issues/540)
+- Use default event type with broker [\#536](https://github.com/apache/camel-k-runtime/issues/536)
+- Can't set Knative broker name [\#535](https://github.com/apache/camel-k-runtime/issues/535)
+- Groovy - such property: DELEGATE\_FIRST when mapping beans [\#529](https://github.com/apache/camel-k-runtime/issues/529)
+- knative: split producer and consumer transport to avoid requiring platorm-http also for the producer   [\#521](https://github.com/apache/camel-k-runtime/issues/521)
+- Simplify examples  [\#422](https://github.com/apache/camel-k-runtime/issues/422)
+- Switch to Quarkus as runtime  [\#359](https://github.com/apache/camel-k-runtime/issues/359)
+
+**Merged pull requests:**
+
+- chore: align kotlin libs to Quarkus release [\#577](https://github.com/apache/camel-k-runtime/pull/577) ([nicolaferraro](https://github.com/nicolaferraro))
+- chore: enable new rebalacing features in customizer [\#575](https://github.com/apache/camel-k-runtime/pull/575) ([nicolaferraro](https://github.com/nicolaferraro))
+- Update to camel 3.7.0 and camel-quarkus 1.5.0 [\#573](https://github.com/apache/camel-k-runtime/pull/573) ([lburgazzoli](https://github.com/lburgazzoli))
+- build\(deps\): bump gmavenplus-plugin from 1.11.1 to 1.12.0 [\#572](https://github.com/apache/camel-k-runtime/pull/572) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Cleanup [\#571](https://github.com/apache/camel-k-runtime/pull/571) ([lburgazzoli](https://github.com/lburgazzoli))
+- build\(deps\): bump kotlin-version from 1.4.20 to 1.4.21 [\#570](https://github.com/apache/camel-k-runtime/pull/570) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump groovy-version from 3.0.6 to 3.0.7 [\#569](https://github.com/apache/camel-k-runtime/pull/569) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Fix \#536: enable knative:event endpoints without path [\#568](https://github.com/apache/camel-k-runtime/pull/568) ([nicolaferraro](https://github.com/nicolaferraro))
+- build\(deps\): bump gmavenplus-plugin from 1.11.0 to 1.11.1 [\#567](https://github.com/apache/camel-k-runtime/pull/567) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Fix https://github.com/apache/camel-k/issues/1813 [\#565](https://github.com/apache/camel-k-runtime/pull/565) ([nicolaferraro](https://github.com/nicolaferraro))
+- build\(deps\): bump value from 2.8.8 to 2.8.9-ea-1 [\#562](https://github.com/apache/camel-k-runtime/pull/562) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump maven-pmd-plugin from 3.13.0 to 3.14.0 [\#561](https://github.com/apache/camel-k-runtime/pull/561) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Update to camel-quarkus 1.4.0 and quarkus 1.10.0.Final [\#559](https://github.com/apache/camel-k-runtime/pull/559) ([lburgazzoli](https://github.com/lburgazzoli))
+- build\(deps\): bump kotlin-version from 1.4.10 to 1.4.20 [\#558](https://github.com/apache/camel-k-runtime/pull/558) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Fixes \#556, Renamed wrap component to kamelet-reify [\#557](https://github.com/apache/camel-k-runtime/pull/557) ([dhirajsb](https://github.com/dhirajsb))
+- knative: fix wrong dependencies [\#555](https://github.com/apache/camel-k-runtime/pull/555) ([lburgazzoli](https://github.com/lburgazzoli))
+- knative: support configuring the knative environment using properties [\#554](https://github.com/apache/camel-k-runtime/pull/554) ([lburgazzoli](https://github.com/lburgazzoli))
+- Cleanup extensions [\#552](https://github.com/apache/camel-k-runtime/pull/552) ([lburgazzoli](https://github.com/lburgazzoli))
+- knative: split producer and consumer [\#551](https://github.com/apache/camel-k-runtime/pull/551) ([lburgazzoli](https://github.com/lburgazzoli))
+- chore\(ci\): temporarily disable flacky jobs [\#550](https://github.com/apache/camel-k-runtime/pull/550) ([nicolaferraro](https://github.com/nicolaferraro))
+- Error with leader election examples [\#549](https://github.com/apache/camel-k-runtime/pull/549) ([lburgazzoli](https://github.com/lburgazzoli))
+- Cleanup examples [\#547](https://github.com/apache/camel-k-runtime/pull/547) ([lburgazzoli](https://github.com/lburgazzoli))
+- Leveragte MP Config to load application and user properties [\#546](https://github.com/apache/camel-k-runtime/pull/546) ([lburgazzoli](https://github.com/lburgazzoli))
+- Switch to Quarkus as runtime \#359 [\#543](https://github.com/apache/camel-k-runtime/pull/543) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps-dev\): bump spock-core from 2.0-M3-groovy-3.0 to 2.0-M4-groovy-3.0 [\#542](https://github.com/apache/camel-k-runtime/pull/542) ([dependabot[bot]](https://github.com/apps/dependabot))
 - kamelet: ensure URL encoded values is properly handled [\#541](https://github.com/apache/camel-k-runtime/pull/541) ([lburgazzoli](https://github.com/lburgazzoli))
 - Can't set Knative broker name [\#539](https://github.com/apache/camel-k-runtime/pull/539) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -434,6 +510,7 @@
 - Allow to use any class as configuration source [\#198](https://github.com/apache/camel-k-runtime/pull/198) ([lburgazzoli](https://github.com/lburgazzoli))
 - Update deps and actions [\#197](https://github.com/apache/camel-k-runtime/pull/197) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(tools\): make sure quarkus catalog name start with "camel-catalog-" [\#196](https://github.com/apache/camel-k-runtime/pull/196) ([nicolaferraro](https://github.com/nicolaferraro))
+- Fixes \#189 to update to Camel 3.0 RC3 [\#190](https://github.com/apache/camel-k-runtime/pull/190) ([davsclaus](https://github.com/davsclaus))
 
 ## [camel-k-runtime-parent-1.0.7](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.0.7) (2019-11-13)
 
@@ -452,7 +529,6 @@
 
 - loaders: remove java class loader as it is misleading [\#194](https://github.com/apache/camel-k-runtime/pull/194) ([lburgazzoli](https://github.com/lburgazzoli))
 - Remove docker-maven-plugin in pom.xml which is not in use [\#192](https://github.com/apache/camel-k-runtime/pull/192) ([davsclaus](https://github.com/davsclaus))
-- Fixes \#189 to update to Camel 3.0 RC3 [\#190](https://github.com/apache/camel-k-runtime/pull/190) ([davsclaus](https://github.com/davsclaus))
 - Update deps [\#188](https://github.com/apache/camel-k-runtime/pull/188) ([lburgazzoli](https://github.com/lburgazzoli))
 - Enable GitHub Actions [\#187](https://github.com/apache/camel-k-runtime/pull/187) ([lburgazzoli](https://github.com/lburgazzoli))
 - update to quarkus 0.3.1 [\#181](https://github.com/apache/camel-k-runtime/pull/181) ([lburgazzoli](https://github.com/lburgazzoli))

@@ -16,21 +16,22 @@
  */
 package org.apache.camel.component.knative;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
+import org.apache.camel.Category;
 import org.apache.camel.Consumer;
 import org.apache.camel.Processor;
 import org.apache.camel.Producer;
+import org.apache.camel.component.cloudevents.CloudEvent;
+import org.apache.camel.component.cloudevents.CloudEvents;
 import org.apache.camel.component.knative.ce.CloudEventProcessor;
 import org.apache.camel.component.knative.ce.CloudEventProcessors;
-import org.apache.camel.component.knative.spi.CloudEvent;
 import org.apache.camel.component.knative.spi.Knative;
-import org.apache.camel.component.knative.spi.KnativeEnvironment;
+import org.apache.camel.component.knative.spi.KnativeResource;
 import org.apache.camel.component.knative.spi.KnativeTransportConfiguration;
 import org.apache.camel.processor.Pipeline;
 import org.apache.camel.spi.UriEndpoint;
@@ -48,13 +49,15 @@ import org.apache.camel.util.ObjectHelper;
     scheme = "knative",
     syntax = "knative:type/typeId",
     title = "Knative",
-    label = "cloud,eventing")
+    category = Category.CLOUD)
 public class KnativeEndpoint extends DefaultEndpoint {
+    private final CloudEvent cloudEvent;
+    private final CloudEventProcessor cloudEventProcessor;
+
     @UriPath(description = "The Knative resource type")
     private final Knative.Type type;
     @UriPath(description = "The identifier of the Knative resource")
     private final String typeId;
-    private final CloudEventProcessor cloudEvent;
     @UriParam
     private KnativeConfiguration configuration;
 
@@ -64,7 +67,8 @@ public class KnativeEndpoint extends DefaultEndpoint {
         this.type = type;
         this.typeId = name;
         this.configuration = configuration;
-        this.cloudEvent = CloudEventProcessors.fromSpecVersion(configuration.getCloudEventsSpecVersion());
+        this.cloudEvent = CloudEvents.fromSpecVersion(configuration.getCloudEventsSpecVersion());
+        this.cloudEventProcessor = CloudEventProcessors.fromSpecVersion(configuration.getCloudEventsSpecVersion());
     }
 
     @Override
@@ -74,14 +78,15 @@ public class KnativeEndpoint extends DefaultEndpoint {
 
     @Override
     public Producer createProducer() throws Exception {
-        final KnativeEnvironment.KnativeResource service = lookupServiceDefinition(Knative.EndpointKind.sink);
-        final Processor ceProcessor = cloudEvent.producer(this, service);
-        final Producer producer = getComponent().getTransport().createProducer(this, createTransportConfiguration(service), service);
+        final KnativeResource service = lookupServiceDefinition(Knative.EndpointKind.sink);
+        final Processor ceProcessor = cloudEventProcessor.producer(this, service);
+        final Producer producer = getComponent().getProducerFactory().createProducer(this, createTransportConfiguration(service), service);
 
         PropertyBindingSupport.build()
             .withCamelContext(getCamelContext())
             .withProperties(configuration.getTransportOptions())
             .withRemoveParameters(false)
+            .withMandatory(false)
             .withTarget(producer)
             .bind();
 
@@ -90,16 +95,17 @@ public class KnativeEndpoint extends DefaultEndpoint {
 
     @Override
     public Consumer createConsumer(Processor processor) throws Exception {
-        final KnativeEnvironment.KnativeResource service = lookupServiceDefinition(Knative.EndpointKind.source);
-        final Processor ceProcessor = cloudEvent.consumer(this, service);
-        final Processor replyProcessor = configuration.isReplyWithCloudEvent() ? cloudEvent.producer(this, service) : null;
+        final KnativeResource service = lookupServiceDefinition(Knative.EndpointKind.source);
+        final Processor ceProcessor = cloudEventProcessor.consumer(this, service);
+        final Processor replyProcessor = configuration.isReplyWithCloudEvent() ? cloudEventProcessor.producer(this, service) : null;
         final Processor pipeline = Pipeline.newInstance(getCamelContext(), ceProcessor, processor, replyProcessor);
-        final Consumer consumer = getComponent().getTransport().createConsumer(this, createTransportConfiguration(service), service, pipeline);
+        final Consumer consumer = getComponent().getConsumerFactory().createConsumer(this, createTransportConfiguration(service), service, pipeline);
 
         PropertyBindingSupport.build()
             .withCamelContext(getCamelContext())
             .withProperties(configuration.getTransportOptions())
             .withRemoveParameters(false)
+            .withMandatory(false)
             .withTarget(consumer)
             .bind();
 
@@ -121,6 +127,10 @@ public class KnativeEndpoint extends DefaultEndpoint {
         return typeId;
     }
 
+    public CloudEvent getCloudEvent() {
+        return cloudEvent;
+    }
+
     public KnativeConfiguration getConfiguration() {
         return configuration;
     }
@@ -136,8 +146,8 @@ public class KnativeEndpoint extends DefaultEndpoint {
         }
     }
 
-    KnativeEnvironment.KnativeResource lookupServiceDefinition(Knative.EndpointKind endpointKind) {
-        String serviceName = configuration.getTypeId();
+    KnativeResource lookupServiceDefinition(Knative.EndpointKind endpointKind) {
+        final String resourceName = configuration.getTypeId();
 
         //
         // look-up service definition by service name first then if not found try to look it up by using
@@ -145,99 +155,99 @@ public class KnativeEndpoint extends DefaultEndpoint {
         // the endpoint uri but for events it is not possible so default should always be there for events
         // unless the service name is define as an endpoint option.
         //
-        KnativeEnvironment.KnativeResource service = lookupServiceDefinition(serviceName, endpointKind)
+        KnativeResource resource = lookupServiceDefinition(resourceName, endpointKind)
             .or(() -> lookupServiceDefinition("default", endpointKind))
-            .orElseThrow(() -> new IllegalArgumentException(String.format("Unable to find a service definition for %s/%s/%s", type, endpointKind, serviceName)));
+            .orElseThrow(() -> new IllegalArgumentException(
+                String.format("Unable to find a resource definition for %s/%s/%s", type, endpointKind, resourceName))
+            );
 
-        final Map<String, String> metadata = new HashMap<>(service.getMetadata());
+        //
+        // We need to create a new resource as we need to inject additional data from the component
+        // configuration.
+        //
+        KnativeResource answer = KnativeResource.from(resource);
 
-        for (Map.Entry<String, Object> entry : configuration.getFilters().entrySet()) {
+        //
+        // Set-up filters from config
+        //
+        for (Map.Entry<String, String> entry : configuration.getFilters().entrySet()) {
             String key = entry.getKey();
-            Object val = entry.getValue();
+            String val = entry.getValue();
 
-            if (val instanceof String) {
-                if (!key.startsWith(Knative.KNATIVE_FILTER_PREFIX)) {
-                    key = Knative.KNATIVE_FILTER_PREFIX + key;
-                }
-
-                metadata.put(key, (String) val);
+            if (key.startsWith(Knative.KNATIVE_FILTER_PREFIX)) {
+                key = key.substring(Knative.KNATIVE_FILTER_PREFIX.length());
             }
+
+            answer.addFilter(key, val);
         }
 
-        for (Map.Entry<String, Object> entry : configuration.getCeOverride().entrySet()) {
+        //
+        // Set-up overrides from config
+        //
+        for (Map.Entry<String, String> entry : configuration.getCeOverride().entrySet()) {
             String key = entry.getKey();
-            Object val = entry.getValue();
+            String val = entry.getValue();
 
-            if (val instanceof String) {
-                if (!key.startsWith(Knative.KNATIVE_CE_OVERRIDE_PREFIX)) {
-                    key = Knative.KNATIVE_CE_OVERRIDE_PREFIX + key;
-                }
-
-                metadata.put(key, (String) val);
+            if (key.startsWith(Knative.KNATIVE_CE_OVERRIDE_PREFIX)) {
+                key = key.substring(Knative.KNATIVE_CE_OVERRIDE_PREFIX.length());
             }
+
+            answer.addCeOverride(key, val);
         }
 
-        if (service.getType() == Knative.Type.event) {
-            metadata.put(Knative.KNATIVE_EVENT_TYPE, serviceName);
-            metadata.put(Knative.KNATIVE_FILTER_PREFIX + cloudEvent.cloudEvent().mandatoryAttribute(CloudEvent.CAMEL_CLOUD_EVENT_TYPE).http(), serviceName);
+        //
+        // For event type endpoints se need to add an additional filter to filter out events received
+        // based on the given type.
+        //
+        if (resource.getType() == Knative.Type.event && ObjectHelper.isNotEmpty(resourceName)) {
+            answer.setCloudEventType(resourceName);
+            answer.addFilter(CloudEvent.CAMEL_CLOUD_EVENT_TYPE, resourceName);
         }
 
-        return new KnativeEnvironment.KnativeResource(
-            service.getType(),
-            service.getName(),
-            service.getUrl(),
-            metadata
-        );
+        return answer;
     }
 
-    Optional<KnativeEnvironment.KnativeResource> lookupServiceDefinition(String name, Knative.EndpointKind endpointKind) {
+    Optional<KnativeResource> lookupServiceDefinition(String name, Knative.EndpointKind endpointKind) {
         return servicesDefinitions()
             .filter(definition -> definition.matches(this.type, name))
-            .filter(serviceFilter(endpointKind))
+            .filter(serviceFilter(this.configuration, endpointKind))
             .findFirst();
     }
 
-    private KnativeTransportConfiguration createTransportConfiguration(KnativeEnvironment.KnativeResource definition) {
+    private KnativeTransportConfiguration createTransportConfiguration(KnativeResource definition) {
         return new KnativeTransportConfiguration(
-            this.cloudEvent.cloudEvent(),
+            this.cloudEventProcessor.cloudEvent(),
             !this.configuration.isReplyWithCloudEvent(),
-            ObjectHelper.supplyIfEmpty(
-                this.configuration.getReply(),
-                () -> definition.getOptionalMetadata(Knative.KNATIVE_REPLY).map(Boolean::parseBoolean).orElse(true)
-            )
+            ObjectHelper.supplyIfEmpty(this.configuration.getReply(), definition::getReply)
         );
     }
 
-    private Stream<KnativeEnvironment.KnativeResource> servicesDefinitions() {
+    private Stream<KnativeResource> servicesDefinitions() {
         return Stream.concat(
-            getCamelContext().getRegistry().findByType(KnativeEnvironment.KnativeResource.class).stream(),
+            getCamelContext().getRegistry().findByType(KnativeResource.class).stream(),
             this.configuration.getEnvironment().stream()
         );
     }
 
-    private Predicate<KnativeEnvironment.KnativeResource> serviceFilter(Knative.EndpointKind endpointKind) {
-        return s -> {
-            final String type = s.getMetadata(Knative.CAMEL_ENDPOINT_KIND);
-            if (!Objects.equals(endpointKind.name(), type)) {
-                return false;
-            }
+    private static Predicate<KnativeResource> serviceFilter(KnativeConfiguration configuration, Knative.EndpointKind endpointKind) {
+        return new Predicate<KnativeResource>() {
+            @Override
+            public boolean test(KnativeResource resource) {
+                if (!Objects.equals(endpointKind, resource.getEndpointKind())) {
+                    return false;
+                }
+                if (configuration.getApiVersion() != null && !Objects.equals(resource.getObjectApiVersion(), configuration.getApiVersion())) {
+                    return false;
+                }
+                if (configuration.getKind() != null && !Objects.equals(resource.getObjectKind(), configuration.getKind())) {
+                    return false;
+                }
+                if (configuration.getName() != null && !Objects.equals(resource.getObjectName(), configuration.getName())) {
+                    return false;
+                }
 
-            final String apiv = s.getMetadata(Knative.KNATIVE_API_VERSION);
-            if (configuration.getApiVersion() != null && !Objects.equals(apiv, configuration.getApiVersion())) {
-                return false;
+                return true;
             }
-
-            final String kind = s.getMetadata(Knative.KNATIVE_KIND);
-            if (configuration.getKind() != null && !Objects.equals(kind, configuration.getKind())) {
-                return false;
-            }
-
-            final String name = s.getMetadata(Knative.KNATIVE_NAME);
-            if (configuration.getName() != null && !Objects.equals(name, configuration.getName())) {
-                return false;
-            }
-
-            return true;
         };
     }
 }

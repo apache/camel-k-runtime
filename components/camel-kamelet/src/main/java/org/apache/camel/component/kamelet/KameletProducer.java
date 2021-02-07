@@ -17,49 +17,68 @@
 package org.apache.camel.component.kamelet;
 
 import org.apache.camel.AsyncCallback;
-import org.apache.camel.CamelExchangeException;
 import org.apache.camel.Exchange;
 import org.apache.camel.support.DefaultAsyncProducer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 final class KameletProducer extends DefaultAsyncProducer {
-    public KameletProducer(KameletEndpoint endpoint) {
-        super(endpoint);
-    }
 
-    @Override
-    public KameletEndpoint getEndpoint() {
-        return (KameletEndpoint)super.getEndpoint();
+    private static final Logger LOG = LoggerFactory.getLogger(KameletProducer.class);
+
+    private volatile KameletConsumer consumer;
+    private int stateCounter;
+
+    private final KameletEndpoint endpoint;
+    private final KameletComponent component;
+    private final String key;
+    private final boolean block;
+    private final long timeout;
+
+    public KameletProducer(KameletEndpoint endpoint, String key) {
+        super(endpoint);
+        this.endpoint = endpoint;
+        this.component = endpoint.getComponent();
+        this.key = key;
+        this.block = endpoint.isBlock();
+        this.timeout = endpoint.getTimeout();
     }
 
     @Override
     public void process(Exchange exchange) throws Exception {
-        final KameletConsumer consumer = getEndpoint().getConsumer();
-
-        if (consumer != null) {
-            consumer.getProcessor().process(exchange);
+        if (consumer == null || stateCounter != component.getStateCounter()) {
+            stateCounter = component.getStateCounter();
+            consumer = component.getConsumer(key, block, timeout);
+        }
+        if (consumer == null) {
+            if (endpoint.isFailIfNoConsumers()) {
+                throw new KameletConsumerNotAvailableException("No consumers available on endpoint: " + endpoint, exchange);
+            } else {
+                LOG.debug("message ignored, no consumers available on endpoint: {}", endpoint);
+            }
         } else {
-            exchange.setException(
-                new CamelExchangeException(
-                    "No consumers available on endpoint: " + getEndpoint(), exchange)
-            );
+            consumer.getProcessor().process(exchange);
         }
     }
 
     @Override
     public boolean process(Exchange exchange, AsyncCallback callback) {
         try {
-            final KameletConsumer consumer = getEndpoint().getConsumer();
-
-            if (consumer != null) {
-                return consumer.getAsyncProcessor().process(exchange, callback);
-            } else {
-                exchange.setException(
-                    new CamelExchangeException(
-                        "No consumers available on endpoint: " + getEndpoint(), exchange)
-                );
-
+            if (consumer == null || stateCounter != component.getStateCounter()) {
+                stateCounter = component.getStateCounter();
+                consumer = component.getConsumer(key, block, timeout);
+            }
+            if (consumer == null) {
+                if (endpoint.isFailIfNoConsumers()) {
+                    exchange.setException(new KameletConsumerNotAvailableException(
+                            "No consumers available on endpoint: " + endpoint, exchange));
+                } else {
+                    LOG.debug("message ignored, no consumers available on endpoint: {}", endpoint);
+                }
                 callback.done(true);
                 return true;
+            } else {
+                return consumer.getAsyncProcessor().process(exchange, callback);
             }
         } catch (Exception e) {
             exchange.setException(e);
@@ -67,4 +86,5 @@ final class KameletProducer extends DefaultAsyncProducer {
             return true;
         }
     }
+
 }

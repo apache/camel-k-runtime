@@ -21,13 +21,14 @@ import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.Producer;
-import org.apache.camel.component.knative.spi.KnativeEnvironment;
-import org.apache.camel.component.knative.spi.KnativeTransport;
+import org.apache.camel.component.knative.spi.KnativeConsumerFactory;
+import org.apache.camel.component.knative.spi.KnativeProducerFactory;
+import org.apache.camel.component.knative.spi.KnativeResource;
 import org.apache.camel.component.knative.spi.KnativeTransportConfiguration;
 import org.apache.camel.support.DefaultConsumer;
 import org.apache.camel.support.DefaultProducer;
 
-public class KnativeTransportNoop implements KnativeTransport {
+public class KnativeTransportNoop implements KnativeConsumerFactory, KnativeProducerFactory {
     @Override
     public void start() {
     }
@@ -37,7 +38,7 @@ public class KnativeTransportNoop implements KnativeTransport {
     }
 
     @Override
-    public Producer createProducer(Endpoint endpoint, KnativeTransportConfiguration configuration, KnativeEnvironment.KnativeResource service) {
+    public Producer createProducer(Endpoint endpoint, KnativeTransportConfiguration configuration, KnativeResource service) {
         return new DefaultProducer(endpoint) {
             @Override
             public void process(Exchange exchange) throws Exception {
@@ -46,7 +47,7 @@ public class KnativeTransportNoop implements KnativeTransport {
     }
 
     @Override
-    public Consumer createConsumer(Endpoint endpoint, KnativeTransportConfiguration configuration, KnativeEnvironment.KnativeResource service, Processor processor) {
+    public Consumer createConsumer(Endpoint endpoint, KnativeTransportConfiguration configuration, KnativeResource service, Processor processor) {
         return new DefaultConsumer(endpoint, processor);
     }
 }

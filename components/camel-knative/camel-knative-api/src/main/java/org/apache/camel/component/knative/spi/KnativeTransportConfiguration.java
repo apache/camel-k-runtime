@@ -16,6 +16,8 @@
  */
 package org.apache.camel.component.knative.spi;
 
+import org.apache.camel.component.cloudevents.CloudEvent;
+
 public final class KnativeTransportConfiguration {
 
     private final CloudEvent cloudEvent;

@@ -43,7 +43,7 @@ You can append query options to the URI in the following format:
 == Options
 
 // component options: START
-The Knative component supports 17 options, which are listed below.
+The Knative component supports 18 options, which are listed below.
 
 
 
@@ -54,11 +54,12 @@ The Knative component supports 17 options, which are listed below.
 | *cloudEventsSpecVersion* (common) | Set the version of the cloudevents spec. The value can be one of: 0.1, 0.2, 0.3, 1.0 | 1.0 | String
 | *cloudEventsType* (common) | Set the event-type information of the produced events. | org.apache.camel.event | String
 | *configuration* (common) | Set the configuration. |  | KnativeConfiguration
+| *consumerFactory* (common) | The protocol consumer factory. |  | KnativeConsumerFactory
 | *environment* (common) | The environment |  | KnativeEnvironment
 | *environmentPath* (common) | The path ot the environment definition |  | String
 | *filters* (common) | Set the filters. |  | Map
+| *producerFactory* (common) | The protocol producer factory. |  | KnativeProducerFactory
 | *serviceName* (common) | The name of the service to lookup from the KnativeEnvironment. |  | String
-| *transport* (common) | The transport implementation. |  | KnativeTransport
 | *transportOptions* (common) | Set the transport options. |  | Map
 | *bridgeErrorHandler* (consumer) | Allows for bridging the consumer to the Camel routing Error Handler, which mean any exceptions occurred while the consumer is trying to pickup incoming messages, or the likes, will now be processed as a message and handled by the routing Error Handler. By default the consumer will use the org.apache.camel.spi.ExceptionHandler to deal with exceptions, that will be logged at WARN or ERROR level and ignored. | false | boolean
 | *replyWithCloudEvent* (consumer) | Transforms the reply into a cloud event that will be processed by the caller. When listening to events from a Knative Broker, if this flag is enabled, replies will be published to the same Broker where the request comes from (beware that if you don't change the type of the received message, you may create a loop and receive your same reply). When this flag is disabled, CloudEvent headers are removed from the reply. | false | boolean

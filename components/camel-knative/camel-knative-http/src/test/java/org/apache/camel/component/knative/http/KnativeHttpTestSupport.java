@@ -18,29 +18,89 @@ package org.apache.camel.component.knative.http;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.Consumer;
+import org.apache.camel.Endpoint;
+import org.apache.camel.Processor;
+import org.apache.camel.Producer;
+import org.apache.camel.component.cloudevents.CloudEvent;
 import org.apache.camel.component.knative.KnativeComponent;
-import org.apache.camel.component.knative.spi.CloudEvent;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
+import org.apache.camel.component.knative.spi.KnativeResource;
+import org.apache.camel.component.knative.spi.KnativeTransportConfiguration;
+import org.apache.camel.component.platform.http.PlatformHttpComponent;
+import org.apache.camel.component.platform.http.PlatformHttpConstants;
+import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpEngine;
+import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpRouter;
+import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpServer;
+import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpServerConfiguration;
 
 public final class KnativeHttpTestSupport {
     private KnativeHttpTestSupport() {
     }
 
-    public static KnativeComponent configureKnativeComponent(CamelContext context, CloudEvent ce, KnativeEnvironment.KnativeResource... definitions) {
+    public static KnativeComponent configureKnativeComponent(CamelContext context, CloudEvent ce, KnativeResource... definitions) {
         return configureKnativeComponent(context, ce, Arrays.asList(definitions));
     }
 
-    public static KnativeComponent configureKnativeComponent(CamelContext context, CloudEvent ce, List<KnativeEnvironment.KnativeResource> definitions) {
+    public static KnativeComponent configureKnativeComponent(CamelContext context, CloudEvent ce, Map<String, Object> properties) {
+        return configureKnativeComponent(context, ce, KnativeEnvironment.mandatoryLoadFromProperties(context, properties));
+    }
+
+    public static KnativeComponent configureKnativeComponent(CamelContext context, CloudEvent ce, List<KnativeResource> definitions) {
+        return configureKnativeComponent(context, ce, new KnativeEnvironment(definitions));
+    }
+
+    public static KnativeComponent configureKnativeComponent(CamelContext context, CloudEvent ce, KnativeEnvironment environment) {
         KnativeComponent component = context.getComponent("knative", KnativeComponent.class);
         component.setCloudEventsSpecVersion(ce.version());
-        component.setEnvironment(new KnativeEnvironment(definitions));
+        component.setEnvironment(environment);
+        component.setConsumerFactory(new KnativeHttpConsumerFactory() {
+            @Override
+            public Consumer createConsumer(Endpoint endpoint, KnativeTransportConfiguration config, KnativeResource service, Processor processor) {
+                this.setRouter(VertxPlatformHttpRouter.lookup(context));
+                return super.createConsumer(endpoint, config, service, processor);
+            }
+        });
+        component.setProducerFactory(new KnativeHttpProducerFactory() {
+            @Override
+            public Producer createProducer(Endpoint endpoint, KnativeTransportConfiguration config, KnativeResource service) {
+                this.setVertx(VertxPlatformHttpRouter.lookup(context).vertx());
+                return super.createProducer(endpoint, config, service);
+            }
+        });
 
         return component;
     }
 
     public static String httpAttribute(CloudEvent ce, String name) {
         return ce.mandatoryAttribute(name).http();
+    }
+
+    public static void configurePlatformHttpComponent(CamelContext camelContext, int bindPort) {
+        VertxPlatformHttpServerConfiguration configuration = new VertxPlatformHttpServerConfiguration();
+        configuration.setBindPort(bindPort);
+
+        try {
+            camelContext.addService(new VertxPlatformHttpServer(configuration) {
+                @Override
+                protected void doInit() throws Exception {
+                    initializeServer();
+                }
+                @Override
+                protected void doStart() throws Exception {
+                    startServer();
+                }
+            });
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        PlatformHttpComponent component = new PlatformHttpComponent(camelContext);
+        component.setEngine(new VertxPlatformHttpEngine());
+
+        camelContext.getRegistry().bind(PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME, component);
     }
 }

@@ -22,13 +22,13 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-dependencies</artifactId>
-        <version>3.6.0</version>
+        <version>3.7.0</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.camel.k</groupId>
-    <artifactId>camel-k-runtime-parent</artifactId>
-    <version>1.6.0-SNAPSHOT</version>
+    <artifactId>camel-k-runtime-project</artifactId>
+    <version>1.7.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -38,17 +38,17 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
 
-        <camel-version>3.6.0</camel-version>
+        <camel-version>3.7.0</camel-version>
 
         <!-- quarkus -->
-        <camel-quarkus-version>1.3.0</camel-quarkus-version>
-        <graalvm-version>20.2.0</graalvm-version>
-        <quarkus-version>1.9.0.Final</quarkus-version>
+        <camel-quarkus-version>1.6.0</camel-quarkus-version>
+        <graalvm-version>20.3.0</graalvm-version>
+        <quarkus-version>1.11.0.Final</quarkus-version>
 
         <!-- camel-k -->
         <joor-version>0.9.13</joor-version>
-        <groovy-version>3.0.6</groovy-version>
-        <kotlin-version>1.4.10</kotlin-version>
+        <groovy-version>3.0.7</groovy-version>
+        <kotlin-version>1.4.20</kotlin-version>
         <spock-version>2.0-M4-groovy-3.0</spock-version>
         <scala-binary-version>2.13</scala-binary-version>
         <scala-full-version>${scala-binary-version}.3</scala-full-version>
@@ -56,16 +56,15 @@
         <scalatest-junit-version>3.2.2.0</scalatest-junit-version>
         <jaxb-api-version>2.3.1</jaxb-api-version>
         <jaxb-core-version>2.3.0.1</jaxb-core-version>
-        <immutables-version>2.8.8</immutables-version>
+        <immutables-version>2.8.9-ea-1</immutables-version>
         <semver4j-version>3.1.0</semver4j-version>
-        <jaeger-version>1.4.0</jaeger-version>
 
         <!-- overridden camel dependencies versions -->
         <javapoet-version>1.13.0</javapoet-version>
         <json-schema-validator-version>2.2.14</json-schema-validator-version>
 
         <!-- plugins -->
-        <gmavenplus-plugin-version>1.11.0</gmavenplus-plugin-version>
+        <gmavenplus-plugin-version>1.12.1</gmavenplus-plugin-version>
         <maven-compiler-plugin-version>3.8.1</maven-compiler-plugin-version>
         <maven-surefire-plugin-version>3.0.0-M5</maven-surefire-plugin-version>
         <maven-remote-resources-plugin-version>1.7.0</maven-remote-resources-plugin-version>
@@ -74,7 +73,7 @@
         <directory-maven-plugin-version>0.3.1</directory-maven-plugin-version>
         <exec-maven-plugin-version>3.0.0</exec-maven-plugin-version>
         <mycila-license-version>3.0</mycila-license-version>
-        <maven-checkstyle-plugin-version>3.1.1</maven-checkstyle-plugin-version>
+        <maven-checkstyle-plugin-version>3.1.2</maven-checkstyle-plugin-version>
         <maven-checkstyle-version>8.26</maven-checkstyle-version>
         <maven-gpg-plugin-version>1.6</maven-gpg-plugin-version>
         <maven-deploy-plugin-version>3.0.0-M1</maven-deploy-plugin-version>
@@ -92,11 +91,11 @@
         <maven-enforcer-plugin-version>1.4.1</maven-enforcer-plugin-version>
         <maven-resources-plugin-version>3.2.0</maven-resources-plugin-version>
         <maven-site-plugin-version>3.9.1</maven-site-plugin-version>
-        <maven-pmd-plugin-version>3.13.0</maven-pmd-plugin-version>
+        <maven-pmd-plugin-version>3.14.0</maven-pmd-plugin-version>
         <maven-plugin-plugin-version>3.6.0</maven-plugin-plugin-version>
         <maven-version>3.6.3</maven-version>
         <maven-plugin-tools-version>3.6.0</maven-plugin-tools-version>
-        <maven-shaded-version>3.1.0</maven-shaded-version>
+        <maven-shaded-version>3.1.1</maven-shaded-version>
     </properties>
 
      <developers>
@@ -121,7 +120,7 @@
         <connection>scm:git:http://gitbox.apache.org/repos/asf/camel-k-runtime.git</connection>
         <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/camel-k-runtime.git</developerConnection>
         <url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary</url>
-        <tag>camel-k-runtime-parent-1.5.0</tag>
+        <tag>camel-k-runtime-project-1.5.0</tag>
     </scm>
 
     <build>
@@ -329,12 +328,10 @@
     </build>
 
     <modules>
-        <module>tooling</module>
+        <module>support</module>
         <module>components</module>
 
-        <module>camel-k-runtime-core</module>
-        <module>camel-k-main</module>
-        <module>camel-k-quarkus</module>
+        <module>camel-k-core</module>
 
         <module>camel-k-loader-groovy</module>
         <module>camel-k-loader-kotlin</module>
@@ -342,21 +339,38 @@
         <module>camel-k-loader-js</module>
         <module>camel-k-loader-xml</module>
         <module>camel-k-loader-java</module>
+        <module>camel-k-loader-jsh</module>
         <module>camel-k-loader-scala</module>
 
-        <module>camel-k-runtime-cron</module>
-        <module>camel-k-runtime-http</module>
-        <module>camel-k-runtime-knative</module>
-        <module>camel-k-runtime-master</module>
-        <module>camel-k-runtime-webhook</module>
+        <module>camel-k-cron</module>
+        <module>camel-k-kamelet</module>
+        <module>camel-k-cloudevents</module>
+        <module>camel-k-knative</module>
+        <module>camel-k-master</module>
+        <module>camel-k-webhook</module>
+        <module>camel-k-kamelet-reify</module>
 
-        <module>camel-k-runtime-bom</module>
+        <module>camel-k-runtime</module>
 
+        <module>itests</module>
         <module>examples</module>
         <module>distribution</module>
     </modules>
 
     <repositories>
+        <!--
+        <repository>
+            <id>apache.staging-camel-quarkus</id>
+            <url>https://repository.apache.org/content/repositories/orgapachecamel-1275</url>
+            <name>Apache Snapshot Repo</name>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+        -->
         <repository>
             <id>apache.snapshots</id>
             <url>https://repository.apache.org/snapshots/</url>
@@ -371,6 +385,19 @@
     </repositories>
 
     <pluginRepositories>
+        <!--
+        <pluginRepository>
+            <id>apache.staging-camel-quarkus</id>
+            <url>https://repository.apache.org/content/repositories/orgapachecamel-1275</url>
+            <name>Apache Snapshot Repo</name>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>
+        -->
         <pluginRepository>
             <id>apache.snapshots</id>
             <url>https://repository.apache.org/snapshots/</url>
@@ -399,25 +426,27 @@
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
-
-            <!-- tools -->
             <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-annotations</artifactId>
-                <version>${project.version}</version>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-bom</artifactId>
+                <version>${kotlin-version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-apt</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-test</artifactId>
-                <version>${project.version}</version>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-bom</artifactId>
+                <version>${camel-quarkus-version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
 
             <!-- components -->
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-cloudevents</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-knative-api</artifactId>
@@ -445,196 +474,156 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-wrap</artifactId>
+                <artifactId>camel-kamelet-reify</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <!-- runtime -->
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-runtime-core</artifactId>
+                <artifactId>camel-k-core-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-runtime-main</artifactId>
+                <artifactId>camel-k-core-support</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-runtime-health</artifactId>
+                <artifactId>camel-k-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-runtime-tracing</artifactId>
+                <artifactId>camel-k-core-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-runtime-http</artifactId>
+                <artifactId>camel-k-cloudevents</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-runtime-knative</artifactId>
+                <artifactId>camel-k-cloudevents-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-runtime-cron</artifactId>
+                <artifactId>camel-k-master-impl</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-runtime-master</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <!-- runtime - quarkus -->
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-runtime-quarkus</artifactId>
+                <artifactId>camel-k-master</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-runtime-quarkus-deployment</artifactId>
+                <artifactId>camel-k-master-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-loader-yaml</artifactId>
+                <artifactId>camel-k-knative-impl</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-loader-yaml-deployment</artifactId>
+                <artifactId>camel-k-knative</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-loader-xml</artifactId>
+                <artifactId>camel-k-knative-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-loader-xml-deployment</artifactId>
+                <artifactId>camel-k-knative-producer</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-loader-js</artifactId>
+                <artifactId>camel-k-knative-producer-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-loader-js-deployment</artifactId>
+                <artifactId>camel-k-knative-consumer</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-loader-java</artifactId>
+                <artifactId>camel-k-knative-consumer-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-loader-java-deployment</artifactId>
+                <artifactId>camel-k-cron-impl</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-loader-groovy</artifactId>
+                <artifactId>camel-k-cron</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-loader-groovy-deployment</artifactId>
+                <artifactId>camel-k-cron-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-loader-kotlin</artifactId>
+                <artifactId>camel-k-webhook-impl</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-loader-kotlin-deployment</artifactId>
+                <artifactId>camel-k-webhook</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-core</artifactId>
+                <artifactId>camel-k-webhook-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-core-deployment</artifactId>
+                <artifactId>camel-k-kamelet</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-knative</artifactId>
+                <artifactId>camel-k-kamelet-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-knative-deployment</artifactId>
+                <artifactId>camel-k-kamelet-reify</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-kamelet</artifactId>
+                <artifactId>camel-k-kamelet-reify-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-kamelet-deployment</artifactId>
+                <artifactId>camel-k-runtime</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-cron</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-cron-deployment</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-master</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-master-deployment</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-wrap</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-wrap-deployment</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <!-- runtime - quarkus (tests)-->
-
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-quarkus-itests-loader-support</artifactId>
+                <artifactId>camel-k-runtime-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <!-- loaders -->
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-loader-kotlin</artifactId>
+                <artifactId>camel-k-loader-groovy-impl</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -644,17 +633,42 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-loader-yaml</artifactId>
+                <artifactId>camel-k-loader-groovy-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-loader-yaml-common</artifactId>
+                <artifactId>camel-k-loader-java-impl</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-loader-yaml-support</artifactId>
+                <artifactId>camel-k-loader-java</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-loader-java-deployment</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-loader-jsh-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-loader-jsh</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-loader-jsh-deployment</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-loader-js-impl</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -664,12 +678,96 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-loader-js-deployment</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-loader-kotlin-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-loader-kotlin</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-loader-kotlin-deployment</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-loader-xml-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-loader-xml</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-loader-java</artifactId>
+                <artifactId>camel-k-loader-xml-deployment</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-loader-yaml-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-loader-yaml-impl-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-loader-yaml-impl-support</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-loader-yaml</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-loader-yaml-deployment</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- itests -->
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-itests-loader-inspector</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-itests-runtime-inspector</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- support -->
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-annotations</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-apt</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-test</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-catalog-model</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -1020,7 +1118,7 @@
                                     </sourceDirectories>
                                     <headerLocation>header-java.txt</headerLocation>
                                     <includes>**/*.java,**/*.groovy,**/*.scala,**/*.properties,**/*.xml,**/*.xsd</includes>
-                                    <excludes>**/MyRoutes*.java,**/routes*.java,**/verify.groovy,**/MyRouteTemplate*.java</excludes>
+                                    <excludes>**/MyRoutes*.java,**/routes*.java,**/verify.groovy,**/MyRouteTemplate*.java,**/MySource*.java</excludes>
                                 </configuration>
                                 <goals>
                                     <goal>checkstyle</goal>
@@ -1040,7 +1138,7 @@
                         </executions>
                         <configuration>
                             <rulesets>
-                                <ruleset>file:///${camel-k.project.root}/tooling/pmd-ruleset.xml</ruleset>
+                                <ruleset>file:///${camel-k.project.root}/support/pmd-ruleset.xml</ruleset>
                             </rulesets>
                             <analysisCache>false</analysisCache>
                             <printFailingErrors>true</printFailingErrors>
@@ -1066,6 +1164,19 @@
             <properties>
                 <quarkus.native.container-build>true</quarkus.native.container-build>
                 <quarkus.native.container-runtime>docker</quarkus.native.container-runtime>
+                <quarkus.native.builder-image>quay.io/quarkus/ubi-quarkus-native-image:${graalvm-version}-java11</quarkus.native.builder-image>
+            </properties>
+        </profile>
+        <profile>
+            <id>podman</id>
+            <activation>
+                <property>
+                    <name>podman</name>
+                </property>
+            </activation>
+            <properties>
+                <quarkus.native.container-build>true</quarkus.native.container-build>
+                <quarkus.native.container-runtime>podman</quarkus.native.container-runtime>
                 <quarkus.native.builder-image>quay.io/quarkus/ubi-quarkus-native-image:${graalvm-version}-java11</quarkus.native.builder-image>
             </properties>
         </profile>

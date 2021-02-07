@@ -30,20 +30,22 @@ import org.apache.camel.spi.UriParam;
 import org.apache.camel.spi.UriPath;
 import org.apache.camel.support.DefaultEndpoint;
 import org.apache.camel.util.ObjectHelper;
-import org.apache.camel.util.StopWatch;
 
 @UriEndpoint(
-    firstVersion = "3.5.0",
-    scheme = "kamelet",
-    syntax = "kamelet:templateId/routeId",
-    title = "Kamelet",
-    lenientProperties = true,
-    category = Category.CORE)
+        firstVersion = "3.5.0",
+        scheme = "kamelet",
+        syntax = "kamelet:templateId/routeId",
+        title = "Kamelet",
+        lenientProperties = true,
+        category = Category.CORE)
 public class KameletEndpoint extends DefaultEndpoint {
+    private final String key;
+    private final Map<String, Object> kameletProperties;
+
     @Metadata(required = true)
     @UriPath(description = "The Route Template ID")
     private final String templateId;
-    @Metadata(required = false)
+    @Metadata
     @UriPath(description = "The Route ID", defaultValueNote = "The ID will be auto-generated if not provided")
     private final String routeId;
 
@@ -52,17 +54,13 @@ public class KameletEndpoint extends DefaultEndpoint {
     @UriParam(label = "producer", defaultValue = "30000")
     private long timeout = 30000L;
     @UriParam(label = "producer", defaultValue = "true")
-
-    private final Map<String, Object> kameletProperties;
-    private final Map<String, KameletConsumer> consumers;
-    private final String key;
+    private boolean failIfNoConsumers = true;
 
     public KameletEndpoint(
             String uri,
             KameletComponent component,
             String templateId,
-            String routeId,
-            Map<String, KameletConsumer> consumers) {
+            String routeId) {
 
         super(uri, component);
 
@@ -73,7 +71,6 @@ public class KameletEndpoint extends DefaultEndpoint {
         this.routeId = routeId;
         this.key = templateId + "/" + routeId;
         this.kameletProperties = new HashMap<>();
-        this.consumers = consumers;
     }
 
     public boolean isBlock() {
@@ -99,6 +96,18 @@ public class KameletEndpoint extends DefaultEndpoint {
      */
     public void setTimeout(long timeout) {
         this.timeout = timeout;
+    }
+
+    public boolean isFailIfNoConsumers() {
+        return failIfNoConsumers;
+    }
+
+    /**
+     * Whether the producer should fail by throwing an exception, when sending to a kamelet endpoint with no active
+     * consumers.
+     */
+    public void setFailIfNoConsumers(boolean failIfNoConsumers) {
+        this.failIfNoConsumers = failIfNoConsumers;
     }
 
     @Override
@@ -140,58 +149,14 @@ public class KameletEndpoint extends DefaultEndpoint {
 
     @Override
     public Producer createProducer() throws Exception {
-        return new KameletProducer(this);
+        return new KameletProducer(this, key);
     }
 
     @Override
     public Consumer createConsumer(Processor processor) throws Exception {
-        Consumer answer = new KameletConsumer(this, processor);
+        Consumer answer = new KameletConsumer(this, processor, key);
         configureConsumer(answer);
         return answer;
     }
 
-    // *********************************
-    //
-    // Helpers
-    //
-    // *********************************
-
-    void addConsumer(KameletConsumer consumer) {
-        synchronized (consumers) {
-            if (consumers.putIfAbsent(key, consumer) != null) {
-                throw new IllegalArgumentException(
-                    "Cannot add a 2nd consumer to the same endpoint. Endpoint " + this + " only allows one consumer.");
-            }
-            consumers.notifyAll();
-        }
-    }
-
-    void removeConsumer(KameletConsumer consumer) {
-        synchronized (consumers) {
-            consumers.remove(key, consumer);
-            consumers.notifyAll();
-        }
-    }
-
-    KameletConsumer getConsumer() throws InterruptedException {
-        synchronized (consumers) {
-            KameletConsumer answer = consumers.get(key);
-            if (answer == null && block) {
-                StopWatch watch = new StopWatch();
-                for (; ; ) {
-                    answer =consumers.get(key);
-                    if (answer != null) {
-                        break;
-                    }
-                    long rem = timeout - watch.taken();
-                    if (rem <= 0) {
-                        break;
-                    }
-                    consumers.wait(rem);
-                }
-            }
-
-            return answer;
-        }
-    }
 }
