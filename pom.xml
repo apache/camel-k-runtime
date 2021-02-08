@@ -51,8 +51,8 @@
         <kotlin-version>1.4.20</kotlin-version>
         <spock-version>2.0-M4-groovy-3.0</spock-version>
         <scala-binary-version>2.13</scala-binary-version>
-        <scala-full-version>${scala-binary-version}.3</scala-full-version>
-        <scalatest-version>3.2.2</scalatest-version>
+        <scala-full-version>${scala-binary-version}.4</scala-full-version>
+        <scalatest-version>3.2.3</scalatest-version>
         <scalatest-junit-version>3.2.2.0</scalatest-junit-version>
         <jaxb-api-version>2.3.1</jaxb-api-version>
         <jaxb-core-version>2.3.0.1</jaxb-core-version>
@@ -698,6 +698,21 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-loader-scala-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-loader-scala</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-loader-scala-deployment</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-loader-xml-impl</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -770,11 +785,6 @@
                 <artifactId>camel-k-catalog-model</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-loader-scala</artifactId>
-                <version>${project.version}</version>
-            </dependency>
 
             <!-- graalvm -->
             <dependency>
@@ -825,6 +835,11 @@
             <dependency>
                 <groupId>org.scala-lang</groupId>
                 <artifactId>scala-compiler</artifactId>
+                <version>${scala-full-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.scala-lang</groupId>
+                <artifactId>scala-reflect</artifactId>
                 <version>${scala-full-version}</version>
             </dependency>
             <dependency>

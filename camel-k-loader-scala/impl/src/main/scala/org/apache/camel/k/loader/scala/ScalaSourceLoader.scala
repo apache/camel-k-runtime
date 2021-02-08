@@ -18,8 +18,7 @@ package org.apache.camel.k.loader.scala
 
 import java.io.{BufferedReader, Reader}
 import java.util
-
-import org.apache.camel.{RoutesBuilder, RuntimeCamelException}
+import org.apache.camel.{CamelContext, RoutesBuilder, RuntimeCamelException}
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder
 import org.apache.camel.k.loader.scala.ScalaSourceLoader._
 import org.apache.camel.k.loader.scala.dsl.IntegrationConfiguration
@@ -45,7 +44,7 @@ class ScalaSourceLoader extends SourceLoader {
     * @param source  the source to load.
     * @return the RoutesBuilder.
     */
-  override def load(runtime: Runtime, source: Source): RoutesBuilder =
+  override def load(camelContext: CamelContext, source: Source): RoutesBuilder =
     RouteBuilders.endpoint(source, { (reader, builder) => doLoad(reader, builder) })
 
   private def doLoad(reader: Reader, builder: EndpointRouteBuilder): Unit = {

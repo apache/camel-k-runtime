@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.loader.scala.`extension`
+package org.apache.camel.k.loader.scala.extension
 
 import org.apache.camel.component.log.LogComponent
 import org.apache.camel.impl.DefaultCamelContext
