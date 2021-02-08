@@ -16,16 +16,16 @@
  */
 package org.apache.camel.k.loader.scala
 
-import java.io.{BufferedReader, Reader}
-import java.util
-import org.apache.camel.{CamelContext, RoutesBuilder, RuntimeCamelException}
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder
 import org.apache.camel.k.loader.scala.ScalaSourceLoader._
 import org.apache.camel.k.loader.scala.dsl.IntegrationConfiguration
 import org.apache.camel.k.support.RouteBuilders
-import org.apache.camel.k.{Runtime, Source, SourceLoader}
+import org.apache.camel.k.{Source, SourceLoader}
+import org.apache.camel.{CamelContext, RoutesBuilder, RuntimeCamelException}
 import org.slf4j.LoggerFactory
 
+import java.io.{BufferedReader, Reader}
+import java.util
 import scala.reflect.runtime.universe.runtimeMirror
 import scala.tools.reflect.ToolBox
 import scala.util.control.NonFatal
@@ -36,7 +36,7 @@ class ScalaSourceLoader extends SourceLoader {
     *
     * @return the supported languages.
     */
-  override def getSupportedLanguages: util.List[String] = util.List.of("scala")
+  override def getSupportedLanguages: util.List[String] = util.Arrays.asList("scala")
 
   /** Creates a camel `RoutesBuilder` from the given resource.
     *

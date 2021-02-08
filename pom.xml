@@ -54,8 +54,6 @@
         <scala-full-version>${scala-binary-version}.4</scala-full-version>
         <scalatest-version>3.2.3</scalatest-version>
         <scalatest-junit-version>3.2.2.0</scalatest-junit-version>
-        <jaxb-api-version>2.3.1</jaxb-api-version>
-        <jaxb-core-version>2.3.0.1</jaxb-core-version>
         <immutables-version>2.8.9-ea-1</immutables-version>
         <semver4j-version>3.1.0</semver4j-version>
 
