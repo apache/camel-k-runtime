@@ -1,10 +1,10 @@
-== Camel-K-runtime YAML Cron Example
+# Camel-K-runtime YAML Cron Example
 
 This example shows the usage of Camel-k-runtime to run a YAML Cron route.
 
 The route involves log and timer components
 
-=== How to run
+## How to run
 
 - Plain
 
@@ -12,16 +12,20 @@ You have two ways of doing this.
 
 First approach:
 
+```
     mvn exec:exec
+```
 
 This approach will pack and run a camel-quarkus runner.
 
 Second approach
 
+```
     mvn clean package
     export CAMEL_K_CONF=${project.basedir}/data/application.properties
     export CAMEL_K_ROUTES=file:${project.basedir}/data/routes.yaml?interceptors=cron
     java -jar target/camel-k-runtime-example-cron-runner.jar
+```
 
 - Native
 
@@ -29,19 +33,24 @@ You have two ways of doing this.
 
 First approach:
 
+```
     mvn exec:exec -Pnative
+```
 
 This approach will pack and run a camel-quarkus runner.
 
 Second approach
 
+```
     mvn clean package -Pnative
     export CAMEL_K_CONF=${project.basedir}/data/application.properties
     export CAMEL_K_ROUTES=file:${project.basedir}/data/routes.yaml?interceptors=cron
     ./target/camel-k-runtime-example-cron-runner
+```
 
 You should get the following output in both cases
 
+```
 2021-02-09 07:37:47,492 INFO  [org.apa.cam.k.Runtime] (main) Apache Camel K Runtime 1.7.0-SNAPSHOT
 2021-02-09 07:37:47,494 INFO  [org.apa.cam.qua.cor.CamelBootstrapRecorder] (main) bootstrap runtime: org.apache.camel.quarkus.main.CamelMainRuntime
 2021-02-09 07:37:47,499 INFO  [org.apa.cam.k.lis.SourcesConfigurer] (main) Loading routes from: file:/home/oscerd/workspace/apache-camel/camel-k-runtime/examples/cron/data/routes.yaml?interceptors=cron
@@ -62,9 +71,9 @@ You should get the following output in both cases
 2021-02-09 07:37:48,099 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) Apache Camel 3.7.0 (camel-q) uptime 143ms
 2021-02-09 07:37:48,100 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) Apache Camel 3.7.0 (camel-q) is shutdown in 9ms
 2021-02-09 07:37:48,117 INFO  [io.quarkus] (main) camel-k-runtime-example-cron stopped in 0.042s
+```
 
-
-=== Help and contributions
+## Help and contributions
 
 If you hit any problem using Camel or have some feedback, then please
 https://camel.apache.org/support.html[let us know].
