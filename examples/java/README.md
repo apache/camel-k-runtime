@@ -1,10 +1,10 @@
-== Camel-K-runtime Java Example
+# Camel-K-runtime Java Example
 
 This example shows the usage of Camel-k-runtime to run a Java route.
 
 The route involves timer component and log component.
 
-=== How to run
+## How to run
 
 You have two ways of doing this.
 
@@ -16,13 +16,16 @@ This approach will pack and run a camel-quarkus runner.
 
 Second approach
 
+```
     mvn clean package
     export CAMEL_K_CONF=${project.basedir}/data/application.properties
     export CAMEL_K_ROUTES=file:${project.basedir}/data/MyRoutes.java
     java -jar target/camel-k-runtime-example-java-runner.jar
+```
 
 You should get the following output in both cases
 
+```
     2021-02-08 18:25:50,700 INFO  [org.apa.cam.k.Runtime] (main) Apache Camel K Runtime 1.7.0-SNAPSHOT
     2021-02-08 18:25:50,727 INFO  [org.apa.cam.qua.cor.CamelBootstrapRecorder] (main) bootstrap runtime: org.apache.camel.quarkus.main.CamelMainRuntime
     2021-02-08 18:25:50,733 INFO  [org.apa.cam.k.lis.SourcesConfigurer] (main) Loading routes from: file:/home/oscerd/workspace/apache-camel/camel-k-runtime/examples/java/data/MyRoutes.java
@@ -37,8 +40,9 @@ You should get the following output in both cases
     2021-02-08 18:25:51,373 INFO  [io.quarkus] (main) Installed features: [camel-bean, camel-core, camel-endpointdsl, camel-k-core, camel-k-loader-java, camel-k-runtime, camel-log, camel-main, camel-support-  common, camel-timer, cdi]
     2021-02-08 18:25:52,402 INFO  [info] (Camel (camel-q) thread #0 - timer://tick) Exchange[ExchangePattern: InOnly, BodyType: null, Body: [Body is null]]
     2021-02-08 18:25:53,370 INFO  [info] (Camel (camel-q) thread #0 - timer://tick) Exchange[ExchangePattern: InOnly, BodyType: null, Body: [Body is null]]
+```
 
-=== Help and contributions
+## Help and contributions
 
 If you hit any problem using Camel or have some feedback, then please
 https://camel.apache.org/support.html[let us know].
