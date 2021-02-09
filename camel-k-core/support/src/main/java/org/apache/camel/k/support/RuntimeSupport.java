@@ -19,6 +19,7 @@ package org.apache.camel.k.support;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.nio.charset.MalformedInputException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileVisitResult;
 import java.nio.file.FileVisitor;
@@ -350,7 +351,7 @@ public final class RuntimeSupport {
                 Objects.requireNonNull(file);
                 Objects.requireNonNull(attrs);
 
-                if (Files.isDirectory(file)) {
+                if (Files.isDirectory(file) || Files.isSymbolicLink(file)) {
                     return FileVisitResult.CONTINUE;
                 }
 
@@ -361,9 +362,14 @@ public final class RuntimeSupport {
                         p.forEach((key, value) -> properties.put(String.valueOf(key), String.valueOf(value)));
                     }
                 } else {
-                    properties.put(
-                        file.getFileName().toString(),
-                        Files.readString(file, StandardCharsets.UTF_8));
+                    try {
+                        properties.put(
+                                file.getFileName().toString(),
+                                Files.readString(file, StandardCharsets.UTF_8));
+                    } catch (MalformedInputException mie){
+                        // Just skip if it is not a UTF-8 encoded file (ie a binary)
+                        LOGGER.info("Cannot transform {} into UTF-8 text, skipping.", file);
+                    }
                 }
 
                 return FileVisitResult.CONTINUE;
