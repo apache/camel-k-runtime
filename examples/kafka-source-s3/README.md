@@ -9,6 +9,8 @@ The route involves kafka and aws2-s3 component
 You'll need to have a kafka instance running on your machine or in docker.
 You'll need AWS Credentials.
 
+Fill correctly the application.properties file.
+
 === How to run
 
 You have two ways of doing this.
@@ -24,7 +26,7 @@ Second approach
     mvn clean package
     export CAMEL_K_CONF=${project.basedir}/data/application.properties
     export CAMEL_K_ROUTES=file:${project.basedir}/data/MyRoutes.java
-    java -jar target/camel-k-runtime-example-java-runner.jar
+    java -jar target/camel-k-runtime-example-java-kafka-s3-runner
 
 You should get the following output in both cases
 
