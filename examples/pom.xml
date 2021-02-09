@@ -40,6 +40,7 @@
         <module>kotlin</module>
         <module>groovy</module>
         <module>java</module>
+        <module>kafka-source-s3</module>
         <module>xml</module>
         <module>cron</module>
     </modules>
