@@ -15,6 +15,7 @@
 
 **Merged pull requests:**
 
+- Add README to examples, java example [\#618](https://github.com/apache/camel-k-runtime/pull/618) ([oscerd](https://github.com/oscerd))
 - Changelog action [\#613](https://github.com/apache/camel-k-runtime/pull/613) ([oscerd](https://github.com/oscerd))
 - Revert "Test PR" [\#611](https://github.com/apache/camel-k-runtime/pull/611) ([oscerd](https://github.com/oscerd))
 - Test PR [\#609](https://github.com/apache/camel-k-runtime/pull/609) ([oscerd](https://github.com/oscerd))
@@ -533,6 +534,7 @@
 - Enable GitHub Actions [\#187](https://github.com/apache/camel-k-runtime/pull/187) ([lburgazzoli](https://github.com/lburgazzoli))
 - update to quarkus 0.3.1 [\#181](https://github.com/apache/camel-k-runtime/pull/181) ([lburgazzoli](https://github.com/lburgazzoli))
 - CamelCloudEventXXX not converted to CE header [\#178](https://github.com/apache/camel-k-runtime/pull/178) ([lburgazzoli](https://github.com/lburgazzoli))
+- Fix \#170: add support for webhook endpoints [\#171](https://github.com/apache/camel-k-runtime/pull/171) ([nicolaferraro](https://github.com/nicolaferraro))
 - Camel Quarkus 0.3.0 support [\#167](https://github.com/apache/camel-k-runtime/pull/167) ([astefanutti](https://github.com/astefanutti))
 
 ## [camel-k-runtime-parent-1.0.6](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.0.6) (2019-10-25)
@@ -549,7 +551,6 @@
 
 - Provide support for statically defined cloudevent headers [\#176](https://github.com/apache/camel-k-runtime/pull/176) ([lburgazzoli](https://github.com/lburgazzoli))
 - Wrong CloudEvent Headers used [\#174](https://github.com/apache/camel-k-runtime/pull/174) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix \#170: add support for webhook endpoints [\#171](https://github.com/apache/camel-k-runtime/pull/171) ([nicolaferraro](https://github.com/nicolaferraro))
 
 ## [camel-k-runtime-parent-1.0.5](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.0.5) (2019-10-18)
 
@@ -696,6 +697,7 @@
 
 - Added a servletregistration customizer and improved examples. [\#71](https://github.com/apache/camel-k-runtime/pull/71) ([valdar](https://github.com/valdar))
 - servlet: update catalog and bom [\#70](https://github.com/apache/camel-k-runtime/pull/70) ([lburgazzoli](https://github.com/lburgazzoli))
+- add servlet support [\#68](https://github.com/apache/camel-k-runtime/pull/68) ([lburgazzoli](https://github.com/lburgazzoli))
 - Refactor customizer activation [\#67](https://github.com/apache/camel-k-runtime/pull/67) ([lburgazzoli](https://github.com/lburgazzoli))
 - rest: support configuring rest's configuration component/endpoint properties [\#66](https://github.com/apache/camel-k-runtime/pull/66) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(cleanup\): remove platform stream handler [\#64](https://github.com/apache/camel-k-runtime/pull/64) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -717,7 +719,6 @@
 
 **Merged pull requests:**
 
-- add servlet support [\#68](https://github.com/apache/camel-k-runtime/pull/68) ([lburgazzoli](https://github.com/lburgazzoli))
 - Rollback to 0.3.2-SNAPSHOT and re-enable missing module [\#53](https://github.com/apache/camel-k-runtime/pull/53) ([nicolaferraro](https://github.com/nicolaferraro))
 - Align the snapshot version for camel-k-adapter-camel-3 module [\#52](https://github.com/apache/camel-k-runtime/pull/52) ([oscerd](https://github.com/oscerd))
 - Fix \#48: add a default type to cloudevents [\#50](https://github.com/apache/camel-k-runtime/pull/50) ([nicolaferraro](https://github.com/nicolaferraro))
