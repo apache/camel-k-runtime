@@ -1,35 +1,40 @@
-== Camel-K-runtime Java Example for kafka consumer to AWS S3
+# Camel-K-runtime Java Example for kafka consumer to AWS S3
 
 This example shows the usage of Camel-k-runtime for kafka consumer to AWS S3
 
 The route involves kafka and aws2-s3 component
 
-=== Setup
+## Setup
 
 You'll need to have a kafka instance running on your machine or in docker.
 You'll need AWS Credentials.
 
 Fill correctly the application.properties file.
 
-=== How to run
+## How to run
 
 You have two ways of doing this.
 
 First approach:
 
+```
     mvn exec:exec
+```
 
 This approach will pack and run a camel-quarkus runner.
 
 Second approach
 
+```
     mvn clean package
     export CAMEL_K_CONF=${project.basedir}/data/application.properties
     export CAMEL_K_ROUTES=file:${project.basedir}/data/MyRoutes.java
     java -jar target/camel-k-runtime-example-java-kafka-s3-runner
+```
 
 You should get the following output in both cases
 
+```
 2021-02-09 08:27:13,463 INFO  [org.apa.cam.k.Runtime] (main) Apache Camel K Runtime 1.7.0-SNAPSHOT
 2021-02-09 08:27:13,482 INFO  [org.apa.cam.qua.cor.CamelBootstrapRecorder] (main) bootstrap runtime: org.apache.camel.quarkus.main.CamelMainRuntime
 2021-02-09 08:27:13,488 INFO  [org.apa.cam.k.lis.SourcesConfigurer] (main) Loading routes from: file:/home/oscerd/workspace/apache-camel/camel-k-runtime/examples/kafka-source-s3/data/MyRoutes.java
@@ -131,8 +136,9 @@ You should get the following output in both cases
 2021-02-09 08:27:16,065 INFO  [org.apa.kaf.cli.con.int.ConsumerCoordinator] (Camel (camel-q) thread #0 - KafkaConsumer[testtopic]) [Consumer clientId=consumer-94ee637f-5058-4b8a-98b3-6a8e6e3fcc5b-1, groupId=94ee637f-5058-4b8a-98b3-6a8e6e3fcc5b] Adding newly assigned partitions: testtopic-0
 2021-02-09 08:27:16,072 INFO  [org.apa.kaf.cli.con.int.ConsumerCoordinator] (Camel (camel-q) thread #0 - KafkaConsumer[testtopic]) [Consumer clientId=consumer-94ee637f-5058-4b8a-98b3-6a8e6e3fcc5b-1, groupId=94ee637f-5058-4b8a-98b3-6a8e6e3fcc5b] Found no committed offset for partition testtopic-0
 2021-02-09 08:27:16,083 INFO  [org.apa.kaf.cli.con.int.SubscriptionState] (Camel (camel-q) thread #0 - KafkaConsumer[testtopic]) [Consumer clientId=consumer-94ee637f-5058-4b8a-98b3-6a8e6e3fcc5b-1, groupId=94ee637f-5058-4b8a-98b3-6a8e6e3fcc5b] Resetting offset for partition testtopic-0 to offset 3.
+```
 
-=== Help and contributions
+## Help and contributions
 
 If you hit any problem using Camel or have some feedback, then please
 https://camel.apache.org/support.html[let us know].
