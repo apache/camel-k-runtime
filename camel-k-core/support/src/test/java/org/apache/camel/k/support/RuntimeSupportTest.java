@@ -16,7 +16,11 @@
  */
 package org.apache.camel.k.support;
 
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.camel.CamelContext;
@@ -172,5 +176,20 @@ public class RuntimeSupportTest {
         List<ContextCustomizer> customizers = RuntimeSupport.configureContextCustomizers(context);
         assertThat(customizers).hasSize(3);
         assertThat(context.getName()).isEqualTo("camel-c2-c3-c1");
+    }
+
+    @Test
+    public void shouldLoadUsePropertiesFromTextConfigMap(){
+        System.setProperty(Constants.PROPERTY_CAMEL_K_CONF_D, getClass().getResource("/configmaps/my-cm").getFile());
+        Map<String, String> loadedProperties = RuntimeSupport.loadUserProperties();
+        assertThat(loadedProperties).hasSize(1);
+        assertThat(loadedProperties.get("my-property")).isEqualTo("my-cm-property");
+    }
+
+    @Test
+    public void shouldSkipLoadUsePropertiesFromBinaryConfigMap(){
+        System.setProperty(Constants.PROPERTY_CAMEL_K_CONF_D, getClass().getResource("/configmaps/my-binary-cm").getFile());
+        Map<String, String> loadedProperties = RuntimeSupport.loadUserProperties();
+        assertThat(loadedProperties).isEmpty();
     }
 }
