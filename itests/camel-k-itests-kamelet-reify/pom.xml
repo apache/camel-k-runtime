@@ -97,6 +97,14 @@
             <version>${awaitility-version}</version>
         </dependency>
 
+        <!-- Remove this dependency when bumping to camel-quarkus 1.7.0 and above -->
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>testcontainers</artifactId>
+            <version>1.15.1</version>
+            <scope>test</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-integration-testcontainers-support</artifactId>
