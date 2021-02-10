@@ -81,6 +81,15 @@
             <artifactId>camel-mock</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- Remove this dependency when bumping to camel 3.8.0 and above -->
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>testcontainers</artifactId>
+            <version>1.15.1</version>
+            <scope>test</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-testcontainers-junit5</artifactId>
