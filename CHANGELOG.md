@@ -15,6 +15,11 @@
 
 **Merged pull requests:**
 
+- Kafka Source S3: Fixed README Markdown [\#623](https://github.com/apache/camel-k-runtime/pull/623) ([oscerd](https://github.com/oscerd))
+- Cron Example: Fixed README Markdown [\#622](https://github.com/apache/camel-k-runtime/pull/622) ([oscerd](https://github.com/oscerd))
+- Java Example: Fixed README Markdown [\#621](https://github.com/apache/camel-k-runtime/pull/621) ([oscerd](https://github.com/oscerd))
+- Kafka source to AWS S3 Java Example [\#620](https://github.com/apache/camel-k-runtime/pull/620) ([oscerd](https://github.com/oscerd))
+- Added README for cron example [\#619](https://github.com/apache/camel-k-runtime/pull/619) ([oscerd](https://github.com/oscerd))
 - Add README to examples, java example [\#618](https://github.com/apache/camel-k-runtime/pull/618) ([oscerd](https://github.com/oscerd))
 - Changelog action [\#613](https://github.com/apache/camel-k-runtime/pull/613) ([oscerd](https://github.com/oscerd))
 - Revert "Test PR" [\#611](https://github.com/apache/camel-k-runtime/pull/611) ([oscerd](https://github.com/oscerd))
@@ -534,7 +539,6 @@
 - Enable GitHub Actions [\#187](https://github.com/apache/camel-k-runtime/pull/187) ([lburgazzoli](https://github.com/lburgazzoli))
 - update to quarkus 0.3.1 [\#181](https://github.com/apache/camel-k-runtime/pull/181) ([lburgazzoli](https://github.com/lburgazzoli))
 - CamelCloudEventXXX not converted to CE header [\#178](https://github.com/apache/camel-k-runtime/pull/178) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix \#170: add support for webhook endpoints [\#171](https://github.com/apache/camel-k-runtime/pull/171) ([nicolaferraro](https://github.com/nicolaferraro))
 - Camel Quarkus 0.3.0 support [\#167](https://github.com/apache/camel-k-runtime/pull/167) ([astefanutti](https://github.com/astefanutti))
 
 ## [camel-k-runtime-parent-1.0.6](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.0.6) (2019-10-25)
@@ -551,6 +555,7 @@
 
 - Provide support for statically defined cloudevent headers [\#176](https://github.com/apache/camel-k-runtime/pull/176) ([lburgazzoli](https://github.com/lburgazzoli))
 - Wrong CloudEvent Headers used [\#174](https://github.com/apache/camel-k-runtime/pull/174) ([lburgazzoli](https://github.com/lburgazzoli))
+- Fix \#170: add support for webhook endpoints [\#171](https://github.com/apache/camel-k-runtime/pull/171) ([nicolaferraro](https://github.com/nicolaferraro))
 
 ## [camel-k-runtime-parent-1.0.5](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.0.5) (2019-10-18)
 
