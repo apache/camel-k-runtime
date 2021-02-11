@@ -15,6 +15,7 @@
 
 **Merged pull requests:**
 
+- fix\(test\): bump testcontainers to 1.5.1 [\#627](https://github.com/apache/camel-k-runtime/pull/627) ([squakez](https://github.com/squakez))
 - Kafka Source S3: Fixed README Markdown [\#623](https://github.com/apache/camel-k-runtime/pull/623) ([oscerd](https://github.com/oscerd))
 - Cron Example: Fixed README Markdown [\#622](https://github.com/apache/camel-k-runtime/pull/622) ([oscerd](https://github.com/oscerd))
 - Java Example: Fixed README Markdown [\#621](https://github.com/apache/camel-k-runtime/pull/621) ([oscerd](https://github.com/oscerd))
