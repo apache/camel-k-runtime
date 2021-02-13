@@ -589,7 +589,6 @@
 - Remove legacy artifacts and version from catalog [\#157](https://github.com/apache/camel-k-runtime/pull/157) ([lburgazzoli](https://github.com/lburgazzoli))
 - Support Knative broker/trigger model [\#153](https://github.com/apache/camel-k-runtime/pull/153) ([lburgazzoli](https://github.com/lburgazzoli))
 - Disbale deploy task for examples [\#147](https://github.com/apache/camel-k-runtime/pull/147) ([lburgazzoli](https://github.com/lburgazzoli))
-- add \(initial\) support for quarkus [\#145](https://github.com/apache/camel-k-runtime/pull/145) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-1.0.4](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.0.4) (2019-10-04)
 
@@ -604,6 +603,7 @@
 
 **Merged pull requests:**
 
+- add \(initial\) support for quarkus [\#145](https://github.com/apache/camel-k-runtime/pull/145) ([lburgazzoli](https://github.com/lburgazzoli))
 - Update deps [\#144](https://github.com/apache/camel-k-runtime/pull/144) ([lburgazzoli](https://github.com/lburgazzoli))
 - groovy: improve rest dsl [\#143](https://github.com/apache/camel-k-runtime/pull/143) ([lburgazzoli](https://github.com/lburgazzoli))
 - Include camel-k-runtime version in camel-catalog [\#142](https://github.com/apache/camel-k-runtime/pull/142) ([lburgazzoli](https://github.com/lburgazzoli))
