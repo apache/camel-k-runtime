@@ -7,6 +7,7 @@
 **Closed issues:**
 
 - Make changelog action work again [\#612](https://github.com/apache/camel-k-runtime/issues/612)
+- Malformed exception when using binary config map file into an integration [\#593](https://github.com/apache/camel-k-runtime/issues/593)
 - Catalog contains duplicate entry for same schema \(cron\) [\#592](https://github.com/apache/camel-k-runtime/issues/592)
 - Fix missing wrap component error in camelk catalog [\#589](https://github.com/apache/camel-k-runtime/issues/589)
 - Cannot use kamelets in yaml integrations [\#581](https://github.com/apache/camel-k-runtime/issues/581)
@@ -15,7 +16,9 @@
 
 **Merged pull requests:**
 
+- doc: run local camel k runtime [\#630](https://github.com/apache/camel-k-runtime/pull/630) ([squakez](https://github.com/squakez))
 - fix\(test\): bump testcontainers to 1.5.1 [\#627](https://github.com/apache/camel-k-runtime/pull/627) ([squakez](https://github.com/squakez))
+- fix\(core\): skip malformed UTF-8 resources [\#624](https://github.com/apache/camel-k-runtime/pull/624) ([squakez](https://github.com/squakez))
 - Kafka Source S3: Fixed README Markdown [\#623](https://github.com/apache/camel-k-runtime/pull/623) ([oscerd](https://github.com/oscerd))
 - Cron Example: Fixed README Markdown [\#622](https://github.com/apache/camel-k-runtime/pull/622) ([oscerd](https://github.com/oscerd))
 - Java Example: Fixed README Markdown [\#621](https://github.com/apache/camel-k-runtime/pull/621) ([oscerd](https://github.com/oscerd))
