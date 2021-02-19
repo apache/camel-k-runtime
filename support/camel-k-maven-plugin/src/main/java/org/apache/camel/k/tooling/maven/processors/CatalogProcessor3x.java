@@ -133,16 +133,6 @@ public class CatalogProcessor3x implements CatalogProcessor {
         specBuilder.putArtifact(
             new CamelArtifact.Builder()
                 .groupId("org.apache.camel.k")
-                .artifactId("camel-k-kamelet")
-                .addScheme(new CamelScheme.Builder()
-                    .id("kamelet")
-                    .passive(true)
-                    .build())
-                .build()
-        );
-        specBuilder.putArtifact(
-            new CamelArtifact.Builder()
-                .groupId("org.apache.camel.k")
                 .artifactId("camel-k-knative")
                 .addScheme(new CamelScheme.Builder()
                     .id("knative")
