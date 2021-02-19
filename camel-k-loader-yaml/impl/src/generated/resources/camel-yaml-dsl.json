@@ -1262,7 +1262,7 @@
           "include" : {
             "type" : "string"
           },
-          "json-view" : {
+          "json-view-type-name" : {
             "type" : "string"
           },
           "module-class-names" : {
@@ -1384,7 +1384,7 @@
           "include" : {
             "type" : "string"
           },
-          "json-view" : {
+          "json-view-type-name" : {
             "type" : "string"
           },
           "library" : {
@@ -2423,15 +2423,19 @@
         }
       },
       "org.apache.camel.model.loadbalancer.CustomLoadBalancerDefinition" : {
-        "type" : "object",
-        "properties" : {
-          "ref" : {
-            "type" : "string"
-          },
-          "id" : {
-            "type" : "string"
+        "anyOf" : [ {
+          "type" : "string"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "ref" : {
+              "type" : "string"
+            },
+            "id" : {
+              "type" : "string"
+            }
           }
-        }
+        } ]
       },
       "org.apache.camel.model.loadbalancer.FailoverLoadBalancerDefinition" : {
         "type" : "object",
@@ -2534,6 +2538,9 @@
               "items" : {
                 "$ref" : "#/items/definitions/step"
               }
+            },
+            "break-on-shutdown" : {
+              "type" : "string"
             },
             "copy" : {
               "type" : "string"

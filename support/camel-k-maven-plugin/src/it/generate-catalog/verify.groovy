@@ -87,19 +87,6 @@ new File(basedir, "catalog.yaml").withReader {
         }
     }
 
-    catalog.spec.artifacts['camel-k-kamelet'].with {
-        assert dependencies == null
-        assert requiredCapabilities == null
-
-        assert schemes.size() == 1
-
-        schemes[0].with {
-            assert id == 'kamelet'
-            assert passive == true
-            assert http == false
-        }
-    }
-
     catalog.spec.artifacts['camel-k-kamelet-reify'].with {
         assert dependencies == null
         assert requiredCapabilities == null

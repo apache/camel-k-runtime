@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-dependencies</artifactId>
-        <version>3.7.0</version>
+        <version>3.8.0</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -38,12 +38,12 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
 
-        <camel-version>3.7.0</camel-version>
+        <camel-version>3.8.0</camel-version>
 
         <!-- quarkus -->
-        <camel-quarkus-version>1.6.0</camel-quarkus-version>
-        <graalvm-version>20.3.0</graalvm-version>
-        <quarkus-version>1.11.0.Final</quarkus-version>
+        <camel-quarkus-version>1.7.0</camel-quarkus-version>
+        <graalvm-version>21.0.0</graalvm-version>
+        <quarkus-version>1.12.0.Final</quarkus-version>
 
         <!-- camel-k -->
         <joor-version>0.9.13</joor-version>
@@ -318,7 +318,6 @@
         <module>camel-k-loader-jsh</module>
 
         <module>camel-k-cron</module>
-        <module>camel-k-kamelet</module>
         <module>camel-k-cloudevents</module>
         <module>camel-k-knative</module>
         <module>camel-k-master</module>
@@ -336,7 +335,7 @@
         <!--
         <repository>
             <id>apache.staging-camel-quarkus</id>
-            <url>https://repository.apache.org/content/repositories/orgapachecamel-1275</url>
+            <url>https://repository.apache.org/content/repositories/orgapachecamel-1295</url>
             <name>Apache Snapshot Repo</name>
             <snapshots>
                 <enabled>false</enabled>
@@ -363,7 +362,7 @@
         <!--
         <pluginRepository>
             <id>apache.staging-camel-quarkus</id>
-            <url>https://repository.apache.org/content/repositories/orgapachecamel-1275</url>
+            <url>https://repository.apache.org/content/repositories/orgapachecamel-1295</url>
             <name>Apache Snapshot Repo</name>
             <snapshots>
                 <enabled>false</enabled>
@@ -562,16 +561,6 @@
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-webhook-deployment</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-kamelet</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-kamelet-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
