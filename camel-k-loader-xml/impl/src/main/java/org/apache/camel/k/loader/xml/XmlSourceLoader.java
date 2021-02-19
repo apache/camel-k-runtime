@@ -19,6 +19,7 @@ package org.apache.camel.k.loader.xml;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Optional;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
@@ -43,6 +44,7 @@ public class XmlSourceLoader implements SourceLoader {
         return Collections.singletonList("xml");
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public RoutesBuilder load(CamelContext camelContext, Source source) {
         final ExtendedCamelContext context = camelContext.adapt(ExtendedCamelContext.class);
@@ -53,12 +55,8 @@ public class XmlSourceLoader implements SourceLoader {
             public void configure() throws Exception {
                 try (InputStream is = source.resolveAsInputStream(getContext())) {
                     try {
-                        Object result = loader.loadRoutesDefinition(getContext(), is);
-                        if (result instanceof RoutesDefinition) {
-                            RoutesDefinition definitions = (RoutesDefinition)result;
-                            LOGGER.debug("Loaded {} routes from {}", definitions.getRoutes().size(), source);
-                            setRouteCollection(definitions);
-                        }
+                        Optional<RoutesDefinition> result = (Optional<RoutesDefinition>)loader.loadRoutesDefinition(getContext(), is);
+                        result.ifPresent(this::setRouteCollection);
                     } catch (IllegalArgumentException ignored) {
                         // ignore
                     } catch (XmlPullParserException e) {
@@ -68,18 +66,17 @@ public class XmlSourceLoader implements SourceLoader {
 
                 try (InputStream is = source.resolveAsInputStream(getContext())) {
                     try {
-                        Object result = loader.loadRestsDefinition(getContext(), is);
-                        if (result instanceof RestsDefinition) {
-                            RestsDefinition definitions = (RestsDefinition)result;
-                            LOGGER.debug("Loaded {} rests from {}", definitions.getRests().size(), source);
-                            setRestCollection(definitions);
-                        }
+                        Optional<RestsDefinition> result = (Optional<RestsDefinition>)loader.loadRestsDefinition(getContext(), is);
+                        result.ifPresent(this::setRestCollection);
                     } catch (IllegalArgumentException ignored) {
                         // ignore
                     } catch (XmlPullParserException e) {
                         LOGGER.debug("Unable to load RestsDefinition: {}", e.getMessage());
                     }
                 }
+
+                LOGGER.debug("Loaded {} routes from {}", getRouteCollection().getRoutes().size(), source);
+                LOGGER.debug("Loaded {} rests from {}", getRestCollection().getRests().size(), source);
             }
         };
     }

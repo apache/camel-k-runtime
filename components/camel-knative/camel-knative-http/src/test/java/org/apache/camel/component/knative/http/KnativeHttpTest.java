@@ -1257,7 +1257,7 @@ public class KnativeHttpTest {
             .when()
             .get()
             .then()
-            .statusCode(404);
+            .statusCode(405);
     }
 
     @ParameterizedTest
