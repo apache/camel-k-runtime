@@ -464,7 +464,6 @@
 - Upgrade AssertJ to version 3.15.0 [\#230](https://github.com/apache/camel-k-runtime/pull/230) ([oscerd](https://github.com/oscerd))
 - Upgrade Vertx to version 3.8.5 [\#228](https://github.com/apache/camel-k-runtime/pull/228) ([oscerd](https://github.com/oscerd))
 - Update junit5 to v5.6.0 [\#225](https://github.com/apache/camel-k-runtime/pull/225) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix \#222: initial implementation of native cron support [\#223](https://github.com/apache/camel-k-runtime/pull/223) ([nicolaferraro](https://github.com/nicolaferraro))
 
 ## [camel-k-runtime-parent-1.0.10](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.0.10) (2020-01-13)
 
@@ -476,6 +475,7 @@
 
 **Merged pull requests:**
 
+- Fix \#222: initial implementation of native cron support [\#223](https://github.com/apache/camel-k-runtime/pull/223) ([nicolaferraro](https://github.com/nicolaferraro))
 - Upgrade Jackson to version 2.10.2 [\#221](https://github.com/apache/camel-k-runtime/pull/221) ([oscerd](https://github.com/oscerd))
 - Bump Maven source plugin to version 3.2.1 [\#220](https://github.com/apache/camel-k-runtime/pull/220) ([oscerd](https://github.com/oscerd))
 - Update to camel-quarkus 1.0.0-M2 [\#219](https://github.com/apache/camel-k-runtime/pull/219) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -744,6 +744,7 @@
 - fix: add custom netty http binding to workaround CAMEL-13351 [\#35](https://github.com/apache/camel-k-runtime/pull/35) ([lburgazzoli](https://github.com/lburgazzoli))
 - Moved camel-k-adapter-camel-3 module to camel3 profile since all the … [\#34](https://github.com/apache/camel-k-runtime/pull/34) ([valdar](https://github.com/valdar))
 - fix platform stream handler [\#33](https://github.com/apache/camel-k-runtime/pull/33) ([lburgazzoli](https://github.com/lburgazzoli))
+- Runtime components should include catalog information [\#32](https://github.com/apache/camel-k-runtime/pull/32) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(version\): Bump Snakeyaml to version 1.24 [\#30](https://github.com/apache/camel-k-runtime/pull/30) ([oscerd](https://github.com/oscerd))
 
 ## [camel-k-runtime-parent-0.3.1](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-0.3.1) (2019-03-06)
@@ -760,7 +761,6 @@
 
 **Merged pull requests:**
 
-- Runtime components should include catalog information [\#32](https://github.com/apache/camel-k-runtime/pull/32) ([lburgazzoli](https://github.com/lburgazzoli))
 - Please add my pgp key [\#27](https://github.com/apache/camel-k-runtime/pull/27) ([nicolaferraro](https://github.com/nicolaferraro))
 - Fixed version checking in Catalog to accomodate also x.y.z-something … [\#26](https://github.com/apache/camel-k-runtime/pull/26) ([valdar](https://github.com/valdar))
 - camel-knative: set CloudEvents v0.2 as default spec version [\#25](https://github.com/apache/camel-k-runtime/pull/25) ([lburgazzoli](https://github.com/lburgazzoli))
