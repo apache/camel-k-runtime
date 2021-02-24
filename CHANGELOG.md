@@ -16,6 +16,7 @@
 
 **Merged pull requests:**
 
+- Support fast-jar packaging for quarkus [\#637](https://github.com/apache/camel-k-runtime/pull/637) ([jamesnetherton](https://github.com/jamesnetherton))
 - build\(deps\): bump maven-common-artifact-filters from 3.1.1 to 3.2.0 [\#635](https://github.com/apache/camel-k-runtime/pull/635) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Upgrade to camel-quarkus 1.7.0 \(camel 3.8.x, quarkus 1.12.x\) [\#633](https://github.com/apache/camel-k-runtime/pull/633) ([lburgazzoli](https://github.com/lburgazzoli))
 - doc: run local camel k runtime [\#630](https://github.com/apache/camel-k-runtime/pull/630) ([squakez](https://github.com/squakez))
@@ -622,7 +623,6 @@
 - Update deps [\#132](https://github.com/apache/camel-k-runtime/pull/132) ([lburgazzoli](https://github.com/lburgazzoli))
 - knative-http component does not return response [\#131](https://github.com/apache/camel-k-runtime/pull/131) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(deps\): update kotlin to v1.3.50 [\#129](https://github.com/apache/camel-k-runtime/pull/129) ([lburgazzoli](https://github.com/lburgazzoli))
-- knative: true knative-http component [\#124](https://github.com/apache/camel-k-runtime/pull/124) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-1.0.1](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.0.1) (2019-08-23)
 
@@ -638,6 +638,7 @@
 - Base knative-http component to vertx-web as the next undertow major release \(3\) will be based on it \#126 [\#128](https://github.com/apache/camel-k-runtime/pull/128) ([lburgazzoli](https://github.com/lburgazzoli))
 - Re-organize repo and update deps [\#127](https://github.com/apache/camel-k-runtime/pull/127) ([lburgazzoli](https://github.com/lburgazzoli))
 - knative: add custom loader for sources [\#125](https://github.com/apache/camel-k-runtime/pull/125) ([lburgazzoli](https://github.com/lburgazzoli))
+- knative: true knative-http component [\#124](https://github.com/apache/camel-k-runtime/pull/124) ([lburgazzoli](https://github.com/lburgazzoli))
 - Allow endpoint DSL in Camel k [\#123](https://github.com/apache/camel-k-runtime/pull/123) ([lburgazzoli](https://github.com/lburgazzoli))
 - Knative component filters out all headers [\#120](https://github.com/apache/camel-k-runtime/pull/120) ([lburgazzoli](https://github.com/lburgazzoli))
 - maven dependencies for java.xml.bind \(jaxb\) issue \#103 [\#119](https://github.com/apache/camel-k-runtime/pull/119) ([ipolyzos](https://github.com/ipolyzos))
