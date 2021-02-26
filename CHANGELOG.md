@@ -16,6 +16,8 @@
 
 **Merged pull requests:**
 
+- Maven-Enforcer-plugin: Set the minimal maven version to 3.6.3 [\#639](https://github.com/apache/camel-k-runtime/pull/639) ([oscerd](https://github.com/oscerd))
+- Upgrade Maven Enforce to 3.0.0-M2 [\#638](https://github.com/apache/camel-k-runtime/pull/638) ([oscerd](https://github.com/oscerd))
 - Support fast-jar packaging for quarkus [\#637](https://github.com/apache/camel-k-runtime/pull/637) ([jamesnetherton](https://github.com/jamesnetherton))
 - build\(deps\): bump maven-common-artifact-filters from 3.1.1 to 3.2.0 [\#635](https://github.com/apache/camel-k-runtime/pull/635) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Upgrade to camel-quarkus 1.7.0 \(camel 3.8.x, quarkus 1.12.x\) [\#633](https://github.com/apache/camel-k-runtime/pull/633) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -406,6 +408,7 @@
 - Add a check to ensure Maven 3.6.3+ is used [\#278](https://github.com/apache/camel-k-runtime/pull/278) ([lburgazzoli](https://github.com/lburgazzoli))
 - Bump Jandex to version 2.1.3.Final [\#276](https://github.com/apache/camel-k-runtime/pull/276) ([oscerd](https://github.com/oscerd))
 - Bump Junit Jupiter to version 5.6.1 [\#275](https://github.com/apache/camel-k-runtime/pull/275) ([oscerd](https://github.com/oscerd))
+- Update camel-quarkus to v1.0.0-M5 [\#271](https://github.com/apache/camel-k-runtime/pull/271) ([lburgazzoli](https://github.com/lburgazzoli))
 - create platform http service and other stuffs [\#270](https://github.com/apache/camel-k-runtime/pull/270) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-1.2.1](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.2.1) (2020-03-20)
@@ -430,7 +433,6 @@
 
 - Bump Maven Build Helper to version 3.1.0 [\#273](https://github.com/apache/camel-k-runtime/pull/273) ([oscerd](https://github.com/oscerd))
 - Bump Rest-assured to version 4.3.0 [\#272](https://github.com/apache/camel-k-runtime/pull/272) ([oscerd](https://github.com/oscerd))
-- Update camel-quarkus to v1.0.0-M5 [\#271](https://github.com/apache/camel-k-runtime/pull/271) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade Jackson to version 2.10.3 [\#269](https://github.com/apache/camel-k-runtime/pull/269) ([oscerd](https://github.com/oscerd))
 - Bump Snakeyaml to version 1.26 [\#268](https://github.com/apache/camel-k-runtime/pull/268) ([oscerd](https://github.com/oscerd))
 - quarkus: reduce dependencies by depending on quarkus-vertx-core and quarkus-vert-http instead of quarkus-verts [\#263](https://github.com/apache/camel-k-runtime/pull/263) ([lburgazzoli](https://github.com/lburgazzoli))
