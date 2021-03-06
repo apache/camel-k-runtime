@@ -234,7 +234,6 @@
 - Fix \#394: unable to run Groovy routes on Quarkus [\#415](https://github.com/apache/camel-k-runtime/pull/415) ([nicolaferraro](https://github.com/nicolaferraro))
 - Upgrade Jackson to version 2.10.5 [\#413](https://github.com/apache/camel-k-runtime/pull/413) ([oscerd](https://github.com/oscerd))
 - Update commons text to version 1.9 [\#412](https://github.com/apache/camel-k-runtime/pull/412) ([oscerd](https://github.com/oscerd))
-- Fix \#365: change sinkbinding to be a customizer unrelated to the knat… [\#411](https://github.com/apache/camel-k-runtime/pull/411) ([nicolaferraro](https://github.com/nicolaferraro))
 - chore\(test\): cleanup yaml unit tests [\#410](https://github.com/apache/camel-k-runtime/pull/410) ([lburgazzoli](https://github.com/lburgazzoli))
 - Update groovy to v3.0.5 [\#409](https://github.com/apache/camel-k-runtime/pull/409) ([lburgazzoli](https://github.com/lburgazzoli))
 
@@ -254,6 +253,7 @@
 
 **Merged pull requests:**
 
+- Fix \#365: change sinkbinding to be a customizer unrelated to the knat… [\#411](https://github.com/apache/camel-k-runtime/pull/411) ([nicolaferraro](https://github.com/nicolaferraro))
 - chore\(release\): decrease version to 1.4.1-SNAPSHOT [\#408](https://github.com/apache/camel-k-runtime/pull/408) ([nicolaferraro](https://github.com/nicolaferraro))
 - Upgrade Commons Lang to version 3.11 [\#407](https://github.com/apache/camel-k-runtime/pull/407) ([oscerd](https://github.com/oscerd))
 - Upgrade Vertx to version 3.9.2 [\#406](https://github.com/apache/camel-k-runtime/pull/406) ([oscerd](https://github.com/oscerd))
