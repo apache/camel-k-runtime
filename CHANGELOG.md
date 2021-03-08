@@ -549,7 +549,6 @@
 - Update deps [\#188](https://github.com/apache/camel-k-runtime/pull/188) ([lburgazzoli](https://github.com/lburgazzoli))
 - Enable GitHub Actions [\#187](https://github.com/apache/camel-k-runtime/pull/187) ([lburgazzoli](https://github.com/lburgazzoli))
 - update to quarkus 0.3.1 [\#181](https://github.com/apache/camel-k-runtime/pull/181) ([lburgazzoli](https://github.com/lburgazzoli))
-- CamelCloudEventXXX not converted to CE header [\#178](https://github.com/apache/camel-k-runtime/pull/178) ([lburgazzoli](https://github.com/lburgazzoli))
 - Camel Quarkus 0.3.0 support [\#167](https://github.com/apache/camel-k-runtime/pull/167) ([astefanutti](https://github.com/astefanutti))
 
 ## [camel-k-runtime-parent-1.0.6](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.0.6) (2019-10-25)
@@ -589,6 +588,7 @@
 
 **Merged pull requests:**
 
+- CamelCloudEventXXX not converted to CE header [\#178](https://github.com/apache/camel-k-runtime/pull/178) ([lburgazzoli](https://github.com/lburgazzoli))
 - Improve DSL for groovy and kotlin [\#169](https://github.com/apache/camel-k-runtime/pull/169) ([lburgazzoli](https://github.com/lburgazzoli))
 - HTTP multi-headers are randomized in camel-knative-http [\#168](https://github.com/apache/camel-k-runtime/pull/168) ([lburgazzoli](https://github.com/lburgazzoli))
 - Can't bridge two Knative channels with new component [\#166](https://github.com/apache/camel-k-runtime/pull/166) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -696,7 +696,6 @@
 - Support camel 3.0.0 M3 \#79 [\#81](https://github.com/apache/camel-k-runtime/pull/81) ([lburgazzoli](https://github.com/lburgazzoli))
 - catalog: generate license header \(camel 3\) [\#77](https://github.com/apache/camel-k-runtime/pull/77) ([lburgazzoli](https://github.com/lburgazzoli))
 - Camel 3 cleanup [\#75](https://github.com/apache/camel-k-runtime/pull/75) ([lburgazzoli](https://github.com/lburgazzoli))
-- camel-2.x: remove camel 3 bits [\#74](https://github.com/apache/camel-k-runtime/pull/74) ([lburgazzoli](https://github.com/lburgazzoli))
 - Switch to Camel 3 by default [\#73](https://github.com/apache/camel-k-runtime/pull/73) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-0.3.3](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-0.3.3) (2019-05-28)
