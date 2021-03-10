@@ -303,7 +303,6 @@
 - Generate schema for YAML DSL [\#378](https://github.com/apache/camel-k-runtime/pull/378) ([lburgazzoli](https://github.com/lburgazzoli))
 - Bump maven failsafe plugin to version 3.0.0-M5 [\#374](https://github.com/apache/camel-k-runtime/pull/374) ([oscerd](https://github.com/oscerd))
 - Bump Surefire to version 3.0.0-M5 [\#373](https://github.com/apache/camel-k-runtime/pull/373) ([oscerd](https://github.com/oscerd))
-- Add runtime support for Knative sinkbinding [\#372](https://github.com/apache/camel-k-runtime/pull/372) ([lburgazzoli](https://github.com/lburgazzoli))
 - Create a CompositeClassloader and set is as Camel's ApplicationClassloader [\#368](https://github.com/apache/camel-k-runtime/pull/368) ([lburgazzoli](https://github.com/lburgazzoli))
 - Integration should fail when no secret is found [\#367](https://github.com/apache/camel-k-runtime/pull/367) ([lburgazzoli](https://github.com/lburgazzoli))
 
@@ -345,6 +344,7 @@
 
 **Merged pull requests:**
 
+- Add runtime support for Knative sinkbinding [\#372](https://github.com/apache/camel-k-runtime/pull/372) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore: remove meaningless log statement [\#356](https://github.com/apache/camel-k-runtime/pull/356) ([lburgazzoli](https://github.com/lburgazzoli))
 - tracing: support configuring the jeager service name [\#355](https://github.com/apache/camel-k-runtime/pull/355) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(pgp\): update key for Nicola Ferraro [\#354](https://github.com/apache/camel-k-runtime/pull/354) ([nicolaferraro](https://github.com/nicolaferraro))
