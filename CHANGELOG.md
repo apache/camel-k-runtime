@@ -303,6 +303,7 @@
 - Generate schema for YAML DSL [\#378](https://github.com/apache/camel-k-runtime/pull/378) ([lburgazzoli](https://github.com/lburgazzoli))
 - Bump maven failsafe plugin to version 3.0.0-M5 [\#374](https://github.com/apache/camel-k-runtime/pull/374) ([oscerd](https://github.com/oscerd))
 - Bump Surefire to version 3.0.0-M5 [\#373](https://github.com/apache/camel-k-runtime/pull/373) ([oscerd](https://github.com/oscerd))
+- Add runtime support for Knative sinkbinding [\#372](https://github.com/apache/camel-k-runtime/pull/372) ([lburgazzoli](https://github.com/lburgazzoli))
 - Create a CompositeClassloader and set is as Camel's ApplicationClassloader [\#368](https://github.com/apache/camel-k-runtime/pull/368) ([lburgazzoli](https://github.com/lburgazzoli))
 - Integration should fail when no secret is found [\#367](https://github.com/apache/camel-k-runtime/pull/367) ([lburgazzoli](https://github.com/lburgazzoli))
 
@@ -344,7 +345,6 @@
 
 **Merged pull requests:**
 
-- Add runtime support for Knative sinkbinding [\#372](https://github.com/apache/camel-k-runtime/pull/372) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore: remove meaningless log statement [\#356](https://github.com/apache/camel-k-runtime/pull/356) ([lburgazzoli](https://github.com/lburgazzoli))
 - tracing: support configuring the jeager service name [\#355](https://github.com/apache/camel-k-runtime/pull/355) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(pgp\): update key for Nicola Ferraro [\#354](https://github.com/apache/camel-k-runtime/pull/354) ([nicolaferraro](https://github.com/nicolaferraro))
@@ -696,7 +696,6 @@
 - Support camel 3.0.0 M3 \#79 [\#81](https://github.com/apache/camel-k-runtime/pull/81) ([lburgazzoli](https://github.com/lburgazzoli))
 - catalog: generate license header \(camel 3\) [\#77](https://github.com/apache/camel-k-runtime/pull/77) ([lburgazzoli](https://github.com/lburgazzoli))
 - Camel 3 cleanup [\#75](https://github.com/apache/camel-k-runtime/pull/75) ([lburgazzoli](https://github.com/lburgazzoli))
-- Switch to Camel 3 by default [\#73](https://github.com/apache/camel-k-runtime/pull/73) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-0.3.3](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-0.3.3) (2019-05-28)
 
@@ -711,9 +710,9 @@
 
 **Merged pull requests:**
 
+- Switch to Camel 3 by default [\#73](https://github.com/apache/camel-k-runtime/pull/73) ([lburgazzoli](https://github.com/lburgazzoli))
 - Added a servletregistration customizer and improved examples. [\#71](https://github.com/apache/camel-k-runtime/pull/71) ([valdar](https://github.com/valdar))
 - servlet: update catalog and bom [\#70](https://github.com/apache/camel-k-runtime/pull/70) ([lburgazzoli](https://github.com/lburgazzoli))
-- add servlet support [\#68](https://github.com/apache/camel-k-runtime/pull/68) ([lburgazzoli](https://github.com/lburgazzoli))
 - Refactor customizer activation [\#67](https://github.com/apache/camel-k-runtime/pull/67) ([lburgazzoli](https://github.com/lburgazzoli))
 - rest: support configuring rest's configuration component/endpoint properties [\#66](https://github.com/apache/camel-k-runtime/pull/66) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(cleanup\): remove platform stream handler [\#64](https://github.com/apache/camel-k-runtime/pull/64) ([lburgazzoli](https://github.com/lburgazzoli))
