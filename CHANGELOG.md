@@ -527,6 +527,7 @@
 - Allow to use any class as configuration source [\#198](https://github.com/apache/camel-k-runtime/pull/198) ([lburgazzoli](https://github.com/lburgazzoli))
 - Update deps and actions [\#197](https://github.com/apache/camel-k-runtime/pull/197) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(tools\): make sure quarkus catalog name start with "camel-catalog-" [\#196](https://github.com/apache/camel-k-runtime/pull/196) ([nicolaferraro](https://github.com/nicolaferraro))
+- Fixes \#189 to update to Camel 3.0 RC3 [\#190](https://github.com/apache/camel-k-runtime/pull/190) ([davsclaus](https://github.com/davsclaus))
 
 ## [camel-k-runtime-parent-1.0.7](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.0.7) (2019-11-13)
 
@@ -545,7 +546,6 @@
 
 - loaders: remove java class loader as it is misleading [\#194](https://github.com/apache/camel-k-runtime/pull/194) ([lburgazzoli](https://github.com/lburgazzoli))
 - Remove docker-maven-plugin in pom.xml which is not in use [\#192](https://github.com/apache/camel-k-runtime/pull/192) ([davsclaus](https://github.com/davsclaus))
-- Fixes \#189 to update to Camel 3.0 RC3 [\#190](https://github.com/apache/camel-k-runtime/pull/190) ([davsclaus](https://github.com/davsclaus))
 - Update deps [\#188](https://github.com/apache/camel-k-runtime/pull/188) ([lburgazzoli](https://github.com/lburgazzoli))
 - Enable GitHub Actions [\#187](https://github.com/apache/camel-k-runtime/pull/187) ([lburgazzoli](https://github.com/lburgazzoli))
 - update to quarkus 0.3.1 [\#181](https://github.com/apache/camel-k-runtime/pull/181) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -696,6 +696,7 @@
 - Support camel 3.0.0 M3 \#79 [\#81](https://github.com/apache/camel-k-runtime/pull/81) ([lburgazzoli](https://github.com/lburgazzoli))
 - catalog: generate license header \(camel 3\) [\#77](https://github.com/apache/camel-k-runtime/pull/77) ([lburgazzoli](https://github.com/lburgazzoli))
 - Camel 3 cleanup [\#75](https://github.com/apache/camel-k-runtime/pull/75) ([lburgazzoli](https://github.com/lburgazzoli))
+- Switch to Camel 3 by default [\#73](https://github.com/apache/camel-k-runtime/pull/73) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-0.3.3](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-0.3.3) (2019-05-28)
 
@@ -710,9 +711,9 @@
 
 **Merged pull requests:**
 
-- Switch to Camel 3 by default [\#73](https://github.com/apache/camel-k-runtime/pull/73) ([lburgazzoli](https://github.com/lburgazzoli))
 - Added a servletregistration customizer and improved examples. [\#71](https://github.com/apache/camel-k-runtime/pull/71) ([valdar](https://github.com/valdar))
 - servlet: update catalog and bom [\#70](https://github.com/apache/camel-k-runtime/pull/70) ([lburgazzoli](https://github.com/lburgazzoli))
+- add servlet support [\#68](https://github.com/apache/camel-k-runtime/pull/68) ([lburgazzoli](https://github.com/lburgazzoli))
 - Refactor customizer activation [\#67](https://github.com/apache/camel-k-runtime/pull/67) ([lburgazzoli](https://github.com/lburgazzoli))
 - rest: support configuring rest's configuration component/endpoint properties [\#66](https://github.com/apache/camel-k-runtime/pull/66) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(cleanup\): remove platform stream handler [\#64](https://github.com/apache/camel-k-runtime/pull/64) ([lburgazzoli](https://github.com/lburgazzoli))
