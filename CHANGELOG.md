@@ -13,6 +13,7 @@
 - Cannot use kamelets in yaml integrations [\#581](https://github.com/apache/camel-k-runtime/issues/581)
 - Catalog json keys should be sorted [\#576](https://github.com/apache/camel-k-runtime/issues/576)
 - Thread blocked calling knative REST [\#513](https://github.com/apache/camel-k-runtime/issues/513)
+- Support fast-jar packaging for quarkus [\#360](https://github.com/apache/camel-k-runtime/issues/360)
 - HTTP multi-headers are randomized in camel-knative-http [\#69](https://github.com/apache/camel-k-runtime/issues/69)
 
 **Merged pull requests:**
@@ -231,13 +232,13 @@
 - Update maven plugin dependencies [\#420](https://github.com/apache/camel-k-runtime/pull/420) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fixed properties test to use correct way of main configurations [\#419](https://github.com/apache/camel-k-runtime/pull/419) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade to camel-quarkus v1.0.0 [\#418](https://github.com/apache/camel-k-runtime/pull/418) ([lburgazzoli](https://github.com/lburgazzoli))
+- Disable merge commits on pull requests [\#417](https://github.com/apache/camel-k-runtime/pull/417) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#394: unable to run Groovy routes on Quarkus [\#415](https://github.com/apache/camel-k-runtime/pull/415) ([nicolaferraro](https://github.com/nicolaferraro))
 - Upgrade Jackson to version 2.10.5 [\#413](https://github.com/apache/camel-k-runtime/pull/413) ([oscerd](https://github.com/oscerd))
 - Update commons text to version 1.9 [\#412](https://github.com/apache/camel-k-runtime/pull/412) ([oscerd](https://github.com/oscerd))
 - Fix \#365: change sinkbinding to be a customizer unrelated to the knat… [\#411](https://github.com/apache/camel-k-runtime/pull/411) ([nicolaferraro](https://github.com/nicolaferraro))
 - chore\(test\): cleanup yaml unit tests [\#410](https://github.com/apache/camel-k-runtime/pull/410) ([lburgazzoli](https://github.com/lburgazzoli))
 - Update groovy to v3.0.5 [\#409](https://github.com/apache/camel-k-runtime/pull/409) ([lburgazzoli](https://github.com/lburgazzoli))
-- Upgrade Vertx to version 3.9.2 [\#406](https://github.com/apache/camel-k-runtime/pull/406) ([oscerd](https://github.com/oscerd))
 
 ## [camel-k-runtime-parent-1.4.1](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.4.1) (2020-07-21)
 
@@ -255,9 +256,9 @@
 
 **Merged pull requests:**
 
-- Disable merge commits on pull requests [\#417](https://github.com/apache/camel-k-runtime/pull/417) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(release\): decrease version to 1.4.1-SNAPSHOT [\#408](https://github.com/apache/camel-k-runtime/pull/408) ([nicolaferraro](https://github.com/nicolaferraro))
 - Upgrade Commons Lang to version 3.11 [\#407](https://github.com/apache/camel-k-runtime/pull/407) ([oscerd](https://github.com/oscerd))
+- Upgrade Vertx to version 3.9.2 [\#406](https://github.com/apache/camel-k-runtime/pull/406) ([oscerd](https://github.com/oscerd))
 - chore\(deps\): update vert.x to v3.9.1 [\#405](https://github.com/apache/camel-k-runtime/pull/405) ([lburgazzoli](https://github.com/lburgazzoli))
 - \[kotlin\] compile scripts wit the same target level used to compile the loader [\#404](https://github.com/apache/camel-k-runtime/pull/404) ([lburgazzoli](https://github.com/lburgazzoli))
 - Bump Jandex to 2.2.1.Final [\#403](https://github.com/apache/camel-k-runtime/pull/403) ([oscerd](https://github.com/oscerd))
@@ -307,7 +308,6 @@
 - Add runtime support for Knative sinkbinding [\#372](https://github.com/apache/camel-k-runtime/pull/372) ([lburgazzoli](https://github.com/lburgazzoli))
 - Create a CompositeClassloader and set is as Camel's ApplicationClassloader [\#368](https://github.com/apache/camel-k-runtime/pull/368) ([lburgazzoli](https://github.com/lburgazzoli))
 - Integration should fail when no secret is found [\#367](https://github.com/apache/camel-k-runtime/pull/367) ([lburgazzoli](https://github.com/lburgazzoli))
-- Add an opentracing capability [\#353](https://github.com/apache/camel-k-runtime/pull/353) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-1.3.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.3.0) (2020-06-05)
 
@@ -350,6 +350,7 @@
 - chore: remove meaningless log statement [\#356](https://github.com/apache/camel-k-runtime/pull/356) ([lburgazzoli](https://github.com/lburgazzoli))
 - tracing: support configuring the jeager service name [\#355](https://github.com/apache/camel-k-runtime/pull/355) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(pgp\): update key for Nicola Ferraro [\#354](https://github.com/apache/camel-k-runtime/pull/354) ([nicolaferraro](https://github.com/nicolaferraro))
+- Add an opentracing capability [\#353](https://github.com/apache/camel-k-runtime/pull/353) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade Jackson to version 2.10.4 [\#352](https://github.com/apache/camel-k-runtime/pull/352) ([oscerd](https://github.com/oscerd))
 - Bump AssertJ to version 3.16.1 [\#351](https://github.com/apache/camel-k-runtime/pull/351) ([oscerd](https://github.com/oscerd))
 - Add circuit-breaker capability [\#350](https://github.com/apache/camel-k-runtime/pull/350) ([lburgazzoli](https://github.com/lburgazzoli))
