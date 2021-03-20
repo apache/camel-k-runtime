@@ -22,6 +22,7 @@
 - Maven-Enforcer-plugin: Set the minimal maven version to 3.6.3 [\#639](https://github.com/apache/camel-k-runtime/pull/639) ([oscerd](https://github.com/oscerd))
 - Upgrade Maven Enforce to 3.0.0-M2 [\#638](https://github.com/apache/camel-k-runtime/pull/638) ([oscerd](https://github.com/oscerd))
 - Support fast-jar packaging for quarkus [\#637](https://github.com/apache/camel-k-runtime/pull/637) ([jamesnetherton](https://github.com/jamesnetherton))
+- Bump to Kotlin 1.4.30 [\#636](https://github.com/apache/camel-k-runtime/pull/636) ([oscerd](https://github.com/oscerd))
 - build\(deps\): bump maven-common-artifact-filters from 3.1.1 to 3.2.0 [\#635](https://github.com/apache/camel-k-runtime/pull/635) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Upgrade to camel-quarkus 1.7.0 \(camel 3.8.x, quarkus 1.12.x\) [\#633](https://github.com/apache/camel-k-runtime/pull/633) ([lburgazzoli](https://github.com/lburgazzoli))
 - doc: run local camel k runtime [\#630](https://github.com/apache/camel-k-runtime/pull/630) ([squakez](https://github.com/squakez))
