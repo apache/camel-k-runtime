@@ -98,7 +98,7 @@
                     <workingDirectory>${project.basedir}</workingDirectory>
                     <arguments>
                         <argument>-jar</argument>
-                        <argument>${project.build.directory}/${project.artifactId}-runner.jar</argument>
+                        <argument>${project.build.directory}/quarkus-app/quarkus-run.jar</argument>
                     </arguments>
                     <environmentVariables>
                         <CAMEL_K_CONF>${project.basedir}/data/application.properties</CAMEL_K_CONF>
