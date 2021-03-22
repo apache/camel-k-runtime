@@ -24,7 +24,7 @@ Second approach
     mvn clean package
     export CAMEL_K_CONF=${project.basedir}/data/application.properties
     export CAMEL_K_ROUTES=file:${project.basedir}/data/routes.yaml?interceptors=cron
-    java -jar target/camel-k-runtime-example-cron-runner.jar
+    java -jar target/quarkus-app/quarkus-run.jar
 ```
 
 - Native
