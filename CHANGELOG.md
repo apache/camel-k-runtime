@@ -268,7 +268,6 @@
 - camel-knative: don't replace message when the producers completes [\#400](https://github.com/apache/camel-k-runtime/pull/400) ([lburgazzoli](https://github.com/lburgazzoli))
 - publish the camel-k yaml dsl schema as artifact \#389 [\#398](https://github.com/apache/camel-k-runtime/pull/398) ([lburgazzoli](https://github.com/lburgazzoli))
 - \[js\] use proxy for global bindings [\#397](https://github.com/apache/camel-k-runtime/pull/397) ([lburgazzoli](https://github.com/lburgazzoli))
-- No type converter warning if final type of body is java.util.Map [\#396](https://github.com/apache/camel-k-runtime/pull/396) ([lburgazzoli](https://github.com/lburgazzoli))
 - Unable to run kotlin routes with quarkus [\#395](https://github.com/apache/camel-k-runtime/pull/395) ([lburgazzoli](https://github.com/lburgazzoli))
 - Property substitution doesn't happen in from URI [\#393](https://github.com/apache/camel-k-runtime/pull/393) ([lburgazzoli](https://github.com/lburgazzoli))
 
@@ -296,6 +295,7 @@
 
 **Merged pull requests:**
 
+- No type converter warning if final type of body is java.util.Map [\#396](https://github.com/apache/camel-k-runtime/pull/396) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(release\): bump version to 1.4.0-SNAPSHOT [\#391](https://github.com/apache/camel-k-runtime/pull/391) ([nicolaferraro](https://github.com/nicolaferraro))
 - \[yaml\] cleanup schema generator leftovers [\#385](https://github.com/apache/camel-k-runtime/pull/385) ([lburgazzoli](https://github.com/lburgazzoli))
 - Use the new camel-component-maven-plugin from Camel 3.4 [\#384](https://github.com/apache/camel-k-runtime/pull/384) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -446,7 +446,6 @@
 - Bump Groovy to version 3.0.2 [\#254](https://github.com/apache/camel-k-runtime/pull/254) ([oscerd](https://github.com/oscerd))
 - Improve actions [\#252](https://github.com/apache/camel-k-runtime/pull/252) ([lburgazzoli](https://github.com/lburgazzoli))
 - Update to camel 3.1, camel-quarkus 1.0.0-M4 [\#251](https://github.com/apache/camel-k-runtime/pull/251) ([lburgazzoli](https://github.com/lburgazzoli))
-- Refactor health support [\#249](https://github.com/apache/camel-k-runtime/pull/249) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-1.1.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.1.0) (2020-02-24)
 
@@ -462,6 +461,7 @@
 
 **Merged pull requests:**
 
+- Refactor health support [\#249](https://github.com/apache/camel-k-runtime/pull/249) ([lburgazzoli](https://github.com/lburgazzoli))
 - Add camel-bean to transitive dependencies by default [\#244](https://github.com/apache/camel-k-runtime/pull/244) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#241: add master helper component [\#242](https://github.com/apache/camel-k-runtime/pull/242) ([nicolaferraro](https://github.com/nicolaferraro))
 - Allow to load generic secrets and reference entries from integrations [\#240](https://github.com/apache/camel-k-runtime/pull/240) ([lburgazzoli](https://github.com/lburgazzoli))
