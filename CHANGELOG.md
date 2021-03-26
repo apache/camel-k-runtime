@@ -18,6 +18,7 @@
 
 **Merged pull requests:**
 
+- build\(deps-dev\): bump spock-core from 2.0-M4-groovy-3.0 to 2.0-M5-groovy-3.0 [\#644](https://github.com/apache/camel-k-runtime/pull/644) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-enforcer-plugin from 3.0.0-M2 to 3.0.0-M3 [\#640](https://github.com/apache/camel-k-runtime/pull/640) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Maven-Enforcer-plugin: Set the minimal maven version to 3.6.3 [\#639](https://github.com/apache/camel-k-runtime/pull/639) ([oscerd](https://github.com/oscerd))
 - Upgrade Maven Enforce to 3.0.0-M2 [\#638](https://github.com/apache/camel-k-runtime/pull/638) ([oscerd](https://github.com/oscerd))
@@ -268,6 +269,7 @@
 - camel-knative: don't replace message when the producers completes [\#400](https://github.com/apache/camel-k-runtime/pull/400) ([lburgazzoli](https://github.com/lburgazzoli))
 - publish the camel-k yaml dsl schema as artifact \#389 [\#398](https://github.com/apache/camel-k-runtime/pull/398) ([lburgazzoli](https://github.com/lburgazzoli))
 - \[js\] use proxy for global bindings [\#397](https://github.com/apache/camel-k-runtime/pull/397) ([lburgazzoli](https://github.com/lburgazzoli))
+- No type converter warning if final type of body is java.util.Map [\#396](https://github.com/apache/camel-k-runtime/pull/396) ([lburgazzoli](https://github.com/lburgazzoli))
 - Unable to run kotlin routes with quarkus [\#395](https://github.com/apache/camel-k-runtime/pull/395) ([lburgazzoli](https://github.com/lburgazzoli))
 - Property substitution doesn't happen in from URI [\#393](https://github.com/apache/camel-k-runtime/pull/393) ([lburgazzoli](https://github.com/lburgazzoli))
 
@@ -295,7 +297,6 @@
 
 **Merged pull requests:**
 
-- No type converter warning if final type of body is java.util.Map [\#396](https://github.com/apache/camel-k-runtime/pull/396) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(release\): bump version to 1.4.0-SNAPSHOT [\#391](https://github.com/apache/camel-k-runtime/pull/391) ([nicolaferraro](https://github.com/nicolaferraro))
 - \[yaml\] cleanup schema generator leftovers [\#385](https://github.com/apache/camel-k-runtime/pull/385) ([lburgazzoli](https://github.com/lburgazzoli))
 - Use the new camel-component-maven-plugin from Camel 3.4 [\#384](https://github.com/apache/camel-k-runtime/pull/384) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -303,7 +304,6 @@
 - chore\(ci\): replace joschi/setup-jdk with AdoptOpenJDK/install-jdk [\#381](https://github.com/apache/camel-k-runtime/pull/381) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade to Camel 3.4 [\#380](https://github.com/apache/camel-k-runtime/pull/380) ([lburgazzoli](https://github.com/lburgazzoli))
 - Bump Build Helper Maven plugin to version 3.2.0 [\#379](https://github.com/apache/camel-k-runtime/pull/379) ([oscerd](https://github.com/oscerd))
-- Generate schema for YAML DSL [\#378](https://github.com/apache/camel-k-runtime/pull/378) ([lburgazzoli](https://github.com/lburgazzoli))
 - Bump maven failsafe plugin to version 3.0.0-M5 [\#374](https://github.com/apache/camel-k-runtime/pull/374) ([oscerd](https://github.com/oscerd))
 - Bump Surefire to version 3.0.0-M5 [\#373](https://github.com/apache/camel-k-runtime/pull/373) ([oscerd](https://github.com/oscerd))
 - Add runtime support for Knative sinkbinding [\#372](https://github.com/apache/camel-k-runtime/pull/372) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -348,6 +348,7 @@
 
 **Merged pull requests:**
 
+- Generate schema for YAML DSL [\#378](https://github.com/apache/camel-k-runtime/pull/378) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore: remove meaningless log statement [\#356](https://github.com/apache/camel-k-runtime/pull/356) ([lburgazzoli](https://github.com/lburgazzoli))
 - tracing: support configuring the jeager service name [\#355](https://github.com/apache/camel-k-runtime/pull/355) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(pgp\): update key for Nicola Ferraro [\#354](https://github.com/apache/camel-k-runtime/pull/354) ([nicolaferraro](https://github.com/nicolaferraro))
@@ -446,6 +447,7 @@
 - Bump Groovy to version 3.0.2 [\#254](https://github.com/apache/camel-k-runtime/pull/254) ([oscerd](https://github.com/oscerd))
 - Improve actions [\#252](https://github.com/apache/camel-k-runtime/pull/252) ([lburgazzoli](https://github.com/lburgazzoli))
 - Update to camel 3.1, camel-quarkus 1.0.0-M4 [\#251](https://github.com/apache/camel-k-runtime/pull/251) ([lburgazzoli](https://github.com/lburgazzoli))
+- Refactor health support [\#249](https://github.com/apache/camel-k-runtime/pull/249) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-1.1.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.1.0) (2020-02-24)
 
@@ -461,7 +463,6 @@
 
 **Merged pull requests:**
 
-- Refactor health support [\#249](https://github.com/apache/camel-k-runtime/pull/249) ([lburgazzoli](https://github.com/lburgazzoli))
 - Add camel-bean to transitive dependencies by default [\#244](https://github.com/apache/camel-k-runtime/pull/244) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#241: add master helper component [\#242](https://github.com/apache/camel-k-runtime/pull/242) ([nicolaferraro](https://github.com/nicolaferraro))
 - Allow to load generic secrets and reference entries from integrations [\#240](https://github.com/apache/camel-k-runtime/pull/240) ([lburgazzoli](https://github.com/lburgazzoli))
