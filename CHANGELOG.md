@@ -19,6 +19,7 @@
 **Merged pull requests:**
 
 - build\(deps-dev\): bump spock-core from 2.0-M4-groovy-3.0 to 2.0-M5-groovy-3.0 [\#644](https://github.com/apache/camel-k-runtime/pull/644) ([dependabot[bot]](https://github.com/apps/dependabot))
+- fix\(examples\) - update path to runner.jar [\#643](https://github.com/apache/camel-k-runtime/pull/643) ([tplevko](https://github.com/tplevko))
 - build\(deps\): bump maven-enforcer-plugin from 3.0.0-M2 to 3.0.0-M3 [\#640](https://github.com/apache/camel-k-runtime/pull/640) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Maven-Enforcer-plugin: Set the minimal maven version to 3.6.3 [\#639](https://github.com/apache/camel-k-runtime/pull/639) ([oscerd](https://github.com/oscerd))
 - Upgrade Maven Enforce to 3.0.0-M2 [\#638](https://github.com/apache/camel-k-runtime/pull/638) ([oscerd](https://github.com/oscerd))
@@ -304,6 +305,7 @@
 - chore\(ci\): replace joschi/setup-jdk with AdoptOpenJDK/install-jdk [\#381](https://github.com/apache/camel-k-runtime/pull/381) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade to Camel 3.4 [\#380](https://github.com/apache/camel-k-runtime/pull/380) ([lburgazzoli](https://github.com/lburgazzoli))
 - Bump Build Helper Maven plugin to version 3.2.0 [\#379](https://github.com/apache/camel-k-runtime/pull/379) ([oscerd](https://github.com/oscerd))
+- Generate schema for YAML DSL [\#378](https://github.com/apache/camel-k-runtime/pull/378) ([lburgazzoli](https://github.com/lburgazzoli))
 - Bump maven failsafe plugin to version 3.0.0-M5 [\#374](https://github.com/apache/camel-k-runtime/pull/374) ([oscerd](https://github.com/oscerd))
 - Bump Surefire to version 3.0.0-M5 [\#373](https://github.com/apache/camel-k-runtime/pull/373) ([oscerd](https://github.com/oscerd))
 - Add runtime support for Knative sinkbinding [\#372](https://github.com/apache/camel-k-runtime/pull/372) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -348,7 +350,6 @@
 
 **Merged pull requests:**
 
-- Generate schema for YAML DSL [\#378](https://github.com/apache/camel-k-runtime/pull/378) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore: remove meaningless log statement [\#356](https://github.com/apache/camel-k-runtime/pull/356) ([lburgazzoli](https://github.com/lburgazzoli))
 - tracing: support configuring the jeager service name [\#355](https://github.com/apache/camel-k-runtime/pull/355) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(pgp\): update key for Nicola Ferraro [\#354](https://github.com/apache/camel-k-runtime/pull/354) ([nicolaferraro](https://github.com/nicolaferraro))
