@@ -17,7 +17,10 @@
 package org.apache.camel.k.support;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.Reader;
+import java.nio.charset.Charset;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
@@ -30,6 +33,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceDefinition;
 import org.apache.camel.k.SourceType;
+import org.apache.camel.spi.Resource;
 import org.apache.camel.support.ResourceHelper;
 import org.apache.camel.util.ObjectHelper;
 import org.apache.camel.util.URISupport;
@@ -72,6 +76,11 @@ public final class  Sources {
         }
 
         return new Source() {
+            @Override
+            public String getLocation() {
+                return definition.getLocation();
+            }
+
             @Override
             public String getId() {
                 return ObjectHelper.supplyIfEmpty(definition.getId(), this::getName);
@@ -156,6 +165,34 @@ public final class  Sources {
     //
     // ******************************
 
+    public static Resource asResource(CamelContext camelContext, Source source) {
+        return new Resource() {
+            @Override
+            public String getLocation() {
+                return source.getLocation();
+            }
+
+            @Override
+            public boolean exists() {
+                return true;
+            }
+
+            @Override
+            public InputStream getInputStream() throws IOException {
+                return source.resolveAsInputStream(camelContext);
+            }
+
+            @Override
+            public Reader getReader() throws Exception {
+                return source.resolveAsReader(camelContext);
+            }
+
+            @Override
+            public Reader getReader(Charset charset) throws Exception {
+                return source.resolveAsReader(camelContext, charset);
+            }
+        };
+    }
 
     public static SourceDefinition computeDefinitionFromURI(String uri) throws Exception {
         final String location = StringSupport.substringBefore(uri, "?");

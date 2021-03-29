@@ -40,6 +40,6 @@ public class Application {
     @Consume(MediaType.APPLICATION_OCTET_STREAM)
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject loadRoutes(@PathParam("loaderName") String loaderName, @PathParam("name") String name, byte[] code) throws Exception {
-        return LoaderSupport.inspectSource(context, name, loaderName, code);
+        return LoaderSupport.inspectSource(context, name + "." + loaderName, code);
     }
 }

@@ -42,9 +42,9 @@ import java.util.regex.Pattern;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
+import org.apache.camel.builder.RouteBuilderLifecycleStrategy;
 import org.apache.camel.k.ContextCustomizer;
 import org.apache.camel.k.Source;
-import org.apache.camel.k.SourceLoader;
 import org.apache.camel.spi.HasCamelContext;
 import org.apache.camel.util.IOHelper;
 import org.apache.camel.util.ObjectHelper;
@@ -173,75 +173,24 @@ public final class RuntimeSupport {
 
     // *********************************
     //
-    // Helpers - Loaders
-    //
-    // *********************************
-
-    public static SourceLoader loaderFor(CamelContext context, Source source) {
-        return source.getLoader().map(
-            loaderId -> lookupLoaderById(context, loaderId)
-        ).orElseGet(
-            () -> lookupLoaderByLanguage(context, source.getLanguage())
-        );
-    }
-
-
-    public static SourceLoader lookupLoaderById(CamelContext context, String loaderId) {
-        LOGGER.debug("Looking up loader for id: {}", loaderId);
-
-        SourceLoader loader = context.getRegistry().findByTypeWithName(SourceLoader.class).get(loaderId);
-        if (loader != null) {
-            LOGGER.debug("Found loader {} with id {} from the registry", loader, loaderId);
-            return loader;
-        }
-
-        return lookupLoaderFromResource(context, loaderId);
-    }
-
-    public static SourceLoader lookupLoaderByLanguage(CamelContext context, String loaderId) {
-        LOGGER.debug("Looking up loader for language: {}", loaderId);
-
-        for (SourceLoader loader: context.getRegistry().findByType(SourceLoader.class)) {
-            if (loader.getSupportedLanguages().contains(loaderId)) {
-                LOGGER.debug("Found loader {} for language {} from the registry", loader, loaderId);
-                return loader;
-            }
-        }
-
-        return lookupLoaderFromResource(context, loaderId);
-    }
-
-    public static SourceLoader lookupLoaderFromResource(CamelContext context, String loaderId) {
-        SourceLoader loader = context.adapt(ExtendedCamelContext.class)
-            .getFactoryFinder(Constants.SOURCE_LOADER_RESOURCE_PATH)
-            .newInstance(loaderId, SourceLoader.class)
-            .orElseThrow(() -> new RuntimeException("Error creating instance of loader: " + loaderId));
-
-        LOGGER.debug("Found loader {} for language {} from service definition", loader, loaderId);
-
-        return loader;
-    }
-
-    // *********************************
-    //
     // Helpers - Interceptors
     //
     // *********************************
 
-    public static List<SourceLoader.Interceptor> loadInterceptors(CamelContext context, Source source) {
+    public static List<RouteBuilderLifecycleStrategy> loadInterceptors(CamelContext context, Source source) {
         ExtendedCamelContext ecc = context.adapt(ExtendedCamelContext.class);
-        List<SourceLoader.Interceptor> answer = new ArrayList<>();
+        List<RouteBuilderLifecycleStrategy> answer = new ArrayList<>();
 
         for (String id : source.getInterceptors()) {
             try {
                 // first check the registry
-                SourceLoader.Interceptor interceptor = ecc.getRegistry()
-                    .lookupByNameAndType(id, SourceLoader.Interceptor.class);
+                RouteBuilderLifecycleStrategy interceptor = ecc.getRegistry()
+                    .lookupByNameAndType(id, RouteBuilderLifecycleStrategy.class);
 
                 if (interceptor == null) {
                     // then try with factory finder
                     interceptor = ecc.getFactoryFinder(Constants.SOURCE_LOADER_INTERCEPTOR_RESOURCE_PATH)
-                        .newInstance(id, SourceLoader.Interceptor.class)
+                        .newInstance(id, RouteBuilderLifecycleStrategy.class)
                         .orElseThrow(() -> new IllegalArgumentException("Unable to find source loader interceptor for: " + id));
 
                     LOGGER.debug("Found source loader interceptor {} from service definition", id);

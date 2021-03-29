@@ -24,9 +24,9 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
+import org.apache.camel.builder.RouteBuilderLifecycleStrategy;
 import org.apache.camel.k.ContextCustomizer;
 import org.apache.camel.k.SourceDefinition;
-import org.apache.camel.k.SourceLoader;
 import org.apache.camel.k.support.Constants;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceDestination;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem;
@@ -44,7 +44,6 @@ public class CoreProcessor {
             new CamelServicePatternBuildItem(
                 CamelServiceDestination.REGISTRY,
                 true,
-                Constants.SOURCE_LOADER_RESOURCE_PATH + "/*",
                 Constants.CONTEXT_CUSTOMIZER_RESOURCE_PATH  + "/*"),
             new CamelServicePatternBuildItem(
                 CamelServiceDestination.DISCOVERY,
@@ -58,7 +57,7 @@ public class CoreProcessor {
         return List.of(
             reflectiveClassBuildItem(SourceDefinition.class),
             reflectiveClassBuildItem(getAllKnownImplementors(index.getIndex(), ContextCustomizer.class)),
-            reflectiveClassBuildItem(getAllKnownImplementors(index.getIndex(), SourceLoader.Interceptor.class))
+            reflectiveClassBuildItem(getAllKnownImplementors(index.getIndex(), RouteBuilderLifecycleStrategy.class))
        );
     }
 

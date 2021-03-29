@@ -37,12 +37,10 @@ import javax.tools.FileObject;
 import javax.tools.StandardLocation;
 
 import org.apache.camel.k.annotation.Customizer;
-import org.apache.camel.k.annotation.Loader;
 import org.apache.camel.k.annotation.LoaderInterceptor;
 
 @SupportedAnnotationTypes({
     "org.apache.camel.k.annotation.Customizer",
-    "org.apache.camel.k.annotation.Loader",
     "org.apache.camel.k.annotation.LoaderInterceptor",
 })
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
@@ -53,14 +51,6 @@ public class CamelProcessor extends AbstractProcessor {
         for (TypeElement annotation : annotations) {
             Set<? extends Element> ae = roundEnv.getElementsAnnotatedWith(annotation);
             for (Element element: ae) {
-                on(element, Loader.class, (e, a) -> {
-                    for (String id: a.value()) {
-                        service(
-                            output("META-INF/services/org/apache/camel/k/loader/%s", id),
-                            e
-                        );
-                    }
-                });
                 on(element, LoaderInterceptor.class, (e, a) -> {
                     service(
                         output("META-INF/services/org/apache/camel/k/loader/interceptor/%s", a.value()),

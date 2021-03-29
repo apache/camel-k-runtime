@@ -40,6 +40,6 @@ public class JshApplication {
     @Consume(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject loadRoutes(@PathParam("name") String name, String code) throws Exception {
-        return LoaderSupport.inspectSource(context, name, "jsh", code);
+        return LoaderSupport.inspectSource(context, name + ".jsh", code);
     }
 }

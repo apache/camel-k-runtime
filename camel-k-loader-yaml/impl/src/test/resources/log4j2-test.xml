@@ -27,7 +27,7 @@
 
   <Loggers>
     <Root level="INFO">
-      <!-- <AppenderRef ref="STDOUT"/> -->
+      <!--<AppenderRef ref="STDOUT"/>-->
       <AppenderRef ref="NONE"/>
     </Root>
   </Loggers>

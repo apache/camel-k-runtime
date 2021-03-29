@@ -17,21 +17,19 @@
 package org.apache.camel.k.cron;
 
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.RoutesBuilder;
+import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
+import org.apache.camel.dsl.yaml.YamlRoutesBuilderLoader;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.k.Runtime;
-import org.apache.camel.k.Source;
-import org.apache.camel.k.SourceLoader;
-import org.apache.camel.k.loader.yaml.YamlSourceLoader;
-import org.apache.camel.k.support.Sources;
+import org.apache.camel.k.loader.yaml.YamlSourceLoaderDeserializerResolver;
 import org.apache.camel.support.LifecycleStrategySupport;
+import org.apache.camel.support.ResourceHelper;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -43,18 +41,25 @@ public class CronTest {
     @MethodSource("parameters")
     public void testCronTimerActivation(String code, String cronOverride) throws Exception {
         final Runtime runtime = Runtime.on(new DefaultCamelContext());
-        final SourceLoader loader = new YamlSourceLoader();
-        final Source source = Sources.fromBytes("my-cron", "yaml", null, List.of("cron"), code.getBytes(StandardCharsets.UTF_8));
+        runtime.getRegistry().bind("__camel_k_resolver", new YamlSourceLoaderDeserializerResolver());
+
+        final YamlRoutesBuilderLoader loader = new YamlRoutesBuilderLoader();
+        loader.setCamelContext(runtime.getCamelContext());
+        loader.start();
+
 
         final CronSourceLoaderInterceptor interceptor = new CronSourceLoaderInterceptor();
         interceptor.setRuntime(runtime);
         interceptor.setOverridableComponents(cronOverride);
 
-        RoutesBuilder builder = interceptor.afterLoad(
-            loader,
-            source,
-            loader.load(runtime.getCamelContext(), source));
+        final RouteBuilder builder = (RouteBuilder) loader.loadRoutesBuilder(
+            ResourceHelper.fromBytes(
+                "my-cron.yaml",
+                code.getBytes(StandardCharsets.UTF_8)
+            )
+        );
 
+        builder.addLifecycleInterceptor(interceptor);
         runtime.getCamelContext().addRoutes(builder);
 
         CountDownLatch termination = new CountDownLatch(1);
@@ -101,5 +106,4 @@ public class CronTest {
                 "timer,quartz")
         );
     }
-
 }

@@ -30,8 +30,8 @@
     group: "routes"
     from:
       uri: "timer:tick"
-    parameters:
-      period: "5000"
+      properties:
+        period: "5000"
     steps:
       - set-body:
           simple: "${exchangeProperty.CamelTimerName} -> ${exchangeProperty.CamelTimerCounter}"

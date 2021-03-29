@@ -17,7 +17,6 @@
 package org.apache.camel.k.quarkus.cron.deployment;
 
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -29,15 +28,13 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
-import org.apache.camel.RoutesBuilder;
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.dsl.yaml.YamlRoutesBuilderLoader;
 import org.apache.camel.k.Runtime;
-import org.apache.camel.k.Source;
-import org.apache.camel.k.SourceLoader;
 import org.apache.camel.k.cron.CronSourceLoaderInterceptor;
-import org.apache.camel.k.loader.yaml.YamlSourceLoader;
 import org.apache.camel.k.support.Constants;
 import org.apache.camel.k.support.DelegatingRuntime;
-import org.apache.camel.k.support.Sources;
+import org.apache.camel.support.ResourceHelper;
 
 @Path("/test")
 @ApplicationScoped
@@ -70,8 +67,10 @@ public class Application {
             + "\n    steps:"
             + "\n      - log: \"${body}\"";
 
-        final SourceLoader loader = new YamlSourceLoader();
-        final Source source = Sources.fromBytes("my-cron", "yaml", null, List.of("cron"), code.getBytes(StandardCharsets.UTF_8));
+        final YamlRoutesBuilderLoader loader = new YamlRoutesBuilderLoader();
+        loader.setCamelContext(context);
+        loader.build();
+
         final Runtime rt = new DelegatingRuntime(runtime) {
             @Override
             public void stop() throws Exception {
@@ -83,10 +82,14 @@ public class Application {
         interceptor.setRuntime(rt);
         interceptor.setOverridableComponents("timer");
 
-        RoutesBuilder builder = interceptor.afterLoad(
-            loader,
-            source,
-            loader.load(rt.getCamelContext(), source));
+        final RouteBuilder builder = (RouteBuilder)loader.loadRoutesBuilder(
+            ResourceHelper.fromBytes(
+                "my-cron.yaml",
+                code.getBytes(StandardCharsets.UTF_8)
+            )
+        );
+
+        builder.addLifecycleInterceptor(interceptor);
 
         try {
             context.addRoutes(builder);

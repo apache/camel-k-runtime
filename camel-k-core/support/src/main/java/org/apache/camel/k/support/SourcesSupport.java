@@ -16,23 +16,22 @@
  */
 package org.apache.camel.k.support;
 
+import java.util.Collection;
 import java.util.List;
-import java.util.function.Consumer;
 
+import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.builder.RouteBuilderLifecycleStrategy;
 import org.apache.camel.k.Runtime;
-import org.apache.camel.k.RuntimeAware;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceDefinition;
-import org.apache.camel.k.SourceLoader;
-import org.apache.camel.k.SourceType;
 import org.apache.camel.k.listener.AbstractPhaseListener;
 import org.apache.camel.k.listener.SourcesConfigurer;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.model.RouteTemplateDefinition;
+import org.apache.camel.spi.Resource;
 import org.apache.camel.util.ObjectHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -85,106 +84,58 @@ public final class SourcesSupport {
         }
     }
 
-    public static SourceLoader load(Runtime runtime, Source source) {
-        final SourceLoader loader = RuntimeSupport.loaderFor(runtime.getCamelContext(), source);
-        final List<SourceLoader.Interceptor> interceptors = source.getType() == SourceType.source
-            ? sourceInterceptors(runtime, source)
-            : templateInterceptors(source);
+    public static void load(Runtime runtime, Source source) {
+        final List<RouteBuilderLifecycleStrategy> interceptors;
 
-        try {
-            for (SourceLoader.Interceptor interceptor: interceptors) {
-                if (interceptor instanceof RuntimeAware) {
-                    ((RuntimeAware) interceptor).setRuntime(runtime);
+        switch (source.getType()) {
+            case source:
+                interceptors = RuntimeSupport.loadInterceptors(runtime.getCamelContext(), source);
+                break;
+            case template:
+                if (!source.getInterceptors().isEmpty()) {
+                    LOGGER.warn("Interceptors associated to the route template {} will be ignored", source.getName());
                 }
 
-                interceptor.beforeLoad(loader, source);
-            }
+                interceptors = List.of(new RouteBuilderLifecycleStrategy() {
+                    @Override
+                    public void afterConfigure(RouteBuilder builder) {
+                        List<RouteDefinition> routes = builder.getRouteCollection().getRoutes();
+                        List<RouteTemplateDefinition> templates = builder.getRouteTemplateCollection().getRouteTemplates();
 
-            RoutesBuilder result = loader.load(runtime.getCamelContext(), source);
+                        if (routes.size() != 1) {
+                            throw new IllegalArgumentException("There should be a single route definition, got " + routes.size());
+                        }
+                        if (!templates.isEmpty()) {
+                            throw new IllegalArgumentException("There should not be any template, got " + templates.size());
+                        }
 
-            for (SourceLoader.Interceptor interceptor: interceptors) {
-                result = interceptor.afterLoad(loader, source, result);
-            }
+                        // create a new template from the source
+                        RouteTemplateDefinition templatesDefinition = builder.getRouteTemplateCollection().routeTemplate(source.getId());
+                        templatesDefinition.setRoute(routes.get(0));
 
-            runtime.addRoutes(result);
+                        source.getPropertyNames().forEach(templatesDefinition::templateParameter);
+
+                        // remove all routes definitions as they have been translated
+                        // in the related route template
+                        routes.clear();
+                    }
+                });
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown source type: " + source.getType());
+        }
+
+        try {
+            final Resource resource = Sources.asResource(runtime.getCamelContext(), source);
+            final ExtendedCamelContext ecc =  runtime.getCamelContext(ExtendedCamelContext.class);
+            final Collection<RoutesBuilder> builders = ecc.getRoutesLoader().findRoutesBuilders(resource);
+
+            builders.stream()
+                .map(RouteBuilder.class::cast)
+                .peek(b -> interceptors.forEach(b::addLifecycleInterceptor))
+                .forEach(runtime::addRoutes);
         } catch (Exception e) {
             throw RuntimeCamelException.wrapRuntimeCamelException(e);
         }
-
-        return loader;
-    }
-
-    private static List<SourceLoader.Interceptor> sourceInterceptors(Runtime runtime, Source source) {
-        return RuntimeSupport.loadInterceptors(runtime.getCamelContext(), source);
-    }
-
-    private static List<SourceLoader.Interceptor> templateInterceptors(Source source) {
-        if (!source.getInterceptors().isEmpty()) {
-            LOGGER.warn("Interceptors associated to the route template {} will be ignored", source.getName());
-        }
-
-        return List.of(
-            new SourceLoader.Interceptor() {
-                @Override
-                public RoutesBuilder afterLoad(SourceLoader loader, Source source, RoutesBuilder builder) {
-                    return SourcesSupport.afterConfigure(
-                        builder,
-                        rb -> {
-                            List<RouteDefinition> routes = rb.getRouteCollection().getRoutes();
-                            List<RouteTemplateDefinition> templates = rb.getRouteTemplateCollection().getRouteTemplates();
-
-                            if (routes.size() != 1) {
-                                throw new IllegalArgumentException("There should be a single route definition, got " + routes.size());
-                            }
-                            if (!templates.isEmpty()) {
-                                throw new IllegalArgumentException("There should not be any template, got " + templates.size());
-                            }
-
-                            // create a new template from the source
-                            RouteTemplateDefinition templatesDefinition = rb.getRouteTemplateCollection().routeTemplate(source.getId());
-                            templatesDefinition.setRoute(routes.get(0));
-
-                            source.getPropertyNames().forEach(templatesDefinition::templateParameter);
-
-                            // remove all routes definitions as they have been translated
-                            // in the related route template
-                            routes.clear();
-                        }
-                    );
-                }
-            }
-        );
-    }
-
-    public static RoutesBuilder beforeConfigure(RoutesBuilder builder, Consumer<RouteBuilder> consumer) {
-        if (builder instanceof RouteBuilder) {
-            ((RouteBuilder) builder).addLifecycleInterceptor(beforeConfigure(consumer));
-        }
-        return builder;
-    }
-
-    public static RouteBuilderLifecycleStrategy beforeConfigure(Consumer<RouteBuilder> consumer) {
-        return new RouteBuilderLifecycleStrategy() {
-            @Override
-            public void beforeConfigure(RouteBuilder builder) {
-                consumer.accept(builder);
-            }
-        };
-    }
-
-    public static RoutesBuilder afterConfigure(RoutesBuilder builder, Consumer<RouteBuilder> consumer) {
-        if (builder instanceof RouteBuilder) {
-            ((RouteBuilder) builder).addLifecycleInterceptor(afterConfigure(consumer));
-        }
-        return builder;
-    }
-
-    public static RouteBuilderLifecycleStrategy afterConfigure(Consumer<RouteBuilder> consumer) {
-        return new RouteBuilderLifecycleStrategy() {
-            @Override
-            public void afterConfigure(RouteBuilder builder) {
-                consumer.accept(builder);
-            }
-        };
     }
 }

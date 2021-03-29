@@ -19,27 +19,20 @@ package org.apache.camel.k.loader.knative;
 import java.util.List;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.k.Source;
-import org.apache.camel.k.SourceLoader;
+import org.apache.camel.builder.RouteBuilderLifecycleStrategy;
 import org.apache.camel.k.annotation.LoaderInterceptor;
-import org.apache.camel.k.support.SourcesSupport;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.model.ToDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @LoaderInterceptor("knative-source")
-public class KnativeSourceLoaderInterceptor implements SourceLoader.Interceptor {
+public class KnativeSourceLoaderInterceptor implements RouteBuilderLifecycleStrategy {
     private static final Logger LOGGER = LoggerFactory.getLogger(KnativeSourceLoaderInterceptor.class);
 
     @Override
-    public RoutesBuilder afterLoad(SourceLoader loader, Source source, RoutesBuilder bulider) {
-        return SourcesSupport.afterConfigure(bulider, KnativeSourceLoaderInterceptor::afterConfigure);
-    }
-
-    private static void afterConfigure(RouteBuilder builder) {
+    public void afterConfigure(RouteBuilder builder) {
         final CamelContext camelContext = builder.getContext();
         final List<RouteDefinition> definitions = builder.getRouteCollection().getRoutes();
 
@@ -57,5 +50,4 @@ public class KnativeSourceLoaderInterceptor implements SourceLoader.Interceptor 
             LOGGER.warn("Cannot determine route to enrich. the knative enpoint need to explicitly be defined");
         }
     }
-
 }

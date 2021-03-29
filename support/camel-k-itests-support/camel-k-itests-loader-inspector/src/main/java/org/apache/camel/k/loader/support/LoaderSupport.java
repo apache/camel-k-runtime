@@ -17,31 +17,31 @@
 package org.apache.camel.k.loader.support;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Collection;
 
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.k.Runtime;
-import org.apache.camel.k.Source;
-import org.apache.camel.k.SourceLoader;
-import org.apache.camel.k.support.RuntimeSupport;
-import org.apache.camel.k.support.Sources;
+import org.apache.camel.spi.RoutesLoader;
+import org.apache.camel.support.ResourceHelper;
 
 public final class LoaderSupport {
     private LoaderSupport() {
     }
 
-    public static JsonObject inspectSource(CamelContext context, String name, String loaderId, byte[] code) throws Exception {
-
+    public static JsonObject inspectSource(CamelContext context, String location, byte[] code) throws Exception {
         final Runtime runtime = Runtime.on(context);
-        final Source source = Sources.fromBytes(name, loaderId, null, code);
-        final SourceLoader loader = RuntimeSupport.loaderFor(context, source);
-        final RoutesBuilder builder = loader.load(context, source);
+        final RoutesLoader loader = context.adapt(ExtendedCamelContext.class).getRoutesLoader();
+        final Collection<RoutesBuilder> builders = loader.findRoutesBuilders(ResourceHelper.fromBytes(location, code));
 
-        runtime.addRoutes(builder);
+        for (RoutesBuilder builder: builders) {
+            runtime.addRoutes(builder);
+        }
 
         return Json.createObjectBuilder()
             .add("components", extractComponents(context))
@@ -50,8 +50,8 @@ public final class LoaderSupport {
             .build();
     }
 
-    public static JsonObject inspectSource(CamelContext context, String name, String loaderId, String code) throws Exception {
-        return inspectSource(context, name, loaderId, code.getBytes(StandardCharsets.UTF_8));
+    public static JsonObject inspectSource(CamelContext context,String location, String code) throws Exception {
+        return inspectSource(context, location, code.getBytes(StandardCharsets.UTF_8));
     }
 
 

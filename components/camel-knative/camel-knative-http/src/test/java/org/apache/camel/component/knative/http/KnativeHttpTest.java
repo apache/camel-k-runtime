@@ -218,6 +218,7 @@ public class KnativeHttpTest {
                 .routeId("my-source")
                 .to("knative:endpoint/myEndpoint");
             b.from("platform-http:/a/path")
+                .convertBodyTo(String.class)
                 .to("mock:ce");
         });
 
@@ -260,6 +261,7 @@ public class KnativeHttpTest {
                 .routeId("my-source")
                 .to("knative:endpoint/myEndpoint");
             b.from("platform-http:/a/path")
+                .convertBodyTo(String.class)
                 .to("mock:ce");
         });
 
@@ -303,6 +305,7 @@ public class KnativeHttpTest {
                 .routeId("my-source")
                 .to("knative:endpoint/myEndpoint");
             b.from("platform-http:/a/path/with/subpath")
+                .convertBodyTo(String.class)
                 .to("mock:ce");
         });
 

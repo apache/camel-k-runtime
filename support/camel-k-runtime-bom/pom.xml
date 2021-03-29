@@ -203,26 +203,6 @@
 
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-loader-groovy-impl</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-loader-groovy</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-loader-java-impl</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-loader-java</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-loader-jsh-impl</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -233,52 +213,17 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-loader-js-impl</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-loader-js</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-loader-kotlin-impl</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-loader-kotlin</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-loader-xml-impl</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-loader-xml</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-loader-yaml-impl</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-loader-yaml-impl-common</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-loader-yaml-impl-support</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-loader-yaml</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-loader-groovy</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
