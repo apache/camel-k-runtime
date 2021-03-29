@@ -42,7 +42,6 @@
             <groupId>org.apache.camel.k</groupId>
             <artifactId>camel-k-loader-yaml</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-platform-http</artifactId>
@@ -54,27 +53,6 @@
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-timer</artifactId>
-        </dependency>
-
-        <!--
-            This dependency is needed only to make the native compilation succeed
-            as quarkus-netty declares some Netty's HTTP2 codec classes to be init
-            at runtime but those classes are not in the classpath as none of the
-            dependencies requires them, see:
-
-                https://github.com/quarkusio/quarkus/issues/7576
-
-            TODO: remove once this issue is solved on quarkus side
-        -->
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-vertx-core</artifactId>
-            <version>${quarkus-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-vertx-http</artifactId>
-            <version>${quarkus-version}</version>
         </dependency>
     </dependencies>
 
@@ -159,6 +137,34 @@
                             <executable>${project.build.directory}/${project.artifactId}-runner</executable>
                             <arguments combine.self="override" />
                             <workingDirectory>${project.basedir}</workingDirectory>
+                            <environmentVariables>
+                                <CAMEL_K_CONF>${project.basedir}/data/application.properties</CAMEL_K_CONF>
+                                <CAMEL_K_CONF_D>${project.basedir}/data/conf.d</CAMEL_K_CONF_D>
+                                <CAMEL_K_ROUTES>file:${project.basedir}/data/routes.yaml</CAMEL_K_ROUTES>
+                            </environmentVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>dev</id>
+            <build>
+                <defaultGoal>quarkus:dev</defaultGoal>
+                <plugins>
+                    <plugin>
+                        <groupId>io.quarkus</groupId>
+                        <artifactId>quarkus-maven-plugin</artifactId>
+                        <version>${quarkus-version}</version>
+                        <executions>
+                            <execution>
+                                <id>dev</id>
+                                <goals>
+                                    <goal>dev</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
                             <environmentVariables>
                                 <CAMEL_K_CONF>${project.basedir}/data/application.properties</CAMEL_K_CONF>
                                 <CAMEL_K_CONF_D>${project.basedir}/data/conf.d</CAMEL_K_CONF_D>

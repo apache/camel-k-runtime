@@ -31,10 +31,10 @@ import org.apache.camel.k.Runtime;
 import org.apache.camel.k.quarkus.ApplicationProducers;
 import org.apache.camel.k.quarkus.ApplicationRecorder;
 import org.apache.camel.k.support.RuntimeSupport;
+import org.apache.camel.quarkus.core.deployment.main.spi.CamelMainBuildItem;
+import org.apache.camel.quarkus.core.deployment.main.spi.CamelMainListenerBuildItem;
+import org.apache.camel.quarkus.core.deployment.main.spi.CamelRoutesCollectorBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeTaskBuildItem;
-import org.apache.camel.quarkus.main.deployment.spi.CamelMainBuildItem;
-import org.apache.camel.quarkus.main.deployment.spi.CamelMainListenerBuildItem;
-import org.apache.camel.quarkus.main.deployment.spi.CamelRoutesCollectorBuildItem;
 
 public class RuntimeProcessor {
     @Record(ExecutionTime.STATIC_INIT)

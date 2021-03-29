@@ -17,7 +17,6 @@
 package org.apache.camel.k.quarkus.it.webhook;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -35,17 +34,18 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import io.quarkus.arc.Unremovable;
-import org.apache.camel.k.Source;
-import org.apache.camel.k.SourceLoader;
-import org.apache.camel.k.loader.yaml.YamlSourceLoader;
+import org.apache.camel.CamelContext;
+import org.apache.camel.dsl.yaml.YamlRoutesBuilderLoader;
 import org.apache.camel.k.quarkus.it.webhook.support.DummyWebhookComponent;
-import org.apache.camel.k.support.Sources;
 import org.apache.camel.k.webhook.WebhookAction;
 import org.apache.camel.quarkus.core.CamelRuntime;
+import org.apache.camel.support.ResourceHelper;
 
 @Path("/test")
 @ApplicationScoped
 public class Application {
+    @Inject
+    CamelContext context;
     @Inject
     CamelRuntime runtime;
 
@@ -63,12 +63,11 @@ public class Application {
     @POST
     @Path("/load")
     public Response load(String code) {
-        final SourceLoader loader = new YamlSourceLoader();
-        final Source source = Sources.fromBytes("my-webhook", "yaml", null, Collections.emptyList(), code.getBytes(StandardCharsets.UTF_8));
+        final YamlRoutesBuilderLoader loader = new YamlRoutesBuilderLoader();
 
         try {
             runtime.getCamelContext().addRoutes(
-                loader.load(runtime.getCamelContext(), source)
+                loader.loadRoutesBuilder(ResourceHelper.fromBytes("my-webhook.yaml", code.getBytes(StandardCharsets.UTF_8)))
             );
 
             return Response.status(Response.Status.OK).build();

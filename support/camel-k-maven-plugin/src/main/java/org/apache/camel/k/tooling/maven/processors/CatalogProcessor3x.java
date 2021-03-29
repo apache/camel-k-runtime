@@ -174,28 +174,28 @@ public class CatalogProcessor3x implements CatalogProcessor {
         );
         specBuilder.putLoader(
             "kts",
-            CamelLoader.fromArtifact("org.apache.camel.k", "camel-k-loader-kotlin")
+            CamelLoader.fromArtifact("org.apache.camel.quarkus", "camel-quarkus-kotlin-dsl")
                 .addLanguage("kts")
                 .putMetadata("native", "false")
                 .build()
         );
         specBuilder.putLoader(
             "js",
-            CamelLoader.fromArtifact("org.apache.camel.k", "camel-k-loader-js")
+            CamelLoader.fromArtifact("org.apache.camel.quarkus", "camel-quarkus-js-dsl")
                 .addLanguage("js")
                 .putMetadata("native", "true")
                 .build()
         );
         specBuilder.putLoader(
             "xml",
-            CamelLoader.fromArtifact("org.apache.camel.k", "camel-k-loader-xml")
+            CamelLoader.fromArtifact("org.apache.camel.quarkus", "camel-quarkus-xml-io-dsl")
                 .addLanguage("xml")
                 .putMetadata("native", "true")
                 .build()
         );
         specBuilder.putLoader(
             "java",
-            CamelLoader.fromArtifact("org.apache.camel.k", "camel-k-loader-java")
+            CamelLoader.fromArtifact("org.apache.camel.quarkus", "camel-quarkus-java-joor-dsl")
                 .addLanguages("java")
                 .putMetadata("native", "false")
                 .build()

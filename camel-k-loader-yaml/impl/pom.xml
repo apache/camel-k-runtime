@@ -28,37 +28,17 @@
     <artifactId>camel-k-loader-yaml-impl</artifactId>
 
     <dependencies>
-
-        <!-- ****************************** -->
-        <!--                                -->
-        <!-- RUNTIME                        -->
-        <!--                                -->
-        <!-- ****************************** -->
-
-        <dependency>
-            <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-core-api</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
             <artifactId>camel-k-core-support</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-loader-yaml-impl-common</artifactId>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-core-engine</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-loader-yaml-impl-support</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-yaml</artifactId>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-yaml-dsl</artifactId>
         </dependency>
 
         <dependency>
@@ -86,17 +66,7 @@
 
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-mock</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-direct</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-log</artifactId>
+            <artifactId>camel-main</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -106,7 +76,12 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-telegram</artifactId>
+            <artifactId>camel-undertow</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-timer</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -116,124 +91,32 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-timer</artifactId>
+            <artifactId>camel-log</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.java-json-tools</groupId>
-            <artifactId>json-schema-validator</artifactId>
-            <version>${json-schema-validator-version}</version>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-rest</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
-            <groupId>org.spockframework</groupId>
-            <artifactId>spock-core</artifactId>
-            <version>${spock-version}</version>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-direct</artifactId>
             <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.codehaus.groovy</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>junit</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>add-source</goal>
-                            <goal>add-resource</goal>
-                        </goals>
-                        <configuration>
-                            <sources>
-                                <source>src/generated/java</source>
-                            </sources>
-                            <resources>
-                                <resource>
-                                    <directory>src/generated/resources</directory>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>attach-artifacts</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>attach-artifact</goal>
-                        </goals>
-                        <configuration>
-                            <artifacts>
-                                <artifact>
-                                    <file>${project.basedir}/src/generated/resources/camel-yaml-dsl.json</file>
-                                    <type>json</type>
-                                    <classifier>json-schema</classifier>
-                                </artifact>
-                            </artifacts>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-maven-plugin</artifactId>
-                <version>${project.version}</version>
-                <executions>
-                    <execution>
-                        <id>generate-yaml-schema</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate-yaml-schema</goal>
-                        </goals>
-                        <configuration>
-                            <outputFile>${project.basedir}/src/generated/resources/camel-yaml-dsl.json</outputFile>
-                            <bannedDefinitions>
-                                <bannedDefinition>org.apache.camel.model.Resilience4jConfigurationDefinition</bannedDefinition>
-                                <bannedDefinition>org.apache.camel.model.HystrixConfigurationDefinition</bannedDefinition>
-                                <bannedDefinition>org.apache.camel.model.FaultToleranceConfigurationDefinition</bannedDefinition>
-                                <bannedDefinition>org.apache.camel.model.OnFallbackDefinition</bannedDefinition>
-                                <bannedDefinition>org.apache.camel.model.InOnlyDefinition</bannedDefinition>
-                                <bannedDefinition>org.apache.camel.model.InOutDefinition</bannedDefinition>
-                                <bannedDefinition>org.apache.camel.model.OtherwiseDefinition</bannedDefinition>
-                                <bannedDefinition>org.apache.camel.model.WhenDefinition</bannedDefinition>
-                                <bannedDefinition>org.apache.camel.model.config.StreamResequencerConfig</bannedDefinition>
-                                <bannedDefinition>org.apache.camel.model.config.BatchResequencerConfig</bannedDefinition>
-                                <bannedDefinition>org.apache.camel.model.loadbalancer/**</bannedDefinition>
-                                <bannedDefinition>org.apache.camel.model.WireTapDefinition</bannedDefinition>
-                                <bannedDefinition>org.apache.camel.model.ToDynamicDefinition</bannedDefinition>
-                            </bannedDefinitions>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>generate-yaml-endpoint-schema</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate-yaml-endpoints-schema</goal>
-                        </goals>
-                        <configuration>
-                            <outputFile>${project.basedir}/src/generated/resources/camel-yaml-endpoint.json</outputFile>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.codehaus.gmavenplus</groupId>
                 <artifactId>gmavenplus-plugin</artifactId>
                 <executions>
                     <execution>
                         <goals>
+                            <goal>addSources</goal>
                             <goal>addTestSources</goal>
+                            <goal>compile</goal>
                             <goal>compileTests</goal>
                         </goals>
                     </execution>

@@ -29,13 +29,9 @@
     <artifactId>camel-k-loader-yaml-parent</artifactId>
 
     <modules>
-        <module>impl-common</module>
-        <module>impl-support</module>
         <module>impl</module>
         <module>runtime</module>
         <module>deployment</module>
     </modules>
-
-
 
 </project>

@@ -45,7 +45,6 @@ public final class Constants {
     public static final String SCHEME_PREFIX_FILE = SCHEME_FILE + ":";
 
     public static final String LOGGING_LEVEL_PREFIX = "logging.level.";
-    public static final String SOURCE_LOADER_RESOURCE_PATH = "META-INF/services/org/apache/camel/k/loader/";
     public static final String SOURCE_LOADER_INTERCEPTOR_RESOURCE_PATH = "META-INF/services/org/apache/camel/k/loader/interceptor/";
     public static final String CONTEXT_CUSTOMIZER_RESOURCE_PATH = "META-INF/services/org/apache/camel/k/customizer/";
 
