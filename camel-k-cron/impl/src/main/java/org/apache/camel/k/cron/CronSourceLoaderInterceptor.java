@@ -17,14 +17,11 @@
 package org.apache.camel.k.cron;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.builder.RouteBuilderLifecycleStrategy;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.RuntimeAware;
-import org.apache.camel.k.Source;
-import org.apache.camel.k.SourceLoader;
 import org.apache.camel.k.annotation.LoaderInterceptor;
-import org.apache.camel.k.support.SourcesSupport;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.spi.CamelEvent;
 import org.apache.camel.spi.Configurer;
@@ -36,7 +33,7 @@ import org.slf4j.LoggerFactory;
 
 @Configurer
 @LoaderInterceptor("cron")
-public class CronSourceLoaderInterceptor implements SourceLoader.Interceptor, RuntimeAware {
+public class CronSourceLoaderInterceptor implements RouteBuilderLifecycleStrategy, RuntimeAware {
 
     private String timerUri;
     private String overridableComponents;
@@ -73,11 +70,7 @@ public class CronSourceLoaderInterceptor implements SourceLoader.Interceptor, Ru
     }
 
     @Override
-    public RoutesBuilder afterLoad(SourceLoader loader, Source source, RoutesBuilder builder) {
-        return SourcesSupport.afterConfigure(builder, CronSourceLoaderInterceptor.this::afterConfigure);
-    }
-
-    private void afterConfigure(RouteBuilder builder) {
+    public void afterConfigure(RouteBuilder builder) {
         if (ObjectHelper.isEmpty(overridableComponents)) {
             return;
         }

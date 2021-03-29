@@ -28,6 +28,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.spi.HasId;
 
 public interface Source extends HasId {
+    String getLocation();
     String getName();
     String getLanguage();
     SourceType getType();

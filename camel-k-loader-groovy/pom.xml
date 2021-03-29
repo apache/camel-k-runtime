@@ -29,7 +29,6 @@
     <artifactId>camel-k-loader-groovy-parent</artifactId>
 
     <modules>
-        <module>impl</module>
         <module>runtime</module>
         <module>deployment</module>
     </modules>

@@ -36,12 +36,12 @@
             <groupId>org.apache.camel.k</groupId>
             <artifactId>camel-k-kamelet-reify</artifactId>
         </dependency>
+
+        <!-- camel quarkus -->
         <dependency>
             <groupId>org.apache.camel.k</groupId>
             <artifactId>camel-k-loader-yaml</artifactId>
         </dependency>
-
-        <!-- camel quarkus -->
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-activemq</artifactId>
@@ -97,14 +97,6 @@
             <version>${awaitility-version}</version>
         </dependency>
 
-        <!-- Remove this dependency when bumping to camel-quarkus 1.7.0 and above -->
-        <dependency>
-            <groupId>org.testcontainers</groupId>
-            <artifactId>testcontainers</artifactId>
-            <version>1.15.2</version>
-            <scope>test</scope>
-        </dependency>
-
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-integration-testcontainers-support</artifactId>
@@ -155,41 +147,8 @@
 
     </dependencies>
 
-
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>${build-helper-maven-plugin-version}</version>
-                <executions>
-                    <execution>
-                        <id>reserve-network-port</id>
-                        <goals>
-                            <goal>reserve-network-port</goal>
-                        </goals>
-                        <phase>process-resources</phase>
-                        <configuration>
-                            <portNames>
-                                <portName>test.http.port.jvm</portName>
-                                <portName>test.http.port.native</portName>
-                            </portNames>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>io.quarkus</groupId>
-                <artifactId>quarkus-maven-plugin</artifactId>
-                <version>${quarkus-version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -198,10 +157,6 @@
                         <CAMEL_K_ROUTES>file:${project.basedir}/src/test/resources/routes.yaml</CAMEL_K_ROUTES>
                         <CAMEL_K_CONF>${project.basedir}/src/test/resources/routes.properties</CAMEL_K_CONF>
                     </environmentVariables>
-                    <systemProperties>
-                        <quarkus.http.test-port>${test.http.port.jvm}</quarkus.http.test-port>
-                        <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-                    </systemProperties>
                 </configuration>
             </plugin>
         </plugins>

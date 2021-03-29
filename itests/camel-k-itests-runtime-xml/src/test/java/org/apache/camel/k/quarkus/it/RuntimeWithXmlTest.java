@@ -45,7 +45,7 @@ public class RuntimeWithXmlTest {
                 .jsonPath();
 
         assertThat(p.getList("route-definitions", String.class))
-            .containsExactlyInAnyOrder("route-simple", "route-with-expression", "greetings", "route-mytype");
+            .containsExactlyInAnyOrder("route-simple", "route-with-expression", "greetings");
         assertThat(p.getList("rest-definitions", String.class))
             .containsExactlyInAnyOrder("rest-greetings");
     }
@@ -63,10 +63,6 @@ public class RuntimeWithXmlTest {
                 "camel.k.sources[1].type", "source",
                 "camel.k.sources[2].location", "file:" + res + "/routes-with-expression.xml",
                 "camel.k.sources[2].type", "source",
-                "camel.k.sources[2].language", "xml",
-                "camel.k.sources[3].location", "file:" + res + "/routes.mytype",
-                "camel.k.sources[3].type", "source",
-                "camel.k.sources[3].language", "xml",
                 // misc
                 "the.body", "10"
             );
