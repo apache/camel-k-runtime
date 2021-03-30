@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- Examples broken after the quarkus 1.7.0 update [\#641](https://github.com/apache/camel-k-runtime/issues/641)
 - Make changelog action work again [\#612](https://github.com/apache/camel-k-runtime/issues/612)
 - Malformed exception when using binary config map file into an integration [\#593](https://github.com/apache/camel-k-runtime/issues/593)
 - Catalog contains duplicate entry for same schema \(cron\) [\#592](https://github.com/apache/camel-k-runtime/issues/592)
