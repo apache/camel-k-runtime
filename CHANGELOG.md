@@ -19,6 +19,7 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump license-maven-plugin from 3.0 to 4.0 [\#647](https://github.com/apache/camel-k-runtime/pull/647) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps-dev\): bump spock-core from 2.0-M4-groovy-3.0 to 2.0-M5-groovy-3.0 [\#644](https://github.com/apache/camel-k-runtime/pull/644) ([dependabot[bot]](https://github.com/apps/dependabot))
 - fix\(examples\) - update path to runner.jar [\#643](https://github.com/apache/camel-k-runtime/pull/643) ([tplevko](https://github.com/tplevko))
 - build\(deps\): bump maven-enforcer-plugin from 3.0.0-M2 to 3.0.0-M3 [\#640](https://github.com/apache/camel-k-runtime/pull/640) ([dependabot[bot]](https://github.com/apps/dependabot))
@@ -270,6 +271,7 @@
 - publish the camel-k catalog as artifact [\#401](https://github.com/apache/camel-k-runtime/pull/401) ([lburgazzoli](https://github.com/lburgazzoli))
 - camel-knative: don't replace message when the producers completes [\#400](https://github.com/apache/camel-k-runtime/pull/400) ([lburgazzoli](https://github.com/lburgazzoli))
 - publish the camel-k yaml dsl schema as artifact \#389 [\#398](https://github.com/apache/camel-k-runtime/pull/398) ([lburgazzoli](https://github.com/lburgazzoli))
+- \[js\] use proxy for global bindings [\#397](https://github.com/apache/camel-k-runtime/pull/397) ([lburgazzoli](https://github.com/lburgazzoli))
 - No type converter warning if final type of body is java.util.Map [\#396](https://github.com/apache/camel-k-runtime/pull/396) ([lburgazzoli](https://github.com/lburgazzoli))
 - Unable to run kotlin routes with quarkus [\#395](https://github.com/apache/camel-k-runtime/pull/395) ([lburgazzoli](https://github.com/lburgazzoli))
 - Property substitution doesn't happen in from URI [\#393](https://github.com/apache/camel-k-runtime/pull/393) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -298,7 +300,6 @@
 
 **Merged pull requests:**
 
-- \[js\] use proxy for global bindings [\#397](https://github.com/apache/camel-k-runtime/pull/397) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(release\): bump version to 1.4.0-SNAPSHOT [\#391](https://github.com/apache/camel-k-runtime/pull/391) ([nicolaferraro](https://github.com/nicolaferraro))
 - \[yaml\] cleanup schema generator leftovers [\#385](https://github.com/apache/camel-k-runtime/pull/385) ([lburgazzoli](https://github.com/lburgazzoli))
 - Use the new camel-component-maven-plugin from Camel 3.4 [\#384](https://github.com/apache/camel-k-runtime/pull/384) ([lburgazzoli](https://github.com/lburgazzoli))
