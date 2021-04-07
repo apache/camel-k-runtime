@@ -244,7 +244,6 @@
 - Fix \#365: change sinkbinding to be a customizer unrelated to the knat… [\#411](https://github.com/apache/camel-k-runtime/pull/411) ([nicolaferraro](https://github.com/nicolaferraro))
 - chore\(test\): cleanup yaml unit tests [\#410](https://github.com/apache/camel-k-runtime/pull/410) ([lburgazzoli](https://github.com/lburgazzoli))
 - Update groovy to v3.0.5 [\#409](https://github.com/apache/camel-k-runtime/pull/409) ([lburgazzoli](https://github.com/lburgazzoli))
-- chore\(deps\): update vert.x to v3.9.1 [\#405](https://github.com/apache/camel-k-runtime/pull/405) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-1.4.1](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.4.1) (2020-07-21)
 
@@ -265,6 +264,7 @@
 - chore\(release\): decrease version to 1.4.1-SNAPSHOT [\#408](https://github.com/apache/camel-k-runtime/pull/408) ([nicolaferraro](https://github.com/nicolaferraro))
 - Upgrade Commons Lang to version 3.11 [\#407](https://github.com/apache/camel-k-runtime/pull/407) ([oscerd](https://github.com/oscerd))
 - Upgrade Vertx to version 3.9.2 [\#406](https://github.com/apache/camel-k-runtime/pull/406) ([oscerd](https://github.com/oscerd))
+- chore\(deps\): update vert.x to v3.9.1 [\#405](https://github.com/apache/camel-k-runtime/pull/405) ([lburgazzoli](https://github.com/lburgazzoli))
 - \[kotlin\] compile scripts wit the same target level used to compile the loader [\#404](https://github.com/apache/camel-k-runtime/pull/404) ([lburgazzoli](https://github.com/lburgazzoli))
 - Bump Jandex to 2.2.1.Final [\#403](https://github.com/apache/camel-k-runtime/pull/403) ([oscerd](https://github.com/oscerd))
 - Include a test collecting all \*.camelk.yaml files in the repository and validating it against the yaml schema [\#402](https://github.com/apache/camel-k-runtime/pull/402) ([lburgazzoli](https://github.com/lburgazzoli))
