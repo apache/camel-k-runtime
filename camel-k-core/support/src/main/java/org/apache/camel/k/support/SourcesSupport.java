@@ -25,6 +25,7 @@ import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.builder.RouteBuilderLifecycleStrategy;
 import org.apache.camel.k.Runtime;
+import org.apache.camel.k.RuntimeAware;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceDefinition;
 import org.apache.camel.k.listener.AbstractPhaseListener;
@@ -90,6 +91,12 @@ public final class SourcesSupport {
         switch (source.getType()) {
             case source:
                 interceptors = RuntimeSupport.loadInterceptors(runtime.getCamelContext(), source);
+                interceptors.forEach(interceptor -> {
+                    if (interceptor instanceof RuntimeAware) {
+                        ((RuntimeAware) interceptor).setRuntime(runtime);
+                    }
+                });
+
                 break;
             case template:
                 if (!source.getInterceptors().isEmpty()) {
