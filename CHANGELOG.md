@@ -7,6 +7,7 @@
 **Closed issues:**
 
 - Examples broken after the quarkus 1.7.0 update [\#641](https://github.com/apache/camel-k-runtime/issues/641)
+- PR actions failing [\#626](https://github.com/apache/camel-k-runtime/issues/626)
 - Make changelog action work again [\#612](https://github.com/apache/camel-k-runtime/issues/612)
 - Malformed exception when using binary config map file into an integration [\#593](https://github.com/apache/camel-k-runtime/issues/593)
 - Catalog contains duplicate entry for same schema \(cron\) [\#592](https://github.com/apache/camel-k-runtime/issues/592)
@@ -20,6 +21,7 @@
 **Merged pull requests:**
 
 - build\(deps\): bump license-maven-plugin from 3.0 to 4.0 [\#647](https://github.com/apache/camel-k-runtime/pull/647) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Upgrade to camel-quarkus 1.8.0, camel 3.9.0 [\#646](https://github.com/apache/camel-k-runtime/pull/646) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps-dev\): bump spock-core from 2.0-M4-groovy-3.0 to 2.0-M5-groovy-3.0 [\#644](https://github.com/apache/camel-k-runtime/pull/644) ([dependabot[bot]](https://github.com/apps/dependabot))
 - fix\(examples\) - update path to runner.jar [\#643](https://github.com/apache/camel-k-runtime/pull/643) ([tplevko](https://github.com/tplevko))
 - build\(deps\): bump maven-enforcer-plugin from 3.0.0-M2 to 3.0.0-M3 [\#640](https://github.com/apache/camel-k-runtime/pull/640) ([dependabot[bot]](https://github.com/apps/dependabot))
