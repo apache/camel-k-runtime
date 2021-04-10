@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- Cron loader fails to start [\#651](https://github.com/apache/camel-k-runtime/issues/651)
 - Examples broken after the quarkus 1.7.0 update [\#641](https://github.com/apache/camel-k-runtime/issues/641)
 - PR actions failing [\#626](https://github.com/apache/camel-k-runtime/issues/626)
 - Make changelog action work again [\#612](https://github.com/apache/camel-k-runtime/issues/612)
@@ -20,6 +21,8 @@
 
 **Merged pull requests:**
 
+- chore\(deps\): remove unused version properties [\#653](https://github.com/apache/camel-k-runtime/pull/653) ([lburgazzoli](https://github.com/lburgazzoli))
+- Cron loader fails to start [\#652](https://github.com/apache/camel-k-runtime/pull/652) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps\): bump license-maven-plugin from 3.0 to 4.0 [\#647](https://github.com/apache/camel-k-runtime/pull/647) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Upgrade to camel-quarkus 1.8.0, camel 3.9.0 [\#646](https://github.com/apache/camel-k-runtime/pull/646) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps-dev\): bump spock-core from 2.0-M4-groovy-3.0 to 2.0-M5-groovy-3.0 [\#644](https://github.com/apache/camel-k-runtime/pull/644) ([dependabot[bot]](https://github.com/apps/dependabot))
