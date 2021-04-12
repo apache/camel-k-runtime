@@ -17,7 +17,9 @@
 package org.apache.camel.k.loader.yaml;
 
 import org.apache.camel.dsl.yaml.common.YamlDeserializerResolver;
-import org.apache.camel.dsl.yaml.deserializers.ModelDeserializers;
+import org.apache.camel.k.loader.yaml.deserializers.SagaActionUriDefinitionDeserializer;
+import org.apache.camel.k.loader.yaml.deserializers.ToDefinitionDeserializer;
+import org.apache.camel.k.loader.yaml.deserializers.ToDynamicDefinitionDeserializer;
 import org.snakeyaml.engine.v2.api.ConstructNode;
 import org.snakeyaml.engine.v2.nodes.Node;
 
@@ -37,7 +39,13 @@ public class YamlSourceLoaderDeserializerResolver implements YamlDeserializerRes
                 return new FromDeserializer();
             case "to":
             case "org.apache.camel.model.ToDefinition":
-                return new ToDeserializer();
+                return new ToDefinitionDeserializer();
+            case "tod":
+            case "to-d":
+            case "org.apache.camel.model.ToDynamicDefinition":
+                return new ToDynamicDefinitionDeserializer();
+            case "org.apache.camel.model.SagaActionUriDefinition":
+                return new SagaActionUriDefinitionDeserializer();
             default:
                 return null;
         }
@@ -52,14 +60,6 @@ public class YamlSourceLoaderDeserializerResolver implements YamlDeserializerRes
         }
     }
     public static class RouteFromDeserializer extends org.apache.camel.dsl.yaml.deserializers.RouteFromDefinitionDeserializer {
-        @Override
-        public Object construct(Node node) {
-            return super.construct(
-                YamlSourceLoaderSupport.properties2parameters(node)
-            );
-        }
-    }
-    public static class ToDeserializer extends ModelDeserializers.ToDefinitionDeserializer {
         @Override
         public Object construct(Node node) {
             return super.construct(
