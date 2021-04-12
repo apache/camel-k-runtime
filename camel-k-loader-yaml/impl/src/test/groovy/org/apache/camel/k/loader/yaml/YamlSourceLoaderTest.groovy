@@ -20,6 +20,7 @@ import org.apache.camel.component.direct.DirectEndpoint
 import org.apache.camel.component.log.LogEndpoint
 import org.apache.camel.k.loader.yaml.support.TestRuntime
 import org.apache.camel.model.ToDefinition
+import org.apache.camel.model.ToDynamicDefinition
 import spock.lang.AutoCleanup
 import spock.lang.Specification
 
@@ -39,6 +40,73 @@ class YamlSourceLoaderTest extends Specification {
             with(runtime.context.endpoints.find {it instanceof LogEndpoint}, LogEndpoint) {
                 it.showAll
                 it.multiline
+            }
+    }
+
+    def "to with out of order parameters"() {
+        expect:
+            runtime.loadRoutes('classpath:yaml/routes_to_out_of_order.yaml')
+            runtime.start()
+
+            with(runtime.context.routeDefinitions) {
+                it[0].input.endpointUri ==~ /direct:.*start/
+                it[0].outputs[0] instanceof ToDefinition
+            }
+            with(runtime.context.endpoints.find {it instanceof LogEndpoint}, LogEndpoint) {
+                it.showAll
+                it.multiline
+            }
+    }
+
+    def "to dynamic with parameters"() {
+        expect:
+            runtime.loadRoutes('classpath:yaml/routes_to_dynamic.yaml')
+            runtime.start()
+
+            with(runtime.context.routeDefinitions) {
+                it[0].input.endpointUri ==~ /direct:.*start/
+                with (it[0].outputs[0], ToDynamicDefinition) {
+                    it.uri == 'log:info?multiline=true&showAll=true'
+                }
+            }
+    }
+
+    def "to dynamic with out of order parameters"() {
+        expect:
+            runtime.loadRoutes('classpath:yaml/routes_to_dynamic_out_of_order.yaml')
+            runtime.start()
+
+            with(runtime.context.routeDefinitions) {
+                it[0].input.endpointUri ==~ /direct:.*start/
+                with (it[0].outputs[0], ToDynamicDefinition) {
+                    it.uri == 'log:info?multiline=true&showAll=true'
+                }
+            }
+    }
+
+    def "to dynamic alias with parameters"() {
+        expect:
+            runtime.loadRoutes('classpath:yaml/routes_to_dynamic_alias.yaml')
+            runtime.start()
+
+            with(runtime.context.routeDefinitions) {
+                it[0].input.endpointUri ==~ /direct:.*start/
+                with (it[0].outputs[0], ToDynamicDefinition) {
+                    it.uri == 'log:info?multiline=true&showAll=true'
+                }
+            }
+    }
+
+    def "to dynamic alias with out of order parameters"() {
+        expect:
+            runtime.loadRoutes('classpath:yaml/routes_to_dynamic_alias_out_of_order.yaml')
+            runtime.start()
+
+            with(runtime.context.routeDefinitions) {
+                it[0].input.endpointUri ==~ /direct:.*start/
+                with (it[0].outputs[0], ToDynamicDefinition) {
+                    it.uri == 'log:info?multiline=true&showAll=true'
+                }
             }
     }
 
@@ -69,7 +137,6 @@ class YamlSourceLoaderTest extends Specification {
                 it.timeout == 1234L
             }
     }
-
 
     def "all"() {
         expect:
