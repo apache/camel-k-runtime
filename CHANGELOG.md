@@ -67,6 +67,7 @@
 - Catalog json keys should be sorted [\#584](https://github.com/apache/camel-k-runtime/pull/584) ([lburgazzoli](https://github.com/lburgazzoli))
 - Cannot use kamelets in yaml integrations [\#583](https://github.com/apache/camel-k-runtime/pull/583) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps\): bump gmavenplus-plugin from 1.12.0 to 1.12.1 [\#580](https://github.com/apache/camel-k-runtime/pull/580) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Update to camel 3.7.0 and camel-quarkus 1.5.0 [\#573](https://github.com/apache/camel-k-runtime/pull/573) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-project-1.6.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.6.0) (2020-12-22)
 
@@ -95,7 +96,6 @@
 
 - chore: align kotlin libs to Quarkus release [\#577](https://github.com/apache/camel-k-runtime/pull/577) ([nicolaferraro](https://github.com/nicolaferraro))
 - chore: enable new rebalacing features in customizer [\#575](https://github.com/apache/camel-k-runtime/pull/575) ([nicolaferraro](https://github.com/nicolaferraro))
-- Update to camel 3.7.0 and camel-quarkus 1.5.0 [\#573](https://github.com/apache/camel-k-runtime/pull/573) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps\): bump gmavenplus-plugin from 1.11.1 to 1.12.0 [\#572](https://github.com/apache/camel-k-runtime/pull/572) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Cleanup [\#571](https://github.com/apache/camel-k-runtime/pull/571) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps\): bump kotlin-version from 1.4.20 to 1.4.21 [\#570](https://github.com/apache/camel-k-runtime/pull/570) ([dependabot[bot]](https://github.com/apps/dependabot))
