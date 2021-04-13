@@ -16,6 +16,10 @@
  */
 package org.apache.camel.k.support;
 
+import java.lang.reflect.Field;
+import java.util.Collection;
+import java.util.List;
+
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.RuntimeCamelException;
@@ -34,10 +38,6 @@ import org.apache.camel.spi.Resource;
 import org.apache.camel.util.ObjectHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.lang.reflect.Field;
-import java.util.Collection;
-import java.util.List;
 
 public final class SourcesSupport {
     private static final Logger LOGGER = LoggerFactory.getLogger(SourcesConfigurer.class);
@@ -148,7 +148,7 @@ public final class SourcesSupport {
                             throw new IllegalArgumentException("There should not be any template, got " + templates.size());
                         }
 
-                        if (existErrorHandler(builder)) {
+                        if (hasErrorHandlerBuilder(builder)) {
                             LOGGER.debug("Setting default error handler builder factory as {}", builder.getErrorHandlerBuilder());
                             runtime.getCamelContext().adapt(ExtendedCamelContext.class).setErrorHandlerFactory(builder.getErrorHandlerBuilder());
                         }
@@ -173,7 +173,7 @@ public final class SourcesSupport {
         }
     }
 
-    static boolean existErrorHandler(RouteBuilder builder) {
+    static boolean hasErrorHandlerBuilder(RouteBuilder builder) {
         //return builder.hasErrorHandlerBuilder();
         // TODO We need to replace the following workaround with the statement above once we switch to camel-3.10.0 or above
         try {

@@ -16,6 +16,8 @@
  */
 package org.apache.camel.k.listener;
 
+import java.util.Arrays;
+
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.SourceDefinition;
 import org.apache.camel.k.SourceType;
@@ -24,8 +26,6 @@ import org.apache.camel.k.support.PropertiesSupport;
 import org.apache.camel.k.support.SourcesSupport;
 import org.apache.camel.spi.Configurer;
 import org.apache.camel.util.ObjectHelper;
-
-import java.util.Arrays;
 
 @Configurer
 public class SourcesConfigurer extends AbstractPhaseListener {
@@ -99,7 +99,7 @@ public class SourcesConfigurer extends AbstractPhaseListener {
         if (sources == null) {
             return;
         }
-        // We must ensure the following source type order: errorHandler, source, template
+        // We must ensure the source order as defined in SourceType enum
         Arrays.sort(sources,
                 (a, b) -> {
                     if (a.getType() == null) {

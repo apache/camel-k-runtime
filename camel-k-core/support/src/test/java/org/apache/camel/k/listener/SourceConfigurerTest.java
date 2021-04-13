@@ -35,7 +35,7 @@ public class SourceConfigurerTest {
                 "camel.k.sources[0].location", "classpath:MyTemplate1.java",
                 "camel.k.sources[0].type", "template",
                 "camel.k.sources[1].name", "err1",
-                "camel.k.sources[1.location", "classpath:MyTemplate2.java",
+                "camel.k.sources[1].location", "classpath:MyTemplate2.java",
                 "camel.k.sources[2].name", "err2",
                 "camel.k.sources[2].location", "classpath:Err2.java",
                 "camel.k.sources[2].type", "errorHandler"
@@ -60,7 +60,7 @@ public class SourceConfigurerTest {
                 "camel.k.sources[0].location", "classpath:MyTemplate1.java",
                 "camel.k.sources[0].type", "template",
                 "camel.k.sources[1].name", "err1",
-                "camel.k.sources[1.location", "classpath:Err1.java",
+                "camel.k.sources[1].location", "classpath:Err1.java",
                 "camel.k.sources[1].type", "errorHandler",
                 "camel.k.sources[2].name", "err2",
                 "camel.k.sources[2].location", "classpath:Err2.java",
@@ -104,12 +104,11 @@ public class SourceConfigurerTest {
         SourcesConfigurer.sortSources(configuration.getSources());
 
         assertThat(configuration.getSources().length).isEqualTo(4);
-
         assertThat(configuration.getSources()[0].getName()).isEqualTo("errorHandler1");
+        assertThat(configuration.getSources()[1].getName()).isEqualTo("template1");
         // Order for the same type does not matter
-        assertThat(configuration.getSources()[1].getName()).contains("source");
         assertThat(configuration.getSources()[2].getName()).contains("source");
-        assertThat(configuration.getSources()[3].getName()).isEqualTo("template1");
+        assertThat(configuration.getSources()[3].getName()).contains("source");
     }
 
     @Test
