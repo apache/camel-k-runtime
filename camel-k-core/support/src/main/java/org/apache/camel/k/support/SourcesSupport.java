@@ -64,7 +64,7 @@ public final class SourcesSupport {
     }
 
     public static void loadSources(Runtime runtime, String... routes) {
-        for (String route: routes) {
+        for (String route : routes) {
             if (ObjectHelper.isEmpty(route)) {
                 continue;
             }
@@ -80,7 +80,7 @@ public final class SourcesSupport {
     }
 
     public static void loadSources(Runtime runtime, SourceDefinition... definitions) {
-        for (SourceDefinition definition: definitions) {
+        for (SourceDefinition definition : definitions) {
             LOGGER.info("Loading routes from: {}", definition);
 
             load(runtime, Sources.fromDefinition(definition));
@@ -181,7 +181,7 @@ public final class SourcesSupport {
             f.setAccessible(true);
             ErrorHandlerBuilder privateErrorHandlerBuilder = (ErrorHandlerBuilder) f.get(builder);
             return privateErrorHandlerBuilder != null;
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new IllegalArgumentException("Something went wrong while checking the error handler builder", e);
         }
     }

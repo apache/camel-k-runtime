@@ -86,8 +86,8 @@ public class SourcesConfigurer extends AbstractPhaseListener {
     }
 
     static void checkUniqueErrorHandler(SourceDefinition[] sources) {
-        long errorHandlers = Arrays.stream(sources).filter(s -> s.getType() == SourceType.errorHandler).count();
-        if ( errorHandlers > 1) {
+        long errorHandlers = sources == null ? 0 : Arrays.stream(sources).filter(s -> s.getType() == SourceType.errorHandler).count();
+        if (errorHandlers > 1) {
             throw new IllegalArgumentException("Expected only one error handler source type, got " + errorHandlers);
         }
     }
@@ -97,6 +97,9 @@ public class SourcesConfigurer extends AbstractPhaseListener {
     }
 
     static void sortSources(SourceDefinition[] sources) {
+        if (sources == null) {
+            return;
+        }
         // We must ensure the following source type order: errorHandler, source, template
         Arrays.sort(sources,
                 (a, b) -> {

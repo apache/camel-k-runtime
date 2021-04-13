@@ -111,4 +111,10 @@ public class SourceConfigurerTest {
         assertThat(configuration.getSources()[2].getName()).contains("source");
         assertThat(configuration.getSources()[3].getName()).isEqualTo("template1");
     }
+
+    @Test
+    public void shouldNotFailOnEmptySources() {
+        SourcesConfigurer.sortSources(null);
+        SourcesConfigurer.checkUniqueErrorHandler(null);
+    }
 }
