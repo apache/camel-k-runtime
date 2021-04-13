@@ -26,7 +26,6 @@ import org.apache.camel.spi.Configurer;
 import org.apache.camel.util.ObjectHelper;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 @Configurer
 public class SourcesConfigurer extends AbstractPhaseListener {
@@ -107,7 +106,9 @@ public class SourcesConfigurer extends AbstractPhaseListener {
                         return SourceType.source.compareTo(b.getType());
                     } else if (b.getType() == null) {
                         return a.getType().compareTo(SourceType.source);
-                    } else return a.getType().compareTo(b.getType());
+                    } else {
+                        return a.getType().compareTo(b.getType());
+                    }
                 });
     }
 
