@@ -16,12 +16,10 @@
  */
 package org.apache.camel.k.support;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.RuntimeCamelException;
+import org.apache.camel.builder.ErrorHandlerBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.builder.RouteBuilderLifecycleStrategy;
 import org.apache.camel.k.Runtime;
@@ -36,6 +34,10 @@ import org.apache.camel.spi.Resource;
 import org.apache.camel.util.ObjectHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.lang.reflect.Field;
+import java.util.Collection;
+import java.util.List;
 
 public final class SourcesSupport {
     private static final Logger LOGGER = LoggerFactory.getLogger(SourcesConfigurer.class);
@@ -128,21 +130,64 @@ public final class SourcesSupport {
                     }
                 });
                 break;
+            case errorHandler:
+                if (!source.getInterceptors().isEmpty()) {
+                    LOGGER.warn("Interceptors associated to the route template {} will be ignored", source.getName());
+                }
+
+                interceptors = List.of(new RouteBuilderLifecycleStrategy() {
+                    @Override
+                    public void afterConfigure(RouteBuilder builder) {
+                        List<RouteDefinition> routes = builder.getRouteCollection().getRoutes();
+                        List<RouteTemplateDefinition> templates = builder.getRouteTemplateCollection().getRouteTemplates();
+
+                        if (routes.size() > 0) {
+                            throw new IllegalArgumentException("There should be no route definition, got " + routes.size());
+                        }
+                        if (!templates.isEmpty()) {
+                            throw new IllegalArgumentException("There should not be any template, got " + templates.size());
+                        }
+
+                        if (existErrorHandler(builder)) {
+                            LOGGER.debug("Setting default error handler builder factory as {}", builder.getErrorHandlerBuilder());
+                            runtime.getCamelContext().adapt(ExtendedCamelContext.class).setErrorHandlerFactory(builder.getErrorHandlerBuilder());
+                        }
+                    }
+                });
+                break;
             default:
                 throw new IllegalArgumentException("Unknown source type: " + source.getType());
         }
 
         try {
             final Resource resource = Sources.asResource(runtime.getCamelContext(), source);
-            final ExtendedCamelContext ecc =  runtime.getCamelContext(ExtendedCamelContext.class);
+            final ExtendedCamelContext ecc = runtime.getCamelContext(ExtendedCamelContext.class);
             final Collection<RoutesBuilder> builders = ecc.getRoutesLoader().findRoutesBuilders(resource);
 
             builders.stream()
-                .map(RouteBuilder.class::cast)
-                .peek(b -> interceptors.forEach(b::addLifecycleInterceptor))
-                .forEach(runtime::addRoutes);
+                    .map(RouteBuilder.class::cast)
+                    .peek(b -> interceptors.forEach(b::addLifecycleInterceptor))
+                    .forEach(runtime::addRoutes);
         } catch (Exception e) {
             throw RuntimeCamelException.wrapRuntimeCamelException(e);
         }
+    }
+
+    static boolean existErrorHandler(RouteBuilder builder) {
+        //return builder.hasErrorHandlerBuilder();
+        // TODO We need to replace the following workaround with the statement above once we switch to camel-3.10.0 or above
+        try {
+            Field f = RouteBuilder.class.getSuperclass().getDeclaredField("errorHandlerBuilder");
+            f.setAccessible(true);
+            ErrorHandlerBuilder privateErrorHandlerBuilder = (ErrorHandlerBuilder) f.get(builder);
+            return privateErrorHandlerBuilder != null;
+        } catch (Exception e){
+            throw new IllegalArgumentException("Something went wrong while checking the error handler builder", e);
+        }
+    }
+
+    public static void loadErrorHandlerSource(Runtime runtime, SourceDefinition errorHandlerSourceDefinition) {
+        LOGGER.info("Loading error handler from: {}", errorHandlerSourceDefinition);
+        load(runtime, Sources.fromDefinition(errorHandlerSourceDefinition));
     }
 }

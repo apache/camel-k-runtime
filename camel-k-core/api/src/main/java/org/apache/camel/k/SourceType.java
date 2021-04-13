@@ -17,6 +17,8 @@
 package org.apache.camel.k;
 
 public enum SourceType {
+    // Order matters. We want the sources to be loaded following this enum order.
+    errorHandler,
     source,
     template
 }
