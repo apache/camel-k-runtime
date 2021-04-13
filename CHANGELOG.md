@@ -67,7 +67,6 @@
 - Catalog json keys should be sorted [\#584](https://github.com/apache/camel-k-runtime/pull/584) ([lburgazzoli](https://github.com/lburgazzoli))
 - Cannot use kamelets in yaml integrations [\#583](https://github.com/apache/camel-k-runtime/pull/583) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps\): bump gmavenplus-plugin from 1.12.0 to 1.12.1 [\#580](https://github.com/apache/camel-k-runtime/pull/580) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Update to camel 3.7.0 and camel-quarkus 1.5.0 [\#573](https://github.com/apache/camel-k-runtime/pull/573) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-project-1.6.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.6.0) (2020-12-22)
 
@@ -96,6 +95,7 @@
 
 - chore: align kotlin libs to Quarkus release [\#577](https://github.com/apache/camel-k-runtime/pull/577) ([nicolaferraro](https://github.com/nicolaferraro))
 - chore: enable new rebalacing features in customizer [\#575](https://github.com/apache/camel-k-runtime/pull/575) ([nicolaferraro](https://github.com/nicolaferraro))
+- Update to camel 3.7.0 and camel-quarkus 1.5.0 [\#573](https://github.com/apache/camel-k-runtime/pull/573) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps\): bump gmavenplus-plugin from 1.11.1 to 1.12.0 [\#572](https://github.com/apache/camel-k-runtime/pull/572) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Cleanup [\#571](https://github.com/apache/camel-k-runtime/pull/571) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps\): bump kotlin-version from 1.4.20 to 1.4.21 [\#570](https://github.com/apache/camel-k-runtime/pull/570) ([dependabot[bot]](https://github.com/apps/dependabot))
@@ -128,7 +128,6 @@
 - Automatic changelog: Remove deprecated github action commands [\#530](https://github.com/apache/camel-k-runtime/pull/530) ([oscerd](https://github.com/oscerd))
 - update to camel-quarkus 1.3.0 [\#528](https://github.com/apache/camel-k-runtime/pull/528) ([lburgazzoli](https://github.com/lburgazzoli))
 - Jenkinsfile build: changed the JDK name following INFRA new approach [\#527](https://github.com/apache/camel-k-runtime/pull/527) ([oscerd](https://github.com/oscerd))
-- Add workflow dispatch to changelog gh action [\#525](https://github.com/apache/camel-k-runtime/pull/525) ([oscerd](https://github.com/oscerd))
 - build\(deps\): bump gmavenplus-plugin from 1.10.1 to 1.11.0 [\#524](https://github.com/apache/camel-k-runtime/pull/524) ([dependabot[bot]](https://github.com/apps/dependabot))
 - fix: Update loggers after configuration [\#523](https://github.com/apache/camel-k-runtime/pull/523) ([christophd](https://github.com/christophd))
 
@@ -164,6 +163,7 @@
 
 **Merged pull requests:**
 
+- Add workflow dispatch to changelog gh action [\#525](https://github.com/apache/camel-k-runtime/pull/525) ([oscerd](https://github.com/oscerd))
 - build\(deps\): bump junit-pioneer from 0.9.2 to 1.0.0 [\#522](https://github.com/apache/camel-k-runtime/pull/522) ([dependabot[bot]](https://github.com/apps/dependabot))
 - knative: cleanup knative environment definition leftovers [\#520](https://github.com/apache/camel-k-runtime/pull/520) ([lburgazzoli](https://github.com/lburgazzoli))
 - knative\(http\): fix request handler exception handling [\#519](https://github.com/apache/camel-k-runtime/pull/519) ([lburgazzoli](https://github.com/lburgazzoli))
