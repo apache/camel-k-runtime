@@ -16,6 +16,5 @@
 #
 
 org.apache.camel.k.listener.ContextConfigurer
-org.apache.camel.k.listener.GlobalErrorHandlerConfigurer
 org.apache.camel.k.listener.SourcesConfigurer
 org.apache.camel.k.listener.PropertiesConfigurer

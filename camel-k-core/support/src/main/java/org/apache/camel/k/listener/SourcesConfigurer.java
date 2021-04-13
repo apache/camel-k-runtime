@@ -18,11 +18,15 @@ package org.apache.camel.k.listener;
 
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.SourceDefinition;
+import org.apache.camel.k.SourceType;
 import org.apache.camel.k.support.Constants;
 import org.apache.camel.k.support.PropertiesSupport;
 import org.apache.camel.k.support.SourcesSupport;
 import org.apache.camel.spi.Configurer;
 import org.apache.camel.util.ObjectHelper;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 @Configurer
 public class SourcesConfigurer extends AbstractPhaseListener {
@@ -64,14 +68,44 @@ public class SourcesConfigurer extends AbstractPhaseListener {
         // property that can't be bound to this configurer.
         //
         PropertiesSupport.bindProperties(
-            runtime.getCamelContext(),
-            this,
-            k -> k.startsWith(CAMEL_K_SOURCES_PREFIX),
-            CAMEL_K_PREFIX);
+                runtime.getCamelContext(),
+                this,
+                k -> k.startsWith(CAMEL_K_SOURCES_PREFIX),
+                CAMEL_K_PREFIX);
+
+        checkUniqueErrorHandler();
+        sortSources();
 
         if (ObjectHelper.isNotEmpty(this.getSources())) {
             SourcesSupport.loadSources(runtime, this.getSources());
         }
+    }
+
+    private void checkUniqueErrorHandler() {
+        checkUniqueErrorHandler(this.sources);
+    }
+
+    static void checkUniqueErrorHandler(SourceDefinition[] sources) {
+        long errorHandlers = Arrays.stream(sources).filter(s -> s.getType() == SourceType.errorHandler).count();
+        if ( errorHandlers > 1) {
+            throw new IllegalArgumentException("Expected only one error handler source type, got " + errorHandlers);
+        }
+    }
+
+    private void sortSources() {
+        sortSources(this.getSources());
+    }
+
+    static void sortSources(SourceDefinition[] sources) {
+        // We must ensure the following source type order: errorHandler, source, template
+        Arrays.sort(sources,
+                (a, b) -> {
+                    if (a.getType() == null) {
+                        return SourceType.source.compareTo(b.getType());
+                    } else if (b.getType() == null) {
+                        return a.getType().compareTo(SourceType.source);
+                    } else return a.getType().compareTo(b.getType());
+                });
     }
 
 }
