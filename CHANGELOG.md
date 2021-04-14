@@ -1,11 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/apache/camel-k-runtime/tree/HEAD)
+## [camel-k-runtime-project-1.7.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.7.0) (2021-04-13)
 
-[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.6.0...HEAD)
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.6.0...camel-k-runtime-project-1.7.0)
 
 **Closed issues:**
 
+- Missing camel-k-kamelet-reify version while building kamelet binding [\#655](https://github.com/apache/camel-k-runtime/issues/655)
 - Cron loader fails to start [\#651](https://github.com/apache/camel-k-runtime/issues/651)
 - Examples broken after the quarkus 1.7.0 update [\#641](https://github.com/apache/camel-k-runtime/issues/641)
 - PR actions failing [\#626](https://github.com/apache/camel-k-runtime/issues/626)
@@ -21,8 +22,11 @@
 
 **Merged pull requests:**
 
+- Missing camel-k-kamelet-reify version while building kamelet binding [\#656](https://github.com/apache/camel-k-runtime/pull/656) ([claudio4j](https://github.com/claudio4j))
+- Yaml DSL: add workarounds for backward compatibility issues [\#654](https://github.com/apache/camel-k-runtime/pull/654) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(deps\): remove unused version properties [\#653](https://github.com/apache/camel-k-runtime/pull/653) ([lburgazzoli](https://github.com/lburgazzoli))
 - Cron loader fails to start [\#652](https://github.com/apache/camel-k-runtime/pull/652) ([lburgazzoli](https://github.com/lburgazzoli))
+- feat\(core\): default error handler [\#648](https://github.com/apache/camel-k-runtime/pull/648) ([squakez](https://github.com/squakez))
 - build\(deps\): bump license-maven-plugin from 3.0 to 4.0 [\#647](https://github.com/apache/camel-k-runtime/pull/647) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Upgrade to camel-quarkus 1.8.0, camel 3.9.0 [\#646](https://github.com/apache/camel-k-runtime/pull/646) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps-dev\): bump spock-core from 2.0-M4-groovy-3.0 to 2.0-M5-groovy-3.0 [\#644](https://github.com/apache/camel-k-runtime/pull/644) ([dependabot[bot]](https://github.com/apps/dependabot))
@@ -128,6 +132,7 @@
 - Automatic changelog: Remove deprecated github action commands [\#530](https://github.com/apache/camel-k-runtime/pull/530) ([oscerd](https://github.com/oscerd))
 - update to camel-quarkus 1.3.0 [\#528](https://github.com/apache/camel-k-runtime/pull/528) ([lburgazzoli](https://github.com/lburgazzoli))
 - Jenkinsfile build: changed the JDK name following INFRA new approach [\#527](https://github.com/apache/camel-k-runtime/pull/527) ([oscerd](https://github.com/oscerd))
+- Add workflow dispatch to changelog gh action [\#525](https://github.com/apache/camel-k-runtime/pull/525) ([oscerd](https://github.com/oscerd))
 - build\(deps\): bump gmavenplus-plugin from 1.10.1 to 1.11.0 [\#524](https://github.com/apache/camel-k-runtime/pull/524) ([dependabot[bot]](https://github.com/apps/dependabot))
 - fix: Update loggers after configuration [\#523](https://github.com/apache/camel-k-runtime/pull/523) ([christophd](https://github.com/christophd))
 
@@ -163,7 +168,6 @@
 
 **Merged pull requests:**
 
-- Add workflow dispatch to changelog gh action [\#525](https://github.com/apache/camel-k-runtime/pull/525) ([oscerd](https://github.com/oscerd))
 - build\(deps\): bump junit-pioneer from 0.9.2 to 1.0.0 [\#522](https://github.com/apache/camel-k-runtime/pull/522) ([dependabot[bot]](https://github.com/apps/dependabot))
 - knative: cleanup knative environment definition leftovers [\#520](https://github.com/apache/camel-k-runtime/pull/520) ([lburgazzoli](https://github.com/lburgazzoli))
 - knative\(http\): fix request handler exception handling [\#519](https://github.com/apache/camel-k-runtime/pull/519) ([lburgazzoli](https://github.com/lburgazzoli))
