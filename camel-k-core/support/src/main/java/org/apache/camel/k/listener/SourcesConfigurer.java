@@ -102,6 +102,9 @@ public class SourcesConfigurer extends AbstractPhaseListener {
         // We must ensure the source order as defined in SourceType enum
         Arrays.sort(sources,
                 (a, b) -> {
+                    if (a.getType() == null && b.getType() == null) {
+                        return 0;
+                    }
                     if (a.getType() == null) {
                         return SourceType.source.compareTo(b.getType());
                     } else if (b.getType() == null) {
