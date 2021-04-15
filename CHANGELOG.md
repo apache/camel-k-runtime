@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased](https://github.com/apache/camel-k-runtime/tree/HEAD)
+
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.7.0...HEAD)
+
+**Closed issues:**
+
+- kamelet: move camel-kamelet component to the camel repo [\#517](https://github.com/apache/camel-k-runtime/issues/517)
+
 ## [camel-k-runtime-project-1.7.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.7.0) (2021-04-13)
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.6.0...camel-k-runtime-project-1.7.0)
