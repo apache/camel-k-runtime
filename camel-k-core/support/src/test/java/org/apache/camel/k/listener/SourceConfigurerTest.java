@@ -89,7 +89,6 @@ public class SourceConfigurerTest {
                 "camel.k.sources[0].type", "template",
                 "camel.k.sources[1].name", "source1",
                 "camel.k.sources[2].name", "source2",
-                "camel.k.sources[2].type", "source",
                 "camel.k.sources[3].name", "errorHandler1",
                 "camel.k.sources[3].type", "errorHandler"
         ));
