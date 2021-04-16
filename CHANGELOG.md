@@ -2,15 +2,7 @@
 
 ## [Unreleased](https://github.com/apache/camel-k-runtime/tree/HEAD)
 
-[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.7.0...HEAD)
-
-**Closed issues:**
-
-- kamelet: move camel-kamelet component to the camel repo [\#517](https://github.com/apache/camel-k-runtime/issues/517)
-
-## [camel-k-runtime-project-1.7.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.7.0) (2021-04-13)
-
-[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.6.0...camel-k-runtime-project-1.7.0)
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.6.0...HEAD)
 
 **Closed issues:**
 
@@ -18,18 +10,21 @@
 - Cron loader fails to start [\#651](https://github.com/apache/camel-k-runtime/issues/651)
 - Examples broken after the quarkus 1.7.0 update [\#641](https://github.com/apache/camel-k-runtime/issues/641)
 - PR actions failing [\#626](https://github.com/apache/camel-k-runtime/issues/626)
+- java-loader: use camel-joor when upgrading to camel 3.8 [\#615](https://github.com/apache/camel-k-runtime/issues/615)
 - Make changelog action work again [\#612](https://github.com/apache/camel-k-runtime/issues/612)
 - Malformed exception when using binary config map file into an integration [\#593](https://github.com/apache/camel-k-runtime/issues/593)
 - Catalog contains duplicate entry for same schema \(cron\) [\#592](https://github.com/apache/camel-k-runtime/issues/592)
 - Fix missing wrap component error in camelk catalog [\#589](https://github.com/apache/camel-k-runtime/issues/589)
 - Cannot use kamelets in yaml integrations [\#581](https://github.com/apache/camel-k-runtime/issues/581)
 - Catalog json keys should be sorted [\#576](https://github.com/apache/camel-k-runtime/issues/576)
+- kamelet: move camel-kamelet component to the camel repo [\#517](https://github.com/apache/camel-k-runtime/issues/517)
 - Thread blocked calling knative REST [\#513](https://github.com/apache/camel-k-runtime/issues/513)
 - Support fast-jar packaging for quarkus [\#360](https://github.com/apache/camel-k-runtime/issues/360)
 - HTTP multi-headers are randomized in camel-knative-http [\#69](https://github.com/apache/camel-k-runtime/issues/69)
 
 **Merged pull requests:**
 
+- fix\(core\): solve NPE when missing source type [\#660](https://github.com/apache/camel-k-runtime/pull/660) ([squakez](https://github.com/squakez))
 - Missing camel-k-kamelet-reify version while building kamelet binding [\#656](https://github.com/apache/camel-k-runtime/pull/656) ([claudio4j](https://github.com/claudio4j))
 - Yaml DSL: add workarounds for backward compatibility issues [\#654](https://github.com/apache/camel-k-runtime/pull/654) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(deps\): remove unused version properties [\#653](https://github.com/apache/camel-k-runtime/pull/653) ([lburgazzoli](https://github.com/lburgazzoli))
