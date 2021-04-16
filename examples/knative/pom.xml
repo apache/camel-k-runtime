@@ -75,11 +75,18 @@
                     <execution>
                         <goals>
                             <goal>build</goal>
+                            <goal>generate-code</goal>
+                            <goal>generate-code-tests</goal>
                         </goals>
                     </execution>
                 </executions>
                 <configuration>
                     <finalName>${project.artifactId}</finalName>
+                    <environmentVariables>
+                        <CAMEL_K_CONF>${project.basedir}/data/application.properties</CAMEL_K_CONF>
+                        <CAMEL_K_ROUTES>file:${project.basedir}/data/routes.yaml</CAMEL_K_ROUTES>
+                        <CAMEL_KNATIVE_CONFIGURATION>file:${project.basedir}/data/env.json</CAMEL_KNATIVE_CONFIGURATION>
+                    </environmentVariables>
                 </configuration>
             </plugin>
             <plugin>

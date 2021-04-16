@@ -6,7 +6,7 @@ The route involves timer component and log component.
 
 ## How to run
 
-You have two ways of doing this.
+You have three ways of doing this.
 
 First approach:
 
@@ -23,7 +23,12 @@ Second approach
     java -jar target/quarkus-app/quarkus-run.jar
 ```
 
-You should get the following output in both cases
+Third approach
+```
+    mvn clean compile quarkus:dev
+```
+
+You should get the following output in all three cases
 
 ```
     2021-02-08 18:25:50,700 INFO  [org.apa.cam.k.Runtime] (main) Apache Camel K Runtime 1.7.0-SNAPSHOT

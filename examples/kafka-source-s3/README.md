@@ -13,7 +13,7 @@ Fill correctly the application.properties file.
 
 ## How to run
 
-You have two ways of doing this.
+You have three ways of doing this.
 
 First approach:
 
@@ -32,7 +32,12 @@ Second approach
     java -jar target/quarkus-app/quarkus-run.jar
 ```
 
-You should get the following output in both cases
+Third approach
+```
+    mvn clean compile quarkus:dev
+```
+
+You should get the following output all three cases
 
 ```
 2021-02-09 08:27:13,463 INFO  [org.apa.cam.k.Runtime] (main) Apache Camel K Runtime 1.7.0-SNAPSHOT
