@@ -8,7 +8,7 @@ The route involves log and timer components
 
 - Plain
 
-You have two ways of doing this.
+You have three ways of doing this.
 
 First approach:
 
@@ -25,6 +25,11 @@ Second approach
     export CAMEL_K_CONF=${project.basedir}/data/application.properties
     export CAMEL_K_ROUTES=file:${project.basedir}/data/routes.yaml?interceptors=cron
     java -jar target/quarkus-app/quarkus-run.jar
+```
+
+Third approach
+```
+    mvn clean compile quarkus:dev
 ```
 
 - Native
@@ -76,9 +81,9 @@ You should get the following output in both cases
 ## Help and contributions
 
 If you hit any problem using Camel or have some feedback, then please
-https://camel.apache.org/support.html[let us know].
+[let us know](https://camel.apache.org/support.html).
 
 We also love contributors, so
-https://camel.apache.org/contributing.html[get involved] :-)
+[get involved](https://camel.apache.org/contributing.html) :-)
 
 The Camel riders!

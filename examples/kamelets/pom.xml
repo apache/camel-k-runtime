@@ -71,11 +71,17 @@
                     <execution>
                         <goals>
                             <goal>build</goal>
+                            <goal>generate-code</goal>
+                            <goal>generate-code-tests</goal>
                         </goals>
                     </execution>
                 </executions>
                 <configuration>
                     <finalName>${project.artifactId}</finalName>
+                    <environmentVariables>
+                        <CAMEL_K_CONF>${project.basedir}/data/application.properties</CAMEL_K_CONF>
+                        <DATA_DIR>${project.basedir}/data</DATA_DIR>
+                    </environmentVariables>
                 </configuration>
             </plugin>
             <plugin>
