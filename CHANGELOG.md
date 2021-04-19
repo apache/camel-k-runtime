@@ -543,7 +543,6 @@
 - YAML: add annotation to auto geenrate support classes and quarkus reflective class discovery [\#201](https://github.com/apache/camel-k-runtime/pull/201) ([lburgazzoli](https://github.com/lburgazzoli))
 - Support additional EIP for YAML DSL [\#200](https://github.com/apache/camel-k-runtime/pull/200) ([lburgazzoli](https://github.com/lburgazzoli))
 - loader-java: add test for compiling routes requiring external classes [\#199](https://github.com/apache/camel-k-runtime/pull/199) ([lburgazzoli](https://github.com/lburgazzoli))
-- Allow to use any class as configuration source [\#198](https://github.com/apache/camel-k-runtime/pull/198) ([lburgazzoli](https://github.com/lburgazzoli))
 - Update deps and actions [\#197](https://github.com/apache/camel-k-runtime/pull/197) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(tools\): make sure quarkus catalog name start with "camel-catalog-" [\#196](https://github.com/apache/camel-k-runtime/pull/196) ([nicolaferraro](https://github.com/nicolaferraro))
 
@@ -562,6 +561,7 @@
 
 **Merged pull requests:**
 
+- Allow to use any class as configuration source [\#198](https://github.com/apache/camel-k-runtime/pull/198) ([lburgazzoli](https://github.com/lburgazzoli))
 - loaders: remove java class loader as it is misleading [\#194](https://github.com/apache/camel-k-runtime/pull/194) ([lburgazzoli](https://github.com/lburgazzoli))
 - Remove docker-maven-plugin in pom.xml which is not in use [\#192](https://github.com/apache/camel-k-runtime/pull/192) ([davsclaus](https://github.com/davsclaus))
 - Fixes \#189 to update to Camel 3.0 RC3 [\#190](https://github.com/apache/camel-k-runtime/pull/190) ([davsclaus](https://github.com/davsclaus))
@@ -715,7 +715,6 @@
 - Support camel 3.0.0 M3 \#79 [\#81](https://github.com/apache/camel-k-runtime/pull/81) ([lburgazzoli](https://github.com/lburgazzoli))
 - catalog: generate license header \(camel 3\) [\#77](https://github.com/apache/camel-k-runtime/pull/77) ([lburgazzoli](https://github.com/lburgazzoli))
 - Camel 3 cleanup [\#75](https://github.com/apache/camel-k-runtime/pull/75) ([lburgazzoli](https://github.com/lburgazzoli))
-- Switch to Camel 3 by default [\#73](https://github.com/apache/camel-k-runtime/pull/73) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-0.3.3](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-0.3.3) (2019-05-28)
 
@@ -730,6 +729,7 @@
 
 **Merged pull requests:**
 
+- Switch to Camel 3 by default [\#73](https://github.com/apache/camel-k-runtime/pull/73) ([lburgazzoli](https://github.com/lburgazzoli))
 - Added a servletregistration customizer and improved examples. [\#71](https://github.com/apache/camel-k-runtime/pull/71) ([valdar](https://github.com/valdar))
 - servlet: update catalog and bom [\#70](https://github.com/apache/camel-k-runtime/pull/70) ([lburgazzoli](https://github.com/lburgazzoli))
 - add servlet support [\#68](https://github.com/apache/camel-k-runtime/pull/68) ([lburgazzoli](https://github.com/lburgazzoli))
