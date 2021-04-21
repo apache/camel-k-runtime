@@ -23,7 +23,7 @@ env:
 on:
   pull_request:
     branches:
-      - master
+      - main
     paths-ignore:
       - '**.adoc'
       - 'KEYS'

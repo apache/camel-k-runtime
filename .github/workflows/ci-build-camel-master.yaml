@@ -56,15 +56,15 @@ jobs:
         path: ~/.m2
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
-    - name: Build camel (master)
+    - name: Build camel (main)
       run: |
-        git clone --depth 1 --branch master https://github.com/apache/camel.git \
+        git clone --depth 1 --branch main https://github.com/apache/camel.git \
           && cd camel \
           && echo "Current Camel commit:" $(git rev-parse HEAD) \
           && ./mvnw ${MAVEN_ARGS} clean install -Pfastinstall
-    - name: Build camel-quarkus (camel-master)
+    - name: Build camel-quarkus (camel-main)
       run: |
-        git clone --depth 1 --branch camel-master https://github.com/apache/camel-quarkus.git \
+        git clone --depth 1 --branch camel-main https://github.com/apache/camel-quarkus.git \
           && cd camel-quarkus \
           && echo "Current Camel Quarkus commit:" $(git rev-parse HEAD) \
           && ./mvnw ${MAVEN_ARGS} clean install -Dquickly -s $(pwd)/settings-camel-3.7.0.xml
