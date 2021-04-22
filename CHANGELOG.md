@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased](https://github.com/apache/camel-k-runtime/tree/HEAD)
+
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.7.0...HEAD)
+
+**Merged pull requests:**
+
+- Add quarkus:dev option for running the examples [\#661](https://github.com/apache/camel-k-runtime/pull/661) ([tplevko](https://github.com/tplevko))
+
 ## [camel-k-runtime-project-1.7.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.7.0) (2021-04-16)
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.6.0...camel-k-runtime-project-1.7.0)
