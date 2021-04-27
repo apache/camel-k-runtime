@@ -513,7 +513,6 @@
 - Upgrade Jackson to version 2.10.2 [\#221](https://github.com/apache/camel-k-runtime/pull/221) ([oscerd](https://github.com/oscerd))
 - Bump Maven source plugin to version 3.2.1 [\#220](https://github.com/apache/camel-k-runtime/pull/220) ([oscerd](https://github.com/oscerd))
 - Update to camel-quarkus 1.0.0-M2 [\#219](https://github.com/apache/camel-k-runtime/pull/219) ([lburgazzoli](https://github.com/lburgazzoli))
-- Dependencies updates and test improvements [\#216](https://github.com/apache/camel-k-runtime/pull/216) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-parent-1.0.9](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.0.9) (2019-12-19)
 
@@ -525,6 +524,7 @@
 
 **Merged pull requests:**
 
+- Dependencies updates and test improvements [\#216](https://github.com/apache/camel-k-runtime/pull/216) ([lburgazzoli](https://github.com/lburgazzoli))
 - \[quarkus\] create loaders for java, groovy and kotlin in JVM mode [\#214](https://github.com/apache/camel-k-runtime/pull/214) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(plugin\): switch from v1alpha1 to v1 [\#213](https://github.com/apache/camel-k-runtime/pull/213) ([nicolaferraro](https://github.com/nicolaferraro))
 - Ignore package when working with Java classes [\#211](https://github.com/apache/camel-k-runtime/pull/211) ([lburgazzoli](https://github.com/lburgazzoli))
