@@ -334,6 +334,7 @@
 - Add runtime support for Knative sinkbinding [\#372](https://github.com/apache/camel-k-runtime/pull/372) ([lburgazzoli](https://github.com/lburgazzoli))
 - Create a CompositeClassloader and set is as Camel's ApplicationClassloader [\#368](https://github.com/apache/camel-k-runtime/pull/368) ([lburgazzoli](https://github.com/lburgazzoli))
 - Integration should fail when no secret is found [\#367](https://github.com/apache/camel-k-runtime/pull/367) ([lburgazzoli](https://github.com/lburgazzoli))
+- Upgrade Jackson to version 2.10.4 [\#352](https://github.com/apache/camel-k-runtime/pull/352) ([oscerd](https://github.com/oscerd))
 
 ## [camel-k-runtime-parent-1.3.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-1.3.0) (2020-06-05)
 
@@ -377,7 +378,6 @@
 - tracing: support configuring the jeager service name [\#355](https://github.com/apache/camel-k-runtime/pull/355) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(pgp\): update key for Nicola Ferraro [\#354](https://github.com/apache/camel-k-runtime/pull/354) ([nicolaferraro](https://github.com/nicolaferraro))
 - Add an opentracing capability [\#353](https://github.com/apache/camel-k-runtime/pull/353) ([lburgazzoli](https://github.com/lburgazzoli))
-- Upgrade Jackson to version 2.10.4 [\#352](https://github.com/apache/camel-k-runtime/pull/352) ([oscerd](https://github.com/oscerd))
 - Bump AssertJ to version 3.16.1 [\#351](https://github.com/apache/camel-k-runtime/pull/351) ([oscerd](https://github.com/oscerd))
 - Add circuit-breaker capability [\#350](https://github.com/apache/camel-k-runtime/pull/350) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade to Camel 3.3.0 and camel-quarkus 1.0.0.CR2 [\#347](https://github.com/apache/camel-k-runtime/pull/347) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -621,7 +621,6 @@
 - HTTP multi-headers are randomized in camel-knative-http [\#168](https://github.com/apache/camel-k-runtime/pull/168) ([lburgazzoli](https://github.com/lburgazzoli))
 - Can't bridge two Knative channels with new component [\#166](https://github.com/apache/camel-k-runtime/pull/166) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix issue 164 to update the runtime version [\#165](https://github.com/apache/camel-k-runtime/pull/165) ([zhfeng](https://github.com/zhfeng))
-- kotlin: improve rest dsl [\#162](https://github.com/apache/camel-k-runtime/pull/162) ([lburgazzoli](https://github.com/lburgazzoli))
 - knative: add some checks about supported http methods and mandatory body [\#161](https://github.com/apache/camel-k-runtime/pull/161) ([lburgazzoli](https://github.com/lburgazzoli))
 - Support cloud events spec v3 [\#158](https://github.com/apache/camel-k-runtime/pull/158) ([lburgazzoli](https://github.com/lburgazzoli))
 - Remove legacy artifacts and version from catalog [\#157](https://github.com/apache/camel-k-runtime/pull/157) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -641,6 +640,7 @@
 
 **Merged pull requests:**
 
+- kotlin: improve rest dsl [\#162](https://github.com/apache/camel-k-runtime/pull/162) ([lburgazzoli](https://github.com/lburgazzoli))
 - add \(initial\) support for quarkus [\#145](https://github.com/apache/camel-k-runtime/pull/145) ([lburgazzoli](https://github.com/lburgazzoli))
 - Update deps [\#144](https://github.com/apache/camel-k-runtime/pull/144) ([lburgazzoli](https://github.com/lburgazzoli))
 - groovy: improve rest dsl [\#143](https://github.com/apache/camel-k-runtime/pull/143) ([lburgazzoli](https://github.com/lburgazzoli))
