@@ -805,7 +805,7 @@
 
 ## [camel-k-runtime-parent-0.3.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-parent-0.3.0) (2019-02-27)
 
-[Full Changelog](https://github.com/apache/camel-k-runtime/compare/37be71a6f14fc5c95f7163672796c0ea1efec754...camel-k-runtime-parent-0.3.0)
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/e2bfda27f6eff94355c4bcae3b37f233bac3c48e...camel-k-runtime-parent-0.3.0)
 
 **Implemented enhancements:**
 
