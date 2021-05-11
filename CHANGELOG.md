@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump maven-gpg-plugin from 1.6 to 3.0.1 [\#666](https://github.com/apache/camel-k-runtime/pull/666) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump license-maven-plugin from 4.0 to 4.1 [\#663](https://github.com/apache/camel-k-runtime/pull/663) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Add quarkus:dev option for running the examples [\#661](https://github.com/apache/camel-k-runtime/pull/661) ([tplevko](https://github.com/tplevko))
 
