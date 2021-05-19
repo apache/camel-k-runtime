@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-dependencies</artifactId>
-        <version>3.9.0</version>
+        <version>3.10.0</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -38,12 +38,12 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
 
-        <camel-version>3.9.0</camel-version>
+        <camel-version>3.10.0</camel-version>
 
         <!-- quarkus -->
-        <camel-quarkus-version>1.8.1</camel-quarkus-version>
+        <camel-quarkus-version>1.9.0-SNAPSHOT</camel-quarkus-version>
         <graalvm-version>21.0.0</graalvm-version>
-        <quarkus-version>1.13.0.Final</quarkus-version>
+        <quarkus-version>2.0.0.Alpha2</quarkus-version>
 
         <!-- camel-k -->
         <groovy-version>3.0.7</groovy-version>
