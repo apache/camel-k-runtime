@@ -19,6 +19,9 @@ name: Validate PR
 env:
   MAVEN_OPTS: -Xmx3000m
   MAVEN_ARGS: -V -ntp -Dhttp.keepAlive=false -e
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: true
 
 on:
   pull_request:
