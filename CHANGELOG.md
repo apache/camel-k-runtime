@@ -6,7 +6,10 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump spock-core from 2.0-M5-groovy-3.0 to 2.0-groovy-3.0 [\#668](https://github.com/apache/camel-k-runtime/pull/668) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-gpg-plugin from 1.6 to 3.0.1 [\#666](https://github.com/apache/camel-k-runtime/pull/666) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump maven-plugin-annotations from 3.6.0 to 3.6.1 [\#665](https://github.com/apache/camel-k-runtime/pull/665) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump maven-plugin-plugin from 3.6.0 to 3.6.1 [\#664](https://github.com/apache/camel-k-runtime/pull/664) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump license-maven-plugin from 4.0 to 4.1 [\#663](https://github.com/apache/camel-k-runtime/pull/663) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Add quarkus:dev option for running the examples [\#661](https://github.com/apache/camel-k-runtime/pull/661) ([tplevko](https://github.com/tplevko))
 
