@@ -17,6 +17,7 @@
 package org.apache.camel.k.runtime.support;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -99,12 +100,11 @@ public class RuntimeInspector {
             throw new IllegalArgumentException("RouteDefinition with name: " + name + " not found");
         }
 
-        List<String> endpoints = new ArrayList<>();
+        Collection<ToDefinition> toDefinitions = filterTypeInOutputs(def.getOutputs(), ToDefinition.class);
 
-        Iterator<ToDefinition> it = filterTypeInOutputs(def.getOutputs(), ToDefinition.class);
-        while (it.hasNext()) {
-            endpoints.add(it.next().getEndpointUri());
-        }
+        List<String> endpoints = toDefinitions.stream()
+                .map(td -> td.getEndpointUri())
+                .collect(Collectors.toList());
 
         return Json.createArrayBuilder(endpoints).build();
     }
