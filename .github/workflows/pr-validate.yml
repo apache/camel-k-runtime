@@ -27,6 +27,7 @@ on:
   pull_request:
     branches:
       - main
+      - camel-main
     paths-ignore:
       - '**.adoc'
       - 'KEYS'
