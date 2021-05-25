@@ -17,6 +17,7 @@
 package org.apache.camel.k.listener;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 import org.apache.camel.k.Runtime;
 import org.apache.camel.k.SourceDefinition;
@@ -100,19 +101,7 @@ public class SourcesConfigurer extends AbstractPhaseListener {
             return;
         }
         // We must ensure the source order as defined in SourceType enum
-        Arrays.sort(sources,
-                (a, b) -> {
-                    if (a.getType() == null && b.getType() == null) {
-                        return 0;
-                    }
-                    if (a.getType() == null) {
-                        return SourceType.source.compareTo(b.getType());
-                    } else if (b.getType() == null) {
-                        return a.getType().compareTo(SourceType.source);
-                    } else {
-                        return a.getType().compareTo(b.getType());
-                    }
-                });
+        Arrays.sort(sources, Comparator.comparingInt(a -> a.getType().ordinal()));
     }
 
 }
