@@ -34,7 +34,7 @@ public class KnativeConsumerProcessor {
         return new CamelRuntimeBeanBuildItem(
             KnativeConsumerFeature.FEATURE + "-customizer",
             ComponentCustomizer.class.getName(),
-            recorder.createKnativeConsumerFactoryCustomizer(router.getRouter())
+            recorder.createKnativeConsumerFactoryCustomizer(router.getHttpRouter())
         );
     }
 }
