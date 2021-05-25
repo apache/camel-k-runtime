@@ -147,11 +147,6 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-kamelet-reify</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-webhook-impl</artifactId>
                 <version>${project.version}</version>
             </dependency>

@@ -31,6 +31,5 @@
     <modules>
         <module>camel-cloudevents</module>
         <module>camel-knative</module>
-        <module>camel-kamelet-reify</module>
     </modules>
 </project>
