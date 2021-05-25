@@ -70,7 +70,7 @@ jobs:
 #          && ./mvnw ${MAVEN_ARGS} clean install -Pfastinstall
     - name: Build camel-quarkus (camel-main)
       run: |
-        git clone --depth 1 --branch camel-main https://github.com/apache/camel-quarkus.git \
+        git clone --depth 1 --branch main https://github.com/apache/camel-quarkus.git \
           && cd camel-quarkus \
           && echo "Current Camel Quarkus commit:" $(git rev-parse HEAD) \
           && ./mvnw ${MAVEN_ARGS} clean install -Dquickly -s $(pwd)/settings-camel-3.7.0.xml
