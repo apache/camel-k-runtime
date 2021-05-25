@@ -351,7 +351,6 @@
         <module>camel-k-core</module>
         <module>camel-k-loader-jsh</module>
         <module>camel-k-loader-yaml</module>
-        <module>camel-k-loader-groovy</module>
 
         <module>camel-k-cron</module>
         <module>camel-k-cloudevents</module>
