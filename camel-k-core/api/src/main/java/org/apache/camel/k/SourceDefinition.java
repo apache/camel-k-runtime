@@ -28,7 +28,8 @@ public class SourceDefinition implements IdAware {
     private String language;
     private String loader;
     private List<String> interceptors;
-    private SourceType type;
+    // Default as source type
+    private SourceType type = SourceType.source;
     private List<String> propertyNames;
     private String location;
     private byte[] content;
