@@ -33,7 +33,7 @@
             <artifactId>camel-k-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel.k</groupId>
+            <groupId>org.apache.camel</groupId>
             <artifactId>camel-kamelet-reify</artifactId>
         </dependency>
     </dependencies>

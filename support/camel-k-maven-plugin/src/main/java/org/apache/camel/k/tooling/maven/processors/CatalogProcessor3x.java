@@ -146,15 +146,6 @@ public class CatalogProcessor3x implements CatalogProcessor {
                     .build())
                 .build()
         );
-        specBuilder.putArtifact(
-            new CamelArtifact.Builder()
-                .groupId("org.apache.camel.k")
-                .artifactId("camel-k-kamelet-reify")
-                .addScheme(new CamelScheme.Builder()
-                    .id("kamelet-reify")
-                    .build())
-                .build()
-        );
     }
 
     private static void processLoaders(CamelCatalogSpec.Builder specBuilder) {
