@@ -4,8 +4,22 @@
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.7.0...HEAD)
 
+**Closed issues:**
+
+- Support for simple, linear integration definitions [\#659](https://github.com/apache/camel-k-runtime/issues/659)
+- Optional parameters in Kamelet route templates [\#631](https://github.com/apache/camel-k-runtime/issues/631)
+- Assess integration container resources layout changes impacts [\#614](https://github.com/apache/camel-k-runtime/issues/614)
+- Remove changelog gh action [\#582](https://github.com/apache/camel-k-runtime/issues/582)
+- yaml dsl: add support for component dsl [\#507](https://github.com/apache/camel-k-runtime/issues/507)
+- Add support for property mapping in Kamelets [\#495](https://github.com/apache/camel-k-runtime/issues/495)
+- yaml dsl: add json schema for endpoint-dsl [\#485](https://github.com/apache/camel-k-runtime/issues/485)
+- Include description for elements in Yaml schema [\#386](https://github.com/apache/camel-k-runtime/issues/386)
+
 **Merged pull requests:**
 
+- build\(deps\): bump maven-javadoc-plugin from 3.2.0 to 3.3.0 [\#680](https://github.com/apache/camel-k-runtime/pull/680) ([dependabot[bot]](https://github.com/apps/dependabot))
+- GH action fixes [\#674](https://github.com/apache/camel-k-runtime/pull/674) ([orpiske](https://github.com/orpiske))
+- Enable GH actions on camel-main branch [\#671](https://github.com/apache/camel-k-runtime/pull/671) ([orpiske](https://github.com/orpiske))
 - build\(deps\): bump spock-core from 2.0-M5-groovy-3.0 to 2.0-groovy-3.0 [\#668](https://github.com/apache/camel-k-runtime/pull/668) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-gpg-plugin from 1.6 to 3.0.1 [\#666](https://github.com/apache/camel-k-runtime/pull/666) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-plugin-annotations from 3.6.0 to 3.6.1 [\#665](https://github.com/apache/camel-k-runtime/pull/665) ([dependabot[bot]](https://github.com/apps/dependabot))
