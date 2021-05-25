@@ -86,17 +86,4 @@ new File(basedir, "catalog.yaml").withReader {
             assert producer.dependencies[0].artifactId == 'camel-k-knative-producer'
         }
     }
-
-    catalog.spec.artifacts['camel-k-kamelet-reify'].with {
-        assert dependencies == null
-        assert requiredCapabilities == null
-
-        assert schemes.size() == 1
-
-        schemes[0].with {
-            assert id == 'kamelet-reify'
-            assert passive == false
-            assert http == false
-        }
-    }
 }
