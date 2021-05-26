@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- Re-enable YamlSourceLoaderTest [\#687](https://github.com/apache/camel-k-runtime/issues/687)
 - Support for simple, linear integration definitions [\#659](https://github.com/apache/camel-k-runtime/issues/659)
 - Optional parameters in Kamelet route templates [\#631](https://github.com/apache/camel-k-runtime/issues/631)
 - Assess integration container resources layout changes impacts [\#614](https://github.com/apache/camel-k-runtime/issues/614)
