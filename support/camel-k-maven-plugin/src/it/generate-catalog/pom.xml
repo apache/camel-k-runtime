@@ -32,6 +32,7 @@
         <catalog.path>${project.basedir}</catalog.path>
         <catalog.runtime>quarkus</catalog.runtime>
         <catalog.file>catalog.yaml</catalog.file>
+        <exclusion.list>qute</exclusion.list>
     </properties>
 
     <build>

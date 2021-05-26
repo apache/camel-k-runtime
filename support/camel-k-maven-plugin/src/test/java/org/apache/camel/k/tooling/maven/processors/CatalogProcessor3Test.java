@@ -16,6 +16,7 @@
  */
 package org.apache.camel.k.tooling.maven.processors;
 
+import java.util.Collections;
 import java.util.Map;
 
 import org.apache.camel.catalog.CamelCatalog;
@@ -74,7 +75,7 @@ public class CatalogProcessor3Test extends AbstractCatalogProcessorTest {
         CamelCatalogSpec.Builder builder = new CamelCatalogSpec.Builder().runtime(runtime);
 
         assertThat(processor.accepts(catalog)).isTrue();
-        processor.process(new MavenProject(), catalog, builder);
+        processor.process(new MavenProject(), catalog, builder, Collections.emptyList());
 
         CamelCatalogSpec spec = builder.build();
         Map<String, CamelArtifact> artifactMap = spec.getArtifacts();
@@ -96,7 +97,7 @@ public class CatalogProcessor3Test extends AbstractCatalogProcessorTest {
         CamelCatalogSpec.Builder builder = new CamelCatalogSpec.Builder().runtime(runtime);
 
         assertThat(processor.accepts(catalog)).isTrue();
-        processor.process(new MavenProject(), catalog, builder);
+        processor.process(new MavenProject(), catalog, builder, Collections.emptyList());
 
         CamelCatalogSpec spec = builder.build();
         Map<String, CamelArtifact> artifactMap = spec.getArtifacts();
