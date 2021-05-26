@@ -94,10 +94,11 @@ public class CatalogProcessor3x implements CatalogProcessor {
     }
 
     @Override
-    public void process(MavenProject project, CamelCatalog catalog, CamelCatalogSpec.Builder specBuilder) {
+    public void process(MavenProject project, CamelCatalog catalog, CamelCatalogSpec.Builder specBuilder,
+                        List<String> exclusions) {
         Map<String, CamelArtifact> artifacts = new TreeMap<>();
 
-        processComponents(catalog, artifacts);
+        processComponents(catalog, artifacts, exclusions);
         processLanguages(catalog, artifacts);
         processDataFormats(catalog, artifacts);
         processLoaders(specBuilder);
@@ -200,8 +201,10 @@ public class CatalogProcessor3x implements CatalogProcessor {
         );
     }
 
-    private static void processComponents(CamelCatalog catalog, Map<String, CamelArtifact> artifacts) {
+    private static void processComponents(CamelCatalog catalog, Map<String, CamelArtifact> artifacts, List<String> exclusions) {
         final Set<String> elements = new TreeSet<>(catalog.findComponentNames());
+
+        elements.removeAll(exclusions);
 
         for (String name : elements) {
             String json = catalog.componentJSonSchema(name);
