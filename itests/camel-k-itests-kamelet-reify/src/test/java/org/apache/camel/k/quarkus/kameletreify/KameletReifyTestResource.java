@@ -16,39 +16,47 @@
  */
 package org.apache.camel.k.quarkus.kameletreify;
 
+import java.util.Arrays;
 import java.util.Map;
 
+import com.github.dockerjava.api.model.Ulimit;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.apache.camel.test.infra.artemis.services.ArtemisContainer;
+import org.apache.camel.test.infra.messaging.services.MessagingLocalContainerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testcontainers.containers.GenericContainer;
-import org.testcontainers.containers.output.Slf4jLogConsumer;
-import org.testcontainers.containers.wait.strategy.Wait;
-import org.testcontainers.utility.TestcontainersConfiguration;
+
+import org.apache.camel.test.infra.messaging.services.MessagingService;
+import org.apache.camel.test.infra.messaging.services.MessagingServiceFactory;
 
 
 public class KameletReifyTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(KameletReifyTestResource.class);
 
-    private static final String ACTIVEMQ_IMAGE = "rmohr/activemq:5.15.9-alpine";
-    private static final int TCP_PORT = 61616;
+    private static MessagingService messagingService = MessagingServiceFactory
+            .builder()
+            .addLocalMapping(KameletReifyTestResource::createLocalService)
+            .build();
 
-    private GenericContainer<?> container;
+    public static MessagingLocalContainerService<ArtemisContainer> createLocalService() {
+        ArtemisContainer artemisContainer = new ArtemisContainer();
+
+        artemisContainer.withCreateContainerCmdModifier( c -> c.getHostConfig()
+                .withUlimits(Arrays.asList(new Ulimit("nofile", 5000L, 5000L))));
+
+        return new MessagingLocalContainerService<>(artemisContainer, c -> c.defaultEndpoint());
+    }
 
     @Override
     public Map<String, String> start() {
-        LOGGER.info(TestcontainersConfiguration.getInstance().toString());
-
         try {
-            container = new GenericContainer<>(ACTIVEMQ_IMAGE)
-                .withExposedPorts(TCP_PORT)
-                .withLogConsumer(new Slf4jLogConsumer(LOGGER))
-                .waitingFor(Wait.forListeningPort());
+            System.out.println("Starting ...");
+            messagingService.initialize();
 
-            container.start();
+            System.out.println("Using endpoint: " + messagingService.defaultEndpoint());
 
             return Map.of(
-                "amqBrokerUrl", String.format("tcp://%s:%d", container.getContainerIpAddress(), container.getMappedPort(TCP_PORT)),
+                "amqBrokerUrl", messagingService.defaultEndpoint(),
                 "amqQueueName", "my-queue"
             );
         } catch (Exception e) {
@@ -58,13 +66,7 @@ public class KameletReifyTestResource implements QuarkusTestResourceLifecycleMan
 
     @Override
     public void stop() {
-        try {
-            if (container != null) {
-                container.stop();
-            }
-        } catch (Exception e) {
-            // ignored
-        }
+
     }
 }
 
