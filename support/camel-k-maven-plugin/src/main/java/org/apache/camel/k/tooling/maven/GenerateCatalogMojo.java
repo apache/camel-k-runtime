@@ -22,7 +22,10 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Locale;
 import java.util.ServiceLoader;
 import java.util.stream.StreamSupport;
@@ -68,6 +71,9 @@ public class GenerateCatalogMojo extends AbstractMojo {
 
     @Parameter(property = "catalog.file", defaultValue = "camel-catalog-${runtime.version}.yaml")
     private String outputFile;
+
+    @Parameter(property = "exclusion.list")
+    private String exclusionList;
 
     // ********************
     //
@@ -148,10 +154,12 @@ public class GenerateCatalogMojo extends AbstractMojo {
             CamelCatalogSpec.Builder catalogSpec = new CamelCatalogSpec.Builder()
                 .runtime(runtimeSpec.build());
 
+            List<String> exclusions = createExclusionList();
+
             StreamSupport.stream(ServiceLoader.load(CatalogProcessor.class).spliterator(), false)
                 .sorted(Comparator.comparingInt(CatalogProcessor::getOrder))
                 .filter(p -> p.accepts(catalog))
-                .forEach(p -> p.process(project, catalog, catalogSpec));
+                .forEach(p -> p.process(project, catalog, catalogSpec, exclusions));
 
             ObjectMeta.Builder metadata = new ObjectMeta.Builder()
                 .name(catalogName)
@@ -207,5 +215,13 @@ public class GenerateCatalogMojo extends AbstractMojo {
         } catch (IOException e) {
             throw new MojoExecutionException("Exception while generating catalog", e);
         }
+    }
+
+    private List<String> createExclusionList() {
+        if (exclusionList != null) {
+            return Arrays.asList(exclusionList.split(","));
+        }
+
+        return Collections.emptyList();
     }
 }
