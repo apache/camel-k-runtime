@@ -72,8 +72,8 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-loader-yaml-impl</artifactId>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-yaml-dsl</artifactId>
             <scope>test</scope>
         </dependency>
 
