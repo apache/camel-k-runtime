@@ -26,6 +26,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import org.apache.camel.util.IOHelper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -33,14 +34,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisabledOnNativeImage
 @QuarkusTest
 public class GroovyLoaderTest {
-    @Test
-    public void testLoadRoutes() throws IOException {
-        String code;
+    String code;
 
+    @BeforeEach
+    public void setUpRoute() throws IOException {
         try (InputStream is = GroovyLoaderTest.class.getResourceAsStream("/routes.groovy")) {
             code = IOHelper.loadText(is);
         }
+    }
 
+    @Test
+    public void testLoadRoutes() throws IOException {
         JsonPath p = RestAssured.given()
             .contentType(MediaType.TEXT_PLAIN)
             .accept(MediaType.APPLICATION_JSON)
