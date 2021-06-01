@@ -25,9 +25,9 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.dsl.yaml.YamlRoutesBuilderLoader;
+import org.apache.camel.dsl.yaml.deserializers.CustomResolver;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.k.Runtime;
-import org.apache.camel.k.loader.yaml.YamlSourceLoaderDeserializerResolver;
 import org.apache.camel.support.LifecycleStrategySupport;
 import org.apache.camel.support.ResourceHelper;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -41,7 +41,7 @@ public class CronTest {
     @MethodSource("parameters")
     public void testCronTimerActivation(String code, String cronOverride) throws Exception {
         final Runtime runtime = Runtime.on(new DefaultCamelContext());
-        runtime.getRegistry().bind("__camel_k_resolver", new YamlSourceLoaderDeserializerResolver());
+        runtime.getRegistry().bind("__camel_k_resolver", new CustomResolver());
 
         final YamlRoutesBuilderLoader loader = new YamlRoutesBuilderLoader();
         loader.setCamelContext(runtime.getCamelContext());
