@@ -23,11 +23,10 @@ import com.github.dockerjava.api.model.Ulimit;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.test.infra.artemis.services.ArtemisContainer;
 import org.apache.camel.test.infra.messaging.services.MessagingLocalContainerService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import org.apache.camel.test.infra.messaging.services.MessagingService;
 import org.apache.camel.test.infra.messaging.services.MessagingServiceFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class KameletReifyTestResource implements QuarkusTestResourceLifecycleManager {
