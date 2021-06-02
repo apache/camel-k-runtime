@@ -45,11 +45,12 @@
             <artifactId>camel-k-knative-consumer</artifactId>
         </dependency>
 
-        <!-- camel quarkus -->
         <dependency>
-            <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-loader-yaml</artifactId>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-yaml-dsl</artifactId>
         </dependency>
+
+        <!-- camel quarkus -->
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-direct</artifactId>
@@ -102,19 +103,6 @@
         <dependency>
             <groupId>org.apache.camel.k</groupId>
             <artifactId>camel-k-knative</artifactId>
-            <version>${project.version}</version>
-            <type>pom</type>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>*</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-loader-yaml</artifactId>
             <version>${project.version}</version>
             <type>pom</type>
             <scope>test</scope>
