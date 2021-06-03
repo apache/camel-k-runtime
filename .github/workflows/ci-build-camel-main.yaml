@@ -59,7 +59,7 @@ jobs:
         path: ~/.m2
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
-#  For the time being (Camel 3.10 + Camel Quarkus 1.9) we remain aligned to Camel 3.10
+#  For the time being (Camel 3.10 + Camel Quarkus 2.0) we remain aligned to Camel 3.10
 #  because that's what Camel Quarkus depends on. After that, we can re-enable this.
 #  See: https://github.com/apache/camel-k-runtime/issues/669
 #    - name: Build camel (main)
@@ -68,11 +68,13 @@ jobs:
 #          && cd camel \
 #          && echo "Current Camel commit:" $(git rev-parse HEAD) \
 #          && ./mvnw ${MAVEN_ARGS} clean install -Pfastinstall
-    - name: Build camel-quarkus (main)
-      run: |
-        git clone --depth 1 --branch main https://github.com/apache/camel-quarkus.git \
-          && cd camel-quarkus \
-          && echo "Current Camel Quarkus commit:" $(git rev-parse HEAD) \
-          && ./mvnw ${MAVEN_ARGS} clean install -Dquickly
+# We are currently building with Quarkus Snapshots from Apache repos, which is why this
+# this temporarily disabled
+#    - name: Build camel-quarkus (main)
+#      run: |
+#        git clone --depth 1 --branch main https://github.com/apache/camel-quarkus.git \
+#          && cd camel-quarkus \
+#          && echo "Current Camel Quarkus commit:" $(git rev-parse HEAD) \
+#          && ./mvnw ${MAVEN_ARGS} clean install -Dquickly
     - name: Build camel-k-runtime
       run: ./mvnw ${MAVEN_ARGS} -Dcheckstyle.failOnViolation=true -Psourcecheck clean verify
