@@ -73,6 +73,19 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-ext-jdk15on</artifactId>
+            <version>${bouncycastle-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcpkix-jdk15on</artifactId>
+            <version>${bouncycastle-version}</version>
+        </dependency>
+
+
+
         <!-- The following dependencies guarantee that this module is built after them.  -->
         <dependency>
             <groupId>org.apache.camel.k</groupId>
