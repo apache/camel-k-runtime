@@ -649,16 +649,6 @@
                 <artifactId>camel-k-loader-yaml-impl</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-loader-groovy</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-loader-groovy-deployment</artifactId>
-                <version>${project.version}</version>
-            </dependency>
 
             <!-- itests -->
             <dependency>

@@ -159,7 +159,7 @@ public class CatalogProcessor3x implements CatalogProcessor {
         );
         specBuilder.putLoader(
             "groovy",
-            CamelLoader.fromArtifact("org.apache.camel.k", "camel-k-loader-groovy")
+            CamelLoader.fromArtifact("org.apache.camel.quarkus", "camel-quarkus-groovy-dsl")
                 .addLanguage("groovy")
                 .putMetadata("native", "false")
                 .build()
