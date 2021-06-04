@@ -9,6 +9,7 @@
 - Re-enable YamlSourceLoaderTest [\#687](https://github.com/apache/camel-k-runtime/issues/687)
 - Support for simple, linear integration definitions [\#659](https://github.com/apache/camel-k-runtime/issues/659)
 - Optional parameters in Kamelet route templates [\#631](https://github.com/apache/camel-k-runtime/issues/631)
+- Duplicated loadUserProperties\(\) method call [\#625](https://github.com/apache/camel-k-runtime/issues/625)
 - Assess integration container resources layout changes impacts [\#614](https://github.com/apache/camel-k-runtime/issues/614)
 - Remove changelog gh action [\#582](https://github.com/apache/camel-k-runtime/issues/582)
 - yaml dsl: add support for component dsl [\#507](https://github.com/apache/camel-k-runtime/issues/507)
