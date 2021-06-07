@@ -16,5 +16,6 @@
 #
 
 org.apache.camel.k.listener.ContextConfigurer
+org.apache.camel.k.listener.YamlConfigurer
 org.apache.camel.k.listener.SourcesConfigurer
 org.apache.camel.k.listener.PropertiesConfigurer
