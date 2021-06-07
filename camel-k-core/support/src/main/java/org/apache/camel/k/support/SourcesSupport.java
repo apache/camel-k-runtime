@@ -16,14 +16,12 @@
  */
 package org.apache.camel.k.support;
 
-import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.List;
 
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.RuntimeCamelException;
-import org.apache.camel.builder.ErrorHandlerBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.builder.RouteBuilderLifecycleStrategy;
 import org.apache.camel.k.Runtime;
@@ -174,16 +172,7 @@ public final class SourcesSupport {
     }
 
     static boolean hasErrorHandlerBuilder(RouteBuilder builder) {
-        //return builder.hasErrorHandlerBuilder();
-        // TODO We need to replace the following workaround with the statement above once we switch to camel-3.10.0 or above
-        try {
-            Field f = RouteBuilder.class.getSuperclass().getDeclaredField("errorHandlerBuilder");
-            f.setAccessible(true);
-            ErrorHandlerBuilder privateErrorHandlerBuilder = (ErrorHandlerBuilder) f.get(builder);
-            return privateErrorHandlerBuilder != null;
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Something went wrong while checking the error handler builder", e);
-        }
+        return builder.hasErrorHandlerBuilder();
     }
 
     public static void loadErrorHandlerSource(Runtime runtime, SourceDefinition errorHandlerSourceDefinition) {
