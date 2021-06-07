@@ -46,6 +46,7 @@ public class Application {
     @GET
     @Path("/inspect")
     @Produces(MediaType.APPLICATION_JSON)
+    @SuppressWarnings("unchecked")
     public JsonObject inspect() {
         return Json.createObjectBuilder()
             .add(
@@ -57,6 +58,14 @@ public class Application {
             .add(
                 "routes-collector",
                 instance(CamelMain.class).map(BaseMainSupport::getRoutesCollector).map(Object::getClass).map(Class::getName).orElse(""))
+            .add(
+                "global-options",
+                Json.createObjectBuilder(
+                    (Map)instance(CamelMain.class)
+                        .map(BaseMainSupport::getCamelContext)
+                        .map(CamelContext::getGlobalOptions)
+                        .orElseGet(Collections::emptyMap))
+                    .build())
             .build();
     }
 
