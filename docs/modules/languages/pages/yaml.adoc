@@ -1,10 +1,5 @@
 = Writing Integrations in YAML
 
-[WARNING]
-====
-The YAML DSL is current in preview support level.
-====
-
 == Defining a route
 
 A route is collection of elements defined as follows:
