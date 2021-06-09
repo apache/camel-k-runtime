@@ -36,6 +36,7 @@
         <module>js</module>
         <module>yaml</module>
         <module>kamelets</module>
+        <module>kamelets-discovery</module>
         <module>knative</module>
         <module>kotlin</module>
         <module>groovy</module>

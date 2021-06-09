@@ -50,5 +50,7 @@ public class YamlConfigurer extends AbstractPhaseListener {
             true);
 
         runtime.getCamelContext().getGlobalOptions().put("CamelYamlDslDeserializationMode", getDeserializationMode());
+
+        LOGGER.info("CamelYamlDslDeserializationMode : {}", runtime.getCamelContext().getGlobalOption("CamelYamlDslDeserializationMode"));
     }
 }
