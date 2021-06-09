@@ -20,6 +20,7 @@
 
 **Merged pull requests:**
 
+- Remove preview flag from YAML docs [\#710](https://github.com/apache/camel-k-runtime/pull/710) ([heiko-braun](https://github.com/heiko-braun))
 - build\(deps\): bump maven-javadoc-plugin from 3.2.0 to 3.3.0 [\#680](https://github.com/apache/camel-k-runtime/pull/680) ([dependabot[bot]](https://github.com/apps/dependabot))
 - GH action fixes [\#674](https://github.com/apache/camel-k-runtime/pull/674) ([orpiske](https://github.com/orpiske))
 - Enable GH actions on camel-main branch [\#671](https://github.com/apache/camel-k-runtime/pull/671) ([orpiske](https://github.com/orpiske))
