@@ -9,6 +9,7 @@
 - Flaky test: KnativeEnvFromRegistryTest [\#704](https://github.com/apache/camel-k-runtime/issues/704)
 - Re-enable YamlSourceLoaderTest [\#687](https://github.com/apache/camel-k-runtime/issues/687)
 - Support for simple, linear integration definitions [\#659](https://github.com/apache/camel-k-runtime/issues/659)
+- SourceType should not be null [\#658](https://github.com/apache/camel-k-runtime/issues/658)
 - Optional parameters in Kamelet route templates [\#631](https://github.com/apache/camel-k-runtime/issues/631)
 - Duplicated loadUserProperties\(\) method call [\#625](https://github.com/apache/camel-k-runtime/issues/625)
 - Assess integration container resources layout changes impacts [\#614](https://github.com/apache/camel-k-runtime/issues/614)
@@ -21,6 +22,8 @@
 **Merged pull requests:**
 
 - Remove preview flag from YAML docs [\#710](https://github.com/apache/camel-k-runtime/pull/710) ([heiko-braun](https://github.com/heiko-braun))
+- build\(deps\): bump jandex-maven-plugin from 1.0.8 to 1.1.0 [\#699](https://github.com/apache/camel-k-runtime/pull/699) ([dependabot[bot]](https://github.com/apps/dependabot))
+- fix\(core\): default SourceType as source [\#685](https://github.com/apache/camel-k-runtime/pull/685) ([squakez](https://github.com/squakez))
 - build\(deps\): bump maven-javadoc-plugin from 3.2.0 to 3.3.0 [\#680](https://github.com/apache/camel-k-runtime/pull/680) ([dependabot[bot]](https://github.com/apps/dependabot))
 - GH action fixes [\#674](https://github.com/apache/camel-k-runtime/pull/674) ([orpiske](https://github.com/orpiske))
 - Enable GH actions on camel-main branch [\#671](https://github.com/apache/camel-k-runtime/pull/671) ([orpiske](https://github.com/orpiske))
