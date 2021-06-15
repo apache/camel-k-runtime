@@ -63,9 +63,7 @@ public class Application {
     @POST
     @Path("/load")
     public Response load(String code) {
-        final YamlRoutesBuilderLoader loader = new YamlRoutesBuilderLoader();
-
-        try {
+        try (YamlRoutesBuilderLoader loader = new YamlRoutesBuilderLoader()) {
             runtime.getCamelContext().addRoutes(
                 loader.loadRoutesBuilder(ResourceHelper.fromBytes("my-webhook.yaml", code.getBytes(StandardCharsets.UTF_8)))
             );

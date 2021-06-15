@@ -25,6 +25,7 @@ import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
+import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -80,13 +81,15 @@ public class RuntimeInspector {
     @GET
     @Path("/registry/beans/{name}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String bean(@PathParam("name") String name) {
+    public String bean(@PathParam("name") String name) throws Exception {
         Object bean = camelContext.getRegistry().lookupByName(name);
         if (bean == null) {
             throw new IllegalArgumentException("Bean with name: " + name + " not found");
         }
 
-        return JsonbBuilder.create().toJson(bean);
+        try (Jsonb jsonb =  JsonbBuilder.create()) {
+            return jsonb.toJson(bean);
+        }
     }
 
     @GET
