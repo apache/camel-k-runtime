@@ -49,7 +49,7 @@ public class SourceConfigurerTest {
                 k -> k.startsWith(SourcesConfigurer.CAMEL_K_SOURCES_PREFIX),
                 SourcesConfigurer.CAMEL_K_PREFIX);
 
-        assertThat(configuration.getSources().length).isEqualTo(3);
+        assertThat(configuration.getSources()).hasSize(3);
     }
 
     @Test
@@ -75,7 +75,7 @@ public class SourceConfigurerTest {
                 k -> k.startsWith(SourcesConfigurer.CAMEL_K_SOURCES_PREFIX),
                 SourcesConfigurer.CAMEL_K_PREFIX);
 
-        assertThat(configuration.getSources().length).isEqualTo(3);
+        assertThat(configuration.getSources()).hasSize(3);
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             SourcesConfigurer.checkUniqueErrorHandler(configuration.getSources());
         }, "java.lang.IllegalArgumentException: Expected only one error handler source type, got 2");
@@ -127,7 +127,7 @@ public class SourceConfigurerTest {
                 SourcesConfigurer.CAMEL_K_PREFIX);
         SourcesConfigurer.sortSources(configuration.getSources());
 
-        assertThat(configuration.getSources().length).isEqualTo(4);
+        assertThat(configuration.getSources()).hasSize(4);
         assertThat(configuration.getSources()[0].getName()).isEqualTo("errorHandler1");
         assertThat(configuration.getSources()[0].getType()).isEqualTo(SourceType.errorHandler);
         assertThat(configuration.getSources()[1].getName()).isEqualTo("template1");
