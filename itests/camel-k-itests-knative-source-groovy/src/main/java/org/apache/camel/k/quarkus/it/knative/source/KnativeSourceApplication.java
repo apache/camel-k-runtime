@@ -16,6 +16,7 @@
  */
 package org.apache.camel.k.quarkus.it.knative.source;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -36,6 +37,7 @@ import javax.ws.rs.core.Response;
 
 import io.quarkus.arc.Unremovable;
 import org.apache.camel.CamelContext;
+import org.apache.camel.FluentProducerTemplate;
 import org.apache.camel.component.knative.spi.Knative;
 import org.apache.camel.component.knative.spi.KnativeEnvironment;
 import org.apache.camel.model.ModelCamelContext;
@@ -79,11 +81,12 @@ public class KnativeSourceApplication {
     @POST
     @Path("/send")
     @Produces(MediaType.TEXT_PLAIN)
-    public void send(String data) {
-        context.createFluentProducerTemplate()
-            .to("direct:start")
-            .withHeader("MyHeader", data)
-            .send();
+    public void send(String data) throws IOException {
+        try (FluentProducerTemplate template = context.createFluentProducerTemplate()){
+            template.to("direct:start")
+                    .withHeader("MyHeader", data)
+                    .send();
+        }
     }
 
     @GET
