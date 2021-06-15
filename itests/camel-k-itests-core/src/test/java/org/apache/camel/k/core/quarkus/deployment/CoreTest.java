@@ -18,17 +18,14 @@ package org.apache.camel.k.core.quarkus.deployment;
 
 import javax.ws.rs.core.MediaType;
 
-import io.quarkus.test.junit.DisabledOnNativeImage;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
-import org.apache.camel.k.CompositeClassloader;
 import org.apache.camel.k.listener.ContextConfigurer;
 import org.apache.camel.k.listener.SourcesConfigurer;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 public class CoreTest {

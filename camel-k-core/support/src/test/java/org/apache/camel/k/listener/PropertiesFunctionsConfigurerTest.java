@@ -16,6 +16,7 @@
  */
 package org.apache.camel.k.listener;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.k.Runtime;
 import org.junit.jupiter.api.Test;
@@ -35,14 +36,17 @@ public class PropertiesFunctionsConfigurerTest {
             .isEqualTo("my-secret-property");
         assertThat(runtime.getCamelContext().resolvePropertyPlaceholders("{{secret:none/my-property:my-default-secret}}"))
             .isEqualTo("my-default-secret");
-        assertThatThrownBy(() -> runtime.getCamelContext().resolvePropertyPlaceholders("{{secret:none/my-property}}"))
+        CamelContext context = runtime.getCamelContext();
+
+        assertThatThrownBy(() -> context.resolvePropertyPlaceholders("{{secret:none/my-property}}"))
             .isInstanceOf(IllegalArgumentException.class)
             .hasMessageContaining("returned null value which is not allowed, from input");
 
         assertThat(runtime.getCamelContext().resolvePropertyPlaceholders("{{configmap:my-cm/my-property}}")).isEqualTo("my-cm-property");
         assertThat(runtime.getCamelContext().resolvePropertyPlaceholders("{{configmap:my-cm/my-property:my-default-cm}}"))
             .isEqualTo("my-default-cm");
-        assertThatThrownBy(() -> runtime.getCamelContext().resolvePropertyPlaceholders("{{configmap:none/my-property}}"))
+
+        assertThatThrownBy(() -> context.resolvePropertyPlaceholders("{{configmap:none/my-property}}"))
             .isInstanceOf(IllegalArgumentException.class)
             .hasMessageContaining("returned null value which is not allowed, from input");
 

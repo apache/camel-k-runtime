@@ -44,7 +44,7 @@ public class RuntimeSupportTest {
         List<ContextCustomizer> customizers = RuntimeSupport.configureContextCustomizers(context);
         assertThat(context.getName()).isNotEqualTo("from-registry");
         assertThat(context.getName()).isNotEqualTo("default");
-        assertThat(customizers).hasSize(0);
+        assertThat(customizers).isEmpty();
 
         Properties properties = new Properties();
         properties.setProperty("camel.k.customizer.name.enabled", "true");
@@ -65,7 +65,7 @@ public class RuntimeSupportTest {
         List<ContextCustomizer> customizers = RuntimeSupport.configureContextCustomizers(context);
         assertThat(context.getName()).isNotEqualTo("from-registry");
         assertThat(context.getName()).isNotEqualTo("default");
-        assertThat(customizers).hasSize(0);
+        assertThat(customizers).isEmpty();
 
         Properties properties = new Properties();
         properties.setProperty(Constants.PROPERTY_CAMEL_K_CUSTOMIZER, "name");
@@ -85,7 +85,7 @@ public class RuntimeSupportTest {
         assertThat(context.getName()).isNotEqualTo("from-registry");
         assertThat(context.getName()).isNotEqualTo("default");
         assertThat(context.isLoadTypeConverters()).isFalse();
-        assertThat(customizers).hasSize(0);
+        assertThat(customizers).isEmpty();
 
         Properties properties = new Properties();
         properties.setProperty("camel.k.customizer.name.enabled", "true");
@@ -113,7 +113,7 @@ public class RuntimeSupportTest {
         assertThat(context.getName()).isNotEqualTo("from-registry");
         assertThat(context.getName()).isNotEqualTo("default");
         assertThat(context.isLoadTypeConverters()).isFalse();
-        assertThat(customizers).hasSize(0);
+        assertThat(customizers).isEmpty();
 
         Properties properties = new Properties();
         properties.setProperty("customizer.name.enabled", "true");
