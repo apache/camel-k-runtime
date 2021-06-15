@@ -78,7 +78,7 @@ public class CronTest {
         mock.assertIsSatisfied();
 
         termination.await(10, TimeUnit.SECONDS);
-        assertThat(termination.getCount()).isEqualTo(0);
+        assertThat(termination.getCount()).isZero();
     }
 
     static Stream<Arguments> parameters() {
