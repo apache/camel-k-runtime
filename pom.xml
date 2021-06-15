@@ -367,17 +367,6 @@
 
     <repositories>
         <repository>
-            <id>apache.staging-camel-quarkus</id>
-            <url>https://repository.apache.org/content/repositories/orgapachecamel-1325</url>
-            <name>Apache Snapshot Repo</name>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
-        <repository>
             <id>apache.snapshots</id>
             <url>https://repository.apache.org/snapshots/</url>
             <name>Apache Snapshot Repo</name>
@@ -391,17 +380,6 @@
     </repositories>
 
     <pluginRepositories>
-        <pluginRepository>
-            <id>apache.staging-camel-quarkus</id>
-            <url>https://repository.apache.org/content/repositories/orgapachecamel-1325</url>
-            <name>Apache Snapshot Repo</name>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </pluginRepository>
         <pluginRepository>
             <id>apache.snapshots</id>
             <url>https://repository.apache.org/snapshots/</url>
