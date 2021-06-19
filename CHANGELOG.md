@@ -10,6 +10,7 @@
 - Re-enable YamlSourceLoaderTest [\#687](https://github.com/apache/camel-k-runtime/issues/687)
 - Support for simple, linear integration definitions [\#659](https://github.com/apache/camel-k-runtime/issues/659)
 - SourceType should not be null [\#658](https://github.com/apache/camel-k-runtime/issues/658)
+- Remove RouteBuilder workaround when moving to Camel 3.10 onward [\#657](https://github.com/apache/camel-k-runtime/issues/657)
 - Optional parameters in Kamelet route templates [\#631](https://github.com/apache/camel-k-runtime/issues/631)
 - Duplicated loadUserProperties\(\) method call [\#625](https://github.com/apache/camel-k-runtime/issues/625)
 - Assess integration container resources layout changes impacts [\#614](https://github.com/apache/camel-k-runtime/issues/614)
@@ -21,6 +22,7 @@
 
 **Merged pull requests:**
 
+- Merge Camel-3.10 and Camel Quarkus 2.x changes [\#720](https://github.com/apache/camel-k-runtime/pull/720) ([orpiske](https://github.com/orpiske))
 - Remove preview flag from YAML docs [\#710](https://github.com/apache/camel-k-runtime/pull/710) ([heiko-braun](https://github.com/heiko-braun))
 - build\(deps\): bump jandex-maven-plugin from 1.0.8 to 1.1.0 [\#699](https://github.com/apache/camel-k-runtime/pull/699) ([dependabot[bot]](https://github.com/apps/dependabot))
 - fix\(core\): default SourceType as source [\#685](https://github.com/apache/camel-k-runtime/pull/685) ([squakez](https://github.com/squakez))
