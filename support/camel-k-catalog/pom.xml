@@ -26,10 +26,6 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>camel-k-catalog</artifactId>
 
-    <properties>
-        <exclusion.list>qute</exclusion.list>
-    </properties>
-
     <build>
         <defaultGoal>generate-resources</defaultGoal>
         <plugins>
