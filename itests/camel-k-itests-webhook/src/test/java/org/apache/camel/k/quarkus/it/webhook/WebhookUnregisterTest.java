@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.QuarkusTestProfile;
 import io.quarkus.test.junit.TestProfile;
-import org.apache.camel.k.webhook.WebhookAction;
+import org.apache.camel.component.webhook.WebhookAction;
 import org.assertj.core.util.Strings;
 import org.junit.jupiter.api.Test;
 

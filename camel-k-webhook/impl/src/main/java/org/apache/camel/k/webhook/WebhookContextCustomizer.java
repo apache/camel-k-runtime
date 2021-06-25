@@ -17,6 +17,8 @@
 package org.apache.camel.k.webhook;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.component.webhook.WebhookAction;
+import org.apache.camel.component.webhook.WebhookRoutePolicyFactory;
 import org.apache.camel.k.ContextCustomizer;
 import org.apache.camel.k.annotation.Customizer;
 import org.apache.camel.spi.Configurer;
