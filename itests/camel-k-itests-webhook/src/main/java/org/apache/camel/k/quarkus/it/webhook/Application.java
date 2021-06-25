@@ -35,9 +35,9 @@ import javax.ws.rs.core.Response;
 
 import io.quarkus.arc.Unremovable;
 import org.apache.camel.CamelContext;
+import org.apache.camel.component.webhook.WebhookAction;
 import org.apache.camel.dsl.yaml.YamlRoutesBuilderLoader;
 import org.apache.camel.k.quarkus.it.webhook.support.DummyWebhookComponent;
-import org.apache.camel.k.webhook.WebhookAction;
 import org.apache.camel.quarkus.core.CamelRuntime;
 import org.apache.camel.support.ResourceHelper;
 

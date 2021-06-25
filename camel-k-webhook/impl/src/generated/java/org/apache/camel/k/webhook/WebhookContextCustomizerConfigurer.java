@@ -22,7 +22,7 @@ public class WebhookContextCustomizerConfigurer extends org.apache.camel.support
         org.apache.camel.k.webhook.WebhookContextCustomizer target = (org.apache.camel.k.webhook.WebhookContextCustomizer) obj;
         switch (ignoreCase ? name.toLowerCase() : name) {
         case "action":
-        case "Action": target.setAction(property(camelContext, org.apache.camel.k.webhook.WebhookAction.class, value)); return true;
+        case "Action": target.setAction(property(camelContext, org.apache.camel.component.webhook.WebhookAction.class, value)); return true;
         default: return false;
         }
     }
@@ -31,7 +31,7 @@ public class WebhookContextCustomizerConfigurer extends org.apache.camel.support
     public Class<?> getOptionType(String name, boolean ignoreCase) {
         switch (ignoreCase ? name.toLowerCase() : name) {
         case "action":
-        case "Action": return org.apache.camel.k.webhook.WebhookAction.class;
+        case "Action": return org.apache.camel.component.webhook.WebhookAction.class;
         default: return null;
         }
     }
