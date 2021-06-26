@@ -8,9 +8,15 @@
 
 - Flaky test: KnativeEnvFromRegistryTest [\#704](https://github.com/apache/camel-k-runtime/issues/704)
 - Re-enable YamlSourceLoaderTest [\#687](https://github.com/apache/camel-k-runtime/issues/687)
+- Remove camel-k-loader-yaml when upgradeing to camel 3.10 [\#679](https://github.com/apache/camel-k-runtime/issues/679)
+- Remove camel-k-loader-groovy when upgradeing to camel 3.10 [\#678](https://github.com/apache/camel-k-runtime/issues/678)
+- Missing Java type information causes camel-main build to fail [\#677](https://github.com/apache/camel-k-runtime/issues/677)
+- Update runtime to Camel 3.10 and Camel Quarkus 2.x [\#669](https://github.com/apache/camel-k-runtime/issues/669)
+- Remove camel-kamelet-reify when upgrading to Camel 3.10 [\#667](https://github.com/apache/camel-k-runtime/issues/667)
 - Support for simple, linear integration definitions [\#659](https://github.com/apache/camel-k-runtime/issues/659)
 - SourceType should not be null [\#658](https://github.com/apache/camel-k-runtime/issues/658)
 - Remove RouteBuilder workaround when moving to Camel 3.10 onward [\#657](https://github.com/apache/camel-k-runtime/issues/657)
+- Move WebhookRoutePolicyFactory to camel main [\#645](https://github.com/apache/camel-k-runtime/issues/645)
 - Optional parameters in Kamelet route templates [\#631](https://github.com/apache/camel-k-runtime/issues/631)
 - Duplicated loadUserProperties\(\) method call [\#625](https://github.com/apache/camel-k-runtime/issues/625)
 - Assess integration container resources layout changes impacts [\#614](https://github.com/apache/camel-k-runtime/issues/614)
@@ -22,6 +28,8 @@
 
 **Merged pull requests:**
 
+- Remove duplicated WebhookRoutePolicyFactory \(gh issue \#645\) [\#722](https://github.com/apache/camel-k-runtime/pull/722) ([orpiske](https://github.com/orpiske))
+- Reintroduces Qute component [\#721](https://github.com/apache/camel-k-runtime/pull/721) ([orpiske](https://github.com/orpiske))
 - Merge Camel-3.10 and Camel Quarkus 2.x changes [\#720](https://github.com/apache/camel-k-runtime/pull/720) ([orpiske](https://github.com/orpiske))
 - Remove preview flag from YAML docs [\#710](https://github.com/apache/camel-k-runtime/pull/710) ([heiko-braun](https://github.com/heiko-braun))
 - build\(deps\): bump jandex-maven-plugin from 1.0.8 to 1.1.0 [\#699](https://github.com/apache/camel-k-runtime/pull/699) ([dependabot[bot]](https://github.com/apps/dependabot))
