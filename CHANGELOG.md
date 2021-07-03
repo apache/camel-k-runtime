@@ -1,8 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/apache/camel-k-runtime/tree/HEAD)
+## [camel-k-runtime-project-1.8.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.8.0) (2021-07-02)
 
-[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.7.0...HEAD)
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.7.0...camel-k-runtime-project-1.8.0)
 
 **Closed issues:**
 
@@ -28,6 +28,7 @@
 
 **Merged pull requests:**
 
+- Upgrade to camel-quarkus 2.0.0 and camel 3.11.0 [\#723](https://github.com/apache/camel-k-runtime/pull/723) ([nicolaferraro](https://github.com/nicolaferraro))
 - Remove duplicated WebhookRoutePolicyFactory \(gh issue \#645\) [\#722](https://github.com/apache/camel-k-runtime/pull/722) ([orpiske](https://github.com/orpiske))
 - Reintroduces Qute component [\#721](https://github.com/apache/camel-k-runtime/pull/721) ([orpiske](https://github.com/orpiske))
 - Merge Camel-3.10 and Camel Quarkus 2.x changes [\#720](https://github.com/apache/camel-k-runtime/pull/720) ([orpiske](https://github.com/orpiske))
