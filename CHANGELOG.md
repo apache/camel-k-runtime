@@ -1,5 +1,14 @@
 # Changelog
 
+## [Unreleased](https://github.com/apache/camel-k-runtime/tree/HEAD)
+
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.8.0...HEAD)
+
+**Merged pull requests:**
+
+- deps: update camel-quarkus to v2.1.0 [\#728](https://github.com/apache/camel-k-runtime/pull/728) ([lburgazzoli](https://github.com/lburgazzoli))
+- build\(deps\): bump maven-enforcer-plugin from 3.0.0-M3 to 3.0.0 [\#727](https://github.com/apache/camel-k-runtime/pull/727) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [camel-k-runtime-project-1.8.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.8.0) (2021-07-02)
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.7.0...camel-k-runtime-project-1.8.0)
