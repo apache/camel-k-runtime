@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.apache</groupId>
         <artifactId>apache</artifactId>
-        <version>23</version>
+        <version>24</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -33,6 +33,9 @@
 
     <properties>
         <camel-version>3.11.0</camel-version>
+        
+        <!-- reproduceable builds: https://maven.apache.org/guides/mini/guide-reproducible-builds.html -->
+        <project.build.outputTimestamp>1</project.build.outputTimestamp>
     </properties>
 
     <developers>
