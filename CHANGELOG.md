@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump apache from 23 to 24 [\#729](https://github.com/apache/camel-k-runtime/pull/729) ([lburgazzoli](https://github.com/lburgazzoli))
 - deps: update camel-quarkus to v2.1.0 [\#728](https://github.com/apache/camel-k-runtime/pull/728) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps\): bump maven-enforcer-plugin from 3.0.0-M3 to 3.0.0 [\#727](https://github.com/apache/camel-k-runtime/pull/727) ([dependabot[bot]](https://github.com/apps/dependabot))
 
