@@ -31,24 +31,29 @@
         <dependency>
             <groupId>org.apache.camel.k</groupId>
             <artifactId>camel-k-loader-jsh</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
             <artifactId>camel-k-itests-loader-inspector</artifactId>
+            <scope>test</scope>
         </dependency>
 
         <!-- camel quarkus -->
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-direct</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-log</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-bean</artifactId>
+            <scope>test</scope>
         </dependency>
 
         <!-- test dependencies -->
