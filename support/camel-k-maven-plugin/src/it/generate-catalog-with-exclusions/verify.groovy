@@ -14,31 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.k.tooling.maven.support;
 
-import java.util.List;
+new File(basedir, "catalog.yaml").withReader {
+    def catalog = new groovy.yaml.YamlSlurper().parse(it)
 
-import org.apache.camel.catalog.CamelCatalog;
-import org.apache.camel.k.catalog.model.k8s.crd.CamelCatalogSpec;
-import org.apache.maven.project.MavenProject;
+    assert catalog.spec.loaders['jsh'] == null
+    assert catalog.spec.loaders['kts'] == null
+    assert catalog.spec.loaders['js'] == null
+    assert catalog.spec.loaders['groovy'] == null
 
-public interface CatalogProcessor {
-    /**
-     * The highest precedence
-     */
-    int HIGHEST = Integer.MIN_VALUE;
+    assert catalog.spec.loaders['java'] != null
+    assert catalog.spec.loaders['xml'] != null
+    assert catalog.spec.loaders['yaml'] != null
 
-    /**
-     * The lowest precedence
-     */
-    int LOWEST = Integer.MAX_VALUE;
+    assert catalog.spec.artifacts['camel-quarkus-jackson-avro'] == null
+    assert catalog.spec.artifacts['camel-quarkus-csimple'] == null
+    assert catalog.spec.artifacts['camel-quarkus-disruptor'] == null
 
-    boolean accepts(CamelCatalog catalog);
-
-    void process(MavenProject project, CamelCatalog catalog, CamelCatalogSpec.Builder specBuilder,
-                 List<String> exclusions);
-
-    default int getOrder() {
-        return LOWEST;
-    }
+    assert catalog.spec.runtime.capabilities['master'] == null
+    assert catalog.spec.artifacts['camel-k-master'] == null
 }

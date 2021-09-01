@@ -23,12 +23,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
-import java.util.ServiceLoader;
-import java.util.stream.StreamSupport;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,14 +39,23 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import org.apache.camel.catalog.DefaultCamelCatalog;
 import org.apache.camel.catalog.quarkus.QuarkusRuntimeProvider;
 import org.apache.camel.impl.engine.AbstractCamelContext;
+import org.apache.camel.k.catalog.model.CamelArtifact;
 import org.apache.camel.k.catalog.model.CamelCapability;
+import org.apache.camel.k.catalog.model.CamelLoader;
+import org.apache.camel.k.catalog.model.CamelScheme;
+import org.apache.camel.k.catalog.model.CamelScopedArtifact;
+import org.apache.camel.k.catalog.model.CatalogComponentDefinition;
+import org.apache.camel.k.catalog.model.CatalogDataFormatDefinition;
+import org.apache.camel.k.catalog.model.CatalogDefinition;
+import org.apache.camel.k.catalog.model.CatalogLanguageDefinition;
+import org.apache.camel.k.catalog.model.CatalogSupport;
 import org.apache.camel.k.catalog.model.k8s.ObjectMeta;
 import org.apache.camel.k.catalog.model.k8s.crd.CamelCatalog;
 import org.apache.camel.k.catalog.model.k8s.crd.CamelCatalogSpec;
 import org.apache.camel.k.catalog.model.k8s.crd.RuntimeSpec;
-import org.apache.camel.k.tooling.maven.support.CatalogProcessor;
 import org.apache.camel.k.tooling.maven.support.MavenSupport;
 import org.apache.camel.quarkus.core.FastCamelContext;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -53,7 +63,6 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
-import org.apache.maven.project.MavenProject;
 
 @Mojo(
     name = "generate-catalog",
@@ -62,9 +71,46 @@ import org.apache.maven.project.MavenProject;
     requiresDependencyResolution = ResolutionScope.COMPILE_PLUS_RUNTIME,
     requiresDependencyCollection = ResolutionScope.COMPILE_PLUS_RUNTIME)
 public class GenerateCatalogMojo extends AbstractMojo {
+    private static final List<String> KNOWN_HTTP_URIS = Arrays.asList(
+        "ahc",
+        "ahc-ws",
+        "atmosphere-websocket",
+        "cxf",
+        "cxfrs",
+        "grpc",
+        "jetty",
+        "netty-http",
+        "platform-http",
+        "rest",
+        "restlet",
+        "servlet",
+        "spark-rest",
+        "spring-ws",
+        "undertow",
+        "webhook",
+        "websocket"
+    );
 
-    @Parameter(readonly = true, defaultValue = "${project}")
-    private MavenProject project;
+    private static final List<String> KNOWN_PASSIVE_URIS = Arrays.asList(
+        "bean",
+        "binding",
+        "browse",
+        "class",
+        "controlbus",
+        "dataformat",
+        "dataset",
+        "direct",
+        "direct-vm",
+        "language",
+        "log",
+        "mock",
+        "ref",
+        "seda",
+        "stub",
+        "test",
+        "validator",
+        "vm"
+    );
 
     @Parameter(property = "catalog.path", defaultValue = "${project.build.directory}")
     private String outputPath;
@@ -72,8 +118,20 @@ public class GenerateCatalogMojo extends AbstractMojo {
     @Parameter(property = "catalog.file", defaultValue = "camel-catalog-${runtime.version}.yaml")
     private String outputFile;
 
-    @Parameter(property = "exclusion.list")
-    private String exclusionList;
+    @Parameter(property = "components.exclusion.list")
+    private Set<String> componentsExclusionList;
+
+    @Parameter(property = "dataformats.exclusion.list")
+    private Set<String> dataformatsExclusionList;
+
+    @Parameter(property = "languages.exclusion.list")
+    private Set<String> languagesExclusionList;
+
+    @Parameter(property = "dsls.exclusion.list")
+    private Set<String> dslsExclusionList;
+
+    @Parameter(property = "capabilities.exclusion.list")
+    private Set<String> capabilitiesExclusionList;
 
     // ********************
     //
@@ -101,6 +159,8 @@ public class GenerateCatalogMojo extends AbstractMojo {
         final String catalogName = String.format("camel-catalog-%s", runtimeVersion.toLowerCase(Locale.US));
 
         try {
+            CamelCatalogSpec.Builder catalogSpec = new CamelCatalogSpec.Builder();
+
             RuntimeSpec.Builder runtimeSpec = new RuntimeSpec.Builder()
                 .version(runtimeVersion)
                 .provider("quarkus");
@@ -121,46 +181,69 @@ public class GenerateCatalogMojo extends AbstractMojo {
             runtimeSpec.applicationClass("io.quarkus.bootstrap.runner.QuarkusEntryPoint");
             runtimeSpec.addDependency("org.apache.camel.k", "camel-k-runtime");
             runtimeSpec.addDependency("io.quarkus", "quarkus-logging-json");
-            runtimeSpec.putCapability(
-                "cron",
-                CamelCapability.forArtifact(
-                    "org.apache.camel.k", "camel-k-cron"));
-            runtimeSpec.putCapability(
-                "health",
-                CamelCapability.forArtifact(
-                    "org.apache.camel.quarkus", "camel-quarkus-microprofile-health"));
-            runtimeSpec.putCapability(
-                "platform-http",
-                CamelCapability.forArtifact(
-                    "org.apache.camel.quarkus", "camel-quarkus-platform-http"));
-            runtimeSpec.putCapability(
-                "rest",
-                new CamelCapability.Builder()
-                    .addDependency("org.apache.camel.quarkus", "camel-quarkus-rest")
-                    .addDependency("org.apache.camel.quarkus", "camel-quarkus-platform-http")
-                    .build());
-            runtimeSpec.putCapability(
-                "circuit-breaker",
-                CamelCapability.forArtifact(
-                    "org.apache.camel.quarkus", "camel-quarkus-microprofile-fault-tolerance"));
-            runtimeSpec.putCapability(
-                "tracing",
-                CamelCapability.forArtifact(
-                    "org.apache.camel.quarkus", "camel-quarkus-opentracing"));
-            runtimeSpec.putCapability(
-                "master",
-                CamelCapability.forArtifact(
-                    "org.apache.camel.k", "camel-k-master"));
 
-            CamelCatalogSpec.Builder catalogSpec = new CamelCatalogSpec.Builder()
-                .runtime(runtimeSpec.build());
+            if (capabilitiesExclusionList != null && !capabilitiesExclusionList.contains("cron")) {
+                runtimeSpec.putCapability(
+                    "cron",
+                    CamelCapability.forArtifact(
+                        "org.apache.camel.k", "camel-k-cron"));
 
-            List<String> exclusions = createExclusionList();
+                catalogSpec.putArtifact(
+                    new CamelArtifact.Builder()
+                        .groupId("org.apache.camel.k")
+                        .artifactId("camel-k-cron")
+                        .build()
+                );
+            }
+            if (capabilitiesExclusionList != null && !capabilitiesExclusionList.contains("health")) {
+                runtimeSpec.putCapability(
+                    "health",
+                    CamelCapability.forArtifact(
+                        "org.apache.camel.quarkus", "camel-quarkus-microprofile-health"));
+            }
+            if (capabilitiesExclusionList != null && !capabilitiesExclusionList.contains("platform-http")) {
+                runtimeSpec.putCapability(
+                    "platform-http",
+                    CamelCapability.forArtifact(
+                        "org.apache.camel.quarkus", "camel-quarkus-platform-http"));
+            }
+            if (capabilitiesExclusionList != null && !capabilitiesExclusionList.contains("rest")) {
+                runtimeSpec.putCapability(
+                    "rest",
+                    new CamelCapability.Builder()
+                        .addDependency("org.apache.camel.quarkus", "camel-quarkus-rest")
+                        .addDependency("org.apache.camel.quarkus", "camel-quarkus-platform-http")
+                        .build());
+            }
+            if (capabilitiesExclusionList != null && !capabilitiesExclusionList.contains("circuit-breaker")) {
+                runtimeSpec.putCapability(
+                    "circuit-breaker",
+                    CamelCapability.forArtifact(
+                        "org.apache.camel.quarkus", "camel-quarkus-microprofile-fault-tolerance"));
+            }
+            if (capabilitiesExclusionList != null && !capabilitiesExclusionList.contains("tracing")) {
+                runtimeSpec.putCapability(
+                    "tracing",
+                    CamelCapability.forArtifact(
+                        "org.apache.camel.quarkus", "camel-quarkus-opentracing"));
+            }
+            if (capabilitiesExclusionList != null && !capabilitiesExclusionList.contains("master")) {
+                runtimeSpec.putCapability(
+                    "master",
+                    CamelCapability.forArtifact(
+                        "org.apache.camel.k", "camel-k-master"));
 
-            StreamSupport.stream(ServiceLoader.load(CatalogProcessor.class).spliterator(), false)
-                .sorted(Comparator.comparingInt(CatalogProcessor::getOrder))
-                .filter(p -> p.accepts(catalog))
-                .forEach(p -> p.process(project, catalog, catalogSpec, exclusions));
+                catalogSpec.putArtifact(
+                    new CamelArtifact.Builder()
+                        .groupId("org.apache.camel.k")
+                        .artifactId("camel-k-master")
+                        .build()
+                );
+            }
+
+            catalogSpec.runtime(runtimeSpec.build());
+
+            process(catalog, catalogSpec);
 
             ObjectMeta.Builder metadata = new ObjectMeta.Builder()
                 .name(catalogName)
@@ -218,11 +301,199 @@ public class GenerateCatalogMojo extends AbstractMojo {
         }
     }
 
-    private List<String> createExclusionList() {
-        if (exclusionList != null) {
-            return Arrays.asList(exclusionList.split(","));
+    // ********************
+    //
+    // ********************
+
+    public void process(
+        org.apache.camel.catalog.CamelCatalog catalog,
+        CamelCatalogSpec.Builder specBuilder) {
+
+        Map<String, CamelArtifact> artifacts = new TreeMap<>();
+
+        processComponents(catalog, artifacts);
+        processLanguages(catalog, artifacts);
+        processDataFormats(catalog, artifacts);
+        processLoaders(specBuilder);
+
+        specBuilder.putAllArtifacts(artifacts);
+
+
+        specBuilder.putArtifact(
+            new CamelArtifact.Builder()
+                .groupId("org.apache.camel.k")
+                .artifactId("camel-k-knative")
+                .addScheme(new CamelScheme.Builder()
+                    .id("knative")
+                    .http(true)
+                    .consumer(new CamelScopedArtifact.Builder()
+                        .addDependency("org.apache.camel.k", "camel-k-knative-consumer")
+                        .build())
+                    .producer(new CamelScopedArtifact.Builder()
+                        .addDependency("org.apache.camel.k", "camel-k-knative-producer")
+                        .build())
+                    .build())
+                .build()
+        );
+    }
+
+    private void processLoaders(CamelCatalogSpec.Builder specBuilder) {
+        if (dslsExclusionList != null) {
+            getLog().info("dsls.exclusion.list: " + dslsExclusionList);
         }
 
-        return Collections.emptyList();
+        if (dslsExclusionList != null && !dslsExclusionList.contains("yaml")) {
+            specBuilder.putLoader(
+                "yaml",
+                CamelLoader.fromArtifact("org.apache.camel.quarkus", "camel-quarkus-yaml-dsl")
+                    .addLanguage("yaml")
+                    .putMetadata("native", "true")
+                    .build()
+            );
+        }
+        if (dslsExclusionList != null && !dslsExclusionList.contains("groovy")) {
+            specBuilder.putLoader(
+                "groovy",
+                CamelLoader.fromArtifact("org.apache.camel.quarkus", "camel-quarkus-groovy-dsl")
+                    .addLanguage("groovy")
+                    .putMetadata("native", "false")
+                    .build()
+            );
+        }
+        if (dslsExclusionList != null && !dslsExclusionList.contains("kts")) {
+            specBuilder.putLoader(
+                "kts",
+                CamelLoader.fromArtifact("org.apache.camel.quarkus", "camel-quarkus-kotlin-dsl")
+                    .addLanguage("kts")
+                    .putMetadata("native", "false")
+                    .build()
+            );
+        }
+        if (dslsExclusionList != null && !dslsExclusionList.contains("js")) {
+            specBuilder.putLoader(
+                "js",
+                CamelLoader.fromArtifact("org.apache.camel.quarkus", "camel-quarkus-js-dsl")
+                    .addLanguage("js")
+                    .putMetadata("native", "true")
+                    .build()
+            );
+        }
+        if (dslsExclusionList != null && !dslsExclusionList.contains("xml")) {
+            specBuilder.putLoader(
+                "xml",
+                CamelLoader.fromArtifact("org.apache.camel.quarkus", "camel-quarkus-xml-io-dsl")
+                    .addLanguage("xml")
+                    .putMetadata("native", "true")
+                    .build()
+            );
+        }
+        if (dslsExclusionList != null && !dslsExclusionList.contains("java")) {
+            specBuilder.putLoader(
+                "java",
+                CamelLoader.fromArtifact("org.apache.camel.quarkus", "camel-quarkus-java-joor-dsl")
+                    .addLanguages("java")
+                    .putMetadata("native", "false")
+                    .build()
+            );
+        }
+        if (dslsExclusionList != null && !dslsExclusionList.contains("jsh")) {
+            specBuilder.putLoader(
+                "jsh",
+                CamelLoader.fromArtifact("org.apache.camel.k", "camel-k-loader-jsh")
+                    .addLanguages("jsh")
+                    .putMetadata("native", "false")
+                    .build()
+            );
+        }
+    }
+
+    private void processComponents(org.apache.camel.catalog.CamelCatalog catalog, Map<String, CamelArtifact> artifacts) {
+        final Set<String> elements = new TreeSet<>(catalog.findComponentNames());
+
+        if (componentsExclusionList != null) {
+            getLog().info("components.exclusion.list: " + componentsExclusionList);
+            elements.removeAll(componentsExclusionList);
+        }
+
+        for (String name : elements) {
+            String json = catalog.componentJSonSchema(name);
+            CatalogComponentDefinition definition = CatalogSupport.unmarshallComponent(json);
+
+            artifacts.compute(definition.getArtifactId(), (key, artifact) -> {
+                CamelArtifact.Builder builder = artifactBuilder(artifact, definition);
+                builder.addJavaType(definition.getJavaType());
+
+                definition.getSchemes().map(StringUtils::trimToNull).filter(Objects::nonNull).forEach(scheme -> {
+                    builder.addScheme(
+                        new CamelScheme.Builder()
+                            .id(scheme)
+                            .http(KNOWN_HTTP_URIS.contains(scheme))
+                            .passive(KNOWN_PASSIVE_URIS.contains(scheme))
+                            .build());
+                });
+
+                return builder.build();
+            });
+        }
+    }
+
+    private void processLanguages(org.apache.camel.catalog.CamelCatalog catalog, Map<String, CamelArtifact> artifacts) {
+        final Set<String> elements = new TreeSet<>(catalog.findLanguageNames());
+
+        if (languagesExclusionList != null) {
+            getLog().info("languages.exclusion.list: " + languagesExclusionList);
+            elements.removeAll(languagesExclusionList);
+        }
+
+        for (String name : elements) {
+            String json = catalog.languageJSonSchema(name);
+            CatalogLanguageDefinition definition = CatalogSupport.unmarshallLanguage(json);
+
+            artifacts.compute(definition.getArtifactId(), (key, artifact) -> {
+                CamelArtifact.Builder builder = artifactBuilder(artifact, definition);
+                builder.addLanguage(definition.getName());
+                builder.addJavaType(definition.getJavaType());
+
+                return builder.build();
+            });
+        }
+    }
+
+    private void processDataFormats(org.apache.camel.catalog.CamelCatalog catalog, Map<String, CamelArtifact> artifacts) {
+        final Set<String> elements = new TreeSet<>(catalog.findDataFormatNames());
+
+        if (dataformatsExclusionList != null) {
+            getLog().info("dataformats.exclusion.list: " + dataformatsExclusionList);
+            elements.removeAll(dataformatsExclusionList);
+        }
+
+        for (String name : elements) {
+            String json = catalog.dataFormatJSonSchema(name);
+            CatalogDataFormatDefinition definition = CatalogSupport.unmarshallDataFormat(json);
+
+            artifacts.compute(definition.getArtifactId(), (key, artifact) -> {
+                CamelArtifact.Builder builder = artifactBuilder(artifact, definition);
+                builder.addDataformat(definition.getName());
+                builder.addJavaType(definition.getJavaType());
+
+                return builder.build();
+            });
+        }
+    }
+
+    private CamelArtifact.Builder artifactBuilder(CamelArtifact artifact, CatalogDefinition definition) {
+        CamelArtifact.Builder builder = new  CamelArtifact.Builder();
+
+        if (artifact != null) {
+            builder.from(artifact);
+        } else {
+            Objects.requireNonNull(definition.getGroupId());
+            Objects.requireNonNull(definition.getArtifactId());
+
+            builder.groupId(definition.getGroupId());
+            builder.artifactId(definition.getArtifactId());
+        }
+
+        return builder;
     }
 }

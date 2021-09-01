@@ -200,6 +200,7 @@
                     </scriptVariables>
                     <pomIncludes>
                         <pomInclude>generate-catalog/pom.xml</pomInclude>
+                        <pomInclude>generate-catalog-with-exclusions/pom.xml</pomInclude>
                         <pomInclude>generate-rest-dsl-from-v3/pom.xml</pomInclude>
                         <pomInclude>generate-rest-dsl-from-v2/pom.xml</pomInclude>
                         <pomInclude>generate-dependencies/pom.xml</pomInclude>

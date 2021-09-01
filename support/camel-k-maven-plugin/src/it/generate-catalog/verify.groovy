@@ -24,7 +24,6 @@ new File(basedir, "catalog.yaml").withReader {
     assert catalog.spec.runtime.metadata['quarkus.version'] == quarkusVersion
     assert catalog.spec.runtime.metadata['camel-quarkus.version'] == camelQuarkusVersion
 
-
     assert catalog.spec.runtime.dependencies.any {
         it.groupId == 'org.apache.camel.k' && it.artifactId == 'camel-k-runtime'
     }
@@ -52,9 +51,6 @@ new File(basedir, "catalog.yaml").withReader {
     catalog.spec.artifacts['camel-k-cron'].with {
         schemes == null
     }
-    catalog.spec.artifacts['camel-k-webhook'].with {
-        schemes == null
-    }
 
     def diff = org.apache.commons.collections4.CollectionUtils.disjunction(
             catalog.spec.artifacts.values()
@@ -69,6 +65,13 @@ new File(basedir, "catalog.yaml").withReader {
     )
 
     assert diff.size() == 0 : "Duplicated schemes: ${diff}"
+
+    catalog.spec.artifacts.each { k,v ->
+        assert k != null
+        assert v.groupId != null
+        assert v.artifactId != null
+        assert v.version == null
+    }
 
     catalog.spec.artifacts['camel-k-knative'].with {
         assert dependencies == null
