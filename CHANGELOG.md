@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- chore\(deps\): update to camel-quarkus 2.2.0 [\#735](https://github.com/apache/camel-k-runtime/pull/735) ([lburgazzoli](https://github.com/lburgazzoli))
 - Added quarkus-logging-json as a runtime dependency [\#731](https://github.com/apache/camel-k-runtime/pull/731) ([orpiske](https://github.com/orpiske))
 - build\(deps\): bump apache from 23 to 24 [\#729](https://github.com/apache/camel-k-runtime/pull/729) ([lburgazzoli](https://github.com/lburgazzoli))
 - deps: update camel-quarkus to v2.1.0 [\#728](https://github.com/apache/camel-k-runtime/pull/728) ([lburgazzoli](https://github.com/lburgazzoli))
