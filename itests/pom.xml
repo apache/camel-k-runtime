@@ -58,7 +58,6 @@
         <module>camel-k-itests-knative-source-xml</module>
         <module>camel-k-itests-knative-source-yaml</module>
         <module>camel-k-itests-kamelet</module>
-        <module>camel-k-itests-kamelet-reify</module>
         <module>camel-k-itests-webhook</module>
     </modules>
 
