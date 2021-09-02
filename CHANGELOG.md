@@ -6,6 +6,8 @@
 
 **Merged pull requests:**
 
+- tools: allow to exclude components/dataformat/languages/dsld/capabilities from the generated camel-k-catalog [\#737](https://github.com/apache/camel-k-runtime/pull/737) ([lburgazzoli](https://github.com/lburgazzoli))
+- chore: remove integration tests for kamelet-reify as they duplicate the tests on camel with no added value [\#736](https://github.com/apache/camel-k-runtime/pull/736) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(deps\): update to camel-quarkus 2.2.0 [\#735](https://github.com/apache/camel-k-runtime/pull/735) ([lburgazzoli](https://github.com/lburgazzoli))
 - Added quarkus-logging-json as a runtime dependency [\#731](https://github.com/apache/camel-k-runtime/pull/731) ([orpiske](https://github.com/orpiske))
 - build\(deps\): bump apache from 23 to 24 [\#729](https://github.com/apache/camel-k-runtime/pull/729) ([lburgazzoli](https://github.com/lburgazzoli))
