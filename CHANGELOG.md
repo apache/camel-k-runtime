@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump jandex-maven-plugin from 1.1.0 to 1.2.0 [\#738](https://github.com/apache/camel-k-runtime/pull/738) ([dependabot[bot]](https://github.com/apps/dependabot))
 - tools: allow to exclude components/dataformat/languages/dsld/capabilities from the generated camel-k-catalog [\#737](https://github.com/apache/camel-k-runtime/pull/737) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore: remove integration tests for kamelet-reify as they duplicate the tests on camel with no added value [\#736](https://github.com/apache/camel-k-runtime/pull/736) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(deps\): update to camel-quarkus 2.2.0 [\#735](https://github.com/apache/camel-k-runtime/pull/735) ([lburgazzoli](https://github.com/lburgazzoli))
