@@ -1,8 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/apache/camel-k-runtime/tree/HEAD)
+## [camel-k-runtime-project-1.9.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.9.0) (2021-09-03)
 
-[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.8.0...HEAD)
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.8.0...camel-k-runtime-project-1.9.0)
 
 **Merged pull requests:**
 
