@@ -6,6 +6,8 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump maven-javadoc-plugin from 3.3.0 to 3.3.1 [\#740](https://github.com/apache/camel-k-runtime/pull/740) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump groovy-version from 3.0.8 to 3.0.9 [\#739](https://github.com/apache/camel-k-runtime/pull/739) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Link to spec [\#734](https://github.com/apache/camel-k-runtime/pull/734) ([squakez](https://github.com/squakez))
 
 ## [camel-k-runtime-project-1.9.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.9.0) (2021-09-03)
