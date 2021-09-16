@@ -4,6 +4,10 @@
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.9.0...HEAD)
 
+**Closed issues:**
+
+- Optional parameters are still not working [\#706](https://github.com/apache/camel-k-runtime/issues/706)
+
 **Merged pull requests:**
 
 - build\(deps\): bump maven-javadoc-plugin from 3.3.0 to 3.3.1 [\#740](https://github.com/apache/camel-k-runtime/pull/740) ([dependabot[bot]](https://github.com/apps/dependabot))
