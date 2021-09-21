@@ -832,7 +832,7 @@
                         <dependencies>
                             <dependency>
                                 <groupId>org.apache.camel</groupId>
-                                <artifactId>camel-catalog</artifactId>
+                                <artifactId>camel-quarkus-catalog</artifactId>
                                 <version>${camel-version}</version>
                             </dependency>
                         </dependencies>
