@@ -10,6 +10,7 @@
 
 **Merged pull requests:**
 
+- fix: use the quarkus catalog instead of the vanilla one [\#741](https://github.com/apache/camel-k-runtime/pull/741) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps\): bump maven-javadoc-plugin from 3.3.0 to 3.3.1 [\#740](https://github.com/apache/camel-k-runtime/pull/740) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump groovy-version from 3.0.8 to 3.0.9 [\#739](https://github.com/apache/camel-k-runtime/pull/739) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Link to spec [\#734](https://github.com/apache/camel-k-runtime/pull/734) ([squakez](https://github.com/squakez))
