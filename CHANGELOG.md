@@ -7,6 +7,7 @@
 **Closed issues:**
 
 - Optional parameters are still not working [\#706](https://github.com/apache/camel-k-runtime/issues/706)
+- Functions to escape Kamelet parameters [\#632](https://github.com/apache/camel-k-runtime/issues/632)
 
 **Merged pull requests:**
 
