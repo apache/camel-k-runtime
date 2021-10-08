@@ -38,12 +38,12 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
 
-        <camel-version>3.11.1</camel-version>
+        <camel-version>3.11.2</camel-version>
 
         <!-- quarkus -->
-        <camel-quarkus-version>2.2.0</camel-quarkus-version>
+        <camel-quarkus-version>2.3.0</camel-quarkus-version>
         <graalvm-version>21.2.0</graalvm-version>
-        <quarkus-version>2.2.0.Final</quarkus-version>
+        <quarkus-version>2.3.0.Final</quarkus-version>
 
         <!-- camel-k -->
         <groovy-version>3.0.9</groovy-version>
@@ -54,6 +54,7 @@
         <!-- overridden camel dependencies versions -->
         <javapoet-version>1.13.0</javapoet-version>
         <json-schema-validator-version>2.2.14</json-schema-validator-version>
+        <jandex-version>2.4.1.Final</jandex-version>
 
         <!-- plugins -->
         <gmavenplus-plugin-version>1.12.1</gmavenplus-plugin-version>
@@ -72,7 +73,7 @@
         <maven-javadoc-plugin-version>3.3.1</maven-javadoc-plugin-version>
         <maven-source-plugin-version>3.2.1</maven-source-plugin-version>
         <maven-assembly-plugin-version>3.3.0</maven-assembly-plugin-version>
-        <jandex-maven-plugin-version>1.2.0</jandex-maven-plugin-version>
+        <jandex-maven-plugin-version>1.2.1</jandex-maven-plugin-version>
         <build-helper-maven-plugin-version>3.2.0</build-helper-maven-plugin-version>
         <maven-jar-plugin-version>3.2.0</maven-jar-plugin-version>
         <maven-invoker-plugin-version>3.2.1</maven-invoker-plugin-version>
@@ -203,13 +204,13 @@
                     <groupId>org.jboss.jandex</groupId>
                     <artifactId>jandex-maven-plugin</artifactId>
                     <version>${jandex-maven-plugin-version}</version>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.jboss</groupId>
+                    <dependencies>                                                    
+                        <dependency>                                                   
+                            <groupId>org.jboss</groupId>   
                             <artifactId>jandex</artifactId>
                             <version>${jandex-version}</version>
-                        </dependency>
-                    </dependencies>
+                        </dependency>                           
+                    </dependencies>   
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -263,11 +264,25 @@
                     <groupId>org.apache.camel</groupId>
                     <artifactId>camel-component-maven-plugin</artifactId>
                     <version>${camel-version}</version>
+                    <dependencies>                                                    
+                        <dependency>                                                   
+                            <groupId>org.jboss</groupId>   
+                            <artifactId>jandex</artifactId>
+                            <version>${jandex-version}</version>
+                        </dependency>                           
+                    </dependencies>   
                 </plugin>
                 <plugin>
                     <groupId>org.apache.camel</groupId>
                     <artifactId>camel-package-maven-plugin</artifactId>
                     <version>${camel-version}</version>
+                    <dependencies>                                                    
+                        <dependency>                                                   
+                            <groupId>org.jboss</groupId>   
+                            <artifactId>jandex</artifactId>
+                            <version>${jandex-version}</version>
+                        </dependency>                           
+                    </dependencies>   
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.gmavenplus</groupId>
