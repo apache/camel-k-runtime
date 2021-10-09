@@ -11,6 +11,7 @@
 
 **Merged pull requests:**
 
+- deps: update to camel-quarkus 2.3.0 [\#743](https://github.com/apache/camel-k-runtime/pull/743) ([lburgazzoli](https://github.com/lburgazzoli))
 - fix\(catalog\): add jolokia-jvm with exclusions to camel-catalog [\#742](https://github.com/apache/camel-k-runtime/pull/742) ([tadayosi](https://github.com/tadayosi))
 - fix: use the quarkus catalog instead of the vanilla one [\#741](https://github.com/apache/camel-k-runtime/pull/741) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps\): bump maven-javadoc-plugin from 3.3.0 to 3.3.1 [\#740](https://github.com/apache/camel-k-runtime/pull/740) ([dependabot[bot]](https://github.com/apps/dependabot))
