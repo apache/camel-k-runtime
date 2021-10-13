@@ -11,6 +11,7 @@
 
 **Merged pull requests:**
 
+- Fix camel-dependencies parent version [\#744](https://github.com/apache/camel-k-runtime/pull/744) ([jamesnetherton](https://github.com/jamesnetherton))
 - deps: update to camel-quarkus 2.3.0 [\#743](https://github.com/apache/camel-k-runtime/pull/743) ([lburgazzoli](https://github.com/lburgazzoli))
 - fix\(catalog\): add jolokia-jvm with exclusions to camel-catalog [\#742](https://github.com/apache/camel-k-runtime/pull/742) ([tadayosi](https://github.com/tadayosi))
 - fix: use the quarkus catalog instead of the vanilla one [\#741](https://github.com/apache/camel-k-runtime/pull/741) ([lburgazzoli](https://github.com/lburgazzoli))
