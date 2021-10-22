@@ -2,12 +2,7 @@
 
 ## [Unreleased](https://github.com/apache/camel-k-runtime/tree/HEAD)
 
-[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.9.0...HEAD)
-
-**Closed issues:**
-
-- Optional parameters are still not working [\#706](https://github.com/apache/camel-k-runtime/issues/706)
-- Functions to escape Kamelet parameters [\#632](https://github.com/apache/camel-k-runtime/issues/632)
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.9.1...HEAD)
 
 **Merged pull requests:**
 
@@ -18,6 +13,15 @@
 - build\(deps\): bump maven-javadoc-plugin from 3.3.0 to 3.3.1 [\#740](https://github.com/apache/camel-k-runtime/pull/740) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump groovy-version from 3.0.8 to 3.0.9 [\#739](https://github.com/apache/camel-k-runtime/pull/739) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Link to spec [\#734](https://github.com/apache/camel-k-runtime/pull/734) ([squakez](https://github.com/squakez))
+
+## [camel-k-runtime-project-1.9.1](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.9.1) (2021-10-21)
+
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.9.0...camel-k-runtime-project-1.9.1)
+
+**Closed issues:**
+
+- Optional parameters are still not working [\#706](https://github.com/apache/camel-k-runtime/issues/706)
+- Functions to escape Kamelet parameters [\#632](https://github.com/apache/camel-k-runtime/issues/632)
 
 ## [camel-k-runtime-project-1.9.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.9.0) (2021-09-03)
 
