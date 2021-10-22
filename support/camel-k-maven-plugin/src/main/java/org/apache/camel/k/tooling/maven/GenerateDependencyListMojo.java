@@ -28,6 +28,7 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.apache.maven.artifact.Artifact;
@@ -40,7 +41,6 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
-import org.apache.maven.shared.utils.StringUtils;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
@@ -93,8 +93,8 @@ public class GenerateDependencyListMojo extends AbstractMojo {
     }
 
     private boolean isCompileOrRuntime(Artifact artifact) {
-        return StringUtils.equals(artifact.getScope(), DefaultArtifact.SCOPE_COMPILE)
-            || StringUtils.equals(artifact.getScope(), DefaultArtifact.SCOPE_RUNTIME);
+        return Objects.equals(artifact.getScope(), DefaultArtifact.SCOPE_COMPILE)
+            || Objects.equals(artifact.getScope(), DefaultArtifact.SCOPE_RUNTIME);
     }
 
     private Map<String, String> artifactToMap(Artifact artifact) {
