@@ -82,6 +82,7 @@
         <maven-resources-plugin-version>3.2.0</maven-resources-plugin-version>
         <maven-site-plugin-version>3.9.1</maven-site-plugin-version>
         <maven-pmd-plugin-version>3.15.0</maven-pmd-plugin-version>
+        <maven-pmd-plugin-asm-version>9.2</maven-pmd-plugin-asm-version>
         <maven-plugin-plugin-version>3.6.1</maven-plugin-plugin-version>
         <maven-version>3.6.3</maven-version>
         <maven-plugin-tools-version>3.6.1</maven-plugin-tools-version>
@@ -1046,6 +1047,13 @@
                                 <excludeRoot>${project.build.directory}/generated-sources</excludeRoot>
                             </excludeRoots>
                         </configuration>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.ow2.asm</groupId>
+                                <artifactId>asm</artifactId>
+                                <version>${maven-pmd-plugin-asm-version}</version>
+                            </dependency>
+                        </dependencies>
                     </plugin>
                 </plugins>
             </build>
