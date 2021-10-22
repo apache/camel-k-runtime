@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
-import org.apache.maven.shared.utils.io.IOUtil;
+import org.apache.commons.io.IOUtils;
 
 public final class GenerateSupport {
     private GenerateSupport() {
@@ -32,7 +32,7 @@ public final class GenerateSupport {
                 throw new IllegalStateException("Unable to find catalog-license.txt");
             }
 
-            return IOUtil.toString(is, StandardCharsets.UTF_8.name());
+            return IOUtils.toString(is, StandardCharsets.UTF_8.name());
         }
     }
 }
