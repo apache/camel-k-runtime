@@ -181,7 +181,6 @@ public class GenerateCatalogMojo extends AbstractMojo {
 
             runtimeSpec.applicationClass("io.quarkus.bootstrap.runner.QuarkusEntryPoint");
             runtimeSpec.addDependency("org.apache.camel.k", "camel-k-runtime");
-            runtimeSpec.addDependency("io.quarkus", "quarkus-logging-json");
 
             if (capabilitiesExclusionList != null && !capabilitiesExclusionList.contains("cron")) {
                 runtimeSpec.putCapability(
