@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- chore\(deps\): move quarkus-logging-json dependency to pom [\#749](https://github.com/apache/camel-k-runtime/pull/749) ([squakez](https://github.com/squakez))
 - camel-k-runtime main latest to next [\#747](https://github.com/apache/camel-k-runtime/pull/747) ([djencks](https://github.com/djencks))
 - Fix camel-dependencies parent version [\#744](https://github.com/apache/camel-k-runtime/pull/744) ([jamesnetherton](https://github.com/jamesnetherton))
 - deps: update to camel-quarkus 2.3.0 [\#743](https://github.com/apache/camel-k-runtime/pull/743) ([lburgazzoli](https://github.com/lburgazzoli))
