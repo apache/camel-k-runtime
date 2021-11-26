@@ -7,6 +7,7 @@
 **Merged pull requests:**
 
 - chore: remove staging maven repo [\#756](https://github.com/apache/camel-k-runtime/pull/756) ([lburgazzoli](https://github.com/lburgazzoli))
+- cq 2.5.0 [\#755](https://github.com/apache/camel-k-runtime/pull/755) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [camel-k-runtime-project-1.10.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.10.0) (2021-11-09)
 
