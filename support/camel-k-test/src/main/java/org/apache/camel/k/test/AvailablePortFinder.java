@@ -24,15 +24,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * Finds currently available server ports.
  */
 public final class AvailablePortFinder {
-    private static final Logger LOGGER = LoggerFactory.getLogger(AvailablePortFinder.class);
-
     /**
      * Creates a new instance.
      */
@@ -50,12 +45,7 @@ public final class AvailablePortFinder {
         try (ServerSocket ss = new ServerSocket()) {
             ss.setReuseAddress(true);
             ss.bind(new InetSocketAddress((InetAddress) null, 0), 1);
-
-            int port = ss.getLocalPort();
-
-            LOGGER.info("getNextAvailable() -> {}", port);
-
-            return port;
+            return ss.getLocalPort();
         } catch (IOException e) {
             throw new IllegalStateException("Cannot find free port", e);
         }
