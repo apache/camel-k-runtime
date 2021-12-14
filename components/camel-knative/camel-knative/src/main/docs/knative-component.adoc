@@ -171,10 +171,6 @@ The `metadata` fields has some additional advanced fields:
 | The version of the k8s resource referenced by the endpoint
 | ```knative.apiVersion=messaging.knative.dev/v1beta1```
 
-| *knative.apiVersion*
-| The version of the k8s resource referenced by the endpoint.
-| ```knative.apiVersion=messaging.knative.dev/v1beta1```
-
 | *knative.reply*
 | If the consumer should construct a full reply to knative request.
 | ```knative.reply=false```
