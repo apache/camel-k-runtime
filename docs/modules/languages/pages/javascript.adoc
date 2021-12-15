@@ -25,7 +25,7 @@ To run it, you need just to execute:
 kamel run hello.js
 ```
 
-For JavaScript integrations, Camel K does not yet provide an enhanced DSL, but you can access to some global bounded objects such as a writable registry and the camel context so to set the property _exchangeFormatter_ of the _LogComponent_ as done in previous example, you can do something like:
+For JavaScript integrations, Camel K does not yet provide an enhanced DSL, but you can access some global bounded objects such as a writable registry and the camel context so to set the property _exchangeFormatter_ of the _LogComponent_ as done in previous example, you can do something like:
 
 [source,js]
 ----
