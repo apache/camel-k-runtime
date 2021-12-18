@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-dependencies</artifactId>
-        <version>3.13.0</version>
+        <version>3.14.0</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -38,12 +38,12 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
 
-        <camel-version>3.13.0</camel-version>
+        <camel-version>3.14.0</camel-version>
 
         <!-- quarkus -->
-        <camel-quarkus-version>2.5.0</camel-quarkus-version>
+        <camel-quarkus-version>2.6.0</camel-quarkus-version>
         <graalvm-version>21.3.0</graalvm-version>
-        <quarkus-version>2.5.0.Final</quarkus-version>
+        <quarkus-version>2.6.0.Final</quarkus-version>
 
         <!-- camel-k -->
         <groovy-version>3.0.9</groovy-version>
@@ -380,33 +380,6 @@
         <module>examples</module>
         <module>distribution</module>
     </modules>
-
-    <repositories>
-        <repository>
-            <id>apache.snapshots</id>
-            <url>https://repository.apache.org/snapshots/</url>
-            <name>Apache Snapshot Repo</name>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>apache.snapshots</id>
-            <url>https://repository.apache.org/snapshots/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </pluginRepository>
-    </pluginRepositories>
 
     <dependencyManagement>
         <dependencies>
