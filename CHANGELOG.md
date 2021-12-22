@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- deps: upgrade camel-quarkus to v2.6.0 [\#761](https://github.com/apache/camel-k-runtime/pull/761) ([lburgazzoli](https://github.com/lburgazzoli))
 - deps: remove log4j as it is not needed [\#757](https://github.com/apache/camel-k-runtime/pull/757) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore: remove staging maven repo [\#756](https://github.com/apache/camel-k-runtime/pull/756) ([lburgazzoli](https://github.com/lburgazzoli))
 - cq 2.5.0 [\#755](https://github.com/apache/camel-k-runtime/pull/755) ([lburgazzoli](https://github.com/lburgazzoli))
