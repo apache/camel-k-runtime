@@ -6,6 +6,8 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump gmavenplus-plugin from 1.13.0 to 1.13.1 [\#763](https://github.com/apache/camel-k-runtime/pull/763) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump maven-plugin-plugin from 3.6.1 to 3.6.2 [\#762](https://github.com/apache/camel-k-runtime/pull/762) ([dependabot[bot]](https://github.com/apps/dependabot))
 - deps: upgrade camel-quarkus to v2.6.0 [\#761](https://github.com/apache/camel-k-runtime/pull/761) ([lburgazzoli](https://github.com/lburgazzoli))
 - deps: remove log4j as it is not needed [\#757](https://github.com/apache/camel-k-runtime/pull/757) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore: remove staging maven repo [\#756](https://github.com/apache/camel-k-runtime/pull/756) ([lburgazzoli](https://github.com/lburgazzoli))
