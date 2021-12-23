@@ -77,7 +77,7 @@ public class KnativeEndpoint extends DefaultEndpoint {
     }
 
     @Override
-    public Producer createProducer() throws Exception {
+    public Producer createProducer() {
         final KnativeResource service = lookupServiceDefinition(Knative.EndpointKind.sink);
         final Processor ceProcessor = cloudEventProcessor.producer(this, service);
         final Producer producer = getComponent().getProducerFactory().createProducer(this, createTransportConfiguration(service), service);
@@ -140,21 +140,20 @@ public class KnativeEndpoint extends DefaultEndpoint {
     }
 
     @Override
-    protected void doInit() throws Exception {
+    protected void doInit() {
         if (ObjectHelper.isEmpty(this.configuration.getTypeId())) {
             this.configuration.setTypeId(this.typeId);
         }
     }
 
     KnativeResource lookupServiceDefinition(Knative.EndpointKind endpointKind) {
-        final String resourceName = configuration.getTypeId();
+        final String resourceName;
+        if (type == Knative.Type.event && configuration.getName() != null) {
+            resourceName = configuration.getName();
+        } else {
+            resourceName = configuration.getTypeId();
+       }
 
-        //
-        // look-up service definition by service name first then if not found try to look it up by using
-        // "default" as a service name. For channels and endpoints, the service name can be derived from
-        // the endpoint uri but for events it is not possible so default should always be there for events
-        // unless the service name is define as an endpoint option.
-        //
         KnativeResource resource = lookupServiceDefinition(resourceName, endpointKind)
             .or(() -> lookupServiceDefinition("default", endpointKind))
             .orElseThrow(() -> new IllegalArgumentException(
@@ -199,9 +198,9 @@ public class KnativeEndpoint extends DefaultEndpoint {
         // For event type endpoints se need to add an additional filter to filter out events received
         // based on the given type.
         //
-        if (resource.getType() == Knative.Type.event && ObjectHelper.isNotEmpty(resourceName)) {
-            answer.setCloudEventType(resourceName);
-            answer.addFilter(CloudEvent.CAMEL_CLOUD_EVENT_TYPE, resourceName);
+        if (resource.getType() == Knative.Type.event && ObjectHelper.isNotEmpty(configuration.getTypeId())) {
+            answer.setCloudEventType(configuration.getTypeId());
+            answer.addFilter(CloudEvent.CAMEL_CLOUD_EVENT_TYPE, configuration.getTypeId());
         }
 
         return answer;
@@ -230,24 +229,17 @@ public class KnativeEndpoint extends DefaultEndpoint {
     }
 
     private static Predicate<KnativeResource> serviceFilter(KnativeConfiguration configuration, Knative.EndpointKind endpointKind) {
-        return new Predicate<KnativeResource>() {
-            @Override
-            public boolean test(KnativeResource resource) {
-                if (!Objects.equals(endpointKind, resource.getEndpointKind())) {
-                    return false;
-                }
-                if (configuration.getApiVersion() != null && !Objects.equals(resource.getObjectApiVersion(), configuration.getApiVersion())) {
-                    return false;
-                }
-                if (configuration.getKind() != null && !Objects.equals(resource.getObjectKind(), configuration.getKind())) {
-                    return false;
-                }
-                if (configuration.getName() != null && !Objects.equals(resource.getObjectName(), configuration.getName())) {
-                    return false;
-                }
-
-                return true;
+        return resource -> {
+            if (!Objects.equals(endpointKind, resource.getEndpointKind())) {
+                return false;
             }
+            if (configuration.getApiVersion() != null && !Objects.equals(resource.getObjectApiVersion(), configuration.getApiVersion())) {
+                return false;
+            }
+            if (configuration.getKind() != null && !Objects.equals(resource.getObjectKind(), configuration.getKind())) {
+                return false;
+            }
+            return configuration.getName() == null || Objects.equals(resource.getObjectName(), configuration.getName());
         };
     }
 }

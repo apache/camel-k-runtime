@@ -84,6 +84,9 @@ public class KnativeSinkBindingContextCustomizer implements ContextCustomizer {
             resource.setUrl(kSinkUrl);
             resource.setObjectApiVersion(apiVersion);
             resource.setObjectKind(kind);
+            if (type == Knative.Type.event) {
+                resource.setObjectName(name);
+            }
 
             if (ObjectHelper.isNotEmpty(kCeOverride)) {
                 try (Reader reader = new StringReader(kCeOverride)) {
