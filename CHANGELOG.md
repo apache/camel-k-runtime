@@ -4,8 +4,13 @@
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.10.0...HEAD)
 
+**Closed issues:**
+
+- Cannot use event broker other than default [\#764](https://github.com/apache/camel-k-runtime/issues/764)
+
 **Merged pull requests:**
 
+- fix\(knative\): use object name when events endpoints [\#765](https://github.com/apache/camel-k-runtime/pull/765) ([squakez](https://github.com/squakez))
 - build\(deps\): bump gmavenplus-plugin from 1.13.0 to 1.13.1 [\#763](https://github.com/apache/camel-k-runtime/pull/763) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-plugin-plugin from 3.6.1 to 3.6.2 [\#762](https://github.com/apache/camel-k-runtime/pull/762) ([dependabot[bot]](https://github.com/apps/dependabot))
 - deps: upgrade camel-quarkus to v2.6.0 [\#761](https://github.com/apache/camel-k-runtime/pull/761) ([lburgazzoli](https://github.com/lburgazzoli))
