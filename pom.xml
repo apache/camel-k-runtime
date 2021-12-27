@@ -85,7 +85,7 @@
         <maven-pmd-plugin-asm-version>9.2</maven-pmd-plugin-asm-version>
         <maven-plugin-plugin-version>3.6.2</maven-plugin-plugin-version>
         <maven-version>3.6.3</maven-version>
-        <maven-plugin-tools-version>3.6.1</maven-plugin-tools-version>
+        <maven-plugin-tools-version>3.6.2</maven-plugin-tools-version>
         <maven-shaded-version>3.2.0</maven-shaded-version>
     </properties>
 
