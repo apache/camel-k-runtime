@@ -10,6 +10,8 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump maven-site-plugin from 3.9.1 to 3.10.0 [\#769](https://github.com/apache/camel-k-runtime/pull/769) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump maven-plugin-annotations from 3.6.1 to 3.6.2 [\#768](https://github.com/apache/camel-k-runtime/pull/768) ([dependabot[bot]](https://github.com/apps/dependabot))
 - fix\(knative\): use object name when events endpoints [\#765](https://github.com/apache/camel-k-runtime/pull/765) ([squakez](https://github.com/squakez))
 - build\(deps\): bump gmavenplus-plugin from 1.13.0 to 1.13.1 [\#763](https://github.com/apache/camel-k-runtime/pull/763) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-plugin-plugin from 3.6.1 to 3.6.2 [\#762](https://github.com/apache/camel-k-runtime/pull/762) ([dependabot[bot]](https://github.com/apps/dependabot))
