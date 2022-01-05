@@ -7,6 +7,7 @@
 **Closed issues:**
 
 - Cannot use event broker other than default [\#764](https://github.com/apache/camel-k-runtime/issues/764)
+- Set YamlDeserializationMode.FLOW on camel-context [\#707](https://github.com/apache/camel-k-runtime/issues/707)
 
 **Merged pull requests:**
 
