@@ -11,6 +11,9 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump jandex from 2.4.1.Final to 2.4.2.Final [\#773](https://github.com/apache/camel-k-runtime/pull/773) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump jandex-maven-plugin from 1.2.1 to 1.2.2 [\#772](https://github.com/apache/camel-k-runtime/pull/772) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Point to the latest tag in scm pom section [\#771](https://github.com/apache/camel-k-runtime/pull/771) ([oscerd](https://github.com/oscerd))
 - build\(deps\): bump maven-site-plugin from 3.9.1 to 3.10.0 [\#769](https://github.com/apache/camel-k-runtime/pull/769) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-plugin-annotations from 3.6.1 to 3.6.2 [\#768](https://github.com/apache/camel-k-runtime/pull/768) ([dependabot[bot]](https://github.com/apps/dependabot))
 - fix\(knative\): use object name when events endpoints [\#765](https://github.com/apache/camel-k-runtime/pull/765) ([squakez](https://github.com/squakez))
