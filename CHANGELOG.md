@@ -11,6 +11,7 @@
 
 **Merged pull requests:**
 
+- camel-website-701 RI update attribute name \(main\) [\#774](https://github.com/apache/camel-k-runtime/pull/774) ([djencks](https://github.com/djencks))
 - build\(deps\): bump jandex from 2.4.1.Final to 2.4.2.Final [\#773](https://github.com/apache/camel-k-runtime/pull/773) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump jandex-maven-plugin from 1.2.1 to 1.2.2 [\#772](https://github.com/apache/camel-k-runtime/pull/772) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Point to the latest tag in scm pom section [\#771](https://github.com/apache/camel-k-runtime/pull/771) ([oscerd](https://github.com/oscerd))
