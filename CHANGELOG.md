@@ -1,8 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/apache/camel-k-runtime/tree/HEAD)
+## [camel-k-runtime-project-1.11.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.11.0) (2022-01-18)
 
-[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.10.0...HEAD)
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.10.0...camel-k-runtime-project-1.11.0)
 
 **Closed issues:**
 
@@ -13,6 +13,8 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump maven-compiler-plugin from 3.8.1 to 3.9.0 [\#780](https://github.com/apache/camel-k-runtime/pull/780) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump maven-jar-plugin from 3.2.0 to 3.2.2 [\#779](https://github.com/apache/camel-k-runtime/pull/779) ([dependabot[bot]](https://github.com/apps/dependabot))
 - camel-website-701 RI update attribute name \(main\) [\#774](https://github.com/apache/camel-k-runtime/pull/774) ([djencks](https://github.com/djencks))
 - build\(deps\): bump jandex from 2.4.1.Final to 2.4.2.Final [\#773](https://github.com/apache/camel-k-runtime/pull/773) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump jandex-maven-plugin from 1.2.1 to 1.2.2 [\#772](https://github.com/apache/camel-k-runtime/pull/772) ([dependabot[bot]](https://github.com/apps/dependabot))
