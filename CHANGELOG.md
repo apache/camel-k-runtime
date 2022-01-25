@@ -7,6 +7,7 @@
 **Merged pull requests:**
 
 - build\(deps\): bump value from 2.8.9-ea-1 to 2.9.0 [\#781](https://github.com/apache/camel-k-runtime/pull/781) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore\(deps\): let transitive maven-core dependency [\#778](https://github.com/apache/camel-k-runtime/pull/778) ([squakez](https://github.com/squakez))
 
 ## [camel-k-runtime-project-1.11.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.11.0) (2022-01-18)
 
