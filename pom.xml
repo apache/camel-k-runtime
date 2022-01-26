@@ -372,8 +372,6 @@
         <module>camel-k-knative</module>
         <module>camel-k-master</module>
         <module>camel-k-webhook</module>
-        <module>camel-k-kamelet-reify</module>
-
         <module>camel-k-runtime</module>
 
         <module>itests</module>
