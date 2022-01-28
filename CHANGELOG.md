@@ -4,8 +4,14 @@
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.11.0...HEAD)
 
+**Closed issues:**
+
+- Remove camel-k-kamelet-reify [\#766](https://github.com/apache/camel-k-runtime/issues/766)
+
 **Merged pull requests:**
 
+- build\(deps\): bump build-helper-maven-plugin from 3.2.0 to 3.3.0 [\#785](https://github.com/apache/camel-k-runtime/pull/785) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore\(deps\): remove kamelet-reify [\#784](https://github.com/apache/camel-k-runtime/pull/784) ([squakez](https://github.com/squakez))
 - build\(deps\): bump value from 2.8.9-ea-1 to 2.9.0 [\#781](https://github.com/apache/camel-k-runtime/pull/781) ([dependabot[bot]](https://github.com/apps/dependabot))
 - chore\(deps\): let transitive maven-core dependency [\#778](https://github.com/apache/camel-k-runtime/pull/778) ([squakez](https://github.com/squakez))
 
