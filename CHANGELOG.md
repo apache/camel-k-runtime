@@ -11,6 +11,7 @@
 **Merged pull requests:**
 
 - build\(deps\): bump versions-maven-plugin from 2.8.1 to 2.9.0 [\#787](https://github.com/apache/camel-k-runtime/pull/787) ([dependabot[bot]](https://github.com/apps/dependabot))
+- deps: update camel-quarkus to v2.7.0 [\#786](https://github.com/apache/camel-k-runtime/pull/786) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps\): bump build-helper-maven-plugin from 3.2.0 to 3.3.0 [\#785](https://github.com/apache/camel-k-runtime/pull/785) ([dependabot[bot]](https://github.com/apps/dependabot))
 - chore\(deps\): remove kamelet-reify [\#784](https://github.com/apache/camel-k-runtime/pull/784) ([squakez](https://github.com/squakez))
 - build\(deps\): bump maven-plugin-plugin from 3.6.2 to 3.6.4 [\#783](https://github.com/apache/camel-k-runtime/pull/783) ([dependabot[bot]](https://github.com/apps/dependabot))
