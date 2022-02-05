@@ -10,6 +10,7 @@
 
 **Merged pull requests:**
 
+- Camel-dependencies should point to 3.14.1 [\#788](https://github.com/apache/camel-k-runtime/pull/788) ([oscerd](https://github.com/oscerd))
 - build\(deps\): bump versions-maven-plugin from 2.8.1 to 2.9.0 [\#787](https://github.com/apache/camel-k-runtime/pull/787) ([dependabot[bot]](https://github.com/apps/dependabot))
 - deps: update camel-quarkus to v2.7.0 [\#786](https://github.com/apache/camel-k-runtime/pull/786) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps\): bump build-helper-maven-plugin from 3.2.0 to 3.3.0 [\#785](https://github.com/apache/camel-k-runtime/pull/785) ([dependabot[bot]](https://github.com/apps/dependabot))
