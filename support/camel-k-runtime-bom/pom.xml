@@ -28,14 +28,14 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.camel.k</groupId>
     <artifactId>camel-k-runtime-bom</artifactId>
-    <version>1.12.0-SNAPSHOT</version>
+    <version>1.12.0</version>
     <packaging>pom</packaging>
 
     <properties>
         <camel-version>3.14.1</camel-version>
 
         <!-- reproduceable builds: https://maven.apache.org/guides/mini/guide-reproducible-builds.html -->
-        <project.build.outputTimestamp>1644307311</project.build.outputTimestamp>
+        <project.build.outputTimestamp>1644316483</project.build.outputTimestamp>
 
         <maven-enforcer-plugin-version>3.0.0</maven-enforcer-plugin-version>
         <maven-version>3.6.3</maven-version>
@@ -63,7 +63,7 @@
         <connection>scm:git:http://gitbox.apache.org/repos/asf/camel-k-runtime.git</connection>
         <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/camel-k-runtime.git</developerConnection>
         <url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary</url>
-        <tag>camel-k-runtime-project-1.10.0</tag>
+        <tag>camel-k-runtime-project-1.12.0</tag>
     </scm>
 
     <repositories>
