@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased](https://github.com/apache/camel-k-runtime/tree/HEAD)
+
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.12.0...HEAD)
+
+**Merged pull requests:**
+
+- build\(deps\): bump maven-compiler-plugin from 3.9.0 to 3.10.0 [\#789](https://github.com/apache/camel-k-runtime/pull/789) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [camel-k-runtime-project-1.12.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.12.0) (2022-02-08)
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.11.0...camel-k-runtime-project-1.12.0)
