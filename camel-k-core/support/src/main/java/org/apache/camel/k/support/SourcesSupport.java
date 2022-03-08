@@ -139,7 +139,7 @@ public final class SourcesSupport {
                         List<RouteDefinition> routes = builder.getRouteCollection().getRoutes();
                         List<RouteTemplateDefinition> templates = builder.getRouteTemplateCollection().getRouteTemplates();
 
-                        if (routes.size() > 0) {
+                        if (!routes.isEmpty()) {
                             throw new IllegalArgumentException("There should be no route definition, got " + routes.size());
                         }
                         if (!templates.isEmpty()) {
