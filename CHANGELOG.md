@@ -6,6 +6,8 @@
 
 **Merged pull requests:**
 
+- chore: use isEmpty\(\) instead of size\(\) == 0 [\#792](https://github.com/apache/camel-k-runtime/pull/792) ([lburgazzoli](https://github.com/lburgazzoli))
+- build\(deps\): bump maven-pmd-plugin from 3.15.0 to 3.16.0 [\#791](https://github.com/apache/camel-k-runtime/pull/791) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-javadoc-plugin from 3.3.1 to 3.3.2 [\#790](https://github.com/apache/camel-k-runtime/pull/790) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-compiler-plugin from 3.9.0 to 3.10.0 [\#789](https://github.com/apache/camel-k-runtime/pull/789) ([dependabot[bot]](https://github.com/apps/dependabot))
 
