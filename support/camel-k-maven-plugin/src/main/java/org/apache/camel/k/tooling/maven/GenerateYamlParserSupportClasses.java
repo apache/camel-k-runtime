@@ -110,8 +110,8 @@ public class GenerateYamlParserSupportClasses extends GenerateYamlSupport {
             (k, v) -> {
                 String name = k;
                 name = StringHelper.capitalize(name);
-                name = StringHelper.replaceAll(name, "_", "");
-                name = StringHelper.replaceAll(name, "-", "");
+                name = StringHelper.replace(name, "_", "");
+                name = StringHelper.replace(name, "-", "");
 
                 type.addMethod(MethodSpec.methodBuilder("set" + name)
                     .addAnnotation(
@@ -162,8 +162,8 @@ public class GenerateYamlParserSupportClasses extends GenerateYamlSupport {
             (k, v) -> {
                 String name = k;
                 name = StringHelper.capitalize(name);
-                name = StringHelper.replaceAll(name, "_", "");
-                name = StringHelper.replaceAll(name, "-", "");
+                name = StringHelper.replace(name, "_", "");
+                name = StringHelper.replace(name, "-", "");
 
                 type.addMethod(MethodSpec.methodBuilder("set" + name)
                     .addAnnotation(
@@ -211,8 +211,8 @@ public class GenerateYamlParserSupportClasses extends GenerateYamlSupport {
             (k, v) -> {
                 String name = k;
                 name = StringHelper.capitalize(name);
-                name = StringHelper.replaceAll(name, "_", "");
-                name = StringHelper.replaceAll(name, "-", "");
+                name = StringHelper.replace(name, "_", "");
+                name = StringHelper.replace(name, "-", "");
 
                 type.addMethod(MethodSpec.methodBuilder("set" + name)
                     .addAnnotation(
