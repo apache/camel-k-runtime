@@ -191,6 +191,11 @@ public final class  Sources {
             public Reader getReader(Charset charset) throws Exception {
                 return source.resolveAsReader(camelContext, charset);
             }
+
+            @Override
+            public String getScheme() {
+                return source.getLocation();
+            }
         };
     }
 

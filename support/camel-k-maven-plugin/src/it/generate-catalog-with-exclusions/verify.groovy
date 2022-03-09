@@ -27,7 +27,7 @@ new File(basedir, "catalog.yaml").withReader {
     assert catalog.spec.loaders['xml'] != null
     assert catalog.spec.loaders['yaml'] != null
 
-    assert catalog.spec.artifacts['camel-quarkus-jackson-avro'] == null
+    assert catalog.spec.artifacts['camel-quarkus-jackson-avro'] != null
     assert catalog.spec.artifacts['camel-quarkus-csimple'] == null
     assert catalog.spec.artifacts['camel-quarkus-disruptor'] == null
 
