@@ -41,9 +41,9 @@
         <camel-version>3.14.1</camel-version>
 
         <!-- quarkus -->
-        <camel-quarkus-version>2.7.0</camel-quarkus-version>
+        <camel-quarkus-version>2.8.0-M1</camel-quarkus-version>
         <graalvm-version>21.3.0</graalvm-version>
-        <quarkus-version>2.7.0.Final</quarkus-version>
+        <quarkus-version>2.7.3.Final</quarkus-version>
 
         <!-- camel-k -->
         <groovy-version>3.0.9</groovy-version>
