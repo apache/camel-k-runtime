@@ -19,7 +19,7 @@
     id: yaml
     from:
       uri: 'direct:yaml'
-    steps:
-      - marshal:
-          json: {}
-      - to: 'log:yaml'
+      steps:
+        - marshal:
+            json: {}
+        - to: 'log:yaml'

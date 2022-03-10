@@ -20,9 +20,9 @@
     from:
       direct:
         name: 'route'
-    steps:
-      - direct:
-          name: "route_result"
+      steps:
+        - direct:
+            name: "route_result"
 - from:
     direct:
       name: "from"
