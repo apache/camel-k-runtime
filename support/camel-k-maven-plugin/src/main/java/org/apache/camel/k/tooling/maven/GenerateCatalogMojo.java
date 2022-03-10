@@ -407,15 +407,6 @@ public class GenerateCatalogMojo extends AbstractMojo {
                     .build()
             );
         }
-        if (dslsExclusionList != null && !dslsExclusionList.contains("jsh")) {
-            specBuilder.putLoader(
-                "jsh",
-                CamelLoader.fromArtifact("org.apache.camel.k", "camel-k-loader-jsh")
-                    .addLanguages("jsh")
-                    .putMetadata("native", "false")
-                    .build()
-            );
-        }
     }
 
     private void processComponents(org.apache.camel.catalog.CamelCatalog catalog, Map<String, CamelArtifact> artifacts) {

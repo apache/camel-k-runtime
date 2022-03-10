@@ -365,7 +365,6 @@
         <module>components</module>
 
         <module>camel-k-core</module>
-        <module>camel-k-loader-jsh</module>
 
         <module>camel-k-cron</module>
         <module>camel-k-cloudevents</module>
@@ -629,21 +628,6 @@
             </dependency>
 
             <!-- loaders -->
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-loader-jsh</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-loader-jsh-deployment</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-loader-jsh-impl</artifactId>
-                <version>${project.version}</version>
-            </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-loader-yaml</artifactId>
