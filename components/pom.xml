@@ -29,7 +29,6 @@
     <artifactId>camel-k-components</artifactId>
 
     <modules>
-        <module>camel-cloudevents</module>
         <module>camel-knative</module>
     </modules>
 </project>

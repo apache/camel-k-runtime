@@ -37,15 +37,15 @@
             <artifactId>camel-quarkus-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel.k</groupId>
+            <groupId>org.apache.camel</groupId>
             <artifactId>camel-knative-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel.k</groupId>
+            <groupId>org.apache.camel</groupId>
             <artifactId>camel-knative</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel.k</groupId>
+            <groupId>org.apache.camel</groupId>
             <artifactId>camel-knative-http</artifactId>
         </dependency>
         <dependency>

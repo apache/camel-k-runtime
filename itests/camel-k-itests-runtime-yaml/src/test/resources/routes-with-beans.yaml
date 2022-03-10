@@ -24,8 +24,8 @@
     id: "my-route"
     from:
       uri: "direct:start"
-    steps:
-      - bean:
-          ref: "my-bean"
-          method: "getName"
-      - to: "log:info"
+      steps:
+        - bean:
+            ref: "my-bean"
+            method: "getName"
+        - to: "log:info"
