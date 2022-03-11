@@ -4,8 +4,16 @@
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.12.0...HEAD)
 
+**Closed issues:**
+
+- Prepare for release 1.13.0 [\#793](https://github.com/apache/camel-k-runtime/issues/793)
+- Move dsl-jsh to core project [\#767](https://github.com/apache/camel-k-runtime/issues/767)
+- Move components to Camel [\#752](https://github.com/apache/camel-k-runtime/issues/752)
+
 **Merged pull requests:**
 
+- Move dsl-jsh to core project - Removed the jsh module from camel-k-ru… [\#796](https://github.com/apache/camel-k-runtime/pull/796) ([oscerd](https://github.com/oscerd))
+- Build 3.15.0 [\#795](https://github.com/apache/camel-k-runtime/pull/795) ([oscerd](https://github.com/oscerd))
 - Next is 1.13.0 [\#794](https://github.com/apache/camel-k-runtime/pull/794) ([oscerd](https://github.com/oscerd))
 - chore: use isEmpty\(\) instead of size\(\) == 0 [\#792](https://github.com/apache/camel-k-runtime/pull/792) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps\): bump maven-pmd-plugin from 3.15.0 to 3.16.0 [\#791](https://github.com/apache/camel-k-runtime/pull/791) ([dependabot[bot]](https://github.com/apps/dependabot))
