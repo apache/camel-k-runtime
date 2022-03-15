@@ -12,6 +12,7 @@
 
 **Merged pull requests:**
 
+- Removed staging repositories for Camel-quarkus 2.8.0-M1 [\#797](https://github.com/apache/camel-k-runtime/pull/797) ([oscerd](https://github.com/oscerd))
 - Move dsl-jsh to core project - Removed the jsh module from camel-k-ru… [\#796](https://github.com/apache/camel-k-runtime/pull/796) ([oscerd](https://github.com/oscerd))
 - Build 3.15.0 [\#795](https://github.com/apache/camel-k-runtime/pull/795) ([oscerd](https://github.com/oscerd))
 - Next is 1.13.0 [\#794](https://github.com/apache/camel-k-runtime/pull/794) ([oscerd](https://github.com/oscerd))
