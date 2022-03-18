@@ -12,6 +12,7 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump maven-plugin-annotations from 3.6.2 to 3.6.4 [\#799](https://github.com/apache/camel-k-runtime/pull/799) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Removed staging repositories for Camel-quarkus 2.8.0-M1 [\#797](https://github.com/apache/camel-k-runtime/pull/797) ([oscerd](https://github.com/oscerd))
 - Move dsl-jsh to core project - Removed the jsh module from camel-k-ru… [\#796](https://github.com/apache/camel-k-runtime/pull/796) ([oscerd](https://github.com/oscerd))
 - Build 3.15.0 [\#795](https://github.com/apache/camel-k-runtime/pull/795) ([oscerd](https://github.com/oscerd))
