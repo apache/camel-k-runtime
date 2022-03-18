@@ -46,7 +46,7 @@
         <quarkus-version>2.7.3.Final</quarkus-version>
 
         <!-- camel-k -->
-        <groovy-version>3.0.9</groovy-version>
+        <groovy-version>3.0.10</groovy-version>
         <spock-version>2.1-groovy-3.0</spock-version>
         <immutables-version>2.9.0</immutables-version>
         <semver4j-version>3.1.0</semver4j-version>
