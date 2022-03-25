@@ -12,6 +12,7 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump apache from 24 to 25 [\#803](https://github.com/apache/camel-k-runtime/pull/803) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-site-plugin from 3.10.0 to 3.11.0 [\#802](https://github.com/apache/camel-k-runtime/pull/802) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump spock-core from 2.0-groovy-3.0 to 2.1-groovy-3.0 [\#801](https://github.com/apache/camel-k-runtime/pull/801) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump versions-maven-plugin from 2.9.0 to 2.10.0 [\#800](https://github.com/apache/camel-k-runtime/pull/800) ([dependabot[bot]](https://github.com/apps/dependabot))
