@@ -19,7 +19,7 @@
 -->
 <rests xmlns="http://camel.apache.org/schema/spring">
   <rest path="/camel/" id="rest-greetings">
-    <get id="greetings" uri="/greetings/{name}">
+    <get id="greetings" path="/greetings/{name}">
       <param dataType="string" name="name" required="true" type="path"/>
       <to uri="direct:greeting-api"/>
     </get>
