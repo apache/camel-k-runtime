@@ -20,10 +20,10 @@ new File(basedir, "document.xml").withReader {
 
     assert document.rest.@path == '/v1'
     assert document.rest.get.size() == 2
-    assert document.rest.get.find { it.@id == 'listPets' }.@uri == '/pets'
+    assert document.rest.get.find { it.@id == 'listPets' }.@path == '/pets'
     assert document.rest.get.find { it.@id == 'listPets' }.to.@uri == 'direct:listPets'
-    assert document.rest.get.find { it.@id == 'showPetById' }.@uri == '/pets/{petId}'
+    assert document.rest.get.find { it.@id == 'showPetById' }.@path == '/pets/{petId}'
     assert document.rest.get.find { it.@id == 'showPetById' }.to.@uri == 'direct:showPetById'
-    assert document.rest.post.find { it.@id == 'createPets' }.@uri == '/pets'
+    assert document.rest.post.find { it.@id == 'createPets' }.@path == '/pets'
     assert document.rest.post.find { it.@id == 'createPets' }.to.@uri == 'direct:createPets'
 }

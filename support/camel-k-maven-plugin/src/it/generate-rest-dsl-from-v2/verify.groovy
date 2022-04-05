@@ -22,6 +22,6 @@ new File(basedir, "document.xml").withReader {
     assert document.rest.@path == '/camel/'
     assert document.rest.get.size() == 1
     assert document.rest.get[0].@id == 'greeting-api'
-    assert document.rest.get[0].@uri == '/greetings/{name}'
+    assert document.rest.get[0].@path == '/greetings/{name}'
     assert document.rest.get[0].to.@uri == 'direct:greeting-api'
 }
