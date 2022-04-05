@@ -42,7 +42,7 @@
 
         <!-- quarkus -->
         <camel-quarkus-version>2.8.0</camel-quarkus-version>
-        <graalvm-version>22.0.0.2</graalvm-version>
+        <graalvm-version>22.0.0</graalvm-version>
         <quarkus-version>2.8.0.Final</quarkus-version>
 
         <!-- camel-k -->
