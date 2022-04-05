@@ -12,6 +12,7 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump maven-surefire-plugin from 3.0.0-M5 to 3.0.0-M6 [\#807](https://github.com/apache/camel-k-runtime/pull/807) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-compiler-plugin from 3.10.0 to 3.10.1 [\#804](https://github.com/apache/camel-k-runtime/pull/804) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump apache from 24 to 25 [\#803](https://github.com/apache/camel-k-runtime/pull/803) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-site-plugin from 3.10.0 to 3.11.0 [\#802](https://github.com/apache/camel-k-runtime/pull/802) ([dependabot[bot]](https://github.com/apps/dependabot))
