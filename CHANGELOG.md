@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- Release 1.13.0: Update to use Camel 3.16.0 [\#805](https://github.com/apache/camel-k-runtime/issues/805)
 - Prepare for release 1.13.0 [\#793](https://github.com/apache/camel-k-runtime/issues/793)
 - Move dsl-jsh to core project [\#767](https://github.com/apache/camel-k-runtime/issues/767)
 - Move components to Camel [\#752](https://github.com/apache/camel-k-runtime/issues/752)
@@ -13,6 +14,7 @@
 **Merged pull requests:**
 
 - build\(deps\): bump maven-surefire-plugin from 3.0.0-M5 to 3.0.0-M6 [\#807](https://github.com/apache/camel-k-runtime/pull/807) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Fix 805 [\#806](https://github.com/apache/camel-k-runtime/pull/806) ([oscerd](https://github.com/oscerd))
 - build\(deps\): bump maven-compiler-plugin from 3.10.0 to 3.10.1 [\#804](https://github.com/apache/camel-k-runtime/pull/804) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump apache from 24 to 25 [\#803](https://github.com/apache/camel-k-runtime/pull/803) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-site-plugin from 3.10.0 to 3.11.0 [\#802](https://github.com/apache/camel-k-runtime/pull/802) ([dependabot[bot]](https://github.com/apps/dependabot))
