@@ -10,6 +10,8 @@
 - Prepare for release 1.13.0 [\#793](https://github.com/apache/camel-k-runtime/issues/793)
 - Move dsl-jsh to core project [\#767](https://github.com/apache/camel-k-runtime/issues/767)
 - Move components to Camel [\#752](https://github.com/apache/camel-k-runtime/issues/752)
+- HTTP error \(can't write to /deployments/file-uploads\) when not setting content-type [\#634](https://github.com/apache/camel-k-runtime/issues/634)
+- Rest options such as cors still don't work [\#416](https://github.com/apache/camel-k-runtime/issues/416)
 
 **Merged pull requests:**
 
