@@ -169,6 +169,7 @@
                     <version>${maven-surefire-plugin-version}</version>
                     <configuration>
                         <failIfNoTests>false</failIfNoTests>
+                        <failIfNoSpecifiedTests>false</failIfNoSpecifiedTests>
                     </configuration>
                 </plugin>
                 <plugin>
