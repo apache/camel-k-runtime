@@ -1,8 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/apache/camel-k-runtime/tree/HEAD)
+## [camel-k-runtime-project-1.13.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.13.0) (2022-04-13)
 
-[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.12.0...HEAD)
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.12.0...camel-k-runtime-project-1.13.0)
 
 **Closed issues:**
 
@@ -15,6 +15,7 @@
 
 **Merged pull requests:**
 
+- Remove staging repositories for Camel Quarkus 2.8.0 [\#811](https://github.com/apache/camel-k-runtime/pull/811) ([oscerd](https://github.com/oscerd))
 - build\(deps\): bump maven-surefire-plugin from 3.0.0-M5 to 3.0.0-M6 [\#807](https://github.com/apache/camel-k-runtime/pull/807) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Fix 805 [\#806](https://github.com/apache/camel-k-runtime/pull/806) ([oscerd](https://github.com/oscerd))
 - build\(deps\): bump maven-compiler-plugin from 3.10.0 to 3.10.1 [\#804](https://github.com/apache/camel-k-runtime/pull/804) ([dependabot[bot]](https://github.com/apps/dependabot))
