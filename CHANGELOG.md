@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased](https://github.com/apache/camel-k-runtime/tree/HEAD)
+
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.13.0...HEAD)
+
+**Merged pull requests:**
+
+- build\(deps\): bump apache from 25 to 26 [\#812](https://github.com/apache/camel-k-runtime/pull/812) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [camel-k-runtime-project-1.13.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.13.0) (2022-04-13)
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.12.0...camel-k-runtime-project-1.13.0)
