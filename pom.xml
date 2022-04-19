@@ -82,7 +82,7 @@
         <maven-resources-plugin-version>3.2.0</maven-resources-plugin-version>
         <maven-site-plugin-version>3.11.0</maven-site-plugin-version>
         <maven-pmd-plugin-version>3.16.0</maven-pmd-plugin-version>
-        <maven-pmd-plugin-asm-version>9.2</maven-pmd-plugin-asm-version>
+        <maven-pmd-plugin-asm-version>9.3</maven-pmd-plugin-asm-version>
         <maven-plugin-plugin-version>3.6.4</maven-plugin-plugin-version>
         <maven-version>3.6.3</maven-version>
         <maven-plugin-tools-version>3.6.4</maven-plugin-tools-version>
