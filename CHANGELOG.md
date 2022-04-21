@@ -1,5 +1,15 @@
 # Changelog
 
+## [Unreleased](https://github.com/apache/camel-k-runtime/tree/HEAD)
+
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.13.0...HEAD)
+
+**Merged pull requests:**
+
+- build\(deps\): bump maven-site-plugin from 3.11.0 to 3.12.0 [\#816](https://github.com/apache/camel-k-runtime/pull/816) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump maven-javadoc-plugin from 3.3.2 to 3.4.0 [\#815](https://github.com/apache/camel-k-runtime/pull/815) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump asm from 9.2 to 9.3 [\#814](https://github.com/apache/camel-k-runtime/pull/814) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [camel-k-runtime-project-1.13.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.13.0) (2022-04-19)
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.12.0...camel-k-runtime-project-1.13.0)
