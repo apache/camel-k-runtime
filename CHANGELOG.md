@@ -4,6 +4,10 @@
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.13.0...HEAD)
 
+**Closed issues:**
+
+- Align Camel K Runtime BOM with camel version [\#813](https://github.com/apache/camel-k-runtime/issues/813)
+
 **Merged pull requests:**
 
 - build\(deps\): bump maven-clean-plugin from 3.1.0 to 3.2.0 [\#817](https://github.com/apache/camel-k-runtime/pull/817) ([dependabot[bot]](https://github.com/apps/dependabot))
