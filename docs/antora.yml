@@ -18,4 +18,4 @@
 # The main part of this distributed component is in camel-k docs
 
 name: camel-k
-version: 1.13.x
+version: 1.9.x
