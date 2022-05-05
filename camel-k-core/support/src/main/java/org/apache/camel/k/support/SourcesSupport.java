@@ -110,10 +110,12 @@ public final class SourcesSupport {
                         List<RouteTemplateDefinition> templates = builder.getRouteTemplateCollection().getRouteTemplates();
 
                         if (routes.size() != 1) {
-                            throw new IllegalArgumentException("There should be a single route definition, got " + routes.size());
+                            throw new IllegalArgumentException(
+                                "There should be a single route definition when configuring route templates, got " + routes.size());
                         }
                         if (!templates.isEmpty()) {
-                            throw new IllegalArgumentException("There should not be any template, got " + templates.size());
+                            throw new IllegalArgumentException(
+                                "There should not be any template definition when configuring route templates, got " + templates.size());
                         }
 
                         // create a new template from the source
@@ -140,10 +142,12 @@ public final class SourcesSupport {
                         List<RouteTemplateDefinition> templates = builder.getRouteTemplateCollection().getRouteTemplates();
 
                         if (!routes.isEmpty()) {
-                            throw new IllegalArgumentException("There should be no route definition, got " + routes.size());
+                            throw new IllegalArgumentException(
+                                "There should be no route definition when configuring error handler, got " + routes.size());
                         }
                         if (!templates.isEmpty()) {
-                            throw new IllegalArgumentException("There should not be any template, got " + templates.size());
+                            throw new IllegalArgumentException(
+                                "There should not be any template definition when configuring error handler, got " + templates.size());
                         }
 
                         if (hasErrorHandlerBuilder(builder)) {
