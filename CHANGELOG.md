@@ -10,6 +10,7 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump maven-failsafe-plugin from 3.0.0-M5 to 3.0.0-M6 [\#821](https://github.com/apache/camel-k-runtime/pull/821) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-clean-plugin from 3.1.0 to 3.2.0 [\#817](https://github.com/apache/camel-k-runtime/pull/817) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-site-plugin from 3.11.0 to 3.12.0 [\#816](https://github.com/apache/camel-k-runtime/pull/816) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-javadoc-plugin from 3.3.2 to 3.4.0 [\#815](https://github.com/apache/camel-k-runtime/pull/815) ([dependabot[bot]](https://github.com/apps/dependabot))
