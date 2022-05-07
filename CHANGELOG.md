@@ -6,10 +6,12 @@
 
 **Closed issues:**
 
+- Improve error message during ErrorHander building validation [\#820](https://github.com/apache/camel-k-runtime/issues/820)
 - Align Camel K Runtime BOM with camel version [\#813](https://github.com/apache/camel-k-runtime/issues/813)
 
 **Merged pull requests:**
 
+- Improve error message during ErrorHander building validation [\#822](https://github.com/apache/camel-k-runtime/pull/822) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps\): bump maven-failsafe-plugin from 3.0.0-M5 to 3.0.0-M6 [\#821](https://github.com/apache/camel-k-runtime/pull/821) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-clean-plugin from 3.1.0 to 3.2.0 [\#817](https://github.com/apache/camel-k-runtime/pull/817) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-site-plugin from 3.11.0 to 3.12.0 [\#816](https://github.com/apache/camel-k-runtime/pull/816) ([dependabot[bot]](https://github.com/apps/dependabot))
