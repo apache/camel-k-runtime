@@ -376,10 +376,12 @@
         <module>camel-k-master</module>
         <module>camel-k-webhook</module>
         <module>camel-k-runtime</module>
+        <module>camel-k-resume-kafka</module>
 
         <module>itests</module>
         <module>examples</module>
         <module>distribution</module>
+
     </modules>
 
     <dependencyManagement>
