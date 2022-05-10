@@ -240,6 +240,19 @@ public class GenerateCatalogMojo extends AbstractMojo {
                         .build()
                 );
             }
+            if (capabilitiesExclusionList != null && !capabilitiesExclusionList.contains("resume-kafka")) {
+                runtimeSpec.putCapability(
+                        "resume-kafka",
+                        CamelCapability.forArtifact(
+                                "org.apache.camel.k", "camel-k-resume-kafka"));
+
+                catalogSpec.putArtifact(
+                        new CamelArtifact.Builder()
+                                .groupId("org.apache.camel.k")
+                                .artifactId("camel-k-resume-kafka")
+                                .build()
+                );
+            }
 
             catalogSpec.runtime(runtimeSpec.build());
 
