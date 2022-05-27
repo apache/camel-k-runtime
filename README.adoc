@@ -8,6 +8,21 @@ image:https://github.com/apache/camel-k-runtime/workflows/Build/badge.svg["Build
 
 This repository contains the Apache Camel-K Runtime bits used by the https://github.com/apache/camel-k[_main project_]
 
+== How to bump the main dependencies
+
+In order to simplify the maintenance, you can use a script in `/script/` directory which take care of bumping the versions for the project. As we maintain a BOM which is not inheriting the main project parent, this is very handy to keep versions aligned. Instructions how to run the script:
+....
+Usage: ./script/bump.sh [options]
+--version                 Bump Camel K runtime version
+--camel                   Bump Camel version
+--camel-quarkus           Bump Camel-Quarkus version
+--quarkus                 Bump Quarkus version
+--graalvm                 Bump GraalVM version
+--help                    This help message
+
+Example: ./script/bump.sh --version 1.14.0-SNAPSHOT --camel 3.16.0
+....
+
 == Instructions for local debugging
 
 You can https://camel.apache.org/camel-k/latest/contributing/local-development.html#_local_camel_k_runtime[follow these instructions] in order to run and debug a Camel K integration based on a local Camel K runtime.
