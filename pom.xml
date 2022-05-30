@@ -637,19 +637,6 @@
                 <version>${project.version}</version>
             </dependency>
 
-            <!-- graalvm -->
-            <dependency>
-                <groupId>org.graalvm.js</groupId>
-                <artifactId>js</artifactId>
-                <version>${graalvm-version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.graalvm.nativeimage</groupId>
-                <artifactId>svm</artifactId>
-                <version>${graalvm-version}</version>
-                <scope>provided</scope>
-            </dependency>
-
             <!-- groovy -->
             <dependency>
                 <groupId>org.codehaus.groovy</groupId>
