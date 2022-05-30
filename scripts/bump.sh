@@ -12,7 +12,6 @@ Usage: ./script/bump.sh [options]
 --camel                   Bump Camel version
 --camel-quarkus           Bump Camel-Quarkus version
 --quarkus                 Bump Quarkus version
---graalvm                 Bump GraalVM version
 --help                    This help message
 
 Example: ./script/bump.sh --version 1.14.0-SNAPSHOT --camel 3.16.0
@@ -24,7 +23,6 @@ VERSION=""
 CAMEL=""
 CAMELQUARKUS=""
 QUARKUS=""
-GRAALVM=""
 
 main() {
   parse_args $@
@@ -48,11 +46,6 @@ main() {
   if [[ ! -z "$QUARKUS" ]]; then
     mvn versions:set-property -Dproperty="quarkus-version" -DnewVersion="$QUARKUS"
     echo "Quarkus platform version set to $QUARKUS"
-  fi
-
-  if [[ ! -z "$GRAALVM" ]]; then
-    mvn versions:set-property -Dproperty="graalvm-version" -DnewVersion="$GRAALVM"
-    echo "GraalVM version set to $GRAALVM"
   fi
 }
 
@@ -80,10 +73,6 @@ parse_args(){
         --quarkus)
           shift
           QUARKUS="$1"
-          ;;
-        --graalvm)
-          shift
-          GRAALVM="$1"
           ;;
         *)
           echo "❗ unknown argument: $1"
