@@ -11,6 +11,8 @@
 
 **Merged pull requests:**
 
+- chore\(deps\): Camel Quarkus dependency management [\#827](https://github.com/apache/camel-k-runtime/pull/827) ([squakez](https://github.com/squakez))
+- chore\(deps\): move Quarkus native image into a property [\#826](https://github.com/apache/camel-k-runtime/pull/826) ([squakez](https://github.com/squakez))
 - feat\(deps\): script to bump dependencies [\#825](https://github.com/apache/camel-k-runtime/pull/825) ([squakez](https://github.com/squakez))
 - build\(deps\): bump versions-maven-plugin from 2.10.0 to 2.11.0 [\#824](https://github.com/apache/camel-k-runtime/pull/824) ([dependabot[bot]](https://github.com/apps/dependabot))
 - chore\(dependencies\): 1.14.0 new release cycle [\#823](https://github.com/apache/camel-k-runtime/pull/823) ([squakez](https://github.com/squakez))
