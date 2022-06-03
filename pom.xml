@@ -46,7 +46,7 @@
         <quarkus-native-builder-image>quay.io/quarkus/ubi-quarkus-native-image:22.0.0-java11</quarkus-native-builder-image>
 
         <!-- camel-k -->
-        <groovy-version>3.0.10</groovy-version>
+        <groovy-version>3.0.11</groovy-version>
         <spock-version>2.1-groovy-3.0</spock-version>
         <immutables-version>2.9.0</immutables-version>
         <semver4j-version>3.1.0</semver4j-version>
