@@ -11,6 +11,7 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump groovy-version from 3.0.10 to 3.0.11 [\#828](https://github.com/apache/camel-k-runtime/pull/828) ([dependabot[bot]](https://github.com/apps/dependabot))
 - chore\(deps\): Camel Quarkus dependency management [\#827](https://github.com/apache/camel-k-runtime/pull/827) ([squakez](https://github.com/squakez))
 - chore\(deps\): move Quarkus native image into a property [\#826](https://github.com/apache/camel-k-runtime/pull/826) ([squakez](https://github.com/squakez))
 - feat\(deps\): script to bump dependencies [\#825](https://github.com/apache/camel-k-runtime/pull/825) ([squakez](https://github.com/squakez))
