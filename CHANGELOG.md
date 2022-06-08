@@ -11,6 +11,9 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump maven-failsafe-plugin from 3.0.0-M6 to 3.0.0-M7 [\#831](https://github.com/apache/camel-k-runtime/pull/831) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump maven-surefire-plugin from 3.0.0-M6 to 3.0.0-M7 [\#830](https://github.com/apache/camel-k-runtime/pull/830) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump maven-pmd-plugin from 3.16.0 to 3.17.0 [\#829](https://github.com/apache/camel-k-runtime/pull/829) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump groovy-version from 3.0.10 to 3.0.11 [\#828](https://github.com/apache/camel-k-runtime/pull/828) ([dependabot[bot]](https://github.com/apps/dependabot))
 - chore\(deps\): Camel Quarkus dependency management [\#827](https://github.com/apache/camel-k-runtime/pull/827) ([squakez](https://github.com/squakez))
 - chore\(deps\): move Quarkus native image into a property [\#826](https://github.com/apache/camel-k-runtime/pull/826) ([squakez](https://github.com/squakez))
