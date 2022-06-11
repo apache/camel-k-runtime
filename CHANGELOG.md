@@ -11,6 +11,7 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump maven-enforcer-plugin from 3.0.0 to 3.1.0 [\#832](https://github.com/apache/camel-k-runtime/pull/832) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-failsafe-plugin from 3.0.0-M6 to 3.0.0-M7 [\#831](https://github.com/apache/camel-k-runtime/pull/831) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-surefire-plugin from 3.0.0-M6 to 3.0.0-M7 [\#830](https://github.com/apache/camel-k-runtime/pull/830) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-pmd-plugin from 3.16.0 to 3.17.0 [\#829](https://github.com/apache/camel-k-runtime/pull/829) ([dependabot[bot]](https://github.com/apps/dependabot))
