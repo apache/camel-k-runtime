@@ -37,6 +37,7 @@
         <module>camel-k-itests-support</module>
         <module>camel-k-catalog</module>
         <module>camel-k-runtime-bom</module>
+        <module>camel-k-maven-logging</module>
     </modules>
 
 </project>
