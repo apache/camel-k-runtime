@@ -12,6 +12,7 @@
 **Merged pull requests:**
 
 - build\(deps\): bump maven-common-artifact-filters from 3.2.0 to 3.3.0 [\#834](https://github.com/apache/camel-k-runtime/pull/834) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Add new module for structural Maven logging [\#833](https://github.com/apache/camel-k-runtime/pull/833) ([christophd](https://github.com/christophd))
 - build\(deps\): bump maven-enforcer-plugin from 3.0.0 to 3.1.0 [\#832](https://github.com/apache/camel-k-runtime/pull/832) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-failsafe-plugin from 3.0.0-M6 to 3.0.0-M7 [\#831](https://github.com/apache/camel-k-runtime/pull/831) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-surefire-plugin from 3.0.0-M6 to 3.0.0-M7 [\#830](https://github.com/apache/camel-k-runtime/pull/830) ([dependabot[bot]](https://github.com/apps/dependabot))
