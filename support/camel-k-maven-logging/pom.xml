@@ -30,10 +30,9 @@
 
     <properties>
       <!-- Maven structural logging -->
-      <logback-version>1.2.3</logback-version>
-      <logstash-logback-version>4.11</logstash-logback-version>
-      <jackson-version>2.9.10</jackson-version>
-      <jackson-databind-version>2.9.10.8</jackson-databind-version>
+      <logback-version>1.2.11</logback-version>
+      <logstash-logback-version>7.2</logstash-logback-version>
+      <jackson-version>2.13.3</jackson-version>
     </properties>
 
     <dependencyManagement>
@@ -67,7 +66,7 @@
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
-                <version>${jackson-databind-version}</version>
+                <version>${jackson-version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
