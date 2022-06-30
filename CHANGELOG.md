@@ -11,6 +11,7 @@
 
 **Merged pull requests:**
 
+- chore\(deps\): Bump dependency versions [\#840](https://github.com/apache/camel-k-runtime/pull/840) ([christophd](https://github.com/christophd))
 - build\(deps\): bump maven-common-artifact-filters from 3.2.0 to 3.3.0 [\#834](https://github.com/apache/camel-k-runtime/pull/834) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Add new module for structural Maven logging [\#833](https://github.com/apache/camel-k-runtime/pull/833) ([christophd](https://github.com/christophd))
 - build\(deps\): bump maven-enforcer-plugin from 3.0.0 to 3.1.0 [\#832](https://github.com/apache/camel-k-runtime/pull/832) ([dependabot[bot]](https://github.com/apps/dependabot))
