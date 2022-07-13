@@ -11,6 +11,9 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump maven-assembly-plugin from 3.3.0 to 3.4.1 [\#844](https://github.com/apache/camel-k-runtime/pull/844) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump jandex-maven-plugin from 1.2.2 to 1.2.3 [\#842](https://github.com/apache/camel-k-runtime/pull/842) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump jandex from 2.4.2.Final to 2.4.3.Final [\#841](https://github.com/apache/camel-k-runtime/pull/841) ([dependabot[bot]](https://github.com/apps/dependabot))
 - chore\(deps\): Bump dependency versions [\#840](https://github.com/apache/camel-k-runtime/pull/840) ([christophd](https://github.com/christophd))
 - build\(deps\): bump maven-common-artifact-filters from 3.2.0 to 3.3.0 [\#834](https://github.com/apache/camel-k-runtime/pull/834) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Add new module for structural Maven logging [\#833](https://github.com/apache/camel-k-runtime/pull/833) ([christophd](https://github.com/christophd))
