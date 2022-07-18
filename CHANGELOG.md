@@ -11,6 +11,8 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump exec-maven-plugin from 3.0.0 to 3.1.0 [\#846](https://github.com/apache/camel-k-runtime/pull/846) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump apache from 26 to 27 [\#845](https://github.com/apache/camel-k-runtime/pull/845) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-assembly-plugin from 3.3.0 to 3.4.1 [\#844](https://github.com/apache/camel-k-runtime/pull/844) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump jandex-maven-plugin from 1.2.2 to 1.2.3 [\#842](https://github.com/apache/camel-k-runtime/pull/842) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump jandex from 2.4.2.Final to 2.4.3.Final [\#841](https://github.com/apache/camel-k-runtime/pull/841) ([dependabot[bot]](https://github.com/apps/dependabot))
