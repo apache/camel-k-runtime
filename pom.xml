@@ -46,7 +46,7 @@
         <quarkus-native-builder-image>quay.io/quarkus/ubi-quarkus-native-image:22.0.0-java11</quarkus-native-builder-image>
 
         <!-- camel-k -->
-        <groovy-version>3.0.11</groovy-version>
+        <groovy-version>3.0.12</groovy-version>
         <spock-version>2.1-groovy-3.0</spock-version>
         <immutables-version>2.9.0</immutables-version>
         <semver4j-version>3.1.0</semver4j-version>
@@ -71,7 +71,7 @@
         <maven-checkstyle-plugin-version>3.1.2</maven-checkstyle-plugin-version>
         <maven-checkstyle-version>8.44</maven-checkstyle-version>
         <maven-gpg-plugin-version>3.0.1</maven-gpg-plugin-version>
-        <maven-deploy-plugin-version>3.0.0-M2</maven-deploy-plugin-version>
+        <maven-deploy-plugin-version>3.0.0</maven-deploy-plugin-version>
         <maven-javadoc-plugin-version>3.4.0</maven-javadoc-plugin-version>
         <maven-source-plugin-version>3.2.1</maven-source-plugin-version>
         <maven-assembly-plugin-version>3.3.0</maven-assembly-plugin-version>
@@ -88,7 +88,7 @@
         <maven-plugin-plugin-version>3.6.4</maven-plugin-plugin-version>
         <maven-version>3.6.3</maven-version>
         <maven-plugin-tools-version>3.6.4</maven-plugin-tools-version>
-        <maven-shaded-version>3.3.0</maven-shaded-version>
+        <maven-shaded-version>3.3.1</maven-shaded-version>
     </properties>
 
      <developers>
