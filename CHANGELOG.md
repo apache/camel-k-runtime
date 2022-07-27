@@ -12,6 +12,9 @@
 **Merged pull requests:**
 
 - chore: fix 404 [\#851](https://github.com/apache/camel-k-runtime/pull/851) ([squakez](https://github.com/squakez))
+- build\(deps\): bump maven-common-artifact-filters from 3.3.0 to 3.3.1 [\#850](https://github.com/apache/camel-k-runtime/pull/850) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump maven-remote-resources-plugin from 1.7.0 to 3.0.0 [\#849](https://github.com/apache/camel-k-runtime/pull/849) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump maven-deploy-plugin from 3.0.0-M2 to 3.0.0 [\#848](https://github.com/apache/camel-k-runtime/pull/848) ([dependabot[bot]](https://github.com/apps/dependabot))
 - chore: bom cleaning [\#847](https://github.com/apache/camel-k-runtime/pull/847) ([squakez](https://github.com/squakez))
 - build\(deps\): bump exec-maven-plugin from 3.0.0 to 3.1.0 [\#846](https://github.com/apache/camel-k-runtime/pull/846) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump apache from 26 to 27 [\#845](https://github.com/apache/camel-k-runtime/pull/845) ([dependabot[bot]](https://github.com/apps/dependabot))
