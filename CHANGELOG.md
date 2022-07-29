@@ -6,11 +6,18 @@
 
 **Closed issues:**
 
+- Bump to Camel Quarkus 2.11.0 and Camel 3.18.0 [\#852](https://github.com/apache/camel-k-runtime/issues/852)
 - Improve error message during ErrorHander building validation [\#820](https://github.com/apache/camel-k-runtime/issues/820)
 - Align Camel K Runtime BOM with camel version [\#813](https://github.com/apache/camel-k-runtime/issues/813)
 
 **Merged pull requests:**
 
+- Update to use the bom for Quarkus 2.11.0 [\#859](https://github.com/apache/camel-k-runtime/pull/859) ([orpiske](https://github.com/orpiske))
+- Align Camel 3.18 dependencies [\#857](https://github.com/apache/camel-k-runtime/pull/857) ([orpiske](https://github.com/orpiske))
+- Upgrade to Camel Quarkus 2.11.0.Final, Camel 3.18.0 and Quarkus Platform 2.11.1.Final [\#856](https://github.com/apache/camel-k-runtime/pull/856) ([oscerd](https://github.com/oscerd))
+- build\(deps\): bump maven-assembly-plugin from 3.4.1 to 3.4.2 [\#855](https://github.com/apache/camel-k-runtime/pull/855) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump groovy-version from 3.0.11 to 3.0.12 [\#854](https://github.com/apache/camel-k-runtime/pull/854) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump maven-resources-plugin from 3.2.0 to 3.3.0 [\#853](https://github.com/apache/camel-k-runtime/pull/853) ([dependabot[bot]](https://github.com/apps/dependabot))
 - chore: fix 404 [\#851](https://github.com/apache/camel-k-runtime/pull/851) ([squakez](https://github.com/squakez))
 - build\(deps\): bump maven-common-artifact-filters from 3.3.0 to 3.3.1 [\#850](https://github.com/apache/camel-k-runtime/pull/850) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-remote-resources-plugin from 1.7.0 to 3.0.0 [\#849](https://github.com/apache/camel-k-runtime/pull/849) ([dependabot[bot]](https://github.com/apps/dependabot))
