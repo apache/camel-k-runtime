@@ -51,7 +51,7 @@ jobs:
         java:
           - '11'
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         persist-credentials: false
     - name: Set up JDK ${{ matrix.java }}
@@ -76,7 +76,7 @@ jobs:
         java:
           - '17'
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           persist-credentials: false
       - name: Set up JDK ${{ matrix.java }}
@@ -117,7 +117,7 @@ jobs:
           #- :camel-k-itests-kamelet-reify
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           persist-credentials: false
       - name: Set up JDK 11
@@ -151,7 +151,7 @@ jobs:
           - :camel-k-runtime-example-knative
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           persist-credentials: false
       - name: Set up JDK 11
@@ -183,7 +183,7 @@ jobs:
       NEXUS_DEPLOY_USERNAME: ${{ secrets.NEXUS_USER }}
       NEXUS_DEPLOY_PASSWORD: ${{ secrets.NEXUS_PW }}
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         persist-credentials: false
     - name: Set up JDK 11
