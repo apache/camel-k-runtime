@@ -12,6 +12,8 @@
 
 **Merged pull requests:**
 
+- \(chores\) ci: update checkout actions to v3 [\#861](https://github.com/apache/camel-k-runtime/pull/861) ([orpiske](https://github.com/orpiske))
+- \(chores\) ci: add dependency review check for PRs [\#860](https://github.com/apache/camel-k-runtime/pull/860) ([orpiske](https://github.com/orpiske))
 - Update to use the bom for Quarkus 2.11.0 [\#859](https://github.com/apache/camel-k-runtime/pull/859) ([orpiske](https://github.com/orpiske))
 - Align Camel 3.18 dependencies [\#857](https://github.com/apache/camel-k-runtime/pull/857) ([orpiske](https://github.com/orpiske))
 - Upgrade to Camel Quarkus 2.11.0.Final, Camel 3.18.0 and Quarkus Platform 2.11.1.Final [\#856](https://github.com/apache/camel-k-runtime/pull/856) ([oscerd](https://github.com/oscerd))
