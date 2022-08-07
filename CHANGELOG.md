@@ -12,6 +12,7 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump quarkus-platform-version from 2.11.1.Final to 2.11.2.Final [\#863](https://github.com/apache/camel-k-runtime/pull/863) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-site-plugin from 3.12.0 to 3.12.1 [\#862](https://github.com/apache/camel-k-runtime/pull/862) ([dependabot[bot]](https://github.com/apps/dependabot))
 - \(chores\) ci: update checkout actions to v3 [\#861](https://github.com/apache/camel-k-runtime/pull/861) ([orpiske](https://github.com/orpiske))
 - \(chores\) ci: add dependency review check for PRs [\#860](https://github.com/apache/camel-k-runtime/pull/860) ([orpiske](https://github.com/orpiske))
