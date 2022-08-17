@@ -44,6 +44,8 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.builder.RouteBuilderLifecycleStrategy;
 import org.apache.camel.k.ContextCustomizer;
+import org.apache.camel.k.Runtime;
+import org.apache.camel.k.RuntimeAware;
 import org.apache.camel.k.Source;
 import org.apache.camel.spi.HasCamelContext;
 import org.apache.camel.util.IOHelper;
@@ -177,8 +179,8 @@ public final class RuntimeSupport {
     //
     // *********************************
 
-    public static List<RouteBuilderLifecycleStrategy> loadInterceptors(CamelContext context, Source source) {
-        ExtendedCamelContext ecc = context.adapt(ExtendedCamelContext.class);
+    public static List<RouteBuilderLifecycleStrategy> loadInterceptors(Runtime runtime, Source source) {
+        ExtendedCamelContext ecc = runtime.getCamelContext().adapt(ExtendedCamelContext.class);
         List<RouteBuilderLifecycleStrategy> answer = new ArrayList<>();
 
         for (String id : source.getInterceptors()) {
@@ -198,8 +200,12 @@ public final class RuntimeSupport {
                     LOGGER.debug("Found source loader interceptor {} from registry", id);
                 }
 
-                PropertiesSupport.bindProperties(context, interceptor, Constants.LOADER_INTERCEPTOR_PREFIX + id + ".");
-                PropertiesSupport.bindProperties(context, interceptor, Constants.LOADER_INTERCEPTOR_PREFIX_FALLBACK + id + ".");
+                PropertiesSupport.bindProperties(ecc, interceptor, Constants.LOADER_INTERCEPTOR_PREFIX + id + ".");
+                PropertiesSupport.bindProperties(ecc, interceptor, Constants.LOADER_INTERCEPTOR_PREFIX_FALLBACK + id + ".");
+
+                if (interceptor instanceof RuntimeAware) {
+                    ((RuntimeAware) interceptor).setRuntime(runtime);
+                }
 
                 answer.add(interceptor);
             } catch (Exception e) {

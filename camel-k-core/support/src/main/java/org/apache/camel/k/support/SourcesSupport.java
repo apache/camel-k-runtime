@@ -16,6 +16,7 @@
  */
 package org.apache.camel.k.support;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -25,13 +26,9 @@ import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.builder.RouteBuilderLifecycleStrategy;
 import org.apache.camel.k.Runtime;
-import org.apache.camel.k.RuntimeAware;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceDefinition;
-import org.apache.camel.k.listener.AbstractPhaseListener;
 import org.apache.camel.k.listener.SourcesConfigurer;
-import org.apache.camel.model.RouteDefinition;
-import org.apache.camel.model.RouteTemplateDefinition;
 import org.apache.camel.spi.Resource;
 import org.apache.camel.util.ObjectHelper;
 import org.slf4j.Logger;
@@ -41,24 +38,6 @@ public final class SourcesSupport {
     private static final Logger LOGGER = LoggerFactory.getLogger(SourcesConfigurer.class);
 
     private SourcesSupport() {
-    }
-
-    public static Runtime.Listener forRoutes(String... sources) {
-        return new AbstractPhaseListener(Runtime.Phase.ConfigureRoutes) {
-            @Override
-            protected void accept(Runtime runtime) {
-                loadSources(runtime, sources);
-            }
-        };
-    }
-
-    public static Runtime.Listener forRoutes(SourceDefinition... definitions) {
-        return new AbstractPhaseListener(Runtime.Phase.ConfigureRoutes) {
-            @Override
-            protected void accept(Runtime runtime) {
-                loadSources(runtime, definitions);
-            }
-        };
     }
 
     public static void loadSources(Runtime runtime, String... routes) {
@@ -86,80 +65,11 @@ public final class SourcesSupport {
     }
 
     public static void load(Runtime runtime, Source source) {
-        final List<RouteBuilderLifecycleStrategy> interceptors;
-
-        switch (source.getType()) {
-            case source:
-                interceptors = RuntimeSupport.loadInterceptors(runtime.getCamelContext(), source);
-                interceptors.forEach(interceptor -> {
-                    if (interceptor instanceof RuntimeAware) {
-                        ((RuntimeAware) interceptor).setRuntime(runtime);
-                    }
-                });
-
-                break;
-            case template:
-                if (!source.getInterceptors().isEmpty()) {
-                    LOGGER.warn("Interceptors associated to the route template {} will be ignored", source.getName());
-                }
-
-                interceptors = List.of(new RouteBuilderLifecycleStrategy() {
-                    @Override
-                    public void afterConfigure(RouteBuilder builder) {
-                        List<RouteDefinition> routes = builder.getRouteCollection().getRoutes();
-                        List<RouteTemplateDefinition> templates = builder.getRouteTemplateCollection().getRouteTemplates();
-
-                        if (routes.size() != 1) {
-                            throw new IllegalArgumentException(
-                                "There should be a single route definition when configuring route templates, got " + routes.size());
-                        }
-                        if (!templates.isEmpty()) {
-                            throw new IllegalArgumentException(
-                                "There should not be any template definition when configuring route templates, got " + templates.size());
-                        }
-
-                        // create a new template from the source
-                        RouteTemplateDefinition templatesDefinition = builder.getRouteTemplateCollection().routeTemplate(source.getId());
-                        templatesDefinition.setRoute(routes.get(0));
-
-                        source.getPropertyNames().forEach(templatesDefinition::templateParameter);
-
-                        // remove all routes definitions as they have been translated
-                        // in the related route template
-                        routes.clear();
-                    }
-                });
-                break;
-            case errorHandler:
-                if (!source.getInterceptors().isEmpty()) {
-                    LOGGER.warn("Interceptors associated to the route template {} will be ignored", source.getName());
-                }
-
-                interceptors = List.of(new RouteBuilderLifecycleStrategy() {
-                    @Override
-                    public void afterConfigure(RouteBuilder builder) {
-                        List<RouteDefinition> routes = builder.getRouteCollection().getRoutes();
-                        List<RouteTemplateDefinition> templates = builder.getRouteTemplateCollection().getRouteTemplates();
-
-                        if (!routes.isEmpty()) {
-                            throw new IllegalArgumentException(
-                                "There should be no route definition when configuring error handler, got " + routes.size());
-                        }
-                        if (!templates.isEmpty()) {
-                            throw new IllegalArgumentException(
-                                "There should not be any template definition when configuring error handler, got " + templates.size());
-                        }
-
-                        LOGGER.debug("Setting default error handler builder factory as {}", builder.getErrorHandlerFactory());
-                        runtime.getCamelContext().adapt(ExtendedCamelContext.class).setErrorHandlerFactory(builder.getErrorHandlerFactory());
-                    }
-                });
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown source type: " + source.getType());
-        }
-
         try {
+            final List<RouteBuilderLifecycleStrategy> interceptors = new ArrayList<>();
+            interceptors.addAll(RuntimeSupport.loadInterceptors(runtime, source));
+            interceptors.addAll(runtime.getCamelContext().getRegistry().findByType(RouteBuilderLifecycleStrategy.class));
+
             final Resource resource = Sources.asResource(runtime.getCamelContext(), source);
             final ExtendedCamelContext ecc = runtime.getCamelContext(ExtendedCamelContext.class);
             final Collection<RoutesBuilder> builders = ecc.getRoutesLoader().findRoutesBuilders(resource);
@@ -171,10 +81,5 @@ public final class SourcesSupport {
         } catch (Exception e) {
             throw RuntimeCamelException.wrapRuntimeCamelException(e);
         }
-    }
-
-    public static void loadErrorHandlerSource(Runtime runtime, SourceDefinition errorHandlerSourceDefinition) {
-        LOGGER.info("Loading error handler from: {}", errorHandlerSourceDefinition);
-        load(runtime, Sources.fromDefinition(errorHandlerSourceDefinition));
     }
 }

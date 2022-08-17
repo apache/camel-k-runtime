@@ -15,10 +15,14 @@
 # limitations under the License.
 #
 
-- from:
-    uri: "kamelet:source"
-    steps:
-      - set-body:
-          constant: "{{message}}"
-      - set-body:
-          simple: "${in.body.toUpperCase()}"
+- template:
+    id: "to-upper"
+    parameters:
+      - name: "message"
+    from:
+      uri: "kamelet:source"
+      steps:
+        - set-body:
+            constant: "{{message}}"
+        - set-body:
+            simple: "${in.body.toUpperCase()}"

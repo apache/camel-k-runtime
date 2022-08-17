@@ -92,6 +92,7 @@ public class SourceDefinition implements IdAware {
         this.interceptors = interceptors;
     }
 
+    @Deprecated
     public SourceType getType() {
         return type;
     }
@@ -99,10 +100,12 @@ public class SourceDefinition implements IdAware {
     /**
      * The {@link SourceType} of the source.
      */
+    @Deprecated
     public void setType(SourceType type) {
         this.type = type;
     }
 
+    @Deprecated
     public List<String> getPropertyNames() {
         return propertyNames;
     }
@@ -110,6 +113,7 @@ public class SourceDefinition implements IdAware {
     /**
      * The list of properties names the source requires (used only for templates).
      */
+    @Deprecated
     public void setPropertyNames(List<String> propertyNames) {
         this.propertyNames = propertyNames;
     }

@@ -31,9 +31,13 @@ public interface Source extends HasId {
     String getLocation();
     String getName();
     String getLanguage();
+
+    @Deprecated
     SourceType getType();
     Optional<String> getLoader();
     List<String> getInterceptors();
+
+    @Deprecated
     List<String> getPropertyNames();
     InputStream resolveAsInputStream(CamelContext ctx);
 

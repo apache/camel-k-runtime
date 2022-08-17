@@ -15,8 +15,12 @@
 # limitations under the License.
 #
 
-- from:
-    uri: "kamelet:source"
-    steps:
-      - set-body:
-          constant: "{{bodyValue}}"
+- template:
+    id: "set-body"
+    parameters:
+      - name: "bodyValue"
+    from:
+      uri: "kamelet:source"
+      steps:
+        - set-body:
+            constant: "{{bodyValue}}"
