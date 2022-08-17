@@ -64,7 +64,6 @@
                         <configuration>
                             <outputPath>${project.build.directory}</outputPath>
                             <outputFile>camel-k-catalog-${project.version}.yaml</outputFile>
-                            <runtime>main</runtime>
                         </configuration>
                     </execution>
                 </executions>
