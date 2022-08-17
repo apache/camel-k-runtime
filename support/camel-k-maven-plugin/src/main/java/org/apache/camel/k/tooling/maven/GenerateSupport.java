@@ -32,7 +32,7 @@ public final class GenerateSupport {
                 throw new IllegalStateException("Unable to find catalog-license.txt");
             }
 
-            return IOUtils.toString(is, StandardCharsets.UTF_8.name());
+            return IOUtils.toString(is, StandardCharsets.UTF_8);
         }
     }
 }
