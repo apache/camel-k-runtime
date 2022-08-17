@@ -132,7 +132,7 @@ public final class SourcesSupport {
                 break;
             case errorHandler:
                 if (!source.getInterceptors().isEmpty()) {
-                    LOGGER.warn("Interceptors associated to the route template {} will be ignored", source.getName());
+                    LOGGER.warn("Interceptors associated to the error handler {} will be ignored", source.getName());
                 }
 
                 interceptors = List.of(new RouteBuilderLifecycleStrategy() {
