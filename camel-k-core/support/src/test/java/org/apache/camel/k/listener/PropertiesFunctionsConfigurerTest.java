@@ -30,8 +30,6 @@ public class PropertiesFunctionsConfigurerTest {
         Runtime runtime = Runtime.on(new DefaultCamelContext());
         runtime.setProperties("my.property", "{{secret:my-secret/my-property}}");
 
-        new PropertiesConfigurer().accept(runtime);
-
         assertThat(runtime.getCamelContext().resolvePropertyPlaceholders("{{secret:my-secret/my-property}}"))
             .isEqualTo("my-secret-property");
         assertThat(runtime.getCamelContext().resolvePropertyPlaceholders("{{secret:none/my-property:my-default-secret}}"))

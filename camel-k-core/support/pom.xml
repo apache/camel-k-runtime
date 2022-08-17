@@ -51,6 +51,10 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-endpointdsl</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-kubernetes</artifactId>
+        </dependency>
 
         <!-- ****************************** -->
         <!--                                -->
@@ -61,6 +65,12 @@
         <dependency>
             <groupId>org.apache.camel.k</groupId>
             <artifactId>camel-k-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j-version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -82,6 +92,7 @@
                         <root>${project.basedir}</root>
                         <camel.k.mount-path.configmaps>${project.basedir}/src/test/resources/configmaps</camel.k.mount-path.configmaps>
                         <camel.k.mount-path.secrets>${project.basedir}/src/test/resources/secrets</camel.k.mount-path.secrets>
+                        <camel.kubernetes-config.client-enabled>false</camel.kubernetes-config.client-enabled>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
