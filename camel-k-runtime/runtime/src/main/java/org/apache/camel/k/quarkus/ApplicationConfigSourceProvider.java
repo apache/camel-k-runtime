@@ -16,10 +16,12 @@
  */
 package org.apache.camel.k.quarkus;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import io.smallrye.config.PropertiesConfigSource;
+import org.apache.camel.component.kubernetes.properties.ConfigMapPropertiesFunction;
 import org.apache.camel.k.support.RuntimeSupport;
 import org.eclipse.microprofile.config.spi.ConfigSource;
 import org.eclipse.microprofile.config.spi.ConfigSourceProvider;
@@ -27,10 +29,15 @@ import org.eclipse.microprofile.config.spi.ConfigSourceProvider;
 public class ApplicationConfigSourceProvider implements ConfigSourceProvider {
     @Override
     public Iterable<ConfigSource> getConfigSources(ClassLoader forClassLoader) {
+        final Map<String, String> sysProperties = new HashMap<>();
+        // explicit disable looking up configmap and secret using the KubernetesClient
+        sysProperties.put(ConfigMapPropertiesFunction.CLIENT_ENABLED, "false");
+
         final Map<String, String> appProperties = RuntimeSupport.loadApplicationProperties();
         final Map<String, String> usrProperties = RuntimeSupport.loadUserProperties();
 
         return List.of(
+            new PropertiesConfigSource(sysProperties, "camel-k-sys", ConfigSource.DEFAULT_ORDINAL + 1000),
             new PropertiesConfigSource(appProperties, "camel-k-app", ConfigSource.DEFAULT_ORDINAL),
             new PropertiesConfigSource(usrProperties, "camel-k-usr", ConfigSource.DEFAULT_ORDINAL + 1)
         );
