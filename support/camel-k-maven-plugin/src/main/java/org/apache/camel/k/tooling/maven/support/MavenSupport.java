@@ -16,39 +16,15 @@
  */
 package org.apache.camel.k.tooling.maven.support;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 import java.util.function.Consumer;
 
-import org.apache.maven.project.MavenProject;
-
 public final class MavenSupport {
     private MavenSupport() {
-    }
-
-    public static ClassLoader getClassLoader(MavenProject project) {
-        if (project == null) {
-            return IndexerSupport.class.getClassLoader();
-        }
-
-        try {
-            List<String> elements = new ArrayList<>(project.getCompileClasspathElements());
-            URL[] urls = new URL[elements.size()];
-            for (int i = 0; i < elements.size(); ++i) {
-                urls[i] = new File(elements.get(i)).toURI().toURL();
-            }
-            return new URLClassLoader(urls, IndexerSupport.class.getClassLoader());
-        } catch (Exception e) {
-            return IndexerSupport.class.getClassLoader();
-        }
     }
 
     public static String getVersion(Class<?> clazz, String path) {
