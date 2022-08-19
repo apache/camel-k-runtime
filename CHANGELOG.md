@@ -12,6 +12,8 @@
 
 **Merged pull requests:**
 
+- Cleanup [\#867](https://github.com/apache/camel-k-runtime/pull/867) ([lburgazzoli](https://github.com/lburgazzoli))
+- feat: replace custom kubernetes properties function with those provided by camel-kubernetes [\#865](https://github.com/apache/camel-k-runtime/pull/865) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps\): bump maven-javadoc-plugin from 3.4.0 to 3.4.1 [\#864](https://github.com/apache/camel-k-runtime/pull/864) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump quarkus-platform-version from 2.11.1.Final to 2.11.2.Final [\#863](https://github.com/apache/camel-k-runtime/pull/863) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-site-plugin from 3.12.0 to 3.12.1 [\#862](https://github.com/apache/camel-k-runtime/pull/862) ([dependabot[bot]](https://github.com/apps/dependabot))
