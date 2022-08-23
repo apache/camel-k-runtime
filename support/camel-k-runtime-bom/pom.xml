@@ -212,7 +212,7 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-resume</artifactId>
+                <artifactId>camel-k-resume-kafka</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
