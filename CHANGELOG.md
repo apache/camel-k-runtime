@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased](https://github.com/apache/camel-k-runtime/tree/HEAD)
+
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.14.0...HEAD)
+
+**Merged pull requests:**
+
+- Fixed an invalid resume api dependency reference in the bom [\#870](https://github.com/apache/camel-k-runtime/pull/870) ([orpiske](https://github.com/orpiske))
+
 ## [camel-k-runtime-project-1.14.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.14.0) (2022-08-22)
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.13.0...camel-k-runtime-project-1.14.0)
