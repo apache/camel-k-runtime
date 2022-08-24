@@ -12,6 +12,7 @@ Usage: ./script/bump.sh [options]
 --camel                   Bump Camel version
 --camel-quarkus           Bump Camel-Quarkus version
 --quarkus                 Bump Quarkus version
+--quarkus-platform        Bump Quarkus platform version (could differ from quarkus core)
 --help                    This help message
 
 Example: ./script/bump.sh --version 1.14.0-SNAPSHOT --camel 3.16.0
@@ -23,6 +24,7 @@ VERSION=""
 CAMEL=""
 CAMELQUARKUS=""
 QUARKUS=""
+QUARKUSPLATFORM=""
 
 main() {
   parse_args $@
@@ -34,18 +36,23 @@ main() {
   fi
 
   if [[ ! -z "$CAMEL" ]]; then
-    mvn versions:set-property -Dproperty="camel-version" -DnewVersion="$CAMEL"
+    mvn versions:set-property -Dproperty="camel-version" -DnewVersion="$CAMEL" -DgenerateBackupPoms=false
     echo "Camel version set to $CAMEL"
   fi
 
   if [[ ! -z "$CAMELQUARKUS" ]]; then
-    mvn versions:set-property -Dproperty="camel-quarkus-version" -DnewVersion="$CAMELQUARKUS"
+    mvn versions:set-property -Dproperty="camel-quarkus-version" -DnewVersion="$CAMELQUARKUS" -DgenerateBackupPoms=false
     echo "Camel Quarkus version set to $CAMELQUARKUS"
   fi
 
   if [[ ! -z "$QUARKUS" ]]; then
-    mvn versions:set-property -Dproperty="quarkus-version" -DnewVersion="$QUARKUS"
-    echo "Quarkus platform version set to $QUARKUS"
+    mvn versions:set-property -Dproperty="quarkus-version" -DnewVersion="$QUARKUS" -DgenerateBackupPoms=false
+    echo "Quarkus version set to $QUARKUS"
+  fi
+
+    if [[ ! -z "$QUARKUSPLATFORM" ]]; then
+    mvn versions:set-property -Dproperty="quarkus-platform-version" -DnewVersion="$QUARKUSPLATFORM" -DgenerateBackupPoms=false
+    echo "Quarkus platform version set to $QUARKUSPLATFORM"
   fi
 }
 
@@ -74,6 +81,10 @@ parse_args(){
           shift
           QUARKUS="$1"
           ;;
+        --quarkus-platform)
+          shift
+          QUARKUSPLATFORM="$1"
+          ;;          
         *)
           echo "❗ unknown argument: $1"
           display_usage
