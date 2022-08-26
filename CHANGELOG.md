@@ -6,12 +6,9 @@
 
 **Merged pull requests:**
 
-- build\(deps\): bump quarkus-platform-version from 2.11.2.Final to 2.11.3.Final [\#874](https://github.com/apache/camel-k-runtime/pull/874) ([dependabot[bot]](https://github.com/apps/dependabot))
-- build\(deps\): bump maven-checkstyle-plugin from 3.1.2 to 3.2.0 [\#873](https://github.com/apache/camel-k-runtime/pull/873) ([dependabot[bot]](https://github.com/apps/dependabot))
-- fix: set quarkus core version to 2.11.2.Final [\#871](https://github.com/apache/camel-k-runtime/pull/871) ([squakez](https://github.com/squakez))
-- build\(deps\): bump value from 2.9.0 to 2.9.1 [\#869](https://github.com/apache/camel-k-runtime/pull/869) ([dependabot[bot]](https://github.com/apps/dependabot))
+- bump maven-pmd-plugin 3.18.0 and cleanup camel-k-maven-plugin deps [\#876](https://github.com/apache/camel-k-runtime/pull/876) ([lburgazzoli](https://github.com/lburgazzoli))
 
-## [camel-k-runtime-project-1.14.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.14.0) (2022-08-24)
+## [camel-k-runtime-project-1.14.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.14.0) (2022-08-25)
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.13.0...camel-k-runtime-project-1.14.0)
 
@@ -23,7 +20,12 @@
 
 **Merged pull requests:**
 
+- Move to 2.11.3.Final for Quarkus and restart release process [\#875](https://github.com/apache/camel-k-runtime/pull/875) ([oscerd](https://github.com/oscerd))
+- build\(deps\): bump quarkus-platform-version from 2.11.2.Final to 2.11.3.Final [\#874](https://github.com/apache/camel-k-runtime/pull/874) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump maven-checkstyle-plugin from 3.1.2 to 3.2.0 [\#873](https://github.com/apache/camel-k-runtime/pull/873) ([dependabot[bot]](https://github.com/apps/dependabot))
+- fix: set quarkus core version to 2.11.2.Final [\#871](https://github.com/apache/camel-k-runtime/pull/871) ([squakez](https://github.com/squakez))
 - Fixed an invalid resume api dependency reference in the bom [\#870](https://github.com/apache/camel-k-runtime/pull/870) ([orpiske](https://github.com/orpiske))
+- build\(deps\): bump value from 2.9.0 to 2.9.1 [\#869](https://github.com/apache/camel-k-runtime/pull/869) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Cleanup [\#867](https://github.com/apache/camel-k-runtime/pull/867) ([lburgazzoli](https://github.com/lburgazzoli))
 - feat: replace custom kubernetes properties function with those provided by camel-kubernetes [\#865](https://github.com/apache/camel-k-runtime/pull/865) ([lburgazzoli](https://github.com/lburgazzoli))
 - build\(deps\): bump maven-javadoc-plugin from 3.4.0 to 3.4.1 [\#864](https://github.com/apache/camel-k-runtime/pull/864) ([dependabot[bot]](https://github.com/apps/dependabot))
