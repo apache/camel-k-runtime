@@ -56,6 +56,14 @@
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-extension-maven-plugin</artifactId>
                 <version>${quarkus-version}</version>
+                <configuration>
+                    <runnerParentFirstArtifacts>
+                        <runnerParentFirstArtifact>org.graalvm.sdk:graal-sdk</runnerParentFirstArtifact>
+                        <runnerParentFirstArtifact>org.graalvm.js:js</runnerParentFirstArtifact>
+                        <runnerParentFirstArtifact>org.graalvm.regex:regex</runnerParentFirstArtifact>
+                        <runnerParentFirstArtifact>org.graalvm.truffle:truffle-api</runnerParentFirstArtifact>
+                    </runnerParentFirstArtifacts>                    
+                </configuration>                
                 <executions>
                     <execution>
                         <goals>
