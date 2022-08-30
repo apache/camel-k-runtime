@@ -1,14 +1,6 @@
 # Changelog
 
-## [Unreleased](https://github.com/apache/camel-k-runtime/tree/HEAD)
-
-[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.14.0...HEAD)
-
-**Merged pull requests:**
-
-- bump maven-pmd-plugin 3.18.0 and cleanup camel-k-maven-plugin deps [\#876](https://github.com/apache/camel-k-runtime/pull/876) ([lburgazzoli](https://github.com/lburgazzoli))
-
-## [camel-k-runtime-project-1.14.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.14.0) (2022-08-25)
+## [camel-k-runtime-project-1.14.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.14.0) (2022-08-29)
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.13.0...camel-k-runtime-project-1.14.0)
 
@@ -20,6 +12,8 @@
 
 **Merged pull requests:**
 
+- fix: issue inherited by Quarkus platform [\#878](https://github.com/apache/camel-k-runtime/pull/878) ([squakez](https://github.com/squakez))
+- bump maven-pmd-plugin 3.18.0 and cleanup camel-k-maven-plugin deps [\#876](https://github.com/apache/camel-k-runtime/pull/876) ([lburgazzoli](https://github.com/lburgazzoli))
 - Move to 2.11.3.Final for Quarkus and restart release process [\#875](https://github.com/apache/camel-k-runtime/pull/875) ([oscerd](https://github.com/oscerd))
 - build\(deps\): bump quarkus-platform-version from 2.11.2.Final to 2.11.3.Final [\#874](https://github.com/apache/camel-k-runtime/pull/874) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-checkstyle-plugin from 3.1.2 to 3.2.0 [\#873](https://github.com/apache/camel-k-runtime/pull/873) ([dependabot[bot]](https://github.com/apps/dependabot))
