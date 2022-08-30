@@ -16,9 +16,11 @@
  */
 package org.apache.camel.k.support;
 
+import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.camel.ErrorHandlerFactory;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.RuntimeCamelException;
@@ -149,9 +151,10 @@ public final class SourcesSupport {
                             throw new IllegalArgumentException(
                                 "There should not be any template definition when configuring error handler, got " + templates.size());
                         }
-
-                        LOGGER.debug("Setting default error handler builder factory as {}", builder.getErrorHandlerFactory());
-                        runtime.getCamelContext().adapt(ExtendedCamelContext.class).setErrorHandlerFactory(builder.getErrorHandlerFactory());
+                        if (hasErrorHandlerFactory(builder)){
+                            LOGGER.debug("Setting default error handler builder factory as type {}", builder.getErrorHandlerFactory().getClass());
+                            runtime.getCamelContext().adapt(ExtendedCamelContext.class).setErrorHandlerFactory(builder.getErrorHandlerFactory());
+                        }
                     }
                 });
                 break;
@@ -170,6 +173,20 @@ public final class SourcesSupport {
                     .forEach(runtime::addRoutes);
         } catch (Exception e) {
             throw RuntimeCamelException.wrapRuntimeCamelException(e);
+        }
+    }
+
+    static boolean hasErrorHandlerFactory(RouteBuilder builder) {
+        //return builder.hasErrorHandlerFactory();
+        // TODO We need to replace the following workaround with the statement above once we switch to > camel-3.18
+        try {
+            Field f = RouteBuilder.class.getSuperclass().getDeclaredField("errorHandlerFactory");
+            f.setAccessible(true);
+            ErrorHandlerFactory privateErrorHandlerFactory = (ErrorHandlerFactory) f.get(builder);
+            LOGGER.debug("Looking up for private error handler factory: {}", privateErrorHandlerFactory);
+            return privateErrorHandlerFactory != null;
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Something went wrong while checking the error handler factory", e);
         }
     }
 
