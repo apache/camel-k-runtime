@@ -203,69 +203,6 @@ The properties of the bean can be defined using either a map or properties style
 The `beans` elements can only be used as root element
 ====
 
-== Extending the DSL
-
-The DSL is designed to be easily extended, so you can provide your own step handler which is discovered at runtime using Camel's factory finder.
-
-Assuming you want to create a step to simplify the creation of a certain type of endpoints then you need:
-
-- create a service definition entry in `META-INF/services/org/apache/camel/k/yaml` with content like:
-+
-[source, properties]
-----
-class=com.acme.converter.MyConverter
-----
-
-- create the step handler extending `org.apache.camel.k.loader.yaml.parser.ProcessorStepParser`
-+
-
-[source,java]
-----
-package com.acme.converter.AcmeConverter;
-
-import org.apache.camel.k.loader.yaml.parser.ProcessorStepParser;
-
-public class AcmeConverter
-        implements ProcessorStepParser {
-    /**
-     * @param context contains references to the camel context and the current node as raw JsonNode
-     */
-    @Override
-    public ProcessorDefinition<?> toProcessor(Context context) {
-        // decode the raw json node
-        Definition definition = context.node(Definition.class);
-
-        // create the definition
-        ToDefinition to = new ToDefinition();
-        to.setUri(String.format("http://%s:%d/fixed/path", definition.host, definition.port));
-
-        return to;
-    }
-
-    /*
-     * Define the data
-     */
-    public static final class Definition {
-        public String host;
-
-        @JsonSetter(nulls = Nulls.SKIP)
-        public Integer port = 8080;
-    }
-}
-----
-
-Assuming the entry in the `META-INF/services/org/apache/camel/k/yaml` is named `acme` then you can use it from the YAML DSL like:
-
-[source,yaml]
-----
-from:
-  uri: "direct:start"
-  steps:
-    - acme:
-        host: acme.com
-        port: 8081
-----
-
 == Supported EIP
 
 This is the list of EIPs supported in the yaml DSL language. For full details on expected configuration you can please refer to the https://github.com/apache/camel/blob/main/dsl/camel-yaml-dsl/camel-yaml-dsl/src/generated/resources/schema/camel-yaml-dsl.json[YAML language specification].
