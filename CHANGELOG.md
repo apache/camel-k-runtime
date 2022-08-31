@@ -1,6 +1,6 @@
 # Changelog
 
-## [camel-k-runtime-project-1.14.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.14.0) (2022-08-29)
+## [camel-k-runtime-project-1.14.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.14.0) (2022-08-30)
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.13.0...camel-k-runtime-project-1.14.0)
 
@@ -12,6 +12,8 @@
 
 **Merged pull requests:**
 
+- Doc: Remove unsupported "Extending DSL" section [\#881](https://github.com/apache/camel-k-runtime/pull/881) ([claudio4j](https://github.com/claudio4j))
+- fix\(core\): Error handler regression [\#880](https://github.com/apache/camel-k-runtime/pull/880) ([squakez](https://github.com/squakez))
 - fix: issue inherited by Quarkus platform [\#878](https://github.com/apache/camel-k-runtime/pull/878) ([squakez](https://github.com/squakez))
 - bump maven-pmd-plugin 3.18.0 and cleanup camel-k-maven-plugin deps [\#876](https://github.com/apache/camel-k-runtime/pull/876) ([lburgazzoli](https://github.com/lburgazzoli))
 - Move to 2.11.3.Final for Quarkus and restart release process [\#875](https://github.com/apache/camel-k-runtime/pull/875) ([oscerd](https://github.com/oscerd))
