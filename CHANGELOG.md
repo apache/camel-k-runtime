@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- chore\(ci\): extend check on release branches [\#887](https://github.com/apache/camel-k-runtime/pull/887) ([squakez](https://github.com/squakez))
 - build\(deps\): bump jackson-version from 2.13.3 to 2.13.4 [\#884](https://github.com/apache/camel-k-runtime/pull/884) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [camel-k-runtime-project-1.14.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.14.0) (2022-08-30)
