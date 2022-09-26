@@ -38,12 +38,12 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
 
-        <camel-version>3.18.0</camel-version>
+        <camel-version>3.18.2</camel-version>
 
         <!-- quarkus -->
-        <camel-quarkus-version>2.11.0</camel-quarkus-version>
-        <quarkus-version>2.11.3.Final</quarkus-version>
-        <quarkus-platform-version>2.11.3.Final</quarkus-platform-version>
+        <camel-quarkus-version>2.13.0</camel-quarkus-version>
+        <quarkus-version>2.13.0.Final</quarkus-version>
+        <quarkus-platform-version>2.13.0.CR1</quarkus-platform-version>
         <quarkus-native-builder-image>quay.io/quarkus/ubi-quarkus-native-image:22.1.0-java11</quarkus-native-builder-image>
 
         <!-- camel-k -->
@@ -110,6 +110,34 @@
         <url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary</url>
         <tag>camel-k-runtime-project-1.10.0</tag>
     </scm>
+
+    <repositories>
+        <repository>
+            <id>cq-2.13.0</id>
+            <url>https://repository.apache.org/content/repositories/orgapachecamel-1470/</url>
+            <name>Camel Quarkus 2.13.0 Staging repository</name>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>cq-2.13.0-plugin</id>
+            <url>https://repository.apache.org/content/repositories/orgapachecamel-1470/</url>
+            <name>Camel Quarkus 2.13.0 Staging plugin repository</name>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
 
     <build>
         <pluginManagement>
