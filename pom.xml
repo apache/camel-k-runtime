@@ -47,7 +47,7 @@
         <quarkus-native-builder-image>quay.io/quarkus/ubi-quarkus-native-image:22.1.0-java11</quarkus-native-builder-image>
 
         <!-- camel-k -->
-        <groovy-version>3.0.12</groovy-version>
+        <groovy-version>3.0.13</groovy-version>
         <immutables-version>2.9.1</immutables-version>
 
         <!-- plugins -->
