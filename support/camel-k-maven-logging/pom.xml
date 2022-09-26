@@ -30,7 +30,7 @@
 
     <properties>
       <!-- Maven structural logging -->
-      <logback-version>1.4.0</logback-version>
+      <logback-version>1.4.1</logback-version>
       <logstash-logback-version>7.2</logstash-logback-version>
       <jackson-version>2.13.4</jackson-version>
     </properties>
