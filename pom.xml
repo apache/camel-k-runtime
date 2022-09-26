@@ -47,7 +47,7 @@
         <quarkus-native-builder-image>quay.io/quarkus/ubi-quarkus-native-image:22.1.0-java11</quarkus-native-builder-image>
 
         <!-- camel-k -->
-        <groovy-version>3.0.12</groovy-version>
+        <groovy-version>3.0.13</groovy-version>
         <immutables-version>2.9.1</immutables-version>
 
         <!-- plugins -->
@@ -77,7 +77,7 @@
         <maven-enforcer-plugin-version>3.1.0</maven-enforcer-plugin-version>
         <maven-resources-plugin-version>3.3.0</maven-resources-plugin-version>
         <maven-site-plugin-version>3.12.1</maven-site-plugin-version>
-        <maven-pmd-plugin-version>3.18.0</maven-pmd-plugin-version>
+        <maven-pmd-plugin-version>3.19.0</maven-pmd-plugin-version>
         <maven-pmd-plugin-asm-version>9.3</maven-pmd-plugin-asm-version>
         <maven-pmd-plugin-shared-utils-version>3.3.3</maven-pmd-plugin-shared-utils-version>
         <maven-plugin-plugin-version>3.6.4</maven-plugin-plugin-version>
