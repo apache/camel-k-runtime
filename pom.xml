@@ -48,7 +48,7 @@
 
         <!-- camel-k -->
         <groovy-version>3.0.13</groovy-version>
-        <immutables-version>2.9.1</immutables-version>
+        <immutables-version>2.9.2</immutables-version>
 
         <!-- plugins -->
         <gmavenplus-plugin-version>1.13.1</gmavenplus-plugin-version>
