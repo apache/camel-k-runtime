@@ -6,8 +6,11 @@
 
 **Merged pull requests:**
 
+- Upgrade to Camel Quarkus 2.13.0 [\#889](https://github.com/apache/camel-k-runtime/pull/889) ([oscerd](https://github.com/oscerd))
 - chore\(ci\): extend check on release branches [\#887](https://github.com/apache/camel-k-runtime/pull/887) ([squakez](https://github.com/squakez))
+- build\(deps\): bump maven-pmd-plugin from 3.18.0 to 3.19.0 [\#885](https://github.com/apache/camel-k-runtime/pull/885) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump jackson-version from 2.13.3 to 2.13.4 [\#884](https://github.com/apache/camel-k-runtime/pull/884) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump logback-version from 1.2.11 to 1.4.0 [\#879](https://github.com/apache/camel-k-runtime/pull/879) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [camel-k-runtime-project-1.14.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.14.0) (2022-08-30)
 
