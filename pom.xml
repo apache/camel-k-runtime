@@ -111,34 +111,6 @@
         <tag>camel-k-runtime-project-1.10.0</tag>
     </scm>
 
-    <repositories>
-        <repository>
-            <id>cq-2.13.0</id>
-            <url>https://repository.apache.org/content/repositories/orgapachecamel-1470/</url>
-            <name>Camel Quarkus 2.13.0 Staging repository</name>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>cq-2.13.0-plugin</id>
-            <url>https://repository.apache.org/content/repositories/orgapachecamel-1470/</url>
-            <name>Camel Quarkus 2.13.0 Staging plugin repository</name>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </pluginRepository>
-    </pluginRepositories>
-
     <build>
         <pluginManagement>
             <plugins>
