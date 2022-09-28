@@ -6,6 +6,10 @@
 
 **Merged pull requests:**
 
+- Prepare for 1.15.0 [\#893](https://github.com/apache/camel-k-runtime/pull/893) ([oscerd](https://github.com/oscerd))
+- build\(deps\): bump logback-version from 1.2.11 to 1.4.1 [\#892](https://github.com/apache/camel-k-runtime/pull/892) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump versions-maven-plugin from 2.11.0 to 2.12.0 [\#891](https://github.com/apache/camel-k-runtime/pull/891) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump groovy-version from 3.0.12 to 3.0.13 [\#890](https://github.com/apache/camel-k-runtime/pull/890) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Upgrade to Camel Quarkus 2.13.0 [\#889](https://github.com/apache/camel-k-runtime/pull/889) ([oscerd](https://github.com/oscerd))
 - chore\(ci\): extend check on release branches [\#887](https://github.com/apache/camel-k-runtime/pull/887) ([squakez](https://github.com/squakez))
 - build\(deps\): bump maven-pmd-plugin from 3.18.0 to 3.19.0 [\#885](https://github.com/apache/camel-k-runtime/pull/885) ([dependabot[bot]](https://github.com/apps/dependabot))
