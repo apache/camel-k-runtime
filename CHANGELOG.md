@@ -6,6 +6,10 @@
 
 **Merged pull requests:**
 
+- Point to Quarkus Platform 2.13.0.Final [\#897](https://github.com/apache/camel-k-runtime/pull/897) ([oscerd](https://github.com/oscerd))
+- build\(deps\): bump maven-common-artifact-filters from 3.3.1 to 3.3.2 [\#896](https://github.com/apache/camel-k-runtime/pull/896) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump maven-jar-plugin from 3.2.2 to 3.3.0 [\#895](https://github.com/apache/camel-k-runtime/pull/895) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump value from 2.9.1 to 2.9.2 [\#894](https://github.com/apache/camel-k-runtime/pull/894) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Prepare for 1.15.0 [\#893](https://github.com/apache/camel-k-runtime/pull/893) ([oscerd](https://github.com/oscerd))
 - build\(deps\): bump logback-version from 1.2.11 to 1.4.1 [\#892](https://github.com/apache/camel-k-runtime/pull/892) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump versions-maven-plugin from 2.11.0 to 2.12.0 [\#891](https://github.com/apache/camel-k-runtime/pull/891) ([dependabot[bot]](https://github.com/apps/dependabot))
