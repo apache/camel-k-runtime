@@ -1,8 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/apache/camel-k-runtime/tree/HEAD)
+## [camel-k-runtime-project-1.15.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.15.0) (2022-09-29)
 
-[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.14.0...HEAD)
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.14.0...camel-k-runtime-project-1.15.0)
 
 **Merged pull requests:**
 
