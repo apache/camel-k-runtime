@@ -30,6 +30,7 @@
 
     <properties>
       <!-- Maven structural logging -->
+      <slf4j-version>2.0.1</slf4j-version>
       <logback-version>1.4.1</logback-version>
       <logstash-logback-version>7.2</logstash-logback-version>
       <jackson-version>2.13.4</jackson-version>
@@ -67,6 +68,11 @@
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
                 <version>${jackson-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j-version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -141,6 +147,10 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
         </dependency>
     </dependencies>
 </project>
