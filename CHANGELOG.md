@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased](https://github.com/apache/camel-k-runtime/tree/HEAD)
+
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.15.1...HEAD)
+
+**Merged pull requests:**
+
+- Revert logback uprgade to 1.2.11 [\#903](https://github.com/apache/camel-k-runtime/pull/903) ([claudio4j](https://github.com/claudio4j))
+
+## [camel-k-runtime-project-1.15.1](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.15.1) (2022-10-18)
+
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.15.0...camel-k-runtime-project-1.15.1)
+
 ## [camel-k-runtime-project-1.15.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.15.0) (2022-09-29)
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.14.0...camel-k-runtime-project-1.15.0)
