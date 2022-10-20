@@ -7,6 +7,7 @@
 **Merged pull requests:**
 
 - Revert logback uprgade to 1.2.11 [\#903](https://github.com/apache/camel-k-runtime/pull/903) ([claudio4j](https://github.com/claudio4j))
+- Set jolokia dependency in camel-k-runtime-bom to avoid declaring the dependency in camel-k [\#901](https://github.com/apache/camel-k-runtime/pull/901) ([claudio4j](https://github.com/claudio4j))
 
 ## [camel-k-runtime-project-1.15.1](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.15.1) (2022-10-18)
 
