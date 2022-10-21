@@ -4,6 +4,10 @@
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.15.1...HEAD)
 
+**Closed issues:**
+
+- Release 1.15.1 [\#907](https://github.com/apache/camel-k-runtime/issues/907)
+
 **Merged pull requests:**
 
 - Revert logback uprgade to 1.2.11 [\#903](https://github.com/apache/camel-k-runtime/pull/903) ([claudio4j](https://github.com/claudio4j))
