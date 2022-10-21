@@ -180,7 +180,8 @@ jobs:
     needs:
       - build-native
       - build-native-examples
-    if: github.ref == 'refs/heads/main'
+    # Run only when pushing to the branches (either main or release), never on merge requests
+    if: ${{ github.event_name == 'push' }}
     env:
       NEXUS_DEPLOY_USERNAME: ${{ secrets.NEXUS_USER }}
       NEXUS_DEPLOY_PASSWORD: ${{ secrets.NEXUS_PW }}
@@ -193,4 +194,8 @@ jobs:
       with:
         version: '11'
     - name: Deploy to ASF Snapshots Repository
-      run: ./mvnw ${MAVEN_ARGS} clean deploy -DskipTests -DskipITs --settings .github/asf-deploy-settings.xml
+      # Deploy both artifacts and sources (may be required by Camel K)
+      run: |
+        ./mvnw ${MAVEN_ARGS} clean deploy -DskipTests -DskipITs --settings .github/asf-deploy-settings.xml
+        cd distribution
+        ./mvnw ${MAVEN_ARGS} clean deploy -DskipTests -DskipITs --settings .github/asf-deploy-settings.xml -Prelease
