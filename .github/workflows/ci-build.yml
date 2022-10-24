@@ -198,4 +198,4 @@ jobs:
       run: |
         ./mvnw ${MAVEN_ARGS} clean deploy -DskipTests -DskipITs --settings .github/asf-deploy-settings.xml
         cd distribution
-        ./mvnw ${MAVEN_ARGS} clean deploy -DskipTests -DskipITs --settings .github/asf-deploy-settings.xml -Prelease
+        ../mvnw ${MAVEN_ARGS} clean deploy -DskipTests -DskipITs --settings .github/asf-deploy-settings.xml -Prelease
