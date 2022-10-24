@@ -29,7 +29,7 @@
   <artifactId>apache-camel-k-runtime</artifactId>
   <profiles>
     <profile>
-      <id>release</id>
+      <id>distribution</id>
       <build>
         <plugins>
           <plugin>
