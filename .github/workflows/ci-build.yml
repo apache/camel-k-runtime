@@ -197,6 +197,3 @@ jobs:
       # Deploy both artifacts and sources (may be required by Camel K)
       run: |
         ./mvnw ${MAVEN_ARGS} clean deploy -DskipTests -DskipITs --settings .github/asf-deploy-settings.xml
-        ./mvnw ${MAVEN_ARGS} clean deploy -DskipTests -DskipITs --settings .github/asf-deploy-settings.xml \
-          -Pdistribution \
-          -f distribution/pom.xml
