@@ -10,6 +10,10 @@
 
 **Merged pull requests:**
 
+- fix\(ci\): publish distro within the rest of modules [\#915](https://github.com/apache/camel-k-runtime/pull/915) ([squakez](https://github.com/squakez))
+- fix\(ci\): using a profile for distribution artifact [\#914](https://github.com/apache/camel-k-runtime/pull/914) ([squakez](https://github.com/squakez))
+- fix\(ci\): proper directory [\#913](https://github.com/apache/camel-k-runtime/pull/913) ([squakez](https://github.com/squakez))
+- feat\(ci\): publish snapshot on release branches [\#911](https://github.com/apache/camel-k-runtime/pull/911) ([squakez](https://github.com/squakez))
 - chore: bump to 1.16.0 [\#909](https://github.com/apache/camel-k-runtime/pull/909) ([squakez](https://github.com/squakez))
 - Revert logback uprgade to 1.2.11 [\#903](https://github.com/apache/camel-k-runtime/pull/903) ([claudio4j](https://github.com/claudio4j))
 - Set jolokia dependency in camel-k-runtime-bom to avoid declaring the dependency in camel-k [\#901](https://github.com/apache/camel-k-runtime/pull/901) ([claudio4j](https://github.com/claudio4j))
