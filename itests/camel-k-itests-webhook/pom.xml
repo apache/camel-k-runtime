@@ -99,7 +99,6 @@
         <dependency>
             <groupId>org.awaitility</groupId>
             <artifactId>awaitility</artifactId>
-            <version>${awaitility-version}</version>
         </dependency>
 
         <!-- The following dependencies guarantee that this module is built after them.  -->
