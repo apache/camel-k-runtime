@@ -10,6 +10,7 @@
 
 **Merged pull requests:**
 
+- chore: dependency cleaning [\#916](https://github.com/apache/camel-k-runtime/pull/916) ([squakez](https://github.com/squakez))
 - fix\(ci\): publish distro within the rest of modules [\#915](https://github.com/apache/camel-k-runtime/pull/915) ([squakez](https://github.com/squakez))
 - fix\(ci\): using a profile for distribution artifact [\#914](https://github.com/apache/camel-k-runtime/pull/914) ([squakez](https://github.com/squakez))
 - fix\(ci\): proper directory [\#913](https://github.com/apache/camel-k-runtime/pull/913) ([squakez](https://github.com/squakez))
