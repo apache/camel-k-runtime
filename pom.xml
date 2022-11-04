@@ -19,6 +19,12 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
+    <parent>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-dependencies</artifactId>
+        <version>3.18.0</version>
+    </parent>
+
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.camel.k</groupId>
     <artifactId>camel-k-runtime-project</artifactId>
@@ -130,7 +136,7 @@
                           <rules>
                             <requireMavenVersion>
                               <version>${maven-version}</version>
-                            </requireMavenVersion>
+                            </requireMavenVersion>                           
                           </rules>
                         </configuration>
                       </execution>
@@ -291,6 +297,30 @@
             </plugins>
         </pluginManagement>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>${maven-enforcer-plugin-version}</version>
+                <inherited>false</inherited>
+                <executions>
+                    <execution>
+                    <id>enforce-camel-version</id>
+                    <goals>
+                        <goal>enforce</goal>
+                    </goals>
+                    <configuration>
+                        <rules>
+                            <requireProperty>
+                                <property>camel-version</property>
+                                <regex>${project.parent.version}</regex>
+                                <regexMessage>Camel version must be equals to camel-dependency parent pom version (${project.parent.version})!</regexMessage>
+                            </requireProperty>                            
+                        </rules>
+                        <fail>true</fail>
+                    </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-remote-resources-plugin</artifactId>

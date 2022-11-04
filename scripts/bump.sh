@@ -36,6 +36,7 @@ main() {
   fi
 
   if [[ ! -z "$CAMEL" ]]; then
+    mvn versions:update-parent "-DparentVersion=[$CAMEL]" -DgenerateBackupPoms=false
     mvn versions:set-property -Dproperty="camel-version" -DnewVersion="$CAMEL" -DgenerateBackupPoms=false
     echo "Camel version set to $CAMEL"
   fi
