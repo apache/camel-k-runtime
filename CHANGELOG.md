@@ -6,10 +6,12 @@
 
 **Closed issues:**
 
+- Error publishing last snapshot [\#918](https://github.com/apache/camel-k-runtime/issues/918)
 - Release 1.15.1 [\#907](https://github.com/apache/camel-k-runtime/issues/907)
 
 **Merged pull requests:**
 
+- fix\(deps\): brought back inheritance to camel deps [\#919](https://github.com/apache/camel-k-runtime/pull/919) ([squakez](https://github.com/squakez))
 - chore: dependency cleaning [\#916](https://github.com/apache/camel-k-runtime/pull/916) ([squakez](https://github.com/squakez))
 - fix\(ci\): publish distro within the rest of modules [\#915](https://github.com/apache/camel-k-runtime/pull/915) ([squakez](https://github.com/squakez))
 - fix\(ci\): using a profile for distribution artifact [\#914](https://github.com/apache/camel-k-runtime/pull/914) ([squakez](https://github.com/squakez))
