@@ -11,6 +11,7 @@
 
 **Merged pull requests:**
 
+- Align to deps coming from next release 1.15.2 even on main [\#922](https://github.com/apache/camel-k-runtime/pull/922) ([oscerd](https://github.com/oscerd))
 - fix\(deps\): brought back inheritance to camel deps [\#919](https://github.com/apache/camel-k-runtime/pull/919) ([squakez](https://github.com/squakez))
 - chore: dependency cleaning [\#916](https://github.com/apache/camel-k-runtime/pull/916) ([squakez](https://github.com/squakez))
 - fix\(ci\): publish distro within the rest of modules [\#915](https://github.com/apache/camel-k-runtime/pull/915) ([squakez](https://github.com/squakez))
