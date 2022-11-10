@@ -2,12 +2,7 @@
 
 ## [Unreleased](https://github.com/apache/camel-k-runtime/tree/HEAD)
 
-[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.15.1...HEAD)
-
-**Closed issues:**
-
-- Error publishing last snapshot [\#918](https://github.com/apache/camel-k-runtime/issues/918)
-- Release 1.15.1 [\#907](https://github.com/apache/camel-k-runtime/issues/907)
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.15.2...HEAD)
 
 **Merged pull requests:**
 
@@ -21,6 +16,15 @@
 - chore: bump to 1.16.0 [\#909](https://github.com/apache/camel-k-runtime/pull/909) ([squakez](https://github.com/squakez))
 - Revert logback uprgade to 1.2.11 [\#903](https://github.com/apache/camel-k-runtime/pull/903) ([claudio4j](https://github.com/claudio4j))
 - Set jolokia dependency in camel-k-runtime-bom to avoid declaring the dependency in camel-k [\#901](https://github.com/apache/camel-k-runtime/pull/901) ([claudio4j](https://github.com/claudio4j))
+
+## [camel-k-runtime-project-1.15.2](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.15.2) (2022-11-09)
+
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.15.1...camel-k-runtime-project-1.15.2)
+
+**Closed issues:**
+
+- Error publishing last snapshot [\#918](https://github.com/apache/camel-k-runtime/issues/918)
+- Release 1.15.1 [\#907](https://github.com/apache/camel-k-runtime/issues/907)
 
 ## [camel-k-runtime-project-1.15.1](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.15.1) (2022-10-18)
 
