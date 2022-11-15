@@ -4,6 +4,10 @@
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.15.2...HEAD)
 
+**Closed issues:**
+
+- Release 1.15.2 [\#920](https://github.com/apache/camel-k-runtime/issues/920)
+
 **Merged pull requests:**
 
 - Align to deps coming from next release 1.15.2 even on main [\#922](https://github.com/apache/camel-k-runtime/pull/922) ([oscerd](https://github.com/oscerd))
