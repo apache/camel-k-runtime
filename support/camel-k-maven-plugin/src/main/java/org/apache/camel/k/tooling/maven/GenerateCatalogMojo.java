@@ -331,24 +331,6 @@ public class GenerateCatalogMojo extends AbstractMojo {
 
         specBuilder.putAllArtifacts(artifacts);
 
-
-        specBuilder.putArtifact(
-            new CamelArtifact.Builder()
-                .groupId("org.apache.camel.k")
-                .artifactId("camel-k-knative")
-                .addScheme(new CamelScheme.Builder()
-                    .id("knative")
-                    .http(true)
-                    .consumer(new CamelScopedArtifact.Builder()
-                        .addDependency("org.apache.camel.k", "camel-k-knative-consumer")
-                        .build())
-                    .producer(new CamelScopedArtifact.Builder()
-                        .addDependency("org.apache.camel.k", "camel-k-knative-producer")
-                        .build())
-                    .build())
-                .build()
-        );
-
         // required for Jolokia 1.7.1
         specBuilder.putArtifact(
             new CamelArtifact.Builder()

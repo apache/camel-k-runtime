@@ -19,7 +19,6 @@ package org.apache.camel.k.resume.kafka;
 
 import org.apache.camel.processor.resume.kafka.KafkaResumeStrategyConfiguration;
 import org.apache.camel.processor.resume.kafka.KafkaResumeStrategyConfigurationBuilder;
-import org.apache.camel.processor.resume.kafka.MultiNodeKafkaResumeStrategy;
 import org.apache.camel.processor.resume.kafka.SingleNodeKafkaResumeStrategy;
 import org.apache.camel.resume.Cacheable;
 import org.apache.camel.resume.ResumeStrategy;
@@ -43,9 +42,6 @@ public final class KafkaResumeFactory {
         switch (name) {
             case "org.apache.camel.processor.resume.kafka.SingleNodeKafkaResumeStrategy": {
                 return new SingleNodeKafkaResumeStrategy<>(resumeStrategyConfiguration);
-            }
-            case "org.apache.camel.processor.resume.kafka.MultiNodeKafkaResumeStrategy": {
-                return new MultiNodeKafkaResumeStrategy<>(resumeStrategyConfiguration);
             }
             default: {
                 throw new UnsupportedOperationException(String.format("The strategy %s is not a valid strategy", name));
