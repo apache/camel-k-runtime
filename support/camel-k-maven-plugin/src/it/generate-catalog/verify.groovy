@@ -74,20 +74,9 @@ new File(basedir, "catalog.yaml").withReader {
         assert v.version == null
     }
 
-    catalog.spec.artifacts['camel-k-knative'].with {
+    catalog.spec.artifacts['camel-quarkus-knative'].with {
         assert dependencies == null
         assert requiredCapabilities == null
         assert schemes.size() == 1
-
-        schemes[0].with {
-            assert id == 'knative'
-            assert consumer.requiredCapabilities == null
-            assert consumer.dependencies[0].groupId == 'org.apache.camel.k'
-            assert consumer.dependencies[0].artifactId == 'camel-k-knative-consumer'
-
-            assert producer.requiredCapabilities == null
-            assert producer.dependencies[0].groupId == 'org.apache.camel.k'
-            assert producer.dependencies[0].artifactId == 'camel-k-knative-producer'
-        }
     }
 }
