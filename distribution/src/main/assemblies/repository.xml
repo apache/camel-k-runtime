@@ -29,8 +29,11 @@
       <outputDirectory>./</outputDirectory>
       <directory>${settings.localRepository}</directory>
       <includes>
-        <include>org/apache/camel/k/**</include>
+        <include>org/apache/camel/k/*/${project.version}/**</include>
       </includes>
+      <excludes>
+        <exclude>org/apache/camel/k/apache-camel-k-runtime/**</exclude>
+      </excludes>
      </fileSet>
   </fileSets>
 </assembly>
