@@ -101,7 +101,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.k</groupId>
-            <artifactId>camel-k-knative</artifactId>
+            <artifactId>camel-k-knative-impl</artifactId>
             <version>${project.version}</version>
             <type>pom</type>
             <scope>test</scope>

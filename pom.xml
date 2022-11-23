@@ -380,6 +380,7 @@
 
         <module>camel-k-cron</module>
         <module>camel-k-cloudevents</module>
+        <module>camel-k-knative</module>
         <module>camel-k-master</module>
         <module>camel-k-webhook</module>
         <module>camel-k-runtime</module>
@@ -468,6 +469,13 @@
                 <artifactId>camel-k-master-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            
+            <dependency>
+                <groupId>org.apache.camel.k</groupId>
+                <artifactId>camel-k-knative-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-cron-impl</artifactId>
