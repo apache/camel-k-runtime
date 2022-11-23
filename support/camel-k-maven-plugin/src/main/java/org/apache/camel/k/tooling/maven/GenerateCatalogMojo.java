@@ -79,6 +79,7 @@ public class GenerateCatalogMojo extends AbstractMojo {
         "cxfrs",
         "grpc",
         "jetty",
+        "knative",
         "netty-http",
         "platform-http",
         "rest",
