@@ -22,6 +22,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import org.apache.camel.component.knative.http.KnativeHttpConsumerFactory;
+import org.apache.camel.component.knative.http.KnativeHttpProducerFactory;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -43,6 +44,6 @@ public class KnativeConsumerTest {
         assertThat(p.getString("consumer-factory"))
             .isEqualTo(KnativeHttpConsumerFactory.class.getName());
         assertThat(p.getString("producer-factory"))
-            .isNullOrEmpty();
+            .isEqualTo(KnativeHttpProducerFactory.class.getName());
     }
 }

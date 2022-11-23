@@ -21,6 +21,7 @@ import javax.ws.rs.core.MediaType;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
+import org.apache.camel.component.knative.http.KnativeHttpConsumerFactory;
 import org.apache.camel.component.knative.http.KnativeHttpProducerFactory;
 import org.junit.jupiter.api.Test;
 
@@ -41,7 +42,7 @@ public class KnativeProducerTest {
                 .jsonPath();
 
         assertThat(p.getString("consumer-factory"))
-            .isNullOrEmpty();
+            .isEqualTo(KnativeHttpConsumerFactory.class.getName());
         assertThat(p.getString("producer-factory"))
             .isEqualTo(KnativeHttpProducerFactory.class.getName());
     }
