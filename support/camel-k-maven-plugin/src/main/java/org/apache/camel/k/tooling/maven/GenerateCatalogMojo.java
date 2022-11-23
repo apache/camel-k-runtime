@@ -44,7 +44,6 @@ import org.apache.camel.k.catalog.model.CamelArtifact;
 import org.apache.camel.k.catalog.model.CamelCapability;
 import org.apache.camel.k.catalog.model.CamelLoader;
 import org.apache.camel.k.catalog.model.CamelScheme;
-import org.apache.camel.k.catalog.model.CamelScopedArtifact;
 import org.apache.camel.k.catalog.model.CatalogComponentDefinition;
 import org.apache.camel.k.catalog.model.CatalogDataFormatDefinition;
 import org.apache.camel.k.catalog.model.CatalogDefinition;
