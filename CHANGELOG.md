@@ -10,7 +10,9 @@
 
 **Merged pull requests:**
 
+- Set knative as a know http endpoint [\#933](https://github.com/apache/camel-k-runtime/pull/933) ([claudio4j](https://github.com/claudio4j))
 - fix\(ci\): keep version artifact only [\#928](https://github.com/apache/camel-k-runtime/pull/928) ([squakez](https://github.com/squakez))
+- Prepare release 1.16.0 [\#927](https://github.com/apache/camel-k-runtime/pull/927) ([oscerd](https://github.com/oscerd))
 - Align to deps coming from next release 1.15.2 even on main [\#922](https://github.com/apache/camel-k-runtime/pull/922) ([oscerd](https://github.com/oscerd))
 - fix\(deps\): brought back inheritance to camel deps [\#919](https://github.com/apache/camel-k-runtime/pull/919) ([squakez](https://github.com/squakez))
 - chore: dependency cleaning [\#916](https://github.com/apache/camel-k-runtime/pull/916) ([squakez](https://github.com/squakez))
