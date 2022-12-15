@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased](https://github.com/apache/camel-k-runtime/tree/HEAD)
+
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.16.0...HEAD)
+
+**Merged pull requests:**
+
+- Remove duplicate maven-assembly-plugin-version property from pom.xml [\#936](https://github.com/apache/camel-k-runtime/pull/936) ([claudio4j](https://github.com/claudio4j))
+
 ## [camel-k-runtime-project-1.16.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.16.0) (2022-11-28)
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.15.2...camel-k-runtime-project-1.16.0)
