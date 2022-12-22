@@ -39,6 +39,8 @@
         <maven-enforcer-plugin-version>3.1.0</maven-enforcer-plugin-version>
         <maven-version>3.6.3</maven-version>
         <quarkus-platform-version>2.13.4.Final</quarkus-platform-version>
+        <!-- The quarkus camel bom may differ from quarkus platfom -->
+        <quarkus-camel-bom-version>2.13.4.Final</quarkus-camel-bom-version>
     </properties>
 
     <developers>
@@ -97,14 +99,14 @@
         <dependencies>
             <dependency>
                 <groupId>io.quarkus.platform</groupId>
-                <artifactId>quarkus-bom</artifactId>
-                <version>${quarkus-platform-version}</version>
+                <artifactId>quarkus-camel-bom</artifactId>
+                <version>${quarkus-camel-bom-version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>io.quarkus.platform</groupId>
-                <artifactId>quarkus-camel-bom</artifactId>
+                <artifactId>quarkus-bom</artifactId>
                 <version>${quarkus-platform-version}</version>
                 <type>pom</type>
                 <scope>import</scope>
