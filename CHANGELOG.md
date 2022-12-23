@@ -6,7 +6,12 @@
 
 **Merged pull requests:**
 
+- feat\(deps\): split quarkus-camel-bom [\#937](https://github.com/apache/camel-k-runtime/pull/937) ([squakez](https://github.com/squakez))
 - Remove duplicate maven-assembly-plugin-version property from pom.xml [\#936](https://github.com/apache/camel-k-runtime/pull/936) ([claudio4j](https://github.com/claudio4j))
+- build\(deps\): bump decode-uri-component from 0.2.0 to 0.2.2 in /docs [\#934](https://github.com/apache/camel-k-runtime/pull/934) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump jackson-version from 2.13.4 to 2.14.1 [\#932](https://github.com/apache/camel-k-runtime/pull/932) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump gmavenplus-plugin from 1.13.1 to 2.1.0 [\#912](https://github.com/apache/camel-k-runtime/pull/912) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump asm from 9.3 to 9.4 [\#899](https://github.com/apache/camel-k-runtime/pull/899) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [camel-k-runtime-project-1.16.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.16.0) (2022-11-28)
 
