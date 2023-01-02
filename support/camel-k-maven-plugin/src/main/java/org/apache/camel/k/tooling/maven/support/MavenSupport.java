@@ -27,6 +27,16 @@ public final class MavenSupport {
     private MavenSupport() {
     }
 
+    public static String getApplicationProperty(Class<?> clazz, String property){
+        try (InputStream is = clazz.getResourceAsStream("/app.properties")) {
+            Properties p = new Properties();
+            p.load(is);
+            return p.getProperty( property );
+        } catch (Exception ignored) {
+        }
+        return "";
+    }
+
     public static String getVersion(Class<?> clazz, String path) {
         String version = null;
 

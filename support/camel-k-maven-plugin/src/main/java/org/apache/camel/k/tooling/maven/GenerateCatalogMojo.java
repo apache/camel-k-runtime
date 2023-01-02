@@ -179,6 +179,8 @@ public class GenerateCatalogMojo extends AbstractMojo {
                 "org.apache.camel.quarkus", "camel-quarkus-catalog",
                 version -> runtimeSpec.putMetadata("camel-quarkus.version", version));
 
+            runtimeSpec.putMetadata("quarkus.native-builder-image", MavenSupport.getApplicationProperty(getClass(), "quarkus.native-builder-image"));
+
             runtimeSpec.applicationClass("io.quarkus.bootstrap.runner.QuarkusEntryPoint");
             runtimeSpec.addDependency("org.apache.camel.k", "camel-k-runtime");
 
