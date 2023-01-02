@@ -123,6 +123,12 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -167,6 +173,7 @@
                         <camelVersion>${camel-version}</camelVersion>
                         <camelQuarkusVersion>${camel-quarkus-version}</camelQuarkusVersion>
                         <quarkusVersion>${quarkus-version}</quarkusVersion>
+                        <quarkusNativeBuilderImage>${quarkus-native-builder-image}</quarkusNativeBuilderImage>
                     </scriptVariables>
                     <pomIncludes>
                         <pomInclude>generate-catalog/pom.xml</pomInclude>
