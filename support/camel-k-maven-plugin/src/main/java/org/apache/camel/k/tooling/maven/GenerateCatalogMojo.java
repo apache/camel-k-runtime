@@ -229,6 +229,12 @@ public class GenerateCatalogMojo extends AbstractMojo {
                     CamelCapability.forArtifact(
                         "org.apache.camel.quarkus", "camel-quarkus-opentracing"));
             }
+            if (capabilitiesExclusionList != null && !capabilitiesExclusionList.contains("telemetry")) {
+                runtimeSpec.putCapability(
+                        "telemetry",
+                        CamelCapability.forArtifact(
+                                "org.apache.camel.quarkus", "camel-quarkus-opentelemetry"));
+            }
             if (capabilitiesExclusionList != null && !capabilitiesExclusionList.contains("master")) {
                 runtimeSpec.putCapability(
                     "master",
