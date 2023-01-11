@@ -52,7 +52,7 @@
         <groovy-version>3.0.13</groovy-version>
         <immutables-version>2.9.2</immutables-version>
         <commons-collections4-version>4.4</commons-collections4-version>
-        <assertj-version>3.23.1</assertj-version>
+        <assertj-version>3.24.1</assertj-version>
         <hamcrest-version>2.2</hamcrest-version>
 
         <!-- plugins -->
