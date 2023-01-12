@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- feat\(catalog\) : Add telemetry capability [\#945](https://github.com/apache/camel-k-runtime/pull/945) ([gansheer](https://github.com/gansheer))
 - feat\(catalog\): publish Mandrel image info [\#943](https://github.com/apache/camel-k-runtime/pull/943) ([squakez](https://github.com/squakez))
 - feat\(deps\): split quarkus-camel-bom [\#937](https://github.com/apache/camel-k-runtime/pull/937) ([squakez](https://github.com/squakez))
 - Remove duplicate maven-assembly-plugin-version property from pom.xml [\#936](https://github.com/apache/camel-k-runtime/pull/936) ([claudio4j](https://github.com/claudio4j))
