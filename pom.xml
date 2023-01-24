@@ -41,7 +41,7 @@
         <camel-version>3.20.1</camel-version>
 
         <!-- quarkus -->
-        <camel-quarkus-version>2.14.0</camel-quarkus-version>
+        <camel-quarkus-version>2.16.0</camel-quarkus-version>
         <quarkus-version>2.14.0.Final</quarkus-version>
         <quarkus-platform-version>2.14.0.Final</quarkus-platform-version>
         <!-- The quarkus camel bom may differ from quarkus platfom -->
