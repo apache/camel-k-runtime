@@ -47,6 +47,42 @@ new File(basedir, "catalog.yaml").withReader {
     assert catalog.spec.runtime.capabilities['master'].dependencies[0].groupId == 'org.apache.camel.k'
     assert catalog.spec.runtime.capabilities['master'].dependencies[0].artifactId == 'camel-k-master'
 
+    assert catalog.spec.loaders['groovy'].groupId == 'org.apache.camel.quarkus'
+    assert catalog.spec.loaders['groovy'].artifactId == 'camel-quarkus-groovy-dsl'
+    assert catalog.spec.loaders['groovy'].languages[0] == 'groovy'
+    assert catalog.spec.loaders['groovy'].metadata['native'] == 'true'
+    assert catalog.spec.loaders['groovy'].metadata['sources-required-at-build-time'] == 'true'
+    assert catalog.spec.loaders['java'].groupId == 'org.apache.camel.quarkus'
+    assert catalog.spec.loaders['java'].artifactId == 'camel-quarkus-java-joor-dsl'
+    assert catalog.spec.loaders['java'].languages[0] == 'java'
+    assert catalog.spec.loaders['java'].metadata['native'] == 'true'
+    assert catalog.spec.loaders['java'].metadata['sources-required-at-build-time'] == 'true'
+    assert catalog.spec.loaders['jsh'].groupId == 'org.apache.camel.quarkus'
+    assert catalog.spec.loaders['jsh'].artifactId == 'camel-quarkus-jsh-dsl'
+    assert catalog.spec.loaders['jsh'].languages[0] == 'jsh'
+    assert catalog.spec.loaders['jsh'].metadata['native'] == 'false'
+    assert catalog.spec.loaders['jsh'].metadata['sources-required-at-build-time'] == 'true'
+    assert catalog.spec.loaders['kts'].groupId == 'org.apache.camel.quarkus'
+    assert catalog.spec.loaders['kts'].artifactId == 'camel-quarkus-kotlin-dsl'
+    assert catalog.spec.loaders['kts'].languages[0] == 'kts'
+    assert catalog.spec.loaders['kts'].metadata['native'] == 'true'
+    assert catalog.spec.loaders['kts'].metadata['sources-required-at-build-time'] == 'true'
+    assert catalog.spec.loaders['js'].groupId == 'org.apache.camel.quarkus'
+    assert catalog.spec.loaders['js'].artifactId == 'camel-quarkus-js-dsl'
+    assert catalog.spec.loaders['js'].languages[0] == 'js'
+    assert catalog.spec.loaders['js'].metadata['native'] == 'false'
+    assert catalog.spec.loaders['js'].metadata['sources-required-at-build-time'] == null
+    assert catalog.spec.loaders['xml'].groupId == 'org.apache.camel.quarkus'
+    assert catalog.spec.loaders['xml'].artifactId == 'camel-quarkus-xml-io-dsl'
+    assert catalog.spec.loaders['xml'].languages[0] == 'xml'
+    assert catalog.spec.loaders['xml'].metadata['native'] == 'true'
+    assert catalog.spec.loaders['xml'].metadata['sources-required-at-build-time'] == null
+    assert catalog.spec.loaders['yaml'].groupId == 'org.apache.camel.quarkus'
+    assert catalog.spec.loaders['yaml'].artifactId == 'camel-quarkus-yaml-dsl'
+    assert catalog.spec.loaders['yaml'].languages[0] == 'yaml'
+    assert catalog.spec.loaders['yaml'].metadata['native'] == 'true'
+    assert catalog.spec.loaders['yaml'].metadata['sources-required-at-build-time'] == null
+
     assert catalog.metadata.labels['camel.apache.org/runtime.version'] == runtimeVersion
 
     catalog.spec.artifacts['camel-k-master'].with {
