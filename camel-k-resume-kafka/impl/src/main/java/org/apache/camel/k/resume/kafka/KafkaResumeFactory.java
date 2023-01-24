@@ -41,7 +41,7 @@ public final class KafkaResumeFactory {
 
         switch (name) {
             case "org.apache.camel.processor.resume.kafka.SingleNodeKafkaResumeStrategy": {
-                return new SingleNodeKafkaResumeStrategy<>(resumeStrategyConfiguration);
+                return new SingleNodeKafkaResumeStrategy(resumeStrategyConfiguration);
             }
             default: {
                 throw new UnsupportedOperationException(String.format("The strategy %s is not a valid strategy", name));
