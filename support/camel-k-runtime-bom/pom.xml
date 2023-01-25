@@ -40,7 +40,7 @@
         <maven-version>3.6.3</maven-version>
         <quarkus-platform-version>2.16.0.Final</quarkus-platform-version>
         <!-- The quarkus camel bom may differ from quarkus platfom -->
-        <quarkus-camel-bom-version>2.16.0.CR1</quarkus-camel-bom-version>
+        <quarkus-camel-bom-version>2.16.0.Final</quarkus-camel-bom-version>
     </properties>
 
     <developers>
