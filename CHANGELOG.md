@@ -4,10 +4,17 @@
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.16.0...HEAD)
 
+**Closed issues:**
+
+- Release 1.16.0 [\#925](https://github.com/apache/camel-k-runtime/issues/925)
+
 **Merged pull requests:**
 
+- build\(deps\): bump assertj-core from 3.23.1 to 3.24.2 [\#949](https://github.com/apache/camel-k-runtime/pull/949) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump maven-dependency-plugin from 3.3.0 to 3.5.0 [\#948](https://github.com/apache/camel-k-runtime/pull/948) ([dependabot[bot]](https://github.com/apps/dependabot))
 - feat\(catalog\) : Add telemetry capability [\#945](https://github.com/apache/camel-k-runtime/pull/945) ([gansheer](https://github.com/gansheer))
 - feat\(catalog\): publish Mandrel image info [\#943](https://github.com/apache/camel-k-runtime/pull/943) ([squakez](https://github.com/squakez))
+- build\(deps\): bump apache from 27 to 29 [\#942](https://github.com/apache/camel-k-runtime/pull/942) ([dependabot[bot]](https://github.com/apps/dependabot))
 - feat\(deps\): split quarkus-camel-bom [\#937](https://github.com/apache/camel-k-runtime/pull/937) ([squakez](https://github.com/squakez))
 - Remove duplicate maven-assembly-plugin-version property from pom.xml [\#936](https://github.com/apache/camel-k-runtime/pull/936) ([claudio4j](https://github.com/claudio4j))
 - build\(deps\): bump decode-uri-component from 0.2.0 to 0.2.2 in /docs [\#934](https://github.com/apache/camel-k-runtime/pull/934) ([dependabot[bot]](https://github.com/apps/dependabot))
