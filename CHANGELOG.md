@@ -6,10 +6,15 @@
 
 **Closed issues:**
 
+- Upgrade for Camel 3.20.1 [\#950](https://github.com/apache/camel-k-runtime/issues/950)
 - Release 1.16.0 [\#925](https://github.com/apache/camel-k-runtime/issues/925)
 
 **Merged pull requests:**
 
+- build\(deps\): bump value from 2.9.2 to 2.9.3 [\#957](https://github.com/apache/camel-k-runtime/pull/957) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump maven-checkstyle-plugin from 3.2.0 to 3.2.1 [\#956](https://github.com/apache/camel-k-runtime/pull/956) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump maven-pmd-plugin from 3.19.0 to 3.20.0 [\#955](https://github.com/apache/camel-k-runtime/pull/955) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Prepare release 1.17.0 [\#952](https://github.com/apache/camel-k-runtime/pull/952) ([oscerd](https://github.com/oscerd))
 - build\(deps\): bump assertj-core from 3.23.1 to 3.24.2 [\#949](https://github.com/apache/camel-k-runtime/pull/949) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-dependency-plugin from 3.3.0 to 3.5.0 [\#948](https://github.com/apache/camel-k-runtime/pull/948) ([dependabot[bot]](https://github.com/apps/dependabot))
 - feat\(catalog\) : Add telemetry capability [\#945](https://github.com/apache/camel-k-runtime/pull/945) ([gansheer](https://github.com/gansheer))
