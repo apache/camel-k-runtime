@@ -11,6 +11,9 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump maven-failsafe-plugin from 3.0.0-M7 to 3.0.0-M8 [\#960](https://github.com/apache/camel-k-runtime/pull/960) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump jolokia-jvm from 1.7.1 to 1.7.2 [\#959](https://github.com/apache/camel-k-runtime/pull/959) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump groovy-version from 3.0.13 to 3.0.14 [\#958](https://github.com/apache/camel-k-runtime/pull/958) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump value from 2.9.2 to 2.9.3 [\#957](https://github.com/apache/camel-k-runtime/pull/957) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-checkstyle-plugin from 3.2.0 to 3.2.1 [\#956](https://github.com/apache/camel-k-runtime/pull/956) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-pmd-plugin from 3.19.0 to 3.20.0 [\#955](https://github.com/apache/camel-k-runtime/pull/955) ([dependabot[bot]](https://github.com/apps/dependabot))
