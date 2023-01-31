@@ -39,7 +39,6 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import org.apache.camel.catalog.DefaultCamelCatalog;
 import org.apache.camel.catalog.quarkus.QuarkusRuntimeProvider;
 import org.apache.camel.impl.engine.AbstractCamelContext;
-import org.apache.camel.k.catalog.model.Artifact;
 import org.apache.camel.k.catalog.model.CamelArtifact;
 import org.apache.camel.k.catalog.model.CamelCapability;
 import org.apache.camel.k.catalog.model.CamelLoader;
@@ -338,17 +337,6 @@ public class GenerateCatalogMojo extends AbstractMojo {
         processLoaders(specBuilder);
 
         specBuilder.putAllArtifacts(artifacts);
-
-        // required for Jolokia 1.7.1
-        specBuilder.putArtifact(
-            new CamelArtifact.Builder()
-                .groupId("org.jolokia")
-                .artifactId("jolokia-jvm")
-                .addExclusions(
-                    Artifact.from("org.jolokia","jolokia-core"),
-                    Artifact.from("com.googlecode.json-simple","json-simple"))
-                .build()
-        );
     }
 
     private void processLoaders(CamelCatalogSpec.Builder specBuilder) {
