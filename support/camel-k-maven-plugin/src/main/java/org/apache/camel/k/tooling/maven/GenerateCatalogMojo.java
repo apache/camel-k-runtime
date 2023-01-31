@@ -348,17 +348,6 @@ public class GenerateCatalogMojo extends AbstractMojo {
                     .build())
                 .build()
         );
-
-        // required for Jolokia 1.7.1
-        specBuilder.putArtifact(
-            new CamelArtifact.Builder()
-                .groupId("org.jolokia")
-                .artifactId("jolokia-jvm")
-                .addExclusions(
-                    Artifact.from("org.jolokia","jolokia-core"),
-                    Artifact.from("com.googlecode.json-simple","json-simple"))
-                .build()
-        );
     }
 
     private void processLoaders(CamelCatalogSpec.Builder specBuilder) {
