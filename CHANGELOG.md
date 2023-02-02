@@ -11,6 +11,7 @@
 
 **Merged pull requests:**
 
+- Move jolokia exclusions from generate-catalog maven plugin to the camel-k-runtime-bom/pom.xml [\#965](https://github.com/apache/camel-k-runtime/pull/965) ([claudio4j](https://github.com/claudio4j))
 - build\(deps\): bump maven-failsafe-plugin from 3.0.0-M7 to 3.0.0-M8 [\#960](https://github.com/apache/camel-k-runtime/pull/960) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump jolokia-jvm from 1.7.1 to 1.7.2 [\#959](https://github.com/apache/camel-k-runtime/pull/959) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump groovy-version from 3.0.13 to 3.0.14 [\#958](https://github.com/apache/camel-k-runtime/pull/958) ([dependabot[bot]](https://github.com/apps/dependabot))
