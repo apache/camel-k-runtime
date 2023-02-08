@@ -32,7 +32,7 @@
       <!-- Maven structural logging -->
       <logback-version>1.2.11</logback-version>
       <logstash-logback-version>7.2</logstash-logback-version>
-      <jackson-version>2.14.1</jackson-version>
+      <jackson-version>2.14.2</jackson-version>
     </properties>
 
     <dependencyManagement>
