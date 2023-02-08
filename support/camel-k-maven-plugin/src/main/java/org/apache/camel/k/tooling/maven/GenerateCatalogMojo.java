@@ -358,7 +358,8 @@ public class GenerateCatalogMojo extends AbstractMojo {
                 "groovy",
                 CamelLoader.fromArtifact("org.apache.camel.quarkus", "camel-quarkus-groovy-dsl")
                     .addLanguage("groovy")
-                    .putMetadata("native", "false")
+                    .putMetadata("native", "true")
+                    .putMetadata("sources-required-at-build-time", "true")
                     .build()
             );
         }
@@ -367,7 +368,8 @@ public class GenerateCatalogMojo extends AbstractMojo {
                 "kts",
                 CamelLoader.fromArtifact("org.apache.camel.quarkus", "camel-quarkus-kotlin-dsl")
                     .addLanguage("kts")
-                    .putMetadata("native", "false")
+                    .putMetadata("native", "true")
+                    .putMetadata("sources-required-at-build-time", "true")
                     .build()
             );
         }
@@ -376,7 +378,8 @@ public class GenerateCatalogMojo extends AbstractMojo {
                 "js",
                 CamelLoader.fromArtifact("org.apache.camel.quarkus", "camel-quarkus-js-dsl")
                     .addLanguage("js")
-                    .putMetadata("native", "true")
+                    // Guest languages are not yet supported on Mandrel in native mode.
+                    .putMetadata("native", "false")
                     .build()
             );
         }
@@ -394,7 +397,19 @@ public class GenerateCatalogMojo extends AbstractMojo {
                 "java",
                 CamelLoader.fromArtifact("org.apache.camel.quarkus", "camel-quarkus-java-joor-dsl")
                     .addLanguages("java")
+                    .putMetadata("native", "true")
+                    .putMetadata("sources-required-at-build-time", "true")
+                    .build()
+            );
+        }
+        if (dslsExclusionList != null && !dslsExclusionList.contains("jsh")) {
+            specBuilder.putLoader(
+                "jsh",
+                CamelLoader.fromArtifact("org.apache.camel.quarkus", "camel-quarkus-jsh-dsl")
+                    .addLanguages("jsh")
+                    // Native mode is not yet supported due to https://github.com/apache/camel-quarkus/issues/4458.
                     .putMetadata("native", "false")
+                    .putMetadata("sources-required-at-build-time", "true")
                     .build()
             );
         }
