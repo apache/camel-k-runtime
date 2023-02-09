@@ -6,18 +6,24 @@
 
 **Closed issues:**
 
+- Update DSLs metadata [\#953](https://github.com/apache/camel-k-runtime/issues/953)
 - Upgrade for Camel 3.20.1 [\#950](https://github.com/apache/camel-k-runtime/issues/950)
 - Release 1.16.0 [\#925](https://github.com/apache/camel-k-runtime/issues/925)
 
 **Merged pull requests:**
 
+- build\(deps\): bump http-cache-semantics from 4.1.0 to 4.1.1 in /docs [\#966](https://github.com/apache/camel-k-runtime/pull/966) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Move jolokia exclusions from generate-catalog maven plugin to the camel-k-runtime-bom/pom.xml [\#965](https://github.com/apache/camel-k-runtime/pull/965) ([claudio4j](https://github.com/claudio4j))
+- build\(deps\): bump versions-maven-plugin from 2.12.0 to 2.14.2 [\#963](https://github.com/apache/camel-k-runtime/pull/963) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump maven-plugin-plugin from 3.6.4 to 3.7.1 [\#962](https://github.com/apache/camel-k-runtime/pull/962) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump maven-surefire-plugin from 3.0.0-M7 to 3.0.0-M8 [\#961](https://github.com/apache/camel-k-runtime/pull/961) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-failsafe-plugin from 3.0.0-M7 to 3.0.0-M8 [\#960](https://github.com/apache/camel-k-runtime/pull/960) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump jolokia-jvm from 1.7.1 to 1.7.2 [\#959](https://github.com/apache/camel-k-runtime/pull/959) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump groovy-version from 3.0.13 to 3.0.14 [\#958](https://github.com/apache/camel-k-runtime/pull/958) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump value from 2.9.2 to 2.9.3 [\#957](https://github.com/apache/camel-k-runtime/pull/957) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-checkstyle-plugin from 3.2.0 to 3.2.1 [\#956](https://github.com/apache/camel-k-runtime/pull/956) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-pmd-plugin from 3.19.0 to 3.20.0 [\#955](https://github.com/apache/camel-k-runtime/pull/955) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Ref \#953: Update DSLs metadata [\#954](https://github.com/apache/camel-k-runtime/pull/954) ([essobedo](https://github.com/essobedo))
 - Prepare release 1.17.0 [\#952](https://github.com/apache/camel-k-runtime/pull/952) ([oscerd](https://github.com/oscerd))
 - build\(deps\): bump assertj-core from 3.23.1 to 3.24.2 [\#949](https://github.com/apache/camel-k-runtime/pull/949) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-dependency-plugin from 3.3.0 to 3.5.0 [\#948](https://github.com/apache/camel-k-runtime/pull/948) ([dependabot[bot]](https://github.com/apps/dependabot))
