@@ -28,9 +28,9 @@ version=$1
 mkdir $1/
 cd $1/
 
-cp ../../../target/camel-k-runtime-project-$1-source-release.zip apache-camel-k-runtime-$1-source-release.zip
-cp ../../../target/camel-k-runtime-project-$1-source-release.zip.asc apache-camel-k-runtime-$1-source-release.zip.asc
-cp ../../../target/camel-k-runtime-project-$1-source-release.zip.sha512 apache-camel-k-runtime-$1-source-release.zip.sha512
+cp ../../../target/checkout/distribution/target/apache-camel-k-runtime-$1-source-release.zip apache-camel-k-runtime-$1-source-release.zip
+cp ../../../target/checkout/distribution/target/apache-camel-k-runtime-$1-source-release.zip.asc apache-camel-k-runtime-$1-source-release.zip.asc
+cp ../../../target/checkout/distribution/target/apache-camel-k-runtime-$1-source-release.zip.sha512 apache-camel-k-runtime-$1-source-release.zip.sha512
 cd ../
 svn import $1/ https://dist.apache.org/repos/dist/dev/camel/camel-k-runtime/$2/ -m "Import camel-k-runtime release"
 
