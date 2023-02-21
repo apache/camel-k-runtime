@@ -1,8 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/apache/camel-k-runtime/tree/HEAD)
+## [camel-k-runtime-project-1.17.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.17.0) (2023-02-20)
 
-[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.16.0...HEAD)
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.16.0...camel-k-runtime-project-1.17.0)
 
 **Closed issues:**
 
@@ -12,6 +12,8 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump maven-enforcer-plugin from 3.1.0 to 3.2.1 [\#969](https://github.com/apache/camel-k-runtime/pull/969) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump jackson-version from 2.14.1 to 2.14.2 [\#968](https://github.com/apache/camel-k-runtime/pull/968) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump http-cache-semantics from 4.1.0 to 4.1.1 in /docs [\#966](https://github.com/apache/camel-k-runtime/pull/966) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Move jolokia exclusions from generate-catalog maven plugin to the camel-k-runtime-bom/pom.xml [\#965](https://github.com/apache/camel-k-runtime/pull/965) ([claudio4j](https://github.com/claudio4j))
 - build\(deps\): bump versions-maven-plugin from 2.12.0 to 2.14.2 [\#963](https://github.com/apache/camel-k-runtime/pull/963) ([dependabot[bot]](https://github.com/apps/dependabot))
