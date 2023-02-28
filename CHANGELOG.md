@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased](https://github.com/apache/camel-k-runtime/tree/HEAD)
+
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.17.0...HEAD)
+
+**Closed issues:**
+
+- Release 1.17.0 [\#951](https://github.com/apache/camel-k-runtime/issues/951)
+
 ## [camel-k-runtime-project-1.17.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.17.0) (2023-02-20)
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.16.0...camel-k-runtime-project-1.17.0)
