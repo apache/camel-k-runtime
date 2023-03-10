@@ -45,7 +45,6 @@
         <module>camel-k-itests-runtime-yaml</module>
 
         <module>camel-k-itests-cron</module>
-        <module>camel-k-itests-master</module>
         <module>camel-k-itests-knative</module>
         <module>camel-k-itests-knative-env-from-registry</module>
         <module>camel-k-itests-knative-env-from-properties</module>
