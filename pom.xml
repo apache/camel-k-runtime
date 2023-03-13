@@ -28,7 +28,8 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.camel.k</groupId>
     <artifactId>camel-k-runtime-project</artifactId>
-    <version>1.18.0-SNAPSHOT</version>
+    <!-- Make sure that this version is aligned with the Camel Version as it is the convention used in Camel K -->
+    <version>3.20.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -44,8 +45,6 @@
         <camel-quarkus-version>2.16.0</camel-quarkus-version>
         <quarkus-version>2.16.0.Final</quarkus-version>
         <quarkus-platform-version>2.16.0.Final</quarkus-platform-version>
-        <!-- The quarkus camel bom may differ from quarkus platfom -->
-        <quarkus-camel-bom-version>2.16.0.Final</quarkus-camel-bom-version>
         <quarkus-native-builder-image>quay.io/quarkus/ubi-quarkus-mandrel:22.2.0.0-Final-java11</quarkus-native-builder-image>
 
         <!-- camel-k-runtime specific -->
@@ -404,7 +403,7 @@
             <dependency>
                 <groupId>io.quarkus.platform</groupId>
                 <artifactId>quarkus-camel-bom</artifactId>
-                <version>${quarkus-camel-bom-version}</version>
+                <version>${quarkus-platform-version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
