@@ -20,8 +20,10 @@ Usage: ./script/bump.sh [options]
 --graalvm                 Bump GraalVM version
 --help                    This help message
 
-Example: ./script/bump.sh --version 1.14.0-SNAPSHOT --camel 3.16.0
+Example: ./script/bump.sh --version 3.20.1-SNAPSHOT --camel 3.20.1
 ....
+
+NOTE: starting from version 3.20, Camel K Runtime will need to use the same dependency notation of Camel.
 
 == Instructions for local debugging
 
