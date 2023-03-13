@@ -13,7 +13,6 @@ Usage: ./script/bump.sh [options]
 --camel-quarkus           Bump Camel-Quarkus version
 --quarkus                 Bump Quarkus version
 --quarkus-platform        Bump Quarkus platform version (could differ from quarkus core)
---quarkus-camel-bom       Bump Quarkus Camel BOM version (could differ from quarkus platform)
 --help                    This help message
 
 Example: ./script/bump.sh --version 1.14.0-SNAPSHOT --camel 3.16.0
@@ -26,7 +25,6 @@ CAMEL=""
 CAMELQUARKUS=""
 QUARKUS=""
 QUARKUSPLATFORM=""
-QUARKUSCAMELBOM=""
 
 main() {
   parse_args $@
@@ -56,11 +54,6 @@ main() {
   if [[ ! -z "$QUARKUSPLATFORM" ]]; then
     mvn versions:set-property -Dproperty="quarkus-platform-version" -DnewVersion="$QUARKUSPLATFORM" -DgenerateBackupPoms=false
     echo "Quarkus platform version set to $QUARKUSPLATFORM"
-  fi
-
-  if [[ ! -z "$QUARKUSCAMELBOM" ]]; then
-    mvn versions:set-property -Dproperty="quarkus-camel-bom-version" -DnewVersion="$QUARKUSCAMELBOM" -DgenerateBackupPoms=false
-    echo "Quarkus Camel BOM version set to $QUARKUSCAMELBOM"
   fi
 }
 
@@ -92,10 +85,6 @@ parse_args(){
         --quarkus-platform)
           shift
           QUARKUSPLATFORM="$1"
-          ;;
-        --quarkus-camel-bom)
-          shift
-          QUARKUSCAMELBOM="$1"
           ;;
         *)
           echo "❗ unknown argument: $1"
