@@ -10,6 +10,8 @@
 
 **Merged pull requests:**
 
+- feat: version aligned to Apache Camel [\#983](https://github.com/apache/camel-k-runtime/pull/983) ([squakez](https://github.com/squakez))
+- Remove camel-k-master, replacement is camel-quarkus-kubernetes [\#982](https://github.com/apache/camel-k-runtime/pull/982) ([claudio4j](https://github.com/claudio4j))
 - build\(deps\): bump maven-surefire-plugin from 3.0.0-M8 to 3.0.0-M9 [\#974](https://github.com/apache/camel-k-runtime/pull/974) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump groovy-version from 3.0.14 to 3.0.15 [\#973](https://github.com/apache/camel-k-runtime/pull/973) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump logstash-logback-encoder from 7.2 to 7.3 [\#972](https://github.com/apache/camel-k-runtime/pull/972) ([dependabot[bot]](https://github.com/apps/dependabot))
