@@ -33,11 +33,6 @@
             <artifactId>camel-k-itests-loader-inspector</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-support-bouncycastle</artifactId>
-        </dependency>
-
         <!-- camel quarkus -->
         <dependency>
             <groupId>org.apache.camel</groupId>
