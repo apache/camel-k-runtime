@@ -37,6 +37,7 @@
         <dataformats.exclusion.list>avro-jackson</dataformats.exclusion.list>
         <languages.exclusion.list>csimple</languages.exclusion.list>
         <components.exclusion.list>disruptor,disruptor-vm</components.exclusion.list>
+        <capabilities.exclusion.list>master</capabilities.exclusion.list>
     </properties>
 
     <build>
