@@ -41,10 +41,6 @@
             <artifactId>camel-quarkus-kubernetes</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-support-bouncycastle</artifactId>
-        </dependency>
-        <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-logging-json</artifactId>
         </dependency>
@@ -62,8 +58,8 @@
                         <runnerParentFirstArtifact>org.graalvm.js:js</runnerParentFirstArtifact>
                         <runnerParentFirstArtifact>org.graalvm.regex:regex</runnerParentFirstArtifact>
                         <runnerParentFirstArtifact>org.graalvm.truffle:truffle-api</runnerParentFirstArtifact>
-                    </runnerParentFirstArtifacts>                    
-                </configuration>                
+                    </runnerParentFirstArtifacts>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
