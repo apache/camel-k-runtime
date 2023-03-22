@@ -14,23 +14,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.apache.camel.k.quarkus.master;
 
-new File(basedir, "catalog.yaml").withReader {
-    def catalog = new groovy.yaml.YamlSlurper().parse(it)
+import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.path.json.JsonPath;
+import org.apache.camel.support.cluster.RebalancingCamelClusterService;
+import org.junit.jupiter.api.Test;
 
-    assert catalog.spec.loaders['jsh'] == null
-    assert catalog.spec.loaders['kts'] == null
-    assert catalog.spec.loaders['js'] == null
-    assert catalog.spec.loaders['groovy'] == null
+import static io.restassured.RestAssured.when;
+import static org.assertj.core.api.Assertions.assertThat;
 
-    assert catalog.spec.loaders['java'] != null
-    assert catalog.spec.loaders['xml'] != null
-    assert catalog.spec.loaders['yaml'] != null
+@QuarkusTest
+public class MasterTest {
+    @Test
+    public void hasClusterService() {
+        JsonPath path = when()
+            .get("/test/inspect")
+        .then()
+            .statusCode(200)
+            .extract().jsonPath();
 
-    assert catalog.spec.artifacts['camel-quarkus-jackson-avro'] != null
-    assert catalog.spec.artifacts['camel-quarkus-csimple'] == null
-    assert catalog.spec.artifacts['camel-quarkus-disruptor'] == null
-
-    assert catalog.spec.runtime.capabilities['master'] == null
-    assert catalog.spec.artifacts['camel-k-master'] == null
+        assertThat(path.getString("cluster-service")).isEqualTo(RebalancingCamelClusterService.class.getName());
+        assertThat(path.getString("cluster-service-res")).isEqualTo("camel-k-res");
+    }
 }

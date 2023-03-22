@@ -44,6 +44,8 @@ new File(basedir, "catalog.yaml").withReader {
     assert catalog.spec.runtime.capabilities['tracing'].dependencies[0].artifactId == 'camel-quarkus-opentracing'
     assert catalog.spec.runtime.capabilities['telemetry'].dependencies[0].groupId == 'org.apache.camel.quarkus'
     assert catalog.spec.runtime.capabilities['telemetry'].dependencies[0].artifactId == 'camel-quarkus-opentelemetry'
+    assert catalog.spec.runtime.capabilities['master'].dependencies[0].groupId == 'org.apache.camel.k'
+    assert catalog.spec.runtime.capabilities['master'].dependencies[0].artifactId == 'camel-k-master'
 
     assert catalog.spec.loaders['groovy'].groupId == 'org.apache.camel.quarkus'
     assert catalog.spec.loaders['groovy'].artifactId == 'camel-quarkus-groovy-dsl'
@@ -83,6 +85,9 @@ new File(basedir, "catalog.yaml").withReader {
 
     assert catalog.metadata.labels['camel.apache.org/runtime.version'] == runtimeVersion
 
+    catalog.spec.artifacts['camel-k-master'].with {
+        schemes == null
+    }
     catalog.spec.artifacts['camel-k-cron'].with {
         schemes == null
     }

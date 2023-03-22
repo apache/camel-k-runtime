@@ -14,23 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.apache.camel.k.quarkus.master;
 
-new File(basedir, "catalog.yaml").withReader {
-    def catalog = new groovy.yaml.YamlSlurper().parse(it)
+import io.quarkus.test.junit.NativeImageTest;
 
-    assert catalog.spec.loaders['jsh'] == null
-    assert catalog.spec.loaders['kts'] == null
-    assert catalog.spec.loaders['js'] == null
-    assert catalog.spec.loaders['groovy'] == null
-
-    assert catalog.spec.loaders['java'] != null
-    assert catalog.spec.loaders['xml'] != null
-    assert catalog.spec.loaders['yaml'] != null
-
-    assert catalog.spec.artifacts['camel-quarkus-jackson-avro'] != null
-    assert catalog.spec.artifacts['camel-quarkus-csimple'] == null
-    assert catalog.spec.artifacts['camel-quarkus-disruptor'] == null
-
-    assert catalog.spec.runtime.capabilities['master'] == null
-    assert catalog.spec.artifacts['camel-k-master'] == null
+@NativeImageTest
+public class MasterIT extends MasterTest {
 }
