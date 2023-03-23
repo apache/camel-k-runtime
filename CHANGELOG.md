@@ -10,8 +10,13 @@
 
 **Merged pull requests:**
 
+- Revert "Remove camel-k-master, replacement is camel-quarkus-kubernetes" [\#985](https://github.com/apache/camel-k-runtime/pull/985) ([squakez](https://github.com/squakez))
 - feat: version aligned to Apache Camel [\#983](https://github.com/apache/camel-k-runtime/pull/983) ([squakez](https://github.com/squakez))
 - Remove camel-k-master, replacement is camel-quarkus-kubernetes [\#982](https://github.com/apache/camel-k-runtime/pull/982) ([claudio4j](https://github.com/claudio4j))
+- build\(deps\): bump maven-deploy-plugin from 3.0.0 to 3.1.0 [\#981](https://github.com/apache/camel-k-runtime/pull/981) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump maven-plugin-plugin from 3.7.1 to 3.8.1 [\#980](https://github.com/apache/camel-k-runtime/pull/980) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump maven-assembly-plugin from 3.4.2 to 3.5.0 [\#979](https://github.com/apache/camel-k-runtime/pull/979) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump minimatch from 3.0.4 to 3.1.2 in /docs [\#977](https://github.com/apache/camel-k-runtime/pull/977) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-surefire-plugin from 3.0.0-M8 to 3.0.0-M9 [\#974](https://github.com/apache/camel-k-runtime/pull/974) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump groovy-version from 3.0.14 to 3.0.15 [\#973](https://github.com/apache/camel-k-runtime/pull/973) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump logstash-logback-encoder from 7.2 to 7.3 [\#972](https://github.com/apache/camel-k-runtime/pull/972) ([dependabot[bot]](https://github.com/apps/dependabot))
