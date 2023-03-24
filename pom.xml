@@ -139,6 +139,7 @@
                             <requireMavenVersion>
                               <version>${maven-version}</version>
                             </requireMavenVersion>
+                            <dependencyConvergence/>
                           </rules>
                         </configuration>
                       </execution>
