@@ -10,7 +10,9 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump groovy-version from 3.0.15 to 3.0.16 [\#987](https://github.com/apache/camel-k-runtime/pull/987) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Revert "Remove camel-k-master, replacement is camel-quarkus-kubernetes" [\#985](https://github.com/apache/camel-k-runtime/pull/985) ([squakez](https://github.com/squakez))
+- chore\(deps\): remove bouncycastle dependency [\#984](https://github.com/apache/camel-k-runtime/pull/984) ([squakez](https://github.com/squakez))
 - feat: version aligned to Apache Camel [\#983](https://github.com/apache/camel-k-runtime/pull/983) ([squakez](https://github.com/squakez))
 - Remove camel-k-master, replacement is camel-quarkus-kubernetes [\#982](https://github.com/apache/camel-k-runtime/pull/982) ([claudio4j](https://github.com/claudio4j))
 - build\(deps\): bump maven-deploy-plugin from 3.0.0 to 3.1.0 [\#981](https://github.com/apache/camel-k-runtime/pull/981) ([dependabot[bot]](https://github.com/apps/dependabot))
