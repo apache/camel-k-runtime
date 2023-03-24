@@ -28,49 +28,6 @@
     <description>Set of dependencies used for structural logging of Maven output</description>
     <packaging>pom</packaging>
 
-    <properties>
-      <!-- Maven structural logging -->
-      <logback-version>1.2.11</logback-version>
-      <logstash-logback-version>7.3</logstash-logback-version>
-      <jackson-version>2.14.2</jackson-version>
-    </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <!-- structural Maven logging -->
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-core</artifactId>
-                <version>${logback-version}</version>
-            </dependency>
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>${logback-version}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.logstash.logback</groupId>
-                <artifactId>logstash-logback-encoder</artifactId>
-                <version>${logstash-logback-version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-annotations</artifactId>
-                <version>${jackson-version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-core</artifactId>
-                <version>${jackson-version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <version>${jackson-version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <build>
         <defaultGoal>generate-resources</defaultGoal>
         <plugins>
@@ -117,30 +74,49 @@
     </build>
 
     <dependencies>
-        <!-- structural logging -->
+        <!-- structural logging: we only need this dependencies to be part of the overlay package, reason why are marked as provided -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
+            <version>${logback-version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
+            <version>${logback-version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>net.logstash.logback</groupId>
             <artifactId>logstash-logback-encoder</artifactId>
+            <version>7.3</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-annotations</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>
