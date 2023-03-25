@@ -10,7 +10,11 @@
 
 **Merged pull requests:**
 
+- feat\(ci\): add a check to avoid duplicate dependencies [\#990](https://github.com/apache/camel-k-runtime/pull/990) ([squakez](https://github.com/squakez))
+- build\(deps\): bump versions-maven-plugin from 2.14.2 to 2.15.0 [\#989](https://github.com/apache/camel-k-runtime/pull/989) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump maven-surefire-plugin from 3.0.0-M9 to 3.0.0 [\#988](https://github.com/apache/camel-k-runtime/pull/988) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump groovy-version from 3.0.15 to 3.0.16 [\#987](https://github.com/apache/camel-k-runtime/pull/987) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump maven-javadoc-plugin from 3.4.1 to 3.5.0 [\#986](https://github.com/apache/camel-k-runtime/pull/986) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Revert "Remove camel-k-master, replacement is camel-quarkus-kubernetes" [\#985](https://github.com/apache/camel-k-runtime/pull/985) ([squakez](https://github.com/squakez))
 - chore\(deps\): remove bouncycastle dependency [\#984](https://github.com/apache/camel-k-runtime/pull/984) ([squakez](https://github.com/squakez))
 - feat: version aligned to Apache Camel [\#983](https://github.com/apache/camel-k-runtime/pull/983) ([squakez](https://github.com/squakez))
