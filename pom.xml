@@ -39,7 +39,7 @@
         <maven.compiler.target>11</maven.compiler.target>
 
         <maven-version>3.6.3</maven-version>
-        <camel-version>3.20.1</camel-version>
+        <camel-version>3.18.3</camel-version>
 
         <!-- quarkus -->
         <camel-quarkus-version>2.13.2</camel-quarkus-version>
