@@ -39,6 +39,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
 
+        <maven-version>3.6.3</maven-version>
         <camel-version>3.20.1</camel-version>
 
         <!-- quarkus -->
@@ -84,7 +85,7 @@
         <maven-pmd-plugin-asm-version>9.5</maven-pmd-plugin-asm-version>
         <maven-pmd-plugin-shared-utils-version>3.3.3</maven-pmd-plugin-shared-utils-version>
         <maven-plugin-plugin-version>3.8.1</maven-plugin-plugin-version>
-        <maven-version>3.6.3</maven-version>
+        <maven-plugin-api-version>3.6.3</maven-plugin-api-version>
         <maven-plugin-tools-version>3.8.1</maven-plugin-tools-version>
         <maven-shaded-version>3.3.2</maven-shaded-version>
     </properties>
@@ -610,7 +611,7 @@
             <dependency>
                 <groupId>org.apache.maven</groupId>
                 <artifactId>maven-plugin-api</artifactId>
-                <version>${maven-version}</version>
+                <version>${maven-plugin-api-version}</version>
             </dependency>
 
         </dependencies>
