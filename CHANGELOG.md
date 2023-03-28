@@ -10,6 +10,8 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump maven-failsafe-plugin from 3.0.0-M8 to 3.0.0 [\#995](https://github.com/apache/camel-k-runtime/pull/995) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump maven-compiler-plugin from 3.10.1 to 3.11.0 [\#993](https://github.com/apache/camel-k-runtime/pull/993) ([dependabot[bot]](https://github.com/apps/dependabot))
 - feat\(ci\): add a check to avoid duplicate dependencies [\#990](https://github.com/apache/camel-k-runtime/pull/990) ([squakez](https://github.com/squakez))
 - build\(deps\): bump versions-maven-plugin from 2.14.2 to 2.15.0 [\#989](https://github.com/apache/camel-k-runtime/pull/989) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-surefire-plugin from 3.0.0-M9 to 3.0.0 [\#988](https://github.com/apache/camel-k-runtime/pull/988) ([dependabot[bot]](https://github.com/apps/dependabot))
