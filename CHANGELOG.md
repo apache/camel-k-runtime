@@ -10,6 +10,9 @@
 
 **Merged pull requests:**
 
+- chore\(ci\): split maven version property [\#999](https://github.com/apache/camel-k-runtime/pull/999) ([squakez](https://github.com/squakez))
+- build\(deps\): bump maven-plugin-annotations from 3.6.4 to 3.8.1 [\#998](https://github.com/apache/camel-k-runtime/pull/998) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump asm from 9.4 to 9.5 [\#997](https://github.com/apache/camel-k-runtime/pull/997) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-failsafe-plugin from 3.0.0-M8 to 3.0.0 [\#995](https://github.com/apache/camel-k-runtime/pull/995) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-compiler-plugin from 3.10.1 to 3.11.0 [\#993](https://github.com/apache/camel-k-runtime/pull/993) ([dependabot[bot]](https://github.com/apps/dependabot))
 - feat\(ci\): add a check to avoid duplicate dependencies [\#990](https://github.com/apache/camel-k-runtime/pull/990) ([squakez](https://github.com/squakez))
