@@ -10,6 +10,8 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump maven-resources-plugin from 3.3.0 to 3.3.1 [\#1005](https://github.com/apache/camel-k-runtime/pull/1005) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump license-maven-plugin from 4.1 to 4.2 [\#1003](https://github.com/apache/camel-k-runtime/pull/1003) ([dependabot[bot]](https://github.com/apps/dependabot))
 - chore\(ci\): split maven version property [\#999](https://github.com/apache/camel-k-runtime/pull/999) ([squakez](https://github.com/squakez))
 - build\(deps\): bump maven-plugin-annotations from 3.6.4 to 3.8.1 [\#998](https://github.com/apache/camel-k-runtime/pull/998) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump asm from 9.4 to 9.5 [\#997](https://github.com/apache/camel-k-runtime/pull/997) ([dependabot[bot]](https://github.com/apps/dependabot))
