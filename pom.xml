@@ -42,7 +42,7 @@
         <camel-version>3.18.3</camel-version>
 
         <!-- quarkus -->
-        <camel-quarkus-version>2.13.2</camel-quarkus-version>
+        <camel-quarkus-version>2.13.3</camel-quarkus-version>
         <quarkus-version>2.13.5.Final</quarkus-version>
         <quarkus-platform-version>2.13.5.Final</quarkus-platform-version>
         <!-- The quarkus camel bom may differ from quarkus platfom -->
