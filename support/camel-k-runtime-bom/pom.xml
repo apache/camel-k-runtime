@@ -39,9 +39,9 @@
         <jolokia-version>1.7.1</jolokia-version>
         <maven-enforcer-plugin-version>3.1.0</maven-enforcer-plugin-version>
         <maven-version>3.6.3</maven-version>
-        <quarkus-platform-version>2.13.5.Final</quarkus-platform-version>
+        <quarkus-platform-version>2.13.7.Final</quarkus-platform-version>
         <!-- The quarkus camel bom may differ from quarkus platfom -->
-        <quarkus-camel-bom-version>2.13.5.Final</quarkus-camel-bom-version>
+        <quarkus-camel-bom-version>2.13.7.Final</quarkus-camel-bom-version>
     </properties>
 
     <developers>

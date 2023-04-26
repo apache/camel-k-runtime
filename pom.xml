@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-dependencies</artifactId>
-        <version>3.18.3</version>
+        <version>3.18.6</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -39,14 +39,14 @@
         <maven.compiler.target>11</maven.compiler.target>
 
         <maven-version>3.6.3</maven-version>
-        <camel-version>3.18.3</camel-version>
+        <camel-version>3.18.6</camel-version>
 
         <!-- quarkus -->
-        <camel-quarkus-version>2.13.2</camel-quarkus-version>
-        <quarkus-version>2.13.5.Final</quarkus-version>
-        <quarkus-platform-version>2.13.5.Final</quarkus-platform-version>
+        <camel-quarkus-version>2.13.3</camel-quarkus-version>
+        <quarkus-version>2.13.7.Final</quarkus-version>
+        <quarkus-platform-version>2.13.7.Final</quarkus-platform-version>
         <!-- The quarkus camel bom may differ from quarkus platfom -->
-        <quarkus-camel-bom-version>2.13.5.Final</quarkus-camel-bom-version>
+        <quarkus-camel-bom-version>2.13.7.Final</quarkus-camel-bom-version>
         <quarkus-native-builder-image>quay.io/quarkus/ubi-quarkus-native-image:22.3.0-java11</quarkus-native-builder-image>
 
         <!-- camel-k-runtime specific -->
