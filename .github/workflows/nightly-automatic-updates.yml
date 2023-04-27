@@ -26,7 +26,7 @@ jobs:
   main:
     if: github.repository == 'apache/camel-k-runtime'
     runs-on: ubuntu-20.04
-    name: Generate changelog for main branch
+    name: Automatic updates on main branch
     steps:
     - name: "Checkout code"
       uses: actions/checkout@v2
@@ -40,34 +40,4 @@ jobs:
         branch-ref: "main"
         secretGithubToken: ${{ secrets.GITHUB_TOKEN }}
 
-  v1_15_x:
-    if: github.repository == 'apache/camel-k-runtime'
-    runs-on: ubuntu-20.04
-    steps:
-    - name: "Checkout code"
-      uses: actions/checkout@v2
-      with:
-        ref: release-1.15.x
-        persist-credentials: false
-        submodules: recursive
-    - name: Automatic updates on release-1.15.x
-      uses: ./.github/actions/automatic-updates
-      with:
-        branch-ref: "release-1.15.x"
-        secretGithubToken: ${{ secrets.GITHUB_TOKEN }}
-
-  v1_17_x:
-    if: github.repository == 'apache/camel-k-runtime'
-    runs-on: ubuntu-20.04
-    steps:
-    - name: "Checkout code"
-      uses: actions/checkout@v2
-      with:
-        ref: release-1.17.x
-        persist-credentials: false
-        submodules: recursive
-    - name: Automatic updates on release-1.17.x
-      uses: ./.github/actions/automatic-updates
-      with:
-        branch-ref: "release-1.17.x"
-        secretGithubToken: ${{ secrets.GITHUB_TOKEN }}
+# TODO: enable the process on the release branches as soon as version 2 is released
