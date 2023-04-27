@@ -32,7 +32,7 @@ runs:
         CI_USER: "github-actions[bot]"
         CI_EMAIL: "41898282+github-actions[bot]@users.noreply.github.com"
       run: |
-        ./script/sync_cq.sh
+        ./scripts/sync_cq.sh
         git add -A && git commit -m 'feat: new Camel Quarkus version' && echo "refresh=1" >> $GITHUB_ENV || echo "No changes in the release"
     - name: Push changes
       shell: bash
