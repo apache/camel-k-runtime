@@ -28,7 +28,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.camel.k</groupId>
     <artifactId>camel-k-runtime-project</artifactId>
-    <!-- Make sure that this version is aligned with the Camel Version as it is the convention used in Camel K -->
+    <!-- Make sure that this version is aligned with the Camel Quarkus Version as it is the convention used in Camel K -->
     <version>2.16.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
