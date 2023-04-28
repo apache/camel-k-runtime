@@ -10,6 +10,8 @@
 
 **Merged pull requests:**
 
+- chore: remove updates from release branches [\#1022](https://github.com/apache/camel-k-runtime/pull/1022) ([squakez](https://github.com/squakez))
+- feat\(ci\): automatically align to Camel Quarkus [\#1017](https://github.com/apache/camel-k-runtime/pull/1017) ([squakez](https://github.com/squakez))
 - build\(deps\): bump maven-checkstyle-plugin from 3.2.1 to 3.2.2 [\#1012](https://github.com/apache/camel-k-runtime/pull/1012) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump groovy-version from 3.0.16 to 3.0.17 [\#1009](https://github.com/apache/camel-k-runtime/pull/1009) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-resources-plugin from 3.3.0 to 3.3.1 [\#1005](https://github.com/apache/camel-k-runtime/pull/1005) ([dependabot[bot]](https://github.com/apps/dependabot))
