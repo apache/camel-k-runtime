@@ -1,0 +1,86 @@
+= Releasing Apache Camel K runtime
+
+This procedure describes all the steps required to release a new version of Apache Camel K runtime dependency.
+It is not intended to be final, but rather a working document that needs to be updated when new requirements are found or
+the technical process changes.
+
+
+The https://github.com/apache/camel-k-runtime[Camel K Runtime project] is not a standalone project, it's meant to be used with Camel K. However, since it depends on Camel Quarkus project, the release process is going to be independent and the versioning notation is going to be aligned with the one used by https://github.com/apache/camel-quarkus[Camel Quarkus].
+
+Follow the https://github.com/apache/camel/blob/main/docs/user-manual/modules/ROOT/pages/release-guide.adoc[Camel release guide] in order to setup the Maven environment and gpg for the release.
+
+To prepare a release and check problems:
+```
+./mvnw release:prepare -DdryRun -Prelease
+```
+
+Check the signatures of the files, then clean and prepare the actual release:
+
+```
+./mvnw release:clean -Prelease
+./mvnw release:prepare -Prelease
+```
+
+Then perform the release:
+
+```
+./mvnw release:perform -Prelease
+```
+
+Go to https://repository.apache.org/ and close the staging repository.
+
+A URL will be generated for the repository, like: https://repository.apache.org/content/repositories/orgapachecamel-xxxx. The URL needs to be communicated during the voting process.
+
+
+The apache-camel-k-runtime-<version>-source-release.zip file present in path `/org/apache/camel/k/apache-camel-k-runtime/<version>/` (and sha512 sum, if present) will need to be copied in the Apache dev SVN at https://dist.apache.org/repos/dist/dev/camel/camel-k-runtime/<version>.
+
+If the sha512 file is missing, one should be generated before committing to SVN.
+
+Commit all files to the SVN.
+
+Voting can start for camel-k-runtime, or a combined vote with camel-k can be started later.
+
+[[testing]]
+== Do some testing
+
+In order to test the runtime, you can use any Camel K operator with version 2 onward (ideally, latest). When installing it, you need to provide the staging repository wich contains the Camel K runtime to be released.
+
+```
+kamel install --maven-repository=https://repository.apache.org/content/repositories/orgapachecamel-$APACHE_NEXUS_RUNTIME_REPO_ID
+...
+kamel run Test.java -t camel.runtime-version=<released_version>
+```
+
+[[voting]]
+== Voting
+
+An email should be sent to dev@camel.apache.org asking to test the staged artifacts. Voting will be left open for at least 72 hours.
+
+[[finalizing]]
+== Finalizing the release
+
+After the voting is complete with success, the artifacts can be released.
+
+Release the staging repository at: https://repository.apache.org.
+Artifacts committed on https://dist.apache.org/repos/dist/dev/ before the voting process need to be copied to the
+Apache dist repository on: https://dist.apache.org/repos/dist/release/camel.
+
+Run a script to promote the release from dev to release
+
+```
+cd release-utils/scripts/
+./promote-release.sh <released_version>
+```
+
+Wait for maven mirrors to sync the new artifacts. This can take more than 1 hour sometimes.
+
+Binary files can be now released on Github, together with release notes generated in previous step.
+Files need to be uploaded manually to a new Github release.
+
+Before announcing the release, a simple test should be done to verify that everything is in place (running a "Hello World" integration
+with the released runtime (`kamel run Test.java -t camel.runtime-version=<released_version>`).
+Do a simple final test.
+
+The release can be now announced to dev@camel.apache.org and users@camel.apache.org.
+
+A PMC member with access to the @ApacheCamel Twitter account should announce the release on Twitter as well.
