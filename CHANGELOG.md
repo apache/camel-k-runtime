@@ -10,6 +10,7 @@
 
 **Merged pull requests:**
 
+- doc: Camel K 2.0 independent release process [\#1023](https://github.com/apache/camel-k-runtime/pull/1023) ([squakez](https://github.com/squakez))
 - chore: remove updates from release branches [\#1022](https://github.com/apache/camel-k-runtime/pull/1022) ([squakez](https://github.com/squakez))
 - feat\(ci\): automatically align to Camel Quarkus [\#1017](https://github.com/apache/camel-k-runtime/pull/1017) ([squakez](https://github.com/squakez))
 - build\(deps\): bump maven-checkstyle-plugin from 3.2.1 to 3.2.2 [\#1012](https://github.com/apache/camel-k-runtime/pull/1012) ([dependabot[bot]](https://github.com/apps/dependabot))
