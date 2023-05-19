@@ -131,7 +131,8 @@ public class CronSourceLoaderInterceptor implements RouteBuilderLifecycleStrateg
 
         @Override
         public boolean isEnabled(CamelEvent event) {
-            return event instanceof CamelEvent.ExchangeCompletedEvent || event instanceof CamelEvent.ExchangeFailedEvent;
+            return (event instanceof CamelEvent.ExchangeCompletedEvent || event instanceof CamelEvent.ExchangeFailedEvent)
+                && this.runtime.getCamelContext().getInflightRepository().size() == 0;
         }
     }
 }
