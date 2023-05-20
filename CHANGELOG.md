@@ -10,10 +10,14 @@
 
 **Merged pull requests:**
 
+- fix\(cron\): gracefully stop when all exchanges are processed [\#1024](https://github.com/apache/camel-k-runtime/pull/1024) ([squakez](https://github.com/squakez))
 - doc: Camel K 2.0 independent release process [\#1023](https://github.com/apache/camel-k-runtime/pull/1023) ([squakez](https://github.com/squakez))
 - chore: remove updates from release branches [\#1022](https://github.com/apache/camel-k-runtime/pull/1022) ([squakez](https://github.com/squakez))
 - feat\(ci\): automatically align to Camel Quarkus [\#1017](https://github.com/apache/camel-k-runtime/pull/1017) ([squakez](https://github.com/squakez))
+- build\(deps\): bump maven-plugin-annotations from 3.8.1 to 3.8.2 [\#1014](https://github.com/apache/camel-k-runtime/pull/1014) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump maven-plugin-plugin from 3.8.1 to 3.8.2 [\#1013](https://github.com/apache/camel-k-runtime/pull/1013) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-checkstyle-plugin from 3.2.1 to 3.2.2 [\#1012](https://github.com/apache/camel-k-runtime/pull/1012) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump maven-enforcer-plugin from 3.2.1 to 3.3.0 [\#1011](https://github.com/apache/camel-k-runtime/pull/1011) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump groovy-version from 3.0.16 to 3.0.17 [\#1009](https://github.com/apache/camel-k-runtime/pull/1009) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-resources-plugin from 3.3.0 to 3.3.1 [\#1005](https://github.com/apache/camel-k-runtime/pull/1005) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump maven-deploy-plugin from 3.1.0 to 3.1.1 [\#1004](https://github.com/apache/camel-k-runtime/pull/1004) ([dependabot[bot]](https://github.com/apps/dependabot))
