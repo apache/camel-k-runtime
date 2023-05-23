@@ -10,6 +10,7 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump build-helper-maven-plugin from 3.3.0 to 3.4.0 [\#1027](https://github.com/apache/camel-k-runtime/pull/1027) ([dependabot[bot]](https://github.com/apps/dependabot))
 - fix\(cron\): gracefully stop when all exchanges are processed [\#1024](https://github.com/apache/camel-k-runtime/pull/1024) ([squakez](https://github.com/squakez))
 - doc: Camel K 2.0 independent release process [\#1023](https://github.com/apache/camel-k-runtime/pull/1023) ([squakez](https://github.com/squakez))
 - chore: remove updates from release branches [\#1022](https://github.com/apache/camel-k-runtime/pull/1022) ([squakez](https://github.com/squakez))
