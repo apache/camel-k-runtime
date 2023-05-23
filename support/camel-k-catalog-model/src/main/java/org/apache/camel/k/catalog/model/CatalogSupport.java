@@ -44,4 +44,8 @@ public final class CatalogSupport {
     public static CatalogDataFormatDefinition unmarshallDataFormat(String json) {
         return unmarshall(json, CatalogDataFormatDefinition.Container.class).unwrap();
     }
+
+    public static CatalogOtherDefinition unmarshallOther(String json) {
+        return unmarshall(json, CatalogOtherDefinition.Container.class).unwrap();
+    }
 }
