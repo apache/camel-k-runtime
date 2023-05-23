@@ -31,6 +31,10 @@ new File(basedir, "catalog.yaml").withReader {
     assert catalog.spec.artifacts['camel-quarkus-csimple'] == null
     assert catalog.spec.artifacts['camel-quarkus-disruptor'] == null
 
+    assert catalog.spec.artifacts['camel-quarkus-debug'] != null
+    assert catalog.spec.artifacts['camel-quarkus-jta'] == null
+    assert catalog.spec.artifacts['camel-quarkus-redis'] == null
+
     assert catalog.spec.runtime.capabilities['master'] == null
     assert catalog.spec.artifacts['camel-k-master'] == null
 }
