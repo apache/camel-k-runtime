@@ -47,6 +47,7 @@ import org.apache.camel.k.catalog.model.CatalogComponentDefinition;
 import org.apache.camel.k.catalog.model.CatalogDataFormatDefinition;
 import org.apache.camel.k.catalog.model.CatalogDefinition;
 import org.apache.camel.k.catalog.model.CatalogLanguageDefinition;
+import org.apache.camel.k.catalog.model.CatalogOtherDefinition;
 import org.apache.camel.k.catalog.model.CatalogSupport;
 import org.apache.camel.k.catalog.model.k8s.ObjectMeta;
 import org.apache.camel.k.catalog.model.k8s.crd.CamelCatalog;
@@ -126,6 +127,9 @@ public class GenerateCatalogMojo extends AbstractMojo {
 
     @Parameter(property = "languages.exclusion.list")
     private Set<String> languagesExclusionList;
+
+    @Parameter(property = "others.exclusion.list")
+    private Set<String> othersExclusionList;
 
     @Parameter(property = "dsls.exclusion.list")
     private Set<String> dslsExclusionList;
@@ -334,6 +338,7 @@ public class GenerateCatalogMojo extends AbstractMojo {
         processComponents(catalog, artifacts);
         processLanguages(catalog, artifacts);
         processDataFormats(catalog, artifacts);
+        processOthers(catalog, artifacts);
         processLoaders(specBuilder);
 
         specBuilder.putAllArtifacts(artifacts);
@@ -486,6 +491,22 @@ public class GenerateCatalogMojo extends AbstractMojo {
 
                 return builder.build();
             });
+        }
+    }
+
+    private void processOthers(org.apache.camel.catalog.CamelCatalog catalog, Map<String, CamelArtifact> artifacts) {
+        final Set<String> elements = new TreeSet<>(catalog.findOtherNames());
+
+        if (othersExclusionList != null) {
+            getLog().info("others.exclusion.list: " + othersExclusionList);
+            elements.removeAll(othersExclusionList);
+        }
+
+        for (String name : elements) {
+            String json = catalog.otherJSonSchema(name);
+            CatalogOtherDefinition definition = CatalogSupport.unmarshallOther(json);
+
+            artifacts.compute(definition.getArtifactId(), (key, artifact) -> artifactBuilder(artifact, definition).build());
         }
     }
 
