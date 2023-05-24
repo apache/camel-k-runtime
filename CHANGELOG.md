@@ -10,6 +10,7 @@
 
 **Merged pull requests:**
 
+- fix\(\#1029\): Include miscellaneous components in Camel catalog [\#1030](https://github.com/apache/camel-k-runtime/pull/1030) ([christophd](https://github.com/christophd))
 - build\(deps\): bump build-helper-maven-plugin from 3.3.0 to 3.4.0 [\#1027](https://github.com/apache/camel-k-runtime/pull/1027) ([dependabot[bot]](https://github.com/apps/dependabot))
 - fix\(cron\): gracefully stop when all exchanges are processed [\#1024](https://github.com/apache/camel-k-runtime/pull/1024) ([squakez](https://github.com/squakez))
 - doc: Camel K 2.0 independent release process [\#1023](https://github.com/apache/camel-k-runtime/pull/1023) ([squakez](https://github.com/squakez))
