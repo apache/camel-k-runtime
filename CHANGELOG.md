@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- Include miscellaneous components in Camel catalog [\#1029](https://github.com/apache/camel-k-runtime/issues/1029)
 - Release 1.17.0 [\#951](https://github.com/apache/camel-k-runtime/issues/951)
 
 **Merged pull requests:**
