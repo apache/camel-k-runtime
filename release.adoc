@@ -9,36 +9,68 @@ The https://github.com/apache/camel-k-runtime[Camel K Runtime project] is not a 
 
 Follow the https://github.com/apache/camel/blob/main/docs/user-manual/modules/ROOT/pages/release-guide.adoc[Camel release guide] in order to setup the Maven environment and gpg for the release.
 
+== GPG key configuration
+
+Here some quick notes about how to configure the GPG key (this will be required just once, tipycally the first time you do a release). If you're on a Linux distribution, you should have `gpg` binary available: try with `gpg --version`. Once the binary is there you need to execute:
+
+```
+gpg --full-gen-key
+```
+
+This command will prompt a series of requests you'll need to fill. Have a look at the procedure described in https://cwiki.apache.org/confluence/display/PEGASUS/Configure+GPG+key[another Apache project page] for more details.
+
+Once you have created your key, it is convenient you add it to the `KEYS` file in root Camel K Runtime github:
+
+```
+gpg --list-sigs "pcongiusti@apache.org" >> KEYS && gpg --armor --export "pcongiusti@apache.org" >> KEYS
+```
+
+You also need to recover your fingerprint and copy to the https://id.apache.org account:
+
+```
+$ gpg --fingerprint
+
+pub   rsa4096 2023-05-26 [SC]
+      xyzz accc brrr dsad 1234  1234 1234 1234 1234 1234    <-- This is the fingerprint!
+uid           [ultimate] Pasquale Congiusti (gpg key) <pcongiusti@apache.org>
+sub   rsa4096 2023-05-26 [E]
+```
+
+Once this step is over, you can proceed with the release.
+
+== Release process
+
+As the process will do `git` operations, it is advisable that you clone the Camel K Runtime repository to some new location (ie /tmp/) in order to avoid to conflict with any other development in progress. Consider if you're about to release from `main` branch (generally a new major or minor version) or from a `release` branch (when you're about to release a patch version). In the latter case, you need to checkout to the proper release branch, ie `git checkout release-1.17.x`.
+
+When you're in the project directory, you can start the release process.
+
 To prepare a release and check problems:
 ```
 ./mvnw release:prepare -DdryRun -Prelease
 ```
 
-Check the signatures of the files, then clean and prepare the actual release:
+During the process you will be requested to provide the final version you're about to release (typically the same you're working on but withouth SNAPSHOT) and the next one that will be started after. Once the process is over, check the signatures of the files, then clean and prepare the actual release:
 
 ```
 ./mvnw release:clean -Prelease
-./mvnw release:prepare -Prelease
+./mvnw release:prepare -Prelease -Duser=<your Apache LDAP id> [-Dpassword=<your Apache LDAP pwd>]
 ```
 
-Then perform the release:
+You need to provide the user (and optionally password) of your Apache account. This is required as the procedure will log in to https://gitbox.apache.org[GitBox]. If you do not provide the password, it will be prompted during the procedure and you'll need to provide it when asked.
+
+If the previous step was fine, you're about to perform the last step of the release:
 
 ```
 ./mvnw release:perform -Prelease
 ```
 
-Go to https://repository.apache.org/ and close the staging repository.
-
-A URL will be generated for the repository, like: https://repository.apache.org/content/repositories/orgapachecamel-xxxx. The URL needs to be communicated during the voting process.
-
+Once it's over, go to https://repository.apache.org/ and close the staging repository: this is a process required to generate a URL for the repository, like: https://repository.apache.org/content/repositories/orgapachecamel-xxxx. The URL needs to be communicated during the voting process.
 
 The apache-camel-k-runtime-<version>-source-release.zip file present in path `/org/apache/camel/k/apache-camel-k-runtime/<version>/` (and sha512 sum, if present) will need to be copied in the Apache dev SVN at https://dist.apache.org/repos/dist/dev/camel/camel-k-runtime/<version>.
 
 If the sha512 file is missing, one should be generated before committing to SVN.
 
 Commit all files to the SVN.
-
-Voting can start for camel-k-runtime, or a combined vote with camel-k can be started later.
 
 [[testing]]
 == Do some testing
@@ -54,7 +86,7 @@ kamel run Test.java -t camel.runtime-version=<released_version>
 [[voting]]
 == Voting
 
-An email should be sent to dev@camel.apache.org asking to test the staged artifacts. Voting will be left open for at least 72 hours.
+All is in place for the release. Send an email to dev@camel.apache.org asking to test the staged artifacts. Voting will be left open for at least 72 hours. You can take a previous voting email as reference for your new communication.
 
 [[finalizing]]
 == Finalizing the release
@@ -84,3 +116,13 @@ Do a simple final test.
 The release can be now announced to dev@camel.apache.org and users@camel.apache.org.
 
 A PMC member with access to the @ApacheCamel Twitter account should announce the release on Twitter as well.
+
+[[post-release-process]]
+== Post release process
+
+If you've released a major or a minor version, you may want to create a new `release-<major>.<minor>.x` branch that will be used for patch development. Accordingly, you can bump the version on `main` branch. This has to be aligned to the next Camel Quarkus version you're willing to support for Camel K Runtime:
+```
+./script/bump.sh --camel-quarkus 2.16.0
+# you need to git commit & push afterwards
+```
+The project has an automatic action (`./script/sync_cq.sh`) running every night by Github Actions which is in charge to align the set of dependencies required by Camel Quarkus, according to the release.
