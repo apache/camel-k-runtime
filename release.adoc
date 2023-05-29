@@ -36,7 +36,25 @@ uid           [ultimate] Pasquale Congiusti (gpg key) <pcongiusti@apache.org>
 sub   rsa4096 2023-05-26 [E]
 ```
 
-Once this step is over, you can proceed with the release.
+Once this step is over, you will need to send your GPG key to certain serves used later when verifying the signed pushed artifacts:
+
+```
+$ gpg -k
+
+pub   rsa4096 2023-05-26 [SC]
+      1234123412341234123412341132132131312123            <-- This is the key you need!
+uid           [ultimate] Pasquale Congiusti (gpg key) <pcongiusti@apache.org>
+sub   rsa4096 2023-05-26 [E]
+
+gpg --keyserver hkp://keyserver.ubuntu.com --send-keys 1234123412341234123412341132132131312123
+gpg --keyserver hkp://keys.openpgp.org --send-keys 1234123412341234123412341132132131312123
+```
+
+Now you can proceed with the release.
+
+== Maven settings configuration
+
+As you will be required to publish on Apache servers via Maven, you will need to https://infra.apache.org/publishing-maven-artifacts.html[configure properly your maven settings]. You may provide plain text password to the local settings and later reference that settings at the last step of release process via `-s` parameter.
 
 == Release process
 
@@ -46,14 +64,14 @@ When you're in the project directory, you can start the release process.
 
 To prepare a release and check problems:
 ```
-./mvnw release:prepare -DdryRun -Prelease
+./mvnw release:prepare -Prelease -DautoVersionSubmodules=true -DdryRun
 ```
 
 During the process you will be requested to provide the final version you're about to release (typically the same you're working on but withouth SNAPSHOT) and the next one that will be started after. Once the process is over, check the signatures of the files, then clean and prepare the actual release:
 
 ```
 ./mvnw release:clean -Prelease
-./mvnw release:prepare -Prelease -Duser=<your Apache LDAP id> [-Dpassword=<your Apache LDAP pwd>]
+./mvnw release:prepare -Prelease -Duser=<your Apache LDAP id> [-Dpassword=<your Apache LDAP pwd>] -Darguments=-DskipTests -DautoVersionSubmodules=true
 ```
 
 You need to provide the user (and optionally password) of your Apache account. This is required as the procedure will log in to https://gitbox.apache.org[GitBox]. If you do not provide the password, it will be prompted during the procedure and you'll need to provide it when asked.
@@ -61,16 +79,17 @@ You need to provide the user (and optionally password) of your Apache account. T
 If the previous step was fine, you're about to perform the last step of the release:
 
 ```
-./mvnw release:perform -Prelease
+./mvnw release:perform -Prelease [-s path/to/your/settings.xml]
 ```
 
 Once it's over, go to https://repository.apache.org/ and close the staging repository: this is a process required to generate a URL for the repository, like: https://repository.apache.org/content/repositories/orgapachecamel-xxxx. The URL needs to be communicated during the voting process.
 
-The apache-camel-k-runtime-<version>-source-release.zip file present in path `/org/apache/camel/k/apache-camel-k-runtime/<version>/` (and sha512 sum, if present) will need to be copied in the Apache dev SVN at https://dist.apache.org/repos/dist/dev/camel/camel-k-runtime/<version>.
+In order to upload sources and clients to the dist/dev repository in ASF you'll need to execute:
 
-If the sha512 file is missing, one should be generated before committing to SVN.
-
-Commit all files to the SVN.
+```
+cd release-utils/scripts/
+./upload-sources.sh <released_version> <released_version>
+```
 
 [[testing]]
 == Do some testing
