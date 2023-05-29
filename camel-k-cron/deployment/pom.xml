@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.apache.camel.k</groupId>
         <artifactId>camel-k-cron-parent</artifactId>
-        <version>1.17.1</version>
+        <version>1.17.2-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -59,8 +59,4 @@
             </plugin>
         </plugins>
     </build>
-
-  <scm>
-    <tag>camel-k-runtime-project-1.17.1</tag>
-  </scm>
 </project>

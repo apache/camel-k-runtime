@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.apache.camel.k</groupId>
         <artifactId>camel-k-support</artifactId>
-        <version>1.17.1</version>
+        <version>1.17.2-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -80,8 +80,4 @@
             <artifactId>groovy-test</artifactId>
         </dependency>
     </dependencies>
-
-  <scm>
-    <tag>camel-k-runtime-project-1.17.1</tag>
-  </scm>
 </project>
