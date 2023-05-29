@@ -20,7 +20,7 @@
     <parent>
         <groupId>org.apache.camel.k</groupId>
         <artifactId>camel-k-support</artifactId>
-        <version>1.17.1-SNAPSHOT</version>
+        <version>1.17.1</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -70,4 +70,8 @@
             </plugin>
         </plugins>
     </build>
+
+  <scm>
+    <tag>camel-k-runtime-project-1.17.1</tag>
+  </scm>
 </project>
