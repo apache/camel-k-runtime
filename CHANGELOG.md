@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- chore\(doc\): polished release notes [\#1035](https://github.com/apache/camel-k-runtime/pull/1035) ([squakez](https://github.com/squakez))
 - chore: update release procedure [\#1034](https://github.com/apache/camel-k-runtime/pull/1034) ([squakez](https://github.com/squakez))
 - build\(deps\): bump gmavenplus-plugin from 2.1.0 to 3.0.0 [\#1032](https://github.com/apache/camel-k-runtime/pull/1032) ([dependabot[bot]](https://github.com/apps/dependabot))
 - fix\(\#1029\): Include miscellaneous components in Camel catalog [\#1030](https://github.com/apache/camel-k-runtime/pull/1030) ([christophd](https://github.com/christophd))
@@ -44,7 +45,7 @@
 - build\(deps\): bump groovy-version from 3.0.14 to 3.0.15 [\#973](https://github.com/apache/camel-k-runtime/pull/973) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump logstash-logback-encoder from 7.2 to 7.3 [\#972](https://github.com/apache/camel-k-runtime/pull/972) ([dependabot[bot]](https://github.com/apps/dependabot))
 
-## [camel-k-runtime-project-1.17.1](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.17.1) (2023-05-26)
+## [camel-k-runtime-project-1.17.1](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.17.1) (2023-05-29)
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.17.0...camel-k-runtime-project-1.17.1)
 
