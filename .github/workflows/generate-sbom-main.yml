@@ -29,18 +29,18 @@ jobs:
     if: github.repository == 'apache/camel-k-runtime'
     runs-on: ubuntu-latest
     steps:
-      - name: Set up JDK
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: 11
-          cache: 'maven'
       - name: Checkout Camel-k-runtime project
         uses: actions/checkout@v3
         with:
           ref: main
           persist-credentials: false
           fetch-depth: 0
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 11
+          cache: 'maven'
       - name: Build Camel-k-runtime Project for generating SBOM
         run: ./mvnw -V --no-transfer-progress clean install -DskipTests -Psbom
       - name: Create Pull Request
