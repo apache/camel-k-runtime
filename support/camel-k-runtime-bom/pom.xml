@@ -38,7 +38,7 @@
         <jolokia-version>1.7.2</jolokia-version>
         <maven-enforcer-plugin-version>3.3.0</maven-enforcer-plugin-version>
         <maven-version>3.6.3</maven-version>
-        <quarkus-platform-version>2.16.0.Final</quarkus-platform-version>
+        <quarkus-platform-version>3.1.0.Final</quarkus-platform-version>
     </properties>
 
     <developers>
