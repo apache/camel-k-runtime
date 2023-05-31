@@ -25,17 +25,10 @@ on:
   
 jobs:
   build:
-    name: Sync Camel Spring Boot Main Branch
-    if: github.repository == 'apache/camel-spring-boot'
+    name: Camel K Runtime SBOM Generation
+    if: github.repository == 'apache/camel-k-runtime'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Camel project
-        uses: actions/checkout@v3
-        with:
-          repository: apache/camel
-          persist-credentials: false
-          ref: main
-          path: camel
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
