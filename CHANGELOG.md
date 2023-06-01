@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- \[Github Actions\] Periodic Sync Camel K Runtime SBOM [\#1036](https://github.com/apache/camel-k-runtime/pull/1036) ([github-actions[bot]](https://github.com/apps/github-actions))
 - chore\(doc\): polished release notes [\#1035](https://github.com/apache/camel-k-runtime/pull/1035) ([squakez](https://github.com/squakez))
 - chore: update release procedure [\#1034](https://github.com/apache/camel-k-runtime/pull/1034) ([squakez](https://github.com/squakez))
 - build\(deps\): bump gmavenplus-plugin from 2.1.0 to 3.0.0 [\#1032](https://github.com/apache/camel-k-runtime/pull/1032) ([dependabot[bot]](https://github.com/apps/dependabot))
