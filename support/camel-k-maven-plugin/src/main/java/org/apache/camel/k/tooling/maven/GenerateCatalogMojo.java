@@ -22,6 +22,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -39,6 +40,7 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import org.apache.camel.catalog.DefaultCamelCatalog;
 import org.apache.camel.catalog.quarkus.QuarkusRuntimeProvider;
 import org.apache.camel.impl.engine.AbstractCamelContext;
+import org.apache.camel.k.catalog.model.Artifact;
 import org.apache.camel.k.catalog.model.CamelArtifact;
 import org.apache.camel.k.catalog.model.CamelCapability;
 import org.apache.camel.k.catalog.model.CamelLoader;
@@ -187,83 +189,7 @@ public class GenerateCatalogMojo extends AbstractMojo {
             runtimeSpec.applicationClass("io.quarkus.bootstrap.runner.QuarkusEntryPoint");
             runtimeSpec.addDependency("org.apache.camel.k", "camel-k-runtime");
 
-            if (capabilitiesExclusionList != null && !capabilitiesExclusionList.contains("cron")) {
-                runtimeSpec.putCapability(
-                    "cron",
-                    CamelCapability.forArtifact(
-                        "org.apache.camel.k", "camel-k-cron"));
-
-                catalogSpec.putArtifact(
-                    new CamelArtifact.Builder()
-                        .groupId("org.apache.camel.k")
-                        .artifactId("camel-k-cron")
-                        .build()
-                );
-            }
-            if (capabilitiesExclusionList != null && !capabilitiesExclusionList.contains("health")) {
-                runtimeSpec.putCapability(
-                    "health",
-                    CamelCapability.forArtifact(
-                        "org.apache.camel.quarkus", "camel-quarkus-microprofile-health"));
-            }
-            if (capabilitiesExclusionList != null && !capabilitiesExclusionList.contains("platform-http")) {
-                runtimeSpec.putCapability(
-                    "platform-http",
-                    CamelCapability.forArtifact(
-                        "org.apache.camel.quarkus", "camel-quarkus-platform-http"));
-            }
-            if (capabilitiesExclusionList != null && !capabilitiesExclusionList.contains("rest")) {
-                runtimeSpec.putCapability(
-                    "rest",
-                    new CamelCapability.Builder()
-                        .addDependency("org.apache.camel.quarkus", "camel-quarkus-rest")
-                        .addDependency("org.apache.camel.quarkus", "camel-quarkus-platform-http")
-                        .build());
-            }
-            if (capabilitiesExclusionList != null && !capabilitiesExclusionList.contains("circuit-breaker")) {
-                runtimeSpec.putCapability(
-                    "circuit-breaker",
-                    CamelCapability.forArtifact(
-                        "org.apache.camel.quarkus", "camel-quarkus-microprofile-fault-tolerance"));
-            }
-            if (capabilitiesExclusionList != null && !capabilitiesExclusionList.contains("tracing")) {
-                runtimeSpec.putCapability(
-                    "tracing",
-                    CamelCapability.forArtifact(
-                        "org.apache.camel.quarkus", "camel-quarkus-opentracing"));
-            }
-            if (capabilitiesExclusionList != null && !capabilitiesExclusionList.contains("telemetry")) {
-                runtimeSpec.putCapability(
-                        "telemetry",
-                        CamelCapability.forArtifact(
-                                "org.apache.camel.quarkus", "camel-quarkus-opentelemetry"));
-            }
-            if (capabilitiesExclusionList != null && !capabilitiesExclusionList.contains("master")) {
-                runtimeSpec.putCapability(
-                    "master",
-                    CamelCapability.forArtifact(
-                        "org.apache.camel.k", "camel-k-master"));
-
-                catalogSpec.putArtifact(
-                    new CamelArtifact.Builder()
-                        .groupId("org.apache.camel.k")
-                        .artifactId("camel-k-master")
-                        .build()
-                );
-            }
-            if (capabilitiesExclusionList != null && !capabilitiesExclusionList.contains("resume-kafka")) {
-                runtimeSpec.putCapability(
-                        "resume-kafka",
-                        CamelCapability.forArtifact(
-                                "org.apache.camel.k", "camel-k-resume-kafka"));
-
-                catalogSpec.putArtifact(
-                        new CamelArtifact.Builder()
-                                .groupId("org.apache.camel.k")
-                                .artifactId("camel-k-resume-kafka")
-                                .build()
-                );
-            }
+            addCapabilities(runtimeSpec, catalogSpec);
 
             catalogSpec.runtime(runtimeSpec.build());
 
@@ -524,5 +450,93 @@ public class GenerateCatalogMojo extends AbstractMojo {
         }
 
         return builder;
+    }
+
+    private void addCapabilities(RuntimeSpec.Builder runtimeSpec, CamelCatalogSpec.Builder catalogSpec) {
+        List<Artifact> artifacts = new ArrayList<>();
+        artifacts.add(Artifact.from("org.apache.camel.k", "camel-k-cron"));
+        addCapabilityAndDependecies(runtimeSpec, catalogSpec, "cron", artifacts, true);
+
+        artifacts.clear();
+        artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-microprofile-health"));
+        addCapabilityAndDependecies(runtimeSpec, catalogSpec, "health", artifacts, false);
+
+        artifacts.clear();
+        artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-platform-http"));
+        addCapabilityAndDependecies(runtimeSpec, catalogSpec, "platform-http", artifacts, false);
+
+        artifacts.clear();
+        artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-rest"));
+        artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-platform-http"));
+        addCapabilityAndDependecies(runtimeSpec, catalogSpec, "rest", artifacts, false);
+
+        artifacts.clear();
+        artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-microprofile-fault-tolerance"));
+        addCapabilityAndDependecies(runtimeSpec, catalogSpec, "circuit-breaker", artifacts, false);
+
+        artifacts.clear();
+        artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-opentracing"));
+        addCapabilityAndDependecies(runtimeSpec, catalogSpec, "tracing", artifacts, false);
+
+        artifacts.clear();
+        artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-opentelemetry"));
+        addCapabilityAndDependecies(runtimeSpec, catalogSpec, "telemetry", artifacts, false);
+
+        artifacts.clear();
+        artifacts.add(Artifact.from("org.apache.camel.k", "camel-k-master"));
+        addCapabilityAndDependecies(runtimeSpec, catalogSpec, "master", artifacts, true);
+
+        artifacts.clear();
+        artifacts.add(Artifact.from("org.apache.camel.k", "camel-k-resume-kafka"));
+        addCapabilityAndDependecies(runtimeSpec, catalogSpec, "resume-kafka", artifacts, true);
+
+        artifacts.clear();
+        artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-hashicorp-vault"));
+        addCapabilityAndDependecies(runtimeSpec, catalogSpec, "hashicorp-vault", artifacts, false);
+
+        artifacts.clear();
+        artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-azure-key-vault"));
+        addCapabilityAndDependecies(runtimeSpec, catalogSpec, "azure-key-vault", artifacts, false);
+
+        artifacts.clear();
+        artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-aws-secrets-manager"));
+        addCapabilityAndDependecies(runtimeSpec, catalogSpec, "aws-secrets-manager", artifacts, false);
+
+        artifacts.clear();
+        artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-google-secret-manager"));
+        addCapabilityAndDependecies(runtimeSpec, catalogSpec, "gcp-secret-manager", artifacts, false);
+
+        artifacts.clear();
+        artifacts.add(Artifact.from("org.apache.camel.k", "camel-k-knative-impl"));
+        artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-knative"));
+        addCapabilityAndDependecies(runtimeSpec, catalogSpec, "knative", artifacts, false);
+
+        artifacts.clear();
+        artifacts.add(Artifact.from("io.micrometer", "micrometer-registry-prometheus"));
+        artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-micrometer"));
+        addCapabilityAndDependecies(runtimeSpec, catalogSpec, "prometheus", artifacts, false);
+
+        artifacts.clear();
+        artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-management"));
+        artifacts.add(Artifact.from("org.apache.camel", "camel-jaxb"));
+        artifacts.add(Artifact.from("org.jolokia", "jolokia-jvm"));
+        addCapabilityAndDependecies(runtimeSpec, catalogSpec, "jolokia", artifacts, false);
+    }
+
+    private void addCapabilityAndDependecies(RuntimeSpec.Builder runtimeSpec, CamelCatalogSpec.Builder catalogSpec, String name,
+        List<Artifact> artifacts, boolean addDependency) {
+        if (capabilitiesExclusionList != null && !capabilitiesExclusionList.contains(name)) {
+            CamelCapability.Builder capBuilder = new CamelCapability.Builder();
+            artifacts.forEach(artifact -> capBuilder.addDependency(artifact.getGroupId(), artifact.getArtifactId()));
+            CamelCapability dependency = capBuilder.build();
+            runtimeSpec.putCapability(name, dependency);
+            if (addDependency && !artifacts.isEmpty()) {
+                catalogSpec.putArtifact(new CamelArtifact.Builder()
+                    .groupId(artifacts.get(0).getGroupId())
+                    .artifactId(artifacts.get(0).getArtifactId())
+                    .build());
+            }
+        }
+
     }
 }

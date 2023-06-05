@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonPropertyOrder({"groupId", "artifactId", "version"})
 public interface Artifact extends Comparable<Artifact> {
-    String getGroupId();;
+    String getGroupId();
     String getArtifactId();
     Optional<String> getVersion();
 
