@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump versions-maven-plugin from 2.15.0 to 2.16.0 [\#1041](https://github.com/apache/camel-k-runtime/pull/1041) ([dependabot[bot]](https://github.com/apps/dependabot))
 - \[Github Actions\] Periodic Sync Camel K Runtime SBOM [\#1036](https://github.com/apache/camel-k-runtime/pull/1036) ([github-actions[bot]](https://github.com/apps/github-actions))
 - chore\(doc\): polished release notes [\#1035](https://github.com/apache/camel-k-runtime/pull/1035) ([squakez](https://github.com/squakez))
 - chore: update release procedure [\#1034](https://github.com/apache/camel-k-runtime/pull/1034) ([squakez](https://github.com/squakez))
