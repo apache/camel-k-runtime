@@ -127,7 +127,7 @@ jobs:
         with:
           version: '11'
       - name: Download Maven Repo
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v3
         with:
           name: maven-repo-${{ github.run_id }}-${{ github.run_number }}
           path: .
@@ -161,7 +161,7 @@ jobs:
         with:
           version: '11'
       - name: Download Maven Repo
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v3
         with:
           name: maven-repo-${{ github.run_id }}-${{ github.run_number }}
           path: .
