@@ -6,6 +6,11 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump actions/cache from 2 to 3 [\#1047](https://github.com/apache/camel-k-runtime/pull/1047) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump actions/dependency-review-action from 2 to 3 [\#1046](https://github.com/apache/camel-k-runtime/pull/1046) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump actions/setup-java from 2 to 3 [\#1045](https://github.com/apache/camel-k-runtime/pull/1045) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump actions/download-artifact from 1 to 3 [\#1044](https://github.com/apache/camel-k-runtime/pull/1044) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump actions/upload-artifact from 1 to 3 [\#1043](https://github.com/apache/camel-k-runtime/pull/1043) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump versions-maven-plugin from 2.15.0 to 2.16.0 [\#1041](https://github.com/apache/camel-k-runtime/pull/1041) ([dependabot[bot]](https://github.com/apps/dependabot))
 - \[Github Actions\] Periodic Sync Camel K Runtime SBOM [\#1036](https://github.com/apache/camel-k-runtime/pull/1036) ([github-actions[bot]](https://github.com/apps/github-actions))
 - chore\(doc\): polished release notes [\#1035](https://github.com/apache/camel-k-runtime/pull/1035) ([squakez](https://github.com/squakez))
