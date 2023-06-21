@@ -6,6 +6,8 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump logstash-logback-encoder from 7.3 to 7.4 [\#1052](https://github.com/apache/camel-k-runtime/pull/1052) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump actions/checkout from 2 to 3 [\#1051](https://github.com/apache/camel-k-runtime/pull/1051) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump actions/setup-node from 2 to 3 [\#1048](https://github.com/apache/camel-k-runtime/pull/1048) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump actions/cache from 2 to 3 [\#1047](https://github.com/apache/camel-k-runtime/pull/1047) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump actions/dependency-review-action from 2 to 3 [\#1046](https://github.com/apache/camel-k-runtime/pull/1046) ([dependabot[bot]](https://github.com/apps/dependabot))
