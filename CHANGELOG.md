@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- Revert "build\(deps\): bump logstash-logback-encoder from 7.3 to 7.4" [\#1053](https://github.com/apache/camel-k-runtime/pull/1053) ([claudio4j](https://github.com/claudio4j))
 - build\(deps\): bump logstash-logback-encoder from 7.3 to 7.4 [\#1052](https://github.com/apache/camel-k-runtime/pull/1052) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump actions/checkout from 2 to 3 [\#1051](https://github.com/apache/camel-k-runtime/pull/1051) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump actions/setup-node from 2 to 3 [\#1048](https://github.com/apache/camel-k-runtime/pull/1048) ([dependabot[bot]](https://github.com/apps/dependabot))
