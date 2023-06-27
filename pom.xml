@@ -382,7 +382,6 @@
         <module>camel-k-core</module>
 
         <module>camel-k-cron</module>
-        <module>camel-k-cloudevents</module>
         <module>camel-k-knative</module>
         <module>camel-k-master</module>
         <module>camel-k-webhook</module>
@@ -445,16 +444,6 @@
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-core-deployment</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-cloudevents</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-cloudevents-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -883,26 +872,26 @@
         <profile>
             <id>sbom</id>
             <build>
-            <plugins>
-                <plugin>
-                   <groupId>org.cyclonedx</groupId>
-                   <artifactId>cyclonedx-maven-plugin</artifactId>
-                   <version>${cyclonedx-maven-plugin-version}</version>
-                   <inherited>false</inherited>
-                   <configuration>
-			   <outputName>camel-k-runtime-sbom</outputName>
-			   <outputDirectory>${project.basedir}/camel-k-runtime-sbom/</outputDirectory>
-                   </configuration>
-                   <executions>
-                       <execution>
-                           <phase>package</phase>
-                           <goals>
-                               <goal>makeAggregateBom</goal>
-                           </goals>
-                      </execution>
-                   </executions>
-                </plugin>
-            </plugins>
+                <plugins>
+                    <plugin>
+                        <groupId>org.cyclonedx</groupId>
+                        <artifactId>cyclonedx-maven-plugin</artifactId>
+                        <version>${cyclonedx-maven-plugin-version}</version>
+                        <inherited>false</inherited>
+                        <configuration>
+                            <outputName>camel-k-runtime-sbom</outputName>
+                            <outputDirectory>${project.basedir}/camel-k-runtime-sbom/</outputDirectory>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>makeAggregateBom</goal>
+                                </goals>
+                        </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
             </build>
         </profile>
     </profiles>
