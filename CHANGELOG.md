@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- Remove camel-k-cloudevents as it is not used in camel-k [\#1055](https://github.com/apache/camel-k-runtime/pull/1055) ([claudio4j](https://github.com/claudio4j))
 - Update native image to ubi-quarkus-mandrel-builder-image [\#1054](https://github.com/apache/camel-k-runtime/pull/1054) ([claudio4j](https://github.com/claudio4j))
 - Revert "build\(deps\): bump logstash-logback-encoder from 7.3 to 7.4" [\#1053](https://github.com/apache/camel-k-runtime/pull/1053) ([claudio4j](https://github.com/claudio4j))
 - build\(deps\): bump logstash-logback-encoder from 7.3 to 7.4 [\#1052](https://github.com/apache/camel-k-runtime/pull/1052) ([dependabot[bot]](https://github.com/apps/dependabot))
