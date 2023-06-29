@@ -384,7 +384,6 @@
         <module>camel-k-cron</module>
         <module>camel-k-knative</module>
         <module>camel-k-master</module>
-        <module>camel-k-webhook</module>
         <module>camel-k-runtime</module>
         <module>camel-k-resume-kafka</module>
 
@@ -481,21 +480,6 @@
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-cron-deployment</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-webhook-impl</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-webhook</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-webhook-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

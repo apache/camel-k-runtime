@@ -53,7 +53,6 @@
         <module>camel-k-itests-knative-consumer</module>
         <module>camel-k-itests-knative-sinkbinding</module>
         <module>camel-k-itests-kamelet</module>
-        <module>camel-k-itests-webhook</module>
     </modules>
 
     <build>
