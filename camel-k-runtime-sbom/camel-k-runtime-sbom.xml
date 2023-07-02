@@ -8646,65 +8646,6 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
       <purl>pkg:maven/org.apache.camel.quarkus/camel-quarkus-cron-deployment@2.16.0?type=jar</purl>
       <externalReferences><reference type="website"><url>http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-cron-parent/camel-quarkus-cron-deployment</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-quarkus/issues</url></reference><reference type="mailing-list"><url>dev-subscribe@camel.apache.org</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-quarkus.git;a=summary/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-cron-parent/camel-quarkus-cron-deployment</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-cloudevents-parent@2.16.0-SNAPSHOT?type=pom">
-      <group>org.apache.camel.k</group>
-      <name>camel-k-cloudevents-parent</name>
-      <version>2.16.0-SNAPSHOT</version>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-cloudevents-parent@2.16.0-SNAPSHOT?type=pom</purl>
-    </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-cloudevents@2.16.0-SNAPSHOT?type=jar">
-      <publisher>The Apache Software Foundation</publisher>
-      <group>org.apache.camel.k</group>
-      <name>camel-k-cloudevents</name>
-      <version>2.16.0-SNAPSHOT</version>
-      <description>Camel Dependencies POM</description>
-      <licenses>
-        <license>
-          <id>Apache-2.0</id>
-        </license>
-      </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-cloudevents@2.16.0-SNAPSHOT?type=jar</purl>
-      <externalReferences><reference type="website"><url>https://www.apache.org/camel-dependencies/camel-k-runtime-project/camel-k-cloudevents-parent/camel-k-cloudevents/</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-cloudevents-parent/camel-k-cloudevents</url></reference></externalReferences>
-    </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel/camel-cloudevents@3.20.1?type=jar">
-      <publisher>The Apache Software Foundation</publisher>
-      <group>org.apache.camel</group>
-      <name>camel-cloudevents</name>
-      <version>3.20.1</version>
-      <description>Camel support for the CloudEvents specification</description>
-      <scope>required</scope>
-      <hashes>
-        <hash alg="MD5">1e4a616f344da9bd048876dc9a38ac45</hash>
-        <hash alg="SHA-1">69fab1d8217eeb2b76185e331e6386f8a112b156</hash>
-        <hash alg="SHA-256">ab40aaa0fe872044398fb03e5c177a4d177767f68d29f7b2db81adc6d7349203</hash>
-        <hash alg="SHA-512">9762b1ddadd42ac90a4d62ab8e53e50cbf07f5a1ce9547fbd6c654d827111afdd571b92571f9761f863a422da737f4dada096a5f28e5d2166b416e9d1ddc8401</hash>
-        <hash alg="SHA-384">3178ef1f6d53f0260a8115fd8a6bf84a406a519c992ba71e2e911c68cc75510744fd9a428eac3090a27d843d6c9d6c7c</hash>
-        <hash alg="SHA3-384">31f5544d286f61ddd6f7a33f880db77a92f2eae0b8321ef194cbc9d8c2ac97b4c7a352f0d04f9fdd3b5f121766965cfd</hash>
-        <hash alg="SHA3-256">d17c00396022d9ab542e93dd664d82d8cf23d7d596f1df0265b6069029413f67</hash>
-        <hash alg="SHA3-512">6a2b4733185960b57f8f4859123b919d7bceb705281082f50b642f80224cf609050658501ab5e35bb820bd7f8f51f466682aa11d77a95daae6bcb95860099178</hash>
-      </hashes>
-      <licenses>
-        <license>
-          <id>Apache-2.0</id>
-        </license>
-      </licenses>
-      <purl>pkg:maven/org.apache.camel/camel-cloudevents@3.20.1?type=jar</purl>
-      <externalReferences><reference type="website"><url>https://www.apache.org/camel/camel-parent/components/camel-cloudevents/</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://github.com/apache/maven-apache-parent/tree/apache-25/camel/camel-parent/components/camel-cloudevents</url></reference></externalReferences>
-    </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-cloudevents-deployment@2.16.0-SNAPSHOT?type=jar">
-      <publisher>The Apache Software Foundation</publisher>
-      <group>org.apache.camel.k</group>
-      <name>camel-k-cloudevents-deployment</name>
-      <version>2.16.0-SNAPSHOT</version>
-      <description>Camel Dependencies POM</description>
-      <licenses>
-        <license>
-          <id>Apache-2.0</id>
-        </license>
-      </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-cloudevents-deployment@2.16.0-SNAPSHOT?type=jar</purl>
-      <externalReferences><reference type="website"><url>https://www.apache.org/camel-dependencies/camel-k-runtime-project/camel-k-cloudevents-parent/camel-k-cloudevents-deployment/</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-cloudevents-parent/camel-k-cloudevents-deployment</url></reference></externalReferences>
-    </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-knative-parent@2.16.0-SNAPSHOT?type=pom">
       <group>org.apache.camel.k</group>
       <name>camel-k-knative-parent</name>
@@ -8774,6 +8715,31 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
       </licenses>
       <purl>pkg:maven/org.apache.camel/camel-knative-api@3.20.1?type=jar</purl>
       <externalReferences><reference type="website"><url>https://www.apache.org/camel/camel-parent/components/camel-knative-parent/camel-knative-api/</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://github.com/apache/maven-apache-parent/tree/apache-25/camel/camel-parent/components/camel-knative-parent/camel-knative-api</url></reference></externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:maven/org.apache.camel/camel-cloudevents@3.20.1?type=jar">
+      <publisher>The Apache Software Foundation</publisher>
+      <group>org.apache.camel</group>
+      <name>camel-cloudevents</name>
+      <version>3.20.1</version>
+      <description>Camel support for the CloudEvents specification</description>
+      <scope>required</scope>
+      <hashes>
+        <hash alg="MD5">1e4a616f344da9bd048876dc9a38ac45</hash>
+        <hash alg="SHA-1">69fab1d8217eeb2b76185e331e6386f8a112b156</hash>
+        <hash alg="SHA-256">ab40aaa0fe872044398fb03e5c177a4d177767f68d29f7b2db81adc6d7349203</hash>
+        <hash alg="SHA-512">9762b1ddadd42ac90a4d62ab8e53e50cbf07f5a1ce9547fbd6c654d827111afdd571b92571f9761f863a422da737f4dada096a5f28e5d2166b416e9d1ddc8401</hash>
+        <hash alg="SHA-384">3178ef1f6d53f0260a8115fd8a6bf84a406a519c992ba71e2e911c68cc75510744fd9a428eac3090a27d843d6c9d6c7c</hash>
+        <hash alg="SHA3-384">31f5544d286f61ddd6f7a33f880db77a92f2eae0b8321ef194cbc9d8c2ac97b4c7a352f0d04f9fdd3b5f121766965cfd</hash>
+        <hash alg="SHA3-256">d17c00396022d9ab542e93dd664d82d8cf23d7d596f1df0265b6069029413f67</hash>
+        <hash alg="SHA3-512">6a2b4733185960b57f8f4859123b919d7bceb705281082f50b642f80224cf609050658501ab5e35bb820bd7f8f51f466682aa11d77a95daae6bcb95860099178</hash>
+      </hashes>
+      <licenses>
+        <license>
+          <id>Apache-2.0</id>
+        </license>
+      </licenses>
+      <purl>pkg:maven/org.apache.camel/camel-cloudevents@3.20.1?type=jar</purl>
+      <externalReferences><reference type="website"><url>https://www.apache.org/camel/camel-parent/components/camel-cloudevents/</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://github.com/apache/maven-apache-parent/tree/apache-25/camel/camel-parent/components/camel-cloudevents</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel/camel-knative-http@3.20.1?type=jar">
       <publisher>The Apache Software Foundation</publisher>
@@ -8950,129 +8916,6 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
       </licenses>
       <purl>pkg:maven/org.apache.camel.quarkus/camel-quarkus-master-deployment@2.16.0?type=jar</purl>
       <externalReferences><reference type="website"><url>http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-master-parent/camel-quarkus-master-deployment</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-quarkus/issues</url></reference><reference type="mailing-list"><url>dev-subscribe@camel.apache.org</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-quarkus.git;a=summary/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-master-parent/camel-quarkus-master-deployment</url></reference></externalReferences>
-    </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-webhook-parent@2.16.0-SNAPSHOT?type=pom">
-      <group>org.apache.camel.k</group>
-      <name>camel-k-webhook-parent</name>
-      <version>2.16.0-SNAPSHOT</version>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-webhook-parent@2.16.0-SNAPSHOT?type=pom</purl>
-    </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-webhook-impl@2.16.0-SNAPSHOT?type=jar">
-      <publisher>The Apache Software Foundation</publisher>
-      <group>org.apache.camel.k</group>
-      <name>camel-k-webhook-impl</name>
-      <version>2.16.0-SNAPSHOT</version>
-      <description>Camel Dependencies POM</description>
-      <licenses>
-        <license>
-          <id>Apache-2.0</id>
-        </license>
-      </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-webhook-impl@2.16.0-SNAPSHOT?type=jar</purl>
-      <externalReferences><reference type="website"><url>https://www.apache.org/camel-dependencies/camel-k-runtime-project/camel-k-webhook-parent/camel-k-webhook-impl/</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-webhook-parent/camel-k-webhook-impl</url></reference></externalReferences>
-    </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel/camel-webhook@3.20.1?type=jar">
-      <publisher>The Apache Software Foundation</publisher>
-      <group>org.apache.camel</group>
-      <name>camel-webhook</name>
-      <version>3.20.1</version>
-      <description>Camel Webhook component</description>
-      <scope>required</scope>
-      <hashes>
-        <hash alg="MD5">7ddd199516dfb9c1edf5eb4957cc22fb</hash>
-        <hash alg="SHA-1">8c9e9e7d9a8572bb4cd0926c6ba73746a62a6425</hash>
-        <hash alg="SHA-256">e48d3ec4464d99080cb83236272e50bb6a5d8e10f3158a8643b052d446435e68</hash>
-        <hash alg="SHA-512">88c6108850a7b99ef4e33a5ab9965080d15bef50c62c11a39a1074c8ca4c9768ca5273e0d67989d36a7bd61e1a2efaed35f78a8eb7df7c9544b99c99b355d7ad</hash>
-        <hash alg="SHA-384">3226b0f40495322862aa7caf0329d2bcf968d66a1b7feed076b4710100a3eae2d695b31fe31cc27c35ca74e7ad8ff3d0</hash>
-        <hash alg="SHA3-384">6a32264f84523a4a8f550227f1e36772fbd827aeaee55a9e8e4873db52571b978ba7b78f8fb3577b39ebe41984e5ae71</hash>
-        <hash alg="SHA3-256">54ef845d8befb8e06a96e88f418b342c24a8981f4511b69be6fd3941bee54f13</hash>
-        <hash alg="SHA3-512">e74580bf89044eeab3c9c32089883ac65baf39a61bb0c80d4d7c514315c55af436bb728e950b8c6cc26ada5f38dff9569e4d2c9cedb639ce98fc53807a5003e8</hash>
-      </hashes>
-      <licenses>
-        <license>
-          <id>Apache-2.0</id>
-        </license>
-      </licenses>
-      <purl>pkg:maven/org.apache.camel/camel-webhook@3.20.1?type=jar</purl>
-      <externalReferences><reference type="website"><url>https://www.apache.org/camel/camel-parent/components/camel-webhook/</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://github.com/apache/maven-apache-parent/tree/apache-25/camel/camel-parent/components/camel-webhook</url></reference></externalReferences>
-    </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-webhook@2.16.0-SNAPSHOT?type=jar">
-      <publisher>The Apache Software Foundation</publisher>
-      <group>org.apache.camel.k</group>
-      <name>camel-k-webhook</name>
-      <version>2.16.0-SNAPSHOT</version>
-      <description>Camel Dependencies POM</description>
-      <licenses>
-        <license>
-          <id>Apache-2.0</id>
-        </license>
-      </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-webhook@2.16.0-SNAPSHOT?type=jar</purl>
-      <externalReferences><reference type="website"><url>https://www.apache.org/camel-dependencies/camel-k-runtime-project/camel-k-webhook-parent/camel-k-webhook/</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-webhook-parent/camel-k-webhook</url></reference></externalReferences>
-    </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-support-webhook@2.16.0?type=jar">
-      <publisher>The Apache Software Foundation</publisher>
-      <group>org.apache.camel.quarkus</group>
-      <name>camel-quarkus-support-webhook</name>
-      <version>2.16.0</version>
-      <description>Maven plugins configuration</description>
-      <scope>required</scope>
-      <hashes>
-        <hash alg="MD5">9e417481e60400ebf13f0f6f507a6477</hash>
-        <hash alg="SHA-1">dae9f4362ed19e4ddc5d97552e10be151d7c2d3e</hash>
-        <hash alg="SHA-256">e5651bce4fd32fc806a58f6b2d08830aa3b0c74140f323192e5e45f01468fb22</hash>
-        <hash alg="SHA-512">58c0a53dae5d9f74e8547409e58d566c0cd42e0bafe1ea133a530e5040dbb29f65dfff0ec73c073e82e14989716a99ca92af6e186804596cc4311303f9d382b4</hash>
-        <hash alg="SHA-384">bf2424c20495ea2ceca6e3e443aa4d1ec6e477fc017f609976db706ad4e2c5d44b3bd839f1f56bed80aa16219dbba1ff</hash>
-        <hash alg="SHA3-384">fb8f001753d031778dc7e8fb416cac632f0e7e155ff6839125c2ae867bd9c24847ca3302dec0cb2391dcae4e1a6007f2</hash>
-        <hash alg="SHA3-256">555922811e79123843a388ccf5761e1d91c4ae5fd9b6eeb3a9e2b88d71103ecc</hash>
-        <hash alg="SHA3-512">efff1ec287d5cf5633e3f7789ec537b5fa1841fdf6206e942fcfa178594240467541329465991d26df2f380e51c2dbe92b4aceaaeffefdfc00b201aeca504884</hash>
-      </hashes>
-      <licenses>
-        <license>
-          <id>Apache-2.0</id>
-        </license>
-      </licenses>
-      <purl>pkg:maven/org.apache.camel.quarkus/camel-quarkus-support-webhook@2.16.0?type=jar</purl>
-      <externalReferences><reference type="website"><url>http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions-support/camel-quarkus-support-webhook-parent/camel-quarkus-support-webhook</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-quarkus/issues</url></reference><reference type="mailing-list"><url>dev-subscribe@camel.apache.org</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-quarkus.git;a=summary/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions-support/camel-quarkus-support-webhook-parent/camel-quarkus-support-webhook</url></reference></externalReferences>
-    </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-webhook-deployment@2.16.0-SNAPSHOT?type=jar">
-      <publisher>The Apache Software Foundation</publisher>
-      <group>org.apache.camel.k</group>
-      <name>camel-k-webhook-deployment</name>
-      <version>2.16.0-SNAPSHOT</version>
-      <description>Camel Dependencies POM</description>
-      <licenses>
-        <license>
-          <id>Apache-2.0</id>
-        </license>
-      </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-webhook-deployment@2.16.0-SNAPSHOT?type=jar</purl>
-      <externalReferences><reference type="website"><url>https://www.apache.org/camel-dependencies/camel-k-runtime-project/camel-k-webhook-parent/camel-k-webhook-deployment/</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-webhook-parent/camel-k-webhook-deployment</url></reference></externalReferences>
-    </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-support-webhook-deployment@2.16.0?type=jar">
-      <publisher>The Apache Software Foundation</publisher>
-      <group>org.apache.camel.quarkus</group>
-      <name>camel-quarkus-support-webhook-deployment</name>
-      <version>2.16.0</version>
-      <description>Maven plugins configuration</description>
-      <scope>required</scope>
-      <hashes>
-        <hash alg="MD5">e713e8aa0d8ffbb74a59a70fe104a6cf</hash>
-        <hash alg="SHA-1">05ff45bae97a261d99d481d4b3274bb0a1763b81</hash>
-        <hash alg="SHA-256">46d01c288f710c02268c6142d1f9ae60d986b7c4031e527270665e1578000be3</hash>
-        <hash alg="SHA-512">8c38994c6225ad1002246dde276310cba7f53bd374af51f11ca532e70d165042356ea8ad4bc449e9fd77f5bdb88e64790a6bd20c0d9a69dbb43fe838b071d7e7</hash>
-        <hash alg="SHA-384">8d2def62ab09ff8572b971e0f686192f06f63c1b84d869024f56d2373e86092588121532983d9556f57032ab580eff17</hash>
-        <hash alg="SHA3-384">da5e6e51053612467937789cffb75b6cf4f72a409df0c2c05daeb4b4c9b1f538d0c1af95559ca0ae5cac1c71ca796eaa</hash>
-        <hash alg="SHA3-256">0914649051937322c1ea5229261428973f44682cfd106c4fbe03a22111c099aa</hash>
-        <hash alg="SHA3-512">6f88bed749d28a1b94c22a6194d41cf38e7a872044c87399d3f0eb723d804d043cf1f2ffb47f8c0d099db266bc127bdfb68fd880c6cef4a7872d08fda68e4b10</hash>
-      </hashes>
-      <licenses>
-        <license>
-          <id>Apache-2.0</id>
-        </license>
-      </licenses>
-      <purl>pkg:maven/org.apache.camel.quarkus/camel-quarkus-support-webhook-deployment@2.16.0?type=jar</purl>
-      <externalReferences><reference type="website"><url>http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions-support/camel-quarkus-support-webhook-parent/camel-quarkus-support-webhook-deployment</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-quarkus/issues</url></reference><reference type="mailing-list"><url>dev-subscribe@camel.apache.org</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-quarkus.git;a=summary/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions-support/camel-quarkus-support-webhook-parent/camel-quarkus-support-webhook-deployment</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-runtime-deployment@2.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
@@ -11256,76 +11099,6 @@ for configuring data-binding.</description>
       <purl>pkg:maven/org.apache.camel.k/camel-k-itests-knative-sinkbinding@2.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://www.apache.org/camel-dependencies/camel-k-runtime-project/camel-k-itests/camel-k-itests-knative-sinkbinding/</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-itests/camel-k-itests-knative-sinkbinding</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-source-groovy@2.16.0-SNAPSHOT?type=jar">
-      <publisher>The Apache Software Foundation</publisher>
-      <group>org.apache.camel.k</group>
-      <name>camel-k-itests-knative-source-groovy</name>
-      <version>2.16.0-SNAPSHOT</version>
-      <description>Camel Dependencies POM</description>
-      <licenses>
-        <license>
-          <id>Apache-2.0</id>
-        </license>
-      </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-knative-source-groovy@2.16.0-SNAPSHOT?type=jar</purl>
-      <externalReferences><reference type="website"><url>https://www.apache.org/camel-dependencies/camel-k-runtime-project/camel-k-itests/camel-k-itests-knative-source-groovy/</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-itests/camel-k-itests-knative-source-groovy</url></reference></externalReferences>
-    </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-source-java@2.16.0-SNAPSHOT?type=jar">
-      <publisher>The Apache Software Foundation</publisher>
-      <group>org.apache.camel.k</group>
-      <name>camel-k-itests-knative-source-java</name>
-      <version>2.16.0-SNAPSHOT</version>
-      <description>Camel Dependencies POM</description>
-      <licenses>
-        <license>
-          <id>Apache-2.0</id>
-        </license>
-      </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-knative-source-java@2.16.0-SNAPSHOT?type=jar</purl>
-      <externalReferences><reference type="website"><url>https://www.apache.org/camel-dependencies/camel-k-runtime-project/camel-k-itests/camel-k-itests-knative-source-java/</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-itests/camel-k-itests-knative-source-java</url></reference></externalReferences>
-    </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-source-js@2.16.0-SNAPSHOT?type=jar">
-      <publisher>The Apache Software Foundation</publisher>
-      <group>org.apache.camel.k</group>
-      <name>camel-k-itests-knative-source-js</name>
-      <version>2.16.0-SNAPSHOT</version>
-      <description>Camel Dependencies POM</description>
-      <licenses>
-        <license>
-          <id>Apache-2.0</id>
-        </license>
-      </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-knative-source-js@2.16.0-SNAPSHOT?type=jar</purl>
-      <externalReferences><reference type="website"><url>https://www.apache.org/camel-dependencies/camel-k-runtime-project/camel-k-itests/camel-k-itests-knative-source-js/</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-itests/camel-k-itests-knative-source-js</url></reference></externalReferences>
-    </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-source-xml@2.16.0-SNAPSHOT?type=jar">
-      <publisher>The Apache Software Foundation</publisher>
-      <group>org.apache.camel.k</group>
-      <name>camel-k-itests-knative-source-xml</name>
-      <version>2.16.0-SNAPSHOT</version>
-      <description>Camel Dependencies POM</description>
-      <licenses>
-        <license>
-          <id>Apache-2.0</id>
-        </license>
-      </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-knative-source-xml@2.16.0-SNAPSHOT?type=jar</purl>
-      <externalReferences><reference type="website"><url>https://www.apache.org/camel-dependencies/camel-k-runtime-project/camel-k-itests/camel-k-itests-knative-source-xml/</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-itests/camel-k-itests-knative-source-xml</url></reference></externalReferences>
-    </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-source-yaml@2.16.0-SNAPSHOT?type=jar">
-      <publisher>The Apache Software Foundation</publisher>
-      <group>org.apache.camel.k</group>
-      <name>camel-k-itests-knative-source-yaml</name>
-      <version>2.16.0-SNAPSHOT</version>
-      <description>Camel Dependencies POM</description>
-      <licenses>
-        <license>
-          <id>Apache-2.0</id>
-        </license>
-      </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-knative-source-yaml@2.16.0-SNAPSHOT?type=jar</purl>
-      <externalReferences><reference type="website"><url>https://www.apache.org/camel-dependencies/camel-k-runtime-project/camel-k-itests/camel-k-itests-knative-source-yaml/</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-itests/camel-k-itests-knative-source-yaml</url></reference></externalReferences>
-    </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-kamelet@2.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
@@ -11389,20 +11162,6 @@ for configuring data-binding.</description>
       </licenses>
       <purl>pkg:maven/org.apache.camel/camel-kamelet@3.20.1?type=jar</purl>
       <externalReferences><reference type="website"><url>https://www.apache.org/camel/camel-parent/components/camel-kamelet/</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://github.com/apache/maven-apache-parent/tree/apache-25/camel/camel-parent/components/camel-kamelet</url></reference></externalReferences>
-    </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-webhook@2.16.0-SNAPSHOT?type=jar">
-      <publisher>The Apache Software Foundation</publisher>
-      <group>org.apache.camel.k</group>
-      <name>camel-k-itests-webhook</name>
-      <version>2.16.0-SNAPSHOT</version>
-      <description>Camel Dependencies POM</description>
-      <licenses>
-        <license>
-          <id>Apache-2.0</id>
-        </license>
-      </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-webhook@2.16.0-SNAPSHOT?type=jar</purl>
-      <externalReferences><reference type="website"><url>https://www.apache.org/camel-dependencies/camel-k-runtime-project/camel-k-itests/camel-k-itests-webhook/</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-itests/camel-k-itests-webhook</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-runtime-examples@2.16.0-SNAPSHOT?type=pom">
       <group>org.apache.camel.k</group>
@@ -12283,10 +12042,8 @@ for configuring data-binding.</description>
       <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-parent@2.16.0-SNAPSHOT?type=pom"/>
       <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime-parent@2.16.0-SNAPSHOT?type=pom"/>
       <dependency ref="pkg:maven/org.apache.camel.k/camel-k-cron-parent@2.16.0-SNAPSHOT?type=pom"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-cloudevents-parent@2.16.0-SNAPSHOT?type=pom"/>
       <dependency ref="pkg:maven/org.apache.camel.k/camel-k-knative-parent@2.16.0-SNAPSHOT?type=pom"/>
       <dependency ref="pkg:maven/org.apache.camel.k/camel-k-master-parent@2.16.0-SNAPSHOT?type=pom"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-webhook-parent@2.16.0-SNAPSHOT?type=pom"/>
       <dependency ref="pkg:maven/org.apache.camel.k/camel-k-resume-kafka-parent@2.16.0-SNAPSHOT?type=pom"/>
       <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests@2.16.0-SNAPSHOT?type=pom"/>
       <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime-examples@2.16.0-SNAPSHOT?type=pom"/>
@@ -13815,21 +13572,6 @@ for configuring data-binding.</description>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-core-deployment@2.16.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-cron@2.16.0?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-cloudevents-parent@2.16.0-SNAPSHOT?type=pom">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-cloudevents@2.16.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-cloudevents-deployment@2.16.0-SNAPSHOT?type=jar"/>
-    </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-cloudevents@2.16.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core@2.16.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel/camel-cloudevents@3.20.1?type=jar"/>
-    </dependency>
-    <dependency ref="pkg:maven/org.apache.camel/camel-cloudevents@3.20.1?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel/camel-support@3.20.1?type=jar"/>
-    </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-cloudevents-deployment@2.16.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-deployment@2.16.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-cloudevents@2.16.0-SNAPSHOT?type=jar"/>
-    </dependency>
     <dependency ref="pkg:maven/org.apache.camel.k/camel-k-knative-parent@2.16.0-SNAPSHOT?type=pom">
       <dependency ref="pkg:maven/org.apache.camel.k/camel-k-knative-impl@2.16.0-SNAPSHOT?type=jar"/>
     </dependency>
@@ -13851,6 +13593,9 @@ for configuring data-binding.</description>
       <dependency ref="pkg:maven/org.apache.camel/camel-cloudevents@3.20.1?type=jar"/>
       <dependency ref="pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.14.1?type=jar"/>
       <dependency ref="pkg:maven/com.fasterxml.jackson.datatype/jackson-datatype-jdk8@2.14.1?type=jar"/>
+    </dependency>
+    <dependency ref="pkg:maven/org.apache.camel/camel-cloudevents@3.20.1?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel/camel-support@3.20.1?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/org.apache.camel/camel-knative-http@3.20.1?type=jar">
       <dependency ref="pkg:maven/org.apache.camel/camel-knative@3.20.1?type=jar"/>
@@ -13898,39 +13643,6 @@ for configuring data-binding.</description>
     <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-master-deployment@2.16.0?type=jar">
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-core-deployment@2.16.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-master@2.16.0?type=jar"/>
-    </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-webhook-parent@2.16.0-SNAPSHOT?type=pom">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-webhook-impl@2.16.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-webhook@2.16.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-webhook-deployment@2.16.0-SNAPSHOT?type=jar"/>
-    </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-webhook-impl@2.16.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel/camel-core-engine@3.20.1?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel/camel-webhook@3.20.1?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-support@2.16.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-apt@2.16.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-annotations@2.16.0-SNAPSHOT?type=jar"/>
-    </dependency>
-    <dependency ref="pkg:maven/org.apache.camel/camel-webhook@3.20.1?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel/camel-support@3.20.1?type=jar"/>
-    </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-webhook@2.16.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core@2.16.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-webhook-impl@2.16.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-support-webhook@2.16.0?type=jar"/>
-    </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-support-webhook@2.16.0?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel/camel-webhook@3.20.1?type=jar"/>
-    </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-webhook-deployment@2.16.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-deployment@2.16.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-webhook@2.16.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-support-webhook-deployment@2.16.0?type=jar"/>
-    </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-support-webhook-deployment@2.16.0?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-core-deployment@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-support-webhook@2.16.0?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime-deployment@2.16.0-SNAPSHOT?type=jar">
       <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@2.16.0-SNAPSHOT?type=jar"/>
@@ -14012,13 +13724,7 @@ for configuring data-binding.</description>
       <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-producer@2.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-consumer@2.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-sinkbinding@2.16.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-source-groovy@2.16.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-source-java@2.16.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-source-js@2.16.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-source-xml@2.16.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-source-yaml@2.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-kamelet@2.16.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-webhook@2.16.0-SNAPSHOT?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-core@2.16.0-SNAPSHOT?type=jar">
       <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core@2.16.0-SNAPSHOT?type=jar"/>
@@ -14487,71 +14193,6 @@ for configuring data-binding.</description>
       <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy@2.16.0.Final?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy-jsonb@2.16.0.Final?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-source-groovy@2.16.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@2.16.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-knative-impl@2.16.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-producer@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-consumer@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-groovy-dsl@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-direct@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-log@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/io.quarkus/quarkus-jsonb@2.16.0.Final?type=jar"/>
-      <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy@2.16.0.Final?type=jar"/>
-      <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy-jsonb@2.16.0.Final?type=jar"/>
-    </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-source-java@2.16.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@2.16.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-knative-impl@2.16.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-producer@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-consumer@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-java-joor-dsl@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-direct@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-log@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/io.quarkus/quarkus-jsonb@2.16.0.Final?type=jar"/>
-      <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy@2.16.0.Final?type=jar"/>
-      <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy-jsonb@2.16.0.Final?type=jar"/>
-    </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-source-js@2.16.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@2.16.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-knative-impl@2.16.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-producer@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-consumer@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-js-dsl@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-direct@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-log@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/io.quarkus/quarkus-jsonb@2.16.0.Final?type=jar"/>
-      <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy@2.16.0.Final?type=jar"/>
-      <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy-jsonb@2.16.0.Final?type=jar"/>
-    </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-source-xml@2.16.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@2.16.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-knative-impl@2.16.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-producer@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-consumer@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-xml-io-dsl@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-direct@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-log@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/io.quarkus/quarkus-jsonb@2.16.0.Final?type=jar"/>
-      <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy@2.16.0.Final?type=jar"/>
-      <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy-jsonb@2.16.0.Final?type=jar"/>
-    </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-source-yaml@2.16.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@2.16.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-knative-impl@2.16.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-producer@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-consumer@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel/camel-yaml-dsl@3.20.1?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-direct@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-log@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/io.quarkus/quarkus-jsonb@2.16.0.Final?type=jar"/>
-      <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy@2.16.0.Final?type=jar"/>
-      <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy-jsonb@2.16.0.Final?type=jar"/>
-    </dependency>
     <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-kamelet@2.16.0-SNAPSHOT?type=jar">
       <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@2.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-yaml-dsl@3.20.1?type=jar"/>
@@ -14568,19 +14209,6 @@ for configuring data-binding.</description>
     <dependency ref="pkg:maven/org.apache.camel/camel-kamelet@3.20.1?type=jar">
       <dependency ref="pkg:maven/org.apache.camel/camel-core-reifier@3.20.1?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-core-model@3.20.1?type=jar"/>
-    </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-webhook@2.16.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@2.16.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-webhook@2.16.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel/camel-yaml-dsl@3.20.1?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-timer@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-log@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-rest@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-platform-http@2.16.0?type=jar"/>
-      <dependency ref="pkg:maven/io.quarkus/quarkus-jsonb@2.16.0.Final?type=jar"/>
-      <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy@2.16.0.Final?type=jar"/>
-      <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy-jsonb@2.16.0.Final?type=jar"/>
-      <dependency ref="pkg:maven/org.awaitility/awaitility@4.2.0?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime-examples@2.16.0-SNAPSHOT?type=pom">
       <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime-example-js@2.16.0-SNAPSHOT?type=jar"/>
