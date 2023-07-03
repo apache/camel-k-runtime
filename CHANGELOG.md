@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- \[Github Actions\] Periodic Sync Camel K Runtime SBOM [\#1061](https://github.com/apache/camel-k-runtime/pull/1061) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Remove unused camel-k-webhook [\#1058](https://github.com/apache/camel-k-runtime/pull/1058) ([claudio4j](https://github.com/claudio4j))
 - Remove unused knative-source interceptor loader [\#1057](https://github.com/apache/camel-k-runtime/pull/1057) ([claudio4j](https://github.com/claudio4j))
 - Remove camel-k-cloudevents as it is not used in camel-k [\#1055](https://github.com/apache/camel-k-runtime/pull/1055) ([claudio4j](https://github.com/claudio4j))
