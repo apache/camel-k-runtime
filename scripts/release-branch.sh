@@ -33,7 +33,7 @@ main() {
   VERSION_MM="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}"
 
   new_release_branch="release-$VERSION_MM.x"
-  new_release="$(echo "$VERSION_MM" | tr \. _)_x"
+  new_release="$(echo "release-$VERSION_MM" | tr \. _)_x"
 
   # Support nightly CI tasks
   # pick the oldest release (we will replace it)
