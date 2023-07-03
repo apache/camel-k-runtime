@@ -33,20 +33,17 @@ runs:
         CI_EMAIL: "41898282+github-actions[bot]@users.noreply.github.com"
       run: |
         ./scripts/sync_cq.sh
+        git config --local user.email "$CI_EMAIL"
+        git config --local user.name "$CI_USER"
         git add -A && git commit -m 'feat: new Camel Quarkus version' && echo "sync=1" >> $GITHUB_ENV || echo "No changes in the release"
 
     - name: Generate changelog
       uses: ./.github/actions/changelog
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ inputs.secretGithubToken }}
         release_branch: ${{ inputs.branch-ref }}
     - name: Commit changelog files
-      env:
-        CI_USER: "github-actions[bot]"
-        CI_EMAIL: "41898282+github-actions[bot]@users.noreply.github.com"
       run: |
-        git config --local user.email "$CI_EMAIL"
-        git config --local user.name "$CI_USER"
         git add CHANGELOG.md && git commit -m 'chore: update changelog' && echo "changelog=1" >> $GITHUB_ENV || echo "No changes to CHANGELOG.md"
 
     - name: Set up JDK
@@ -58,9 +55,6 @@ runs:
     - name: Build Camel-k-runtime Project for generating SBOM
       run: ./mvnw -V --no-transfer-progress clean install -DskipTests -Psbom
     - name: Commit sbom files
-      env:
-        CI_USER: "github-actions[bot]"
-        CI_EMAIL: "41898282+github-actions[bot]@users.noreply.github.com"
       run: |
         git config --local user.email "$CI_EMAIL"
         git config --local user.name "$CI_USER"
@@ -70,8 +64,6 @@ runs:
       shell: bash
       if: env.sync == 1 || env.changelog == 1 || env.sbom == 1
       env:
-        CI_USER: "github-actions[bot]"
-        CI_EMAIL: "41898282+github-actions[bot]@users.noreply.github.com"
         CI_TOKEN: ${{ inputs.secretGithubToken }}
       run: |
         git push "https://$CI_USER:$CI_TOKEN@github.com/$GITHUB_REPOSITORY.git" HEAD:${{ inputs.branch-ref }}
