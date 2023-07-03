@@ -58,9 +58,21 @@ As you will be required to publish on Apache servers via Maven, you will need to
 
 == Release process
 
-As the process will do `git` operations, it is advisable that you clone the Camel K Runtime repository to some new location (ie /tmp/) in order to avoid to conflict with any other development in progress. Consider if you're about to release from `main` branch (generally a new major or minor version) or from a `release` branch (when you're about to release a patch version). In the latter case, you need to checkout to the proper release branch, ie `git checkout release-1.17.x`.
+As the process will do `git` operations, it is advisable that you clone the Camel K Runtime repository to some new location (ie /tmp/) in order to avoid to conflict with any other development in progress. If you're starting a major or a minor release version, you need to create the correspective `release-a.b.x` branch. It's highly advisable not to release directly from `main` branch.
 
-When you're in the project directory, you can start the release process.
+=== Create release branch from main branch
+
+We have a script that simplify this process. As we do not only want to create and push a new branch, we also need to provide the CI tasks required for all the supported releases.
+
+```
+./script/release-branch.sh
+```
+
+NOTE: you can run the script with `-d` option to dry run and evaluate the changes before pushing them to the repo.
+
+=== Start the release process
+
+You need to checkout to the proper release branch, ie `git checkout release-1.17.x`. You can start the release process.
 
 To prepare a release and check problems:
 ```
