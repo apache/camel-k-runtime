@@ -34,8 +34,6 @@ main() {
 
   new_release_branch="release-$VERSION_MM.x"
   new_release="$(echo "$VERSION_MM" | tr \. _)_x"
-  # Create release branch
-  git checkout -b $new_release_branch
 
   # Support nightly CI tasks
   # pick the oldest release (we will replace it)
@@ -53,7 +51,9 @@ main() {
     git add --all
     git commit -m "chore: starting release branch for $new_release_branch" || true
     # We must push on main as well, as it contains the changes for CI workflows
-    git push --set-upstream origin main
+    git push 
+    # Create release branch
+    git checkout -b $new_release_branch
     git push --set-upstream origin $new_release_branch
     echo "🎉 Changes pushed correctly!"
   fi
