@@ -40,4 +40,36 @@ jobs:
         branch-ref: "main"
         secretGithubToken: ${{ secrets.GITHUB_TOKEN }}
 
-# TODO: enable the process on the release branches as soon as version 2 is released
+  release-1.17.x:
+    if: github.repository == 'apache/camel-k-runtime'
+    runs-on: ubuntu-20.04
+    name: Automatic updates on release-1.17.x branch
+    steps:
+    - name: "Checkout code"
+      uses: actions/checkout@v3
+      with:
+        ref: release-1.17.x
+        persist-credentials: false
+        submodules: recursive
+    - name: Automatic updates on release-1.17.x
+      uses: ./.github/actions/automatic-updates
+      with:
+        branch-ref: "release-1.17.x"
+        secretGithubToken: ${{ secrets.GITHUB_TOKEN }}
+
+  release-1.15.x:
+    if: github.repository == 'apache/camel-k-runtime'
+    runs-on: ubuntu-20.04
+    name: Automatic updates on release-1.15.x branch
+    steps:
+    - name: "Checkout code"
+      uses: actions/checkout@v3
+      with:
+        ref: release-1.15.x
+        persist-credentials: false
+        submodules: recursive
+    - name: Automatic updates on release-1.15.x
+      uses: ./.github/actions/automatic-updates
+      with:
+        branch-ref: "release-1.15.x"
+        secretGithubToken: ${{ secrets.GITHUB_TOKEN }}
