@@ -3551,129 +3551,129 @@ file comparators, endian transformation classes, and much more.</description>
       <purl>pkg:maven/io.rest-assured/xml-path@4.5.1?type=jar</purl>
       <externalReferences><reference type="website"><url>http://code.google.com/p/rest-assured/xml-path</url></reference><reference type="distribution"><url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url></reference><reference type="issue-tracker"><url></url></reference><reference type="mailing-list"><url>http://groups.google.com/group/rest-assured/topics</url></reference><reference type="vcs"><url>http://github.com/rest-assured/rest-assured/tree/master/xml-path</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.codehaus.groovy/groovy@3.0.17?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.codehaus.groovy/groovy@3.0.18?type=jar">
       <publisher>Apache Software Foundation</publisher>
       <group>org.codehaus.groovy</group>
       <name>groovy</name>
-      <version>3.0.17</version>
+      <version>3.0.18</version>
       <description>Groovy: A powerful, dynamic language for the JVM</description>
       <scope>required</scope>
       <hashes>
-        <hash alg="MD5">ffc042a0474e95fb9aa0dcb61795a88f</hash>
-        <hash alg="SHA-1">23a103e379f90f9271209c97129d5568676b2cda</hash>
-        <hash alg="SHA-256">9ed2a565a8592a9f63f410afed892d0ca6bec1ff96277ce4cc7f3e2e366e794f</hash>
-        <hash alg="SHA-512">efeca8836c16f95d9011b43afcd49e6b50a056e450a34508079318a7ccd087e729a8689680f2478d133c92dcf4881c16194efe13c148c3c2ece3a3d232fcfc08</hash>
-        <hash alg="SHA-384">11aed0adb2daf03ed9e58ecff7e230a22d1f6744567a1697705c245d12e17957579f53e0c7e3a9d4b77693ae6d0edeb7</hash>
-        <hash alg="SHA3-384">5b3a55237320c0e7d775ab7b23c50d8914e306b4c554cfe9b5347f2999a1618590a94e329044eb015775dbe7651dc2b4</hash>
-        <hash alg="SHA3-256">7a68be320e133edb1979c70b11a450371dc24e2fa6a82e608871b7e0a418024d</hash>
-        <hash alg="SHA3-512">e2b59ef2e2113969d8d866f97fcc5217575465a07ac1e4b161c730b14171f3aedbb6f88f10463dd5fb7c1de3fb2648c8cbc2ed2465a1e5761efbe4d5cbf05a62</hash>
+        <hash alg="MD5">2429d4c6a2f473c4402441eee40a563c</hash>
+        <hash alg="SHA-1">3be2f69b98a9773e94d04f60a27728c6af5df7b3</hash>
+        <hash alg="SHA-256">d5082e154701135da0e0ce2263a943d215e5785232ad36929d3bbb644e0544e3</hash>
+        <hash alg="SHA-512">6bcd33a20d1152a86188d22b55b5a809d3a9c07eaccf69b7f78bd5dafebc04b52064b57541c640d1e95991a0ee3a7bd229b76559b4fd8ffad5097191a6a53395</hash>
+        <hash alg="SHA-384">435e706a58988af1fb04dfc8481daa32f34badef5fead669c93ae5aad936cb4759e649e5715f7c90036e009ff928657d</hash>
+        <hash alg="SHA3-384">8e7e1432d9a3c60abb5499efd74f507aa84ad5a3b4e8bb8bad85734902224db021cab3626ca381a797835b9e520c0b60</hash>
+        <hash alg="SHA3-256">f2719b8afa5e9a77c95fbce528e59c204b4c3355fe18764b691dafb46b088b90</hash>
+        <hash alg="SHA3-512">f1db98cea197676f706d4d8376e707e575385d5c3462ac9d66fe8e03d1aa6411170c4d19b459b972304cb1e14f30817bd7ce48cd5e571538acb0fe0f7871df41</hash>
       </hashes>
       <licenses>
         <license>
           <id>Apache-2.0</id>
         </license>
       </licenses>
-      <purl>pkg:maven/org.codehaus.groovy/groovy@3.0.17?type=jar</purl>
+      <purl>pkg:maven/org.codehaus.groovy/groovy@3.0.18?type=jar</purl>
       <externalReferences><reference type="website"><url>https://groovy-lang.org</url></reference><reference type="issue-tracker"><url>https://issues.apache.org/jira/browse/GROOVY</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/groovy-dev/</url></reference><reference type="vcs"><url>https://github.com/apache/groovy.git</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.codehaus.groovy/groovy-xml@3.0.17?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.codehaus.groovy/groovy-xml@3.0.18?type=jar">
       <publisher>Apache Software Foundation</publisher>
       <group>org.codehaus.groovy</group>
       <name>groovy-xml</name>
-      <version>3.0.17</version>
+      <version>3.0.18</version>
       <description>Groovy: A powerful, dynamic language for the JVM</description>
       <scope>required</scope>
       <hashes>
-        <hash alg="MD5">8b5a9afea0d30d2b007a5210f3b6c9d7</hash>
-        <hash alg="SHA-1">a2d033d00d2bc62406c2be1c391dda1898348474</hash>
-        <hash alg="SHA-256">52fc4047a3dcb870b05ad73f6b1dcebb5a0ae97b5a58f58b581f8960ab128ab1</hash>
-        <hash alg="SHA-512">269c2cfa2cfb4639ed66a11a53d65e9683dd59ee6fe61c9a657bb6a547ef8012324befe814a2654031a56a141a0467e9c6f16da39001d880cf13ef15a9cd667d</hash>
-        <hash alg="SHA-384">678c6ed92606f060258aa312b63727f679badae0f571ac94a2648b139501d7bf4cb675d9965a66d64e3b6a6174fae75d</hash>
-        <hash alg="SHA3-384">b23b1f370bfc2ec39688963fae8484ef561fb15d26b221ea8109ddd5932542bfb6c3c897e1d9f41e239bccc0ce1142ff</hash>
-        <hash alg="SHA3-256">73a634e9095bc70ef38edb37f4b49e300315c235956cb16611ec544be4570cda</hash>
-        <hash alg="SHA3-512">f6ebdb7c790b6de3ba649a13c85f01b4fc7489ff19c9c68feb4f0d6f104afb1673833bf33e23b904c8f7dfcd79dcab238662e9c4ed1400669eca778be4c65cab</hash>
+        <hash alg="MD5">7eae18670016edac799567e07d083eb6</hash>
+        <hash alg="SHA-1">40199f6a86f74a2cf9a7b59391b86ea70ecdd92a</hash>
+        <hash alg="SHA-256">dce099b7007c2c01da6a31f1462859cd84dbfe74773507798bc07708da2e79c4</hash>
+        <hash alg="SHA-512">99f9236f4821a54567209663a25e5fe74e79c82168776f75187c4eb36e3816a05392dcf14ca31e1608f2f9f93f30c86c8085a3696e4b324f4b14e2f031365a54</hash>
+        <hash alg="SHA-384">feae96eb9497b5b929eeaf61e90c2c965cc707518fe7a9ae5e175358b42d5e5a95f0d736cd2775d5a39bc67529d56ae0</hash>
+        <hash alg="SHA3-384">553eeebded374cfd8fcdaa094656551c1d69700db8a37943928a92b080472b467f082fb4aec87bd386ebe33cbeb89a34</hash>
+        <hash alg="SHA3-256">2528bc55b7eb43c2aed4fa2b58d866bd253f567c92754c61dffc3cc29e423a32</hash>
+        <hash alg="SHA3-512">bb0205d25dce609465db3e7bad30d3809474e6e698dc4c2a7972392989220468c15cbd4c99145f6777591ee8f336c4ef2cafb9f549951b2e74cb9e3d2488cc7b</hash>
       </hashes>
       <licenses>
         <license>
           <id>Apache-2.0</id>
         </license>
       </licenses>
-      <purl>pkg:maven/org.codehaus.groovy/groovy-xml@3.0.17?type=jar</purl>
+      <purl>pkg:maven/org.codehaus.groovy/groovy-xml@3.0.18?type=jar</purl>
       <externalReferences><reference type="website"><url>https://groovy-lang.org</url></reference><reference type="issue-tracker"><url>https://issues.apache.org/jira/browse/GROOVY</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/groovy-dev/</url></reference><reference type="vcs"><url>https://github.com/apache/groovy.git</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.codehaus.groovy/groovy-json@3.0.17?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.codehaus.groovy/groovy-json@3.0.18?type=jar">
       <publisher>Apache Software Foundation</publisher>
       <group>org.codehaus.groovy</group>
       <name>groovy-json</name>
-      <version>3.0.17</version>
+      <version>3.0.18</version>
       <description>Groovy: A powerful, dynamic language for the JVM</description>
       <scope>required</scope>
       <hashes>
-        <hash alg="MD5">40238e2b3d112e771a1e1534e653304f</hash>
-        <hash alg="SHA-1">ba5599b4f39bb3251904341824f7fb629fc76f7f</hash>
-        <hash alg="SHA-256">f577bd1551570162d42f22373ff164894ebf2f295d72d8ee914866aaa2ac37d4</hash>
-        <hash alg="SHA-512">e0e8d1de31e73a0243b35ad3ca400a6eb21aeaaf30982d5161d88d13f3228aaf3c193d6c1b72866567904a24bd3d31c217a9936e4dc270baf6d8ac4221c20439</hash>
-        <hash alg="SHA-384">3abffb97d340c3fa16ae301b5478da4cbed72beb39c170b9a1891aedb103d0ef72b3f9a71cd1b2e427e2b4b277518b75</hash>
-        <hash alg="SHA3-384">9603b077887e6844dd7cbbb7ba2252041660bb3d8c9848cb368dd3a7be6b6f6d78389ab3428b0697f7b35ba89acf8004</hash>
-        <hash alg="SHA3-256">604ddcaab8583bb5dbccc34e5a5a01649421a287384657f594be40509ab7f7f4</hash>
-        <hash alg="SHA3-512">95d7dd9986627faab79b0114802513631c0ce99c98c2ffd67d2fb7d149217813440765d0d34b8965f43c5831b144821b6a28433e67c5b2f06fc00ecd5cbf2f87</hash>
+        <hash alg="MD5">c54d5dbee71193e0aa6276367c39d7d0</hash>
+        <hash alg="SHA-1">77ff4318f1d12be7494c86690dea6001ace6efe5</hash>
+        <hash alg="SHA-256">430e58521c48efb02d0a2666e636435dd94817e6335879c7bd24c7af49464bbd</hash>
+        <hash alg="SHA-512">5a1c2dace9a3e93afcbad1571b664ccf13df9880e54fe7030793cca92529691017b76e0faafdc9348fee4e4f3e12b4f72ff88667aeb5a22987d53daa30861c7b</hash>
+        <hash alg="SHA-384">2b4fccf1110b927d892c3f7ca3775d55c58c0c577ebd97fd3868e92bfec76fded7a0b08885da360535fb07d9e020d3d7</hash>
+        <hash alg="SHA3-384">1bb7355d098a0c73cee548484114e1200dc2cb245001828a4dbb94ad4000695cd01dcd88e0deefe381c030d239f5360c</hash>
+        <hash alg="SHA3-256">36313dbc708f62f86c8a34882f01626c66e7211ab55cf3fc869d2e4c91496123</hash>
+        <hash alg="SHA3-512">e203df53c4ebe6fb1631a682a9d0c7d92ebe2e6552f2c99917bedbe8b48127e14e80e0d0c3cf392fe03ab8ed656f37acb5c20f76f0eb0239e787ff911ba014ae</hash>
       </hashes>
       <licenses>
         <license>
           <id>Apache-2.0</id>
         </license>
       </licenses>
-      <purl>pkg:maven/org.codehaus.groovy/groovy-json@3.0.17?type=jar</purl>
+      <purl>pkg:maven/org.codehaus.groovy/groovy-json@3.0.18?type=jar</purl>
       <externalReferences><reference type="website"><url>https://groovy-lang.org</url></reference><reference type="issue-tracker"><url>https://issues.apache.org/jira/browse/GROOVY</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/groovy-dev/</url></reference><reference type="vcs"><url>https://github.com/apache/groovy.git</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.codehaus.groovy/groovy-yaml@3.0.17?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.codehaus.groovy/groovy-yaml@3.0.18?type=jar">
       <publisher>Apache Software Foundation</publisher>
       <group>org.codehaus.groovy</group>
       <name>groovy-yaml</name>
-      <version>3.0.17</version>
+      <version>3.0.18</version>
       <description>Groovy: A powerful, dynamic language for the JVM</description>
       <scope>required</scope>
       <hashes>
-        <hash alg="MD5">fceea909ed2a28554e6d6ef36896e901</hash>
-        <hash alg="SHA-1">5c84d6463722cf2a2d97999238f490a5b308789b</hash>
-        <hash alg="SHA-256">5976324029c6dfeeb0728e92712f1b3eefafa457e3e5ebad259c40d46f4f132d</hash>
-        <hash alg="SHA-512">e918ecab166a5c4bd6adc7bf8b0835b9787d35d0039f6a57cab28e5be991b188d4c80bf2012a449a211fe251445fdc6a8b0caa57ee7282fea0e3cbb16276bbf7</hash>
-        <hash alg="SHA-384">314fcc9b566db14934df7e5f1e011de5dae498a8ed34287218d26f25bad4086b4dfb5b4c8487af1528ac81ac227b5c48</hash>
-        <hash alg="SHA3-384">eb89c131a3bd2788242535b8474c24f8c26c841e55498e75fe4d2ee98905b70aa74fa02c5f7027cb26fbb5316832c93e</hash>
-        <hash alg="SHA3-256">2673912b9346fb5bfd7df902be08229c75700b32996b90501e3a4962d299f836</hash>
-        <hash alg="SHA3-512">13ac7c87f815b083a190b4001f113414e79170b7935ab6020d3d47a558c1aaafb6f8ae2bce64cc09fdee87f41cbcb204d155783f495129e2909f19f3961b5609</hash>
+        <hash alg="MD5">c07ffdb54f9ae43d7198e22c83a12e81</hash>
+        <hash alg="SHA-1">69e5bd040706ef665e504a2697a54e91e17e6329</hash>
+        <hash alg="SHA-256">b2c9b2c60f561ea180586464c49280e8353336bf47a1fa0990fd936a634743d1</hash>
+        <hash alg="SHA-512">dcfc759d35a5f1941d71e1ada68e7c21a3d498f94df60675fe8e696e8f2866e09916ce51f0bb6feb1a4527ac7e8e4b9fe20c8aac60cb5335bfba4ed13fac5e09</hash>
+        <hash alg="SHA-384">ad655c7f21494bdb013960dcbdfa88fe21871808e6c78d9abf2a12ab09da2b7d59af6a2bc4c5e90d0710a791b95b616b</hash>
+        <hash alg="SHA3-384">ce47cb52093b39d771599d2e3470cb92027b4b85383ec906002067974b2a1a68ce3f464bec2755f0cff1ab3bad1dc68f</hash>
+        <hash alg="SHA3-256">4b53cb04bb44c309cd41914d3bcec2d4d57c4f9da5783fc388050322e09ffe44</hash>
+        <hash alg="SHA3-512">d6311b20cc8215284355b347327aff5a9b8326093ab73f07b570bb1be4df30a04af8fa460f0e4583d08a00e2fb0e8cd353d6f9dcb35d0c43b7b33170ed51d452</hash>
       </hashes>
       <licenses>
         <license>
           <id>Apache-2.0</id>
         </license>
       </licenses>
-      <purl>pkg:maven/org.codehaus.groovy/groovy-yaml@3.0.17?type=jar</purl>
+      <purl>pkg:maven/org.codehaus.groovy/groovy-yaml@3.0.18?type=jar</purl>
       <externalReferences><reference type="website"><url>https://groovy-lang.org</url></reference><reference type="issue-tracker"><url>https://issues.apache.org/jira/browse/GROOVY</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/groovy-dev/</url></reference><reference type="vcs"><url>https://github.com/apache/groovy.git</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.codehaus.groovy/groovy-test@3.0.17?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.codehaus.groovy/groovy-test@3.0.18?type=jar">
       <publisher>Apache Software Foundation</publisher>
       <group>org.codehaus.groovy</group>
       <name>groovy-test</name>
-      <version>3.0.17</version>
+      <version>3.0.18</version>
       <description>Groovy: A powerful, dynamic language for the JVM</description>
       <scope>required</scope>
       <hashes>
-        <hash alg="MD5">1a7439cb5cd94c4ef587904c989a7e6d</hash>
-        <hash alg="SHA-1">191975fcd48af66ae273c44f02def10e1fa252d3</hash>
-        <hash alg="SHA-256">8073ffe1fc574c3ddd45e100eac125fe64e2be35e204909ec1f3f1d28627b396</hash>
-        <hash alg="SHA-512">2b9561f6418c936303b8ec382f889083b834c7bb8099dfe0f093804cab012d6c1c7ec0266245a10de2c4c9ec975f0464db31a514b5917a23341a911373f1a04d</hash>
-        <hash alg="SHA-384">0920768c5165fc03ee8c1c33ee72810546fa7794bbcaf9b40243e5b15b252877560867ee06144be44a0a2f2b58961434</hash>
-        <hash alg="SHA3-384">31bbcc07dbc2beb4de916e7a6753f260785be14025ecf54d79dd532abf07793b6a733ba691d10a09238f2072ee2354f1</hash>
-        <hash alg="SHA3-256">02dceb43d8f7b6c99128a5a095b37c4db19a446d10989ffa6ed1ca9fdf757752</hash>
-        <hash alg="SHA3-512">f022be92344e415c8a97aa36c8f4b6c868be171fcd709cf2e0ab384019aa348ed0d1cc8a4d45b7158423160c3bc141404e5b1dfae5df1b2fb6d58f0c451834bc</hash>
+        <hash alg="MD5">2c7d93ad3fef33ef559d77ea101b6cb2</hash>
+        <hash alg="SHA-1">2f76abeb2b752cdd9f11afcfdd1e1e8b83a3adf3</hash>
+        <hash alg="SHA-256">b3d2fdfdac5bbe19c199ec817bf0dd0be882aca9adcf2b6866be71f351849958</hash>
+        <hash alg="SHA-512">cb44add60905f2abd5ef7ce5cadc3d32784864cb22360b148ca9bcd2a08477745153784ea89bcf4ecee095c755058b884e12134ca1dfdfa9612993bc5cd95910</hash>
+        <hash alg="SHA-384">ce3ae5b0041d37b450e069cf2702709259ccdaf32b3e58c17644cd8ad46968ae3b87ed3ae9c03e91497479419e19e9d0</hash>
+        <hash alg="SHA3-384">062b4c9ad054ad1455b65b7e6356d98597ccfd5c02c5da9ac91ae65ac34a4ed861bcb125f17b858153854621ff3a47b9</hash>
+        <hash alg="SHA3-256">60c860bd66e925918fb3d0cc23d00bf0e4a167711ef7686b3f1da6b66dbbd1b5</hash>
+        <hash alg="SHA3-512">2adbe574ac8680b24dbeca468f5ac6b56ab37d9a72a7de78245fdab26d1aa4f87c145907ed789dc8f794a4f48d1b308c880e48f85e0e433ceecdeb88269d207d</hash>
       </hashes>
       <licenses>
         <license>
           <id>Apache-2.0</id>
         </license>
       </licenses>
-      <purl>pkg:maven/org.codehaus.groovy/groovy-test@3.0.17?type=jar</purl>
+      <purl>pkg:maven/org.codehaus.groovy/groovy-test@3.0.18?type=jar</purl>
       <externalReferences><reference type="website"><url>https://groovy-lang.org</url></reference><reference type="issue-tracker"><url>https://issues.apache.org/jira/browse/GROOVY</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/groovy-dev/</url></reference><reference type="vcs"><url>https://github.com/apache/groovy.git</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/junit/junit@4.13.2?type=jar">
@@ -12510,11 +12510,11 @@ for configuring data-binding.</description>
       <dependency ref="pkg:maven/org.assertj/assertj-core@3.24.2?type=jar"/>
       <dependency ref="pkg:maven/org.hamcrest/hamcrest-core@2.2?type=jar"/>
       <dependency ref="pkg:maven/io.rest-assured/rest-assured@4.5.1?type=jar"/>
-      <dependency ref="pkg:maven/org.codehaus.groovy/groovy@3.0.17?type=jar"/>
-      <dependency ref="pkg:maven/org.codehaus.groovy/groovy-xml@3.0.17?type=jar"/>
-      <dependency ref="pkg:maven/org.codehaus.groovy/groovy-json@3.0.17?type=jar"/>
-      <dependency ref="pkg:maven/org.codehaus.groovy/groovy-yaml@3.0.17?type=jar"/>
-      <dependency ref="pkg:maven/org.codehaus.groovy/groovy-test@3.0.17?type=jar"/>
+      <dependency ref="pkg:maven/org.codehaus.groovy/groovy@3.0.18?type=jar"/>
+      <dependency ref="pkg:maven/org.codehaus.groovy/groovy-xml@3.0.18?type=jar"/>
+      <dependency ref="pkg:maven/org.codehaus.groovy/groovy-json@3.0.18?type=jar"/>
+      <dependency ref="pkg:maven/org.codehaus.groovy/groovy-yaml@3.0.18?type=jar"/>
+      <dependency ref="pkg:maven/org.codehaus.groovy/groovy-test@3.0.18?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/org.junit.jupiter/junit-jupiter@5.9.1?type=jar">
       <dependency ref="pkg:maven/org.junit.jupiter/junit-jupiter-api@5.9.1?type=jar"/>
@@ -12581,21 +12581,21 @@ for configuring data-binding.</description>
       <dependency ref="pkg:maven/org.apache.commons/commons-lang3@3.12.0?type=jar"/>
       <dependency ref="pkg:maven/org.ccil.cowan.tagsoup/tagsoup@1.2.1?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.codehaus.groovy/groovy@3.0.17?type=jar"/>
-    <dependency ref="pkg:maven/org.codehaus.groovy/groovy-xml@3.0.17?type=jar">
-      <dependency ref="pkg:maven/org.codehaus.groovy/groovy@3.0.17?type=jar"/>
+    <dependency ref="pkg:maven/org.codehaus.groovy/groovy@3.0.18?type=jar"/>
+    <dependency ref="pkg:maven/org.codehaus.groovy/groovy-xml@3.0.18?type=jar">
+      <dependency ref="pkg:maven/org.codehaus.groovy/groovy@3.0.18?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.codehaus.groovy/groovy-json@3.0.17?type=jar">
-      <dependency ref="pkg:maven/org.codehaus.groovy/groovy@3.0.17?type=jar"/>
+    <dependency ref="pkg:maven/org.codehaus.groovy/groovy-json@3.0.18?type=jar">
+      <dependency ref="pkg:maven/org.codehaus.groovy/groovy@3.0.18?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.codehaus.groovy/groovy-yaml@3.0.17?type=jar">
-      <dependency ref="pkg:maven/org.codehaus.groovy/groovy@3.0.17?type=jar"/>
+    <dependency ref="pkg:maven/org.codehaus.groovy/groovy-yaml@3.0.18?type=jar">
+      <dependency ref="pkg:maven/org.codehaus.groovy/groovy@3.0.18?type=jar"/>
       <dependency ref="pkg:maven/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml@2.14.1?type=jar"/>
       <dependency ref="pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.14.1?type=jar"/>
-      <dependency ref="pkg:maven/org.codehaus.groovy/groovy-json@3.0.17?type=jar"/>
+      <dependency ref="pkg:maven/org.codehaus.groovy/groovy-json@3.0.18?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.codehaus.groovy/groovy-test@3.0.17?type=jar">
-      <dependency ref="pkg:maven/org.codehaus.groovy/groovy@3.0.17?type=jar"/>
+    <dependency ref="pkg:maven/org.codehaus.groovy/groovy-test@3.0.18?type=jar">
+      <dependency ref="pkg:maven/org.codehaus.groovy/groovy@3.0.18?type=jar"/>
       <dependency ref="pkg:maven/junit/junit@4.13.2?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/junit/junit@4.13.2?type=jar">
@@ -13763,7 +13763,7 @@ for configuring data-binding.</description>
       <dependency ref="pkg:maven/org.apache.camel/camel-support@3.20.1?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-core-model@3.20.1?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-endpointdsl@3.20.1?type=jar"/>
-      <dependency ref="pkg:maven/org.codehaus.groovy/groovy@3.0.17?type=jar"/>
+      <dependency ref="pkg:maven/org.codehaus.groovy/groovy@3.0.18?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-direct@2.16.0?type=jar">
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@2.16.0?type=jar"/>
