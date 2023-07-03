@@ -52,7 +52,7 @@ main() {
   else
     git add --all
     git commit -m "chore: starting release branch for $new_release_branch" || true
-    git push
+    git push --set-upstream origin $new_release_branch
     echo "🎉 Changes pushed correctly!"
   fi
 }
