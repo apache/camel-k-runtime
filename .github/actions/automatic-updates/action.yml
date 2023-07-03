@@ -43,6 +43,7 @@ runs:
         token: ${{ inputs.secretGithubToken }}
         release_branch: ${{ inputs.branch-ref }}
     - name: Commit changelog files
+      shell: bash
       run: |
         git add CHANGELOG.md && git commit -m 'chore: update changelog' && echo "changelog=1" >> $GITHUB_ENV || echo "No changes to CHANGELOG.md"
 
@@ -53,8 +54,10 @@ runs:
         java-version: 11
         cache: 'maven'
     - name: Build Camel-k-runtime Project for generating SBOM
+      shell: bash
       run: ./mvnw -V --no-transfer-progress clean install -DskipTests -Psbom
     - name: Commit sbom files
+      shell: bash
       run: |
         git config --local user.email "$CI_EMAIL"
         git config --local user.name "$CI_USER"
