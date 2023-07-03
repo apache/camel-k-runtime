@@ -44,7 +44,12 @@ runs:
         release_branch: ${{ inputs.branch-ref }}
     - name: Commit changelog files
       shell: bash
+      env:
+        CI_USER: "github-actions[bot]"
+        CI_EMAIL: "41898282+github-actions[bot]@users.noreply.github.com"      
       run: |
+        git config --local user.email "$CI_EMAIL"
+        git config --local user.name "$CI_USER"     
         git add CHANGELOG.md && git commit -m 'chore: update changelog' && echo "changelog=1" >> $GITHUB_ENV || echo "No changes to CHANGELOG.md"
 
     - name: Set up JDK
@@ -58,6 +63,9 @@ runs:
       run: ./mvnw -V --no-transfer-progress clean install -DskipTests -Psbom
     - name: Commit sbom files
       shell: bash
+      env:
+        CI_USER: "github-actions[bot]"
+        CI_EMAIL: "41898282+github-actions[bot]@users.noreply.github.com"      
       run: |
         git config --local user.email "$CI_EMAIL"
         git config --local user.name "$CI_USER"
@@ -67,6 +75,10 @@ runs:
       shell: bash
       if: env.sync == 1 || env.changelog == 1 || env.sbom == 1
       env:
+        CI_USER: "github-actions[bot]"
+        CI_EMAIL: "41898282+github-actions[bot]@users.noreply.github.com"      
         CI_TOKEN: ${{ inputs.secretGithubToken }}
       run: |
+        git config --local user.email "$CI_EMAIL"
+        git config --local user.name "$CI_USER"
         git push "https://$CI_USER:$CI_TOKEN@github.com/$GITHUB_REPOSITORY.git" HEAD:${{ inputs.branch-ref }}
