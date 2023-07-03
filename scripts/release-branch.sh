@@ -33,17 +33,20 @@ main() {
   VERSION_MM="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}"
 
   new_release_branch="release-$VERSION_MM.x"
+  new_release="$(echo "$VERSION_MM" | tr \. _)_x"
   # Create release branch
   git checkout -b $new_release_branch
 
   # Support nightly CI tasks
   # pick the oldest release (we will replace it)
-  oldest_release_branch=$(yq '.jobs[] | key | select ( . !="main" )' $location/../.github/workflows/nightly-automatic-updates.yml | sort | head -1)
-  echo "Swapping GH actions tasks from $oldest_release_branch to $new_release_branch"
+  oldest_release=$(yq '.jobs[] | key | select ( . !="main" )' $location/../.github/workflows/nightly-automatic-updates.yml | sort | head -1)
+  oldest_release_branch=$(yq ".jobs[\"$oldest_release\"].steps[1].with.branch-ref" $location/../.github/workflows/nightly-automatic-updates.yml)
+  echo "Swapping GH actions tasks from $oldest_release to $new_release, $oldest_release_branch to $new_release_branch"
 
+  sed -i "s/$oldest_release/$new_release/g" $location/../.github/workflows/nightly-automatic-updates.yml
   sed -i "s/$oldest_release_branch/$new_release_branch/g" $location/../.github/workflows/nightly-automatic-updates.yml
 
-  if [ $DRY_RUN == "true" ]
+  if [ $DRYRUN == "true" ]
   then
     echo "❗ dry-run mode on, won't push any change!"
   else

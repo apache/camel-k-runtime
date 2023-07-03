@@ -40,7 +40,7 @@ jobs:
         branch-ref: "main"
         secretGithubToken: ${{ secrets.GITHUB_TOKEN }}
 
-  release-1.17.x:
+  release-1_17_x:
     if: github.repository == 'apache/camel-k-runtime'
     runs-on: ubuntu-20.04
     name: Automatic updates on release-1.17.x branch
@@ -57,7 +57,7 @@ jobs:
         branch-ref: "release-1.17.x"
         secretGithubToken: ${{ secrets.GITHUB_TOKEN }}
 
-  release-1.15.x:
+  release-1_15_x:
     if: github.repository == 'apache/camel-k-runtime'
     runs-on: ubuntu-20.04
     name: Automatic updates on release-1.15.x branch
