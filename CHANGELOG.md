@@ -4,9 +4,16 @@
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.17.1...HEAD)
 
+**Closed issues:**
+
+- Provide a script to support release process [\#1056](https://github.com/apache/camel-k-runtime/issues/1056)
+
 **Merged pull requests:**
 
+- fix\(ci\): tasks name [\#1063](https://github.com/apache/camel-k-runtime/pull/1063) ([squakez](https://github.com/squakez))
+- feat: release task [\#1062](https://github.com/apache/camel-k-runtime/pull/1062) ([squakez](https://github.com/squakez))
 - \[Github Actions\] Periodic Sync Camel K Runtime SBOM [\#1061](https://github.com/apache/camel-k-runtime/pull/1061) ([github-actions[bot]](https://github.com/apps/github-actions))
+- build\(deps\): bump groovy-version from 3.0.17 to 3.0.18 [\#1060](https://github.com/apache/camel-k-runtime/pull/1060) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Remove unused camel-k-webhook [\#1058](https://github.com/apache/camel-k-runtime/pull/1058) ([claudio4j](https://github.com/claudio4j))
 - Remove unused knative-source interceptor loader [\#1057](https://github.com/apache/camel-k-runtime/pull/1057) ([claudio4j](https://github.com/claudio4j))
 - Remove camel-k-cloudevents as it is not used in camel-k [\#1055](https://github.com/apache/camel-k-runtime/pull/1055) ([claudio4j](https://github.com/claudio4j))
