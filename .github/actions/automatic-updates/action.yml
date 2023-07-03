@@ -36,7 +36,7 @@ runs:
         git add -A && git commit -m 'feat: new Camel Quarkus version' && echo "sync=1" >> $GITHUB_ENV || echo "No changes in the release"
 
     - name: Generate changelog
-      uses: ../.github/actions/changelog
+      uses: ./.github/actions/changelog
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         release_branch: ${{ inputs.branch-ref }}
