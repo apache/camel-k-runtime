@@ -151,7 +151,7 @@ A PMC member with access to the @ApacheCamel Twitter account should announce the
 [[post-release-process]]
 == Post release process
 
-If you've released a major or a minor version, you may want to create a new `release-<major>.<minor>.x` branch that will be used for patch development. Accordingly, you can bump the version on `main` branch. This has to be aligned to the next Camel Quarkus version you're willing to support for Camel K Runtime:
+You can bump the version on `main` branch if there is already a new development version available for next major or minor. This has to be aligned to the next Camel Quarkus version you're willing to support for Camel K Runtime:
 ```
 ./script/bump.sh --camel-quarkus 2.16.0
 # you need to git commit & push afterwards
