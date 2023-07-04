@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.apache.camel.k</groupId>
         <artifactId>camel-k-runtime-examples</artifactId>
-        <version>2.16.0</version>
+        <version>2.16.1-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -106,8 +106,4 @@
             </plugin>
         </plugins>
     </build>
-
-  <scm>
-    <tag>camel-k-runtime-project-2.16.0</tag>
-  </scm>
 </project>
