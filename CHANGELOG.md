@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- Remove unecessary quarkus-extension-maven-plugin from examples [\#1066](https://github.com/apache/camel-k-runtime/pull/1066) ([claudio4j](https://github.com/claudio4j))
 - fix\(ci\): tasks name [\#1063](https://github.com/apache/camel-k-runtime/pull/1063) ([squakez](https://github.com/squakez))
 - feat: release task [\#1062](https://github.com/apache/camel-k-runtime/pull/1062) ([squakez](https://github.com/squakez))
 - \[Github Actions\] Periodic Sync Camel K Runtime SBOM [\#1061](https://github.com/apache/camel-k-runtime/pull/1061) ([github-actions[bot]](https://github.com/apps/github-actions))
