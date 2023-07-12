@@ -8,5 +8,5 @@ target
 .settings
 .factorypath
 .classpath
-
+.vscode
 .DS_Store

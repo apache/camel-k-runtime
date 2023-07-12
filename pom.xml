@@ -46,6 +46,7 @@
         <quarkus-version>2.16.0.Final</quarkus-version>
         <quarkus-platform-version>2.16.0.Final</quarkus-platform-version>
         <!-- The quarkus camel bom may differ from quarkus platfom -->
+        <quarkus-platform-group>io.quarkus.platform</quarkus-platform-group>
         <quarkus-camel-bom-version>2.16.0.Final</quarkus-camel-bom-version>
         <quarkus-native-builder-image>quay.io/quarkus/ubi-quarkus-mandrel:22.2.0.0-Final-java11</quarkus-native-builder-image>
 
@@ -293,7 +294,7 @@
                     <version>${maven-plugin-plugin-version}</version>
                 </plugin>
                 <plugin>
-                    <groupId>io.quarkus</groupId>
+                    <groupId>${quarkus-platform-group}</groupId>
                     <artifactId>quarkus-maven-plugin</artifactId>
                     <version>${quarkus-version}</version>
                 </plugin>
@@ -405,14 +406,14 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>io.quarkus.platform</groupId>
+                <groupId>${quarkus-platform-group}</groupId>
                 <artifactId>quarkus-camel-bom</artifactId>
                 <version>${quarkus-camel-bom-version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>io.quarkus.platform</groupId>
+                <groupId>${quarkus-platform-group}</groupId>
                 <artifactId>quarkus-bom</artifactId>
                 <version>${quarkus-platform-version}</version>
                 <type>pom</type>
