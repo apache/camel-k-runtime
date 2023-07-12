@@ -135,27 +135,7 @@
 
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-cloudevents</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-cloudevents-deployment</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-knative-api</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-webhook-impl</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-webhook</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

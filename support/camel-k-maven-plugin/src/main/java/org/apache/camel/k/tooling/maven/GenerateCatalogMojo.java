@@ -39,7 +39,6 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import org.apache.camel.catalog.DefaultCamelCatalog;
 import org.apache.camel.catalog.quarkus.QuarkusRuntimeProvider;
 import org.apache.camel.impl.engine.AbstractCamelContext;
-import org.apache.camel.k.catalog.model.Artifact;
 import org.apache.camel.k.catalog.model.CamelArtifact;
 import org.apache.camel.k.catalog.model.CamelCapability;
 import org.apache.camel.k.catalog.model.CamelLoader;
