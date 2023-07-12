@@ -62,6 +62,7 @@ main() {
   # We also need to align the following properties
   # camel-version
   mvn versions:update-parent "-DparentVersion=[$CAMEL_VERSION]" -DgenerateBackupPoms=false
+  mvn versions:set-property -Dproperty="camel-version" -DnewVersion="$CAMEL_VERSION" -DgenerateBackupPoms=false
   # camel-quarkus-version
   mvn versions:set-property -Dproperty="camel-quarkus-version" -DnewVersion="$CQ_VERSION" -DgenerateBackupPoms=false
   # quarkus-version
