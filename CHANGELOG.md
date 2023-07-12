@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- Define a maven group for the quarkus maven plugin [\#1067](https://github.com/apache/camel-k-runtime/pull/1067) ([claudio4j](https://github.com/claudio4j))
 - Remove unecessary quarkus-extension-maven-plugin from examples [\#1066](https://github.com/apache/camel-k-runtime/pull/1066) ([claudio4j](https://github.com/claudio4j))
 - fix\(ci\): tasks name [\#1063](https://github.com/apache/camel-k-runtime/pull/1063) ([squakez](https://github.com/squakez))
 - feat: release task [\#1062](https://github.com/apache/camel-k-runtime/pull/1062) ([squakez](https://github.com/squakez))
