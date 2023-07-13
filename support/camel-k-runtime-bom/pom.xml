@@ -39,6 +39,7 @@
         <jolokia-version>1.7.1</jolokia-version>
         <maven-enforcer-plugin-version>3.1.0</maven-enforcer-plugin-version>
         <maven-version>3.6.3</maven-version>
+        <quarkus-platform-group>io.quarkus.platform</quarkus-platform-group>
         <quarkus-platform-version>2.13.7.Final</quarkus-platform-version>
         <!-- The quarkus camel bom may differ from quarkus platfom -->
         <quarkus-camel-bom-version>2.13.7.Final</quarkus-camel-bom-version>
@@ -99,14 +100,14 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>io.quarkus.platform</groupId>
+                <groupId>${quarkus-platform-group}</groupId>
                 <artifactId>quarkus-camel-bom</artifactId>
                 <version>${quarkus-camel-bom-version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>io.quarkus.platform</groupId>
+                <groupId>${quarkus-platform-group}</groupId>
                 <artifactId>quarkus-bom</artifactId>
                 <version>${quarkus-platform-version}</version>
                 <type>pom</type>
