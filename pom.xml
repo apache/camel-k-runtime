@@ -46,6 +46,7 @@
         <quarkus-version>2.16.0.Final</quarkus-version>
         <quarkus-platform-version>2.16.0.Final</quarkus-platform-version>
         <!-- The quarkus camel bom may differ from quarkus platfom -->
+        <quarkus-platform-group>io.quarkus.platform</quarkus-platform-group>
         <quarkus-camel-bom-version>2.16.0.Final</quarkus-camel-bom-version>
         <quarkus-native-builder-image>quay.io/quarkus/ubi-quarkus-mandrel:22.2.0.0-Final-java11</quarkus-native-builder-image>
 
@@ -293,7 +294,7 @@
                     <version>${maven-plugin-plugin-version}</version>
                 </plugin>
                 <plugin>
-                    <groupId>io.quarkus</groupId>
+                    <groupId>${quarkus-platform-group}</groupId>
                     <artifactId>quarkus-maven-plugin</artifactId>
                     <version>${quarkus-version}</version>
                 </plugin>
@@ -382,10 +383,8 @@
         <module>camel-k-core</module>
 
         <module>camel-k-cron</module>
-        <module>camel-k-cloudevents</module>
         <module>camel-k-knative</module>
         <module>camel-k-master</module>
-        <module>camel-k-webhook</module>
         <module>camel-k-runtime</module>
         <module>camel-k-resume-kafka</module>
 
@@ -405,14 +404,14 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>io.quarkus.platform</groupId>
+                <groupId>${quarkus-platform-group}</groupId>
                 <artifactId>quarkus-camel-bom</artifactId>
                 <version>${quarkus-camel-bom-version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>io.quarkus.platform</groupId>
+                <groupId>${quarkus-platform-group}</groupId>
                 <artifactId>quarkus-bom</artifactId>
                 <version>${quarkus-platform-version}</version>
                 <type>pom</type>
@@ -445,16 +444,6 @@
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-core-deployment</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-cloudevents</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-cloudevents-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -492,21 +481,6 @@
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-cron-deployment</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-webhook-impl</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-webhook</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-webhook-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
