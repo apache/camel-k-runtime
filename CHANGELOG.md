@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased](https://github.com/apache/camel-k-runtime/tree/HEAD)
+
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-2.16.0...HEAD)
+
+**Closed issues:**
+
+- Make camel-quarkus-3 branch buildable [\#1073](https://github.com/apache/camel-k-runtime/issues/1073)
+
 ## [camel-k-runtime-project-2.16.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-2.16.0) (2023-07-04)
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-1.17.1...camel-k-runtime-project-2.16.0)
