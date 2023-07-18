@@ -30,6 +30,7 @@ import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
 
 public final class DeploymentSupport {
+
     private DeploymentSupport() {
     }
 

@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.Ordered;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.RuntimeCamelException;
@@ -34,12 +35,11 @@ public interface Runtime extends HasCamelContext, AutoCloseable {
      * Returns the camel context adapting it to the specialized type.
      *
      * @see HasCamelContext#getCamelContext()
-     * @see CamelContext#adapt(Class)
      *
-     * @return the camel context.
+     * @return the extended camel context.
      */
-    default <T extends CamelContext> T getCamelContext(Class<T> type) {
-        return getCamelContext().adapt(type);
+    default ExtendedCamelContext getExtendedCamelContext() {
+        return getCamelContext().getCamelContextExtension();
     }
 
     /**

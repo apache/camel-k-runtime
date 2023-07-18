@@ -16,7 +16,7 @@
  */
 package org.apache.camel.k.quarkus.it;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class Application {

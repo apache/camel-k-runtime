@@ -39,6 +39,7 @@ import org.apache.camel.util.ObjectHelper;
 import org.apache.camel.util.URISupport;
 
 public final class  Sources {
+
     private Sources() {
     }
 
@@ -74,7 +75,6 @@ public final class  Sources {
         if (definition.getLocation() == null && definition.getContent() == null) {
             throw new IllegalArgumentException("Either the source location or the source content should be set");
         }
-
         return new Source() {
             @Override
             public String getLocation() {

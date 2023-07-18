@@ -16,9 +16,9 @@
  */
 package org.apache.camel.k.quarkus;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
-import javax.inject.Singleton;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Singleton;
 
 import io.quarkus.arc.Unremovable;
 import org.apache.camel.k.Runtime;

@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 
 @Recorder
 public class ApplicationRecorder {
+
     public void version(String version) {
         LoggerFactory.getLogger(Runtime.class).info("Apache Camel K Runtime {}", version);
     }

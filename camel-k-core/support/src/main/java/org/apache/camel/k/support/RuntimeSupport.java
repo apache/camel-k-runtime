@@ -51,7 +51,6 @@ import org.apache.camel.util.ObjectHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 public final class RuntimeSupport {
     private static final Logger LOGGER = LoggerFactory.getLogger(RuntimeSupport.class);
 
@@ -137,7 +136,7 @@ public final class RuntimeSupport {
     public static ContextCustomizer lookupCustomizerByID(CamelContext context, String customizerId) {
         ContextCustomizer customizer = context.getRegistry().lookupByNameAndType(customizerId, ContextCustomizer.class);
         if (customizer == null) {
-            customizer = context.adapt(ExtendedCamelContext.class)
+            customizer = context.getCamelContextExtension()
                 .getFactoryFinder(Constants.CONTEXT_CUSTOMIZER_RESOURCE_PATH)
                 .newInstance(customizerId, ContextCustomizer.class)
                 .orElseThrow(() -> new RuntimeException("Error creating instance for customizer: " + customizerId));
@@ -152,7 +151,6 @@ public final class RuntimeSupport {
 
     public static Set<String> lookupCustomizerIDs(CamelContext context) {
         Set<String> customizers = new TreeSet<>();
-
         String customizerIDs = System.getenv().getOrDefault(Constants.ENV_CAMEL_K_CUSTOMIZERS, "");
         if (ObjectHelper.isEmpty(customizerIDs)) {
             // TODO: getPropertiesComponent().resolveProperty() throws exception instead
@@ -167,7 +165,6 @@ public final class RuntimeSupport {
                 customizers.add(customizerId);
             }
         }
-
         return customizers;
     }
 
@@ -178,7 +175,7 @@ public final class RuntimeSupport {
     // *********************************
 
     public static List<RouteBuilderLifecycleStrategy> loadInterceptors(CamelContext context, Source source) {
-        ExtendedCamelContext ecc = context.adapt(ExtendedCamelContext.class);
+        ExtendedCamelContext ecc = context.getCamelContextExtension();
         List<RouteBuilderLifecycleStrategy> answer = new ArrayList<>();
 
         for (String id : source.getInterceptors()) {
@@ -271,7 +268,6 @@ public final class RuntimeSupport {
 
         try {
             Path confPath = Paths.get(conf);
-
             if (Files.exists(confPath) && !Files.isDirectory(confPath)) {
                 try (Reader reader = Files.newBufferedReader(confPath)) {
                     Properties p = new Properties();
@@ -320,7 +316,6 @@ public final class RuntimeSupport {
                         LOGGER.info("Cannot transform {} into UTF-8 text, skipping.", file);
                     }
                 }
-
                 return FileVisitResult.CONTINUE;
             }
         };

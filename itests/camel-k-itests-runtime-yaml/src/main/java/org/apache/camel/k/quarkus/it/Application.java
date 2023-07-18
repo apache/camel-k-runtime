@@ -16,8 +16,8 @@
  */
 package org.apache.camel.k.quarkus.it;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
 
 import io.quarkus.arc.Unremovable;
 import org.apache.camel.component.knative.spi.Knative;

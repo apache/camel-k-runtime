@@ -33,6 +33,7 @@ import org.apache.camel.util.ObjectHelper;
 @Configurer
 @Customizer("sinkbinding")
 public class KnativeSinkBindingContextCustomizer implements ContextCustomizer {
+
     private String name;
     private Knative.Type type;
     private String kind;

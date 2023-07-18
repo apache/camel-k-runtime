@@ -18,14 +18,14 @@ package org.apache.camel.k.quarkus.it;
 
 import java.util.Objects;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.json.bind.JsonbBuilder;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.json.bind.JsonbBuilder;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.CamelContext;
@@ -65,7 +65,7 @@ public class KnativeEnvFromRegistryApplication {
         return template.to("direct:process").withBody(payload).request(String.class);
     }
 
-    @javax.enterprise.inject.Produces
+    @jakarta.enterprise.inject.Produces
     KnativeEnvironment environment(
         @ConfigProperty(name = "camel.knative.listening.port") int port) {
 
