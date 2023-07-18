@@ -4,6 +4,10 @@
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-2.16.0...HEAD)
 
+**Closed issues:**
+
+- Make camel-quarkus-3 branch buildable [\#1073](https://github.com/apache/camel-k-runtime/issues/1073)
+
 **Merged pull requests:**
 
 - Define a maven group for the quarkus maven plugin [\#1067](https://github.com/apache/camel-k-runtime/pull/1067) ([claudio4j](https://github.com/claudio4j))
