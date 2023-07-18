@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.MediaType;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;

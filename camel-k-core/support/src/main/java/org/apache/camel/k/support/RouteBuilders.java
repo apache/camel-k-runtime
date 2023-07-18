@@ -26,6 +26,7 @@ import org.apache.camel.util.function.ThrowingBiConsumer;
 import org.apache.camel.util.function.ThrowingConsumer;
 
 public final class RouteBuilders {
+
     private RouteBuilders() {
     }
 

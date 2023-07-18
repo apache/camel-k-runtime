@@ -19,15 +19,16 @@ package org.apache.camel.k.loader.support;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObject;
+import jakarta.json.Json;
+import jakarta.json.JsonArrayBuilder;
+import jakarta.json.JsonObject;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.spi.RoutesLoader;
+import org.apache.camel.support.PluginHelper;
 import org.apache.camel.support.ResourceHelper;
 
 public final class LoaderSupport {
@@ -36,7 +37,8 @@ public final class LoaderSupport {
 
     public static JsonObject inspectSource(CamelContext context, String location, byte[] code) throws Exception {
         final Runtime runtime = Runtime.on(context);
-        final RoutesLoader loader = context.adapt(ExtendedCamelContext.class).getRoutesLoader();
+        final ExtendedCamelContext ecc = runtime.getExtendedCamelContext();
+        final RoutesLoader loader = PluginHelper.getRoutesLoader(ecc);
         final Collection<RoutesBuilder> builders = loader.findRoutesBuilders(ResourceHelper.fromBytes(location, code));
 
         for (RoutesBuilder builder: builders) {

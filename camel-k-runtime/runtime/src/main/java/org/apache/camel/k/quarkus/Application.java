@@ -36,6 +36,7 @@ import org.apache.camel.main.RoutesCollector;
 import org.apache.camel.spi.Resource;
 
 public final class Application {
+
     private Application() {
     }
 
@@ -101,11 +102,6 @@ public final class Application {
         @Override
         public void afterConfigure(BaseMainSupport main) {
             invokeListeners(org.apache.camel.k.Runtime.Phase.ConfigureContext);
-        }
-
-        @Override
-        public void configure(CamelContext context) {
-            // no-op
         }
 
         @Override

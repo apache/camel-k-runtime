@@ -27,6 +27,7 @@ import org.eclipse.microprofile.config.spi.ConfigSource;
 import org.eclipse.microprofile.config.spi.ConfigSourceProvider;
 
 public class ApplicationConfigSourceProvider implements ConfigSourceProvider {
+
     @Override
     public Iterable<ConfigSource> getConfigSources(ClassLoader forClassLoader) {
         final Map<String, String> sysProperties = new HashMap<>();

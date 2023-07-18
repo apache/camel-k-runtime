@@ -16,8 +16,8 @@
  */
 package org.apache.camel.k.quarkus.cron.deployment;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 public class CronIT extends CronTest {
 }

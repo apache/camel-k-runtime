@@ -38,6 +38,7 @@ import static org.apache.camel.k.core.quarkus.deployment.support.DeploymentSuppo
 import static org.apache.camel.k.core.quarkus.deployment.support.DeploymentSupport.stream;
 
 public class CoreProcessor {
+
     @BuildStep
     List<CamelServicePatternBuildItem> servicePatterns() {
         return List.of(
@@ -65,7 +66,6 @@ public class CoreProcessor {
     List<ServiceProviderBuildItem> registerServices(CombinedIndexBuildItem combinedIndexBuildItem) {
         final IndexView view = combinedIndexBuildItem.getIndex();
         final String serviceType = "org.apache.camel.k.Runtime$Listener";
-
         return stream(getAllKnownImplementors(view, serviceType))
             .map(i -> new ServiceProviderBuildItem(serviceType, i.name().toString()))
             .collect(Collectors.toList());

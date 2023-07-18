@@ -20,6 +20,7 @@ import org.apache.camel.k.Runtime;
 import org.apache.camel.k.support.RuntimeSupport;
 
 public class ContextConfigurer extends AbstractPhaseListener {
+
     public ContextConfigurer() {
         super(Runtime.Phase.ConfigureContext);
     }

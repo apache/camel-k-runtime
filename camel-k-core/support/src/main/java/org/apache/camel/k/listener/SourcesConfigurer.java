@@ -30,6 +30,7 @@ import org.apache.camel.util.ObjectHelper;
 
 @Configurer
 public class SourcesConfigurer extends AbstractPhaseListener {
+
     public static final String CAMEL_K_PREFIX = "camel.k.";
     public static final String CAMEL_K_SOURCES_PREFIX = "camel.k.sources[";
 

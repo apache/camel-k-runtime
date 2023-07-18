@@ -18,7 +18,7 @@ package org.apache.camel.k.quarkus.it;
 
 import java.util.Map;
 
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.MediaType;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;

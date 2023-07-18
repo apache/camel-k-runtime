@@ -19,15 +19,15 @@ package org.apache.camel.k.quarkus.it;
 import java.util.Collections;
 import java.util.Map;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.properties.PropertiesComponent;
@@ -50,22 +50,22 @@ public class Application {
     public JsonObject inspect() {
         return Json.createObjectBuilder()
             .add(
-                "camel-context",
-                instance(CamelContext.class).map(Object::getClass).map(Class::getName).orElse(""))
+                    "camel-context",
+                    instance(CamelContext.class).map(Object::getClass).map(Class::getName).orElse(""))
             .add(
-                "camel-k-runtime",
-                instance(Runtime.class).map(Object::getClass).map(Class::getName).orElse(""))
+                    "camel-k-runtime",
+                    instance(Runtime.class).map(Object::getClass).map(Class::getName).orElse(""))
             .add(
-                "routes-collector",
-                instance(CamelMain.class).map(BaseMainSupport::getRoutesCollector).map(Object::getClass).map(Class::getName).orElse(""))
+                    "routes-collector",
+                    instance(CamelMain.class).map(BaseMainSupport::getRoutesCollector).map(Object::getClass).map(Class::getName).orElse(""))
             .add(
-                "global-options",
-                Json.createObjectBuilder(
-                    (Map)instance(CamelMain.class)
-                        .map(BaseMainSupport::getCamelContext)
-                        .map(CamelContext::getGlobalOptions)
-                        .orElseGet(Collections::emptyMap))
-                    .build())
+                    "global-options",
+                    Json.createObjectBuilder(
+                                    (Map) instance(CamelMain.class)
+                                            .map(BaseMainSupport::getCamelContext)
+                                            .map(CamelContext::getGlobalOptions)
+                                            .orElseGet(Collections::emptyMap))
+                            .build())
             .build();
     }
 

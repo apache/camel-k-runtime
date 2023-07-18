@@ -20,11 +20,13 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.k.Runtime;
 import org.apache.camel.spi.Registry;
 
 public class DelegatingRuntime implements Runtime {
+
     private final Runtime runtime;
 
     public DelegatingRuntime(Runtime runtime) {
@@ -32,8 +34,8 @@ public class DelegatingRuntime implements Runtime {
     }
 
     @Override
-    public <T extends CamelContext> T getCamelContext(Class<T> type) {
-        return runtime.getCamelContext(type);
+    public ExtendedCamelContext getExtendedCamelContext() {
+        return runtime.getExtendedCamelContext();
     }
 
     @Override

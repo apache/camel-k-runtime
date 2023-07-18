@@ -16,8 +16,8 @@
  */
 package org.apache.camel.k.loader.js.quarkus;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 public class JavaScriptLoaderIT extends JavaScriptLoaderTest {
 }
