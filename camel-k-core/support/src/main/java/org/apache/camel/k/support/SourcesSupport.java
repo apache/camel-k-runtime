@@ -31,7 +31,6 @@ import org.apache.camel.k.RuntimeAware;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceDefinition;
 import org.apache.camel.k.listener.AbstractPhaseListener;
-import org.apache.camel.k.listener.SourcesConfigurer;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.model.RouteTemplateDefinition;
 import org.apache.camel.spi.Resource;
