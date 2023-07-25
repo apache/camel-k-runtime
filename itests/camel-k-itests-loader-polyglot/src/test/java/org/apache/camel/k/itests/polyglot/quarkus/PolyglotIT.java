@@ -16,8 +16,8 @@
  */
 package org.apache.camel.k.itests.polyglot.quarkus;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 public class PolyglotIT extends PolyglotTest {
 }

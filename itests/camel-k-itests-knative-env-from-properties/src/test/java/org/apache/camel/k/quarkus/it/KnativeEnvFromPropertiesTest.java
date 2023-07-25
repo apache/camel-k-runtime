@@ -19,7 +19,7 @@ package org.apache.camel.k.quarkus.it;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.MediaType;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;

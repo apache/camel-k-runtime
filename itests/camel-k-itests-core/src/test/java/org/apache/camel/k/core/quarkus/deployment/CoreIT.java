@@ -16,8 +16,8 @@
  */
 package org.apache.camel.k.core.quarkus.deployment;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
-public class CoreIT extends CoreTest {
+@QuarkusIntegrationTest
+public class CoreIT extends org.apache.camel.k.core.quarkus.deployment.CoreTest {
 }

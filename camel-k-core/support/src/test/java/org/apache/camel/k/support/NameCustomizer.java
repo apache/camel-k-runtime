@@ -40,6 +40,6 @@ public final class NameCustomizer implements ContextCustomizer {
 
     @Override
     public void apply(CamelContext camelContexty) {
-        camelContexty.adapt(ModelCamelContext.class).setNameStrategy(new ExplicitCamelContextNameStrategy(name));
+        camelContexty.setNameStrategy(new ExplicitCamelContextNameStrategy(name));
     }
 }

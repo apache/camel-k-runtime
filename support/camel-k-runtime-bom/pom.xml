@@ -29,17 +29,17 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.camel.k</groupId>
     <artifactId>camel-k-runtime-bom</artifactId>
-    <version>2.16.0-SNAPSHOT</version>
+    <version>3.0.0-RC1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
         <!-- reproduceable builds: https://maven.apache.org/guides/mini/guide-reproducible-builds.html -->
-        <project.build.outputTimestamp>1682525422</project.build.outputTimestamp>
+        <project.build.outputTimestamp>1689159871</project.build.outputTimestamp>
         <jolokia-version>1.7.2</jolokia-version>
         <maven-enforcer-plugin-version>3.3.0</maven-enforcer-plugin-version>
-        <maven-version>3.6.3</maven-version>
+        <maven-version>3.8.6</maven-version>
         <quarkus-platform-group>io.quarkus.platform</quarkus-platform-group>
-        <quarkus-platform-version>2.16.0.Final</quarkus-platform-version>
+        <quarkus-platform-version>3.2.0.Final</quarkus-platform-version>
     </properties>
 
     <developers>
@@ -154,11 +154,6 @@
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-knative-impl</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.k</groupId>
-                <artifactId>camel-k-kamelet-reify</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

@@ -2,7 +2,7 @@
 
 set -e
 
-SEMVER="^([[:digit:]]+)\.([[:digit:]]+)\.([[:digit:]]+)(-SNAPSHOT)$"
+SEMVER="^([[:digit:]]+)\.([[:digit:]]+)\.([[:digit:]]+)(-RC[[:digit:]]+)(-SNAPSHOT)$"
 DRY_RUN="false"
 
 display_usage() {
@@ -25,7 +25,7 @@ main() {
 
   VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
   if ! [[ $VERSION =~ $SEMVER ]]; then
-    echo "❗ Version must match major.minor.patch(-SNAPSHOT) semantic version: $1"
+    echo "❗ Version must match major.minor.patch(-RCX)(-SNAPSHOT) semantic version: $1"
     exit 1
   fi
   VERSION_FULL="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.${BASH_REMATCH[3]}"
@@ -34,7 +34,7 @@ main() {
   rm -rf camel-quarkus
   git clone https://github.com/apache/camel-quarkus.git
   pushd camel-quarkus
-  CQ_VERSION=$(git tag | grep $VERSION_MM | sort -n | tail -n 1)
+  CQ_VERSION=$(git tag | grep $VERSION_MM | sort | tail -n 1)
   if [ "$CQ_VERSION" == "$VERSION_FULL" ]; then
     echo "INFO: there is no new version released, bye!"
     exit 0
@@ -62,6 +62,7 @@ main() {
   # We also need to align the following properties
   # camel-version
   mvn versions:update-parent "-DparentVersion=[$CAMEL_VERSION]" -DgenerateBackupPoms=false
+  mvn versions:set-property -Dproperty="camel-version" -DnewVersion="$CAMEL_VERSION" -DgenerateBackupPoms=false
   # camel-quarkus-version
   mvn versions:set-property -Dproperty="camel-quarkus-version" -DnewVersion="$CQ_VERSION" -DgenerateBackupPoms=false
   # quarkus-version

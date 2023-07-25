@@ -31,16 +31,17 @@ import org.apache.camel.k.RuntimeAware;
 import org.apache.camel.k.Source;
 import org.apache.camel.k.SourceDefinition;
 import org.apache.camel.k.listener.AbstractPhaseListener;
-import org.apache.camel.k.listener.SourcesConfigurer;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.model.RouteTemplateDefinition;
 import org.apache.camel.spi.Resource;
+import org.apache.camel.support.PluginHelper;
 import org.apache.camel.util.ObjectHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public final class SourcesSupport {
-    private static final Logger LOGGER = LoggerFactory.getLogger(SourcesConfigurer.class);
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SourcesSupport.class);
 
     private SourcesSupport() {
     }
@@ -153,7 +154,7 @@ public final class SourcesSupport {
                         }
                         if (hasErrorHandlerFactory(builder)){
                             LOGGER.debug("Setting default error handler builder factory as type {}", builder.getErrorHandlerFactory().getClass());
-                            runtime.getCamelContext().adapt(ExtendedCamelContext.class).setErrorHandlerFactory(builder.getErrorHandlerFactory());
+                            runtime.getExtendedCamelContext().setErrorHandlerFactory(builder.getErrorHandlerFactory());
                         }
                     }
                 });
@@ -164,8 +165,8 @@ public final class SourcesSupport {
 
         try {
             final Resource resource = Sources.asResource(runtime.getCamelContext(), source);
-            final ExtendedCamelContext ecc = runtime.getCamelContext(ExtendedCamelContext.class);
-            final Collection<RoutesBuilder> builders = ecc.getRoutesLoader().findRoutesBuilders(resource);
+            final ExtendedCamelContext ecc = runtime.getExtendedCamelContext();
+            final Collection<RoutesBuilder> builders = PluginHelper.getRoutesLoader(ecc).findRoutesBuilders(resource);
 
             builders.stream()
                     .map(RouteBuilder.class::cast)

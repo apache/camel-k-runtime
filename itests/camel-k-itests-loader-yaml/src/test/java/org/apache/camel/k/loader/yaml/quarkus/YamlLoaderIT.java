@@ -16,8 +16,8 @@
  */
 package org.apache.camel.k.loader.yaml.quarkus;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
+@QuarkusIntegrationTest
 public class YamlLoaderIT extends YamlLoaderTest {
 }

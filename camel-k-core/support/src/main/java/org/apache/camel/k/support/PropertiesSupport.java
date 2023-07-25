@@ -26,10 +26,12 @@ import org.apache.camel.Component;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.spi.PropertiesComponent;
 import org.apache.camel.spi.PropertyConfigurer;
+import org.apache.camel.support.PluginHelper;
 import org.apache.camel.support.PropertyBindingSupport;
 import org.apache.camel.support.service.ServiceHelper;
 
 public final class PropertiesSupport {
+
     private PropertiesSupport() {
     }
 
@@ -71,9 +73,7 @@ public final class PropertiesSupport {
             }
 
             // see if there is a configurer for it
-            configurer = context.adapt(ExtendedCamelContext.class)
-                .getConfigurerResolver()
-                .resolvePropertyConfigurer(name, context);
+            configurer = PluginHelper.getConfigurerResolver(context.getCamelContextExtension()).resolvePropertyConfigurer(name, context);
         }
 
         PropertyBindingSupport.build()

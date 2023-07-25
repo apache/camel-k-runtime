@@ -22,32 +22,32 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-dependencies</artifactId>
-        <version>3.20.1</version>
+        <version>4.0.0-RC1</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.camel.k</groupId>
     <artifactId>camel-k-runtime-project</artifactId>
     <!-- Make sure that this version is aligned with the Camel Quarkus Version as it is the convention used in Camel K -->
-    <version>2.16.0-SNAPSHOT</version>
+    <version>3.0.0-RC1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <maven.compiler.release>11</maven.compiler.release>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.release>17</maven.compiler.release>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
 
-        <maven-version>3.6.3</maven-version>
-        <camel-version>3.20.1</camel-version>
+        <maven-version>3.8.6</maven-version>
+        <camel-version>4.0.0-RC1</camel-version>
 
         <!-- quarkus -->
-        <camel-quarkus-version>2.16.0</camel-quarkus-version>
-        <quarkus-version>2.16.0.Final</quarkus-version>
-        <quarkus-platform-version>2.16.0.Final</quarkus-platform-version>
+        <camel-quarkus-version>3.0.0-RC1</camel-quarkus-version>
+        <quarkus-version>3.2.0.Final</quarkus-version>
         <quarkus-platform-group>io.quarkus.platform</quarkus-platform-group>
-        <quarkus-native-builder-image>quay.io/quarkus/ubi-quarkus-mandrel-builder-image:22.2.0.0-Final-java11</quarkus-native-builder-image>
+        <quarkus-platform-version>3.2.0.Final</quarkus-platform-version>
+        <quarkus-native-builder-image>quay.io/quarkus/ubi-quarkus-mandrel-builder-image:23.0-jdk-17</quarkus-native-builder-image>
 
         <!-- camel-k-runtime specific -->
         <groovy-version>3.0.18</groovy-version>
