@@ -151,6 +151,14 @@ A PMC member with access to the @ApacheCamel Twitter account should announce the
 [[post-release-process]]
 == Post release process
 
+=== Documentation
+
+For each release you need to create an entry in the release section of Camel website project: https://github.com/apache/camel-website/tree/main/content/releases/k-runtime - you can use any previous document as a reference.
+
+NOTE: the milestone is the github project milestone ID used to track the release.
+
+=== Bump to next version
+
 You can bump the version on `main` branch if there is already a new development version available for next major or minor. This has to be aligned to the next Camel Quarkus version you're willing to support for Camel K Runtime:
 ```
 ./script/bump.sh --camel-quarkus 2.16.0
