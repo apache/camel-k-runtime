@@ -57,18 +57,18 @@ main() {
     exit 0
   fi
 
-  mvn versions:set -DnewVersion="$CQ_VERSION-SNAPSHOT" -DgenerateBackupPoms=false
-  mvn versions:set -DnewVersion="$CQ_VERSION-SNAPSHOT" -f support/camel-k-runtime-bom/pom.xml -DgenerateBackupPoms=false
+  mvn -ntp versions:set -DnewVersion="$CQ_VERSION-SNAPSHOT" -DgenerateBackupPoms=false
+  mvn -ntp versions:set -DnewVersion="$CQ_VERSION-SNAPSHOT" -f support/camel-k-runtime-bom/pom.xml -DgenerateBackupPoms=false
   # We also need to align the following properties
   # camel-version
-  mvn versions:update-parent "-DparentVersion=[$CAMEL_VERSION]" -DgenerateBackupPoms=false
-  mvn versions:set-property -Dproperty="camel-version" -DnewVersion="$CAMEL_VERSION" -DgenerateBackupPoms=false
+  mvn -ntp versions:update-parent "-DparentVersion=[$CAMEL_VERSION]" -DgenerateBackupPoms=false
+  mvn -ntp versions:set-property -Dproperty="camel-version" -DnewVersion="$CAMEL_VERSION" -DgenerateBackupPoms=false
   # camel-quarkus-version
-  mvn versions:set-property -Dproperty="camel-quarkus-version" -DnewVersion="$CQ_VERSION" -DgenerateBackupPoms=false
+  mvn -ntp versions:set-property -Dproperty="camel-quarkus-version" -DnewVersion="$CQ_VERSION" -DgenerateBackupPoms=false
   # quarkus-version
-  mvn versions:set-property -Dproperty="quarkus-version" -DnewVersion="$QUARKUS_VERSION" -DgenerateBackupPoms=false
+  mvn -ntp versions:set-property -Dproperty="quarkus-version" -DnewVersion="$QUARKUS_VERSION" -DgenerateBackupPoms=false
   # quarkus-platform-version
-  mvn versions:set-property -Dproperty="quarkus-platform-version" -DnewVersion="$QUARKUS_VERSION" -DgenerateBackupPoms=false
+  mvn -ntp versions:set-property -Dproperty="quarkus-platform-version" -DnewVersion="$QUARKUS_VERSION" -DgenerateBackupPoms=false
 }
 
 parse_args(){
