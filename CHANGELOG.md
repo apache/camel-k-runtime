@@ -10,6 +10,8 @@
 
 **Merged pull requests:**
 
+- fix automatic CEQ update: don't print mvn download statement [\#1077](https://github.com/apache/camel-k-runtime/pull/1077) ([claudio4j](https://github.com/claudio4j))
+- feat: new Camel Quarkus version 3.0.0-RC2 and Quarkus 3.2.2 [\#1076](https://github.com/apache/camel-k-runtime/pull/1076) ([claudio4j](https://github.com/claudio4j))
 - Camel quarkus 3 [\#1075](https://github.com/apache/camel-k-runtime/pull/1075) ([squakez](https://github.com/squakez))
 - Define a maven group for the quarkus maven plugin [\#1067](https://github.com/apache/camel-k-runtime/pull/1067) ([claudio4j](https://github.com/claudio4j))
 - Remove unecessary quarkus-extension-maven-plugin from examples [\#1066](https://github.com/apache/camel-k-runtime/pull/1066) ([claudio4j](https://github.com/claudio4j))
