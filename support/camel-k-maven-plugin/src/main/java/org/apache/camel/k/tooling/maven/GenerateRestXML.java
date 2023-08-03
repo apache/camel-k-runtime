@@ -28,7 +28,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import io.apicurio.datamodels.Library;
-import io.apicurio.datamodels.openapi.models.OasDocument;
+import io.apicurio.datamodels.models.openapi.OpenApiDocument;
+import io.apicurio.datamodels.models.util.JsonUtil;
 import org.apache.camel.CamelContext;
 import org.apache.camel.generator.openapi.RestDslXmlGenerator;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -75,7 +76,7 @@ class GenerateRestXML extends AbstractMojo {
             FileInputStream fis = new FileInputStream(inputFile);
 
             JsonNode node = mapper.readTree(fis);
-            OasDocument document = (OasDocument) Library.readDocument(node);
+            OpenApiDocument document = (OpenApiDocument) Library.readDocument(JsonUtil.toObject(node));
 
             final Writer writer;
 

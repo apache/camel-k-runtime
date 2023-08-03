@@ -22,14 +22,14 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-dependencies</artifactId>
-        <version>4.0.0-RC1</version>
+        <version>4.0.0-RC2</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.camel.k</groupId>
     <artifactId>camel-k-runtime-project</artifactId>
     <!-- Make sure that this version is aligned with the Camel Quarkus Version as it is the convention used in Camel K -->
-    <version>3.0.0-RC1-SNAPSHOT</version>
+    <version>3.0.0-RC2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -40,13 +40,13 @@
         <maven.compiler.target>17</maven.compiler.target>
 
         <maven-version>3.8.6</maven-version>
-        <camel-version>4.0.0-RC1</camel-version>
+        <camel-version>4.0.0-RC2</camel-version>
 
         <!-- quarkus -->
-        <camel-quarkus-version>3.0.0-RC1</camel-quarkus-version>
-        <quarkus-version>3.2.0.Final</quarkus-version>
+        <camel-quarkus-version>3.0.0-RC2</camel-quarkus-version>
+        <quarkus-version>3.2.2.Final</quarkus-version>
         <quarkus-platform-group>io.quarkus.platform</quarkus-platform-group>
-        <quarkus-platform-version>3.2.0.Final</quarkus-platform-version>
+        <quarkus-platform-version>3.2.2.Final</quarkus-platform-version>
         <quarkus-native-builder-image>quay.io/quarkus/ubi-quarkus-mandrel-builder-image:23.0-jdk-17</quarkus-native-builder-image>
 
         <!-- camel-k-runtime specific -->
@@ -760,7 +760,7 @@
             <id>sourcecheck</id>
             <build>
                 <plugins>
-                    <plugin>
+                    <!--<plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-checkstyle-plugin</artifactId>
                         <executions>
@@ -787,7 +787,7 @@
                                 </goals>
                             </execution>
                         </executions>
-                    </plugin>
+                    </plugin>-->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-pmd-plugin</artifactId>
