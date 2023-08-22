@@ -50,7 +50,7 @@
         <quarkus-native-builder-image>quay.io/quarkus/ubi-quarkus-mandrel-builder-image:23.0-jdk-17</quarkus-native-builder-image>
 
         <!-- camel-k-runtime specific -->
-        <groovy-version>3.0.18</groovy-version>
+        <groovy-version>3.0.19</groovy-version>
         <immutables-version>2.9.3</immutables-version>
         <commons-collections4-version>4.4</commons-collections4-version>
         <assertj-version>3.24.2</assertj-version>
