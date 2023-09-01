@@ -82,8 +82,7 @@ To prepare a release and check problems:
 During the process you will be requested to provide the final version you're about to release (typically the same you're working on but withouth SNAPSHOT) and the next one that will be started after. Once the process is over, check the signatures of the files, then clean and prepare the actual release:
 
 ```
-./mvnw release:clean -Prelease
-./mvnw release:prepare -Prelease -Duser=<your Apache LDAP id> [-Dpassword=<your Apache LDAP pwd>] -Darguments=-DskipTests -DautoVersionSubmodules=true
+./mvnw release:clean release:prepare -Prelease -Duser=<your Apache LDAP id> [-Dpassword=<your Apache LDAP pwd>] -Darguments=-DskipTests -DautoVersionSubmodules=true
 ```
 
 You need to provide the user (and optionally password) of your Apache account. This is required as the procedure will log in to https://gitbox.apache.org[GitBox]. If you do not provide the password, it will be prompted during the procedure and you'll need to provide it when asked.
