@@ -2,14 +2,12 @@
 
 ## [Unreleased](https://github.com/apache/camel-k-runtime/tree/HEAD)
 
-[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-2.16.0...HEAD)
-
-**Closed issues:**
-
-- Make camel-quarkus-3 branch buildable [\#1073](https://github.com/apache/camel-k-runtime/issues/1073)
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-3.2.0...HEAD)
 
 **Merged pull requests:**
 
+- fix\(ci\): align apache parent [\#1080](https://github.com/apache/camel-k-runtime/pull/1080) ([squakez](https://github.com/squakez))
+- feat: bump to 3.2.0 [\#1079](https://github.com/apache/camel-k-runtime/pull/1079) ([squakez](https://github.com/squakez))
 - build\(deps\): bump groovy-version from 3.0.18 to 3.0.19 [\#1078](https://github.com/apache/camel-k-runtime/pull/1078) ([dependabot[bot]](https://github.com/apps/dependabot))
 - fix automatic CEQ update: don't print mvn download statement [\#1077](https://github.com/apache/camel-k-runtime/pull/1077) ([claudio4j](https://github.com/claudio4j))
 - feat: new Camel Quarkus version 3.0.0-RC2 and Quarkus 3.2.2 [\#1076](https://github.com/apache/camel-k-runtime/pull/1076) ([claudio4j](https://github.com/claudio4j))
@@ -76,6 +74,14 @@
 - build\(deps\): bump maven-surefire-plugin from 3.0.0-M8 to 3.0.0-M9 [\#974](https://github.com/apache/camel-k-runtime/pull/974) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump groovy-version from 3.0.14 to 3.0.15 [\#973](https://github.com/apache/camel-k-runtime/pull/973) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump logstash-logback-encoder from 7.2 to 7.3 [\#972](https://github.com/apache/camel-k-runtime/pull/972) ([dependabot[bot]](https://github.com/apps/dependabot))
+
+## [camel-k-runtime-project-3.2.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-3.2.0) (2023-09-01)
+
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-2.16.0...camel-k-runtime-project-3.2.0)
+
+**Closed issues:**
+
+- Make camel-quarkus-3 branch buildable [\#1073](https://github.com/apache/camel-k-runtime/issues/1073)
 
 ## [camel-k-runtime-project-2.16.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-2.16.0) (2023-07-04)
 
