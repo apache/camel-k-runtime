@@ -40,21 +40,21 @@ jobs:
         branch-ref: "main"
         secretGithubToken: ${{ secrets.GITHUB_TOKEN }}
 
-  release-1_17_x:
+  release-3_2_x:
     if: github.repository == 'apache/camel-k-runtime'
     runs-on: ubuntu-20.04
-    name: Automatic updates on release-1.17.x branch
+    name: Automatic updates on release-3.2.x branch
     steps:
     - name: "Checkout code"
       uses: actions/checkout@v3
       with:
-        ref: release-1.17.x
+        ref: release-3.2.x
         persist-credentials: false
         submodules: recursive
-    - name: Automatic updates on release-1.17.x
+    - name: Automatic updates on release-3.2.x
       uses: ./.github/actions/automatic-updates
       with:
-        branch-ref: "release-1.17.x"
+        branch-ref: "release-3.2.x"
         secretGithubToken: ${{ secrets.GITHUB_TOKEN }}
 
   release-2_16_x:
