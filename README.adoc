@@ -10,9 +10,9 @@ This repository contains the Apache Camel-K Runtime bits used by the https://git
 
 == How to bump the main dependencies
 
-In order to simplify the maintenance, you can use a script in `/script/` directory which take care of bumping the versions for the project, aligning it with Camel Quarkus version: `./script/bump.sh --camel-quarkus 2.16.0`
+In order to simplify the maintenance, you can use a script in `/script/` directory which take care of bumping the versions for the project, aligning it with Camel Quarkus version: `./scripts/bump.sh --camel-quarkus 2.16.0`. When starting a new major or minor release, you'll also need to align the dependencies expected by Camel Quarkus running `./scripts/sync_cq.sh --skip-version-check`.
 
-The project has an automatic action (`./script/sync_cq.sh`) running every night by Github Actions which is in charge to align the set of dependencies required by Camel Quarkus, according to the release.
+The project has an automatic action (`./scripts/sync_cq.sh`) running every night by Github Actions which is in charge to align the set of dependencies required by Camel Quarkus, according to the release. This is useful to keep up to date each patch release.
 
 == Instructions for local debugging
 

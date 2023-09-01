@@ -2,20 +2,22 @@
 
 set -e
 
-SEMVER="^([[:digit:]]+)\.([[:digit:]]+)\.([[:digit:]]+)(-RC[[:digit:]]+)(-SNAPSHOT)$"
+SEMVER="^([[:digit:]]+)\.([[:digit:]]+)\.([[:digit:]]+)(-RC[[:digit:]]+|-SNAPSHOT)$"
 DRY_RUN="false"
+SKIP_VERSION_CHECK="false"
 
 display_usage() {
 
 cat <<EOF
-Synch with the latest released version of Camel Quarkus
+Synch with the latest released version of Camel Quarkus.
 
 Usage: ./script/sync_cq.sh
 
 --dry-run                 Show the changes without applying them to the project
 --help                    This help message
+--skip-version-check      Use this parameter when starting a new minor or major upgrade from a local machine.
 
-Example: ./script/sync_cq.sh --dry-run
+Example: ./script/sync_cq.sh --skip-version-check --dry-run
 EOF
 
 }
@@ -25,7 +27,7 @@ main() {
 
   VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
   if ! [[ $VERSION =~ $SEMVER ]]; then
-    echo "❗ Version must match major.minor.patch(-RCX)(-SNAPSHOT) semantic version: $1"
+    echo "❗ Version must match major.minor.patch[-RC<X>|[-SNAPSHOT] semantic version: $VERSION"
     exit 1
   fi
   VERSION_FULL="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.${BASH_REMATCH[3]}"
@@ -35,7 +37,7 @@ main() {
   git clone https://github.com/apache/camel-quarkus.git
   pushd camel-quarkus
   CQ_VERSION=$(git tag | grep $VERSION_MM | sort | tail -n 1)
-  if [ "$CQ_VERSION" == "$VERSION_FULL" ]; then
+  if [ "$SKIP_VERSION_CHECK" == "false" ] && [ "$CQ_VERSION" == "$VERSION_FULL" ]; then
     echo "INFO: there is no new version released, bye!"
     exit 0
   fi
@@ -82,6 +84,9 @@ parse_args(){
           ;;
         --dry-run)
           DRY_RUN="true"
+          ;;
+        --skip-version-check)
+          SKIP_VERSION_CHECK="true"
           ;;
         *)
           echo "❗ unknown argument: $1"
