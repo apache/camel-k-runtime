@@ -65,7 +65,7 @@ As the process will do `git` operations, it is advisable that you clone the Came
 We have a script that simplify this process. As we do not only want to create and push a new branch, we also need to provide the CI tasks required for all the supported releases.
 
 ```
-./script/release-branch.sh
+./scripts/release-branch.sh
 ```
 
 NOTE: you can run the script with `-d` option to dry run and evaluate the changes before pushing them to the repo.
