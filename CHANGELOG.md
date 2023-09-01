@@ -1,8 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/apache/camel-k-runtime/tree/HEAD)
+## [camel-k-runtime-project-3.2.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-3.2.0) (2023-09-01)
 
-[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-2.16.0...HEAD)
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-2.16.0...camel-k-runtime-project-3.2.0)
 
 **Closed issues:**
 
