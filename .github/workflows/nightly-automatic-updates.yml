@@ -29,7 +29,7 @@ jobs:
     name: Automatic updates on main branch
     steps:
     - name: "Checkout code"
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         ref: main
         persist-credentials: false
@@ -46,7 +46,7 @@ jobs:
     name: Automatic updates on release-3.2.x branch
     steps:
     - name: "Checkout code"
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         ref: release-3.2.x
         persist-credentials: false
@@ -63,7 +63,7 @@ jobs:
     name: Automatic updates on release-2.16.x branch
     steps:
     - name: "Checkout code"
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         ref: release-2.16.x
         persist-credentials: false

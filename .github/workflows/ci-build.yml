@@ -56,7 +56,7 @@ jobs:
         java:
           - '17'
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         persist-credentials: false
     - name: Set up JDK ${{ matrix.java }}
@@ -99,7 +99,7 @@ jobs:
           - :camel-k-itests-runtime-yaml
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           persist-credentials: false
       - name: Set up JDK 17
@@ -134,7 +134,7 @@ jobs:
           - :camel-k-runtime-example-knative
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           persist-credentials: false
       - name: Set up JDK 17
@@ -168,7 +168,7 @@ jobs:
       NEXUS_DEPLOY_USERNAME: ${{ secrets.NEXUS_USER }}
       NEXUS_DEPLOY_PASSWORD: ${{ secrets.NEXUS_PW }}
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         persist-credentials: false
     - name: Set up JDK 17
