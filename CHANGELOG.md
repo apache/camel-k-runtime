@@ -10,6 +10,8 @@
 
 **Merged pull requests:**
 
+- chore\(tests\): re enable kotlin test [\#1082](https://github.com/apache/camel-k-runtime/pull/1082) ([squakez](https://github.com/squakez))
+- build\(deps\): bump actions/checkout from 3 to 4 [\#1081](https://github.com/apache/camel-k-runtime/pull/1081) ([dependabot[bot]](https://github.com/apps/dependabot))
 - fix\(ci\): align apache parent [\#1080](https://github.com/apache/camel-k-runtime/pull/1080) ([squakez](https://github.com/squakez))
 - feat: bump to 3.2.0 [\#1079](https://github.com/apache/camel-k-runtime/pull/1079) ([squakez](https://github.com/squakez))
 - build\(deps\): bump groovy-version from 3.0.18 to 3.0.19 [\#1078](https://github.com/apache/camel-k-runtime/pull/1078) ([dependabot[bot]](https://github.com/apps/dependabot))
