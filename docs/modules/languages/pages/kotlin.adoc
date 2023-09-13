@@ -1,5 +1,7 @@
 = Writing Integrations in Kotlin
 
+WARNING: the DSL is temporarily not supported in version 3.2.0 due to a bug in the Kotlin dependencies. As a workaround you may forcefully include `org.apache.camel:camel-kotlin-dsl:4.1.0-SNAPSHOT` dependency until the level of support is recovered.
+
 An integration written in Kotlin looks very similar to a Java one except it can leverages Kotlin's language enhancements over Java:
 
 [source,kotlin]
