@@ -2,11 +2,7 @@
 
 ## [Unreleased](https://github.com/apache/camel-k-runtime/tree/HEAD)
 
-[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-2.16.0...HEAD)
-
-**Closed issues:**
-
-- Make camel-quarkus-3 branch buildable [\#1073](https://github.com/apache/camel-k-runtime/issues/1073)
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-3.2.0...HEAD)
 
 **Merged pull requests:**
 
@@ -80,6 +76,14 @@
 - build\(deps\): bump maven-surefire-plugin from 3.0.0-M8 to 3.0.0-M9 [\#974](https://github.com/apache/camel-k-runtime/pull/974) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump groovy-version from 3.0.14 to 3.0.15 [\#973](https://github.com/apache/camel-k-runtime/pull/973) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump logstash-logback-encoder from 7.2 to 7.3 [\#972](https://github.com/apache/camel-k-runtime/pull/972) ([dependabot[bot]](https://github.com/apps/dependabot))
+
+## [camel-k-runtime-project-3.2.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-3.2.0) (2023-09-15)
+
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-2.16.0...camel-k-runtime-project-3.2.0)
+
+**Closed issues:**
+
+- Make camel-quarkus-3 branch buildable [\#1073](https://github.com/apache/camel-k-runtime/issues/1073)
 
 ## [camel-k-runtime-project-2.16.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-2.16.0) (2023-07-04)
 
