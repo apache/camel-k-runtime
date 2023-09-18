@@ -20449,41 +20449,41 @@
     {
       "group" : "net.logstash.logback",
       "name" : "logstash-logback-encoder",
-      "version" : "7.3",
+      "version" : "7.4",
       "description" : "Provides logback encoders, layouts, and appenders to log in JSON and other formats supported by Jackson",
       "scope" : "required",
       "hashes" : [
         {
           "alg" : "MD5",
-          "content" : "1346d447a9139e684ec77afc946f32b9"
+          "content" : "abdd5bc0a492e779ed7edb4757f698f9"
         },
         {
           "alg" : "SHA-1",
-          "content" : "384f46df49a9b06bf2058648df20b3c83e5f8dd4"
+          "content" : "4573c7882277096adf58dd6485f38400b028aa93"
         },
         {
           "alg" : "SHA-256",
-          "content" : "73615f6e7a959c32021b5f59a5823ac252740773b17ee4d58652acdb2e4749e5"
+          "content" : "cd9f1f4365d5ca50fc593f0363b06432088474c836366c1d5ff7626b9b4182bf"
         },
         {
           "alg" : "SHA-512",
-          "content" : "229b7486f0017d7886104fde93f79ce17fdca584ec90337f03727b44bcd89c84adda13ce1bafe6d64a944cf313fbc13885bc90988b2cc612c891e4d05cc1d6f7"
+          "content" : "90748965b70d2c9e2602e17649ee92a5783f3ab567ca080abdfba3196320ecd0366c7eb0905103b95ff089f533ccfc7f3d47a2f2a15b90ef656aa75210b87b77"
         },
         {
           "alg" : "SHA-384",
-          "content" : "665a9022239658248458d93b78a4a2c6a0a81ad7eba9cf58e22461a54b03ea536d7638177f900895477400d76767515c"
+          "content" : "bf4c2214eee70330a1bbc5dc8775dad22e84068b661ce077a56d3bd44c3ed4f179982be3ddcbf24e72800d4de5d5c40a"
         },
         {
           "alg" : "SHA3-384",
-          "content" : "8cd3cdb247142008e4ae61007362b2bb86c6e60c7f40a140d9a26cea37d4638d3a5de05a99b52017f4d4260c2136dd80"
+          "content" : "c854387c8351ba2db8d790e5bd737aeaf3ae0aa4b59cdfa9a27ee0e30dc988a283fcd468efe78a23d0b72d402113892b"
         },
         {
           "alg" : "SHA3-256",
-          "content" : "7907b0064105305b4bef52becabc5f1cb1a985c4e4db1c29cd40596eca4d647b"
+          "content" : "99a480a8c8ecd54a2d6acf23be09cc89a4687148a0bae0ea573a10fca840dc5d"
         },
         {
           "alg" : "SHA3-512",
-          "content" : "6caa3b08180a7d9e8ca0321e13c703c90a5cd72afb1bc24dd18620aa472dccae92a470cc733b6e75480497f2f74b1b404be5c3a03595ee92a6e217e5dc2a6f4b"
+          "content" : "75c95758d71d781bde60fd423918b625d795e1131126eeacfa4c52b692c521094eb9c1325921e4629d4fbb6c24f635e41140afc438a1994c86c97a4e7c205bea"
         }
       ],
       "licenses" : [
@@ -20499,7 +20499,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/net.logstash.logback/logstash-logback-encoder@7.3?type=jar",
+      "purl" : "pkg:maven/net.logstash.logback/logstash-logback-encoder@7.4?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -20511,7 +20511,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/net.logstash.logback/logstash-logback-encoder@7.3?type=jar"
+      "bom-ref" : "pkg:maven/net.logstash.logback/logstash-logback-encoder@7.4?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
@@ -37163,7 +37163,7 @@
       "dependsOn" : [
         "pkg:maven/ch.qos.logback/logback-core@1.4.8?type=jar",
         "pkg:maven/ch.qos.logback/logback-classic@1.4.8?type=jar",
-        "pkg:maven/net.logstash.logback/logstash-logback-encoder@7.3?type=jar",
+        "pkg:maven/net.logstash.logback/logstash-logback-encoder@7.4?type=jar",
         "pkg:maven/com.fasterxml.jackson.core/jackson-annotations@2.15.2?type=jar",
         "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.15.2?type=jar",
         "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.15.2?type=jar"
@@ -37181,7 +37181,7 @@
       ]
     },
     {
-      "ref" : "pkg:maven/net.logstash.logback/logstash-logback-encoder@7.3?type=jar",
+      "ref" : "pkg:maven/net.logstash.logback/logstash-logback-encoder@7.4?type=jar",
       "dependsOn" : [
         "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.15.2?type=jar"
       ]
