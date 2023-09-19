@@ -48,12 +48,6 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-core</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-development-mode-spi</artifactId>
-            <version>${quarkus-version}</version>
-        </dependency>
     </dependencies>
 
     <build>
@@ -68,8 +62,8 @@
                         <runnerParentFirstArtifact>org.graalvm.js:js</runnerParentFirstArtifact>
                         <runnerParentFirstArtifact>org.graalvm.regex:regex</runnerParentFirstArtifact>
                         <runnerParentFirstArtifact>org.graalvm.truffle:truffle-api</runnerParentFirstArtifact>
-                    </runnerParentFirstArtifacts>                    
-                </configuration>                
+                    </runnerParentFirstArtifacts>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
