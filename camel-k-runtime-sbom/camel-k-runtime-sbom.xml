@@ -13914,7 +13914,6 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-api@3.2.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-support@3.2.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@3.0.0-RC2?type=jar"/>
-      <dependency ref="pkg:maven/io.quarkus/quarkus-development-mode-spi@3.2.5.Final?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-support@3.2.0-SNAPSHOT?type=pom">
       <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.2.0-SNAPSHOT?type=jar"/>

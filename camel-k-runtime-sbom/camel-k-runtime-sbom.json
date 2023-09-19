@@ -36821,8 +36821,7 @@
         "pkg:maven/org.apache.camel/camel-core-engine@4.0.0?type=jar",
         "pkg:maven/org.apache.camel.k/camel-k-core-api@3.2.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel.k/camel-k-core-support@3.2.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@3.0.0-RC2?type=jar",
-        "pkg:maven/io.quarkus/quarkus-development-mode-spi@3.2.5.Final?type=jar"
+        "pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@3.0.0-RC2?type=jar"
       ]
     },
     {
