@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- chore\(deps\): remove non required dependency [\#1084](https://github.com/apache/camel-k-runtime/pull/1084) ([squakez](https://github.com/squakez))
 - build\(deps\): bump net.logstash.logback:logstash-logback-encoder from 7.3 to 7.4 [\#1083](https://github.com/apache/camel-k-runtime/pull/1083) ([dependabot[bot]](https://github.com/apps/dependabot))
 - chore\(tests\): re enable kotlin test [\#1082](https://github.com/apache/camel-k-runtime/pull/1082) ([squakez](https://github.com/squakez))
 - build\(deps\): bump actions/checkout from 3 to 4 [\#1081](https://github.com/apache/camel-k-runtime/pull/1081) ([dependabot[bot]](https://github.com/apps/dependabot))
