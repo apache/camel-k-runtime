@@ -160,7 +160,8 @@ NOTE: the milestone is the github project milestone ID used to track the release
 
 You can bump the version on `main` branch if there is already a new development version available for next major or minor. This has to be aligned to the next Camel Quarkus version you're willing to support for Camel K Runtime:
 ```
-./script/bump.sh --camel-quarkus 2.16.0
-# you need to git commit & push afterwards
+./scripts/bump.sh --camel-quarkus 2.16.0
 ```
-The project has an automatic action (`./script/sync_cq.sh`) running every night by Github Actions which is in charge to align the set of dependencies required by Camel Quarkus, according to the release.
+The project has an automatic update action running every night by Github Actions which is in charge to align the set of dependencies required by Camel Quarkus, according to the release. You can run it to align the major or minor version locally using the command `./scripts/sync_cq.sh --skip-version-check`.
+
+Once this is done, remind to commit, push and create a PR to include the new version upgrades.
