@@ -1,5 +1,15 @@
 # Changelog
 
+## [Unreleased](https://github.com/apache/camel-k-runtime/tree/HEAD)
+
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-3.2.0...HEAD)
+
+**Closed issues:**
+
+- \[1.15.x\] Maven dependency convergence error [\#1010](https://github.com/apache/camel-k-runtime/issues/1010)
+- Add SBOM Generation [\#970](https://github.com/apache/camel-k-runtime/issues/970)
+- Deploy on release-1.16.x is failing [\#935](https://github.com/apache/camel-k-runtime/issues/935)
+
 ## [camel-k-runtime-project-3.2.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-3.2.0) (2023-09-15)
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-2.16.0...camel-k-runtime-project-3.2.0)
