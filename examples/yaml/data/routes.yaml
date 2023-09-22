@@ -20,22 +20,20 @@
     group: "routes"
     from:
       uri: "platform-http:/hello"
-    steps:
-      - convert-body-to:
-          type: "java.lang.String"
-      - to:
-          uri: "log:info"
+      steps:
+        - convert-body-to:
+            type: "java.lang.String"
+        - to:
+            uri: "log:info"
 - route:
     id: "flow-2"
     group: "routes"
     from:
-      uri: "timer:tick"
-      properties:
-        period: "5000"
-    steps:
-      - set-body:
-          simple: "${exchangeProperty.CamelTimerName} -> ${exchangeProperty.CamelTimerCounter}"
-      - to:
-          uri: "log:tick"
-      - log:
-          message: "{{message}}"
+      uri: "timer:tick?period=5s"
+      steps:
+        - set-body:
+            simple: "${exchangeProperty.CamelTimerName} -> ${exchangeProperty.CamelTimerCounter}"
+        - to:
+            uri: "log:tick"
+        - log:
+            message: "test-app"
