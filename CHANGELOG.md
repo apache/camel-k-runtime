@@ -4,8 +4,18 @@
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-3.2.0...HEAD)
 
+**Closed issues:**
+
+- \[1.15.x\] Maven dependency convergence error [\#1010](https://github.com/apache/camel-k-runtime/issues/1010)
+- Add SBOM Generation [\#970](https://github.com/apache/camel-k-runtime/issues/970)
+- Deploy on release-1.16.x is failing [\#935](https://github.com/apache/camel-k-runtime/issues/935)
+
 **Merged pull requests:**
 
+- fix\(examples\): Fix yaml data route [\#1090](https://github.com/apache/camel-k-runtime/pull/1090) ([gansheer](https://github.com/gansheer))
+- chore\(deps\): camel quarkus 3.4.0 [\#1089](https://github.com/apache/camel-k-runtime/pull/1089) ([squakez](https://github.com/squakez))
+- chore\(deps\): bump quarkus platform [\#1088](https://github.com/apache/camel-k-runtime/pull/1088) ([squakez](https://github.com/squakez))
+- build\(deps\): bump org.codehaus.mojo:versions-maven-plugin from 2.16.0 to 2.16.1 [\#1086](https://github.com/apache/camel-k-runtime/pull/1086) ([dependabot[bot]](https://github.com/apps/dependabot))
 - chore\(deps\): remove non required dependency [\#1084](https://github.com/apache/camel-k-runtime/pull/1084) ([squakez](https://github.com/squakez))
 - build\(deps\): bump net.logstash.logback:logstash-logback-encoder from 7.3 to 7.4 [\#1083](https://github.com/apache/camel-k-runtime/pull/1083) ([dependabot[bot]](https://github.com/apps/dependabot))
 - chore\(tests\): re enable kotlin test [\#1082](https://github.com/apache/camel-k-runtime/pull/1082) ([squakez](https://github.com/squakez))
