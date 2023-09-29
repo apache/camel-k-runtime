@@ -12,6 +12,7 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump org.codehaus.gmavenplus:gmavenplus-plugin from 3.0.0 to 3.0.1 [\#1093](https://github.com/apache/camel-k-runtime/pull/1093) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump com.mycila:license-maven-plugin from 4.2 to 4.3 [\#1092](https://github.com/apache/camel-k-runtime/pull/1092) ([dependabot[bot]](https://github.com/apps/dependabot))
 - fix\(examples\): Fix yaml data route [\#1090](https://github.com/apache/camel-k-runtime/pull/1090) ([gansheer](https://github.com/gansheer))
 - chore\(deps\): camel quarkus 3.4.0 [\#1089](https://github.com/apache/camel-k-runtime/pull/1089) ([squakez](https://github.com/squakez))
