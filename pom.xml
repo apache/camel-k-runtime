@@ -90,6 +90,9 @@
         <maven-plugin-tools-version>3.8.2</maven-plugin-tools-version>
         <maven-shaded-version>3.3.2</maven-shaded-version>
         <cyclonedx-maven-plugin-version>2.7.9</cyclonedx-maven-plugin-version>
+
+        <jib-maven-plugin-version>3.3.2</jib-maven-plugin-version>
+        <jib-layer-filter-extension-maven-version>0.3.0</jib-layer-filter-extension-maven-version>
     </properties>
 
      <developers>
@@ -588,7 +591,16 @@
                 <artifactId>maven-plugin-api</artifactId>
                 <version>${maven-plugin-api-version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>${jib-maven-plugin-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-layer-filter-extension-maven</artifactId>
+                <version>${jib-layer-filter-extension-maven-version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
