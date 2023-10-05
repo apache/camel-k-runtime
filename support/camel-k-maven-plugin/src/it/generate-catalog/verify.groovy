@@ -25,6 +25,8 @@ new File(basedir, "catalog.yaml").withReader {
     //assert catalog.spec.runtime.metadata['quarkus.version'] == quarkusVersion
     assert catalog.spec.runtime.metadata['camel-quarkus.version'] == camelQuarkusVersion
     assert catalog.spec.runtime.metadata['quarkus.native-builder-image'] == quarkusNativeBuilderImage
+    assert catalog.spec.runtime.metadata['jib.maven-plugin.version'] == jibMavenPluginVersion
+    assert catalog.spec.runtime.metadata['jib.layer-filter-extension-maven.version'] == jibLayerFilterExtensionMavenVersion
 
     assert catalog.spec.runtime.dependencies.any {
         it.groupId == 'org.apache.camel.k' && it.artifactId == 'camel-k-runtime'
