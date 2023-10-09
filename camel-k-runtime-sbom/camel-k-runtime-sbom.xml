@@ -625,30 +625,30 @@ JDK 8 data types.</description>
       <purl>pkg:maven/org.yaml/snakeyaml@2.1?type=jar</purl>
       <externalReferences><reference type="website"><url>https://bitbucket.org/snakeyaml/snakeyaml</url></reference><reference type="distribution"><url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url></reference><reference type="issue-tracker"><url>https://bitbucket.org/snakeyaml/snakeyaml/issues</url></reference><reference type="vcs"><url>https://bitbucket.org/snakeyaml/snakeyaml/src</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.immutables/value@2.9.3?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.immutables/value@2.10.0?type=jar">
       <publisher>The Immutables.org authors</publisher>
       <group>org.immutables</group>
       <name>value</name>
-      <version>2.9.3</version>
+      <version>2.10.0</version>
       <description>Compile time annotations and compile time annotation processor to generate consistent value object using
     either abstract class, interface or annotation as a base.</description>
       <scope>required</scope>
       <hashes>
-        <hash alg="MD5">8d5104cfda4a55244f876a4ca5bb041f</hash>
-        <hash alg="SHA-1">fa64592ea2e7559ef406593904c10ef2cca1f36e</hash>
-        <hash alg="SHA-256">d16b7cc04f50217b495c44a783424d68dbe7cb1bc8f71bff230d55f48b997585</hash>
-        <hash alg="SHA-512">b8e8a07d22e9bfd29516aa58952dc51790fe276fcc2fef599c915a604a80696d2fb2aa265c7ffcd64589f9bbdcd3518d8ca8536b3a7699c78fb69f7521958be7</hash>
-        <hash alg="SHA-384">3d028a742daca815b54e07248cbbe2aac2a2ea28ae73fabc75dc6184e1eae7c93ad330622e53a35b589344cbce3a7770</hash>
-        <hash alg="SHA3-384">73f511170c8dd5cefae8dec5c1726789d7ebfe38f17ff5eda47d9cba0cd9f5265f3d511c9e5ed2770ccaf38555f05bde</hash>
-        <hash alg="SHA3-256">6490791fc3d34907fe2a560af24b91501b6eee7df218ade764c36293b15296ea</hash>
-        <hash alg="SHA3-512">4ec4198d0602fbdb0b1dc6bf7b6be398692dac4cb6134ce9aee9f1c6b7d3104f9c7cfcb8c188f4da52764b1dc65e3cf7e3f16ea286d0fba54d5a92c6129be520</hash>
+        <hash alg="MD5">77f0b79a0ea9c79532567c98660729e6</hash>
+        <hash alg="SHA-1">fb2108f866aabdf75af6efff90151800f40ea360</hash>
+        <hash alg="SHA-256">66f23d359bf055c998c13f8e9962a7c983f985ceb9e87cda38a1faff0405f24a</hash>
+        <hash alg="SHA-512">b2c1b8e7820aa6a8af705a01bcfd688406020d2162d21cb9888803d68db8673543ded26979dbffb754e7390cdf01f6394441fab70e58209325a4e773f113ff76</hash>
+        <hash alg="SHA-384">140ede5f4c7193f611b89ed4e48d890204b494e8eae1466767b4a8fad0b04cc1290733f4bd71c8361bca24af0efc23ca</hash>
+        <hash alg="SHA3-384">45b850386d4d999594a2adec439f6440e2d46bffb3ebdcbc62b4d3c471a1b3f95231430a5886c6145c1c4b05adf29613</hash>
+        <hash alg="SHA3-256">7bcd011cd0d5ffe434495aac14c1fd302f75fcd4b728dafbbf3ee2e5c3ea7e1f</hash>
+        <hash alg="SHA3-512">aec671e34a90551d726f7d89ef9e43ddf442896cb1ec6e1a1e757db9f405068ddc461f5cd204d7ebf11534058dedaccd445eea8bc48ec40027412930c2fe10c2</hash>
       </hashes>
       <licenses>
         <license>
           <id>Apache-2.0</id>
         </license>
       </licenses>
-      <purl>pkg:maven/org.immutables/value@2.9.3?type=jar</purl>
+      <purl>pkg:maven/org.immutables/value@2.10.0?type=jar</purl>
       <externalReferences><reference type="website"><url>http://immutables.org/value</url></reference><reference type="distribution"><url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url></reference><reference type="vcs"><url>https://github.com/immutables/immutables.git/value</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-maven-plugin@3.4.0-SNAPSHOT?type=maven-plugin">
@@ -12946,7 +12946,7 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.15.2?type=jar"/>
       <dependency ref="pkg:maven/com.fasterxml.jackson.datatype/jackson-datatype-jdk8@2.15.2?type=jar"/>
       <dependency ref="pkg:maven/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml@2.15.2?type=jar"/>
-      <dependency ref="pkg:maven/org.immutables/value@2.9.3?type=jar"/>
+      <dependency ref="pkg:maven/org.immutables/value@2.10.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-support@4.0.0?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.15.2?type=jar">
@@ -12965,7 +12965,7 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/com.fasterxml.jackson.core/jackson-core@2.15.2?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/org.yaml/snakeyaml@2.1?type=jar"/>
-    <dependency ref="pkg:maven/org.immutables/value@2.9.3?type=jar"/>
+    <dependency ref="pkg:maven/org.immutables/value@2.10.0?type=jar"/>
     <dependency ref="pkg:maven/org.apache.camel.k/camel-k-maven-plugin@3.4.0-SNAPSHOT?type=maven-plugin">
       <dependency ref="pkg:maven/org.apache.maven.plugin-tools/maven-plugin-annotations@3.6.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.maven.shared/maven-common-artifact-filters@3.1.0?type=jar"/>
