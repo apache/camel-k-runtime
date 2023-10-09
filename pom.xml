@@ -91,7 +91,7 @@
         <maven-shaded-version>3.3.2</maven-shaded-version>
         <cyclonedx-maven-plugin-version>2.7.9</cyclonedx-maven-plugin-version>
 
-        <jib-maven-plugin-version>3.3.2</jib-maven-plugin-version>
+        <jib-maven-plugin-version>3.4.0</jib-maven-plugin-version>
         <jib-layer-filter-extension-maven-version>0.3.0</jib-layer-filter-extension-maven-version>
     </properties>
 
