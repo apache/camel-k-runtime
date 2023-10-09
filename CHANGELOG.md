@@ -12,7 +12,10 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump org.immutables:value from 2.9.3 to 2.10.0 [\#1097](https://github.com/apache/camel-k-runtime/pull/1097) ([dependabot[bot]](https://github.com/apps/dependabot))
+- feat: Add jib plugins versions to catalog runtime metadata [\#1096](https://github.com/apache/camel-k-runtime/pull/1096) ([gansheer](https://github.com/gansheer))
 - build\(deps\): bump org.ow2.asm:asm from 9.5 to 9.6 [\#1095](https://github.com/apache/camel-k-runtime/pull/1095) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump org.codehaus.gmavenplus:gmavenplus-plugin from 3.0.1 to 3.0.2 [\#1094](https://github.com/apache/camel-k-runtime/pull/1094) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.codehaus.gmavenplus:gmavenplus-plugin from 3.0.0 to 3.0.1 [\#1093](https://github.com/apache/camel-k-runtime/pull/1093) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump com.mycila:license-maven-plugin from 4.2 to 4.3 [\#1092](https://github.com/apache/camel-k-runtime/pull/1092) ([dependabot[bot]](https://github.com/apps/dependabot))
 - fix\(examples\): Fix yaml data route [\#1090](https://github.com/apache/camel-k-runtime/pull/1090) ([gansheer](https://github.com/gansheer))
