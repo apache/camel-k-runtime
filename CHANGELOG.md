@@ -12,6 +12,7 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump com.google.cloud.tools:jib-maven-plugin from 3.3.2 to 3.4.0 [\#1098](https://github.com/apache/camel-k-runtime/pull/1098) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.immutables:value from 2.9.3 to 2.10.0 [\#1097](https://github.com/apache/camel-k-runtime/pull/1097) ([dependabot[bot]](https://github.com/apps/dependabot))
 - feat: Add jib plugins versions to catalog runtime metadata [\#1096](https://github.com/apache/camel-k-runtime/pull/1096) ([gansheer](https://github.com/gansheer))
 - build\(deps\): bump org.ow2.asm:asm from 9.5 to 9.6 [\#1095](https://github.com/apache/camel-k-runtime/pull/1095) ([dependabot[bot]](https://github.com/apps/dependabot))
