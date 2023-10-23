@@ -34,7 +34,7 @@ jobs:
           submodules: recursive
           path: camel-k-runtime-clone
       - name: setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
       - name: Backport
         uses: ./camel-k-runtime-clone/.github/actions/backport
         with:
