@@ -76,6 +76,12 @@
     <dependencies>
         <!-- structural logging: we only need this dependencies to be part of the overlay package, reason why are marked as provided -->
         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j-api-version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
             <version>${logback-version}</version>
