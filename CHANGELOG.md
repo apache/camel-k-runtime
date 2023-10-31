@@ -12,6 +12,8 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump org.cyclonedx:cyclonedx-maven-plugin from 2.7.9 to 2.7.10 [\#1101](https://github.com/apache/camel-k-runtime/pull/1101) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Add slf4j-api as dependency, it is required in camel-k to overlay in maven lib [\#1100](https://github.com/apache/camel-k-runtime/pull/1100) ([claudio4j](https://github.com/claudio4j))
 - build\(deps\): bump actions/setup-node from 3 to 4 [\#1099](https://github.com/apache/camel-k-runtime/pull/1099) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump com.google.cloud.tools:jib-maven-plugin from 3.3.2 to 3.4.0 [\#1098](https://github.com/apache/camel-k-runtime/pull/1098) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.immutables:value from 2.9.3 to 2.10.0 [\#1097](https://github.com/apache/camel-k-runtime/pull/1097) ([dependabot[bot]](https://github.com/apps/dependabot))
