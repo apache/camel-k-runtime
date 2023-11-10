@@ -299,7 +299,7 @@
                 <plugin>
                     <groupId>${quarkus-platform-group}</groupId>
                     <artifactId>quarkus-maven-plugin</artifactId>
-                    <version>${quarkus-version}</version>
+                    <version>${quarkus-platform-version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
