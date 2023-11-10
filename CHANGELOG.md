@@ -12,6 +12,7 @@
 
 **Merged pull requests:**
 
+- Fix quarkus-maven-plugin to use the quarkus-platform-version property \(\#86\) [\#1103](https://github.com/apache/camel-k-runtime/pull/1103) ([claudio4j](https://github.com/claudio4j))
 - build\(deps\): bump org.cyclonedx:cyclonedx-maven-plugin from 2.7.9 to 2.7.10 [\#1101](https://github.com/apache/camel-k-runtime/pull/1101) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Add slf4j-api as dependency, it is required in camel-k to overlay in maven lib [\#1100](https://github.com/apache/camel-k-runtime/pull/1100) ([claudio4j](https://github.com/claudio4j))
 - build\(deps\): bump actions/setup-node from 3 to 4 [\#1099](https://github.com/apache/camel-k-runtime/pull/1099) ([dependabot[bot]](https://github.com/apps/dependabot))
