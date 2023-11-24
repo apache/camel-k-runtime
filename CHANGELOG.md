@@ -6,12 +6,14 @@
 
 **Closed issues:**
 
+- Add SBOM to the release process  [\#1110](https://github.com/apache/camel-k-runtime/issues/1110)
 - \[1.15.x\] Maven dependency convergence error [\#1010](https://github.com/apache/camel-k-runtime/issues/1010)
 - Add SBOM Generation [\#970](https://github.com/apache/camel-k-runtime/issues/970)
 - Deploy on release-1.16.x is failing [\#935](https://github.com/apache/camel-k-runtime/issues/935)
 
 **Merged pull requests:**
 
+- Add SBOM to the release process [\#1111](https://github.com/apache/camel-k-runtime/pull/1111) ([oscerd](https://github.com/oscerd))
 - build\(deps\): bump org.codehaus.mojo:versions-maven-plugin from 2.16.1 to 2.16.2 [\#1108](https://github.com/apache/camel-k-runtime/pull/1108) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.codehaus.mojo:exec-maven-plugin from 3.1.0 to 3.1.1 [\#1107](https://github.com/apache/camel-k-runtime/pull/1107) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Fix quarkus-maven-plugin to use the quarkus-platform-version property \(\#86\) [\#1103](https://github.com/apache/camel-k-runtime/pull/1103) ([claudio4j](https://github.com/claudio4j))
