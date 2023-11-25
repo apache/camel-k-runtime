@@ -13,6 +13,7 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump org.codehaus.mojo:build-helper-maven-plugin from 3.4.0 to 3.5.0 [\#1112](https://github.com/apache/camel-k-runtime/pull/1112) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Add SBOM to the release process [\#1111](https://github.com/apache/camel-k-runtime/pull/1111) ([oscerd](https://github.com/oscerd))
 - build\(deps\): bump org.codehaus.mojo:versions-maven-plugin from 2.16.1 to 2.16.2 [\#1108](https://github.com/apache/camel-k-runtime/pull/1108) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.codehaus.mojo:exec-maven-plugin from 3.1.0 to 3.1.1 [\#1107](https://github.com/apache/camel-k-runtime/pull/1107) ([dependabot[bot]](https://github.com/apps/dependabot))
