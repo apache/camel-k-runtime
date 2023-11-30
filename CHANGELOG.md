@@ -7,12 +7,14 @@
 **Closed issues:**
 
 - Add SBOM to the release process  [\#1110](https://github.com/apache/camel-k-runtime/issues/1110)
+- Examples are failing in Camel 4 [\#1087](https://github.com/apache/camel-k-runtime/issues/1087)
 - \[1.15.x\] Maven dependency convergence error [\#1010](https://github.com/apache/camel-k-runtime/issues/1010)
 - Add SBOM Generation [\#970](https://github.com/apache/camel-k-runtime/issues/970)
 - Deploy on release-1.16.x is failing [\#935](https://github.com/apache/camel-k-runtime/issues/935)
 
 **Merged pull requests:**
 
+- build\(deps\): bump actions/setup-java from 3 to 4 [\#1113](https://github.com/apache/camel-k-runtime/pull/1113) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.codehaus.mojo:build-helper-maven-plugin from 3.4.0 to 3.5.0 [\#1112](https://github.com/apache/camel-k-runtime/pull/1112) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Add SBOM to the release process [\#1111](https://github.com/apache/camel-k-runtime/pull/1111) ([oscerd](https://github.com/oscerd))
 - build\(deps\): bump org.codehaus.mojo:versions-maven-plugin from 2.16.1 to 2.16.2 [\#1108](https://github.com/apache/camel-k-runtime/pull/1108) ([dependabot[bot]](https://github.com/apps/dependabot))
