@@ -7,6 +7,7 @@
 **Closed issues:**
 
 - Add SBOM to the release process  [\#1110](https://github.com/apache/camel-k-runtime/issues/1110)
+- Examples are failing in Camel 4 [\#1087](https://github.com/apache/camel-k-runtime/issues/1087)
 - \[1.15.x\] Maven dependency convergence error [\#1010](https://github.com/apache/camel-k-runtime/issues/1010)
 - Add SBOM Generation [\#970](https://github.com/apache/camel-k-runtime/issues/970)
 - Deploy on release-1.16.x is failing [\#935](https://github.com/apache/camel-k-runtime/issues/935)
