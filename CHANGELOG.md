@@ -14,6 +14,8 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump org.apache.maven.plugins:maven-gpg-plugin from 3.0.1 to 3.1.0 [\#1117](https://github.com/apache/camel-k-runtime/pull/1117) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump org.apache:apache from 25 to 31 [\#1116](https://github.com/apache/camel-k-runtime/pull/1116) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump actions/setup-java from 3 to 4 [\#1113](https://github.com/apache/camel-k-runtime/pull/1113) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.codehaus.mojo:build-helper-maven-plugin from 3.4.0 to 3.5.0 [\#1112](https://github.com/apache/camel-k-runtime/pull/1112) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Add SBOM to the release process [\#1111](https://github.com/apache/camel-k-runtime/pull/1111) ([oscerd](https://github.com/oscerd))
