@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.apache.camel.k</groupId>
         <artifactId>camel-k-itests</artifactId>
-        <version>3.2.3-SNAPSHOT</version>
+        <version>3.2.3</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -107,6 +107,6 @@
     </profiles>
 
   <scm>
-    <tag>camel-k-runtime-project-3.2.0</tag>
+    <tag>camel-k-runtime-project-3.2.3</tag>
   </scm>
 </project>
