@@ -29,12 +29,12 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.camel.k</groupId>
     <artifactId>camel-k-runtime-bom</artifactId>
-    <version>3.6.0</version>
+    <version>3.6.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
         <!-- reproduceable builds: https://maven.apache.org/guides/mini/guide-reproducible-builds.html -->
-        <project.build.outputTimestamp>1702304371</project.build.outputTimestamp>
+        <project.build.outputTimestamp>1702304758</project.build.outputTimestamp>
         <jolokia-version>1.7.2</jolokia-version>
         <maven-enforcer-plugin-version>3.3.0</maven-enforcer-plugin-version>
         <maven-version>3.8.6</maven-version>
@@ -64,7 +64,7 @@
         <connection>scm:git:http://gitbox.apache.org/repos/asf/camel-k-runtime.git</connection>
         <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/camel-k-runtime.git</developerConnection>
         <url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary</url>
-        <tag>camel-k-runtime-project-3.6.0</tag>
+        <tag>camel-k-runtime-project-1.10.0</tag>
     </scm>
 
     <repositories>
