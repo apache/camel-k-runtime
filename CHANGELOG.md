@@ -2,18 +2,14 @@
 
 ## [Unreleased](https://github.com/apache/camel-k-runtime/tree/HEAD)
 
-[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-3.2.0...HEAD)
-
-**Closed issues:**
-
-- Add SBOM to the release process  [\#1110](https://github.com/apache/camel-k-runtime/issues/1110)
-- Examples are failing in Camel 4 [\#1087](https://github.com/apache/camel-k-runtime/issues/1087)
-- \[1.15.x\] Maven dependency convergence error [\#1010](https://github.com/apache/camel-k-runtime/issues/1010)
-- Add SBOM Generation [\#970](https://github.com/apache/camel-k-runtime/issues/970)
-- Deploy on release-1.16.x is failing [\#935](https://github.com/apache/camel-k-runtime/issues/935)
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-3.6.0...HEAD)
 
 **Merged pull requests:**
 
+- chore\(ci\): bump 3.6.0 [\#1121](https://github.com/apache/camel-k-runtime/pull/1121) ([squakez](https://github.com/squakez))
+- build\(deps\): bump org.apache.maven.plugins:maven-failsafe-plugin from 3.0.0 to 3.2.2 [\#1120](https://github.com/apache/camel-k-runtime/pull/1120) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump org.apache.maven.plugins:maven-remote-resources-plugin from 3.0.0 to 3.1.0 [\#1119](https://github.com/apache/camel-k-runtime/pull/1119) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump org.apache.maven.plugins:maven-plugin-plugin from 3.8.2 to 3.10.2 [\#1118](https://github.com/apache/camel-k-runtime/pull/1118) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-gpg-plugin from 3.0.1 to 3.1.0 [\#1117](https://github.com/apache/camel-k-runtime/pull/1117) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache:apache from 25 to 31 [\#1116](https://github.com/apache/camel-k-runtime/pull/1116) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump actions/setup-java from 3 to 4 [\#1113](https://github.com/apache/camel-k-runtime/pull/1113) ([dependabot[bot]](https://github.com/apps/dependabot))
@@ -108,6 +104,22 @@
 - build\(deps\): bump maven-surefire-plugin from 3.0.0-M8 to 3.0.0-M9 [\#974](https://github.com/apache/camel-k-runtime/pull/974) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump groovy-version from 3.0.14 to 3.0.15 [\#973](https://github.com/apache/camel-k-runtime/pull/973) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump logstash-logback-encoder from 7.2 to 7.3 [\#972](https://github.com/apache/camel-k-runtime/pull/972) ([dependabot[bot]](https://github.com/apps/dependabot))
+
+## [camel-k-runtime-project-3.6.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-3.6.0) (2023-12-11)
+
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-3.2.3...camel-k-runtime-project-3.6.0)
+
+## [camel-k-runtime-project-3.2.3](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-3.2.3) (2023-12-11)
+
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-3.2.0...camel-k-runtime-project-3.2.3)
+
+**Closed issues:**
+
+- Add SBOM to the release process  [\#1110](https://github.com/apache/camel-k-runtime/issues/1110)
+- Examples are failing in Camel 4 [\#1087](https://github.com/apache/camel-k-runtime/issues/1087)
+- \[1.15.x\] Maven dependency convergence error [\#1010](https://github.com/apache/camel-k-runtime/issues/1010)
+- Add SBOM Generation [\#970](https://github.com/apache/camel-k-runtime/issues/970)
+- Deploy on release-1.16.x is failing [\#935](https://github.com/apache/camel-k-runtime/issues/935)
 
 ## [camel-k-runtime-project-3.2.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-3.2.0) (2023-09-15)
 
