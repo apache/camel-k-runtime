@@ -138,6 +138,8 @@ public final class Application {
      * Since routes are programmatically loaded, create a no-hop collector
      */
     public static class NoRoutesCollector implements RoutesCollector {
+        private boolean ignoreLoadingError;
+
         @Override
         public Collection<RoutesBuilder> collectRoutesFromDirectory(CamelContext camelContext, String excludePattern, String includePattern) {
             return Collections.emptyList();
@@ -151,6 +153,16 @@ public final class Application {
         @Override
         public List<RoutesBuilder> collectRoutesFromRegistry(CamelContext camelContext, String excludePattern, String includePattern) {
             return Collections.emptyList();
+        }
+
+        @Override
+        public boolean isIgnoreLoadingError() {
+            return ignoreLoadingError;
+        }
+
+        @Override
+        public void setIgnoreLoadingError(boolean ignoreLoadingError) {
+            this.ignoreLoadingError = ignoreLoadingError;
         }
     }
 
