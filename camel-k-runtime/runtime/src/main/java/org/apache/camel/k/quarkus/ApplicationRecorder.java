@@ -39,7 +39,7 @@ public class ApplicationRecorder {
     }
 
     public void publishRuntime(RuntimeValue<CamelMain> main, BeanContainer container) {
-        container.instance(ApplicationProducers.class).setRuntime(new Application.Runtime(main.getValue()));
+        container.beanInstance(ApplicationProducers.class).setRuntime(new Application.Runtime(main.getValue()));
     }
 
     public RuntimeValue<RoutesCollector> createRoutesCollector() {
