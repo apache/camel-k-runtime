@@ -6,6 +6,8 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump org.apache.maven.plugins:maven-javadoc-plugin from 3.5.0 to 3.6.3 [\#1123](https://github.com/apache/camel-k-runtime/pull/1123) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump org.apache.maven.plugins:maven-dependency-plugin from 3.5.0 to 3.6.1 [\#1122](https://github.com/apache/camel-k-runtime/pull/1122) ([dependabot[bot]](https://github.com/apps/dependabot))
 - chore\(ci\): bump 3.6.0 [\#1121](https://github.com/apache/camel-k-runtime/pull/1121) ([squakez](https://github.com/squakez))
 - build\(deps\): bump org.apache.maven.plugins:maven-failsafe-plugin from 3.0.0 to 3.2.2 [\#1120](https://github.com/apache/camel-k-runtime/pull/1120) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-remote-resources-plugin from 3.0.0 to 3.1.0 [\#1119](https://github.com/apache/camel-k-runtime/pull/1119) ([dependabot[bot]](https://github.com/apps/dependabot))
