@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump org.apache.maven.plugins:maven-checkstyle-plugin from 3.2.2 to 3.3.1 [\#1126](https://github.com/apache/camel-k-runtime/pull/1126) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-javadoc-plugin from 3.5.0 to 3.6.3 [\#1123](https://github.com/apache/camel-k-runtime/pull/1123) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-dependency-plugin from 3.5.0 to 3.6.1 [\#1122](https://github.com/apache/camel-k-runtime/pull/1122) ([dependabot[bot]](https://github.com/apps/dependabot))
 - chore\(ci\): bump 3.6.0 [\#1121](https://github.com/apache/camel-k-runtime/pull/1121) ([squakez](https://github.com/squakez))
