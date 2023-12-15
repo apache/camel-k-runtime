@@ -6,9 +6,11 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump org.apache.maven.plugins:maven-failsafe-plugin from 3.2.2 to 3.2.3 [\#1132](https://github.com/apache/camel-k-runtime/pull/1132) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-enforcer-plugin from 3.3.0 to 3.4.1 [\#1128](https://github.com/apache/camel-k-runtime/pull/1128) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-pmd-plugin from 3.20.0 to 3.21.2 [\#1127](https://github.com/apache/camel-k-runtime/pull/1127) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-checkstyle-plugin from 3.2.2 to 3.3.1 [\#1126](https://github.com/apache/camel-k-runtime/pull/1126) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump org.apache.maven.plugins:maven-assembly-plugin from 3.5.0 to 3.6.0 [\#1124](https://github.com/apache/camel-k-runtime/pull/1124) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-javadoc-plugin from 3.5.0 to 3.6.3 [\#1123](https://github.com/apache/camel-k-runtime/pull/1123) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-dependency-plugin from 3.5.0 to 3.6.1 [\#1122](https://github.com/apache/camel-k-runtime/pull/1122) ([dependabot[bot]](https://github.com/apps/dependabot))
 - chore\(ci\): bump 3.6.0 [\#1121](https://github.com/apache/camel-k-runtime/pull/1121) ([squakez](https://github.com/squakez))
