@@ -6,6 +6,10 @@
 
 **Merged pull requests:**
 
+- chore: upgrade native builder image [\#1136](https://github.com/apache/camel-k-runtime/pull/1136) ([squakez](https://github.com/squakez))
+- build\(deps\): bump org.apache.maven.shared:maven-shared-utils from 3.3.3 to 3.4.2 [\#1135](https://github.com/apache/camel-k-runtime/pull/1135) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump org.apache.maven.plugin-tools:maven-plugin-annotations from 3.8.2 to 3.10.2 [\#1134](https://github.com/apache/camel-k-runtime/pull/1134) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump org.apache.maven.plugins:maven-surefire-plugin from 3.0.0 to 3.2.3 [\#1133](https://github.com/apache/camel-k-runtime/pull/1133) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-failsafe-plugin from 3.2.2 to 3.2.3 [\#1132](https://github.com/apache/camel-k-runtime/pull/1132) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-enforcer-plugin from 3.3.0 to 3.4.1 [\#1128](https://github.com/apache/camel-k-runtime/pull/1128) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-pmd-plugin from 3.20.0 to 3.21.2 [\#1127](https://github.com/apache/camel-k-runtime/pull/1127) ([dependabot[bot]](https://github.com/apps/dependabot))
