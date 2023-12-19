@@ -6,6 +6,8 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump org.apache.maven.plugins:maven-clean-plugin from 3.2.0 to 3.3.2 [\#1138](https://github.com/apache/camel-k-runtime/pull/1138) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump org.apache.maven.plugins:maven-source-plugin from 3.2.1 to 3.3.0 [\#1137](https://github.com/apache/camel-k-runtime/pull/1137) ([dependabot[bot]](https://github.com/apps/dependabot))
 - chore: upgrade native builder image [\#1136](https://github.com/apache/camel-k-runtime/pull/1136) ([squakez](https://github.com/squakez))
 - build\(deps\): bump org.apache.maven.shared:maven-shared-utils from 3.3.3 to 3.4.2 [\#1135](https://github.com/apache/camel-k-runtime/pull/1135) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugin-tools:maven-plugin-annotations from 3.8.2 to 3.10.2 [\#1134](https://github.com/apache/camel-k-runtime/pull/1134) ([dependabot[bot]](https://github.com/apps/dependabot))
