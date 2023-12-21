@@ -190,7 +190,7 @@ public class GenerateCatalogMojo extends AbstractMojo {
                 MavenSupport.getApplicationProperty(getClass(), "jib.maven-plugin.version"));
             runtimeSpec.putMetadata("jib.layer-filter-extension-maven.version",
                 MavenSupport.getApplicationProperty(getClass(), "jib.layer-filter-extension-maven.version"));
-            
+
             runtimeSpec.applicationClass("io.quarkus.bootstrap.runner.QuarkusEntryPoint");
             runtimeSpec.addDependency("org.apache.camel.k", "camel-k-runtime");
 
@@ -523,7 +523,7 @@ public class GenerateCatalogMojo extends AbstractMojo {
 
         artifacts.clear();
         artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-management"));
-        artifacts.add(Artifact.from("org.apache.camel", "camel-jaxb"));
+        artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-jaxb"));
         artifacts.add(Artifact.from("org.jolokia", "jolokia-jvm"));
         addCapabilityAndDependecies(runtimeSpec, catalogSpec, "jolokia", artifacts, false);
     }
