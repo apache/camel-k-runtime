@@ -524,23 +524,26 @@ public class GenerateCatalogMojo extends AbstractMojo {
         artifacts.clear();
         artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-management"));
         artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-jaxb"));
-        artifacts.add(Artifact.from("org.jolokia", "jolokia-jvm"));
-        addCapabilityAndDependecies(runtimeSpec, catalogSpec, "jolokia", artifacts, false);
+        artifacts.add(Artifact.from("org.jolokia", "jolokia-agent-jvm", "javaagent"));
+        addCapabilityAndDependecies(runtimeSpec, catalogSpec, "jolokia", artifacts, true);
     }
 
     private void addCapabilityAndDependecies(RuntimeSpec.Builder runtimeSpec, CamelCatalogSpec.Builder catalogSpec, String name,
-        List<Artifact> artifacts, boolean addDependency) {
+            List<Artifact> artifacts, boolean addDependency) {
         if (capabilitiesExclusionList != null && !capabilitiesExclusionList.contains(name)) {
             CamelCapability.Builder capBuilder = new CamelCapability.Builder();
-            artifacts.forEach(artifact -> capBuilder.addDependency(artifact.getGroupId(), artifact.getArtifactId()));
+            artifacts.forEach(artifact -> {
+                capBuilder.addDependency(artifact.getGroupId(), artifact.getArtifactId(), artifact.getClassifier());
+                if (addDependency) {
+                    catalogSpec.putArtifact(new CamelArtifact.Builder()
+                        .groupId(artifact.getGroupId())
+                        .artifactId(artifact.getArtifactId())
+                        .classifier(artifact.getClassifier())
+                        .build());
+                }
+            });
             CamelCapability dependency = capBuilder.build();
             runtimeSpec.putCapability(name, dependency);
-            if (addDependency && !artifacts.isEmpty()) {
-                catalogSpec.putArtifact(new CamelArtifact.Builder()
-                    .groupId(artifacts.get(0).getGroupId())
-                    .artifactId(artifacts.get(0).getArtifactId())
-                    .build());
-            }
         }
 
     }

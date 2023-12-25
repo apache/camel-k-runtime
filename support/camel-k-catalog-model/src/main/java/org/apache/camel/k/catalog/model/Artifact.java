@@ -21,10 +21,11 @@ import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonPropertyOrder({"groupId", "artifactId", "version"})
+@JsonPropertyOrder({"groupId", "artifactId", "classifier", "version"})
 public interface Artifact extends Comparable<Artifact> {
     String getGroupId();
     String getArtifactId();
+    Optional<String> getClassifier();
     Optional<String> getVersion();
 
     @Override
@@ -33,6 +34,7 @@ public interface Artifact extends Comparable<Artifact> {
             .comparing(Artifact::getGroupId)
             .thenComparing(Artifact::getArtifactId)
             .thenComparing(Artifact::getVersion, Comparator.comparing(c -> c.orElse("")))
+            .thenComparing(Artifact::getClassifier, Comparator.comparing(c -> c.orElse("")))
             .compare(this, o);
     }
 
@@ -49,9 +51,39 @@ public interface Artifact extends Comparable<Artifact> {
             }
 
             @Override
+            public Optional<String> getClassifier() {
+                return Optional.empty();
+            }
+
+            @Override
             public Optional<String> getVersion() {
                 return Optional.empty();
             }
         };
     }
+
+    static Artifact from(String groupId, String artifactId, String classifier) {
+        return new Artifact() {
+            @Override
+            public String getGroupId() {
+                return groupId;
+            }
+
+            @Override
+            public String getArtifactId() {
+                return artifactId;
+            }
+
+            @Override
+            public Optional<String> getClassifier() {
+                return Optional.of(classifier);
+            }
+
+            @Override
+            public Optional<String> getVersion() {
+                return Optional.empty();
+            }
+        };
+    }
+
 }
