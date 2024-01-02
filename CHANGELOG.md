@@ -6,6 +6,9 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump org.assertj:assertj-core from 3.24.2 to 3.25.0 [\#1144](https://github.com/apache/camel-k-runtime/pull/1144) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump org.apache.maven.plugins:maven-compiler-plugin from 3.12.0 to 3.12.1 [\#1143](https://github.com/apache/camel-k-runtime/pull/1143) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump groovy-version from 4.0.16 to 4.0.17 [\#1142](https://github.com/apache/camel-k-runtime/pull/1142) ([dependabot[bot]](https://github.com/apps/dependabot))
 - fix\(catalog\): quarkus jaxb dependency [\#1141](https://github.com/apache/camel-k-runtime/pull/1141) ([squakez](https://github.com/squakez))
 - build\(deps\): bump org.apache.maven.plugins:maven-compiler-plugin from 3.11.0 to 3.12.0 [\#1139](https://github.com/apache/camel-k-runtime/pull/1139) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-clean-plugin from 3.2.0 to 3.3.2 [\#1138](https://github.com/apache/camel-k-runtime/pull/1138) ([dependabot[bot]](https://github.com/apps/dependabot))
