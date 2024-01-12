@@ -6,6 +6,8 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump org.apache.maven.plugin-tools:maven-plugin-annotations from 3.10.2 to 3.11.0 [\#1150](https://github.com/apache/camel-k-runtime/pull/1150) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump org.apache.maven.plugins:maven-failsafe-plugin from 3.2.3 to 3.2.5 [\#1149](https://github.com/apache/camel-k-runtime/pull/1149) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-surefire-plugin from 3.2.3 to 3.2.5 [\#1147](https://github.com/apache/camel-k-runtime/pull/1147) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-plugin-plugin from 3.10.2 to 3.11.0 [\#1146](https://github.com/apache/camel-k-runtime/pull/1146) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.assertj:assertj-core from 3.25.0 to 3.25.1 [\#1145](https://github.com/apache/camel-k-runtime/pull/1145) ([dependabot[bot]](https://github.com/apps/dependabot))
