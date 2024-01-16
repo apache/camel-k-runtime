@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bom version="1" xmlns="http://cyclonedx.org/schema/bom/1.4">
+<bom serialNumber="urn:uuid:281de4cb-8a2a-3982-b51a-d477054c90ac" version="1" xmlns="http://cyclonedx.org/schema/bom/1.4">
   <metadata>
     <tools>
       <tool>
         <vendor>OWASP Foundation</vendor>
         <name>CycloneDX Maven plugin</name>
-        <version>2.7.10</version>
+        <version>2.7.11</version>
         <hashes>
-          <hash alg="MD5">1cc7f6a0382f8bb2f758d6a6ea401d1b</hash>
-          <hash alg="SHA-1">a4297947a1f2d7d453105db542651614bbd37f38</hash>
-          <hash alg="SHA-256">bd0fdd8f2f2116eee5e715aeac1580f19eb7a10ec2b6f805b53567067658e872</hash>
-          <hash alg="SHA-512">9cde8352a427e10b96cae01348fc7cfe5d4aa9cd0a5e5dd93b414ce3bb7d112993c3b3004e53af52567fbfa16de0704ec59a5556a635ad70571fd124ae389f39</hash>
-          <hash alg="SHA-384">93d7bf5b5c735347edfbfbd66810273ca840f9a322b816d22d44c3d8e8255c09e86570bb23712aeb0cade0f478be5aeb</hash>
-          <hash alg="SHA3-384">4467f16e9ca32190a6e49c65339eb28ee5e8c78f4e918fcf95128a4b7648898de56ccb43eacfad0c9391ef8cdb7d629a</hash>
-          <hash alg="SHA3-256">ed2996c99b483e969221d5e9a40f562ea2ab85442d361d72a90e85266a3ed781</hash>
-          <hash alg="SHA3-512">c8e6ea9ddc38edc77e284b3bf541663e84752bdc59ed1935799847a48a14ea2fa531b61008fefcba37d732a56702a11ac112437b9b80d18f4ecc8ef0ecfb32cf</hash>
+          <hash alg="MD5">a70e8b649ab4a2bb7922d360173c8237</hash>
+          <hash alg="SHA-1">4c3c0878c15561639076e5be7a48ffcd6111c5ee</hash>
+          <hash alg="SHA-256">70997d52dbffd4e797c467b2062c6ba9b8b5a7380ff2884779f2743b6172ebb5</hash>
+          <hash alg="SHA-512">bc1ce91190c642f68fd3571939d7668def3b879ec8e5a87a213a9710a106e0290f60f9e0414593d19cca958c4fcb5d4450bd2793bcd609948419c8a2a6a7f5c8</hash>
+          <hash alg="SHA-384">3c8421bdafd1754fb424f16dccc83bfe0827648c1cadfffc98bdf1c7da65475dfe48d2f4b16d233bb8819e155ba6a4f3</hash>
+          <hash alg="SHA3-384">ad88cf6a0e0a5d51df49a4dab5530a28de9df7eec8460c045dff3e1f9316b82a244a125d52b937fe9d4ee72e44f5d01a</hash>
+          <hash alg="SHA3-256">b4d9c3ef07c34517fd9f33178ba95ffc9618eb84a3671e71b0c82991ec3717e5</hash>
+          <hash alg="SHA3-512">935b43aba8999dc7d95d93288a251c97b6b32852841b7bef31516c27c8d65c8de7f8411f1829f765ee760f25930c766db6a49df68e5994e18721c0a71f606f1e</hash>
         </hashes>
       </tool>
     </tools>
@@ -41,10 +41,19 @@
   </metadata>
   <components>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-support@3.6.0-SNAPSHOT?type=pom">
+      <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-support</name>
       <version>3.6.0-SNAPSHOT</version>
+      <description>Version properties used for building and testing Apache Camel</description>
+      <licenses>
+        <license>
+          <id>Apache-2.0</id>
+          <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+      </licenses>
       <purl>pkg:maven/org.apache.camel.k/camel-k-support@3.6.0-SNAPSHOT?type=pom</purl>
+      <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-support</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-support</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-annotations@3.6.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
@@ -656,10 +665,19 @@ JDK 8 data types.</description>
       <externalReferences><reference type="website"><url>http://immutables.org/value</url></reference><reference type="distribution"><url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url></reference><reference type="vcs"><url>https://github.com/immutables/immutables.git/value</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-maven-plugin@3.6.0-SNAPSHOT?type=maven-plugin">
+      <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-maven-plugin</name>
       <version>3.6.0-SNAPSHOT</version>
+      <description>Version properties used for building and testing Apache Camel</description>
+      <licenses>
+        <license>
+          <id>Apache-2.0</id>
+          <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+      </licenses>
       <purl>pkg:maven/org.apache.camel.k/camel-k-maven-plugin@3.6.0-SNAPSHOT?type=maven-plugin</purl>
+      <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-support/camel-k-maven-plugin</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-support/camel-k-maven-plugin</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.maven.plugin-tools/maven-plugin-annotations@3.6.0?type=jar">
       <publisher>The Apache Software Foundation</publisher>
@@ -3852,10 +3870,19 @@ file comparators, endian transformation classes, and much more.</description>
       <externalReferences><reference type="website"><url>http://junit.org</url></reference><reference type="build-system"><url>https://github.com/junit-team/junit4/actions</url></reference><reference type="distribution"><url>https://github.com/junit-team/junit4/wiki/Download-and-Install</url></reference><reference type="issue-tracker"><url>https://github.com/junit-team/junit4/issues</url></reference><reference type="vcs"><url>https://github.com/junit-team/junit4</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-core-parent@3.6.0-SNAPSHOT?type=pom">
+      <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-core-parent</name>
       <version>3.6.0-SNAPSHOT</version>
+      <description>Version properties used for building and testing Apache Camel</description>
+      <licenses>
+        <license>
+          <id>Apache-2.0</id>
+          <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+      </licenses>
       <purl>pkg:maven/org.apache.camel.k/camel-k-core-parent@3.6.0-SNAPSHOT?type=pom</purl>
+      <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-core-parent</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-core-parent</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-core-api@3.6.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
@@ -6365,10 +6392,19 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-core-parent/camel-k-core</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-core-parent/camel-k-core</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-support@3.6.0-SNAPSHOT?type=pom">
+      <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-itests-support</name>
       <version>3.6.0-SNAPSHOT</version>
+      <description>Version properties used for building and testing Apache Camel</description>
+      <licenses>
+        <license>
+          <id>Apache-2.0</id>
+          <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+      </licenses>
       <purl>pkg:maven/org.apache.camel.k/camel-k-itests-support@3.6.0-SNAPSHOT?type=pom</purl>
+      <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-support/camel-k-itests-support</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-support/camel-k-itests-support</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.6.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
@@ -7180,10 +7216,19 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
       <externalReferences><reference type="website"><url>https://resteasy.dev</url></reference><reference type="distribution"><url>https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/</url></reference><reference type="issue-tracker"><url>https://issues.redhat.com/browse/RESTEASY</url></reference><reference type="mailing-list"><url>http://lists.jboss.org/pipermail/jboss-user/</url></reference><reference type="vcs"><url>https://github.com/resteasy/resteasy/tree/main/</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-runtime-parent@3.6.0-SNAPSHOT?type=pom">
+      <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-runtime-parent</name>
       <version>3.6.0-SNAPSHOT</version>
+      <description>Version properties used for building and testing Apache Camel</description>
+      <licenses>
+        <license>
+          <id>Apache-2.0</id>
+          <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+      </licenses>
       <purl>pkg:maven/org.apache.camel.k/camel-k-runtime-parent@3.6.0-SNAPSHOT?type=pom</purl>
+      <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-runtime-parent</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-runtime-parent</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.6.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
@@ -7307,16 +7352,38 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-support/camel-k-catalog</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-support/camel-k-catalog</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-runtime-bom@3.6.0-SNAPSHOT?type=pom">
+      <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-runtime-bom</name>
       <version>3.6.0-SNAPSHOT</version>
+      <description>The Apache Software Foundation provides support for the Apache community of open-source software projects.
+    The Apache projects are characterized by a collaborative, consensus based development process, an open and
+    pragmatic software license, and a desire to create high quality software that leads the way in its field.
+    We consider ourselves not simply a group of projects sharing a server, but rather a community of developers
+    and users.</description>
+      <licenses>
+        <license>
+          <id>Apache-2.0</id>
+          <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+      </licenses>
       <purl>pkg:maven/org.apache.camel.k/camel-k-runtime-bom@3.6.0-SNAPSHOT?type=pom</purl>
+      <externalReferences><reference type="website"><url>https://www.apache.org/camel-k-runtime-bom/</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-maven-logging@3.6.0-SNAPSHOT?type=pom">
+      <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-maven-logging</name>
       <version>3.6.0-SNAPSHOT</version>
+      <description>Set of dependencies used for structural logging of Maven output</description>
+      <licenses>
+        <license>
+          <id>Apache-2.0</id>
+          <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+      </licenses>
       <purl>pkg:maven/org.apache.camel.k/camel-k-maven-logging@3.6.0-SNAPSHOT?type=pom</purl>
+      <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-support/camel-k-maven-logging</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-support/camel-k-maven-logging</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.slf4j/slf4j-api@2.0.7?type=jar">
       <publisher>QOS.ch</publisher>
@@ -8811,10 +8878,19 @@ GraalVM removes the isolation between programming languages and enables interope
       <externalReferences><reference type="website"><url>http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions-support/camel-quarkus-support-commons-logging-parent/camel-quarkus-support-commons-logging-deployment</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-quarkus/issues</url></reference><reference type="mailing-list"><url>dev-subscribe@camel.apache.org</url></reference><reference type="vcs"><url>https://github.com/apache/camel-quarkus/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions-support/camel-quarkus-support-commons-logging-parent/camel-quarkus-support-commons-logging-deployment</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-cron-parent@3.6.0-SNAPSHOT?type=pom">
+      <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-cron-parent</name>
       <version>3.6.0-SNAPSHOT</version>
+      <description>Version properties used for building and testing Apache Camel</description>
+      <licenses>
+        <license>
+          <id>Apache-2.0</id>
+          <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+      </licenses>
       <purl>pkg:maven/org.apache.camel.k/camel-k-cron-parent@3.6.0-SNAPSHOT?type=pom</purl>
+      <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-cron-parent</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-cron-parent</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-cron-impl@3.6.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
@@ -9096,10 +9172,19 @@ GraalVM removes the isolation between programming languages and enables interope
       <externalReferences><reference type="website"><url>http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-cron-parent/camel-quarkus-cron-deployment</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-quarkus/issues</url></reference><reference type="mailing-list"><url>dev-subscribe@camel.apache.org</url></reference><reference type="vcs"><url>https://github.com/apache/camel-quarkus/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-cron-parent/camel-quarkus-cron-deployment</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-knative-parent@3.6.0-SNAPSHOT?type=pom">
+      <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-knative-parent</name>
       <version>3.6.0-SNAPSHOT</version>
+      <description>Version properties used for building and testing Apache Camel</description>
+      <licenses>
+        <license>
+          <id>Apache-2.0</id>
+          <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+      </licenses>
       <purl>pkg:maven/org.apache.camel.k/camel-k-knative-parent@3.6.0-SNAPSHOT?type=pom</purl>
+      <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-knative-parent</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-knative-parent</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.6.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
@@ -9221,10 +9306,19 @@ GraalVM removes the isolation between programming languages and enables interope
       <externalReferences><reference type="website"><url>https://www.apache.org/camel/camel-parent/components/camel-knative-parent/camel-knative-http/</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://github.com/apache/maven-apache-parent/tree/apache-30/camel/camel-parent/components/camel-knative-parent/camel-knative-http</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-master-parent@3.6.0-SNAPSHOT?type=pom">
+      <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-master-parent</name>
       <version>3.6.0-SNAPSHOT</version>
+      <description>Version properties used for building and testing Apache Camel</description>
+      <licenses>
+        <license>
+          <id>Apache-2.0</id>
+          <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+      </licenses>
       <purl>pkg:maven/org.apache.camel.k/camel-k-master-parent@3.6.0-SNAPSHOT?type=pom</purl>
+      <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-master-parent</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-master-parent</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-master-impl@3.6.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
@@ -9536,10 +9630,19 @@ GraalVM removes the isolation between programming languages and enables interope
       <externalReferences><reference type="website"><url>https://github.com/quarkusio/quarkus</url></reference><reference type="distribution"><url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url></reference><reference type="issue-tracker"><url>https://github.com/quarkusio/quarkus/issues/</url></reference><reference type="vcs"><url>https://github.com/quarkusio/quarkus</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-resume-kafka-parent@3.6.0-SNAPSHOT?type=pom">
+      <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-resume-kafka-parent</name>
       <version>3.6.0-SNAPSHOT</version>
+      <description>Version properties used for building and testing Apache Camel</description>
+      <licenses>
+        <license>
+          <id>Apache-2.0</id>
+          <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+      </licenses>
       <purl>pkg:maven/org.apache.camel.k/camel-k-resume-kafka-parent@3.6.0-SNAPSHOT?type=pom</purl>
+      <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-resume-kafka-parent</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-resume-kafka-parent</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-resume-kafka-impl@3.6.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
@@ -9737,10 +9840,19 @@ GraalVM removes the isolation between programming languages and enables interope
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-resume-kafka-parent/camel-k-resume-kafka-deployment</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-resume-kafka-parent/camel-k-resume-kafka-deployment</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests@3.6.0-SNAPSHOT?type=pom">
+      <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-itests</name>
       <version>3.6.0-SNAPSHOT</version>
+      <description>Version properties used for building and testing Apache Camel</description>
+      <licenses>
+        <license>
+          <id>Apache-2.0</id>
+          <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+      </licenses>
       <purl>pkg:maven/org.apache.camel.k/camel-k-itests@3.6.0-SNAPSHOT?type=pom</purl>
+      <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-itests</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-itests</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-core@3.6.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
@@ -11704,10 +11816,19 @@ that achieves high performance when combined with Graal.</description>
       <externalReferences><reference type="website"><url>https://www.apache.org/camel/camel-parent/components/camel-kamelet/</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://github.com/apache/maven-apache-parent/tree/apache-30/camel/camel-parent/components/camel-kamelet</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.k/apache-camel-k-runtime@3.6.0-SNAPSHOT?type=pom">
+      <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>apache-camel-k-runtime</name>
       <version>3.6.0-SNAPSHOT</version>
+      <description>Version properties used for building and testing Apache Camel</description>
+      <licenses>
+        <license>
+          <id>Apache-2.0</id>
+          <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+      </licenses>
       <purl>pkg:maven/org.apache.camel.k/apache-camel-k-runtime@3.6.0-SNAPSHOT?type=pom</purl>
+      <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/apache-camel-k-runtime</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/apache-camel-k-runtime</url></reference></externalReferences>
     </component>
   </components>
   <dependencies>

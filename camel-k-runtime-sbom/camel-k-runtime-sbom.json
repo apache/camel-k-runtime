@@ -1,45 +1,46 @@
 {
   "bomFormat" : "CycloneDX",
   "specVersion" : "1.4",
+  "serialNumber" : "urn:uuid:281de4cb-8a2a-3982-b51a-d477054c90ac",
   "version" : 1,
   "metadata" : {
     "tools" : [
       {
         "vendor" : "OWASP Foundation",
         "name" : "CycloneDX Maven plugin",
-        "version" : "2.7.10",
+        "version" : "2.7.11",
         "hashes" : [
           {
             "alg" : "MD5",
-            "content" : "1cc7f6a0382f8bb2f758d6a6ea401d1b"
+            "content" : "a70e8b649ab4a2bb7922d360173c8237"
           },
           {
             "alg" : "SHA-1",
-            "content" : "a4297947a1f2d7d453105db542651614bbd37f38"
+            "content" : "4c3c0878c15561639076e5be7a48ffcd6111c5ee"
           },
           {
             "alg" : "SHA-256",
-            "content" : "bd0fdd8f2f2116eee5e715aeac1580f19eb7a10ec2b6f805b53567067658e872"
+            "content" : "70997d52dbffd4e797c467b2062c6ba9b8b5a7380ff2884779f2743b6172ebb5"
           },
           {
             "alg" : "SHA-512",
-            "content" : "9cde8352a427e10b96cae01348fc7cfe5d4aa9cd0a5e5dd93b414ce3bb7d112993c3b3004e53af52567fbfa16de0704ec59a5556a635ad70571fd124ae389f39"
+            "content" : "bc1ce91190c642f68fd3571939d7668def3b879ec8e5a87a213a9710a106e0290f60f9e0414593d19cca958c4fcb5d4450bd2793bcd609948419c8a2a6a7f5c8"
           },
           {
             "alg" : "SHA-384",
-            "content" : "93d7bf5b5c735347edfbfbd66810273ca840f9a322b816d22d44c3d8e8255c09e86570bb23712aeb0cade0f478be5aeb"
+            "content" : "3c8421bdafd1754fb424f16dccc83bfe0827648c1cadfffc98bdf1c7da65475dfe48d2f4b16d233bb8819e155ba6a4f3"
           },
           {
             "alg" : "SHA3-384",
-            "content" : "4467f16e9ca32190a6e49c65339eb28ee5e8c78f4e918fcf95128a4b7648898de56ccb43eacfad0c9391ef8cdb7d629a"
+            "content" : "ad88cf6a0e0a5d51df49a4dab5530a28de9df7eec8460c045dff3e1f9316b82a244a125d52b937fe9d4ee72e44f5d01a"
           },
           {
             "alg" : "SHA3-256",
-            "content" : "ed2996c99b483e969221d5e9a40f562ea2ab85442d361d72a90e85266a3ed781"
+            "content" : "b4d9c3ef07c34517fd9f33178ba95ffc9618eb84a3671e71b0c82991ec3717e5"
           },
           {
             "alg" : "SHA3-512",
-            "content" : "c8e6ea9ddc38edc77e284b3bf541663e84752bdc59ed1935799847a48a14ea2fa531b61008fefcba37d732a56702a11ac112437b9b80d18f4ecc8ef0ecfb32cf"
+            "content" : "935b43aba8999dc7d95d93288a251c97b6b32852841b7bef31516c27c8d65c8de7f8411f1829f765ee760f25930c766db6a49df68e5994e18721c0a71f606f1e"
           }
         ]
       }
@@ -101,10 +102,42 @@
   },
   "components" : [
     {
+      "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-support",
       "version" : "3.6.0-SNAPSHOT",
+      "description" : "Version properties used for building and testing Apache Camel",
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0",
+            "url" : "https://www.apache.org/licenses/LICENSE-2.0"
+          }
+        }
+      ],
       "purl" : "pkg:maven/org.apache.camel.k/camel-k-support@3.6.0-SNAPSHOT?type=pom",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-support"
+        },
+        {
+          "type" : "distribution",
+          "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://github.com/apache/camel-k-runtime/issues"
+        },
+        {
+          "type" : "mailing-list",
+          "url" : "https://mail-archives.apache.org/mod_mbox/www-announce/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-support"
+        }
+      ],
       "type" : "library",
       "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-support@3.6.0-SNAPSHOT?type=pom"
     },
@@ -1781,10 +1814,42 @@
       "bom-ref" : "pkg:maven/org.immutables/value@2.10.0?type=jar"
     },
     {
+      "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-maven-plugin",
       "version" : "3.6.0-SNAPSHOT",
+      "description" : "Version properties used for building and testing Apache Camel",
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0",
+            "url" : "https://www.apache.org/licenses/LICENSE-2.0"
+          }
+        }
+      ],
       "purl" : "pkg:maven/org.apache.camel.k/camel-k-maven-plugin@3.6.0-SNAPSHOT?type=maven-plugin",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-support/camel-k-maven-plugin"
+        },
+        {
+          "type" : "distribution",
+          "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://github.com/apache/camel-k-runtime/issues"
+        },
+        {
+          "type" : "mailing-list",
+          "url" : "https://mail-archives.apache.org/mod_mbox/www-announce/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-support/camel-k-maven-plugin"
+        }
+      ],
       "type" : "library",
       "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-maven-plugin@3.6.0-SNAPSHOT?type=maven-plugin"
     },
@@ -10808,10 +10873,42 @@
       "bom-ref" : "pkg:maven/junit/junit@4.13.2?type=jar"
     },
     {
+      "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-core-parent",
       "version" : "3.6.0-SNAPSHOT",
+      "description" : "Version properties used for building and testing Apache Camel",
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0",
+            "url" : "https://www.apache.org/licenses/LICENSE-2.0"
+          }
+        }
+      ],
       "purl" : "pkg:maven/org.apache.camel.k/camel-k-core-parent@3.6.0-SNAPSHOT?type=pom",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-core-parent"
+        },
+        {
+          "type" : "distribution",
+          "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://github.com/apache/camel-k-runtime/issues"
+        },
+        {
+          "type" : "mailing-list",
+          "url" : "https://mail-archives.apache.org/mod_mbox/www-announce/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-core-parent"
+        }
+      ],
       "type" : "library",
       "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-core-parent@3.6.0-SNAPSHOT?type=pom"
     },
@@ -17460,10 +17557,42 @@
       "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-core@3.6.0-SNAPSHOT?type=jar"
     },
     {
+      "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-itests-support",
       "version" : "3.6.0-SNAPSHOT",
+      "description" : "Version properties used for building and testing Apache Camel",
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0",
+            "url" : "https://www.apache.org/licenses/LICENSE-2.0"
+          }
+        }
+      ],
       "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-support@3.6.0-SNAPSHOT?type=pom",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-support/camel-k-itests-support"
+        },
+        {
+          "type" : "distribution",
+          "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://github.com/apache/camel-k-runtime/issues"
+        },
+        {
+          "type" : "mailing-list",
+          "url" : "https://mail-archives.apache.org/mod_mbox/www-announce/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-support/camel-k-itests-support"
+        }
+      ],
       "type" : "library",
       "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-support@3.6.0-SNAPSHOT?type=pom"
     },
@@ -19722,10 +19851,42 @@
       "bom-ref" : "pkg:maven/org.jboss.resteasy/resteasy-json-p-provider@6.2.6.Final?type=jar"
     },
     {
+      "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-runtime-parent",
       "version" : "3.6.0-SNAPSHOT",
+      "description" : "Version properties used for building and testing Apache Camel",
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0",
+            "url" : "https://www.apache.org/licenses/LICENSE-2.0"
+          }
+        }
+      ],
       "purl" : "pkg:maven/org.apache.camel.k/camel-k-runtime-parent@3.6.0-SNAPSHOT?type=pom",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-runtime-parent"
+        },
+        {
+          "type" : "distribution",
+          "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://github.com/apache/camel-k-runtime/issues"
+        },
+        {
+          "type" : "mailing-list",
+          "url" : "https://mail-archives.apache.org/mod_mbox/www-announce/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-runtime-parent"
+        }
+      ],
       "type" : "library",
       "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-runtime-parent@3.6.0-SNAPSHOT?type=pom"
     },
@@ -20065,18 +20226,82 @@
       "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-catalog@3.6.0-SNAPSHOT?type=jar"
     },
     {
+      "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-runtime-bom",
       "version" : "3.6.0-SNAPSHOT",
+      "description" : "The Apache Software Foundation provides support for the Apache community of open-source software projects. The Apache projects are characterized by a collaborative, consensus based development process, an open and pragmatic software license, and a desire to create high quality software that leads the way in its field. We consider ourselves not simply a group of projects sharing a server, but rather a community of developers and users.",
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0",
+            "url" : "https://www.apache.org/licenses/LICENSE-2.0"
+          }
+        }
+      ],
       "purl" : "pkg:maven/org.apache.camel.k/camel-k-runtime-bom@3.6.0-SNAPSHOT?type=pom",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://www.apache.org/camel-k-runtime-bom/"
+        },
+        {
+          "type" : "distribution",
+          "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://github.com/apache/camel-k-runtime/issues"
+        },
+        {
+          "type" : "mailing-list",
+          "url" : "https://mail-archives.apache.org/mod_mbox/www-announce/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary"
+        }
+      ],
       "type" : "library",
       "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-runtime-bom@3.6.0-SNAPSHOT?type=pom"
     },
     {
+      "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-maven-logging",
       "version" : "3.6.0-SNAPSHOT",
+      "description" : "Set of dependencies used for structural logging of Maven output",
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0",
+            "url" : "https://www.apache.org/licenses/LICENSE-2.0"
+          }
+        }
+      ],
       "purl" : "pkg:maven/org.apache.camel.k/camel-k-maven-logging@3.6.0-SNAPSHOT?type=pom",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-support/camel-k-maven-logging"
+        },
+        {
+          "type" : "distribution",
+          "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://github.com/apache/camel-k-runtime/issues"
+        },
+        {
+          "type" : "mailing-list",
+          "url" : "https://mail-archives.apache.org/mod_mbox/www-announce/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-support/camel-k-maven-logging"
+        }
+      ],
       "type" : "library",
       "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-maven-logging@3.6.0-SNAPSHOT?type=pom"
     },
@@ -24204,10 +24429,42 @@
       "bom-ref" : "pkg:maven/org.apache.camel.quarkus/camel-quarkus-support-commons-logging-deployment@3.6.0?type=jar"
     },
     {
+      "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-cron-parent",
       "version" : "3.6.0-SNAPSHOT",
+      "description" : "Version properties used for building and testing Apache Camel",
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0",
+            "url" : "https://www.apache.org/licenses/LICENSE-2.0"
+          }
+        }
+      ],
       "purl" : "pkg:maven/org.apache.camel.k/camel-k-cron-parent@3.6.0-SNAPSHOT?type=pom",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-cron-parent"
+        },
+        {
+          "type" : "distribution",
+          "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://github.com/apache/camel-k-runtime/issues"
+        },
+        {
+          "type" : "mailing-list",
+          "url" : "https://mail-archives.apache.org/mod_mbox/www-announce/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-cron-parent"
+        }
+      ],
       "type" : "library",
       "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-cron-parent@3.6.0-SNAPSHOT?type=pom"
     },
@@ -24979,10 +25236,42 @@
       "bom-ref" : "pkg:maven/org.apache.camel.quarkus/camel-quarkus-cron-deployment@3.6.0?type=jar"
     },
     {
+      "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-knative-parent",
       "version" : "3.6.0-SNAPSHOT",
+      "description" : "Version properties used for building and testing Apache Camel",
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0",
+            "url" : "https://www.apache.org/licenses/LICENSE-2.0"
+          }
+        }
+      ],
       "purl" : "pkg:maven/org.apache.camel.k/camel-k-knative-parent@3.6.0-SNAPSHOT?type=pom",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-knative-parent"
+        },
+        {
+          "type" : "distribution",
+          "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://github.com/apache/camel-k-runtime/issues"
+        },
+        {
+          "type" : "mailing-list",
+          "url" : "https://mail-archives.apache.org/mod_mbox/www-announce/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-knative-parent"
+        }
+      ],
       "type" : "library",
       "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-knative-parent@3.6.0-SNAPSHOT?type=pom"
     },
@@ -25311,10 +25600,42 @@
       "bom-ref" : "pkg:maven/org.apache.camel/camel-knative-http@4.2.0?type=jar"
     },
     {
+      "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-master-parent",
       "version" : "3.6.0-SNAPSHOT",
+      "description" : "Version properties used for building and testing Apache Camel",
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0",
+            "url" : "https://www.apache.org/licenses/LICENSE-2.0"
+          }
+        }
+      ],
       "purl" : "pkg:maven/org.apache.camel.k/camel-k-master-parent@3.6.0-SNAPSHOT?type=pom",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-master-parent"
+        },
+        {
+          "type" : "distribution",
+          "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://github.com/apache/camel-k-runtime/issues"
+        },
+        {
+          "type" : "mailing-list",
+          "url" : "https://mail-archives.apache.org/mod_mbox/www-announce/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-master-parent"
+        }
+      ],
       "type" : "library",
       "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-master-parent@3.6.0-SNAPSHOT?type=pom"
     },
@@ -26186,10 +26507,42 @@
       "bom-ref" : "pkg:maven/io.quarkus/quarkus-jsonp-deployment@3.6.0?type=jar"
     },
     {
+      "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-resume-kafka-parent",
       "version" : "3.6.0-SNAPSHOT",
+      "description" : "Version properties used for building and testing Apache Camel",
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0",
+            "url" : "https://www.apache.org/licenses/LICENSE-2.0"
+          }
+        }
+      ],
       "purl" : "pkg:maven/org.apache.camel.k/camel-k-resume-kafka-parent@3.6.0-SNAPSHOT?type=pom",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-resume-kafka-parent"
+        },
+        {
+          "type" : "distribution",
+          "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://github.com/apache/camel-k-runtime/issues"
+        },
+        {
+          "type" : "mailing-list",
+          "url" : "https://mail-archives.apache.org/mod_mbox/www-announce/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-resume-kafka-parent"
+        }
+      ],
       "type" : "library",
       "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-resume-kafka-parent@3.6.0-SNAPSHOT?type=pom"
     },
@@ -26694,10 +27047,42 @@
       "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-resume-kafka-deployment@3.6.0-SNAPSHOT?type=jar"
     },
     {
+      "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-itests",
       "version" : "3.6.0-SNAPSHOT",
+      "description" : "Version properties used for building and testing Apache Camel",
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0",
+            "url" : "https://www.apache.org/licenses/LICENSE-2.0"
+          }
+        }
+      ],
       "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests@3.6.0-SNAPSHOT?type=pom",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-itests"
+        },
+        {
+          "type" : "distribution",
+          "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://github.com/apache/camel-k-runtime/issues"
+        },
+        {
+          "type" : "mailing-list",
+          "url" : "https://mail-archives.apache.org/mod_mbox/www-announce/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-itests"
+        }
+      ],
       "type" : "library",
       "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests@3.6.0-SNAPSHOT?type=pom"
     },
@@ -32028,10 +32413,42 @@
       "bom-ref" : "pkg:maven/org.apache.camel/camel-kamelet@4.2.0?type=jar"
     },
     {
+      "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "apache-camel-k-runtime",
       "version" : "3.6.0-SNAPSHOT",
+      "description" : "Version properties used for building and testing Apache Camel",
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0",
+            "url" : "https://www.apache.org/licenses/LICENSE-2.0"
+          }
+        }
+      ],
       "purl" : "pkg:maven/org.apache.camel.k/apache-camel-k-runtime@3.6.0-SNAPSHOT?type=pom",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://camel.apache.org/camel-k-runtime-project/apache-camel-k-runtime"
+        },
+        {
+          "type" : "distribution",
+          "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://github.com/apache/camel-k-runtime/issues"
+        },
+        {
+          "type" : "mailing-list",
+          "url" : "https://mail-archives.apache.org/mod_mbox/www-announce/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/apache-camel-k-runtime"
+        }
+      ],
       "type" : "library",
       "bom-ref" : "pkg:maven/org.apache.camel.k/apache-camel-k-runtime@3.6.0-SNAPSHOT?type=pom"
     }
