@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump org.cyclonedx:cyclonedx-maven-plugin from 2.7.10 to 2.7.11 [\#1152](https://github.com/apache/camel-k-runtime/pull/1152) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugin-tools:maven-plugin-annotations from 3.10.2 to 3.11.0 [\#1150](https://github.com/apache/camel-k-runtime/pull/1150) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-failsafe-plugin from 3.2.3 to 3.2.5 [\#1149](https://github.com/apache/camel-k-runtime/pull/1149) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-surefire-plugin from 3.2.3 to 3.2.5 [\#1147](https://github.com/apache/camel-k-runtime/pull/1147) ([dependabot[bot]](https://github.com/apps/dependabot))
