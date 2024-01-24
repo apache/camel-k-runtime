@@ -1943,54 +1943,54 @@ SAX2 and Stax2 APIs</description>
       <purl>pkg:maven/org.apache.camel/camel-tooling-model@4.0.3?type=jar</purl>
       <externalReferences><reference type="website"><url>https://www.apache.org/camel/camel-parent/tooling/camel-tooling-model/</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://github.com/apache/maven-apache-parent/tree/apache-30/camel/camel-parent/tooling/camel-tooling-model</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-catalog@3.2.3?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-catalog@3.2.2?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.quarkus</group>
       <name>camel-quarkus-catalog</name>
-      <version>3.2.3</version>
+      <version>3.2.2</version>
       <description>Maven plugins configuration</description>
       <scope>required</scope>
       <hashes>
-        <hash alg="MD5">a04691642e91794c1d7893cf9e5be59b</hash>
-        <hash alg="SHA-1">5d6ead40885ddb107061155a22a2e32e52f5505f</hash>
-        <hash alg="SHA-256">29d282d5f27e26745f109bf5bc36a168253600448daefb2634ed017ddc83365d</hash>
-        <hash alg="SHA-512">43d5310f7f787f72ee04abb0eaf1e6b64bcf023ffd45c188e5a1da5b1dc58f8e0423e500c9cecc91de8a19d8dc23efd5afae85157d1eacd6b9bc29214a1d7c61</hash>
-        <hash alg="SHA-384">a36cc7f34aba34f31dfb648f28ef0cd08960788a6ca32b71ac78a74005df98d1303dc47be42e64a05b35d7d3d65241a8</hash>
-        <hash alg="SHA3-384">84e69e4b8de9843757d4dfb434a44423acfe74f914fa624bec1e27bdfd9f4c7711af757550308e87a724dc1823cb6a18</hash>
-        <hash alg="SHA3-256">47bead2c02925690c15a46fad6067a131e61dd4cab2a869f416e09a0a9bb60bb</hash>
-        <hash alg="SHA3-512">ef40281dd18f1b342c6912639139678a261bcce3eb4f8fb817aa29b12c93b66d1cb83bfa647c0637b7bd87d1a302bbe4b16678110b3a2fc01f31647436ef30ce</hash>
+        <hash alg="MD5">8d813faf729fbff1481d0e0cae164213</hash>
+        <hash alg="SHA-1">c98b4f94118e4ac37ea9a4c649f371da1c8aa0d9</hash>
+        <hash alg="SHA-256">7bbae9fc46342a7da459c1c8a0949c609cbd37d83b3c8e3cad0c8634ee5fb6c1</hash>
+        <hash alg="SHA-512">991b52369f91d52517c1af77c7ba6f45d6e8578bcb7f2fe9886e64b09cdd39f8e5a1adcbd6177bf5193cee5b23faec5d4f4a472fe8d9661a154339550c687bec</hash>
+        <hash alg="SHA-384">8639cc0c9ad2e0adb74229530ace76018146878ab24ac5cb7814b08a45b27c850e686ce048148b36ec3a869742d3a5d3</hash>
+        <hash alg="SHA3-384">9653dc1c71e167ae0c51b30c55fbda27dc7a150f052d72ee38b5b14ce57163f94bd65fb22ef4ba92f55aec6f9161acaa</hash>
+        <hash alg="SHA3-256">c9bc9c6cbc05a495367d77cc74338f4d51de3b47fe6c941e5a407d627fc2d36e</hash>
+        <hash alg="SHA3-512">2c76d53e6578d6c2a206482150bbc99b8e74286f1affe2a813aaeb95b47223f795d39b185336a4a2127b197e584c544a8d08a402d2504c5ed05145bbf2201982</hash>
       </hashes>
       <licenses>
         <license>
           <id>Apache-2.0</id>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.quarkus/camel-quarkus-catalog@3.2.3?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.quarkus/camel-quarkus-catalog@3.2.2?type=jar</purl>
       <externalReferences><reference type="website"><url>http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-catalog</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-quarkus/issues</url></reference><reference type="mailing-list"><url>dev-subscribe@camel.apache.org</url></reference><reference type="vcs"><url>https://github.com/apache/camel-quarkus/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-catalog</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@3.2.3?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@3.2.2?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.quarkus</group>
       <name>camel-quarkus-core</name>
-      <version>3.2.3</version>
+      <version>3.2.2</version>
       <description>Camel core functionality and basic Camel languages: Constant, ExchangeProperty, Header, Ref, Simple and Tokenize</description>
       <scope>required</scope>
       <hashes>
-        <hash alg="MD5">b9a094b68eb6699523790d8f639306ed</hash>
-        <hash alg="SHA-1">e41213e17ea71d97a2abb386aa48230e7a919b4d</hash>
-        <hash alg="SHA-256">46dfebe41f88961464b5c3cfcd28268dc10380707a0eb282855ab496b309794f</hash>
-        <hash alg="SHA-512">2404151220d3cc3eed3ebfa815d822958f657da685b5196ec18eb06394d2627aa791f0e71fa128429e08e712ca86d1df1f860930884cf581f3a83784ea18f968</hash>
-        <hash alg="SHA-384">52619fdc0f0d0474e09920d1114228c28a9db421d7397401cd30ed7e103336fdc767750ea707df86c8c51c007019b15c</hash>
-        <hash alg="SHA3-384">3e160b85017918bb6a955925a59173c272751f575f4d74a829c3031c25dcd1e40d2b57c5c95b4c087737f43c8cebc9c7</hash>
-        <hash alg="SHA3-256">ab93ee6bb809eabc8b1f5fa450dfe1eba794755f81b42b301aa363998d1dd85c</hash>
-        <hash alg="SHA3-512">5aa432ce95de9813a2a325153b41fb6d754216713ab60e04e1198ec4615a93df1cf6d8210c33d3121a5d9167ea31650854df607433a77e18bc67a0f7eb5e5eb4</hash>
+        <hash alg="MD5">d0ddc72204fbaea261f6c12f958475b6</hash>
+        <hash alg="SHA-1">066e9d7486a9d3221fa292653c13663ff6756890</hash>
+        <hash alg="SHA-256">317c6b2d9881e0e625caf61e03e60e4a7640b919ef3ac132f308d118456b2285</hash>
+        <hash alg="SHA-512">26e2fd6efc7cf4f010e8e9586c2e78ecefffc74eaf6c15561477f5fadb9f911fcf35ca0d86f242953e25b3b7090340358909f27c20fa6beca4a24d58beb39b90</hash>
+        <hash alg="SHA-384">8548a57b3ed894f37baf8886d9c68692d48355994ee9c352cd1c3660de1a79b6aaac19d1ce9ef71f9b16d246de41924f</hash>
+        <hash alg="SHA3-384">5c73bbad894ec931571985b923a56ceb5682c17a07f69335787ab1588b3e3a4c894318963d0ca703d838cfe2c8693775</hash>
+        <hash alg="SHA3-256">f68a91eed6f1cee61f93d0accc73c88f80f1b3de581b955a76c66a010336a53a</hash>
+        <hash alg="SHA3-512">291fd3fc1f11fd37c0c86553d9dc184fa7e89a462b24494c996d5de51575d5ef77d94e3a1db04ab58bb85b5428656ec03b9f4a6bae0bf7919bd04dab684121b2</hash>
       </hashes>
       <licenses>
         <license>
           <id>Apache-2.0</id>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@3.2.3?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@3.2.2?type=jar</purl>
       <externalReferences><reference type="website"><url>http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions-core/camel-quarkus-core-parent/camel-quarkus-core</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-quarkus/issues</url></reference><reference type="mailing-list"><url>dev-subscribe@camel.apache.org</url></reference><reference type="vcs"><url>https://github.com/apache/camel-quarkus/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions-core/camel-quarkus-core-parent/camel-quarkus-core</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/io.quarkus/quarkus-core@3.2.9.Final?type=jar">
@@ -5679,31 +5679,6 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
       </licenses>
       <purl>pkg:maven/io.smallrye.config/smallrye-config-source-yaml@3.3.2?type=jar</purl>
       <externalReferences><reference type="website"><url>https://smallrye.io</url></reference><reference type="distribution"><url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url></reference><reference type="issue-tracker"><url>https://github.com/smallrye/smallrye-config/issues</url></reference><reference type="vcs"><url>https://github.com/smallrye/smallrye-config/</url></reference></externalReferences>
-    </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@3.2.2?type=jar">
-      <publisher>The Apache Software Foundation</publisher>
-      <group>org.apache.camel.quarkus</group>
-      <name>camel-quarkus-core</name>
-      <version>3.2.2</version>
-      <description>Camel core functionality and basic Camel languages: Constant, ExchangeProperty, Header, Ref, Simple and Tokenize</description>
-      <scope>required</scope>
-      <hashes>
-        <hash alg="MD5">d0ddc72204fbaea261f6c12f958475b6</hash>
-        <hash alg="SHA-1">066e9d7486a9d3221fa292653c13663ff6756890</hash>
-        <hash alg="SHA-256">317c6b2d9881e0e625caf61e03e60e4a7640b919ef3ac132f308d118456b2285</hash>
-        <hash alg="SHA-512">26e2fd6efc7cf4f010e8e9586c2e78ecefffc74eaf6c15561477f5fadb9f911fcf35ca0d86f242953e25b3b7090340358909f27c20fa6beca4a24d58beb39b90</hash>
-        <hash alg="SHA-384">8548a57b3ed894f37baf8886d9c68692d48355994ee9c352cd1c3660de1a79b6aaac19d1ce9ef71f9b16d246de41924f</hash>
-        <hash alg="SHA3-384">5c73bbad894ec931571985b923a56ceb5682c17a07f69335787ab1588b3e3a4c894318963d0ca703d838cfe2c8693775</hash>
-        <hash alg="SHA3-256">f68a91eed6f1cee61f93d0accc73c88f80f1b3de581b955a76c66a010336a53a</hash>
-        <hash alg="SHA3-512">291fd3fc1f11fd37c0c86553d9dc184fa7e89a462b24494c996d5de51575d5ef77d94e3a1db04ab58bb85b5428656ec03b9f4a6bae0bf7919bd04dab684121b2</hash>
-      </hashes>
-      <licenses>
-        <license>
-          <id>Apache-2.0</id>
-        </license>
-      </licenses>
-      <purl>pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@3.2.2?type=jar</purl>
-      <externalReferences><reference type="website"><url>http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions-core/camel-quarkus-core-parent/camel-quarkus-core</url></reference><reference type="distribution"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-quarkus/issues</url></reference><reference type="mailing-list"><url>dev-subscribe@camel.apache.org</url></reference><reference type="vcs"><url>https://github.com/apache/camel-quarkus/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions-core/camel-quarkus-core-parent/camel-quarkus-core</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-core-cloud@3.2.2?type=jar">
       <publisher>The Apache Software Foundation</publisher>
@@ -12878,8 +12853,8 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/org.apache.camel.k/camel-k-catalog-model@3.2.3-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-openapi-rest-dsl-generator@4.0.3?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-core-catalog@4.0.3?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-catalog@3.2.3?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@3.2.3?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-catalog@3.2.2?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@3.2.2?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-catalog@4.0.3?type=jar"/>
       <dependency ref="pkg:maven/org.yaml/snakeyaml@2.0?type=jar"/>
       <dependency ref="pkg:maven/commons-io/commons-io@2.13.0?type=jar"/>
@@ -13082,7 +13057,7 @@ that achieves high performance when combined with Graal.</description>
     <dependency ref="pkg:maven/org.apache.camel/camel-tooling-model@4.0.3?type=jar">
       <dependency ref="pkg:maven/org.apache.camel/camel-util-json@4.0.3?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-catalog@3.2.3?type=jar">
+    <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-catalog@3.2.2?type=jar">
       <dependency ref="pkg:maven/org.apache.camel/camel-catalog@4.0.3?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/org.apache.camel/camel-catalog@4.0.3?type=jar">
@@ -13090,7 +13065,7 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/org.apache.camel/camel-util-json@4.0.3?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-tooling-model@4.0.3?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@3.2.3?type=jar">
+    <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@3.2.2?type=jar">
       <dependency ref="pkg:maven/io.quarkus/quarkus-core@3.2.9.Final?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-arc@3.2.9.Final?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-development-mode-spi@3.2.9.Final?type=jar"/>
@@ -13745,21 +13720,6 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/io.smallrye.config/smallrye-config-common@3.3.2?type=jar"/>
       <dependency ref="pkg:maven/io.smallrye.config/smallrye-config@3.3.2?type=jar"/>
       <dependency ref="pkg:maven/io.smallrye.common/smallrye-common-constraint@2.1.0?type=jar"/>
-    </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@3.2.2?type=jar">
-      <dependency ref="pkg:maven/io.quarkus/quarkus-core@3.2.9.Final?type=jar"/>
-      <dependency ref="pkg:maven/io.quarkus/quarkus-arc@3.2.9.Final?type=jar"/>
-      <dependency ref="pkg:maven/io.quarkus/quarkus-development-mode-spi@3.2.9.Final?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel/camel-base@4.0.3?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel/camel-componentdsl@4.0.3?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel/camel-core-catalog@4.0.3?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel/camel-core-engine@4.0.3?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel/camel-core-languages@4.0.3?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel/camel-core-processor@4.0.3?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel/camel-endpointdsl@4.0.3?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel/camel-main@4.0.3?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel/camel-microprofile-config@4.0.3?type=jar"/>
-      <dependency ref="pkg:maven/jakarta.xml.bind/jakarta.xml.bind-api@4.0.0?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-core-cloud@3.2.2?type=jar">
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@3.2.2?type=jar"/>
