@@ -3379,28 +3379,28 @@ file comparators, endian transformation classes, and much more.</description>
       <purl>pkg:maven/org.junit.platform/junit-platform-engine@1.10.0?type=jar</purl>
       <externalReferences><reference type="website"><url>https://junit.org/junit5/</url></reference><reference type="vcs"><url>https://github.com/junit-team/junit5</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.assertj/assertj-core@3.25.1?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.assertj/assertj-core@3.25.2?type=jar">
       <group>org.assertj</group>
       <name>assertj-core</name>
-      <version>3.25.1</version>
+      <version>3.25.2</version>
       <description>Rich and fluent assertions for testing in Java</description>
       <scope>required</scope>
       <hashes>
-        <hash alg="MD5">10f048a3a77a5b968a8a3e5c7dc64fa1</hash>
-        <hash alg="SHA-1">a3a6e79792f041b61507be9f2a211a81297d7b0f</hash>
-        <hash alg="SHA-256">620da4e4de03108c2f412ec17a7ed44b0112dc65e181bd0732dc96fa3b65356f</hash>
-        <hash alg="SHA-512">3fa98db654447efb401e60b7f26d1a850c563fc612f29336eb8c82cc13e078ec64e7db6c2440d63faf360debd950eb48e8e3dd5e21aa44140d5125606f9f7d2d</hash>
-        <hash alg="SHA-384">03f360606743192d0933adc843456580ace3f13d9600febedc1e9ad54db4b348384d68331a6d1cb898f2a1ab5302b8a3</hash>
-        <hash alg="SHA3-384">7323da14d04da3474f21c32bb92cd6dab140b14460a3dd21e0f9f2e7d9e5589060cc1fe2e33e8d1014cc22753d0645f5</hash>
-        <hash alg="SHA3-256">aaf1914d03d4031ef954439fb5323956d52939b616506b693c99a7b16724ad41</hash>
-        <hash alg="SHA3-512">53de0a81c839d9fc5731c4a4000af3658ac1750f54c96fa027bbfcb987639f70751510b9ae21d52dedf220d00f4290e4f5edac4f49a99609bf2c96f36c0d4fc6</hash>
+        <hash alg="MD5">6395cdde717d008754b9431504e818a8</hash>
+        <hash alg="SHA-1">d94d370022414210c183200e24bfb814024bdecd</hash>
+        <hash alg="SHA-256">d33a5726430285b7fd6629405ad54eea4994054dbfb71296d4aef82d25455f4b</hash>
+        <hash alg="SHA-512">88a1471f23e05073c56d4549e8805549cff4cb2c4e4ac65c3abdbef062a6411c282ce1fe95c5bef86983da3abac8d226351abcfc03fe41784b1f17c6a50d6f21</hash>
+        <hash alg="SHA-384">1c6953de43f84852b51572c9050492bef42e6b5c2bef0197575578d0f637432fc0cd71d1fb3adfae95cb0b24feeb46e1</hash>
+        <hash alg="SHA3-384">77fa005556209ca9f37354315175b20fbf2f4c9c4445b35ba89399149c514eed5cee0ff249d6a8d2be7073902c590084</hash>
+        <hash alg="SHA3-256">6fb6795a42cc6f2f91edafb179de3f65c256ae15a8f8961529d7b6de017951e8</hash>
+        <hash alg="SHA3-512">3b931363ad742bd32cb22865f27471a9f0d08cfbaa012cda439b818f52267de7c45c835a6e7acce45666de2f4ba14bd5d1b5590b0462cc2b191c3f472230803a</hash>
       </hashes>
       <licenses>
         <license>
           <id>Apache-2.0</id>
         </license>
       </licenses>
-      <purl>pkg:maven/org.assertj/assertj-core@3.25.1?type=jar</purl>
+      <purl>pkg:maven/org.assertj/assertj-core@3.25.2?type=jar</purl>
       <externalReferences><reference type="website"><url>https://assertj.github.io/doc/#assertj-core</url></reference><reference type="vcs"><url>https://github.com/assertj/assertj/assertj-parent/assertj-core</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/net.bytebuddy/byte-buddy@1.14.7?type=jar">
@@ -12333,7 +12333,7 @@ that achieves high performance when combined with Graal.</description>
     <dependency ref="pkg:maven/io.smallrye/jandex@3.1.5?type=jar"/>
     <dependency ref="pkg:maven/org.apache.camel.k/camel-k-test@3.6.0-SNAPSHOT?type=jar">
       <dependency ref="pkg:maven/org.junit.jupiter/junit-jupiter@5.10.0?type=jar"/>
-      <dependency ref="pkg:maven/org.assertj/assertj-core@3.25.1?type=jar"/>
+      <dependency ref="pkg:maven/org.assertj/assertj-core@3.25.2?type=jar"/>
       <dependency ref="pkg:maven/org.hamcrest/hamcrest-core@2.2?type=jar"/>
       <dependency ref="pkg:maven/io.rest-assured/rest-assured@5.3.2?type=jar"/>
       <dependency ref="pkg:maven/org.apache.groovy/groovy@4.0.18?type=jar"/>
@@ -12371,7 +12371,7 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/org.junit.platform/junit-platform-commons@1.10.0?type=jar"/>
       <dependency ref="pkg:maven/org.apiguardian/apiguardian-api@1.1.2?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.assertj/assertj-core@3.25.1?type=jar">
+    <dependency ref="pkg:maven/org.assertj/assertj-core@3.25.2?type=jar">
       <dependency ref="pkg:maven/net.bytebuddy/byte-buddy@1.14.7?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/net.bytebuddy/byte-buddy@1.14.7?type=jar"/>
