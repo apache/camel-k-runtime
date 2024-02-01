@@ -17,6 +17,7 @@
 package org.apache.camel.k.catalog.model;
 
 import java.util.Collections;
+import java.util.Optional;
 import java.util.SortedSet;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -26,7 +27,7 @@ import org.immutables.value.Value;
 @Value.Immutable
 @Value.Style(depluralize = true)
 @JsonDeserialize(builder = CamelCapability.Builder.class)
-@JsonPropertyOrder({"groupId", "artifactId", "version"})
+@JsonPropertyOrder({"groupId", "artifactId", "classifier","version"})
 public interface CamelCapability {
     @Value.Auxiliary
     @Value.Default
@@ -42,6 +43,14 @@ public interface CamelCapability {
     class Builder extends ImmutableCamelCapability.Builder {
         public Builder addDependency(String groupId, String artifactId) {
             return super.addDependencies(Artifact.from(groupId, artifactId));
+        }
+
+        public Builder addDependency(String groupId, String artifactId, Optional<String> classifier) {
+            if (classifier.isEmpty()) {
+                return super.addDependencies(Artifact.from(groupId, artifactId));
+            } else {
+                return super.addDependencies(Artifact.from(groupId, artifactId, classifier.get()));
+            }
         }
     }
 }
