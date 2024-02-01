@@ -22,6 +22,10 @@ inputs:
     type: string
   secretGithubToken:
     required: true
+  secretNexusUser:
+    required: true
+  secretNexusPw:
+    required: true
 
 runs:
   using: "composite"
@@ -82,3 +86,14 @@ runs:
         git config --local user.email "$CI_EMAIL"
         git config --local user.name "$CI_USER"
         git push "https://$CI_USER:$CI_TOKEN@github.com/$GITHUB_REPOSITORY.git" HEAD:${{ inputs.branch-ref }}
+
+    - name: Deploy to ASF Snapshots Repository
+      shell: bash
+      env:
+        NEXUS_DEPLOY_USERNAME: ${{ inputs.secretNexusUser }}
+        NEXUS_DEPLOY_PASSWORD: ${{ inputs.secretNexusPw }}
+        MAVEN_OPTS: -Xmx3000m
+        MAVEN_ARGS: -V -ntp -Dhttp.keepAlive=false -e
+      # Deploy both artifacts and sources (may be required by Camel K)
+      run: |
+        ./mvnw ${MAVEN_ARGS} clean deploy -DskipTests -DskipITs --settings .github/asf-deploy-settings.xml

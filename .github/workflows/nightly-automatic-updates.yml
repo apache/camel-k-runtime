@@ -39,6 +39,8 @@ jobs:
       with:
         branch-ref: "main"
         secretGithubToken: ${{ secrets.GITHUB_TOKEN }}
+        secretNexusUser: ${{ secrets.NEXUS_USER }}
+        secretNexusPw: ${{ secrets.NEXUS_PW }}
 
   release-3_2_x:
     if: github.repository == 'apache/camel-k-runtime'
@@ -56,6 +58,8 @@ jobs:
       with:
         branch-ref: "release-3.2.x"
         secretGithubToken: ${{ secrets.GITHUB_TOKEN }}
+        secretNexusUser: ${{ secrets.NEXUS_USER }}
+        secretNexusPw: ${{ secrets.NEXUS_PW }}
 
   release-3_6_x:
     if: github.repository == 'apache/camel-k-runtime'
@@ -73,3 +77,5 @@ jobs:
       with:
         branch-ref: "release-3.6.x"
         secretGithubToken: ${{ secrets.GITHUB_TOKEN }}
+        secretNexusUser: ${{ secrets.NEXUS_USER }}
+        secretNexusPw: ${{ secrets.NEXUS_PW }}
