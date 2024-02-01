@@ -6,6 +6,8 @@
 
 **Merged pull requests:**
 
+- Removed CulpritsRecipientProvider and use DevelopersRecipientProvider… [\#1163](https://github.com/apache/camel-k-runtime/pull/1163) ([oscerd](https://github.com/oscerd))
+- Fix: add classifier field to the maven artifact abstraction [\#1161](https://github.com/apache/camel-k-runtime/pull/1161) ([claudio4j](https://github.com/claudio4j))
 - build\(deps\): bump org.assertj:assertj-core from 3.25.1 to 3.25.2 [\#1158](https://github.com/apache/camel-k-runtime/pull/1158) ([dependabot[bot]](https://github.com/apps/dependabot))
 - The camel-quarkus dependencies must come exclusively from quarkus-camel-bom [\#1156](https://github.com/apache/camel-k-runtime/pull/1156) ([claudio4j](https://github.com/claudio4j))
 - build\(deps\): bump groovy-version from 4.0.17 to 4.0.18 [\#1154](https://github.com/apache/camel-k-runtime/pull/1154) ([dependabot[bot]](https://github.com/apps/dependabot))
