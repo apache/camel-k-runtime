@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- feat\(ci\): Add nightly deploy for main and recent release branches [\#1164](https://github.com/apache/camel-k-runtime/pull/1164) ([gansheer](https://github.com/gansheer))
 - Removed CulpritsRecipientProvider and use DevelopersRecipientProvider… [\#1163](https://github.com/apache/camel-k-runtime/pull/1163) ([oscerd](https://github.com/oscerd))
 - Fix: add classifier field to the maven artifact abstraction [\#1161](https://github.com/apache/camel-k-runtime/pull/1161) ([claudio4j](https://github.com/claudio4j))
 - build\(deps\): bump org.assertj:assertj-core from 3.25.1 to 3.25.2 [\#1158](https://github.com/apache/camel-k-runtime/pull/1158) ([dependabot[bot]](https://github.com/apps/dependabot))
