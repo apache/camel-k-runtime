@@ -9521,41 +9521,41 @@
     {
       "group" : "org.assertj",
       "name" : "assertj-core",
-      "version" : "3.25.2",
+      "version" : "3.25.3",
       "description" : "Rich and fluent assertions for testing in Java",
       "scope" : "required",
       "hashes" : [
         {
           "alg" : "MD5",
-          "content" : "6395cdde717d008754b9431504e818a8"
+          "content" : "88258246abdcbf7298b7c3401273e15b"
         },
         {
           "alg" : "SHA-1",
-          "content" : "d94d370022414210c183200e24bfb814024bdecd"
+          "content" : "792b270e73aa1cfc28fa135be0b95e69ea451432"
         },
         {
           "alg" : "SHA-256",
-          "content" : "d33a5726430285b7fd6629405ad54eea4994054dbfb71296d4aef82d25455f4b"
+          "content" : "7fbdffa1996d43cc08e2576e01008b07e57bbad2b4741aa6c3ab73ce8511130e"
         },
         {
           "alg" : "SHA-512",
-          "content" : "88a1471f23e05073c56d4549e8805549cff4cb2c4e4ac65c3abdbef062a6411c282ce1fe95c5bef86983da3abac8d226351abcfc03fe41784b1f17c6a50d6f21"
+          "content" : "cff2c0698b85febc49ab84a692db9bcb8e16c02f53ced530b3174c544d3fa24478a33050cf5f900a41ddc9c3cb66fbc20a5967be8d779c4861134017369d1b9e"
         },
         {
           "alg" : "SHA-384",
-          "content" : "1c6953de43f84852b51572c9050492bef42e6b5c2bef0197575578d0f637432fc0cd71d1fb3adfae95cb0b24feeb46e1"
+          "content" : "871ea788f105e20105e884b69da65abb1bcc236cde63327a0a56162c547b70e3e71d6bc56d5cd07a54d67587e5e54184"
         },
         {
           "alg" : "SHA3-384",
-          "content" : "77fa005556209ca9f37354315175b20fbf2f4c9c4445b35ba89399149c514eed5cee0ff249d6a8d2be7073902c590084"
+          "content" : "2ccafa0f76ad055b870a840d9ef18ed1c1669cb77d0eba0de926db98d574e48f921a39fe45469938b22943dd3c29fded"
         },
         {
           "alg" : "SHA3-256",
-          "content" : "6fb6795a42cc6f2f91edafb179de3f65c256ae15a8f8961529d7b6de017951e8"
+          "content" : "c3419982703bde0c4f7b2a43105604463586b4db087326f95f09bf1925855878"
         },
         {
           "alg" : "SHA3-512",
-          "content" : "3b931363ad742bd32cb22865f27471a9f0d08cfbaa012cda439b818f52267de7c45c835a6e7acce45666de2f4ba14bd5d1b5590b0462cc2b191c3f472230803a"
+          "content" : "8b9611210baa82668495d2eb0fde56cb3376b848b29324e344f9d1d6de6c00bca19f21e0c619b45d5a161ffa26212087be6afa6a76bb9100ce630f505e6c7179"
         }
       ],
       "licenses" : [
@@ -9565,7 +9565,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.assertj/assertj-core@3.25.2?type=jar",
+      "purl" : "pkg:maven/org.assertj/assertj-core@3.25.3?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -9577,7 +9577,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.assertj/assertj-core@3.25.2?type=jar"
+      "bom-ref" : "pkg:maven/org.assertj/assertj-core@3.25.3?type=jar"
     },
     {
       "group" : "net.bytebuddy",
@@ -33335,7 +33335,7 @@
       "ref" : "pkg:maven/org.apache.camel.k/camel-k-test@3.6.0-SNAPSHOT?type=jar",
       "dependsOn" : [
         "pkg:maven/org.junit.jupiter/junit-jupiter@5.10.0?type=jar",
-        "pkg:maven/org.assertj/assertj-core@3.25.2?type=jar",
+        "pkg:maven/org.assertj/assertj-core@3.25.3?type=jar",
         "pkg:maven/org.hamcrest/hamcrest-core@2.2?type=jar",
         "pkg:maven/io.rest-assured/rest-assured@5.3.2?type=jar",
         "pkg:maven/org.apache.groovy/groovy@4.0.18?type=jar",
@@ -33399,7 +33399,7 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.assertj/assertj-core@3.25.2?type=jar",
+      "ref" : "pkg:maven/org.assertj/assertj-core@3.25.3?type=jar",
       "dependsOn" : [
         "pkg:maven/net.bytebuddy/byte-buddy@1.14.7?type=jar"
       ]
