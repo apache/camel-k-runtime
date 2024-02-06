@@ -6,6 +6,9 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump org.assertj:assertj-core from 3.25.2 to 3.25.3 [\#1167](https://github.com/apache/camel-k-runtime/pull/1167) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Revert camel-quarkus-version removal from PR \#1156 [\#1166](https://github.com/apache/camel-k-runtime/pull/1166) ([gansheer](https://github.com/gansheer))
+- build\(deps\): bump actions/setup-java from 3 to 4 in automatic-updates [\#1165](https://github.com/apache/camel-k-runtime/pull/1165) ([claudio4j](https://github.com/claudio4j))
 - feat\(ci\): Add nightly deploy for main and recent release branches [\#1164](https://github.com/apache/camel-k-runtime/pull/1164) ([gansheer](https://github.com/gansheer))
 - Removed CulpritsRecipientProvider and use DevelopersRecipientProvider… [\#1163](https://github.com/apache/camel-k-runtime/pull/1163) ([oscerd](https://github.com/oscerd))
 - Fix: add classifier field to the maven artifact abstraction [\#1161](https://github.com/apache/camel-k-runtime/pull/1161) ([claudio4j](https://github.com/claudio4j))
