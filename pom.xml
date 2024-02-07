@@ -43,6 +43,7 @@
         <camel-version>4.0.3</camel-version>
 
         <!-- quarkus -->
+        <camel-quarkus-version>3.2.3</camel-quarkus-version>
         <quarkus-version>3.2.9.Final</quarkus-version>
         <quarkus-platform-group>io.quarkus.platform</quarkus-platform-group>
         <quarkus-platform-version>3.2.9.Final</quarkus-platform-version>
