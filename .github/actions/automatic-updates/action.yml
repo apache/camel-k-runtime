@@ -46,14 +46,14 @@ runs:
       shell: bash
       env:
         CI_USER: "github-actions[bot]"
-        CI_EMAIL: "41898282+github-actions[bot]@users.noreply.github.com"      
+        CI_EMAIL: "41898282+github-actions[bot]@users.noreply.github.com"
       run: |
         git config --local user.email "$CI_EMAIL"
-        git config --local user.name "$CI_USER"     
+        git config --local user.name "$CI_USER"
         git add CHANGELOG.md && git commit -m 'chore: update changelog' && echo "changelog=1" >> $GITHUB_ENV || echo "No changes to CHANGELOG.md"
 
     - name: Set up JDK
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
         java-version: 17
@@ -65,7 +65,7 @@ runs:
       shell: bash
       env:
         CI_USER: "github-actions[bot]"
-        CI_EMAIL: "41898282+github-actions[bot]@users.noreply.github.com"      
+        CI_EMAIL: "41898282+github-actions[bot]@users.noreply.github.com"
       run: |
         git config --local user.email "$CI_EMAIL"
         git config --local user.name "$CI_USER"
@@ -76,7 +76,7 @@ runs:
       if: env.sync == 1 || env.changelog == 1 || env.sbom == 1
       env:
         CI_USER: "github-actions[bot]"
-        CI_EMAIL: "41898282+github-actions[bot]@users.noreply.github.com"      
+        CI_EMAIL: "41898282+github-actions[bot]@users.noreply.github.com"
         CI_TOKEN: ${{ inputs.secretGithubToken }}
       run: |
         git config --local user.email "$CI_EMAIL"
