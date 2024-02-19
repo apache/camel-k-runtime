@@ -149,18 +149,9 @@ To define an endpoint with the YAML dsl you have three options:
           authorizationToken: "XXX"
 ----
 
-[WARNING]
-====
-Support for the Endpoint DSL with YAML is experimental and subject to changes.
-====
-[NOTE]
-====
-Support for Endpoint DSL auto completion https://github.com/apache/camel-k-runtime/issues/485[is not yet available].
-====
-
 == Defining beans
 
-In addition to the general support for creating beans provided by xref:{camel-docs-version}@components:others:main.adoc#_specifying_custom_beans[Camel Main], the YAML DSL provide a convenient syntax to define and configure them:
+In addition to the general support for creating beans provided by xref:{camel-docs-version}@components:others:main.adoc[Camel Main], the YAML DSL provide a convenient syntax to define and configure them:
 
 [source,yaml]
 ----
@@ -203,61 +194,3 @@ The properties of the bean can be defined using either a map or properties style
 The `beans` elements can only be used as root element
 ====
 
-== Supported EIP
-
-This is the list of EIPs supported in the yaml DSL language. For full details on expected configuration you can please refer to the https://github.com/apache/camel/blob/main/dsl/camel-yaml-dsl/camel-yaml-dsl/src/generated/resources/schema/camel-yaml-dsl.json[YAML language specification].
-
-- Aggregate
-- Bean
-- Choice
-- Circuit Breaker
-- Claim Check
-- Convert Body To
-- Delay
-- Dynamic Router
-- Enrich
-- Filter
-- From
-- Idempotent Consumer
-- Load Balance
-- Log
-- Loop
-- Marshal
-- Multicast
-- Pipeline
-- PollEnrich
-- Process
-- Recipient List
-- Remove Header
-- Remove Headers
-- Remove Property
-- Remove Properties
-- Resequence
-- Rest DSL
-- Rollback
-- Routing Slip
-- Saga
-- Sample
-- Script
-- ServiceCall
-- Set Body
-- Set Exchange Pattern
-- Set Header
-- Set Property
-- Sort
-- Split
-- Step
-- Stop
-- Threads
-- Throttle
-- Throw Exception
-- To
-- To Dynamic
-- Transacted
-- Transform
-- Try Catch Finally
-- Unmarshal
-- Validate
-- Wire Tap
-
-The Try Catch Finally EIP currently only support specifying one `do-catch` clause.
