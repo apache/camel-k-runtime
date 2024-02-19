@@ -51,7 +51,7 @@
 
         <!-- camel-k-runtime specific -->
         <groovy-version>4.0.18</groovy-version>
-        <immutables-version>2.10.0</immutables-version>
+        <immutables-version>2.10.1</immutables-version>
         <commons-collections4-version>4.4</commons-collections4-version>
         <assertj-version>3.25.3</assertj-version>
         <hamcrest-version>2.2</hamcrest-version>
