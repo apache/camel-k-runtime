@@ -1751,41 +1751,41 @@
       "publisher" : "The Immutables.org authors",
       "group" : "org.immutables",
       "name" : "value",
-      "version" : "2.10.0",
+      "version" : "2.10.1",
       "description" : "Compile time annotations and compile time annotation processor to generate consistent value object using either abstract class, interface or annotation as a base.",
       "scope" : "required",
       "hashes" : [
         {
           "alg" : "MD5",
-          "content" : "77f0b79a0ea9c79532567c98660729e6"
+          "content" : "49590d1e9eaa41c358e64d05875fe828"
         },
         {
           "alg" : "SHA-1",
-          "content" : "fb2108f866aabdf75af6efff90151800f40ea360"
+          "content" : "3d3a69771f4c33317da51a0ff4d12dd2fd06a7db"
         },
         {
           "alg" : "SHA-256",
-          "content" : "66f23d359bf055c998c13f8e9962a7c983f985ceb9e87cda38a1faff0405f24a"
+          "content" : "ee8d4eb211cb0625adac485b4f874ffff4f6e678008ea50263705212a574265c"
         },
         {
           "alg" : "SHA-512",
-          "content" : "b2c1b8e7820aa6a8af705a01bcfd688406020d2162d21cb9888803d68db8673543ded26979dbffb754e7390cdf01f6394441fab70e58209325a4e773f113ff76"
+          "content" : "8c0431987979e706089c497a60ec886b8e165e12d2da9ad691a195d4d7cad156bedb825c329f269e69a2ff611d76d9a26523a6773079d39f97e82ea004ab7f36"
         },
         {
           "alg" : "SHA-384",
-          "content" : "140ede5f4c7193f611b89ed4e48d890204b494e8eae1466767b4a8fad0b04cc1290733f4bd71c8361bca24af0efc23ca"
+          "content" : "9d010ff0935f659d1ea299ab5b8865032ab158cdfffa890bca254014e885db6a2d3b8c5203eb604471e2c191ea3d3408"
         },
         {
           "alg" : "SHA3-384",
-          "content" : "45b850386d4d999594a2adec439f6440e2d46bffb3ebdcbc62b4d3c471a1b3f95231430a5886c6145c1c4b05adf29613"
+          "content" : "65db4b115ef0854109256cf6e9215aca4912935dbdc39bcb701432c585a02d764631bb3e5d5a6002fcfbf61c227e67b7"
         },
         {
           "alg" : "SHA3-256",
-          "content" : "7bcd011cd0d5ffe434495aac14c1fd302f75fcd4b728dafbbf3ee2e5c3ea7e1f"
+          "content" : "54fdf7358b65000049971704d9c6a6f54618f3e817c2fc76bb05bf4f6e30226c"
         },
         {
           "alg" : "SHA3-512",
-          "content" : "aec671e34a90551d726f7d89ef9e43ddf442896cb1ec6e1a1e757db9f405068ddc461f5cd204d7ebf11534058dedaccd445eea8bc48ec40027412930c2fe10c2"
+          "content" : "da951840b8f076a16ecc66d228d9905b87396feaa9ac05ef764392376f60b35b41c9c5b37227ce1bf935d508b3e5d2d2bdea82be94a933a8d4121cd3069a6d80"
         }
       ],
       "licenses" : [
@@ -1795,7 +1795,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.immutables/value@2.10.0?type=jar",
+      "purl" : "pkg:maven/org.immutables/value@2.10.1?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -1811,7 +1811,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.immutables/value@2.10.0?type=jar"
+      "bom-ref" : "pkg:maven/org.immutables/value@2.10.1?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
@@ -32609,7 +32609,7 @@
         "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.15.3?type=jar",
         "pkg:maven/com.fasterxml.jackson.datatype/jackson-datatype-jdk8@2.15.3?type=jar",
         "pkg:maven/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml@2.15.3?type=jar",
-        "pkg:maven/org.immutables/value@2.10.0?type=jar",
+        "pkg:maven/org.immutables/value@2.10.1?type=jar",
         "pkg:maven/org.apache.camel/camel-support@4.2.0?type=jar"
       ]
     },
@@ -32648,7 +32648,7 @@
       "dependsOn" : [ ]
     },
     {
-      "ref" : "pkg:maven/org.immutables/value@2.10.0?type=jar",
+      "ref" : "pkg:maven/org.immutables/value@2.10.1?type=jar",
       "dependsOn" : [ ]
     },
     {
