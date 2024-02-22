@@ -66,7 +66,7 @@
         <maven-failsafe-plugin-version>3.2.5</maven-failsafe-plugin-version>
         <versions-maven-plugin-version>2.16.2</versions-maven-plugin-version>
         <directory-maven-plugin-version>1.0</directory-maven-plugin-version>
-        <exec-maven-plugin-version>3.1.1</exec-maven-plugin-version>
+        <exec-maven-plugin-version>3.2.0</exec-maven-plugin-version>
         <mycila-license-version>4.3</mycila-license-version>
         <maven-checkstyle-plugin-version>3.3.1</maven-checkstyle-plugin-version>
         <maven-checkstyle-version>8.44</maven-checkstyle-version>
