@@ -6,6 +6,8 @@
 
 **Merged pull requests:**
 
+- feat: Bump to CQ 3.8.0 [\#1178](https://github.com/apache/camel-k-runtime/pull/1178) ([squakez](https://github.com/squakez))
+- build\(deps\): bump com.google.cloud.tools:jib-maven-plugin from 3.4.0 to 3.4.1 [\#1177](https://github.com/apache/camel-k-runtime/pull/1177) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.codehaus.mojo:exec-maven-plugin from 3.1.1 to 3.2.0 [\#1175](https://github.com/apache/camel-k-runtime/pull/1175) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.immutables:value from 2.10.0 to 2.10.1 [\#1173](https://github.com/apache/camel-k-runtime/pull/1173) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.assertj:assertj-core from 3.25.2 to 3.25.3 [\#1167](https://github.com/apache/camel-k-runtime/pull/1167) ([dependabot[bot]](https://github.com/apps/dependabot))
