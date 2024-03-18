@@ -51,6 +51,7 @@ import org.apache.camel.k.catalog.model.CatalogDefinition;
 import org.apache.camel.k.catalog.model.CatalogLanguageDefinition;
 import org.apache.camel.k.catalog.model.CatalogOtherDefinition;
 import org.apache.camel.k.catalog.model.CatalogSupport;
+import org.apache.camel.k.catalog.model.Property;
 import org.apache.camel.k.catalog.model.k8s.ObjectMeta;
 import org.apache.camel.k.catalog.model.k8s.crd.CamelCatalog;
 import org.apache.camel.k.catalog.model.k8s.crd.CamelCatalogSpec;
@@ -464,7 +465,11 @@ public class GenerateCatalogMojo extends AbstractMojo {
 
         artifacts.clear();
         artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-microprofile-health"));
-        addCapabilityAndDependecies(runtimeSpec, catalogSpec, "health", artifacts, false);
+        List<Property> properties = new ArrayList<>();
+        properties.add(Property.from("defaultLivenessProbePath", "/q/health/live"));
+        properties.add(Property.from("defaultReadinessProbePath", "/q/health/ready"));
+        properties.add(Property.from("defaultStartupProbePath", "/q/health/started"));
+        addCapability(runtimeSpec, catalogSpec, "health", artifacts, new ArrayList<>(), new ArrayList<>(), properties, false);
 
         artifacts.clear();
         artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-platform-http"));
@@ -483,17 +488,31 @@ public class GenerateCatalogMojo extends AbstractMojo {
         artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-opentracing"));
         addCapabilityAndDependecies(runtimeSpec, catalogSpec, "tracing", artifacts, false);
 
+        // Telemetry capability
         artifacts.clear();
         artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-opentelemetry"));
-        addCapabilityAndDependecies(runtimeSpec, catalogSpec, "telemetry", artifacts, false);
-
-        artifacts.clear();
-        artifacts.add(Artifact.from("org.apache.camel.k", "camel-k-master"));
-        addCapabilityAndDependecies(runtimeSpec, catalogSpec, "master", artifacts, true);
+        properties.clear();
+        properties.add(Property.from("endpoint", "quarkus.opentelemetry.tracer.exporter.otlp.endpoint"));
+        properties.add(Property.from("serviceName", "quarkus.opentelemetry.tracer.resource-attributes"));
+        properties.add(Property.from("sampler", "quarkus.opentelemetry.tracer.sampler"));
+        properties.add(Property.from("samplerRatio", "quarkus.opentelemetry.tracer.sampler.ratio"));
+        properties.add(Property.from("samplerParentBased", "quarkus.opentelemetry.tracer.sampler.parent-based"));
+        addCapability(runtimeSpec, catalogSpec, "telemetry", artifacts, properties, new ArrayList<>(), new ArrayList<>(), false);
 
         artifacts.clear();
         artifacts.add(Artifact.from("org.apache.camel.k", "camel-k-resume-kafka"));
         addCapabilityAndDependecies(runtimeSpec, catalogSpec, "resume-kafka", artifacts, true);
+
+        // Master capability
+        artifacts.clear();
+        artifacts.add(Artifact.from("org.apache.camel.k", "camel-k-master"));
+        properties.clear();
+        properties.add(Property.from("resourceName", "quarkus.camel.cluster.kubernetes.resource-name"));
+        properties.add(Property.from("resourceType", "quarkus.camel.cluster.kubernetes.resource-type"));
+        properties.add(Property.from("labelKeyFormat", "quarkus.camel.cluster.kubernetes.labels.\"%s\""));
+        List<Property> buildTimeProps = new ArrayList<>();
+        buildTimeProps.add(Property.from("enabled", "quarkus.camel.cluster.kubernetes.enabled"));
+        addCapability(runtimeSpec, catalogSpec, "master", artifacts, properties, buildTimeProps, new ArrayList<>(), true);
 
         artifacts.clear();
         artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-hashicorp-vault"));
@@ -526,6 +545,20 @@ public class GenerateCatalogMojo extends AbstractMojo {
         artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-jaxb"));
         artifacts.add(Artifact.from("org.jolokia", "jolokia-agent-jvm", "javaagent"));
         addCapabilityAndDependecies(runtimeSpec, catalogSpec, "jolokia", artifacts, true);
+
+        artifacts.clear();
+        properties.clear();
+        properties.add(Property.from("level", "quarkus.log.level"));
+        properties.add(Property.from("color", "quarkus.console.color"));
+        properties.add(Property.from("format", "quarkus.log.console.format"));
+        properties.add(Property.from("json", "quarkus.log.console.json"));
+        properties.add(Property.from("jsonPrettyPrint", "quarkus.log.console.json.pretty-print"));
+        addCapability(runtimeSpec, catalogSpec, "logging", artifacts, properties, new ArrayList<>(), new ArrayList<>(), false);
+
+        artifacts.clear();
+        properties.clear();
+        properties.add(Property.from("enabled", "quarkus.kubernetes-service-binding.enabled"));
+        addCapability(runtimeSpec, catalogSpec, "service-binding", artifacts, properties, new ArrayList<>(), new ArrayList<>(), false);
     }
 
     private void addCapabilityAndDependecies(RuntimeSpec.Builder runtimeSpec, CamelCatalogSpec.Builder catalogSpec, String name,
@@ -545,6 +578,33 @@ public class GenerateCatalogMojo extends AbstractMojo {
             CamelCapability dependency = capBuilder.build();
             runtimeSpec.putCapability(name, dependency);
         }
+    }
 
+    private void addCapability(RuntimeSpec.Builder runtimeSpec, CamelCatalogSpec.Builder catalogSpec, String name,
+    List<Artifact> artifacts, List<Property> runtimeProperties, List<Property> buildTimeProperties, List<Property> metadataProperties, boolean addDependency) {
+    if (capabilitiesExclusionList != null && !capabilitiesExclusionList.contains(name)) {
+        CamelCapability.Builder capBuilder = new CamelCapability.Builder();
+        runtimeProperties.forEach(property -> {
+            capBuilder.addRuntimeProperty(property.getKey(), property.getValue());
+        });
+        buildTimeProperties.forEach(property -> {
+            capBuilder.addBuildTimeProperty(property.getKey(), property.getValue());
+        });
+        metadataProperties.forEach(property -> {
+            capBuilder.addMetadata(property.getKey(), property.getValue());
+        });
+        artifacts.forEach(artifact -> {
+        capBuilder.addDependency(artifact.getGroupId(), artifact.getArtifactId(), artifact.getClassifier());
+        if (addDependency) {
+            catalogSpec.putArtifact(new CamelArtifact.Builder()
+                .groupId(artifact.getGroupId())
+                .artifactId(artifact.getArtifactId())
+                .classifier(artifact.getClassifier())
+                .build());
+        }
+        });
+        CamelCapability cap = capBuilder.build();
+        runtimeSpec.putCapability(name, cap);
+        }
     }
 }
