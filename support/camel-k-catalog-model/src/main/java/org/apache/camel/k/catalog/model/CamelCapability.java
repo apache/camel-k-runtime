@@ -36,6 +36,27 @@ public interface CamelCapability {
         return Collections.emptySortedSet();
     }
 
+    @Value.Auxiliary
+    @Value.Default
+    @Value.NaturalOrder
+    default SortedSet<Property> getRuntimeProperties() {
+        return Collections.emptySortedSet();
+    }
+
+    @Value.Auxiliary
+    @Value.Default
+    @Value.NaturalOrder
+    default SortedSet<Property> getBuildTimeProperties() {
+        return Collections.emptySortedSet();
+    }
+
+    @Value.Auxiliary
+    @Value.Default
+    @Value.NaturalOrder
+    default SortedSet<Property> getMetadata() {
+        return Collections.emptySortedSet();
+    }
+
     static CamelCapability forArtifact(String groupId, String artifactId) {
         return new Builder().addDependency(groupId, artifactId).build();
     }
@@ -51,6 +72,18 @@ public interface CamelCapability {
             } else {
                 return super.addDependencies(Artifact.from(groupId, artifactId, classifier.get()));
             }
+        }
+
+        public Builder addRuntimeProperty(String key, String value) {
+            return super.addRuntimeProperty(Property.from(key, value));
+        }
+
+        public Builder addBuildTimeProperty(String key, String value) {
+            return super.addBuildTimeProperty(Property.from(key, value));
+        }
+
+        public Builder addMetadata(String key, String value) {
+            return super.addMetadata(Property.from(key, value));
         }
     }
 }
