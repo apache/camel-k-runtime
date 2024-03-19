@@ -29,17 +29,17 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.camel.k</groupId>
     <artifactId>camel-k-runtime-bom</artifactId>
-    <version>3.8.0-SNAPSHOT</version>
+    <version>3.8.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
         <!-- reproduceable builds: https://maven.apache.org/guides/mini/guide-reproducible-builds.html -->
-        <project.build.outputTimestamp>1709287581</project.build.outputTimestamp>
+        <project.build.outputTimestamp>1710891132</project.build.outputTimestamp>
         <jolokia-version>2.0.1</jolokia-version>
         <maven-enforcer-plugin-version>3.4.1</maven-enforcer-plugin-version>
         <maven-version>3.8.6</maven-version>
         <quarkus-platform-group>io.quarkus.platform</quarkus-platform-group>
-        <quarkus-platform-version>3.8.1</quarkus-platform-version>
+        <quarkus-platform-version>3.8.3</quarkus-platform-version>
     </properties>
 
     <developers>
