@@ -37,6 +37,11 @@ public class ApplicationConfigSourceProvider implements ConfigSourceProvider {
         final Map<String, String> appProperties = RuntimeSupport.loadApplicationProperties();
         final Map<String, String> usrProperties = RuntimeSupport.loadUserProperties();
 
+        if (usrProperties.containsKey("camel.k.errorHandler.ref")) {
+            // Pipe error handler configured - need to disable noErrorHandler behavior in Camel 4.4.0
+            usrProperties.put("camel.component.kamelet.noErrorHandler", "false");
+        }
+
         return List.of(
             new PropertiesConfigSource(sysProperties, "camel-k-sys", ConfigSource.DEFAULT_ORDINAL + 1000),
             new PropertiesConfigSource(appProperties, "camel-k-app", ConfigSource.DEFAULT_ORDINAL),
