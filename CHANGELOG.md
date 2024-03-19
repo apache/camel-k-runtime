@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- fix: Disable noErrorHandler setting via user properties [\#1186](https://github.com/apache/camel-k-runtime/pull/1186) ([christophd](https://github.com/christophd))
 - build\(deps\): bump org.apache.maven.plugins:maven-assembly-plugin from 3.6.0 to 3.7.0 [\#1182](https://github.com/apache/camel-k-runtime/pull/1182) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump groovy-version from 4.0.18 to 4.0.19 [\#1179](https://github.com/apache/camel-k-runtime/pull/1179) ([dependabot[bot]](https://github.com/apps/dependabot))
 - feat: Bump to CQ 3.8.0 [\#1178](https://github.com/apache/camel-k-runtime/pull/1178) ([squakez](https://github.com/squakez))
