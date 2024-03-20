@@ -585,13 +585,13 @@ public class GenerateCatalogMojo extends AbstractMojo {
     if (capabilitiesExclusionList != null && !capabilitiesExclusionList.contains(name)) {
         CamelCapability.Builder capBuilder = new CamelCapability.Builder();
         runtimeProperties.forEach(property -> {
-            capBuilder.addRuntimeProperty(property.getKey(), property.getValue());
+            capBuilder.putRuntimeProperty(property.getKey(), property.getValue());
         });
         buildTimeProperties.forEach(property -> {
-            capBuilder.addBuildTimeProperty(property.getKey(), property.getValue());
+            capBuilder.putBuildTimeProperty(property.getKey(), property.getValue());
         });
         metadataProperties.forEach(property -> {
-            capBuilder.addMetadata(property.getKey(), property.getValue());
+            capBuilder.putMetadata(property.getKey(), property.getValue());
         });
         artifacts.forEach(artifact -> {
         capBuilder.addDependency(artifact.getGroupId(), artifact.getArtifactId(), artifact.getClassifier());

@@ -18,6 +18,7 @@ package org.apache.camel.k.catalog.model;
 
 import java.util.Collections;
 import java.util.Optional;
+import java.util.SortedMap;
 import java.util.SortedSet;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -39,22 +40,22 @@ public interface CamelCapability {
     @Value.Auxiliary
     @Value.Default
     @Value.NaturalOrder
-    default SortedSet<Property> getRuntimeProperties() {
-        return Collections.emptySortedSet();
+    default SortedMap<String, String> getRuntimeProperties() {
+        return Collections.emptySortedMap();
     }
 
     @Value.Auxiliary
     @Value.Default
     @Value.NaturalOrder
-    default SortedSet<Property> getBuildTimeProperties() {
-        return Collections.emptySortedSet();
+    default SortedMap<String, String> getBuildTimeProperties() {
+        return Collections.emptySortedMap();
     }
 
     @Value.Auxiliary
     @Value.Default
     @Value.NaturalOrder
-    default SortedSet<Property> getMetadata() {
-        return Collections.emptySortedSet();
+    default SortedMap<String, String> getMetadata() {
+        return Collections.emptySortedMap();
     }
 
     static CamelCapability forArtifact(String groupId, String artifactId) {
@@ -72,18 +73,6 @@ public interface CamelCapability {
             } else {
                 return super.addDependencies(Artifact.from(groupId, artifactId, classifier.get()));
             }
-        }
-
-        public Builder addRuntimeProperty(String key, String value) {
-            return super.addRuntimeProperty(Property.from(key, value));
-        }
-
-        public Builder addBuildTimeProperty(String key, String value) {
-            return super.addBuildTimeProperty(Property.from(key, value));
-        }
-
-        public Builder addMetadata(String key, String value) {
-            return super.addMetadata(Property.from(key, value));
         }
     }
 }
