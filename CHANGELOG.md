@@ -6,8 +6,12 @@
 
 **Merged pull requests:**
 
+- fix: use map instead of set [\#1187](https://github.com/apache/camel-k-runtime/pull/1187) ([squakez](https://github.com/squakez))
 - fix: Disable noErrorHandler setting via user properties [\#1186](https://github.com/apache/camel-k-runtime/pull/1186) ([christophd](https://github.com/christophd))
+- feat\(catalog\): capabilities properties [\#1185](https://github.com/apache/camel-k-runtime/pull/1185) ([squakez](https://github.com/squakez))
+- build\(deps\): bump org.apache.maven.plugins:maven-remote-resources-plugin from 3.1.0 to 3.2.0 [\#1183](https://github.com/apache/camel-k-runtime/pull/1183) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-assembly-plugin from 3.6.0 to 3.7.0 [\#1182](https://github.com/apache/camel-k-runtime/pull/1182) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump org.jolokia:jolokia-agent-jvm from 2.0.1 to 2.0.2 [\#1181](https://github.com/apache/camel-k-runtime/pull/1181) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump groovy-version from 4.0.18 to 4.0.19 [\#1179](https://github.com/apache/camel-k-runtime/pull/1179) ([dependabot[bot]](https://github.com/apps/dependabot))
 - feat: Bump to CQ 3.8.0 [\#1178](https://github.com/apache/camel-k-runtime/pull/1178) ([squakez](https://github.com/squakez))
 - build\(deps\): bump com.google.cloud.tools:jib-maven-plugin from 3.4.0 to 3.4.1 [\#1177](https://github.com/apache/camel-k-runtime/pull/1177) ([dependabot[bot]](https://github.com/apps/dependabot))
