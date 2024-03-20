@@ -58,7 +58,7 @@
 
         <!-- plugins -->
         <gmavenplus-plugin-version>3.0.2</gmavenplus-plugin-version>
-        <maven-compiler-plugin-version>3.12.1</maven-compiler-plugin-version>
+        <maven-compiler-plugin-version>3.13.0</maven-compiler-plugin-version>
         <maven-assembly-plugin-version>3.7.0</maven-assembly-plugin-version>
         <maven-dependency-plugin-version>3.6.1</maven-dependency-plugin-version>
         <maven-surefire-plugin-version>3.2.5</maven-surefire-plugin-version>
