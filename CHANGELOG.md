@@ -6,6 +6,8 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump groovy-version from 4.0.19 to 4.0.20 [\#1189](https://github.com/apache/camel-k-runtime/pull/1189) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump org.apache.maven.plugins:maven-compiler-plugin from 3.12.1 to 3.13.0 [\#1188](https://github.com/apache/camel-k-runtime/pull/1188) ([dependabot[bot]](https://github.com/apps/dependabot))
 - fix: use map instead of set [\#1187](https://github.com/apache/camel-k-runtime/pull/1187) ([squakez](https://github.com/squakez))
 - fix: Disable noErrorHandler setting via user properties [\#1186](https://github.com/apache/camel-k-runtime/pull/1186) ([christophd](https://github.com/christophd))
 - feat\(catalog\): capabilities properties [\#1185](https://github.com/apache/camel-k-runtime/pull/1185) ([squakez](https://github.com/squakez))
