@@ -492,11 +492,11 @@ public class GenerateCatalogMojo extends AbstractMojo {
         artifacts.clear();
         artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-opentelemetry"));
         properties.clear();
-        properties.add(Property.from("endpoint", "quarkus.opentelemetry.tracer.exporter.otlp.endpoint"));
-        properties.add(Property.from("serviceName", "quarkus.opentelemetry.tracer.resource-attributes"));
-        properties.add(Property.from("sampler", "quarkus.opentelemetry.tracer.sampler"));
-        properties.add(Property.from("samplerRatio", "quarkus.opentelemetry.tracer.sampler.ratio"));
-        properties.add(Property.from("samplerParentBased", "quarkus.opentelemetry.tracer.sampler.parent-based"));
+        properties.add(Property.from("quarkus.opentelemetry.tracer.exporter.otlp.endpoint", "${camel.k.telemetry.endpoint}"));
+        properties.add(Property.from("quarkus.opentelemetry.tracer.resource-attributes", "${camel.k.telemetry.serviceName}"));
+        properties.add(Property.from("quarkus.opentelemetry.tracer.sampler", "${camel.k.telemetry.sampler}"));
+        properties.add(Property.from("quarkus.opentelemetry.tracer.sampler.ratio", "${camel.k.telemetry.samplerRatio}"));
+        properties.add(Property.from("quarkus.opentelemetry.tracer.sampler.parent-based", "${camel.k.telemetry.samplerParentBased}"));
         addCapability(runtimeSpec, catalogSpec, "telemetry", artifacts, properties, new ArrayList<>(), new ArrayList<>(), false);
 
         artifacts.clear();
@@ -507,11 +507,11 @@ public class GenerateCatalogMojo extends AbstractMojo {
         artifacts.clear();
         artifacts.add(Artifact.from("org.apache.camel.k", "camel-k-master"));
         properties.clear();
-        properties.add(Property.from("resourceName", "quarkus.camel.cluster.kubernetes.resource-name"));
-        properties.add(Property.from("resourceType", "quarkus.camel.cluster.kubernetes.resource-type"));
-        properties.add(Property.from("labelKeyFormat", "quarkus.camel.cluster.kubernetes.labels.\"%s\""));
+        properties.add(Property.from("quarkus.camel.cluster.kubernetes.resource-name", "${camel.k.master.resourceName}"));
+        properties.add(Property.from("quarkus.camel.cluster.kubernetes.resource-type", "${camel.k.master.resourceType}"));
+        properties.add(Property.from("quarkus.camel.cluster.kubernetes.labels.\"${camel.k.master.labelKey}\"", "${camel.k.master.labelValue}"));
         List<Property> buildTimeProps = new ArrayList<>();
-        buildTimeProps.add(Property.from("enabled", "quarkus.camel.cluster.kubernetes.enabled"));
+        buildTimeProps.add(Property.from("quarkus.camel.cluster.kubernetes.enabled", "${camel.k.master.enabled}"));
         addCapability(runtimeSpec, catalogSpec, "master", artifacts, properties, buildTimeProps, new ArrayList<>(), true);
 
         artifacts.clear();
@@ -548,16 +548,16 @@ public class GenerateCatalogMojo extends AbstractMojo {
 
         artifacts.clear();
         properties.clear();
-        properties.add(Property.from("level", "quarkus.log.level"));
-        properties.add(Property.from("color", "quarkus.console.color"));
-        properties.add(Property.from("format", "quarkus.log.console.format"));
-        properties.add(Property.from("json", "quarkus.log.console.json"));
-        properties.add(Property.from("jsonPrettyPrint", "quarkus.log.console.json.pretty-print"));
+        properties.add(Property.from("quarkus.log.level", "${camel.k.logging.level}"));
+        properties.add(Property.from("quarkus.console.color", "${camel.k.logging.color}"));
+        properties.add(Property.from("quarkus.log.console.format", "${camel.k.logging.format}"));
+        properties.add(Property.from("quarkus.log.console.json", "${camel.k.logging.json}"));
+        properties.add(Property.from("quarkus.log.console.json.pretty-print", "${camel.k.logging.jsonPrettyPrint}"));
         addCapability(runtimeSpec, catalogSpec, "logging", artifacts, properties, new ArrayList<>(), new ArrayList<>(), false);
 
         artifacts.clear();
         properties.clear();
-        properties.add(Property.from("enabled", "quarkus.kubernetes-service-binding.enabled"));
+        properties.add(Property.from("quarkus.kubernetes-service-binding.enabled", "${camel.k.serviceBinding.enabled}"));
         addCapability(runtimeSpec, catalogSpec, "service-binding", artifacts, properties, new ArrayList<>(), new ArrayList<>(), false);
     }
 
@@ -585,10 +585,10 @@ public class GenerateCatalogMojo extends AbstractMojo {
     if (capabilitiesExclusionList != null && !capabilitiesExclusionList.contains(name)) {
         CamelCapability.Builder capBuilder = new CamelCapability.Builder();
         runtimeProperties.forEach(property -> {
-            capBuilder.putRuntimeProperty(property.getKey(), property.getValue());
+            capBuilder.addRuntimeProperty(property.getKey(), property.getValue());
         });
         buildTimeProperties.forEach(property -> {
-            capBuilder.putBuildTimeProperty(property.getKey(), property.getValue());
+            capBuilder.addBuildTimeProperty(property.getKey(), property.getValue());
         });
         metadataProperties.forEach(property -> {
             capBuilder.putMetadata(property.getKey(), property.getValue());

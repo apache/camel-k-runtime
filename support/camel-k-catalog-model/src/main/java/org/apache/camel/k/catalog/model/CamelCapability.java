@@ -40,15 +40,15 @@ public interface CamelCapability {
     @Value.Auxiliary
     @Value.Default
     @Value.NaturalOrder
-    default SortedMap<String, String> getRuntimeProperties() {
-        return Collections.emptySortedMap();
+    default SortedSet<Property> getRuntimeProperties() {
+        return Collections.emptySortedSet();
     }
 
     @Value.Auxiliary
     @Value.Default
     @Value.NaturalOrder
-    default SortedMap<String, String> getBuildTimeProperties() {
-        return Collections.emptySortedMap();
+    default SortedSet<Property> getBuildTimeProperties() {
+        return Collections.emptySortedSet();
     }
 
     @Value.Auxiliary
@@ -73,6 +73,14 @@ public interface CamelCapability {
             } else {
                 return super.addDependencies(Artifact.from(groupId, artifactId, classifier.get()));
             }
+        }
+
+        public Builder addRuntimeProperty(String key, String val) {
+            return super.addRuntimeProperty(Property.from(key, val));
+        }
+
+        public Builder addBuildTimeProperty(String key, String val) {
+            return super.addBuildTimeProperty(Property.from(key, val));
         }
     }
 }
