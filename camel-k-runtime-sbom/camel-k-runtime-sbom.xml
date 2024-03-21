@@ -3718,129 +3718,129 @@ file comparators, endian transformation classes, and much more.</description>
       <purl>pkg:maven/io.rest-assured/xml-path@5.4.0?type=jar</purl>
       <externalReferences><reference type="website"><url>https://rest-assured.io/xml-path/</url></reference><reference type="distribution"><url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url></reference><reference type="mailing-list"><url>http://groups.google.com/group/rest-assured/topics</url></reference><reference type="vcs"><url>http://github.com/rest-assured/rest-assured/tree/master/xml-path</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.groovy/groovy@4.0.19?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.groovy/groovy@4.0.20?type=jar">
       <publisher>Apache Software Foundation</publisher>
       <group>org.apache.groovy</group>
       <name>groovy</name>
-      <version>4.0.19</version>
+      <version>4.0.20</version>
       <description>Groovy: A powerful multi-faceted language for the JVM</description>
       <scope>required</scope>
       <hashes>
-        <hash alg="MD5">940d085fe501344be5d29f84c1da9110</hash>
-        <hash alg="SHA-1">936e0efd6860e846fd2cc4b5ed9e1c153210c957</hash>
-        <hash alg="SHA-256">96c650051f44cb6cdaff9d389d06eb881966d1c13d0067f69b39022cda926112</hash>
-        <hash alg="SHA-512">ceda7f9403a89aa9db909c726097d9ad3194220657d0e8e689deb312b23413718a42aeadba43e469922b5e1854d9239d6f5c10f1808c55ce846566dced3eb65a</hash>
-        <hash alg="SHA-384">ae05b70c66aec0579c2923e4a00c36a7982122f56de841c92a6c69953ed677143ff489f688585c70569243dfd9e5283b</hash>
-        <hash alg="SHA3-384">d02864852ad75d1cbf113a200917d53972aeb10f904f50c168ee501c8408e981b3279418924a8ce1f48b749d647886bc</hash>
-        <hash alg="SHA3-256">59a5ca0aa430677430beac938d4d66d7ffd9668036d6fd243064f8688b24520c</hash>
-        <hash alg="SHA3-512">5b97a362809b849d518ca0cff68ea75bdb267306920aa0893420c20dc06624bc1f0f29ffb2efbe453573bb0f8d42b9044a28bd706096c0101a2d7a68186b6835</hash>
+        <hash alg="MD5">b1b8261d8f902270d8a22e513b7d4a94</hash>
+        <hash alg="SHA-1">d5bd8f500fc3fac63b6de06e597940defb8320fa</hash>
+        <hash alg="SHA-256">5f546d6c808853bb55914e50c693ab1bd8d60705bd69cd906d2535b9ab2f4803</hash>
+        <hash alg="SHA-512">43338b09c0a1b3406061dcfcc20bf0e9a1bca53ead3af0fc51533f32a2a140a95171b9ce314863940a4fc0be8ddce435b205353d38e22f2ad1fe2f61f5d67c1b</hash>
+        <hash alg="SHA-384">7e126ab568bb158a1a40ff52e07e0f737a0faf1847eadfcb244aaa38333507d105b9b1a557e689b3da2095d8ca3f6a5d</hash>
+        <hash alg="SHA3-384">61544ed7ca4fe8d55f8131ebbce47458e7fce4748c207f3d628774badd553d95e302ac0e7fe92e66ab1eed1bd1334ae9</hash>
+        <hash alg="SHA3-256">e8ee4ba66b5a92c095b6c608693b1ced2fefeacc11af80235f8c75956b06a550</hash>
+        <hash alg="SHA3-512">9ed9cbd937680032d3aa6e1c6a90fc8c8eee5eeed15c3ed4ce078fee43ab19af2cb07d408d1faa7f95b653fbcef653fdcca616862a3353ff66b08251476d5044</hash>
       </hashes>
       <licenses>
         <license>
           <id>Apache-2.0</id>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.groovy/groovy@4.0.19?type=jar</purl>
+      <purl>pkg:maven/org.apache.groovy/groovy@4.0.20?type=jar</purl>
       <externalReferences><reference type="website"><url>https://groovy-lang.org</url></reference><reference type="issue-tracker"><url>https://issues.apache.org/jira/browse/GROOVY</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/groovy-dev/</url></reference><reference type="vcs"><url>https://github.com/apache/groovy.git</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.groovy/groovy-xml@4.0.19?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.groovy/groovy-xml@4.0.20?type=jar">
       <publisher>Apache Software Foundation</publisher>
       <group>org.apache.groovy</group>
       <name>groovy-xml</name>
-      <version>4.0.19</version>
+      <version>4.0.20</version>
       <description>Groovy: A powerful multi-faceted language for the JVM</description>
       <scope>required</scope>
       <hashes>
-        <hash alg="MD5">5950f692679881536cf54f66c2986a0d</hash>
-        <hash alg="SHA-1">2f1b0e8e4abff87f23bc782eea8b42319e93ac43</hash>
-        <hash alg="SHA-256">cd33d4051b7413b2f9bb1687f970e4b3dd3144a5a51802308802b17b996364c0</hash>
-        <hash alg="SHA-512">9175a02504edb71d8becdba4d3b6006ba9c6ef76b43bde7876063bb7546d471c7375bc094c3a2eae0b0515b8648538c43effe6726a20519f893e5914359cba0e</hash>
-        <hash alg="SHA-384">45bc1169adc0586a2438564b3168b4c1f7c2d70500fe84e171e6dcf776f5d28fde61d285a63f71655e54b6528203271c</hash>
-        <hash alg="SHA3-384">7f610a3d634ccc1158c2d53ef814f0fdd54791b8073bff3ed8147581cedadb89c0e449fcc206679e11e6d3d33a2c8141</hash>
-        <hash alg="SHA3-256">ca823604c912edea231bf0795dd5190e7c35838c42d0be3935f7d17e0460902b</hash>
-        <hash alg="SHA3-512">1a6ba6ecd0df0494978a0e8cda462853330db9166178371bdc513b47d9d09f73dcf37ea000ee6f7ff9f7bb57b9a72524b17b7c47e8a8b571e167f9290027aa56</hash>
+        <hash alg="MD5">93162cab2c5438942693f4ba6e1b3324</hash>
+        <hash alg="SHA-1">79cd0c7848968a763a862fd16ea63ecd0a829bf4</hash>
+        <hash alg="SHA-256">658b5ee9fb0213b010bb8647d2f0ee982273d76db91958958a7e74e83118c1a0</hash>
+        <hash alg="SHA-512">30569d6e3d0d487fc2445e11a49ad304864ea33790d2b255a19e2616765607bee2ecd2c2104d6d6cb1874c09b49957977e1b793463b2f2d94f7c4ae639c5f6e0</hash>
+        <hash alg="SHA-384">fcd07e9308117d86e1f3fc71ab08a5b83302281fbac1c7547f6ca9137b748b2ab85947afe87ccacff5c5fe79c0165725</hash>
+        <hash alg="SHA3-384">d6deccb7600b87710742b17174875233ca1ea43af2647d9da2269fa42c5240026c430283cda7ea486bb244b322614c77</hash>
+        <hash alg="SHA3-256">51673def70ef0a84ccea288af58aa2fc77aa6963a73f9df79fbc8f838b79d237</hash>
+        <hash alg="SHA3-512">f03b128f0805d4e049b60c5cf121dcbd07ea083cb2287c08be23c0718d8c23bb4b02d4826a54459fd4004fae699b134e718524f36aa465d490c33cbff5f1d7f2</hash>
       </hashes>
       <licenses>
         <license>
           <id>Apache-2.0</id>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.groovy/groovy-xml@4.0.19?type=jar</purl>
+      <purl>pkg:maven/org.apache.groovy/groovy-xml@4.0.20?type=jar</purl>
       <externalReferences><reference type="website"><url>https://groovy-lang.org</url></reference><reference type="issue-tracker"><url>https://issues.apache.org/jira/browse/GROOVY</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/groovy-dev/</url></reference><reference type="vcs"><url>https://github.com/apache/groovy.git</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.groovy/groovy-json@4.0.19?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.groovy/groovy-json@4.0.20?type=jar">
       <publisher>Apache Software Foundation</publisher>
       <group>org.apache.groovy</group>
       <name>groovy-json</name>
-      <version>4.0.19</version>
+      <version>4.0.20</version>
       <description>Groovy: A powerful multi-faceted language for the JVM</description>
       <scope>required</scope>
       <hashes>
-        <hash alg="MD5">0a7a3248f6d14ae88362c9442ba08728</hash>
-        <hash alg="SHA-1">0d55391a021daf01f594637fc6845f80ea40c5c6</hash>
-        <hash alg="SHA-256">a0664f7a721852c8b6642f4f2a8c17d2eb5bfb80f299f565354ca5fc6d2912c0</hash>
-        <hash alg="SHA-512">105450a9933c35debb0202b9ab6dd5ce4f8cafb21e350407753bbaaeb7cd649076694b65ea007dc74507a923f10a8c511932782e03135e2ef0d192d8a683fee5</hash>
-        <hash alg="SHA-384">53fbbcba41c410b5b4f3d82ad4366fbbd7fe2e38d369eef013606a29027d804b9e4cb00e7ee99f83a0dca63d1d811560</hash>
-        <hash alg="SHA3-384">1dc3a8fc66e9d0ff244b244bf031fd7c21c1a1b0e0a35e8baf39ab3148ce1354afa863d5c581fd9577b096a4c18a8dd2</hash>
-        <hash alg="SHA3-256">e3135ea6551704fa127d51ca7d82fd795cfc833bf90adb8db0aa90874862d178</hash>
-        <hash alg="SHA3-512">3f89b675eebdd296da455930fe2b032dbb9711a3c49ff87231ef12ed65fe58687f48c5aca1448d03920e864776f8781e58bd23205b6630eeeaae33006c64ee38</hash>
+        <hash alg="MD5">7c06e9a0dd6d810112f1a1a54e9a1541</hash>
+        <hash alg="SHA-1">1665a6ea69a585997d67d3d701758fdd0dddf672</hash>
+        <hash alg="SHA-256">1e39afb3cd7f0cdcaa4a04d0e2bb9a1b3d1e12d388d7db94837c0aa80b5c78cd</hash>
+        <hash alg="SHA-512">a1387cd7e202414f3c0d935ff18ddf21aa72f7c7a24ae83f1ce0b28e0683f504e7d0c1c96bc5a670f588f76142f69f8817d98e3fb3118a4441c8dedeea0f0edf</hash>
+        <hash alg="SHA-384">6bfb4c1d3728399ff90a43f433a245a8e5facf8e5d1a9d4264d08708315d9a342cd6f687b305d732300cfa439427625e</hash>
+        <hash alg="SHA3-384">bb2ad7732a33361c1ea0fa70cf64718b15aec99d068e697f2cfc1c3111cc834726a482d620fb5abe4996aadab7b839c4</hash>
+        <hash alg="SHA3-256">5e07ed2093595ca0b30bf212f3c5d73187bab00201efb62665bc5da9b14e1f8d</hash>
+        <hash alg="SHA3-512">157abe2665021f5d3c6c7e99b7a0e2844826eafd3f1b4d9ce94acce31ec2190da9c74406919c2318588f9eece254b6f14c65fee300956d889f5de5ab55c4dad9</hash>
       </hashes>
       <licenses>
         <license>
           <id>Apache-2.0</id>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.groovy/groovy-json@4.0.19?type=jar</purl>
+      <purl>pkg:maven/org.apache.groovy/groovy-json@4.0.20?type=jar</purl>
       <externalReferences><reference type="website"><url>https://groovy-lang.org</url></reference><reference type="issue-tracker"><url>https://issues.apache.org/jira/browse/GROOVY</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/groovy-dev/</url></reference><reference type="vcs"><url>https://github.com/apache/groovy.git</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.groovy/groovy-yaml@4.0.19?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.groovy/groovy-yaml@4.0.20?type=jar">
       <publisher>Apache Software Foundation</publisher>
       <group>org.apache.groovy</group>
       <name>groovy-yaml</name>
-      <version>4.0.19</version>
+      <version>4.0.20</version>
       <description>Groovy: A powerful multi-faceted language for the JVM</description>
       <scope>required</scope>
       <hashes>
-        <hash alg="MD5">5db05e47ed998fb969dd334f964300d5</hash>
-        <hash alg="SHA-1">a438b4293cfbc90002505797c0794ff4c423fc03</hash>
-        <hash alg="SHA-256">3e68ada8423795bdf2ea9cbf22008267451b705e9de5bd2fc6cfb371c3a58b59</hash>
-        <hash alg="SHA-512">c2eddd0c91b8e5a179146205c36b2fc66230c37b5c9258803ef6974b18d2a39d0cb17adf50a6b33f87873ae0746be8c998195ff022db5aa1fdcf15e7ed7e67ea</hash>
-        <hash alg="SHA-384">80da414a6d8ba013f9c9752d1ef75150d58a6f0590ac6f4e3a70a56a1f55b2272329c5202790f76ae1840d0d432cd6c8</hash>
-        <hash alg="SHA3-384">9879894cb939761f0701fd4fc8f68da081fc4a6c2a51b86fd59d64e466ccd06e4531722acc5569055b9908fcb664d78d</hash>
-        <hash alg="SHA3-256">8f70cf0575dbe45a4611dcf2696bf44230a3f2af6affc28e4a96490c3d5d219c</hash>
-        <hash alg="SHA3-512">e9fa8426c02c8d668b523d6d5d2ce48e3981e4f8f820f5c6b46e57844daba9e0127b95d5239c38ecff8697e34085d0b4519cd7b5f482960d898dbdaa0b951b9c</hash>
+        <hash alg="MD5">dd6ea589a208b561785654692178501c</hash>
+        <hash alg="SHA-1">a492142c9aba2224a0843f37fb9567276f3fd1aa</hash>
+        <hash alg="SHA-256">ce0e8eefe5173a14b5329477a7cc930177a4caeec8ccde174508eb9fdf6db860</hash>
+        <hash alg="SHA-512">9dec0345bbd4b8940712cb8c4b0af0674601adebcfee3cf0f7dd0f47c651c057c37c803c88809f32746fcc47de418397129b0eaeb86171bb238998c368b035f5</hash>
+        <hash alg="SHA-384">86dff8c9c4cc26a369303c4415f771398178158574bb14d7ceb6902a76c5982b9e3653afbcec70acd3109bfdf14ba75d</hash>
+        <hash alg="SHA3-384">183c53a839424f43d09ecf86a8c113151875ad1039a18fa61e0ba91a8775214efa37a66d37603593d2f96c750bcb702f</hash>
+        <hash alg="SHA3-256">c00ccb27e50ec0c98311ff4a6f657528d495f2ef7265db122b9d3b81546b322c</hash>
+        <hash alg="SHA3-512">9dccbcf35d4f48a1059d2e911792b3cf653c4e3ef961f2acddf12b89ca025952cad2b47968d50d271a092b455c6c52d568dec0548d330fe944059b17f9afbaab</hash>
       </hashes>
       <licenses>
         <license>
           <id>Apache-2.0</id>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.groovy/groovy-yaml@4.0.19?type=jar</purl>
+      <purl>pkg:maven/org.apache.groovy/groovy-yaml@4.0.20?type=jar</purl>
       <externalReferences><reference type="website"><url>https://groovy-lang.org</url></reference><reference type="issue-tracker"><url>https://issues.apache.org/jira/browse/GROOVY</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/groovy-dev/</url></reference><reference type="vcs"><url>https://github.com/apache/groovy.git</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.groovy/groovy-test@4.0.19?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.groovy/groovy-test@4.0.20?type=jar">
       <publisher>Apache Software Foundation</publisher>
       <group>org.apache.groovy</group>
       <name>groovy-test</name>
-      <version>4.0.19</version>
+      <version>4.0.20</version>
       <description>Groovy: A powerful multi-faceted language for the JVM</description>
       <scope>required</scope>
       <hashes>
-        <hash alg="MD5">37bd87d72479cacf2b6d6bbe4d0f3615</hash>
-        <hash alg="SHA-1">efbb8217cae98b1ed638e7cd5749abae881fa558</hash>
-        <hash alg="SHA-256">9ea8f710b08d5d64c4f5080507451a952263145a3b6679ca6e3251656ea5e3cd</hash>
-        <hash alg="SHA-512">e4fb1fb55a86bc6df131e6ca1ba6686c0bb84f1c006aa3d7ebe010bd307444fad297dd62a42b86b65585a21860c084d7219afdcbfb06d6de41beb0b17ce6af2b</hash>
-        <hash alg="SHA-384">919329764e496c86584454e62013018bdb6adb804b02ab7e0258374c008d55fcfc48721aa4af843c3f1e0267c1482028</hash>
-        <hash alg="SHA3-384">3da9f1e35c99c15756448b40251618b3cf47e1f759a88db7149bf019777f66c50deace38d2839cf9c4ab23976f91efd4</hash>
-        <hash alg="SHA3-256">0cb8ef90b813bd8f645cb4dd3fe78e61c8d8ea7433f9ff84c07f9e974c26d86b</hash>
-        <hash alg="SHA3-512">f26d6af1d62dd9c5590670689d63080f39c3fccce96f98b26004fe6dac02c3a6f633f5f309463530495d3603808ba54c1885e7054f45b440a27206702d9b3b6d</hash>
+        <hash alg="MD5">aef0ccb5eca3671736afad1a89fba4b0</hash>
+        <hash alg="SHA-1">f0bdbaef52a2b94973632e8bd6a3ec26f5b47d09</hash>
+        <hash alg="SHA-256">62b95223b93cde3bbcf3ad7752bd132d909649cfdc1bf5cf6fbec9ea22021ded</hash>
+        <hash alg="SHA-512">746cd95f0099fa3ef004bac11b52b5c96c8f20bdc570c86fc1a5dc3b9dc3068339dd004e00aaaaa1325ae44bcdd259dd58ec38402d9ec65dc34eeb6554c04aa6</hash>
+        <hash alg="SHA-384">16bf76346877ac0de326618594cbdc8bd4b32dc335676170ea5a4865ac466e8ae6b3cbba348819cbcd1703920364c91f</hash>
+        <hash alg="SHA3-384">bbf64b6ede8271f94bf06b7622bd105103c2b53c1d95ea333e47dff652005c196a47012c8da198a440a339f2267b77ea</hash>
+        <hash alg="SHA3-256">c8c6ebc9e12106f6aa35aa2525513e8dc2ac94abe1c80bb1d65985227da9b922</hash>
+        <hash alg="SHA3-512">1edbfd5d346b6892f0cff327ab4218183f43013da0e764af544deb914154eb2e884abc41a455def555cc21e34b70a31bff4334729e9d849a8dee797e98d8691d</hash>
       </hashes>
       <licenses>
         <license>
           <id>Apache-2.0</id>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.groovy/groovy-test@4.0.19?type=jar</purl>
+      <purl>pkg:maven/org.apache.groovy/groovy-test@4.0.20?type=jar</purl>
       <externalReferences><reference type="website"><url>https://groovy-lang.org</url></reference><reference type="issue-tracker"><url>https://issues.apache.org/jira/browse/GROOVY</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/groovy-dev/</url></reference><reference type="vcs"><url>https://github.com/apache/groovy.git</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/junit/junit@4.13.2?type=jar">
@@ -12512,11 +12512,11 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/org.assertj/assertj-core@3.25.3?type=jar"/>
       <dependency ref="pkg:maven/org.hamcrest/hamcrest-core@2.2?type=jar"/>
       <dependency ref="pkg:maven/io.rest-assured/rest-assured@5.4.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.groovy/groovy@4.0.19?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.groovy/groovy-xml@4.0.19?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.groovy/groovy-json@4.0.19?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.groovy/groovy-yaml@4.0.19?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.groovy/groovy-test@4.0.19?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.groovy/groovy@4.0.20?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.groovy/groovy-xml@4.0.20?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.groovy/groovy-json@4.0.20?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.groovy/groovy-yaml@4.0.20?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.groovy/groovy-test@4.0.20?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/org.junit.jupiter/junit-jupiter@5.10.1?type=jar">
       <dependency ref="pkg:maven/org.junit.jupiter/junit-jupiter-api@5.10.1?type=jar"/>
@@ -12583,21 +12583,21 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/org.apache.commons/commons-lang3@3.14.0?type=jar"/>
       <dependency ref="pkg:maven/org.ccil.cowan.tagsoup/tagsoup@1.2.1?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.groovy/groovy@4.0.19?type=jar"/>
-    <dependency ref="pkg:maven/org.apache.groovy/groovy-xml@4.0.19?type=jar">
-      <dependency ref="pkg:maven/org.apache.groovy/groovy@4.0.19?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.groovy/groovy@4.0.20?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.groovy/groovy-xml@4.0.20?type=jar">
+      <dependency ref="pkg:maven/org.apache.groovy/groovy@4.0.20?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.groovy/groovy-json@4.0.19?type=jar">
-      <dependency ref="pkg:maven/org.apache.groovy/groovy@4.0.19?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.groovy/groovy-json@4.0.20?type=jar">
+      <dependency ref="pkg:maven/org.apache.groovy/groovy@4.0.20?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.groovy/groovy-yaml@4.0.19?type=jar">
-      <dependency ref="pkg:maven/org.apache.groovy/groovy@4.0.19?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.groovy/groovy-yaml@4.0.20?type=jar">
+      <dependency ref="pkg:maven/org.apache.groovy/groovy@4.0.20?type=jar"/>
       <dependency ref="pkg:maven/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml@2.16.1?type=jar"/>
       <dependency ref="pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.16.1?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.groovy/groovy-json@4.0.19?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.groovy/groovy-json@4.0.20?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.groovy/groovy-test@4.0.19?type=jar">
-      <dependency ref="pkg:maven/org.apache.groovy/groovy@4.0.19?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.groovy/groovy-test@4.0.20?type=jar">
+      <dependency ref="pkg:maven/org.apache.groovy/groovy@4.0.20?type=jar"/>
       <dependency ref="pkg:maven/junit/junit@4.13.2?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/junit/junit@4.13.2?type=jar">
@@ -13859,7 +13859,7 @@ that achieves high performance when combined with Graal.</description>
     </dependency>
     <dependency ref="pkg:maven/io.quarkiverse.groovy/quarkus-groovy@3.7.1?type=jar">
       <dependency ref="pkg:maven/io.quarkus/quarkus-core@3.8.3?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.groovy/groovy@4.0.19?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.groovy/groovy@4.0.20?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-arc@3.8.3?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-support-dsl@3.8.1?type=jar">
@@ -13881,7 +13881,7 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/org.apache.camel/camel-support@4.4.1?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-core-model@4.4.1?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-endpointdsl@4.4.1?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.groovy/groovy@4.0.19?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.groovy/groovy@4.0.20?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-direct@3.8.1?type=jar">
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@3.8.1?type=jar"/>
