@@ -42,21 +42,21 @@ jobs:
         secretNexusUser: ${{ secrets.NEXUS_USER }}
         secretNexusPw: ${{ secrets.NEXUS_PW }}
 
-  release-3_2_x:
+  release-3_8_x:
     if: github.repository == 'apache/camel-k-runtime'
     runs-on: ubuntu-20.04
-    name: Automatic updates on release-3.2.x branch
+    name: Automatic updates on release-3.8.x branch
     steps:
     - name: "Checkout code"
       uses: actions/checkout@v4
       with:
-        ref: release-3.2.x
+        ref: release-3.8.x
         persist-credentials: false
         submodules: recursive
-    - name: Automatic updates on release-3.2.x
+    - name: Automatic updates on release-3.8.x
       uses: ./.github/actions/automatic-updates
       with:
-        branch-ref: "release-3.2.x"
+        branch-ref: "release-3.8.x"
         secretGithubToken: ${{ secrets.GITHUB_TOKEN }}
         secretNexusUser: ${{ secrets.NEXUS_USER }}
         secretNexusPw: ${{ secrets.NEXUS_PW }}
