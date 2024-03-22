@@ -2,10 +2,14 @@
 
 ## [Unreleased](https://github.com/apache/camel-k-runtime/tree/HEAD)
 
-[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-3.6.0...HEAD)
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-3.8.1...HEAD)
 
 **Merged pull requests:**
 
+- fix\(docs\): update dependencies [\#1194](https://github.com/apache/camel-k-runtime/pull/1194) ([squakez](https://github.com/squakez))
+- build\(deps\): bump org.apache.maven.plugins:maven-gpg-plugin from 3.1.0 to 3.2.1 [\#1193](https://github.com/apache/camel-k-runtime/pull/1193) ([dependabot[bot]](https://github.com/apps/dependabot))
+- feat\(catalog\): leverage placeholders [\#1192](https://github.com/apache/camel-k-runtime/pull/1192) ([squakez](https://github.com/squakez))
+- build\(deps\): bump org.apache.maven.plugins:maven-assembly-plugin from 3.7.0 to 3.7.1 [\#1190](https://github.com/apache/camel-k-runtime/pull/1190) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump groovy-version from 4.0.19 to 4.0.20 [\#1189](https://github.com/apache/camel-k-runtime/pull/1189) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-compiler-plugin from 3.12.1 to 3.13.0 [\#1188](https://github.com/apache/camel-k-runtime/pull/1188) ([dependabot[bot]](https://github.com/apps/dependabot))
 - fix: use map instead of set [\#1187](https://github.com/apache/camel-k-runtime/pull/1187) ([squakez](https://github.com/squakez))
@@ -151,6 +155,10 @@
 - build\(deps\): bump maven-surefire-plugin from 3.0.0-M8 to 3.0.0-M9 [\#974](https://github.com/apache/camel-k-runtime/pull/974) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump groovy-version from 3.0.14 to 3.0.15 [\#973](https://github.com/apache/camel-k-runtime/pull/973) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump logstash-logback-encoder from 7.2 to 7.3 [\#972](https://github.com/apache/camel-k-runtime/pull/972) ([dependabot[bot]](https://github.com/apps/dependabot))
+
+## [camel-k-runtime-project-3.8.1](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-3.8.1) (2024-03-22)
+
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-3.6.0...camel-k-runtime-project-3.8.1)
 
 ## [camel-k-runtime-project-3.6.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-3.6.0) (2023-12-11)
 
