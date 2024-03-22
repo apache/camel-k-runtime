@@ -1,5 +1,9 @@
 # Changelog
 
+## [camel-k-runtime-project-3.8.1](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-3.8.1) (2024-03-22)
+
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-3.6.0...camel-k-runtime-project-3.8.1)
+
 ## [camel-k-runtime-project-3.6.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-3.6.0) (2023-12-11)
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-3.2.3...camel-k-runtime-project-3.6.0)
