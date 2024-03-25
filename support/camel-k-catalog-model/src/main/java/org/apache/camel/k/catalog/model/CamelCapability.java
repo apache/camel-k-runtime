@@ -23,6 +23,7 @@ import java.util.SortedSet;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.immutables.value.Value;
 
 @Value.Immutable
@@ -33,6 +34,8 @@ public interface CamelCapability {
     @Value.Auxiliary
     @Value.Default
     @Value.NaturalOrder
+    // TODO: remove this annotation once we no longer support Camel K version 2.2.0
+    @JsonInclude(JsonInclude.Include.ALWAYS)
     default SortedSet<Artifact> getDependencies() {
         return Collections.emptySortedSet();
     }
