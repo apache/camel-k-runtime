@@ -11,6 +11,7 @@
 - fix\(docs\): update dependencies [\#1194](https://github.com/apache/camel-k-runtime/pull/1194) ([squakez](https://github.com/squakez))
 - build\(deps\): bump org.apache.maven.plugins:maven-gpg-plugin from 3.1.0 to 3.2.1 [\#1193](https://github.com/apache/camel-k-runtime/pull/1193) ([dependabot[bot]](https://github.com/apps/dependabot))
 - feat\(catalog\): leverage placeholders [\#1192](https://github.com/apache/camel-k-runtime/pull/1192) ([squakez](https://github.com/squakez))
+- Clean groovy dependency and drive camel-quarkus from quarkus bom [\#1191](https://github.com/apache/camel-k-runtime/pull/1191) ([claudio4j](https://github.com/claudio4j))
 - build\(deps\): bump org.apache.maven.plugins:maven-assembly-plugin from 3.7.0 to 3.7.1 [\#1190](https://github.com/apache/camel-k-runtime/pull/1190) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump groovy-version from 4.0.19 to 4.0.20 [\#1189](https://github.com/apache/camel-k-runtime/pull/1189) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-compiler-plugin from 3.12.1 to 3.13.0 [\#1188](https://github.com/apache/camel-k-runtime/pull/1188) ([dependabot[bot]](https://github.com/apps/dependabot))
