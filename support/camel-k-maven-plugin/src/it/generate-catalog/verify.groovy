@@ -21,9 +21,7 @@ new File(basedir, "catalog.yaml").withReader {
     assert catalog.spec.runtime.version == runtimeVersion
     assert catalog.spec.runtime.applicationClass == 'io.quarkus.bootstrap.runner.QuarkusEntryPoint'
     assert catalog.spec.runtime.metadata['camel.version'] == camelVersion
-    // Re-enabled this when the version will be the same again
-    //assert catalog.spec.runtime.metadata['quarkus.version'] == quarkusVersion
-    assert catalog.spec.runtime.metadata['camel-quarkus.version'] == camelQuarkusVersion
+    assert catalog.spec.runtime.metadata['camel-quarkus.version'] == getCamelQuarkusVersion()
     assert catalog.spec.runtime.metadata['quarkus.native-builder-image'] == quarkusNativeBuilderImage
     assert catalog.spec.runtime.metadata['jib.maven-plugin.version'] == jibMavenPluginVersion
     assert catalog.spec.runtime.metadata['jib.layer-filter-extension-maven.version'] == jibLayerFilterExtensionMavenVersion
@@ -160,4 +158,14 @@ new File(basedir, "catalog.yaml").withReader {
         assert requiredCapabilities == null
         assert schemes.size() == 1
     }
+
+}
+
+String getCamelQuarkusVersion() {
+    def in = org.apache.camel.quarkus.main.CamelMain.class.getClassLoader().getResourceAsStream("META-INF/maven/org.apache.camel.quarkus/camel-quarkus-core/pom.properties")
+    def prop = new Properties()
+    prop.load(in)
+    in.close()
+    camelQuarkusVersion = prop["version"]
+    return camelQuarkusVersion
 }

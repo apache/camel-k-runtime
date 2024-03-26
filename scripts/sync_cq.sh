@@ -65,8 +65,6 @@ main() {
   # camel-version
   mvn -ntp versions:update-parent "-DparentVersion=[$CAMEL_VERSION]" -DgenerateBackupPoms=false
   mvn -ntp versions:set-property -Dproperty="camel-version" -DnewVersion="$CAMEL_VERSION" -DgenerateBackupPoms=false
-  # camel-quarkus-version
-  mvn -ntp versions:set-property -Dproperty="camel-quarkus-version" -DnewVersion="$CQ_VERSION" -DgenerateBackupPoms=false
   # quarkus-version
   mvn -ntp versions:set-property -Dproperty="quarkus-version" -DnewVersion="$QUARKUS_VERSION" -DgenerateBackupPoms=false
   # quarkus-platform-version
