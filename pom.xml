@@ -43,7 +43,6 @@
         <camel-version>4.4.2</camel-version>
 
         <!-- quarkus -->
-        <camel-quarkus-version>3.8.2</camel-quarkus-version>
         <quarkus-version>3.8.4</quarkus-version>
         <quarkus-platform-group>io.quarkus.platform</quarkus-platform-group>
         <quarkus-platform-version>3.8.4</quarkus-platform-version>
@@ -529,33 +528,6 @@
                 <groupId>org.apache.camel.k</groupId>
                 <artifactId>camel-k-catalog-model</artifactId>
                 <version>${project.version}</version>
-            </dependency>
-
-            <!-- groovy -->
-            <dependency>
-                <groupId>org.apache.groovy</groupId>
-                <artifactId>groovy</artifactId>
-                <version>${groovy-version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.groovy</groupId>
-                <artifactId>groovy-xml</artifactId>
-                <version>${groovy-version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.groovy</groupId>
-                <artifactId>groovy-json</artifactId>
-                <version>${groovy-version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.groovy</groupId>
-                <artifactId>groovy-yaml</artifactId>
-                <version>${groovy-version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.groovy</groupId>
-                <artifactId>groovy-test</artifactId>
-                <version>${groovy-version}</version>
             </dependency>
 
             <!-- misc -->
