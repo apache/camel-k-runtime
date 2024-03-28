@@ -43,9 +43,9 @@
         <camel-version>4.0.3</camel-version>
 
         <!-- quarkus -->
-        <quarkus-version>3.2.10.Final</quarkus-version>
+        <quarkus-version>3.2.11.Final</quarkus-version>
         <quarkus-platform-group>io.quarkus.platform</quarkus-platform-group>
-        <quarkus-platform-version>3.2.10.Final</quarkus-platform-version>
+        <quarkus-platform-version>3.2.11.Final</quarkus-platform-version>
         <quarkus-native-builder-image>quay.io/quarkus/ubi-quarkus-mandrel-builder-image:23.0-jdk-17</quarkus-native-builder-image>
 
         <!-- camel-k-runtime specific -->
