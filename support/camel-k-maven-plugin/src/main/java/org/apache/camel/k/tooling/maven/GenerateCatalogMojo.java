@@ -484,10 +484,6 @@ public class GenerateCatalogMojo extends AbstractMojo {
         artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-microprofile-fault-tolerance"));
         addCapabilityAndDependecies(runtimeSpec, catalogSpec, "circuit-breaker", artifacts, false);
 
-        artifacts.clear();
-        artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-opentracing"));
-        addCapabilityAndDependecies(runtimeSpec, catalogSpec, "tracing", artifacts, false);
-
         // Telemetry capability
         artifacts.clear();
         artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-opentelemetry"));
