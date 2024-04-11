@@ -69,7 +69,7 @@
         <mycila-license-version>4.3</mycila-license-version>
         <maven-checkstyle-plugin-version>3.3.1</maven-checkstyle-plugin-version>
         <maven-checkstyle-version>8.44</maven-checkstyle-version>
-        <maven-gpg-plugin-version>3.2.1</maven-gpg-plugin-version>
+        <maven-gpg-plugin-version>3.2.3</maven-gpg-plugin-version>
         <maven-deploy-plugin-version>3.1.1</maven-deploy-plugin-version>
         <maven-javadoc-plugin-version>3.6.3</maven-javadoc-plugin-version>
         <maven-source-plugin-version>3.2.1</maven-source-plugin-version>
