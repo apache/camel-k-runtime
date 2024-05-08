@@ -5576,41 +5576,41 @@
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.quarkus",
       "name" : "camel-quarkus-catalog",
-      "version" : "3.8.2",
+      "version" : "3.8.1",
       "description" : "Maven plugins configuration",
       "scope" : "required",
       "hashes" : [
         {
           "alg" : "MD5",
-          "content" : "000f5d944850c4c099de1cad6d8c4e31"
+          "content" : "d9a38f78a1b9f166a06d0a4b1661ff37"
         },
         {
           "alg" : "SHA-1",
-          "content" : "abcc4c7e0a41e23c9a059231f8cf00c9ee913845"
+          "content" : "c64cfbe9adf40073a9da662aa605256ca7b9086e"
         },
         {
           "alg" : "SHA-256",
-          "content" : "a2dc84f95eb1994573d0ac4e089a64936c69e5167343139b4d9954454887686c"
+          "content" : "931326ffa244679e0c5dae67e98d3a0446e6afcb1e4b6dafcceb5cd6ef2cce6f"
         },
         {
           "alg" : "SHA-512",
-          "content" : "120b4e3e5ec269afc48e6a6d931078d31f4ef5ac353cfdb3fddbde7b6d01549d543e368593c19d19d4c9ecefd978f8fbf47f44e7010bb43c262fdcb43037a1ae"
+          "content" : "55250ff7a1a27880f31121ee7a879b92596341eca97de8d968bd7a5eaa2bd1f79ad52879e9ab25dc8b00000ae2f77f6b0f3a8615eaf5b0dd2139a7d826da41f9"
         },
         {
           "alg" : "SHA-384",
-          "content" : "735be47ce74c71569937d38a17daae78130496fadb92d38ca659c169589d0f1ce614d67fc9de2bb3945db1ae3130a095"
+          "content" : "37cc562bb9fe17f09f19423e0725b365c60116f34f5147ea40e90daeb73fd77384d299fff84c7bad8be94a582b1bf2f7"
         },
         {
           "alg" : "SHA3-384",
-          "content" : "666004aa3ffcf678f1acf17cf808ee472046c51ca0b67b94579aecdb2dcd6f32c6aa317e112b5516b7c84ea00e642f86"
+          "content" : "01b8769accafd0e7b83164e71070f15bc2b072d96c6bfdab3b769a67ec1ca3e7856e1fa44c13fe3a2db4c1da89e828ed"
         },
         {
           "alg" : "SHA3-256",
-          "content" : "bb02500a3bfc258b62c4ec0df623bf1c8512610055616f07e334640d18d339bb"
+          "content" : "af947e9a62e82ff0417f91256feea671c9a847be7194582963ee1b34445bd4d4"
         },
         {
           "alg" : "SHA3-512",
-          "content" : "816c0e7cd8330bc643f59970501a7d52d34c569478da4fc011728fe56770c4bc895bf22064823cb128c8de4cd24705f2b76a95ab6d1399b2025ba9a5881c6f41"
+          "content" : "c472431a8fd9be2d79a84bb3b667a06371c609b6ef135089c0611ace25f612cba30d347a199e0cd27eab5aee2f60ebbdd75ee580f721498a9d223fa5cbbfaf99"
         }
       ],
       "licenses" : [
@@ -5621,7 +5621,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.quarkus/camel-quarkus-catalog@3.8.2?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.quarkus/camel-quarkus-catalog@3.8.1?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -5645,47 +5645,47 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.quarkus/camel-quarkus-catalog@3.8.2?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.quarkus/camel-quarkus-catalog@3.8.1?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.quarkus",
       "name" : "camel-quarkus-core",
-      "version" : "3.8.2",
+      "version" : "3.8.1",
       "description" : "Camel core functionality and basic Camel languages: Constant, ExchangeProperty, Header, Ref, Simple and Tokenize",
       "scope" : "required",
       "hashes" : [
         {
           "alg" : "MD5",
-          "content" : "fde377b0980cb1ce925389de7a99c1a1"
+          "content" : "9544f8d9511b0865fca67ba49c6b64e3"
         },
         {
           "alg" : "SHA-1",
-          "content" : "ba02615925fd7eaef3ca7c1024058b59bacf5672"
+          "content" : "021529072cffad5f5abe95bcfea1da945e9f9d41"
         },
         {
           "alg" : "SHA-256",
-          "content" : "95f62281b5bc48ae0076685a5d5a4b742c9d1b0697eb5df68c3c56a4d3faa124"
+          "content" : "c87038cccaa5ff739f143a6ee167631236e69429b6db496727a164a3de41d28a"
         },
         {
           "alg" : "SHA-512",
-          "content" : "9fdd947434860a8f454da656192f26e8cdce5b430924b3fce386b80f803d875e1816ca6c2384dfe37ad60f081c5fed637735aa5e7f19efe099264feef7e0770a"
+          "content" : "b72064ddf65d12030699a563c4fcb5435a2803161ff52cb8eb666cfcba6dda38492b5d0be39df952388159aa798df83c78fcd261fca1065174df8d13a84cce21"
         },
         {
           "alg" : "SHA-384",
-          "content" : "e5b11cc51d2368c3fd78ae2537191b44a4828be0a79d865cbe82f33a1b0be145e8df40305fb6a6e6f3e3ccb0fb9c0293"
+          "content" : "55df5928151983197145ff504899afedc14b8ad80f34358440f78872a51ed469e1640b722eca90d52cb2760753e4044a"
         },
         {
           "alg" : "SHA3-384",
-          "content" : "89e6e962048dc137f0f794ee4aebd88034a44f78a1c57ac0a60fa63684bebac4775177bbf19a1f805e5091c81b4e8fa2"
+          "content" : "666f16b673ddc951140858d8b6d1280f0d77ae8d4530ea7060d383ca2f40145c2ac8e10e8fb861e9bbb58a036547a545"
         },
         {
           "alg" : "SHA3-256",
-          "content" : "36f6a68b4eed5291308b32ecbb8d85a5d40fa9c7c4feeb4c9706342b392c8c3c"
+          "content" : "f104eb094f15fe8690c19b1fdb6715b4d41576f523bd74e0ca4fbde771a48f40"
         },
         {
           "alg" : "SHA3-512",
-          "content" : "8feb58d71d493a7e340b1cc455c99aa3ee55c064371455ec73b850eff13f6cfd3ea63fbccb27836a71cfaef1247698a0876cd48a2036def2379de753a05bb5dd"
+          "content" : "7acc05c5cebb05efedeed283ba55d7427e1af35847001c379126facf7aa5b532252c02111b611853c2cec584494d6435ff612df7b397f6eefbd8f0fa1e06eeac"
         }
       ],
       "licenses" : [
@@ -5696,7 +5696,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@3.8.2?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@3.8.1?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -5720,7 +5720,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@3.8.2?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@3.8.1?type=jar"
     },
     {
       "group" : "io.quarkus",
@@ -9874,6 +9874,146 @@
       "bom-ref" : "pkg:maven/io.rest-assured/rest-assured@5.4.0?type=jar"
     },
     {
+      "publisher" : "Apache Software Foundation",
+      "group" : "org.apache.groovy",
+      "name" : "groovy",
+      "version" : "4.0.18",
+      "description" : "Groovy: A powerful multi-faceted language for the JVM",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "ac66d9507926277b17fea070640cfacf"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "4036d7d22135c92b5ecbbe6ea1880e4e32d15f95"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "65e531f1583a3c23d4247a6d8db33a35d01724af47f0f3b04ca7b814f82a323f"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "590ed748bd3ba81b6822c54126174b807cd6c9dde56860c9696f34e547dce75146238135724d7d5b9893b9aa4bf1d59cdb1eafaca1527c5050e97806b846048a"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "335cdd8ffac8dc12330e66c8c668eb33b035311b04d78d91bf4072d8effa97fe8496cc044fd87c753397dbc0a698ba5d"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "56c7041bb49325891aee885b790b46e51a12fce2fa895127c250005b3f9c402657376d5ad7a50886ce772f3556ad65e9"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "3296e06494179a1028f4f4e7f04adbe9c5f56f62a1d0b8cede3d5ab34f744949"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "ccf4d94f29f1c139318005d7d0d1944538cec458d88642bb362f5509de60894586fde0ed71b545f56f58ba5407abbf3a533c4c00fe3d008daae1694efee7e4a9"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.apache.groovy/groovy@4.0.18?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://groovy-lang.org"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://issues.apache.org/jira/browse/GROOVY"
+        },
+        {
+          "type" : "mailing-list",
+          "url" : "https://mail-archives.apache.org/mod_mbox/groovy-dev/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://github.com/apache/groovy.git"
+        }
+      ],
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.apache.groovy/groovy@4.0.18?type=jar"
+    },
+    {
+      "publisher" : "Apache Software Foundation",
+      "group" : "org.apache.groovy",
+      "name" : "groovy-xml",
+      "version" : "4.0.16",
+      "description" : "Groovy: A powerful multi-faceted language for the JVM",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "e070222a1feb5faf370fa05349975633"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "bcdc17895f0125721ff11d9a051b2fa77f2b262e"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "2b9e95181dc9f03998a729dfc64010e0aa0a214bed3e88caa537e27dcaee2855"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "22d7f794f76d21cb536d98f20a1699669aa96c444796f64558457e0fdd0690febb113da33609e2fe9d6790f3a32cec1d455151f5ec64c525268ca167144fc2a6"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "8bcd65ced7672a7f95cc753c17336e02ff715e910ac58b7bc832dd85072f809ac1fb732cad281231eb2ea537870c2236"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "a414cd703cb08feb06376b4239ba073f587fb1a5b9dd7960f9bde5a0112cc6ebe57da15b3c5ae8037422640906930893"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "a4521c16cde9fafbb9030727eb4c9c8ff019fd196dbd83705731edbddd9aab4e"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "4d0fe749ed56814c48b0a5cedd6c2fd7d22a2f9d4d5280fb944ea41db47367ec9926b579cd65cbb8154576a0594e3492cacee205d0cab6e128052b62169d181e"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.apache.groovy/groovy-xml@4.0.16?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://groovy-lang.org"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://issues.apache.org/jira/browse/GROOVY"
+        },
+        {
+          "type" : "mailing-list",
+          "url" : "https://mail-archives.apache.org/mod_mbox/groovy-dev/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://github.com/apache/groovy.git"
+        }
+      ],
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.apache.groovy/groovy-xml@4.0.16?type=jar"
+    },
+    {
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.httpcomponents",
       "name" : "httpclient",
@@ -10306,6 +10446,76 @@
       "bom-ref" : "pkg:maven/io.rest-assured/json-path@5.4.0?type=jar"
     },
     {
+      "publisher" : "Apache Software Foundation",
+      "group" : "org.apache.groovy",
+      "name" : "groovy-json",
+      "version" : "4.0.16",
+      "description" : "Groovy: A powerful multi-faceted language for the JVM",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "5a22835bb185fc5f09d720f47c3fb6a5"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "a1033674f0502962728eec12c9536ef827736fdb"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "12a52e85a332d1017e2453a5f523d9bdbc2eef9f45a2c2f3329949606076b619"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "baf0bf1a6cbe4dab827c9639a76af6e480b4f4c237ae880b4167eeef84e7df0271b6b7fc57f3d40338e7fdb0ca4b2aab45362d40f6b71c26fc605bc7d1370353"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "237a8bf5c130d6be638fdb57c922e3d7bd75525ca0ca6e733a5ccc8b780f11ddb04f1e8b4cb2dd0d9895b93f9cdd5549"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "7cd4a616a2dd10438350b2d87ce4bc250718b5ee959334816a585a48eb7656e2e15f24e07b19e1773d0547e4e1a5be69"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "e966af412a6f9051adf9e8d6ff8493639ae7b7f47ed69b7c0f624e974cddb962"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "2a8b9a4daee28f3c8623b76737523e60d3ce98b6b5ecc433518508d1540e4d35ffc6bf6bd8e8b448d3acc2e7d862b9fb5e04004611c87a3282e1d0fb40223123"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.apache.groovy/groovy-json@4.0.16?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://groovy-lang.org"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://issues.apache.org/jira/browse/GROOVY"
+        },
+        {
+          "type" : "mailing-list",
+          "url" : "https://mail-archives.apache.org/mod_mbox/groovy-dev/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://github.com/apache/groovy.git"
+        }
+      ],
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.apache.groovy/groovy-json@4.0.16?type=jar"
+    },
+    {
       "group" : "io.rest-assured",
       "name" : "rest-assured-common",
       "version" : "5.4.0",
@@ -10442,431 +10652,6 @@
       ],
       "type" : "library",
       "bom-ref" : "pkg:maven/io.rest-assured/xml-path@5.4.0?type=jar"
-    },
-    {
-      "publisher" : "Apache Software Foundation",
-      "group" : "org.apache.groovy",
-      "name" : "groovy",
-      "version" : "4.0.20",
-      "description" : "Groovy: A powerful multi-faceted language for the JVM",
-      "scope" : "required",
-      "hashes" : [
-        {
-          "alg" : "MD5",
-          "content" : "b1b8261d8f902270d8a22e513b7d4a94"
-        },
-        {
-          "alg" : "SHA-1",
-          "content" : "d5bd8f500fc3fac63b6de06e597940defb8320fa"
-        },
-        {
-          "alg" : "SHA-256",
-          "content" : "5f546d6c808853bb55914e50c693ab1bd8d60705bd69cd906d2535b9ab2f4803"
-        },
-        {
-          "alg" : "SHA-512",
-          "content" : "43338b09c0a1b3406061dcfcc20bf0e9a1bca53ead3af0fc51533f32a2a140a95171b9ce314863940a4fc0be8ddce435b205353d38e22f2ad1fe2f61f5d67c1b"
-        },
-        {
-          "alg" : "SHA-384",
-          "content" : "7e126ab568bb158a1a40ff52e07e0f737a0faf1847eadfcb244aaa38333507d105b9b1a557e689b3da2095d8ca3f6a5d"
-        },
-        {
-          "alg" : "SHA3-384",
-          "content" : "61544ed7ca4fe8d55f8131ebbce47458e7fce4748c207f3d628774badd553d95e302ac0e7fe92e66ab1eed1bd1334ae9"
-        },
-        {
-          "alg" : "SHA3-256",
-          "content" : "e8ee4ba66b5a92c095b6c608693b1ced2fefeacc11af80235f8c75956b06a550"
-        },
-        {
-          "alg" : "SHA3-512",
-          "content" : "9ed9cbd937680032d3aa6e1c6a90fc8c8eee5eeed15c3ed4ce078fee43ab19af2cb07d408d1faa7f95b653fbcef653fdcca616862a3353ff66b08251476d5044"
-        }
-      ],
-      "licenses" : [
-        {
-          "license" : {
-            "id" : "Apache-2.0"
-          }
-        }
-      ],
-      "purl" : "pkg:maven/org.apache.groovy/groovy@4.0.20?type=jar",
-      "externalReferences" : [
-        {
-          "type" : "website",
-          "url" : "https://groovy-lang.org"
-        },
-        {
-          "type" : "issue-tracker",
-          "url" : "https://issues.apache.org/jira/browse/GROOVY"
-        },
-        {
-          "type" : "mailing-list",
-          "url" : "https://mail-archives.apache.org/mod_mbox/groovy-dev/"
-        },
-        {
-          "type" : "vcs",
-          "url" : "https://github.com/apache/groovy.git"
-        }
-      ],
-      "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.groovy/groovy@4.0.20?type=jar"
-    },
-    {
-      "publisher" : "Apache Software Foundation",
-      "group" : "org.apache.groovy",
-      "name" : "groovy-xml",
-      "version" : "4.0.20",
-      "description" : "Groovy: A powerful multi-faceted language for the JVM",
-      "scope" : "required",
-      "hashes" : [
-        {
-          "alg" : "MD5",
-          "content" : "93162cab2c5438942693f4ba6e1b3324"
-        },
-        {
-          "alg" : "SHA-1",
-          "content" : "79cd0c7848968a763a862fd16ea63ecd0a829bf4"
-        },
-        {
-          "alg" : "SHA-256",
-          "content" : "658b5ee9fb0213b010bb8647d2f0ee982273d76db91958958a7e74e83118c1a0"
-        },
-        {
-          "alg" : "SHA-512",
-          "content" : "30569d6e3d0d487fc2445e11a49ad304864ea33790d2b255a19e2616765607bee2ecd2c2104d6d6cb1874c09b49957977e1b793463b2f2d94f7c4ae639c5f6e0"
-        },
-        {
-          "alg" : "SHA-384",
-          "content" : "fcd07e9308117d86e1f3fc71ab08a5b83302281fbac1c7547f6ca9137b748b2ab85947afe87ccacff5c5fe79c0165725"
-        },
-        {
-          "alg" : "SHA3-384",
-          "content" : "d6deccb7600b87710742b17174875233ca1ea43af2647d9da2269fa42c5240026c430283cda7ea486bb244b322614c77"
-        },
-        {
-          "alg" : "SHA3-256",
-          "content" : "51673def70ef0a84ccea288af58aa2fc77aa6963a73f9df79fbc8f838b79d237"
-        },
-        {
-          "alg" : "SHA3-512",
-          "content" : "f03b128f0805d4e049b60c5cf121dcbd07ea083cb2287c08be23c0718d8c23bb4b02d4826a54459fd4004fae699b134e718524f36aa465d490c33cbff5f1d7f2"
-        }
-      ],
-      "licenses" : [
-        {
-          "license" : {
-            "id" : "Apache-2.0"
-          }
-        }
-      ],
-      "purl" : "pkg:maven/org.apache.groovy/groovy-xml@4.0.20?type=jar",
-      "externalReferences" : [
-        {
-          "type" : "website",
-          "url" : "https://groovy-lang.org"
-        },
-        {
-          "type" : "issue-tracker",
-          "url" : "https://issues.apache.org/jira/browse/GROOVY"
-        },
-        {
-          "type" : "mailing-list",
-          "url" : "https://mail-archives.apache.org/mod_mbox/groovy-dev/"
-        },
-        {
-          "type" : "vcs",
-          "url" : "https://github.com/apache/groovy.git"
-        }
-      ],
-      "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.groovy/groovy-xml@4.0.20?type=jar"
-    },
-    {
-      "publisher" : "Apache Software Foundation",
-      "group" : "org.apache.groovy",
-      "name" : "groovy-json",
-      "version" : "4.0.20",
-      "description" : "Groovy: A powerful multi-faceted language for the JVM",
-      "scope" : "required",
-      "hashes" : [
-        {
-          "alg" : "MD5",
-          "content" : "7c06e9a0dd6d810112f1a1a54e9a1541"
-        },
-        {
-          "alg" : "SHA-1",
-          "content" : "1665a6ea69a585997d67d3d701758fdd0dddf672"
-        },
-        {
-          "alg" : "SHA-256",
-          "content" : "1e39afb3cd7f0cdcaa4a04d0e2bb9a1b3d1e12d388d7db94837c0aa80b5c78cd"
-        },
-        {
-          "alg" : "SHA-512",
-          "content" : "a1387cd7e202414f3c0d935ff18ddf21aa72f7c7a24ae83f1ce0b28e0683f504e7d0c1c96bc5a670f588f76142f69f8817d98e3fb3118a4441c8dedeea0f0edf"
-        },
-        {
-          "alg" : "SHA-384",
-          "content" : "6bfb4c1d3728399ff90a43f433a245a8e5facf8e5d1a9d4264d08708315d9a342cd6f687b305d732300cfa439427625e"
-        },
-        {
-          "alg" : "SHA3-384",
-          "content" : "bb2ad7732a33361c1ea0fa70cf64718b15aec99d068e697f2cfc1c3111cc834726a482d620fb5abe4996aadab7b839c4"
-        },
-        {
-          "alg" : "SHA3-256",
-          "content" : "5e07ed2093595ca0b30bf212f3c5d73187bab00201efb62665bc5da9b14e1f8d"
-        },
-        {
-          "alg" : "SHA3-512",
-          "content" : "157abe2665021f5d3c6c7e99b7a0e2844826eafd3f1b4d9ce94acce31ec2190da9c74406919c2318588f9eece254b6f14c65fee300956d889f5de5ab55c4dad9"
-        }
-      ],
-      "licenses" : [
-        {
-          "license" : {
-            "id" : "Apache-2.0"
-          }
-        }
-      ],
-      "purl" : "pkg:maven/org.apache.groovy/groovy-json@4.0.20?type=jar",
-      "externalReferences" : [
-        {
-          "type" : "website",
-          "url" : "https://groovy-lang.org"
-        },
-        {
-          "type" : "issue-tracker",
-          "url" : "https://issues.apache.org/jira/browse/GROOVY"
-        },
-        {
-          "type" : "mailing-list",
-          "url" : "https://mail-archives.apache.org/mod_mbox/groovy-dev/"
-        },
-        {
-          "type" : "vcs",
-          "url" : "https://github.com/apache/groovy.git"
-        }
-      ],
-      "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.groovy/groovy-json@4.0.20?type=jar"
-    },
-    {
-      "publisher" : "Apache Software Foundation",
-      "group" : "org.apache.groovy",
-      "name" : "groovy-yaml",
-      "version" : "4.0.20",
-      "description" : "Groovy: A powerful multi-faceted language for the JVM",
-      "scope" : "required",
-      "hashes" : [
-        {
-          "alg" : "MD5",
-          "content" : "dd6ea589a208b561785654692178501c"
-        },
-        {
-          "alg" : "SHA-1",
-          "content" : "a492142c9aba2224a0843f37fb9567276f3fd1aa"
-        },
-        {
-          "alg" : "SHA-256",
-          "content" : "ce0e8eefe5173a14b5329477a7cc930177a4caeec8ccde174508eb9fdf6db860"
-        },
-        {
-          "alg" : "SHA-512",
-          "content" : "9dec0345bbd4b8940712cb8c4b0af0674601adebcfee3cf0f7dd0f47c651c057c37c803c88809f32746fcc47de418397129b0eaeb86171bb238998c368b035f5"
-        },
-        {
-          "alg" : "SHA-384",
-          "content" : "86dff8c9c4cc26a369303c4415f771398178158574bb14d7ceb6902a76c5982b9e3653afbcec70acd3109bfdf14ba75d"
-        },
-        {
-          "alg" : "SHA3-384",
-          "content" : "183c53a839424f43d09ecf86a8c113151875ad1039a18fa61e0ba91a8775214efa37a66d37603593d2f96c750bcb702f"
-        },
-        {
-          "alg" : "SHA3-256",
-          "content" : "c00ccb27e50ec0c98311ff4a6f657528d495f2ef7265db122b9d3b81546b322c"
-        },
-        {
-          "alg" : "SHA3-512",
-          "content" : "9dccbcf35d4f48a1059d2e911792b3cf653c4e3ef961f2acddf12b89ca025952cad2b47968d50d271a092b455c6c52d568dec0548d330fe944059b17f9afbaab"
-        }
-      ],
-      "licenses" : [
-        {
-          "license" : {
-            "id" : "Apache-2.0"
-          }
-        }
-      ],
-      "purl" : "pkg:maven/org.apache.groovy/groovy-yaml@4.0.20?type=jar",
-      "externalReferences" : [
-        {
-          "type" : "website",
-          "url" : "https://groovy-lang.org"
-        },
-        {
-          "type" : "issue-tracker",
-          "url" : "https://issues.apache.org/jira/browse/GROOVY"
-        },
-        {
-          "type" : "mailing-list",
-          "url" : "https://mail-archives.apache.org/mod_mbox/groovy-dev/"
-        },
-        {
-          "type" : "vcs",
-          "url" : "https://github.com/apache/groovy.git"
-        }
-      ],
-      "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.groovy/groovy-yaml@4.0.20?type=jar"
-    },
-    {
-      "publisher" : "Apache Software Foundation",
-      "group" : "org.apache.groovy",
-      "name" : "groovy-test",
-      "version" : "4.0.20",
-      "description" : "Groovy: A powerful multi-faceted language for the JVM",
-      "scope" : "required",
-      "hashes" : [
-        {
-          "alg" : "MD5",
-          "content" : "aef0ccb5eca3671736afad1a89fba4b0"
-        },
-        {
-          "alg" : "SHA-1",
-          "content" : "f0bdbaef52a2b94973632e8bd6a3ec26f5b47d09"
-        },
-        {
-          "alg" : "SHA-256",
-          "content" : "62b95223b93cde3bbcf3ad7752bd132d909649cfdc1bf5cf6fbec9ea22021ded"
-        },
-        {
-          "alg" : "SHA-512",
-          "content" : "746cd95f0099fa3ef004bac11b52b5c96c8f20bdc570c86fc1a5dc3b9dc3068339dd004e00aaaaa1325ae44bcdd259dd58ec38402d9ec65dc34eeb6554c04aa6"
-        },
-        {
-          "alg" : "SHA-384",
-          "content" : "16bf76346877ac0de326618594cbdc8bd4b32dc335676170ea5a4865ac466e8ae6b3cbba348819cbcd1703920364c91f"
-        },
-        {
-          "alg" : "SHA3-384",
-          "content" : "bbf64b6ede8271f94bf06b7622bd105103c2b53c1d95ea333e47dff652005c196a47012c8da198a440a339f2267b77ea"
-        },
-        {
-          "alg" : "SHA3-256",
-          "content" : "c8c6ebc9e12106f6aa35aa2525513e8dc2ac94abe1c80bb1d65985227da9b922"
-        },
-        {
-          "alg" : "SHA3-512",
-          "content" : "1edbfd5d346b6892f0cff327ab4218183f43013da0e764af544deb914154eb2e884abc41a455def555cc21e34b70a31bff4334729e9d849a8dee797e98d8691d"
-        }
-      ],
-      "licenses" : [
-        {
-          "license" : {
-            "id" : "Apache-2.0"
-          }
-        }
-      ],
-      "purl" : "pkg:maven/org.apache.groovy/groovy-test@4.0.20?type=jar",
-      "externalReferences" : [
-        {
-          "type" : "website",
-          "url" : "https://groovy-lang.org"
-        },
-        {
-          "type" : "issue-tracker",
-          "url" : "https://issues.apache.org/jira/browse/GROOVY"
-        },
-        {
-          "type" : "mailing-list",
-          "url" : "https://mail-archives.apache.org/mod_mbox/groovy-dev/"
-        },
-        {
-          "type" : "vcs",
-          "url" : "https://github.com/apache/groovy.git"
-        }
-      ],
-      "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.groovy/groovy-test@4.0.20?type=jar"
-    },
-    {
-      "publisher" : "JUnit",
-      "group" : "junit",
-      "name" : "junit",
-      "version" : "4.13.2",
-      "description" : "JUnit is a unit testing framework for Java, created by Erich Gamma and Kent Beck.",
-      "scope" : "required",
-      "hashes" : [
-        {
-          "alg" : "MD5",
-          "content" : "d98a9a02a99a9acd22d7653cbcc1f31f"
-        },
-        {
-          "alg" : "SHA-1",
-          "content" : "8ac9e16d933b6fb43bc7f576336b8f4d7eb5ba12"
-        },
-        {
-          "alg" : "SHA-256",
-          "content" : "8e495b634469d64fb8acfa3495a065cbacc8a0fff55ce1e31007be4c16dc57d3"
-        },
-        {
-          "alg" : "SHA-512",
-          "content" : "a31b9950f929a7e5a600d89787ef40e42a8a8e2392e210d0c0f45b3572937670a18a524f1815508cd1152cd1eaa7275cb7430ba45c053be365c83c231bccd3f0"
-        },
-        {
-          "alg" : "SHA-384",
-          "content" : "9f85c56a77c699eb87630b9e8224068a34c296bcd9aadb52248dd4665036f5bf1048fe75e5cb590b59e7855ca716acae"
-        },
-        {
-          "alg" : "SHA3-384",
-          "content" : "590cfd9396424583879ca8ad732870406bab18325ac72fb2bbe188b9611278d6341700badf7cfc32525b8ff42900c905"
-        },
-        {
-          "alg" : "SHA3-256",
-          "content" : "a06b3fd2fd1d9f4306b58125484e3605a395afe5ffe2c801e43ae462f366a430"
-        },
-        {
-          "alg" : "SHA3-512",
-          "content" : "a6d25ce3c14f9065f06dfd0e68e1dad5c03bd5de0a302c44ca4733d2cb87ec1bc6f0abd36d65aeee8caf328b6881432c4b682fa4b4b1fa931c3c950de5129fb2"
-        }
-      ],
-      "licenses" : [
-        {
-          "license" : {
-            "id" : "EPL-1.0",
-            "url" : "http://www.eclipse.org/legal/epl-v10.html"
-          }
-        }
-      ],
-      "purl" : "pkg:maven/junit/junit@4.13.2?type=jar",
-      "externalReferences" : [
-        {
-          "type" : "website",
-          "url" : "http://junit.org"
-        },
-        {
-          "type" : "build-system",
-          "url" : "https://github.com/junit-team/junit4/actions"
-        },
-        {
-          "type" : "distribution",
-          "url" : "https://github.com/junit-team/junit4/wiki/Download-and-Install"
-        },
-        {
-          "type" : "issue-tracker",
-          "url" : "https://github.com/junit-team/junit4/issues"
-        },
-        {
-          "type" : "vcs",
-          "url" : "https://github.com/junit-team/junit4"
-        }
-      ],
-      "type" : "library",
-      "bom-ref" : "pkg:maven/junit/junit@4.13.2?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
@@ -15825,81 +15610,6 @@
       ],
       "type" : "library",
       "bom-ref" : "pkg:maven/io.smallrye.config/smallrye-config-source-yaml@3.5.4?type=jar"
-    },
-    {
-      "publisher" : "The Apache Software Foundation",
-      "group" : "org.apache.camel.quarkus",
-      "name" : "camel-quarkus-core",
-      "version" : "3.8.1",
-      "description" : "Camel core functionality and basic Camel languages: Constant, ExchangeProperty, Header, Ref, Simple and Tokenize",
-      "scope" : "required",
-      "hashes" : [
-        {
-          "alg" : "MD5",
-          "content" : "9544f8d9511b0865fca67ba49c6b64e3"
-        },
-        {
-          "alg" : "SHA-1",
-          "content" : "021529072cffad5f5abe95bcfea1da945e9f9d41"
-        },
-        {
-          "alg" : "SHA-256",
-          "content" : "c87038cccaa5ff739f143a6ee167631236e69429b6db496727a164a3de41d28a"
-        },
-        {
-          "alg" : "SHA-512",
-          "content" : "b72064ddf65d12030699a563c4fcb5435a2803161ff52cb8eb666cfcba6dda38492b5d0be39df952388159aa798df83c78fcd261fca1065174df8d13a84cce21"
-        },
-        {
-          "alg" : "SHA-384",
-          "content" : "55df5928151983197145ff504899afedc14b8ad80f34358440f78872a51ed469e1640b722eca90d52cb2760753e4044a"
-        },
-        {
-          "alg" : "SHA3-384",
-          "content" : "666f16b673ddc951140858d8b6d1280f0d77ae8d4530ea7060d383ca2f40145c2ac8e10e8fb861e9bbb58a036547a545"
-        },
-        {
-          "alg" : "SHA3-256",
-          "content" : "f104eb094f15fe8690c19b1fdb6715b4d41576f523bd74e0ca4fbde771a48f40"
-        },
-        {
-          "alg" : "SHA3-512",
-          "content" : "7acc05c5cebb05efedeed283ba55d7427e1af35847001c379126facf7aa5b532252c02111b611853c2cec584494d6435ff612df7b397f6eefbd8f0fa1e06eeac"
-        }
-      ],
-      "licenses" : [
-        {
-          "license" : {
-            "id" : "Apache-2.0",
-            "url" : "https://www.apache.org/licenses/LICENSE-2.0"
-          }
-        }
-      ],
-      "purl" : "pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@3.8.1?type=jar",
-      "externalReferences" : [
-        {
-          "type" : "website",
-          "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions-core/camel-quarkus-core-parent/camel-quarkus-core"
-        },
-        {
-          "type" : "distribution",
-          "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
-        },
-        {
-          "type" : "issue-tracker",
-          "url" : "https://github.com/apache/camel-quarkus/issues"
-        },
-        {
-          "type" : "mailing-list",
-          "url" : "dev-subscribe@camel.apache.org"
-        },
-        {
-          "type" : "vcs",
-          "url" : "https://github.com/apache/camel-quarkus/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions-core/camel-quarkus-core-parent/camel-quarkus-core"
-        }
-      ],
-      "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@3.8.1?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
@@ -33145,8 +32855,8 @@
         "pkg:maven/org.apache.camel.k/camel-k-catalog-model@3.8.2-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel/camel-openapi-rest-dsl-generator@4.4.2?type=jar",
         "pkg:maven/org.apache.camel/camel-core-catalog@4.4.2?type=jar",
-        "pkg:maven/org.apache.camel.quarkus/camel-quarkus-catalog@3.8.2?type=jar",
-        "pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@3.8.2?type=jar",
+        "pkg:maven/org.apache.camel.quarkus/camel-quarkus-catalog@3.8.1?type=jar",
+        "pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@3.8.1?type=jar",
         "pkg:maven/org.apache.camel/camel-catalog@4.4.2?type=jar",
         "pkg:maven/org.yaml/snakeyaml@2.2?type=jar",
         "pkg:maven/commons-io/commons-io@2.15.1?type=jar",
@@ -33504,7 +33214,7 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.quarkus/camel-quarkus-catalog@3.8.2?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.quarkus/camel-quarkus-catalog@3.8.1?type=jar",
       "dependsOn" : [
         "pkg:maven/org.apache.camel/camel-catalog@4.4.2?type=jar"
       ]
@@ -33518,7 +33228,7 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@3.8.2?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@3.8.1?type=jar",
       "dependsOn" : [
         "pkg:maven/io.quarkus/quarkus-core@3.8.4?type=jar",
         "pkg:maven/io.quarkus/quarkus-arc@3.8.4?type=jar",
@@ -33823,12 +33533,7 @@
         "pkg:maven/org.junit.jupiter/junit-jupiter@5.10.1?type=jar",
         "pkg:maven/org.assertj/assertj-core@3.25.3?type=jar",
         "pkg:maven/org.hamcrest/hamcrest-core@2.2?type=jar",
-        "pkg:maven/io.rest-assured/rest-assured@5.4.0?type=jar",
-        "pkg:maven/org.apache.groovy/groovy@4.0.20?type=jar",
-        "pkg:maven/org.apache.groovy/groovy-xml@4.0.20?type=jar",
-        "pkg:maven/org.apache.groovy/groovy-json@4.0.20?type=jar",
-        "pkg:maven/org.apache.groovy/groovy-yaml@4.0.20?type=jar",
-        "pkg:maven/org.apache.groovy/groovy-test@4.0.20?type=jar"
+        "pkg:maven/io.rest-assured/rest-assured@5.4.0?type=jar"
       ]
     },
     {
@@ -33907,11 +33612,23 @@
     {
       "ref" : "pkg:maven/io.rest-assured/rest-assured@5.4.0?type=jar",
       "dependsOn" : [
+        "pkg:maven/org.apache.groovy/groovy@4.0.18?type=jar",
+        "pkg:maven/org.apache.groovy/groovy-xml@4.0.16?type=jar",
         "pkg:maven/org.apache.httpcomponents/httpclient@4.5.14?type=jar",
         "pkg:maven/org.apache.httpcomponents/httpmime@4.5.14?type=jar",
         "pkg:maven/org.ccil.cowan.tagsoup/tagsoup@1.2.1?type=jar",
         "pkg:maven/io.rest-assured/json-path@5.4.0?type=jar",
         "pkg:maven/io.rest-assured/xml-path@5.4.0?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/org.apache.groovy/groovy@4.0.18?type=jar",
+      "dependsOn" : [ ]
+    },
+    {
+      "ref" : "pkg:maven/org.apache.groovy/groovy-xml@4.0.16?type=jar",
+      "dependsOn" : [
+        "pkg:maven/org.apache.groovy/groovy@4.0.18?type=jar"
       ]
     },
     {
@@ -33942,59 +33659,32 @@
     {
       "ref" : "pkg:maven/io.rest-assured/json-path@5.4.0?type=jar",
       "dependsOn" : [
+        "pkg:maven/org.apache.groovy/groovy-json@4.0.16?type=jar",
+        "pkg:maven/org.apache.groovy/groovy@4.0.18?type=jar",
         "pkg:maven/io.rest-assured/rest-assured-common@5.4.0?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/org.apache.groovy/groovy-json@4.0.16?type=jar",
+      "dependsOn" : [
+        "pkg:maven/org.apache.groovy/groovy@4.0.18?type=jar"
       ]
     },
     {
       "ref" : "pkg:maven/io.rest-assured/rest-assured-common@5.4.0?type=jar",
       "dependsOn" : [
+        "pkg:maven/org.apache.groovy/groovy@4.0.18?type=jar",
         "pkg:maven/org.apache.commons/commons-lang3@3.14.0?type=jar"
       ]
     },
     {
       "ref" : "pkg:maven/io.rest-assured/xml-path@5.4.0?type=jar",
       "dependsOn" : [
+        "pkg:maven/org.apache.groovy/groovy-xml@4.0.16?type=jar",
+        "pkg:maven/org.apache.groovy/groovy@4.0.18?type=jar",
         "pkg:maven/io.rest-assured/rest-assured-common@5.4.0?type=jar",
         "pkg:maven/org.apache.commons/commons-lang3@3.14.0?type=jar",
         "pkg:maven/org.ccil.cowan.tagsoup/tagsoup@1.2.1?type=jar"
-      ]
-    },
-    {
-      "ref" : "pkg:maven/org.apache.groovy/groovy@4.0.20?type=jar",
-      "dependsOn" : [ ]
-    },
-    {
-      "ref" : "pkg:maven/org.apache.groovy/groovy-xml@4.0.20?type=jar",
-      "dependsOn" : [
-        "pkg:maven/org.apache.groovy/groovy@4.0.20?type=jar"
-      ]
-    },
-    {
-      "ref" : "pkg:maven/org.apache.groovy/groovy-json@4.0.20?type=jar",
-      "dependsOn" : [
-        "pkg:maven/org.apache.groovy/groovy@4.0.20?type=jar"
-      ]
-    },
-    {
-      "ref" : "pkg:maven/org.apache.groovy/groovy-yaml@4.0.20?type=jar",
-      "dependsOn" : [
-        "pkg:maven/org.apache.groovy/groovy@4.0.20?type=jar",
-        "pkg:maven/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml@2.16.1?type=jar",
-        "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.16.1?type=jar",
-        "pkg:maven/org.apache.groovy/groovy-json@4.0.20?type=jar"
-      ]
-    },
-    {
-      "ref" : "pkg:maven/org.apache.groovy/groovy-test@4.0.20?type=jar",
-      "dependsOn" : [
-        "pkg:maven/org.apache.groovy/groovy@4.0.20?type=jar",
-        "pkg:maven/junit/junit@4.13.2?type=jar"
-      ]
-    },
-    {
-      "ref" : "pkg:maven/junit/junit@4.13.2?type=jar",
-      "dependsOn" : [
-        "pkg:maven/org.hamcrest/hamcrest-core@2.2?type=jar"
       ]
     },
     {
@@ -34627,24 +34317,6 @@
         "pkg:maven/io.smallrye.config/smallrye-config-common@3.5.4?type=jar",
         "pkg:maven/io.smallrye.config/smallrye-config@3.5.4?type=jar",
         "pkg:maven/io.smallrye.common/smallrye-common-constraint@2.2.0?type=jar"
-      ]
-    },
-    {
-      "ref" : "pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@3.8.1?type=jar",
-      "dependsOn" : [
-        "pkg:maven/io.quarkus/quarkus-core@3.8.4?type=jar",
-        "pkg:maven/io.quarkus/quarkus-arc@3.8.4?type=jar",
-        "pkg:maven/io.quarkus/quarkus-development-mode-spi@3.8.4?type=jar",
-        "pkg:maven/org.apache.camel/camel-base@4.4.2?type=jar",
-        "pkg:maven/org.apache.camel/camel-componentdsl@4.4.2?type=jar",
-        "pkg:maven/org.apache.camel/camel-core-catalog@4.4.2?type=jar",
-        "pkg:maven/org.apache.camel/camel-core-engine@4.4.2?type=jar",
-        "pkg:maven/org.apache.camel/camel-core-languages@4.4.2?type=jar",
-        "pkg:maven/org.apache.camel/camel-core-processor@4.4.2?type=jar",
-        "pkg:maven/org.apache.camel/camel-endpointdsl@4.4.2?type=jar",
-        "pkg:maven/org.apache.camel/camel-main@4.4.2?type=jar",
-        "pkg:maven/org.apache.camel/camel-microprofile-config@4.4.2?type=jar",
-        "pkg:maven/jakarta.xml.bind/jakarta.xml.bind-api@4.0.1?type=jar"
       ]
     },
     {
@@ -36032,7 +35704,7 @@
       "ref" : "pkg:maven/io.quarkiverse.groovy/quarkus-groovy@3.7.1?type=jar",
       "dependsOn" : [
         "pkg:maven/io.quarkus/quarkus-core@3.8.4?type=jar",
-        "pkg:maven/org.apache.groovy/groovy@4.0.20?type=jar",
+        "pkg:maven/org.apache.groovy/groovy@4.0.18?type=jar",
         "pkg:maven/io.quarkus/quarkus-arc@3.8.4?type=jar"
       ]
     },
@@ -36069,7 +35741,7 @@
         "pkg:maven/org.apache.camel/camel-support@4.4.2?type=jar",
         "pkg:maven/org.apache.camel/camel-core-model@4.4.2?type=jar",
         "pkg:maven/org.apache.camel/camel-endpointdsl@4.4.2?type=jar",
-        "pkg:maven/org.apache.groovy/groovy@4.0.20?type=jar"
+        "pkg:maven/org.apache.groovy/groovy@4.0.18?type=jar"
       ]
     },
     {
