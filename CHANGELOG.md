@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- Remove runnerParentFirstArtifacts from quarkus-extension-maven-plugin [\#1208](https://github.com/apache/camel-k-runtime/pull/1208) ([claudio4j](https://github.com/claudio4j))
 - Remove tracing capability [\#1204](https://github.com/apache/camel-k-runtime/pull/1204) ([claudio4j](https://github.com/claudio4j))
 - Update quarkus platform to 3.9.1 [\#1202](https://github.com/apache/camel-k-runtime/pull/1202) ([claudio4j](https://github.com/claudio4j))
 - fix\(ci\): keep updating 3.6.x [\#1196](https://github.com/apache/camel-k-runtime/pull/1196) ([squakez](https://github.com/squakez))
