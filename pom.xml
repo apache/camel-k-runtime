@@ -420,13 +420,6 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- components -->
-            <dependency>
-                <groupId>org.apache.camel</groupId>
-                <artifactId>camel-cloudevents</artifactId>
-                <version>${camel-version}</version>
-            </dependency>
-
             <!-- runtime -->
             <dependency>
                 <groupId>org.apache.camel.k</groupId>
