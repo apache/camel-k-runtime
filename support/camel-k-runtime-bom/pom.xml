@@ -40,6 +40,7 @@
         <maven-version>3.8.6</maven-version>
         <quarkus-platform-group>io.quarkus.platform</quarkus-platform-group>
         <quarkus-platform-version>3.9.1</quarkus-platform-version>
+        <quarkus-version>3.9.1</quarkus-version>
     </properties>
 
     <developers>
@@ -106,7 +107,7 @@
             <dependency>
                 <groupId>${quarkus-platform-group}</groupId>
                 <artifactId>quarkus-bom</artifactId>
-                <version>${quarkus-platform-version}</version>
+                <version>${quarkus-version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

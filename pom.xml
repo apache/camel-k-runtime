@@ -415,7 +415,7 @@
             <dependency>
                 <groupId>${quarkus-platform-group}</groupId>
                 <artifactId>quarkus-bom</artifactId>
-                <version>${quarkus-platform-version}</version>
+                <version>${quarkus-version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
