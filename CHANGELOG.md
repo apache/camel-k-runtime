@@ -6,9 +6,13 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump braces from 3.0.2 to 3.0.3 in /docs [\#1210](https://github.com/apache/camel-k-runtime/pull/1210) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Remove runnerParentFirstArtifacts from quarkus-extension-maven-plugin [\#1208](https://github.com/apache/camel-k-runtime/pull/1208) ([claudio4j](https://github.com/claudio4j))
+- build\(deps\): bump org.apache.maven.plugins:maven-gpg-plugin from 3.2.1 to 3.2.4 [\#1206](https://github.com/apache/camel-k-runtime/pull/1206) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Remove tracing capability [\#1204](https://github.com/apache/camel-k-runtime/pull/1204) ([claudio4j](https://github.com/claudio4j))
 - Update quarkus platform to 3.9.1 [\#1202](https://github.com/apache/camel-k-runtime/pull/1202) ([claudio4j](https://github.com/claudio4j))
+- build\(deps\): bump org.cyclonedx:cyclonedx-maven-plugin from 2.7.11 to 2.8.0 [\#1198](https://github.com/apache/camel-k-runtime/pull/1198) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump org.ow2.asm:asm from 9.6 to 9.7 [\#1197](https://github.com/apache/camel-k-runtime/pull/1197) ([dependabot[bot]](https://github.com/apps/dependabot))
 - fix\(ci\): keep updating 3.6.x [\#1196](https://github.com/apache/camel-k-runtime/pull/1196) ([squakez](https://github.com/squakez))
 - fix\(catalog\): compatibility Camel K \< 2.2.0 [\#1195](https://github.com/apache/camel-k-runtime/pull/1195) ([squakez](https://github.com/squakez))
 - fix\(docs\): update dependencies [\#1194](https://github.com/apache/camel-k-runtime/pull/1194) ([squakez](https://github.com/squakez))
