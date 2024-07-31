@@ -1,46 +1,51 @@
 {
   "bomFormat" : "CycloneDX",
-  "specVersion" : "1.4",
+  "specVersion" : "1.5",
   "serialNumber" : "urn:uuid:cc2f8ee5-bf6f-38d9-80f8-e3863235c107",
   "version" : 1,
   "metadata" : {
+    "lifecycles" : [
+      {
+        "phase" : "build"
+      }
+    ],
     "tools" : [
       {
         "vendor" : "OWASP Foundation",
         "name" : "CycloneDX Maven plugin",
-        "version" : "2.7.11",
+        "version" : "2.8.0",
         "hashes" : [
           {
             "alg" : "MD5",
-            "content" : "a70e8b649ab4a2bb7922d360173c8237"
+            "content" : "76ffec6a7ddd46b2b24517411874eb99"
           },
           {
             "alg" : "SHA-1",
-            "content" : "4c3c0878c15561639076e5be7a48ffcd6111c5ee"
+            "content" : "5b0d5b41975b53be4799b9621b4af0cfc41d44b6"
           },
           {
             "alg" : "SHA-256",
-            "content" : "70997d52dbffd4e797c467b2062c6ba9b8b5a7380ff2884779f2743b6172ebb5"
+            "content" : "6852aa0f4e42a2db745bab80e384951a6a65b9215d041081d675780999027e81"
           },
           {
             "alg" : "SHA-512",
-            "content" : "bc1ce91190c642f68fd3571939d7668def3b879ec8e5a87a213a9710a106e0290f60f9e0414593d19cca958c4fcb5d4450bd2793bcd609948419c8a2a6a7f5c8"
+            "content" : "417de20fcdcb11c9713bacbd57290d8e68037fdb4553fd31b8cb08bd760ad52dc65ea88ad4be15844ad3fd5a4d3e440d2f70326f2fe1e63ec78e059c9a883f8d"
           },
           {
             "alg" : "SHA-384",
-            "content" : "3c8421bdafd1754fb424f16dccc83bfe0827648c1cadfffc98bdf1c7da65475dfe48d2f4b16d233bb8819e155ba6a4f3"
+            "content" : "5eb755c6492e7a7385fa9a1e1f4517875bcb834b2df437808a37a2d6f5285df428741762305980315a63fcef1406597d"
           },
           {
             "alg" : "SHA3-384",
-            "content" : "ad88cf6a0e0a5d51df49a4dab5530a28de9df7eec8460c045dff3e1f9316b82a244a125d52b937fe9d4ee72e44f5d01a"
+            "content" : "0fe16a47cf7aab0b22251dafcc39939b68e8f1778093309d8d2060b51a08df445a8b8ed5a9561669faf2e55f907c76d8"
           },
           {
             "alg" : "SHA3-256",
-            "content" : "b4d9c3ef07c34517fd9f33178ba95ffc9618eb84a3671e71b0c82991ec3717e5"
+            "content" : "3e5a1eb5ab7d0797498862794709ff8eaaa071fe4cc9ec77f52db7e2f97ef487"
           },
           {
             "alg" : "SHA3-512",
-            "content" : "935b43aba8999dc7d95d93288a251c97b6b32852841b7bef31516c27c8d65c8de7f8411f1829f765ee760f25930c766db6a49df68e5994e18721c0a71f606f1e"
+            "content" : "59281a3e29e76270d7f44b40b5b9f05e55f1ae3ec716d80add806f360940809e3813998ac7c5758043b8e248aed73b86e37dc506cdb4cde03c16bb617d8e5a3a"
           }
         ]
       }
@@ -66,7 +71,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -122,7 +127,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-support"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -162,7 +167,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-support/camel-k-annotations"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -237,7 +242,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/core/camel-core-engine/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -308,7 +313,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/core/camel-api/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -379,7 +384,7 @@
           "url" : "http://www.slf4j.org"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -445,7 +450,7 @@
           "url" : "https://github.com/jakartaee/jaxb-api/jakarta.xml.bind-api"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://jakarta.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -519,7 +524,7 @@
           "url" : "https://github.com/jakartaee/jaf-api"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://jakarta.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -594,7 +599,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/core/camel-base-engine/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -665,7 +670,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/core/camel-base/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -736,7 +741,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/core/camel-core-reifier/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -807,7 +812,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/core/camel-core-model/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -878,7 +883,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/core/camel-core-processor/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -949,7 +954,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/core/camel-management-api/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -1020,7 +1025,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/core/camel-support/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -1091,7 +1096,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/tooling/camel-util-json/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -1162,7 +1167,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/core/camel-xml-jaxp-util/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -1233,7 +1238,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/core/camel-util/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -1269,7 +1274,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-support/camel-k-apt"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -1309,7 +1314,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-support/camel-k-catalog-model"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -1383,7 +1388,7 @@
           "url" : "https://github.com/FasterXML/jackson"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -1453,7 +1458,7 @@
           "url" : "https://github.com/FasterXML/jackson"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -1523,7 +1528,7 @@
           "url" : "https://github.com/FasterXML/jackson-core"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -1593,7 +1598,7 @@
           "url" : "https://github.com/FasterXML/jackson-modules-java8/jackson-datatype-jdk8"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -1663,7 +1668,7 @@
           "url" : "https://github.com/FasterXML/jackson-dataformats-text"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -1732,7 +1737,7 @@
           "url" : "https://bitbucket.org/snakeyaml/snakeyaml"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -1802,7 +1807,7 @@
           "url" : "http://immutables.org/value"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -1834,7 +1839,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-support/camel-k-maven-plugin"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -1912,7 +1917,7 @@
           "url" : "https://builds.apache.org/job/maven-plugin-tools/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -1995,6 +2000,10 @@
           "url" : "https://maven.apache.org/download.html"
         },
         {
+          "type" : "distribution-intake",
+          "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
+        },
+        {
           "type" : "issue-tracker",
           "url" : "https://issues.apache.org/jira/browse/MNG"
         },
@@ -2069,7 +2078,7 @@
           "url" : "https://builds.apache.org/job/maven-box/job/maven-common-artifact-filters/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -2152,6 +2161,10 @@
           "url" : "https://maven.apache.org/download.html"
         },
         {
+          "type" : "distribution-intake",
+          "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
+        },
+        {
           "type" : "issue-tracker",
           "url" : "https://issues.apache.org/jira/browse/MNG"
         },
@@ -2229,6 +2242,10 @@
         {
           "type" : "distribution",
           "url" : "https://maven.apache.org/download.html"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
           "type" : "issue-tracker",
@@ -2310,6 +2327,10 @@
           "url" : "https://maven.apache.org/download.html"
         },
         {
+          "type" : "distribution-intake",
+          "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
+        },
+        {
           "type" : "issue-tracker",
           "url" : "https://issues.apache.org/jira/browse/MNG"
         },
@@ -2389,6 +2410,10 @@
           "url" : "https://maven.apache.org/download.html"
         },
         {
+          "type" : "distribution-intake",
+          "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
+        },
+        {
           "type" : "issue-tracker",
           "url" : "https://issues.apache.org/jira/browse/MNG"
         },
@@ -2459,7 +2484,7 @@
           "url" : "https://codehaus-plexus.github.io/plexus-sec-dispatcher/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -2533,7 +2558,7 @@
           "url" : "https://codehaus-plexus.github.io/plexus-cipher/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -2616,6 +2641,10 @@
           "url" : "https://maven.apache.org/download.html"
         },
         {
+          "type" : "distribution-intake",
+          "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
+        },
+        {
           "type" : "issue-tracker",
           "url" : "https://issues.apache.org/jira/browse/MNG"
         },
@@ -2693,6 +2722,10 @@
         {
           "type" : "distribution",
           "url" : "https://maven.apache.org/download.html"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
           "type" : "issue-tracker",
@@ -2774,6 +2807,10 @@
           "url" : "https://maven.apache.org/download.html"
         },
         {
+          "type" : "distribution-intake",
+          "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
+        },
+        {
           "type" : "issue-tracker",
           "url" : "https://issues.apache.org/jira/browse/MNG"
         },
@@ -2853,6 +2890,10 @@
           "url" : "https://maven.apache.org/download.html"
         },
         {
+          "type" : "distribution-intake",
+          "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
+        },
+        {
           "type" : "issue-tracker",
           "url" : "https://issues.apache.org/jira/browse/MNG"
         },
@@ -2928,7 +2969,7 @@
           "url" : "https://ci-maven.apache.org/job/Maven/job/maven-box/job/maven-resolver/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -3007,7 +3048,7 @@
           "url" : "https://ci-maven.apache.org/job/Maven/job/maven-box/job/maven-resolver/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -3086,7 +3127,7 @@
           "url" : "https://ci-maven.apache.org/job/Maven/job/maven-box/job/maven-resolver/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -3165,7 +3206,7 @@
           "url" : "https://ci-maven.apache.org/job/Maven/job/maven-box/job/maven-resolver/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -3244,7 +3285,7 @@
           "url" : "https://ci-maven.apache.org/job/Maven/job/maven-box/job/maven-resolver/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -3322,7 +3363,7 @@
           "url" : "https://ci.eclipse.org/sisu/job/sisu.inject/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -3400,7 +3441,7 @@
           "url" : "https://travis-ci.org/google/guice"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -3534,7 +3575,7 @@
           "url" : "https://github.com/google/guava/actions"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -3607,7 +3648,7 @@
           "url" : "https://travis-ci.org/google/guava"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -3738,7 +3779,7 @@
           "url" : "http://codehaus-plexus.github.io/plexus-interpolation/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -3812,7 +3853,7 @@
           "url" : "http://codehaus-plexus.github.io/plexus-containers/plexus-component-annotations/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -3889,7 +3930,7 @@
           "url" : "https://grid.sonatype.org/ci/job/Sisu/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.sonatype.org/service/local/staging/deploy/maven2"
         },
         {
@@ -3962,7 +4003,7 @@
           "url" : "https://grid.sonatype.org/ci/job/Sisu/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.sonatype.org/service/local/staging/deploy/maven2"
         },
         {
@@ -4031,7 +4072,7 @@
           "url" : "http://forge.sonatype.com/sisu-guice/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.sonatype.org/service/local/staging/deploy/maven2"
         }
       ],
@@ -4097,7 +4138,7 @@
           "url" : "https://ci-builds.apache.org/job/Maven/job/maven-box/job/maven-shared-utils/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -4179,6 +4220,10 @@
           "url" : "https://maven.apache.org/download.html"
         },
         {
+          "type" : "distribution-intake",
+          "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
+        },
+        {
           "type" : "issue-tracker",
           "url" : "https://issues.apache.org/jira/browse/MNG"
         },
@@ -4253,7 +4298,7 @@
           "url" : "https://ci.eclipse.org/sisu/job/sisu.plexus/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -4327,7 +4372,7 @@
           "url" : "https://codehaus-plexus.github.io/plexus-utils/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -4401,7 +4446,7 @@
           "url" : "http://codehaus-plexus.github.io/plexus-classworlds/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -4476,7 +4521,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/tooling/camel-openapi-rest-dsl-generator/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -4547,7 +4592,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/core/camel-xml-jaxb/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -4617,7 +4662,7 @@
           "url" : "https://eclipse-ee4j.github.io/jaxb-ri/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://jakarta.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -4691,7 +4736,7 @@
           "url" : "https://github.com/eclipse-ee4j/angus-activation/angus-activation"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://jakarta.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -4765,7 +4810,7 @@
           "url" : "https://eclipse-ee4j.github.io/jaxb-ri/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://jakarta.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -4840,7 +4885,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/core/camel-xml-jaxp/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -4911,7 +4956,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/core/camel-xml-io-util/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -4981,7 +5026,7 @@
           "url" : "http://github.com/square/javapoet/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -5122,7 +5167,7 @@
           "url" : "https://github.com/apache/commons-parent/actions"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -5196,7 +5241,7 @@
           "url" : "https://github.com/FasterXML/jackson-dataformat-xml"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -5266,7 +5311,7 @@
           "url" : "http://github.com/FasterXML/stax2-api"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -5336,7 +5381,7 @@
           "url" : "https://github.com/FasterXML/woodstox"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -5411,7 +5456,7 @@
           "url" : "https://projects.eclipse.org/projects/ee4j.ca"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://jakarta.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -5486,7 +5531,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/core/camel-core-catalog/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -5557,7 +5602,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/tooling/camel-tooling-model/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -5628,7 +5673,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-catalog"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -5703,7 +5748,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions-core/camel-quarkus-core-parent/camel-quarkus-core"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -5776,7 +5821,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -5847,7 +5892,7 @@
           "url" : "http://cdi-spec.org"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://jakarta.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -5922,7 +5967,7 @@
           "url" : "https://projects.eclipse.org/projects/ee4j/jakarta.enterprise.cdi-parent/jakarta.enterprise.lang-model"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://jakarta.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -6002,7 +6047,7 @@
           "url" : "https://projects.eclipse.org/projects/ee4j.el"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://jakarta.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -6081,7 +6126,7 @@
           "url" : "https://github.com/eclipse-ee4j/interceptor-api"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://jakarta.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -6155,7 +6200,7 @@
           "url" : "https://github.com/eclipse-ee4j/injection-api"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://jakarta.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -6228,7 +6273,7 @@
           "url" : "http://smallrye.io"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -6297,7 +6342,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -6366,7 +6411,7 @@
           "url" : "https://smallrye.io"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -6435,7 +6480,7 @@
           "url" : "https://smallrye.io"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -6504,7 +6549,7 @@
           "url" : "http://smallrye.io"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -6573,7 +6618,7 @@
           "url" : "http://smallrye.io"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -6642,7 +6687,7 @@
           "url" : "https://smallrye.io"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -6713,7 +6758,7 @@
           "url" : "http://www.jboss.org"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/"
         },
         {
@@ -6857,7 +6902,7 @@
           "url" : "http://smallrye.io"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -6926,7 +6971,7 @@
           "url" : "http://smallrye.io"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -6995,7 +7040,7 @@
           "url" : "http://smallrye.io"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -7064,7 +7109,7 @@
           "url" : "http://smallrye.io"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -7133,7 +7178,7 @@
           "url" : "http://smallrye.io"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -7202,7 +7247,7 @@
           "url" : "http://smallrye.io"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -7279,7 +7324,7 @@
           "url" : "https://github.com/eclipse-ee4j/jsonp"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://jakarta.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -7360,7 +7405,7 @@
           "url" : "https://github.com/eclipse-ee4j/parsson/parsson"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://jakarta.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -7434,7 +7479,7 @@
           "url" : "http://www.jboss.org/jboss-logging-tools-parent/jboss-logging-annotations"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/"
         },
         {
@@ -7580,7 +7625,7 @@
           "url" : "https://jboss.org/slf4j-jboss-logmanager"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/"
         },
         {
@@ -7655,7 +7700,7 @@
           "url" : "http://www.jboss.org"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/"
         },
         {
@@ -7728,7 +7773,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -7797,7 +7842,7 @@
           "url" : "http://smallrye.io"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -7867,7 +7912,7 @@
           "url" : "https://github.com/crac/org.crac"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -7933,7 +7978,7 @@
           "url" : "https://quarkus.io/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -8006,7 +8051,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -8075,7 +8120,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -8150,7 +8195,7 @@
           "url" : "https://projects.eclipse.org/projects/ee4j.jta"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://jakarta.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -8224,7 +8269,7 @@
           "url" : "https://smallrye.io/smallrye-mutiny"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -8294,7 +8339,7 @@
           "url" : "http://microprofile.io/microprofile-context-propagation-api"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -8363,7 +8408,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -8434,7 +8479,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/dsl/camel-componentdsl/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -8505,7 +8550,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/core/camel-core-languages/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -8576,7 +8621,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/dsl/camel-endpointdsl/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -8647,7 +8692,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/core/camel-main/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -8718,7 +8763,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/components/camel-microprofile-parent/camel-microprofile-config/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -8788,7 +8833,7 @@
           "url" : "https://microprofile.io/project/eclipse/microprofile-config/microprofile-config-api"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -8859,7 +8904,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/catalog/camel-catalog/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -8934,7 +8979,7 @@
           "url" : "https://github.com/apache/commons-parent/actions"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -9007,7 +9052,7 @@
           "url" : "https://smallrye.io"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -9625,7 +9670,7 @@
           "url" : "https://bytebuddy.net/byte-buddy"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2"
         },
         {
@@ -9657,7 +9702,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-support/camel-k-test"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -9854,7 +9899,7 @@
           "url" : "http://code.google.com/p/rest-assured"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -10064,7 +10109,7 @@
           "url" : "http://hc.apache.org/httpcomponents-client-ga"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -10138,7 +10183,7 @@
           "url" : "http://hc.apache.org/httpcomponents-core-ga"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -10217,7 +10262,7 @@
           "url" : "https://github.com/apache/commons-parent/actions"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -10291,7 +10336,7 @@
           "url" : "http://hc.apache.org/httpcomponents-client-ga"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -10426,7 +10471,7 @@
           "url" : "http://maven.apache.org"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -10565,7 +10610,7 @@
           "url" : "http://maven.apache.org"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -10634,7 +10679,7 @@
           "url" : "https://rest-assured.io/xml-path/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -10670,7 +10715,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-core-parent"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -10710,7 +10755,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-core-parent/camel-k-core-api"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -10750,7 +10795,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-core-parent/camel-k-core-support"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -10825,7 +10870,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-kubernetes-parent/camel-quarkus-kubernetes"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -10898,7 +10943,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -10967,7 +11012,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -11036,7 +11081,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -11106,7 +11151,7 @@
           "url" : "https://github.com/FasterXML/jackson-modules-java8/jackson-datatype-jsr310"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -11176,7 +11221,7 @@
           "url" : "https://github.com/FasterXML/jackson-modules-java8/jackson-module-parameter-names"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -11245,7 +11290,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -11314,7 +11359,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -11384,7 +11429,7 @@
           "url" : "https://netty.io/netty-codec/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -11450,7 +11495,7 @@
           "url" : "https://netty.io/netty-codec-http/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -11516,7 +11561,7 @@
           "url" : "https://netty.io/netty-codec-http2/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -11582,7 +11627,7 @@
           "url" : "https://netty.io/netty-handler/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -11648,7 +11693,7 @@
           "url" : "https://netty.io/netty-transport-native-unix-common/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -11714,7 +11759,7 @@
           "url" : "https://github.com/hyperxpro/Brotli4j/brotli4j"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -11780,7 +11825,7 @@
           "url" : "https://github.com/hyperxpro/Brotli4j/service"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -11846,7 +11891,7 @@
           "url" : "https://github.com/hyperxpro/Brotli4j/natives/native-linux-x86_64"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -11912,7 +11957,7 @@
           "url" : "https://netty.io/netty-codec-haproxy/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -11978,7 +12023,7 @@
           "url" : "https://netty.io/netty-buffer/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -12044,7 +12089,7 @@
           "url" : "https://netty.io/netty-transport/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -12109,7 +12154,7 @@
           "url" : "http://smallrye.io"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -12178,7 +12223,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -12247,7 +12292,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -12316,7 +12361,7 @@
           "url" : "https://github.com/smallrye/smallrye-context-propagation"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -12381,7 +12426,7 @@
           "url" : "https://github.com/smallrye/smallrye-context-propagation"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -12446,7 +12491,7 @@
           "url" : "https://github.com/smallrye/smallrye-context-propagation"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -12512,7 +12557,7 @@
           "url" : "https://smallrye.io/smallrye-mutiny"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -12581,7 +12626,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -12650,7 +12695,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -12720,7 +12765,7 @@
           "url" : "https://smallrye.io/smallrye-mutiny-vertx-bindings"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -12790,7 +12835,7 @@
           "url" : "https://smallrye.io/smallrye-mutiny-vertx-bindings"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -12860,7 +12905,7 @@
           "url" : "https://smallrye.io/smallrye-mutiny-vertx-bindings"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -12935,7 +12980,7 @@
           "url" : "http://nexus.sonatype.org/oss-repository-hosting.html/vertx-parent/vertx-codegen"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         }
       ],
@@ -12996,7 +13041,7 @@
           "url" : "http://smallrye.io"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -13066,7 +13111,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-client"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -13132,7 +13177,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-client-api"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -13198,7 +13243,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/kubernetes-model-core"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -13264,7 +13309,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/kubernetes-model-common"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -13330,7 +13375,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/kubernetes-model-gatewayapi"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -13396,7 +13441,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/kubernetes-model-resource"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -13462,7 +13507,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/kubernetes-model-rbac"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -13528,7 +13573,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/kubernetes-model-admissionregistration"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -13594,7 +13639,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/kubernetes-model-apps"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -13660,7 +13705,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/kubernetes-model-autoscaling"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -13726,7 +13771,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/kubernetes-model-apiextensions"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -13792,7 +13837,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/kubernetes-model-batch"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -13858,7 +13903,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/kubernetes-model-certificates"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -13924,7 +13969,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/kubernetes-model-coordination"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -13990,7 +14035,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/kubernetes-model-discovery"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -14056,7 +14101,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/kubernetes-model-events"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -14122,7 +14167,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/kubernetes-model-extensions"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -14188,7 +14233,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/kubernetes-model-flowcontrol"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -14254,7 +14299,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/kubernetes-model-networking"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -14320,7 +14365,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/kubernetes-model-metrics"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -14386,7 +14431,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/kubernetes-model-policy"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -14452,7 +14497,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/kubernetes-model-scheduling"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -14518,7 +14563,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/kubernetes-model-storageclass"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -14584,7 +14629,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/kubernetes-model-node"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -14649,7 +14694,7 @@
           "url" : "https://bitbucket.org/snakeyaml/snakeyaml-engine"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -14718,7 +14763,7 @@
           "url" : "https://github.com/fabric8io/zjsonpatch/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2"
         },
         {
@@ -14784,7 +14829,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-httpclient-vertx"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -14855,7 +14900,7 @@
           "url" : "http://nexus.sonatype.org/oss-repository-hosting.html/vertx-parent/vertx-core"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         }
       ],
@@ -14917,7 +14962,7 @@
           "url" : "https://netty.io/netty-common/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -14983,7 +15028,7 @@
           "url" : "https://netty.io/netty-handler-proxy/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -15049,7 +15094,7 @@
           "url" : "https://netty.io/netty-codec-socks/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -15115,7 +15160,7 @@
           "url" : "https://netty.io/netty-resolver/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -15181,7 +15226,7 @@
           "url" : "https://netty.io/netty-resolver-dns/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -15247,7 +15292,7 @@
           "url" : "https://netty.io/netty-codec-dns/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -15318,7 +15363,7 @@
           "url" : "http://nexus.sonatype.org/oss-repository-hosting.html/vertx-parent/vertx-ext/vertx-ext-parent/vertx-web-parent/vertx-web-client"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         }
       ],
@@ -15385,7 +15430,7 @@
           "url" : "http://nexus.sonatype.org/oss-repository-hosting.html/vertx-parent/vertx-ext/vertx-ext-parent/vertx-web-parent/vertx-web-common"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         }
       ],
@@ -15452,7 +15497,7 @@
           "url" : "http://nexus.sonatype.org/oss-repository-hosting.html/vertx-parent/vertx-ext/vertx-ext-parent/vertx-auth-parent/vertx-auth-common"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         }
       ],
@@ -15519,7 +15564,7 @@
           "url" : "https://github.com/apache/commons-parent/actions"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -15592,7 +15637,7 @@
           "url" : "https://smallrye.io"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -15663,7 +15708,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions-core/camel-quarkus-core-cloud-parent/camel-quarkus-core-cloud"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -15738,7 +15783,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/core/camel-cloud/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -15809,7 +15854,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions-support/camel-quarkus-support-commons-logging-parent/camel-quarkus-support-commons-logging"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -15884,7 +15929,7 @@
           "url" : "http://www.jboss.org"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/"
         },
         {
@@ -15959,7 +16004,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/components/camel-kubernetes/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -16030,7 +16075,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/core/camel-cluster/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -16100,7 +16145,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/openshift-client"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -16166,7 +16211,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/openshift-client-api"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -16232,7 +16277,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/openshift-model"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -16298,7 +16343,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/openshift-model-clusterautoscaling"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -16364,7 +16409,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/openshift-model-operatorhub"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -16430,7 +16475,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/openshift-model-machine"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -16496,7 +16541,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/openshift-model-whereabouts"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -16562,7 +16607,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/openshift-model-monitoring"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -16628,7 +16673,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/openshift-model-storageversionmigrator"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -16694,7 +16739,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/openshift-model-tuned"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -16760,7 +16805,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/openshift-model-console"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -16826,7 +16871,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/openshift-model-config"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -16892,7 +16937,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/openshift-model-machineconfig"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -16958,7 +17003,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/openshift-model-installer"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -17027,7 +17072,7 @@
           "url" : "https://travis-ci.org/mifmif/Generex/builds"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -17116,7 +17161,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-core-parent/camel-k-core"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -17156,7 +17201,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-support/camel-k-itests-support"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -17196,7 +17241,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-support/camel-k-itests-support/camel-k-itests-loader-inspector"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -17269,7 +17314,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -17344,7 +17389,7 @@
           "url" : "https://projects.eclipse.org/projects/ee4j.yasson"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://jakarta.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -17425,7 +17470,7 @@
           "url" : "https://eclipse-ee4j.github.io/jsonb-api"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://jakarta.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -17498,7 +17543,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -17567,7 +17612,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -17636,7 +17681,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -17705,7 +17750,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -17774,7 +17819,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -17844,7 +17889,7 @@
           "url" : "http://www.jboss.org/quarkus-security"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -17918,7 +17963,7 @@
           "url" : "https://smallrye.io/smallrye-mutiny-vertx-bindings"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -17988,7 +18033,7 @@
           "url" : "https://smallrye.io/smallrye-mutiny-vertx-bindings"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -18058,7 +18103,7 @@
           "url" : "https://smallrye.io/smallrye-mutiny-vertx-bindings"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -18128,7 +18173,7 @@
           "url" : "https://smallrye.io/smallrye-mutiny-vertx-bindings"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -18198,7 +18243,7 @@
           "url" : "https://smallrye.io/smallrye-mutiny-vertx-bindings"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -18273,7 +18318,7 @@
           "url" : "http://nexus.sonatype.org/oss-repository-hosting.html/vertx-parent/vertx-ext/vertx-ext-parent/vertx-uri-template"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         }
       ],
@@ -18340,7 +18385,7 @@
           "url" : "http://nexus.sonatype.org/oss-repository-hosting.html/vertx-parent/vertx-ext/vertx-ext-parent/vertx-web-parent/vertx-web"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         }
       ],
@@ -18407,7 +18452,7 @@
           "url" : "http://nexus.sonatype.org/oss-repository-hosting.html/vertx-parent/vertx-ext/vertx-ext-parent/vertx-bridge-common"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         }
       ],
@@ -18468,7 +18513,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -18537,7 +18582,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -18608,7 +18653,7 @@
           "url" : "https://resteasy.dev"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/"
         },
         {
@@ -18739,7 +18784,7 @@
           "url" : "http://github.com/ibm/java-async-util"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -18812,7 +18857,7 @@
           "url" : "https://github.com/eclipse-ee4j/jaxrs-api"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://jakarta.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -18887,7 +18932,7 @@
           "url" : "https://jboss.org/resteasy/microprofile-config"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/"
         },
         {
@@ -18966,7 +19011,7 @@
           "url" : "https://projects.eclipse.org/projects/ee4j.servlet"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://jakarta.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -19041,7 +19086,7 @@
           "url" : "https://resteasy.dev"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/"
         },
         {
@@ -19116,7 +19161,7 @@
           "url" : "https://resteasy.dev"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/"
         },
         {
@@ -19191,7 +19236,7 @@
           "url" : "https://beanvalidation.org"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://jakarta.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -19264,7 +19309,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -19335,7 +19380,7 @@
           "url" : "https://resteasy.dev"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/"
         },
         {
@@ -19410,7 +19455,7 @@
           "url" : "https://resteasy.dev"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/"
         },
         {
@@ -19450,7 +19495,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-runtime-parent"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -19490,7 +19535,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-runtime-parent/camel-k-runtime"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -19565,7 +19610,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-bean-parent/camel-quarkus-bean"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -19640,7 +19685,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/components/camel-bean/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -19709,7 +19754,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -19745,7 +19790,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-support/camel-k-itests-support/camel-k-itests-runtime-inspector"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -19785,7 +19830,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-support/camel-k-catalog"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -19825,7 +19870,7 @@
           "url" : "https://www.apache.org/camel-k-runtime-bom/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -19865,7 +19910,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-support/camel-k-maven-logging"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -19940,7 +19985,7 @@
           "url" : "http://www.slf4j.org"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -20012,7 +20057,7 @@
           "url" : "http://logback.qos.ch/logback-core"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -20084,7 +20129,7 @@
           "url" : "http://logback.qos.ch/logback-classic"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -20183,7 +20228,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-core-parent/camel-k-core-deployment"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -20258,7 +20303,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions-core/camel-quarkus-core-parent/camel-quarkus-core-deployment"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -20331,7 +20376,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -20401,7 +20446,7 @@
           "url" : "http://www.jboss.org/readline-all/readline"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/"
         },
         {
@@ -20475,7 +20520,7 @@
           "url" : "http://fusesource.github.io/jansi"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2"
         },
         {
@@ -20549,7 +20594,7 @@
           "url" : "http://www.jboss.org/aesh-all/aesh"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/"
         },
         {
@@ -20623,7 +20668,7 @@
           "url" : "http://www.jboss.org"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -20698,7 +20743,7 @@
           "url" : "http://asm.ow2.io/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.ow2.org/nexus/service/local/staging/deploy/maven2"
         },
         {
@@ -20773,7 +20818,7 @@
           "url" : "http://asm.ow2.io/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.ow2.org/nexus/service/local/staging/deploy/maven2"
         },
         {
@@ -20848,7 +20893,7 @@
           "url" : "http://asm.ow2.io/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.ow2.org/nexus/service/local/staging/deploy/maven2"
         },
         {
@@ -20923,7 +20968,7 @@
           "url" : "http://asm.ow2.io/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.ow2.org/nexus/service/local/staging/deploy/maven2"
         },
         {
@@ -20998,7 +21043,7 @@
           "url" : "http://asm.ow2.io/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.ow2.org/nexus/service/local/staging/deploy/maven2"
         },
         {
@@ -21071,7 +21116,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -21140,7 +21185,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -21209,7 +21254,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -21278,7 +21323,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -21347,7 +21392,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -21601,7 +21646,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -21670,7 +21715,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -21739,7 +21784,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -21808,7 +21853,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -21877,7 +21922,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -21947,7 +21992,7 @@
           "url" : "https://eclipse-ee4j.github.io/jaxb-ri/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://jakarta.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -22021,7 +22066,7 @@
           "url" : "https://eclipse-ee4j.github.io/jaxb-ri/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://jakarta.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -22095,7 +22140,7 @@
           "url" : "https://eclipse-ee4j.github.io/jaxb-ri/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://jakarta.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -22169,7 +22214,7 @@
           "url" : "https://projects.eclipse.org/projects/ee4j/istack-commons/istack-commons-runtime"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://jakarta.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -22244,7 +22289,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-kubernetes-parent/camel-quarkus-kubernetes-deployment"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -22317,7 +22362,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -22386,7 +22431,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -22455,7 +22500,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -22524,7 +22569,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -22593,7 +22638,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -22662,7 +22707,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -22731,7 +22776,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -22800,7 +22845,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -22869,7 +22914,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -22938,7 +22983,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -23007,7 +23052,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -23076,7 +23121,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -23145,7 +23190,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -23214,7 +23259,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -23283,7 +23328,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -23480,7 +23525,7 @@
           "url" : "https://github.com/rnorth/duct-tape"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://api.bintray.com/maven/richnorth/maven/duct-tape"
         },
         {
@@ -24044,7 +24089,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions-core/camel-quarkus-core-cloud-parent/camel-quarkus-core-cloud-deployment"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -24119,7 +24164,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions-support/camel-quarkus-support-commons-logging-parent/camel-quarkus-support-commons-logging-deployment"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -24159,7 +24204,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-cron-parent"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -24199,7 +24244,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-cron-parent/camel-k-cron-impl"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -24274,7 +24319,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/components/camel-timer/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -24345,7 +24390,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/dsl/camel-yaml-dsl-parent/camel-yaml-dsl/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -24416,7 +24461,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/dsl/camel-yaml-dsl-parent/camel-yaml-dsl-common/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -24487,7 +24532,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/dsl/camel-yaml-dsl-parent/camel-yaml-dsl-deserializers/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -24558,7 +24603,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/dsl/camel-dsl-support/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -24629,7 +24674,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/components/camel-log/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -24665,7 +24710,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-cron-parent/camel-k-cron"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -24740,7 +24785,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-cron-parent/camel-quarkus-cron"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -24815,7 +24860,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/components/camel-cron/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -24851,7 +24896,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-cron-parent/camel-k-cron-deployment"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -24926,7 +24971,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-cron-parent/camel-quarkus-cron-deployment"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -24966,7 +25011,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-knative-parent"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -25006,7 +25051,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-knative-parent/camel-k-knative-impl"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -25081,7 +25126,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/components/camel-knative-parent/camel-knative/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -25152,7 +25197,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/core/camel-health/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -25223,7 +25268,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/components/camel-knative-parent/camel-knative-api/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -25294,7 +25339,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/components/camel-cloudevents/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -25365,7 +25410,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/components/camel-knative-parent/camel-knative-http/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -25401,7 +25446,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-master-parent"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -25441,7 +25486,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-master-parent/camel-k-master-impl"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -25515,7 +25560,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-httpclient-okhttp"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -26069,7 +26114,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/openshift-model-operator"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -26135,7 +26180,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/openshift-model-miscellaneous"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -26201,7 +26246,7 @@
           "url" : "https://github.com/fabric8io/kubernetes-client/kubernetes-model-generator/openshift-model-hive"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -26233,7 +26278,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-master-parent/camel-k-master"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -26308,7 +26353,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-master-parent/camel-quarkus-master"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -26383,7 +26428,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/components/camel-master/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -26419,7 +26464,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-master-parent/camel-k-master-deployment"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -26494,7 +26539,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-master-parent/camel-quarkus-master-deployment"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -26534,7 +26579,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-runtime-parent/camel-k-runtime-deployment"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -26609,7 +26654,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-bean-parent/camel-quarkus-bean-deployment"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -26682,7 +26727,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -26751,7 +26796,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -26787,7 +26832,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-resume-kafka-parent"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -26827,7 +26872,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-resume-kafka-parent/camel-k-resume-kafka-impl"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -26902,7 +26947,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/components/camel-kafka/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -27176,7 +27221,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-resume-kafka-parent/camel-k-resume-kafka"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -27216,7 +27261,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-resume-kafka-parent/camel-k-resume-kafka-deployment"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -27256,7 +27301,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-itests"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -27296,7 +27341,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-core"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -27336,7 +27381,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-loader-groovy"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -27411,7 +27456,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-groovy-dsl-parent/camel-quarkus-groovy-dsl"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -27484,7 +27529,7 @@
           "url" : "https://quarkiverse.io"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -27555,7 +27600,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions-support/camel-quarkus-support-dsl-parent/camel-quarkus-support-dsl"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -27630,7 +27675,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/dsl/camel-groovy-dsl-parent/camel-groovy-dsl/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -27701,7 +27746,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/dsl/camel-endpointdsl-support/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -27772,7 +27817,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/dsl/camel-groovy-dsl-parent/camel-groovy-dsl-common/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -27843,7 +27888,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-direct-parent/camel-quarkus-direct"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -27918,7 +27963,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/components/camel-direct/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -27989,7 +28034,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-log-parent/camel-quarkus-log"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -28029,7 +28074,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-loader-kotlin"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -28104,7 +28149,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-kotlin-dsl-parent/camel-quarkus-kotlin-dsl"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -28177,7 +28222,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -28308,7 +28353,7 @@
           "url" : "https://smallrye.io/smallrye-mutiny"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -28438,7 +28483,7 @@
           "url" : "http://smallrye.io"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -28631,7 +28676,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/dsl/camel-kotlin-dsl/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -29217,7 +29262,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-loader-java"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -29292,7 +29337,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-java-joor-dsl-parent/camel-quarkus-java-joor-dsl"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -29367,7 +29412,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/dsl/camel-java-joor-dsl/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -29438,7 +29483,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/components/camel-joor/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -29535,7 +29580,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-loader-jsh"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -29610,7 +29655,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/dsl/camel-jsh-dsl/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -29646,7 +29691,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-loader-js"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -29721,7 +29766,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-js-dsl-parent/camel-quarkus-js-dsl"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -29796,7 +29841,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/dsl/camel-js-dsl/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -30210,7 +30255,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-loader-xml"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -30285,7 +30330,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions-core/camel-quarkus-xml-io-dsl-parent/camel-quarkus-xml-io-dsl"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -30360,7 +30405,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/core/camel-xml-io/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -30431,7 +30476,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/dsl/camel-xml-io-dsl/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -30467,7 +30512,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-loader-yaml"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -30507,7 +30552,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-loader-polyglot"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -30582,7 +30627,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-jackson-parent/camel-quarkus-jackson"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -30655,7 +30700,7 @@
           "url" : "https://github.com/quarkusio/quarkus"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -30725,7 +30770,7 @@
           "url" : "https://github.com/FasterXML/jackson-modules-base"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -30796,7 +30841,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/components/camel-jackson/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -30832,7 +30877,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-runtime"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -30907,7 +30952,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions-core/camel-quarkus-yaml-dsl-parent/camel-quarkus-yaml-dsl"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -30947,7 +30992,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-runtime-xml"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -31022,7 +31067,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-timer-parent/camel-quarkus-timer"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -31097,7 +31142,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-rest-parent/camel-quarkus-rest"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -31172,7 +31217,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/components/camel-rest/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -31243,7 +31288,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-platform-http-parent/camel-quarkus-platform-http"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -31318,7 +31363,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-attachments-parent/camel-quarkus-attachments"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -31393,7 +31438,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/components/camel-attachments/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -31464,7 +31509,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/components/camel-platform-http-vertx/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -31535,7 +31580,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/components/camel-platform-http/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -31606,7 +31651,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/components/camel-vertx-parent/camel-vertx-common/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -31681,7 +31726,7 @@
           "url" : "http://nexus.sonatype.org/oss-repository-hosting.html/vertx-parent/vertx-ext/vertx-ext-parent/vertx-auth-parent/vertx-auth-properties"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
         }
       ],
@@ -31709,7 +31754,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-runtime-yaml"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -31784,7 +31829,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-knative-parent/camel-quarkus-knative"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -31859,7 +31904,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-cloudevents-parent/camel-quarkus-cloudevents"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -31934,7 +31979,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-knative-producer-parent/camel-quarkus-knative-producer"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -32009,7 +32054,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-knative-consumer-parent/camel-quarkus-knative-consumer"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -32049,7 +32094,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-cron"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -32122,7 +32167,7 @@
           "url" : "http://awaitility.org"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
         },
         {
@@ -32158,7 +32203,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-master"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -32198,7 +32243,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-knative"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -32238,7 +32283,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-knative-env-from-registry"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -32278,7 +32323,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-knative-env-from-properties"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -32318,7 +32363,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-knative-producer"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -32358,7 +32403,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-knative-consumer"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -32398,7 +32443,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-knative-sinkbinding"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -32438,7 +32483,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-kamelet"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -32513,7 +32558,7 @@
           "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-kamelet-parent/camel-quarkus-kamelet"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -32588,7 +32633,7 @@
           "url" : "https://www.apache.org/camel/camel-parent/components/camel-kamelet/"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
@@ -32624,7 +32669,7 @@
           "url" : "https://camel.apache.org/camel-k-runtime-project/apache-camel-k-runtime"
         },
         {
-          "type" : "distribution",
+          "type" : "distribution-intake",
           "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
         },
         {
