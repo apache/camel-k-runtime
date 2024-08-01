@@ -136,7 +136,6 @@ public class RuntimeSupportTest {
     @Test
     public void testLoadCustomizerOrder() {
         DefaultCamelContext context = new DefaultCamelContext();
-        context.setName("camel");
         context.getRegistry().bind("c1", new ContextCustomizer() {
             @Override
             public int getOrder() {
@@ -175,7 +174,7 @@ public class RuntimeSupportTest {
 
         List<ContextCustomizer> customizers = RuntimeSupport.configureContextCustomizers(context);
         assertThat(customizers).hasSize(3);
-        assertThat(context.getName()).isEqualTo("camel-c2-c3-c1");
+        assertThat(context.getName()).matches("camel-.*-c2-c3-c1");
     }
 
     @Test
