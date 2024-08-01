@@ -6,6 +6,10 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump org.codehaus.mojo:exec-maven-plugin from 3.2.0 to 3.3.0 [\#1214](https://github.com/apache/camel-k-runtime/pull/1214) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump org.apache.maven.plugin-tools:maven-plugin-annotations from 3.11.0 to 3.13.1 [\#1213](https://github.com/apache/camel-k-runtime/pull/1213) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump org.assertj:assertj-core from 3.25.3 to 3.26.3 [\#1212](https://github.com/apache/camel-k-runtime/pull/1212) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore: update to CQ 3.13.0 [\#1211](https://github.com/apache/camel-k-runtime/pull/1211) ([squakez](https://github.com/squakez))
 - build\(deps\): bump braces from 3.0.2 to 3.0.3 in /docs [\#1210](https://github.com/apache/camel-k-runtime/pull/1210) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Remove runnerParentFirstArtifacts from quarkus-extension-maven-plugin [\#1208](https://github.com/apache/camel-k-runtime/pull/1208) ([claudio4j](https://github.com/claudio4j))
 - build\(deps\): bump org.apache.maven.plugins:maven-gpg-plugin from 3.2.1 to 3.2.4 [\#1206](https://github.com/apache/camel-k-runtime/pull/1206) ([dependabot[bot]](https://github.com/apps/dependabot))
