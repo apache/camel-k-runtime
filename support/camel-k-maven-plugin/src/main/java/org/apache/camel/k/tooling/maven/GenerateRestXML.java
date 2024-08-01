@@ -16,20 +16,15 @@
  */
 package org.apache.camel.k.tooling.maven;
 
-import java.io.FileInputStream;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import io.apicurio.datamodels.Library;
-import io.apicurio.datamodels.models.openapi.OpenApiDocument;
-import io.apicurio.datamodels.models.util.JsonUtil;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.parser.OpenAPIV3Parser;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.generator.openapi.RestDslXmlGenerator;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -65,19 +60,7 @@ class GenerateRestXML extends AbstractMojo {
         }
 
         try {
-            JsonFactory factory = null;
-            if (inputFile.endsWith(".yaml") || inputFile.endsWith(".yml")) {
-                factory = new YAMLFactory();
-            }
-
-            ObjectMapper mapper = new ObjectMapper(factory);
-            mapper.findAndRegisterModules();
-
-            FileInputStream fis = new FileInputStream(inputFile);
-
-            JsonNode node = mapper.readTree(fis);
-            OpenApiDocument document = (OpenApiDocument) Library.readDocument(JsonUtil.toObject(node));
-
+            OpenAPI document = new OpenAPIV3Parser().read(inputFile);
             final Writer writer;
 
             if (outputFile != null) {
