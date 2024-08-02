@@ -6,6 +6,9 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump org.apache.maven.plugins:maven-jar-plugin from 3.3.0 to 3.4.2 [\#1217](https://github.com/apache/camel-k-runtime/pull/1217) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump org.apache.maven.plugins:maven-javadoc-plugin from 3.6.3 to 3.8.0 [\#1216](https://github.com/apache/camel-k-runtime/pull/1216) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump com.mycila:license-maven-plugin from 4.3 to 4.5 [\#1215](https://github.com/apache/camel-k-runtime/pull/1215) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.codehaus.mojo:exec-maven-plugin from 3.2.0 to 3.3.0 [\#1214](https://github.com/apache/camel-k-runtime/pull/1214) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugin-tools:maven-plugin-annotations from 3.11.0 to 3.13.1 [\#1213](https://github.com/apache/camel-k-runtime/pull/1213) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.assertj:assertj-core from 3.25.3 to 3.26.3 [\#1212](https://github.com/apache/camel-k-runtime/pull/1212) ([dependabot[bot]](https://github.com/apps/dependabot))
