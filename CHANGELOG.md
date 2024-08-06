@@ -6,6 +6,9 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump groovy-version from 4.0.20 to 4.0.22 [\#1223](https://github.com/apache/camel-k-runtime/pull/1223) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump net.logstash.logback:logstash-logback-encoder from 7.4 to 8.0 [\#1222](https://github.com/apache/camel-k-runtime/pull/1222) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump com.google.cloud.tools:jib-maven-plugin from 3.4.1 to 3.4.3 [\#1221](https://github.com/apache/camel-k-runtime/pull/1221) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-plugin-plugin from 3.11.0 to 3.13.1 [\#1220](https://github.com/apache/camel-k-runtime/pull/1220) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.jolokia:jolokia-agent-jvm from 2.0.2 to 2.0.3 [\#1218](https://github.com/apache/camel-k-runtime/pull/1218) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-jar-plugin from 3.3.0 to 3.4.2 [\#1217](https://github.com/apache/camel-k-runtime/pull/1217) ([dependabot[bot]](https://github.com/apps/dependabot))
