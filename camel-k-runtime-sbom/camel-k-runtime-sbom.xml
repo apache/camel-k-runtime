@@ -3679,21 +3679,21 @@ file comparators, endian transformation classes, and much more.</description>
       <purl>pkg:maven/org.apache.camel.k/camel-k-test@3.13.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-support/camel-k-test</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-support/camel-k-test</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.hamcrest/hamcrest-core@2.2?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.hamcrest/hamcrest-core@3.0?type=jar">
       <group>org.hamcrest</group>
       <name>hamcrest-core</name>
-      <version>2.2</version>
+      <version>3.0</version>
       <description>Core Hamcrest API - deprecated, please use "hamcrest" instead</description>
       <scope>required</scope>
       <hashes>
-        <hash alg="MD5">be43e37f4c7b4f6fadba382933006b15</hash>
-        <hash alg="SHA-1">3f2bd07716a31c395e2837254f37f21f0f0ab24b</hash>
-        <hash alg="SHA-256">094f5d92b4b7d9c8a2bf53cc69d356243ae89c3499457bcb4b92f7ed3bf95879</hash>
-        <hash alg="SHA-512">e6c3f02e25070177f8101f9ca265046f8c9569f82560051dbfb1e6a28c9937b1a7453f68e9a37bfce0eb69bacf45a743d16e78add931e98195d260b8a516557e</hash>
-        <hash alg="SHA-384">3d31875d5f5c398db6e29ea4e57ad18c9afb00b0926db20429435e74c1733f0e87189621c1f5edbf443b10bdcf7696c1</hash>
-        <hash alg="SHA3-384">435d92c73b0a1d7ec1d1218953e2c382057658aae9bcd71359d2daeee48407ac4c4c539b4fe321e97147f3f568f0a40b</hash>
-        <hash alg="SHA3-256">c34903e0e52796dce65958939fd536f475c7cc3733c31ec0e731ea4586daceaa</hash>
-        <hash alg="SHA3-512">ce294d68caa56282e800a7d237a008a715c80f4f6f50240e7cba88154c429d30647150e4c53042569e791ddd24634ad7fe8711c0bc0d84c14663a1e5c1fab932</hash>
+        <hash alg="MD5">622d37a84ac87b732cb512de0f288c2e</hash>
+        <hash alg="SHA-1">254f69f4b0ca22198acfc19fcdd5f96140431c3e</hash>
+        <hash alg="SHA-256">b78a3a81692f421cc01fc17ded9a45e9fb6f3949c712f8ec4d01da6b8c06bc6e</hash>
+        <hash alg="SHA-512">da4fe935a24bd7632c1cd0b0dce8ef08b52a0df67a977a96823e9c2a8147fe02350ec8f2678f4edb0b170aeb9dd7002872686f7965675babe15534d28442dd4b</hash>
+        <hash alg="SHA-384">d3691f306575762ef97a8321b2fdcfdb64e96a377278a32a128495480df7c06f9903240f4e6b02a202bd171d5c2f1c7a</hash>
+        <hash alg="SHA3-384">11cb06bf51ddfb6e3937a823ba916a582fabe21ff502bb71353ae8acb31f0e34b35c48ef68081a6775815a692562f042</hash>
+        <hash alg="SHA3-256">722ef291cdda4a9ff5917401a611fb80507e1461409de74dd77007b00ca259e5</hash>
+        <hash alg="SHA3-512">3153b0c3cc0a5212ea32e9ca10b81c84f8f222c03adacae2eeb25c34c80da3b6d10118b7b186dd758f97bfece6a77bcebbf16a05eae1600b416897aea2cd1c53</hash>
       </hashes>
       <licenses>
         <license>
@@ -3701,7 +3701,7 @@ file comparators, endian transformation classes, and much more.</description>
           <url>https://opensource.org/licenses/BSD-3-Clause</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.hamcrest/hamcrest-core@2.2?type=jar</purl>
+      <purl>pkg:maven/org.hamcrest/hamcrest-core@3.0?type=jar</purl>
       <externalReferences><reference type="website"><url>http://hamcrest.org/JavaHamcrest/</url></reference><reference type="vcs"><url>https://github.com/hamcrest/JavaHamcrest</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.hamcrest/hamcrest@2.2?type=jar">
@@ -12826,7 +12826,7 @@ that achieves high performance when combined with Graal.</description>
     <dependency ref="pkg:maven/org.apache.camel.k/camel-k-test@3.13.0-SNAPSHOT?type=jar">
       <dependency ref="pkg:maven/org.junit.jupiter/junit-jupiter@5.10.3?type=jar"/>
       <dependency ref="pkg:maven/org.assertj/assertj-core@3.26.3?type=jar"/>
-      <dependency ref="pkg:maven/org.hamcrest/hamcrest-core@2.2?type=jar"/>
+      <dependency ref="pkg:maven/org.hamcrest/hamcrest-core@3.0?type=jar"/>
       <dependency ref="pkg:maven/io.rest-assured/rest-assured@5.5.0?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/org.junit.jupiter/junit-jupiter@5.10.3?type=jar">
@@ -12862,7 +12862,7 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/net.bytebuddy/byte-buddy@1.14.15?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/net.bytebuddy/byte-buddy@1.14.15?type=jar"/>
-    <dependency ref="pkg:maven/org.hamcrest/hamcrest-core@2.2?type=jar">
+    <dependency ref="pkg:maven/org.hamcrest/hamcrest-core@3.0?type=jar">
       <dependency ref="pkg:maven/org.hamcrest/hamcrest@2.2?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/org.hamcrest/hamcrest@2.2?type=jar"/>
