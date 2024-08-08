@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump org.apache.maven.plugins:maven-enforcer-plugin from 3.4.1 to 3.5.0 [\#1227](https://github.com/apache/camel-k-runtime/pull/1227) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.shared:maven-common-artifact-filters from 3.3.2 to 3.4.0 [\#1226](https://github.com/apache/camel-k-runtime/pull/1226) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.codehaus.mojo:versions-maven-plugin from 2.16.2 to 2.17.1 [\#1225](https://github.com/apache/camel-k-runtime/pull/1225) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.hamcrest:hamcrest-core from 2.2 to 3.0 [\#1224](https://github.com/apache/camel-k-runtime/pull/1224) ([dependabot[bot]](https://github.com/apps/dependabot))
