@@ -87,7 +87,7 @@
         <maven-plugin-api-version>3.6.3</maven-plugin-api-version>
         <maven-plugin-tools-version>3.13.1</maven-plugin-tools-version>
         <maven-shaded-version>3.4.0</maven-shaded-version>
-        <cyclonedx-maven-plugin-version>2.8.0</cyclonedx-maven-plugin-version>
+        <cyclonedx-maven-plugin-version>2.8.1</cyclonedx-maven-plugin-version>
 
         <jib-maven-plugin-version>3.4.3</jib-maven-plugin-version>
         <jib-layer-filter-extension-maven-version>0.3.0</jib-layer-filter-extension-maven-version>
