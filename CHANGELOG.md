@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump org.jolokia:jolokia-agent-jvm from 2.0.3 to 2.1.0 [\#1232](https://github.com/apache/camel-k-runtime/pull/1232) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-dependency-plugin from 3.6.1 to 3.7.1 [\#1231](https://github.com/apache/camel-k-runtime/pull/1231) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-failsafe-plugin from 3.2.5 to 3.3.1 [\#1230](https://github.com/apache/camel-k-runtime/pull/1230) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-enforcer-plugin from 3.4.1 to 3.5.0 [\#1227](https://github.com/apache/camel-k-runtime/pull/1227) ([dependabot[bot]](https://github.com/apps/dependabot))
@@ -392,6 +393,7 @@
 - build\(deps\): bump asm from 9.2 to 9.3 [\#814](https://github.com/apache/camel-k-runtime/pull/814) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump simple-get from 3.1.0 to 3.1.1 in /docs [\#810](https://github.com/apache/camel-k-runtime/pull/810) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump lodash from 4.17.15 to 4.17.21 in /docs [\#809](https://github.com/apache/camel-k-runtime/pull/809) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump handlebars from 4.7.6 to 4.7.7 in /docs [\#808](https://github.com/apache/camel-k-runtime/pull/808) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [camel-k-runtime-project-1.13.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-1.13.0) (2022-04-19)
 
