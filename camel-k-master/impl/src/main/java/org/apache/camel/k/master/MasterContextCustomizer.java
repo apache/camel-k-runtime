@@ -40,7 +40,22 @@ public class MasterContextCustomizer implements ContextCustomizer {
     @Override
     public void apply(CamelContext camelContext) {
         try {
+            boolean existsService = false;
             KubernetesClusterService clusterService = new KubernetesClusterService();
+
+            if (this.rebalancing == null || this.rebalancing) {
+                RebalancingCamelClusterService existingRebalancingService =  camelContext.hasService(RebalancingCamelClusterService.class);
+                if (existingRebalancingService != null){
+                    existsService = true;
+                    clusterService = (KubernetesClusterService)existingRebalancingService.getDelegate();
+                }
+            } else {
+                if (camelContext.hasService(KubernetesClusterService.class) != null) {
+                    clusterService = camelContext.hasService(KubernetesClusterService.class);
+                    existsService = true;
+                }
+            }
+
             String resourceName = this.kubernetesResourceName;
             if (ObjectHelper.isEmpty(resourceName)) {
                 resourceName = this.configMapName;
@@ -55,11 +70,13 @@ public class MasterContextCustomizer implements ContextCustomizer {
                 clusterService.setLeaseResourceType(this.leaseResourceType);
             }
 
-            if (this.rebalancing == null || this.rebalancing) {
-                RebalancingCamelClusterService rebalancingService = new RebalancingCamelClusterService(clusterService, clusterService.getRenewDeadlineMillis());
-                camelContext.addService(rebalancingService);
-            } else {
-                camelContext.addService(clusterService);
+            if (!existsService) {
+                if (this.rebalancing == null || this.rebalancing) {
+                    RebalancingCamelClusterService rebalancingService = new RebalancingCamelClusterService(clusterService, clusterService.getRenewDeadlineMillis());
+                    camelContext.addService(rebalancingService);
+                } else {
+                    camelContext.addService(clusterService);
+                }
             }
         } catch (Exception ex) {
             throw new RuntimeCamelException(ex);

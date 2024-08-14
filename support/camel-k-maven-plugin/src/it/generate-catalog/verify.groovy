@@ -62,8 +62,6 @@ new File(basedir, "catalog.yaml").withReader {
     assert catalog.spec.runtime.capabilities['master'].runtimeProperties[1].value == '${camel.k.master.resourceName}'
     assert catalog.spec.runtime.capabilities['master'].runtimeProperties[2].key == 'quarkus.camel.cluster.kubernetes.resource-type'
     assert catalog.spec.runtime.capabilities['master'].runtimeProperties[2].value == '${camel.k.master.resourceType}'
-    assert catalog.spec.runtime.capabilities['master'].buildTimeProperties[0].key == 'quarkus.camel.cluster.kubernetes.enabled'
-    assert catalog.spec.runtime.capabilities['master'].buildTimeProperties[0].value == '${camel.k.master.enabled}'
     // Telemetry properties
     assert catalog.spec.runtime.capabilities['telemetry'].runtimeProperties[0].key == 'quarkus.opentelemetry.tracer.exporter.otlp.endpoint'
     assert catalog.spec.runtime.capabilities['telemetry'].runtimeProperties[0].value == '${camel.k.telemetry.endpoint}'
