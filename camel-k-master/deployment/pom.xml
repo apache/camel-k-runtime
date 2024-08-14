@@ -44,6 +44,12 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-kubernetes-deployment</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-kubernetes-cluster-service-deployment</artifactId>
+        </dependency>
+
+
     </dependencies>
 
     <build>

@@ -506,9 +506,7 @@ public class GenerateCatalogMojo extends AbstractMojo {
         properties.add(Property.from("quarkus.camel.cluster.kubernetes.resource-name", "${camel.k.master.resourceName}"));
         properties.add(Property.from("quarkus.camel.cluster.kubernetes.resource-type", "${camel.k.master.resourceType}"));
         properties.add(Property.from("quarkus.camel.cluster.kubernetes.labels.\"${camel.k.master.labelKey}\"", "${camel.k.master.labelValue}"));
-        List<Property> buildTimeProps = new ArrayList<>();
-        buildTimeProps.add(Property.from("quarkus.camel.cluster.kubernetes.enabled", "${camel.k.master.enabled}"));
-        addCapability(runtimeSpec, catalogSpec, "master", artifacts, properties, buildTimeProps, new ArrayList<>(), true);
+        addCapability(runtimeSpec, catalogSpec, "master", artifacts, properties, new ArrayList<>(), new ArrayList<>(), true);
 
         artifacts.clear();
         artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-hashicorp-vault"));
