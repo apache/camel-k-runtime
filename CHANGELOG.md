@@ -6,9 +6,12 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump org.apache.maven.plugins:maven-deploy-plugin from 3.1.1 to 3.1.2 [\#1233](https://github.com/apache/camel-k-runtime/pull/1233) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.jolokia:jolokia-agent-jvm from 2.0.3 to 2.1.0 [\#1232](https://github.com/apache/camel-k-runtime/pull/1232) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-dependency-plugin from 3.6.1 to 3.7.1 [\#1231](https://github.com/apache/camel-k-runtime/pull/1231) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-failsafe-plugin from 3.2.5 to 3.3.1 [\#1230](https://github.com/apache/camel-k-runtime/pull/1230) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump org.apache.maven.plugins:maven-clean-plugin from 3.3.2 to 3.4.0 [\#1229](https://github.com/apache/camel-k-runtime/pull/1229) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump org.cyclonedx:cyclonedx-maven-plugin from 2.8.0 to 2.8.1 [\#1228](https://github.com/apache/camel-k-runtime/pull/1228) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-enforcer-plugin from 3.4.1 to 3.5.0 [\#1227](https://github.com/apache/camel-k-runtime/pull/1227) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.shared:maven-common-artifact-filters from 3.3.2 to 3.4.0 [\#1226](https://github.com/apache/camel-k-runtime/pull/1226) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.codehaus.mojo:versions-maven-plugin from 2.16.2 to 2.17.1 [\#1225](https://github.com/apache/camel-k-runtime/pull/1225) ([dependabot[bot]](https://github.com/apps/dependabot))
