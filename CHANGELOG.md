@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump org.apache.maven.plugins:maven-surefire-plugin from 3.2.5 to 3.3.1 [\#1235](https://github.com/apache/camel-k-runtime/pull/1235) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-deploy-plugin from 3.1.1 to 3.1.2 [\#1233](https://github.com/apache/camel-k-runtime/pull/1233) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.jolokia:jolokia-agent-jvm from 2.0.3 to 2.1.0 [\#1232](https://github.com/apache/camel-k-runtime/pull/1232) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-dependency-plugin from 3.6.1 to 3.7.1 [\#1231](https://github.com/apache/camel-k-runtime/pull/1231) ([dependabot[bot]](https://github.com/apps/dependabot))
