@@ -205,7 +205,7 @@ The `beans` elements can only be used as root element
 
 == Supported EIP
 
-This is the list of EIPs supported in the yaml DSL language. For full details on expected configuration you can please refer to the https://github.com/apache/camel/blob/main/dsl/camel-yaml-dsl/camel-yaml-dsl/src/generated/resources/schema/camel-yaml-dsl.json[YAML language specification].
+This is the list of EIPs supported in the yaml DSL language. For full details on expected configuration you can please refer to the https://github.com/apache/camel/blob/main/dsl/camel-yaml-dsl/camel-yaml-dsl/src/generated/resources/schema/camelYamlDsl.json[YAML language specification].
 
 - Aggregate
 - Bean
