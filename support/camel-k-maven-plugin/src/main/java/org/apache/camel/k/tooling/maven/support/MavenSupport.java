@@ -77,7 +77,7 @@ public final class MavenSupport {
 
     public static void getVersion(Class<?> clazz, String path, Consumer<String> consumer) {
         consumer.accept(
-            MavenSupport.getVersion(clazz, path)
+            getVersion(clazz, path)
         );
     }
 
@@ -89,7 +89,7 @@ public final class MavenSupport {
     }
 
     public static String getVersion(Class<?> clazz, String groupId, String artifactId) {
-        return MavenSupport.getVersion(
+        return getVersion(
             clazz,
             String.format("/META-INF/maven/%s/%s/pom.properties", groupId, artifactId));
     }
