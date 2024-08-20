@@ -6,6 +6,12 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump org.apache.maven.plugins:maven-surefire-plugin from 3.3.1 to 3.4.0 [\#1243](https://github.com/apache/camel-k-runtime/pull/1243) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump org.apache.maven.plugins:maven-deploy-plugin from 3.1.2 to 3.1.3 [\#1242](https://github.com/apache/camel-k-runtime/pull/1242) ([dependabot[bot]](https://github.com/apps/dependabot))
+- fix\(5746\): Fix master addon configuration [\#1241](https://github.com/apache/camel-k-runtime/pull/1241) ([gansheer](https://github.com/gansheer))
+- Fix wrong link [\#1240](https://github.com/apache/camel-k-runtime/pull/1240) ([pixelneo](https://github.com/pixelneo))
+- build\(deps\): bump org.codehaus.mojo:exec-maven-plugin from 3.3.0 to 3.4.1 [\#1238](https://github.com/apache/camel-k-runtime/pull/1238) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump org.apache.maven.plugins:maven-gpg-plugin from 3.2.4 to 3.2.5 [\#1237](https://github.com/apache/camel-k-runtime/pull/1237) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-surefire-plugin from 3.2.5 to 3.3.1 [\#1235](https://github.com/apache/camel-k-runtime/pull/1235) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-deploy-plugin from 3.1.1 to 3.1.2 [\#1233](https://github.com/apache/camel-k-runtime/pull/1233) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.jolokia:jolokia-agent-jvm from 2.0.3 to 2.1.0 [\#1232](https://github.com/apache/camel-k-runtime/pull/1232) ([dependabot[bot]](https://github.com/apps/dependabot))
