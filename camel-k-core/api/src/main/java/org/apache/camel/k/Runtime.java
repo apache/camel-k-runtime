@@ -131,7 +131,7 @@ public interface Runtime extends HasCamelContext, AutoCloseable {
 
         @Override
         default int getOrder() {
-            return Ordered.LOWEST;
+            return LOWEST;
         }
     }
 
