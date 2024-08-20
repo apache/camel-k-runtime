@@ -27100,6 +27100,81 @@
     },
     {
       "publisher" : "The Apache Software Foundation",
+      "group" : "org.apache.camel.quarkus",
+      "name" : "camel-quarkus-kubernetes-cluster-service",
+      "version" : "3.13.0",
+      "description" : "Provides a Kubernetes implementation of the Camel Cluster Service SPI",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "a72e7d4ab44fec09f882f3f6770d9b9b"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "35cb762e7fb0db86293097ae8c69f209ad671b08"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "ea33d936d924fb25b8b73ffe7f2f9099f575c0262ab3cd00238d60cdeb9b6f88"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "f757cb719df2b399d8f21b32474de715bd3c2350594d128cc1569a98e083dcdca769d3c763f990667b8c44794c644aa7bc3c86cd604803e84b195447f6362c90"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "c30d380f0d28509d70f935739c54316290719ce41442208e9fe13f41fb94a5082075bb6be12ef52a0c7c008eef5479ff"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "a30ab9a09f45f812618d7e797f1c560fb10b17dc84cf3b85456ca278e9945e22a958176e58d9d3a73570736f1bd1fcde"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "98bc025a6c951f338259e015166cb75711099f2e539ab2d59e6a8f113ee3c32b"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "0dbc266c2a8c02e3e5e8babf1cfa3ddff6b4228d13df987aa59b98668786de5fa0806cf7add3c6d35b93bca7704b62346c45459db8b2d0b76e34609d2696d45f"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0",
+            "url" : "https://www.apache.org/licenses/LICENSE-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes-cluster-service@3.13.0?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-kubernetes-cluster-service-parent/camel-quarkus-kubernetes-cluster-service"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://github.com/apache/camel-quarkus/issues"
+        },
+        {
+          "type" : "mailing-list",
+          "url" : "dev-subscribe@camel.apache.org"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://github.com/apache/camel-quarkus/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-kubernetes-cluster-service-parent/camel-quarkus-kubernetes-cluster-service"
+        }
+      ],
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes-cluster-service@3.13.0?type=jar"
+    },
+    {
+      "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-master",
       "version" : "3.13.0-SNAPSHOT",
@@ -27398,6 +27473,81 @@
       ],
       "type" : "library",
       "bom-ref" : "pkg:maven/org.apache.camel.quarkus/camel-quarkus-master-deployment@3.13.0?type=jar"
+    },
+    {
+      "publisher" : "The Apache Software Foundation",
+      "group" : "org.apache.camel.quarkus",
+      "name" : "camel-quarkus-kubernetes-cluster-service-deployment",
+      "version" : "3.13.0",
+      "description" : "Maven plugins configuration",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "843a735822752d66ce4d7fb8e09d1971"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "b6f5c4d984915c4e00393c8490184fd7fcbd030d"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "008beef48c52fd1acf91a2b00d6e6d5efb9123d8bb4a5814e6b24130be438574"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "20641ca153c420eba06131f761f017793b643f238cf23b63a5515b6077121fc8374a0f10211d33035866d9f701a6a8c937782a9a217563ebeb97f61a22f467f6"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "b3c6e31a44a558fd5f6730aaa23b11bc14ccef8ac8495338e396d828abe2e497bde0902169d6ef3da4c1a8529e37d715"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "603dff42d6a10024800f2480f325073542dfa0902ad18ddf0b2107b4f028b2c49bff7e403fcdb13c5412f071fe1058a8"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "c5d27991958456b49c3cb34312201268dc7eeefb359574a8295695b41b5ac849"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "5db73006b23a81a641440c3a79ff0375225d9c207a2647a79bae0ebf70dc0c60eb21abb0a8c543d51c8d7432b126212cbc62f55436e24b776f7a8aff5191a83c"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0",
+            "url" : "https://www.apache.org/licenses/LICENSE-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes-cluster-service-deployment@3.13.0?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-kubernetes-cluster-service-parent/camel-quarkus-kubernetes-cluster-service-deployment"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://github.com/apache/camel-quarkus/issues"
+        },
+        {
+          "type" : "mailing-list",
+          "url" : "dev-subscribe@camel.apache.org"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://github.com/apache/camel-quarkus/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-kubernetes-cluster-service-parent/camel-quarkus-kubernetes-cluster-service-deployment"
+        }
+      ],
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes-cluster-service-deployment@3.13.0?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
@@ -36543,6 +36693,7 @@
       "dependsOn" : [
         "pkg:maven/org.apache.camel/camel-core-engine@4.7.0?type=jar",
         "pkg:maven/org.apache.camel/camel-kubernetes@4.7.0?type=jar",
+        "pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes-cluster-service@3.13.0?type=jar",
         "pkg:maven/org.apache.camel.k/camel-k-core-support@3.13.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel.k/camel-k-apt@3.13.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel.k/camel-k-annotations@3.13.0-SNAPSHOT?type=jar"
@@ -36638,12 +36789,23 @@
       ]
     },
     {
+      "ref" : "pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes-cluster-service@3.13.0?type=jar",
+      "dependsOn" : [
+        "pkg:maven/io.quarkus/quarkus-kubernetes-client@3.13.0?type=jar",
+        "pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@3.13.0?type=jar",
+        "pkg:maven/org.apache.camel.quarkus/camel-quarkus-core-cloud@3.13.0?type=jar",
+        "pkg:maven/org.apache.camel.quarkus/camel-quarkus-support-commons-logging@3.13.0?type=jar",
+        "pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes@3.13.0?type=jar"
+      ]
+    },
+    {
       "ref" : "pkg:maven/org.apache.camel.k/camel-k-master@3.13.0-SNAPSHOT?type=jar",
       "dependsOn" : [
         "pkg:maven/org.apache.camel.k/camel-k-core@3.13.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel.k/camel-k-master-impl@3.13.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-master@3.13.0?type=jar",
-        "pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes@3.13.0?type=jar"
+        "pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes@3.13.0?type=jar",
+        "pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes-cluster-service@3.13.0?type=jar"
       ]
     },
     {
@@ -36666,7 +36828,8 @@
         "pkg:maven/org.apache.camel.k/camel-k-core-deployment@3.13.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel.k/camel-k-master@3.13.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-master-deployment@3.13.0?type=jar",
-        "pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes-deployment@3.13.0?type=jar"
+        "pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes-deployment@3.13.0?type=jar",
+        "pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes-cluster-service-deployment@3.13.0?type=jar"
       ]
     },
     {
@@ -36674,6 +36837,17 @@
       "dependsOn" : [
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-core-deployment@3.13.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-master@3.13.0?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes-cluster-service-deployment@3.13.0?type=jar",
+      "dependsOn" : [
+        "pkg:maven/io.quarkus/quarkus-kubernetes-client-deployment@3.13.0?type=jar",
+        "pkg:maven/org.apache.camel.quarkus/camel-quarkus-core-deployment@3.13.0?type=jar",
+        "pkg:maven/org.apache.camel.quarkus/camel-quarkus-core-cloud-deployment@3.13.0?type=jar",
+        "pkg:maven/org.apache.camel.quarkus/camel-quarkus-support-commons-logging-deployment@3.13.0?type=jar",
+        "pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes-deployment@3.13.0?type=jar",
+        "pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes-cluster-service@3.13.0?type=jar"
       ]
     },
     {
