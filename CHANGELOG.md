@@ -6,6 +6,9 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump org.apache.maven.plugin-tools:maven-plugin-annotations from 3.13.1 to 3.14.0 [\#1247](https://github.com/apache/camel-k-runtime/pull/1247) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump org.codehaus.mojo:build-helper-maven-plugin from 3.5.0 to 3.6.0 [\#1245](https://github.com/apache/camel-k-runtime/pull/1245) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump org.apache.maven.plugins:maven-pmd-plugin from 3.21.2 to 3.24.0  [\#1244](https://github.com/apache/camel-k-runtime/pull/1244) ([gansheer](https://github.com/gansheer))
 - build\(deps\): bump org.apache.maven.plugins:maven-surefire-plugin from 3.3.1 to 3.4.0 [\#1243](https://github.com/apache/camel-k-runtime/pull/1243) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-deploy-plugin from 3.1.2 to 3.1.3 [\#1242](https://github.com/apache/camel-k-runtime/pull/1242) ([dependabot[bot]](https://github.com/apps/dependabot))
 - fix\(5746\): Fix master addon configuration [\#1241](https://github.com/apache/camel-k-runtime/pull/1241) ([gansheer](https://github.com/gansheer))
