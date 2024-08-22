@@ -6,6 +6,9 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump org.apache.maven.plugins:maven-site-plugin from 3.12.1 to 3.20.0 [\#1250](https://github.com/apache/camel-k-runtime/pull/1250) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump org.apache.maven.plugins:maven-checkstyle-plugin from 3.3.1 to 3.4.0 [\#1249](https://github.com/apache/camel-k-runtime/pull/1249) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump org.apache.maven.plugins:maven-dependency-plugin from 3.7.1 to 3.8.0 [\#1248](https://github.com/apache/camel-k-runtime/pull/1248) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugin-tools:maven-plugin-annotations from 3.13.1 to 3.14.0 [\#1247](https://github.com/apache/camel-k-runtime/pull/1247) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.codehaus.mojo:build-helper-maven-plugin from 3.5.0 to 3.6.0 [\#1245](https://github.com/apache/camel-k-runtime/pull/1245) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-pmd-plugin from 3.21.2 to 3.24.0  [\#1244](https://github.com/apache/camel-k-runtime/pull/1244) ([gansheer](https://github.com/gansheer))
