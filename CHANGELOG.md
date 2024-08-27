@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump org.apache.maven.plugins:maven-plugin-plugin from 3.13.1 to 3.14.0 [\#1254](https://github.com/apache/camel-k-runtime/pull/1254) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-failsafe-plugin from 3.3.1 to 3.4.0 [\#1253](https://github.com/apache/camel-k-runtime/pull/1253) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-checkstyle-plugin from 3.4.0 to 3.5.0 [\#1252](https://github.com/apache/camel-k-runtime/pull/1252) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache:apache from 31 to 33 [\#1251](https://github.com/apache/camel-k-runtime/pull/1251) ([dependabot[bot]](https://github.com/apps/dependabot))
