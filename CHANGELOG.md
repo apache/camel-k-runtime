@@ -6,6 +6,9 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump org.apache.maven.plugin-tools:maven-plugin-annotations from 3.14.0 to 3.15.0 [\#1257](https://github.com/apache/camel-k-runtime/pull/1257) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump org.apache.maven.plugins:maven-surefire-plugin from 3.4.0 to 3.5.0 [\#1256](https://github.com/apache/camel-k-runtime/pull/1256) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump org.apache.maven.plugins:maven-pmd-plugin from 3.24.0 to 3.25.0 [\#1255](https://github.com/apache/camel-k-runtime/pull/1255) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-plugin-plugin from 3.13.1 to 3.14.0 [\#1254](https://github.com/apache/camel-k-runtime/pull/1254) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-failsafe-plugin from 3.3.1 to 3.4.0 [\#1253](https://github.com/apache/camel-k-runtime/pull/1253) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-checkstyle-plugin from 3.4.0 to 3.5.0 [\#1252](https://github.com/apache/camel-k-runtime/pull/1252) ([dependabot[bot]](https://github.com/apps/dependabot))
