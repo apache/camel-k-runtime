@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump actions/download-artifact from 3 to 4.1.7 in /.github/workflows [\#1262](https://github.com/apache/camel-k-runtime/pull/1262) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-javadoc-plugin from 3.8.0 to 3.10.0 [\#1261](https://github.com/apache/camel-k-runtime/pull/1261) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-failsafe-plugin from 3.4.0 to 3.5.0 [\#1260](https://github.com/apache/camel-k-runtime/pull/1260) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-plugin-plugin from 3.14.0 to 3.15.0 [\#1259](https://github.com/apache/camel-k-runtime/pull/1259) ([dependabot[bot]](https://github.com/apps/dependabot))
