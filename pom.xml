@@ -45,7 +45,7 @@
         <!-- quarkus -->
         <quarkus-version>3.13.0</quarkus-version>
         <quarkus-platform-group>io.quarkus.platform</quarkus-platform-group>
-        <quarkus-platform-version>3.13.0</quarkus-platform-version>
+        <quarkus-platform-version>3.14.3</quarkus-platform-version>
         <quarkus-native-builder-image>quay.io/quarkus/ubi-quarkus-mandrel-builder-image:jdk-21</quarkus-native-builder-image>
 
         <!-- camel-k-runtime specific -->
