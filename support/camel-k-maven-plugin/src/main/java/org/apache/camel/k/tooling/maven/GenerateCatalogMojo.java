@@ -305,6 +305,7 @@ public class GenerateCatalogMojo extends AbstractMojo {
                 "kts",
                 CamelLoader.fromArtifact("org.apache.camel.quarkus", "camel-quarkus-kotlin-dsl")
                     .addLanguage("kts")
+                    .putMetadata("deprecated", "true")
                     .putMetadata("native", "true")
                     .putMetadata("sources-required-at-build-time", "true")
                     .build()
@@ -315,6 +316,7 @@ public class GenerateCatalogMojo extends AbstractMojo {
                 "js",
                 CamelLoader.fromArtifact("org.apache.camel.quarkus", "camel-quarkus-js-dsl")
                     .addLanguage("js")
+                    .putMetadata("deprecated", "true")
                     // Guest languages are not yet supported on Mandrel in native mode.
                     .putMetadata("native", "false")
                     .build()
@@ -344,6 +346,7 @@ public class GenerateCatalogMojo extends AbstractMojo {
                 "jsh",
                 CamelLoader.fromArtifact("org.apache.camel.quarkus", "camel-quarkus-jsh-dsl")
                     .addLanguages("jsh")
+                    .putMetadata("deprecated", "true")
                     // Native mode is not yet supported due to https://github.com/apache/camel-quarkus/issues/4458.
                     .putMetadata("native", "false")
                     .putMetadata("sources-required-at-build-time", "true")
