@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump org.apache.maven.plugins:maven-gpg-plugin from 3.2.5 to 3.2.6 [\#1270](https://github.com/apache/camel-k-runtime/pull/1270) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.jolokia:jolokia-agent-jvm from 2.1.0 to 2.1.1 [\#1268](https://github.com/apache/camel-k-runtime/pull/1268) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump groovy-version from 4.0.22 to 4.0.23 [\#1267](https://github.com/apache/camel-k-runtime/pull/1267) ([dependabot[bot]](https://github.com/apps/dependabot))
 - feat: add a deprecation metadata to languages no longer supported [\#1265](https://github.com/apache/camel-k-runtime/pull/1265) ([squakez](https://github.com/squakez))
