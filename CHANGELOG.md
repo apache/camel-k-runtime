@@ -6,6 +6,8 @@
 
 **Merged pull requests:**
 
+- chore: bump Quarkus platform to 3.15.1 [\#1274](https://github.com/apache/camel-k-runtime/pull/1274) ([squakez](https://github.com/squakez))
+- build\(deps\): bump com.mycila:license-maven-plugin from 4.5 to 4.6 [\#1273](https://github.com/apache/camel-k-runtime/pull/1273) ([dependabot[bot]](https://github.com/apps/dependabot))
 - feat: bump Camel Quarkus to 3.15 [\#1271](https://github.com/apache/camel-k-runtime/pull/1271) ([squakez](https://github.com/squakez))
 - build\(deps\): bump org.apache.maven.plugins:maven-gpg-plugin from 3.2.5 to 3.2.6 [\#1270](https://github.com/apache/camel-k-runtime/pull/1270) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.jolokia:jolokia-agent-jvm from 2.1.0 to 2.1.1 [\#1268](https://github.com/apache/camel-k-runtime/pull/1268) ([dependabot[bot]](https://github.com/apps/dependabot))
