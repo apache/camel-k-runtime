@@ -533,7 +533,7 @@ public class GenerateCatalogMojo extends AbstractMojo {
         addCapabilityAndDependecies(runtimeSpec, catalogSpec, "knative", artifacts, false);
 
         artifacts.clear();
-        artifacts.add(Artifact.from("io.micrometer", "micrometer-registry-prometheus"));
+        artifacts.add(Artifact.from("io.quarkus", "quarkus-micrometer-registry-prometheus"));
         artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-micrometer"));
         addCapabilityAndDependecies(runtimeSpec, catalogSpec, "prometheus", artifacts, false);
 
