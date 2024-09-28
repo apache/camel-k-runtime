@@ -6,6 +6,8 @@
 
 **Merged pull requests:**
 
+- feat\(catalog\): change micrometer dependencies [\#1276](https://github.com/apache/camel-k-runtime/pull/1276) ([squakez](https://github.com/squakez))
+- build\(deps\): bump org.cyclonedx:cyclonedx-maven-plugin from 2.8.1 to 2.8.2 [\#1275](https://github.com/apache/camel-k-runtime/pull/1275) ([dependabot[bot]](https://github.com/apps/dependabot))
 - chore: bump Quarkus platform to 3.15.1 [\#1274](https://github.com/apache/camel-k-runtime/pull/1274) ([squakez](https://github.com/squakez))
 - build\(deps\): bump com.mycila:license-maven-plugin from 4.5 to 4.6 [\#1273](https://github.com/apache/camel-k-runtime/pull/1273) ([dependabot[bot]](https://github.com/apps/dependabot))
 - feat: bump Camel Quarkus to 3.15 [\#1271](https://github.com/apache/camel-k-runtime/pull/1271) ([squakez](https://github.com/squakez))
