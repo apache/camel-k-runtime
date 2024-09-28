@@ -15,40 +15,40 @@
           "author" : "OWASP Foundation",
           "group" : "org.cyclonedx",
           "name" : "cyclonedx-maven-plugin",
-          "version" : "2.8.1",
+          "version" : "2.8.2",
           "description" : "CycloneDX Maven plugin",
           "hashes" : [
             {
               "alg" : "MD5",
-              "content" : "42c73e70d517b359d40b757c368d68fc"
+              "content" : "3bb2c0a57386c1551f09c3328474c1b6"
             },
             {
               "alg" : "SHA-1",
-              "content" : "c66892e13fb7ed7b8105cb5a280fa767d9e0bf12"
+              "content" : "3b287e981e81263165b606ca210ed42a9f6bced1"
             },
             {
               "alg" : "SHA-256",
-              "content" : "566681b9fcb1b0178e101cd899d2ea399e2039255e208a1a477bc079158dbdc5"
+              "content" : "37fab69d06c0d402de9fe600381f63bb5b98f864ea8589c52d71bbd6dd60d293"
             },
             {
               "alg" : "SHA-512",
-              "content" : "93d7b7421ee2d91f84930e75a52864952f26fee96114740dab477ee5f0e62b6448759ad5a160f1749650379f771941100c7fd84ed523b2407d2004b928998ecb"
+              "content" : "f65b4722540a930422d4a28cb54c982dbe01fdb41717c3b95e9836137856cabed2b836b1b9e0394798d99e9973ce6931c61675cbed859238cab1a99d3063786f"
             },
             {
               "alg" : "SHA-384",
-              "content" : "04b0c71c1b79f77e723e7db96c72705f50172e94df5a7f28edbd96024b886fff65f61f37fc77abb1d12b0809813ae665"
+              "content" : "55fc5a528d5fd426d306f26e6a73fd8cf9e779a101f31591ca084c8f615d8073d80cc24ee04ea1df209051842e481080"
             },
             {
               "alg" : "SHA3-384",
-              "content" : "eafa68c2c25670f0b77c5db3acdfd97cfe97dfc50c47bba2103353327b049b9bbac0d8b621b1168200ddf21719048c73"
+              "content" : "888b88d83887fe1e3c62f6ab3f11501ae4e97dfc0d954b6eec3b0133dfccb92e984a6ace18fb6965cf215e0cd01de9aa"
             },
             {
               "alg" : "SHA3-256",
-              "content" : "2c07b6997ba0e40ca3b66e39cfcf101fcebdceaa19fce0baf12e013cf392466e"
+              "content" : "26a3386e02289680b9e6d24900824d52a35238ce76cb0e67ba3090fc638f269b"
             },
             {
               "alg" : "SHA3-512",
-              "content" : "636f068843bad92259885cd4d427630619864c0172bd1b41df15c33a7d411767ab09cf2ff339a97fda149ee44c95a162fdf6cb12de19e2dc0250c2fadc80d882"
+              "content" : "a229e418d8af12002e51e39bf1201b7ea86a9a883386524386383454e970cc3cfb44cb1020022ff91e96349d8db8575768052e1bbaf415478e8e99d9e4e22d0f"
             }
           ],
           "type" : "library"
