@@ -2,7 +2,7 @@
 
 ## [Unreleased](https://github.com/apache/camel-k-runtime/tree/HEAD)
 
-[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-3.8.1...HEAD)
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-3.15.0...HEAD)
 
 **Merged pull requests:**
 
@@ -221,6 +221,10 @@
 - build\(deps\): bump maven-surefire-plugin from 3.0.0-M8 to 3.0.0-M9 [\#974](https://github.com/apache/camel-k-runtime/pull/974) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump groovy-version from 3.0.14 to 3.0.15 [\#973](https://github.com/apache/camel-k-runtime/pull/973) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump logstash-logback-encoder from 7.2 to 7.3 [\#972](https://github.com/apache/camel-k-runtime/pull/972) ([dependabot[bot]](https://github.com/apps/dependabot))
+
+## [camel-k-runtime-project-3.15.0](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-3.15.0) (2024-10-05)
+
+[Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-3.8.1...camel-k-runtime-project-3.15.0)
 
 ## [camel-k-runtime-project-3.8.1](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-3.8.1) (2024-03-25)
 
