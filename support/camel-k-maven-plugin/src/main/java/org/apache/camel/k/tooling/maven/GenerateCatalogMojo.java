@@ -491,11 +491,11 @@ public class GenerateCatalogMojo extends AbstractMojo {
         artifacts.clear();
         artifacts.add(Artifact.from("org.apache.camel.quarkus", "camel-quarkus-opentelemetry"));
         properties.clear();
-        properties.add(Property.from("quarkus.opentelemetry.tracer.exporter.otlp.endpoint", "${camel.k.telemetry.endpoint}"));
-        properties.add(Property.from("quarkus.opentelemetry.tracer.resource-attributes", "${camel.k.telemetry.serviceName}"));
-        properties.add(Property.from("quarkus.opentelemetry.tracer.sampler", "${camel.k.telemetry.sampler}"));
-        properties.add(Property.from("quarkus.opentelemetry.tracer.sampler.ratio", "${camel.k.telemetry.samplerRatio}"));
-        properties.add(Property.from("quarkus.opentelemetry.tracer.sampler.parent-based", "${camel.k.telemetry.samplerParentBased}"));
+        properties.add(Property.from("quarkus.otel.exporter.otlp.traces.endpoint", "${camel.k.telemetry.endpoint}"));
+        properties.add(Property.from("quarkus.otel.resource.attributes", "${camel.k.telemetry.serviceName}"));
+        properties.add(Property.from("quarkus.otel.traces.sampler", "${camel.k.telemetry.sampler}"));
+        properties.add(Property.from("quarkus.otel.traces.sampler.ratio", "${camel.k.telemetry.samplerRatio}"));
+        properties.add(Property.from("quarkus.otel.traces.sampler.parent-based", "${camel.k.telemetry.samplerParentBased}"));
         addCapability(runtimeSpec, catalogSpec, "telemetry", artifacts, properties, new ArrayList<>(), new ArrayList<>(), false);
 
         artifacts.clear();

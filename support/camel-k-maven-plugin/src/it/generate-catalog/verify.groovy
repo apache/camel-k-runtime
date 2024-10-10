@@ -63,15 +63,15 @@ new File(basedir, "catalog.yaml").withReader {
     assert catalog.spec.runtime.capabilities['master'].runtimeProperties[2].key == 'quarkus.camel.cluster.kubernetes.resource-type'
     assert catalog.spec.runtime.capabilities['master'].runtimeProperties[2].value == '${camel.k.master.resourceType}'
     // Telemetry properties
-    assert catalog.spec.runtime.capabilities['telemetry'].runtimeProperties[0].key == 'quarkus.opentelemetry.tracer.exporter.otlp.endpoint'
+    assert catalog.spec.runtime.capabilities['telemetry'].runtimeProperties[0].key == 'quarkus.otel.exporter.otlp.traces.endpoint'
     assert catalog.spec.runtime.capabilities['telemetry'].runtimeProperties[0].value == '${camel.k.telemetry.endpoint}'
-    assert catalog.spec.runtime.capabilities['telemetry'].runtimeProperties[1].key == 'quarkus.opentelemetry.tracer.resource-attributes'
+    assert catalog.spec.runtime.capabilities['telemetry'].runtimeProperties[1].key == 'quarkus.otel.resource.attributes'
     assert catalog.spec.runtime.capabilities['telemetry'].runtimeProperties[1].value == '${camel.k.telemetry.serviceName}'
-    assert catalog.spec.runtime.capabilities['telemetry'].runtimeProperties[2].key == 'quarkus.opentelemetry.tracer.sampler'
+    assert catalog.spec.runtime.capabilities['telemetry'].runtimeProperties[2].key == 'quarkus.otel.traces.sampler'
     assert catalog.spec.runtime.capabilities['telemetry'].runtimeProperties[2].value == '${camel.k.telemetry.sampler}'
-    assert catalog.spec.runtime.capabilities['telemetry'].runtimeProperties[3].key == 'quarkus.opentelemetry.tracer.sampler.parent-based'
+    assert catalog.spec.runtime.capabilities['telemetry'].runtimeProperties[3].key == 'quarkus.otel.traces.sampler.parent-based'
     assert catalog.spec.runtime.capabilities['telemetry'].runtimeProperties[3].value == '${camel.k.telemetry.samplerParentBased}'
-    assert catalog.spec.runtime.capabilities['telemetry'].runtimeProperties[4].key == 'quarkus.opentelemetry.tracer.sampler.ratio'
+    assert catalog.spec.runtime.capabilities['telemetry'].runtimeProperties[4].key == 'quarkus.otel.traces.sampler.ratio'
     assert catalog.spec.runtime.capabilities['telemetry'].runtimeProperties[4].value == '${camel.k.telemetry.samplerRatio}'
 
     // Service Binding properties
