@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bom serialNumber="urn:uuid:355dfde6-4bc0-3460-84cd-0738eb5a4775" version="1" xmlns="http://cyclonedx.org/schema/bom/1.5">
+<bom serialNumber="urn:uuid:7d59a5b1-02d9-37ab-969b-4966254f98d6" version="1" xmlns="http://cyclonedx.org/schema/bom/1.5">
   <metadata>
     <lifecycles>
       <lifecycle>
@@ -27,11 +27,11 @@
         </component>
       </components>
     </tools>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-runtime-project@3.15.0-SNAPSHOT?type=pom">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-runtime-project@3.16.0-SNAPSHOT?type=pom">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-runtime-project</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -39,7 +39,7 @@
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-runtime-project@3.15.0-SNAPSHOT?type=pom</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-runtime-project@3.16.0-SNAPSHOT?type=pom</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary</url></reference></externalReferences>
     </component>
     <properties>
@@ -49,11 +49,11 @@
     </properties>
   </metadata>
   <components>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-support@3.15.0-SNAPSHOT?type=pom">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-support@3.16.0-SNAPSHOT?type=pom">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-support</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -61,14 +61,14 @@
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-support@3.15.0-SNAPSHOT?type=pom</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-support@3.16.0-SNAPSHOT?type=pom</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-support</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-support</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-annotations@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-annotations@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-annotations</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -76,7 +76,7 @@
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-annotations@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-annotations@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-support/camel-k-annotations</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-support/camel-k-annotations</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel/camel-core-engine@4.8.0?type=jar">
@@ -467,11 +467,11 @@
       <purl>pkg:maven/org.apache.camel/camel-util@4.8.0?type=jar</purl>
       <externalReferences><reference type="website"><url>https://www.apache.org/camel/camel-parent/core/camel-util/</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://github.com/apache/maven-apache-parent/tree/apache-33/camel/camel-parent/core/camel-util</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-apt@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-apt@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-apt</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -479,14 +479,14 @@
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-apt@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-apt@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-support/camel-k-apt</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-support/camel-k-apt</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-catalog-model@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-catalog-model@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-catalog-model</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -494,7 +494,7 @@
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-catalog-model@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-catalog-model@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-support/camel-k-catalog-model</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-support/camel-k-catalog-model</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.17.2?type=jar">
@@ -673,11 +673,11 @@ JDK 8 data types.</description>
       <purl>pkg:maven/org.immutables/value@2.10.1?type=jar</purl>
       <externalReferences><reference type="website"><url>http://immutables.org/value</url></reference><reference type="distribution-intake"><url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url></reference><reference type="vcs"><url>https://github.com/immutables/immutables.git/value</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-maven-plugin@3.15.0-SNAPSHOT?type=maven-plugin">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-maven-plugin@3.16.0-SNAPSHOT?type=maven-plugin">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-maven-plugin</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -685,7 +685,7 @@ JDK 8 data types.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-maven-plugin@3.15.0-SNAPSHOT?type=maven-plugin</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-maven-plugin@3.16.0-SNAPSHOT?type=maven-plugin</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-support/camel-k-maven-plugin</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-support/camel-k-maven-plugin</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.maven.plugin-tools/maven-plugin-annotations@3.6.0?type=jar">
@@ -3712,11 +3712,11 @@ file comparators, endian transformation classes, and much more.</description>
       <purl>pkg:maven/net.bytebuddy/byte-buddy@1.14.18?type=jar</purl>
       <externalReferences><reference type="website"><url>https://bytebuddy.net/byte-buddy</url></reference><reference type="distribution-intake"><url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/raphw/byte-buddy/issues</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-test@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-test@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-test</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -3724,7 +3724,7 @@ file comparators, endian transformation classes, and much more.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-test@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-test@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-support/camel-k-test</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-support/camel-k-test</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.hamcrest/hamcrest-core@3.0?type=jar">
@@ -4077,11 +4077,11 @@ file comparators, endian transformation classes, and much more.</description>
       <purl>pkg:maven/io.rest-assured/xml-path@5.5.0?type=jar</purl>
       <externalReferences><reference type="website"><url>https://rest-assured.io/xml-path/</url></reference><reference type="distribution-intake"><url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url></reference><reference type="mailing-list"><url>https://groups.google.com/group/rest-assured/topics</url></reference><reference type="vcs"><url>https://github.com/rest-assured/rest-assured/tree/master/xml-path</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-core-parent@3.15.0-SNAPSHOT?type=pom">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-core-parent@3.16.0-SNAPSHOT?type=pom">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-core-parent</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -4089,14 +4089,14 @@ file comparators, endian transformation classes, and much more.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-core-parent@3.15.0-SNAPSHOT?type=pom</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-core-parent@3.16.0-SNAPSHOT?type=pom</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-core-parent</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-core-parent</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-core-api@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-core-api@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-core-api</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -4104,14 +4104,14 @@ file comparators, endian transformation classes, and much more.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-core-api@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-core-api@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-core-parent/camel-k-core-api</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-core-parent/camel-k-core-api</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-core-support@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-core-support@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-core-support</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -4119,7 +4119,7 @@ file comparators, endian transformation classes, and much more.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-core-support@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-core-support@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-core-parent/camel-k-core-support</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-core-parent/camel-k-core-support</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes@3.15.0?type=jar">
@@ -6532,11 +6532,11 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
       <purl>pkg:maven/dk.brics.automaton/automaton@1.11-8?type=jar</purl>
       <externalReferences><reference type="website"><url>http://www.brics.dk/automaton/</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-core@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-core@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-core</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -6544,14 +6544,14 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-core@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-core@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-core-parent/camel-k-core</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-core-parent/camel-k-core</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-support@3.15.0-SNAPSHOT?type=pom">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-support@3.16.0-SNAPSHOT?type=pom">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-itests-support</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -6559,14 +6559,14 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-support@3.15.0-SNAPSHOT?type=pom</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-support@3.16.0-SNAPSHOT?type=pom</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-support/camel-k-itests-support</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-support/camel-k-itests-support</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-itests-loader-inspector</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -6574,7 +6574,7 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-support/camel-k-itests-support/camel-k-itests-loader-inspector</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-support/camel-k-itests-support/camel-k-itests-loader-inspector</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/io.quarkus/quarkus-jsonb@3.15.1?type=jar">
@@ -7345,11 +7345,11 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
       <purl>pkg:maven/org.jboss.resteasy/resteasy-json-p-provider@6.2.9.Final?type=jar</purl>
       <externalReferences><reference type="website"><url>https://resteasy.dev</url></reference><reference type="distribution-intake"><url>https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/</url></reference><reference type="issue-tracker"><url>https://issues.redhat.com/browse/RESTEASY</url></reference><reference type="mailing-list"><url>http://lists.jboss.org/pipermail/jboss-user/</url></reference><reference type="vcs"><url>https://github.com/resteasy/resteasy/tree/main/</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-runtime-parent@3.15.0-SNAPSHOT?type=pom">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-runtime-parent@3.16.0-SNAPSHOT?type=pom">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-runtime-parent</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -7357,14 +7357,14 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-runtime-parent@3.15.0-SNAPSHOT?type=pom</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-runtime-parent@3.16.0-SNAPSHOT?type=pom</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-runtime-parent</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-runtime-parent</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-runtime</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -7372,7 +7372,7 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-runtime-parent/camel-k-runtime</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-runtime-parent/camel-k-runtime</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-bean@3.15.0?type=jar">
@@ -7451,11 +7451,11 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
       <purl>pkg:maven/io.quarkus/quarkus-logging-json@3.15.1?type=jar</purl>
       <externalReferences><reference type="website"><url>https://github.com/quarkusio/quarkus</url></reference><reference type="distribution-intake"><url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url></reference><reference type="issue-tracker"><url>https://github.com/quarkusio/quarkus/issues/</url></reference><reference type="vcs"><url>https://github.com/quarkusio/quarkus</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-runtime-inspector@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-runtime-inspector@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-itests-runtime-inspector</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -7463,14 +7463,14 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-runtime-inspector@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-runtime-inspector@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-support/camel-k-itests-support/camel-k-itests-runtime-inspector</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-support/camel-k-itests-support/camel-k-itests-runtime-inspector</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-catalog@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-catalog@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-catalog</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -7478,14 +7478,14 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-catalog@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-catalog@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-support/camel-k-catalog</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-support/camel-k-catalog</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-runtime-bom@3.15.0-SNAPSHOT?type=pom">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-runtime-bom@-SNAPSHOT?type=pom">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-runtime-bom</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>-SNAPSHOT</version>
       <description>The Apache Software Foundation provides support for the Apache community of open-source software projects.
     The Apache projects are characterized by a collaborative, consensus based development process, an open and
     pragmatic software license, and a desire to create high quality software that leads the way in its field.
@@ -7497,14 +7497,14 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-runtime-bom@3.15.0-SNAPSHOT?type=pom</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-runtime-bom@-SNAPSHOT?type=pom</purl>
       <externalReferences><reference type="website"><url>https://www.apache.org/camel-k-runtime-bom/</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-maven-logging@3.15.0-SNAPSHOT?type=pom">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-maven-logging@3.16.0-SNAPSHOT?type=pom">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-maven-logging</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Set of dependencies used for structural logging of Maven output</description>
       <licenses>
         <license>
@@ -7512,7 +7512,7 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-maven-logging@3.15.0-SNAPSHOT?type=pom</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-maven-logging@3.16.0-SNAPSHOT?type=pom</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-support/camel-k-maven-logging</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-support/camel-k-maven-logging</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.slf4j/slf4j-api@2.0.16?type=jar">
@@ -7627,11 +7627,11 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
       <purl>pkg:maven/net.logstash.logback/logstash-logback-encoder@8.0?type=jar</purl>
       <externalReferences><reference type="website"><url>https://github.com/logfellow/logstash-logback-encoder</url></reference><reference type="vcs"><url>https://github.com/logfellow/logstash-logback-encoder</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-core-deployment@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-core-deployment@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-core-deployment</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -7639,7 +7639,7 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-core-deployment@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-core-deployment@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-core-parent/camel-k-core-deployment</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-core-parent/camel-k-core-deployment</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-core-deployment@3.15.0?type=jar">
@@ -9075,11 +9075,11 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
       <purl>pkg:maven/org.apache.camel.quarkus/camel-quarkus-support-commons-logging-deployment@3.15.0?type=jar</purl>
       <externalReferences><reference type="website"><url>http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions-support/camel-quarkus-support-commons-logging-parent/camel-quarkus-support-commons-logging-deployment</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-quarkus/issues</url></reference><reference type="mailing-list"><url>dev-subscribe@camel.apache.org</url></reference><reference type="vcs"><url>https://github.com/apache/camel-quarkus/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions-support/camel-quarkus-support-commons-logging-parent/camel-quarkus-support-commons-logging-deployment</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-cron-parent@3.15.0-SNAPSHOT?type=pom">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-cron-parent@3.16.0-SNAPSHOT?type=pom">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-cron-parent</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -9087,14 +9087,14 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-cron-parent@3.15.0-SNAPSHOT?type=pom</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-cron-parent@3.16.0-SNAPSHOT?type=pom</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-cron-parent</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-cron-parent</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-cron-impl@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-cron-impl@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-cron-impl</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -9102,7 +9102,7 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-cron-impl@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-cron-impl@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-cron-parent/camel-k-cron-impl</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-cron-parent/camel-k-cron-impl</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel/camel-timer@4.8.0?type=jar">
@@ -9261,11 +9261,11 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
       <purl>pkg:maven/org.apache.camel/camel-log@4.8.0?type=jar</purl>
       <externalReferences><reference type="website"><url>https://www.apache.org/camel/camel-parent/components/camel-log/</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://github.com/apache/maven-apache-parent/tree/apache-33/camel/camel-parent/components/camel-log</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-cron@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-cron@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-cron</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -9273,7 +9273,7 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-cron@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-cron@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-cron-parent/camel-k-cron</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-cron-parent/camel-k-cron</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-cron@3.15.0?type=jar">
@@ -9328,11 +9328,11 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
       <purl>pkg:maven/org.apache.camel/camel-cron@4.8.0?type=jar</purl>
       <externalReferences><reference type="website"><url>https://www.apache.org/camel/camel-parent/components/camel-cron/</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://github.com/apache/maven-apache-parent/tree/apache-33/camel/camel-parent/components/camel-cron</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-cron-deployment@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-cron-deployment@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-cron-deployment</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -9340,7 +9340,7 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-cron-deployment@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-cron-deployment@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-cron-parent/camel-k-cron-deployment</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-cron-parent/camel-k-cron-deployment</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-cron-deployment@3.15.0?type=jar">
@@ -9369,11 +9369,11 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
       <purl>pkg:maven/org.apache.camel.quarkus/camel-quarkus-cron-deployment@3.15.0?type=jar</purl>
       <externalReferences><reference type="website"><url>http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-cron-parent/camel-quarkus-cron-deployment</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-quarkus/issues</url></reference><reference type="mailing-list"><url>dev-subscribe@camel.apache.org</url></reference><reference type="vcs"><url>https://github.com/apache/camel-quarkus/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-cron-parent/camel-quarkus-cron-deployment</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-knative-parent@3.15.0-SNAPSHOT?type=pom">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-knative-parent@3.16.0-SNAPSHOT?type=pom">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-knative-parent</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -9381,14 +9381,14 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-knative-parent@3.15.0-SNAPSHOT?type=pom</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-knative-parent@3.16.0-SNAPSHOT?type=pom</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-knative-parent</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-knative-parent</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-knative-impl</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -9396,7 +9396,7 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-knative-parent/camel-k-knative-impl</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-knative-parent/camel-k-knative-impl</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel/camel-knative@4.8.0?type=jar">
@@ -9503,11 +9503,11 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
       <purl>pkg:maven/org.apache.camel/camel-knative-http@4.8.0?type=jar</purl>
       <externalReferences><reference type="website"><url>https://www.apache.org/camel/camel-parent/components/camel-knative-parent/camel-knative-http/</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://github.com/apache/maven-apache-parent/tree/apache-33/camel/camel-parent/components/camel-knative-parent/camel-knative-http</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-master-parent@3.15.0-SNAPSHOT?type=pom">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-master-parent@3.16.0-SNAPSHOT?type=pom">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-master-parent</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -9515,14 +9515,14 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-master-parent@3.15.0-SNAPSHOT?type=pom</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-master-parent@3.16.0-SNAPSHOT?type=pom</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-master-parent</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-master-parent</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-master-impl@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-master-impl@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-master-impl</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -9530,7 +9530,7 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-master-impl@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-master-impl@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-master-parent/camel-k-master-impl</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-master-parent/camel-k-master-impl</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/io.fabric8/kubernetes-httpclient-okhttp@6.13.3?type=jar">
@@ -9851,11 +9851,11 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
       <purl>pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes-cluster-service@3.15.0?type=jar</purl>
       <externalReferences><reference type="website"><url>http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-kubernetes-cluster-service-parent/camel-quarkus-kubernetes-cluster-service</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-quarkus/issues</url></reference><reference type="mailing-list"><url>dev-subscribe@camel.apache.org</url></reference><reference type="vcs"><url>https://github.com/apache/camel-quarkus/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-kubernetes-cluster-service-parent/camel-quarkus-kubernetes-cluster-service</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-master@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-master@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-master</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -9863,7 +9863,7 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-master@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-master@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-master-parent/camel-k-master</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-master-parent/camel-k-master</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-master@3.15.0?type=jar">
@@ -9918,11 +9918,11 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
       <purl>pkg:maven/org.apache.camel/camel-master@4.8.0?type=jar</purl>
       <externalReferences><reference type="website"><url>https://www.apache.org/camel/camel-parent/components/camel-master/</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://github.com/apache/maven-apache-parent/tree/apache-33/camel/camel-parent/components/camel-master</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-master-deployment@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-master-deployment@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-master-deployment</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -9930,7 +9930,7 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-master-deployment@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-master-deployment@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-master-parent/camel-k-master-deployment</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-master-parent/camel-k-master-deployment</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-master-deployment@3.15.0?type=jar">
@@ -9985,11 +9985,11 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
       <purl>pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes-cluster-service-deployment@3.15.0?type=jar</purl>
       <externalReferences><reference type="website"><url>http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-kubernetes-cluster-service-parent/camel-quarkus-kubernetes-cluster-service-deployment</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-quarkus/issues</url></reference><reference type="mailing-list"><url>dev-subscribe@camel.apache.org</url></reference><reference type="vcs"><url>https://github.com/apache/camel-quarkus/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-kubernetes-cluster-service-parent/camel-quarkus-kubernetes-cluster-service-deployment</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-runtime-deployment@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-runtime-deployment@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-runtime-deployment</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -9997,7 +9997,7 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-runtime-deployment@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-runtime-deployment@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-runtime-parent/camel-k-runtime-deployment</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-runtime-parent/camel-k-runtime-deployment</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-bean-deployment@3.15.0?type=jar">
@@ -10074,11 +10074,11 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
       <purl>pkg:maven/io.quarkus/quarkus-jsonp-deployment@3.15.1?type=jar</purl>
       <externalReferences><reference type="website"><url>https://github.com/quarkusio/quarkus</url></reference><reference type="distribution-intake"><url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url></reference><reference type="issue-tracker"><url>https://github.com/quarkusio/quarkus/issues/</url></reference><reference type="vcs"><url>https://github.com/quarkusio/quarkus</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-resume-kafka-parent@3.15.0-SNAPSHOT?type=pom">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-resume-kafka-parent@3.16.0-SNAPSHOT?type=pom">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-resume-kafka-parent</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -10086,14 +10086,14 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-resume-kafka-parent@3.15.0-SNAPSHOT?type=pom</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-resume-kafka-parent@3.16.0-SNAPSHOT?type=pom</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-resume-kafka-parent</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-resume-kafka-parent</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-resume-kafka-impl@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-resume-kafka-impl@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-resume-kafka-impl</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -10101,7 +10101,7 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-resume-kafka-impl@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-resume-kafka-impl@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-resume-kafka-parent/camel-k-resume-kafka-impl</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-resume-kafka-parent/camel-k-resume-kafka-impl</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel/camel-kafka@4.8.0?type=jar">
@@ -10254,11 +10254,11 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
       <purl>pkg:maven/org.xerial.snappy/snappy-java@1.1.10.5?type=jar</purl>
       <externalReferences><reference type="website"><url>https://github.com/xerial/snappy-java</url></reference><reference type="vcs"><url>https://github.com/xerial/snappy-java</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-resume-kafka@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-resume-kafka@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-resume-kafka</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -10266,14 +10266,14 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-resume-kafka@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-resume-kafka@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-resume-kafka-parent/camel-k-resume-kafka</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-resume-kafka-parent/camel-k-resume-kafka</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-resume-kafka-deployment@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-resume-kafka-deployment@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-resume-kafka-deployment</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -10281,14 +10281,14 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-resume-kafka-deployment@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-resume-kafka-deployment@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-resume-kafka-parent/camel-k-resume-kafka-deployment</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-resume-kafka-parent/camel-k-resume-kafka-deployment</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests@3.15.0-SNAPSHOT?type=pom">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests@3.16.0-SNAPSHOT?type=pom">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-itests</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -10296,14 +10296,14 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-itests@3.15.0-SNAPSHOT?type=pom</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-itests@3.16.0-SNAPSHOT?type=pom</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-itests</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-itests</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-core@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-core@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-itests-core</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -10311,14 +10311,14 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-core@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-core@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-core</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-itests/camel-k-itests-core</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-groovy@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-groovy@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-itests-loader-groovy</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -10326,7 +10326,7 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-loader-groovy@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-loader-groovy@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-loader-groovy</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-itests/camel-k-itests-loader-groovy</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-groovy-dsl@3.15.0?type=jar">
@@ -10561,11 +10561,11 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
       <purl>pkg:maven/org.apache.camel.quarkus/camel-quarkus-log@3.15.0?type=jar</purl>
       <externalReferences><reference type="website"><url>http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-log-parent/camel-quarkus-log</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-quarkus/issues</url></reference><reference type="mailing-list"><url>dev-subscribe@camel.apache.org</url></reference><reference type="vcs"><url>https://github.com/apache/camel-quarkus/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-log-parent/camel-quarkus-log</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-kotlin@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-kotlin@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-itests-loader-kotlin</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -10573,7 +10573,7 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-loader-kotlin@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-loader-kotlin@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-loader-kotlin</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-itests/camel-k-itests-loader-kotlin</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-kotlin-dsl@3.15.0?type=jar">
@@ -11014,11 +11014,11 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
       <purl>pkg:maven/org.jetbrains.kotlin/kotlin-scripting-compiler-impl-embeddable@2.0.10?type=jar</purl>
       <externalReferences><reference type="website"><url>https://kotlinlang.org/</url></reference><reference type="vcs"><url>https://github.com/JetBrains/kotlin</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-java@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-java@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-itests-loader-java</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -11026,7 +11026,7 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-loader-java@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-loader-java@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-loader-java</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-itests/camel-k-itests-loader-java</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-java-joor-dsl@3.15.0?type=jar">
@@ -11131,11 +11131,11 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
       <purl>pkg:maven/org.jooq/joor@0.9.15?type=jar</purl>
       <externalReferences><reference type="website"><url>https://github.com/jOOQ/jOOR</url></reference><reference type="issue-tracker"><url>https://github.com/jOOQ/jOOR/issues</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-jsh@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-jsh@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-itests-loader-jsh</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -11143,7 +11143,7 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-loader-jsh@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-loader-jsh@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-loader-jsh</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-itests/camel-k-itests-loader-jsh</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel/camel-jsh-dsl@4.8.0?type=jar">
@@ -11172,11 +11172,11 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
       <purl>pkg:maven/org.apache.camel/camel-jsh-dsl@4.8.0?type=jar</purl>
       <externalReferences><reference type="website"><url>https://www.apache.org/camel/camel-parent/dsl/camel-jsh-dsl/</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://github.com/apache/maven-apache-parent/tree/apache-33/camel/camel-parent/dsl/camel-jsh-dsl</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-js@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-js@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-itests-loader-js</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -11184,7 +11184,7 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-loader-js@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-loader-js@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-loader-js</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-itests/camel-k-itests-loader-js</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-js-dsl@3.15.0?type=jar">
@@ -11394,11 +11394,11 @@ that achieves high performance when combined with Graal.</description>
       <purl>pkg:maven/org.graalvm.shadowed/icu4j@23.1.2?type=jar</purl>
       <externalReferences><reference type="website"><url>http://openjdk.java.net/projects/graal</url></reference><reference type="vcs"><url>https://github.com/oracle/graal/tree/master/truffle</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-xml@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-xml@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-itests-loader-xml</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -11406,7 +11406,7 @@ that achieves high performance when combined with Graal.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-loader-xml@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-loader-xml@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-loader-xml</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-itests/camel-k-itests-loader-xml</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-xml-io-dsl@3.15.0?type=jar">
@@ -11487,11 +11487,11 @@ that achieves high performance when combined with Graal.</description>
       <purl>pkg:maven/org.apache.camel/camel-xml-io-dsl@4.8.0?type=jar</purl>
       <externalReferences><reference type="website"><url>https://www.apache.org/camel/camel-parent/dsl/camel-xml-io-dsl/</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://github.com/apache/maven-apache-parent/tree/apache-33/camel/camel-parent/dsl/camel-xml-io-dsl</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-yaml@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-yaml@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-itests-loader-yaml</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -11499,14 +11499,14 @@ that achieves high performance when combined with Graal.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-loader-yaml@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-loader-yaml@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-loader-yaml</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-itests/camel-k-itests-loader-yaml</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-polyglot@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-polyglot@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-itests-loader-polyglot</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -11514,7 +11514,7 @@ that achieves high performance when combined with Graal.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-loader-polyglot@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-loader-polyglot@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-loader-polyglot</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-itests/camel-k-itests-loader-polyglot</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-jackson@3.15.0?type=jar">
@@ -11619,11 +11619,11 @@ that achieves high performance when combined with Graal.</description>
       <purl>pkg:maven/org.apache.camel/camel-jackson@4.8.0?type=jar</purl>
       <externalReferences><reference type="website"><url>https://www.apache.org/camel/camel-parent/components/camel-jackson/</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://github.com/apache/maven-apache-parent/tree/apache-33/camel/camel-parent/components/camel-jackson</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-runtime@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-runtime@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-itests-runtime</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -11631,7 +11631,7 @@ that achieves high performance when combined with Graal.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-runtime@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-runtime@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-runtime</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-itests/camel-k-itests-runtime</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-yaml-dsl@3.15.0?type=jar">
@@ -11660,11 +11660,11 @@ that achieves high performance when combined with Graal.</description>
       <purl>pkg:maven/org.apache.camel.quarkus/camel-quarkus-yaml-dsl@3.15.0?type=jar</purl>
       <externalReferences><reference type="website"><url>http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions-core/camel-quarkus-yaml-dsl-parent/camel-quarkus-yaml-dsl</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-quarkus/issues</url></reference><reference type="mailing-list"><url>dev-subscribe@camel.apache.org</url></reference><reference type="vcs"><url>https://github.com/apache/camel-quarkus/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions-core/camel-quarkus-yaml-dsl-parent/camel-quarkus-yaml-dsl</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-runtime-xml@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-runtime-xml@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-itests-runtime-xml</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -11672,7 +11672,7 @@ that achieves high performance when combined with Graal.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-runtime-xml@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-runtime-xml@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-runtime-xml</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-itests/camel-k-itests-runtime-xml</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-timer@3.15.0?type=jar">
@@ -11935,11 +11935,11 @@ that achieves high performance when combined with Graal.</description>
       <purl>pkg:maven/org.apache.camel/camel-vertx-common@4.8.0?type=jar</purl>
       <externalReferences><reference type="website"><url>https://www.apache.org/camel/camel-parent/components/camel-vertx-parent/camel-vertx-common/</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://github.com/apache/maven-apache-parent/tree/apache-33/camel/camel-parent/components/camel-vertx-parent/camel-vertx-common</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-runtime-yaml@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-runtime-yaml@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-itests-runtime-yaml</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -11947,7 +11947,7 @@ that achieves high performance when combined with Graal.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-runtime-yaml@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-runtime-yaml@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-runtime-yaml</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-itests/camel-k-itests-runtime-yaml</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative@3.15.0?type=jar">
@@ -12080,11 +12080,11 @@ that achieves high performance when combined with Graal.</description>
       <purl>pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-consumer@3.15.0?type=jar</purl>
       <externalReferences><reference type="website"><url>http://camel.apache.org/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-knative-consumer-parent/camel-quarkus-knative-consumer</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-quarkus/issues</url></reference><reference type="mailing-list"><url>dev-subscribe@camel.apache.org</url></reference><reference type="vcs"><url>https://github.com/apache/camel-quarkus/camel-quarkus-poms/camel-quarkus-build-parent/camel-quarkus-extensions/camel-quarkus-knative-consumer-parent/camel-quarkus-knative-consumer</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-cron@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-cron@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-itests-cron</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -12092,7 +12092,7 @@ that achieves high performance when combined with Graal.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-cron@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-cron@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-cron</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-itests/camel-k-itests-cron</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.awaitility/awaitility@4.2.2?type=jar">
@@ -12119,11 +12119,11 @@ that achieves high performance when combined with Graal.</description>
       <purl>pkg:maven/org.awaitility/awaitility@4.2.2?type=jar</purl>
       <externalReferences><reference type="website"><url>http://awaitility.org</url></reference><reference type="distribution-intake"><url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url></reference><reference type="mailing-list"><url>http://groups.google.com/group/awaitility/topics</url></reference><reference type="vcs"><url>http://github.com/awaitility/awaitility/tree/master/awaitility</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-master@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-master@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-itests-master</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -12131,14 +12131,14 @@ that achieves high performance when combined with Graal.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-master@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-master@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-master</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-itests/camel-k-itests-master</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-itests-knative</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -12146,14 +12146,14 @@ that achieves high performance when combined with Graal.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-knative@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-knative@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-knative</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-itests/camel-k-itests-knative</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-env-from-registry@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-env-from-registry@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-itests-knative-env-from-registry</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -12161,14 +12161,14 @@ that achieves high performance when combined with Graal.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-knative-env-from-registry@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-knative-env-from-registry@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-knative-env-from-registry</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-itests/camel-k-itests-knative-env-from-registry</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-env-from-properties@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-env-from-properties@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-itests-knative-env-from-properties</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -12176,14 +12176,14 @@ that achieves high performance when combined with Graal.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-knative-env-from-properties@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-knative-env-from-properties@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-knative-env-from-properties</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-itests/camel-k-itests-knative-env-from-properties</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-producer@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-producer@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-itests-knative-producer</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -12191,14 +12191,14 @@ that achieves high performance when combined with Graal.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-knative-producer@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-knative-producer@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-knative-producer</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-itests/camel-k-itests-knative-producer</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-consumer@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-consumer@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-itests-knative-consumer</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -12206,14 +12206,14 @@ that achieves high performance when combined with Graal.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-knative-consumer@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-knative-consumer@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-knative-consumer</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-itests/camel-k-itests-knative-consumer</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-sinkbinding@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-sinkbinding@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-itests-knative-sinkbinding</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -12221,14 +12221,14 @@ that achieves high performance when combined with Graal.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-knative-sinkbinding@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-knative-sinkbinding@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-knative-sinkbinding</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-itests/camel-k-itests-knative-sinkbinding</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-kamelet@3.15.0-SNAPSHOT?type=jar">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/camel-k-itests-kamelet@3.16.0-SNAPSHOT?type=jar">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>camel-k-itests-kamelet</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -12236,7 +12236,7 @@ that achieves high performance when combined with Graal.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-kamelet@3.15.0-SNAPSHOT?type=jar</purl>
+      <purl>pkg:maven/org.apache.camel.k/camel-k-itests-kamelet@3.16.0-SNAPSHOT?type=jar</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/camel-k-itests/camel-k-itests-kamelet</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/camel-k-itests/camel-k-itests-kamelet</url></reference></externalReferences>
     </component>
     <component type="library" bom-ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-kamelet@3.15.0?type=jar">
@@ -12291,11 +12291,11 @@ that achieves high performance when combined with Graal.</description>
       <purl>pkg:maven/org.apache.camel/camel-kamelet@4.8.0?type=jar</purl>
       <externalReferences><reference type="website"><url>https://www.apache.org/camel/camel-parent/components/camel-kamelet/</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://github.com/apache/maven-apache-parent/tree/apache-33/camel/camel-parent/components/camel-kamelet</url></reference></externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/apache-camel-k-runtime@3.15.0-SNAPSHOT?type=pom">
+    <component type="library" bom-ref="pkg:maven/org.apache.camel.k/apache-camel-k-runtime@3.16.0-SNAPSHOT?type=pom">
       <publisher>The Apache Software Foundation</publisher>
       <group>org.apache.camel.k</group>
       <name>apache-camel-k-runtime</name>
-      <version>3.15.0-SNAPSHOT</version>
+      <version>3.16.0-SNAPSHOT</version>
       <description>Version properties used for building and testing Apache Camel</description>
       <licenses>
         <license>
@@ -12303,33 +12303,33 @@ that achieves high performance when combined with Graal.</description>
           <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
       </licenses>
-      <purl>pkg:maven/org.apache.camel.k/apache-camel-k-runtime@3.15.0-SNAPSHOT?type=pom</purl>
+      <purl>pkg:maven/org.apache.camel.k/apache-camel-k-runtime@3.16.0-SNAPSHOT?type=pom</purl>
       <externalReferences><reference type="website"><url>https://camel.apache.org/camel-k-runtime-project/apache-camel-k-runtime</url></reference><reference type="distribution-intake"><url>https://repository.apache.org/service/local/staging/deploy/maven2</url></reference><reference type="issue-tracker"><url>https://github.com/apache/camel-k-runtime/issues</url></reference><reference type="mailing-list"><url>https://mail-archives.apache.org/mod_mbox/www-announce/</url></reference><reference type="vcs"><url>https://gitbox.apache.org/repos/asf?p=camel-k-runtime.git;a=summary/apache-camel-k-runtime</url></reference></externalReferences>
     </component>
   </components>
   <dependencies>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime-project@3.15.0-SNAPSHOT?type=pom">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-support@3.15.0-SNAPSHOT?type=pom"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-parent@3.15.0-SNAPSHOT?type=pom"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime-parent@3.15.0-SNAPSHOT?type=pom"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-cron-parent@3.15.0-SNAPSHOT?type=pom"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-knative-parent@3.15.0-SNAPSHOT?type=pom"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-master-parent@3.15.0-SNAPSHOT?type=pom"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-resume-kafka-parent@3.15.0-SNAPSHOT?type=pom"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests@3.15.0-SNAPSHOT?type=pom"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/apache-camel-k-runtime@3.15.0-SNAPSHOT?type=pom"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime-project@3.16.0-SNAPSHOT?type=pom">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-support@3.16.0-SNAPSHOT?type=pom"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-parent@3.16.0-SNAPSHOT?type=pom"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime-parent@3.16.0-SNAPSHOT?type=pom"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-cron-parent@3.16.0-SNAPSHOT?type=pom"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-knative-parent@3.16.0-SNAPSHOT?type=pom"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-master-parent@3.16.0-SNAPSHOT?type=pom"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-resume-kafka-parent@3.16.0-SNAPSHOT?type=pom"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests@3.16.0-SNAPSHOT?type=pom"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/apache-camel-k-runtime@3.16.0-SNAPSHOT?type=pom"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-support@3.15.0-SNAPSHOT?type=pom">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-annotations@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-apt@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-catalog-model@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-maven-plugin@3.15.0-SNAPSHOT?type=maven-plugin"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-test@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-support@3.15.0-SNAPSHOT?type=pom"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-catalog@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-maven-logging@3.15.0-SNAPSHOT?type=pom"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-support@3.16.0-SNAPSHOT?type=pom">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-annotations@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-apt@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-catalog-model@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-maven-plugin@3.16.0-SNAPSHOT?type=maven-plugin"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-test@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-support@3.16.0-SNAPSHOT?type=pom"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-catalog@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-maven-logging@3.16.0-SNAPSHOT?type=pom"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-annotations@3.15.0-SNAPSHOT?type=jar">
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-annotations@3.16.0-SNAPSHOT?type=jar">
       <dependency ref="pkg:maven/org.apache.camel/camel-core-engine@4.8.0?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/org.apache.camel/camel-core-engine@4.8.0?type=jar">
@@ -12397,10 +12397,10 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/org.apache.camel/camel-support@4.8.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-util@4.8.0?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-apt@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-annotations@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-apt@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-annotations@3.16.0-SNAPSHOT?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-catalog-model@3.15.0-SNAPSHOT?type=jar">
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-catalog-model@3.16.0-SNAPSHOT?type=jar">
       <dependency ref="pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.17.2?type=jar"/>
       <dependency ref="pkg:maven/com.fasterxml.jackson.datatype/jackson-datatype-jdk8@2.17.2?type=jar"/>
       <dependency ref="pkg:maven/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml@2.17.2?type=jar"/>
@@ -12424,11 +12424,11 @@ that achieves high performance when combined with Graal.</description>
     </dependency>
     <dependency ref="pkg:maven/org.yaml/snakeyaml@2.2?type=jar"/>
     <dependency ref="pkg:maven/org.immutables/value@2.10.1?type=jar"/>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-maven-plugin@3.15.0-SNAPSHOT?type=maven-plugin">
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-maven-plugin@3.16.0-SNAPSHOT?type=maven-plugin">
       <dependency ref="pkg:maven/org.apache.maven.plugin-tools/maven-plugin-annotations@3.6.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.maven.shared/maven-common-artifact-filters@3.1.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.maven/maven-plugin-api@3.6.3?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-catalog-model@3.15.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-catalog-model@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-openapi-rest-dsl-generator@4.8.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-core-catalog@4.8.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-catalog@3.15.0?type=jar"/>
@@ -12849,7 +12849,7 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/org.eclipse.microprofile.config/microprofile-config-api@3.1?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/io.smallrye/jandex@3.2.2?type=jar"/>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-test@3.15.0-SNAPSHOT?type=jar">
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-test@3.16.0-SNAPSHOT?type=jar">
       <dependency ref="pkg:maven/org.junit.jupiter/junit-jupiter@5.10.3?type=jar"/>
       <dependency ref="pkg:maven/org.assertj/assertj-core@3.26.3?type=jar"/>
       <dependency ref="pkg:maven/org.hamcrest/hamcrest-core@3.0?type=jar"/>
@@ -12934,19 +12934,19 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/org.apache.commons/commons-lang3@3.14.0?type=jar"/>
       <dependency ref="pkg:maven/org.ccil.cowan.tagsoup/tagsoup@1.2.1?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-parent@3.15.0-SNAPSHOT?type=pom">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-api@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-support@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-deployment@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-parent@3.16.0-SNAPSHOT?type=pom">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-api@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-support@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-deployment@3.16.0-SNAPSHOT?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-api@3.15.0-SNAPSHOT?type=jar">
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-api@3.16.0-SNAPSHOT?type=jar">
       <dependency ref="pkg:maven/org.apache.camel/camel-core-engine@4.8.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-core-languages@4.8.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-endpointdsl@4.8.0?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-support@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-api@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-support@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-api@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-core-engine@4.8.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-core-languages@4.8.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-endpointdsl@4.8.0?type=jar"/>
@@ -13471,19 +13471,19 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/dk.brics.automaton/automaton@1.11-8?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/dk.brics.automaton/automaton@1.11-8?type=jar"/>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core@3.15.0-SNAPSHOT?type=jar">
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core@3.16.0-SNAPSHOT?type=jar">
       <dependency ref="pkg:maven/org.apache.camel/camel-support@4.8.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-core-engine@4.8.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-api@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-support@3.15.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-api@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-support@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@3.15.0?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-support@3.15.0-SNAPSHOT?type=pom">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-runtime-inspector@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-support@3.16.0-SNAPSHOT?type=pom">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-runtime-inspector@3.16.0-SNAPSHOT?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-jsonb@3.15.1?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy@3.15.1?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy-jsonb@3.15.1?type=jar"/>
@@ -13640,12 +13640,12 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/jakarta.json/jakarta.json-api@2.1.3?type=jar"/>
       <dependency ref="pkg:maven/org.jboss.logging/jboss-logging@3.6.0.Final?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime-parent@3.15.0-SNAPSHOT?type=pom">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime-deployment@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime-parent@3.16.0-SNAPSHOT?type=pom">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime-deployment@3.16.0-SNAPSHOT?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-bean@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-logging-json@3.15.1?type=jar"/>
@@ -13662,15 +13662,15 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/io.quarkus/quarkus-jsonp@3.15.1?type=jar"/>
       <dependency ref="pkg:maven/org.jboss.logmanager/jboss-logmanager@3.0.6.Final?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-runtime-inspector@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-runtime-inspector@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-jsonb@3.15.1?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy@3.15.1?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy-jsonb@3.15.1?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-catalog@3.15.0-SNAPSHOT?type=jar"/>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime-bom@3.15.0-SNAPSHOT?type=pom"/>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-maven-logging@3.15.0-SNAPSHOT?type=pom">
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-catalog@3.16.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime-bom@-SNAPSHOT?type=pom"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-maven-logging@3.16.0-SNAPSHOT?type=pom">
       <dependency ref="pkg:maven/org.slf4j/slf4j-api@2.0.16?type=jar"/>
       <dependency ref="pkg:maven/ch.qos.logback/logback-core@1.5.7?type=jar"/>
       <dependency ref="pkg:maven/ch.qos.logback/logback-classic@1.5.7?type=jar"/>
@@ -13688,8 +13688,8 @@ that achieves high performance when combined with Graal.</description>
     <dependency ref="pkg:maven/net.logstash.logback/logstash-logback-encoder@8.0?type=jar">
       <dependency ref="pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.17.2?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-deployment@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-deployment@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-core-deployment@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes-deployment@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/commons-io/commons-io@2.16.1?type=jar"/>
@@ -13955,24 +13955,24 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/io.quarkus/quarkus-core-deployment@3.15.1?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-support-commons-logging@3.15.0?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-cron-parent@3.15.0-SNAPSHOT?type=pom">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-cron-impl@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-cron@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-cron-deployment@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-cron-parent@3.16.0-SNAPSHOT?type=pom">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-cron-impl@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-cron@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-cron-deployment@3.16.0-SNAPSHOT?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-cron-impl@3.15.0-SNAPSHOT?type=jar">
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-cron-impl@3.16.0-SNAPSHOT?type=jar">
       <dependency ref="pkg:maven/org.apache.camel/camel-core-engine@4.8.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-timer@4.8.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-support@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-apt@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-annotations@3.15.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-support@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-apt@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-annotations@3.16.0-SNAPSHOT?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/org.apache.camel/camel-timer@4.8.0?type=jar">
       <dependency ref="pkg:maven/org.apache.camel/camel-support@4.8.0?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-cron@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-cron-impl@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-cron@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-cron-impl@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-cron@3.15.0?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-cron@3.15.0?type=jar">
@@ -13982,24 +13982,24 @@ that achieves high performance when combined with Graal.</description>
     <dependency ref="pkg:maven/org.apache.camel/camel-cron@4.8.0?type=jar">
       <dependency ref="pkg:maven/org.apache.camel/camel-support@4.8.0?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-cron-deployment@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-deployment@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-cron@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-cron-deployment@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-deployment@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-cron@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-cron-deployment@3.15.0?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-cron-deployment@3.15.0?type=jar">
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-core-deployment@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-cron@3.15.0?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-knative-parent@3.15.0-SNAPSHOT?type=pom">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-knative-parent@3.16.0-SNAPSHOT?type=pom">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.16.0-SNAPSHOT?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-support@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-support@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-knative@4.8.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-knative-http@4.8.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-apt@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-annotations@3.15.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-apt@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-annotations@3.16.0-SNAPSHOT?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/org.apache.camel/camel-knative@4.8.0?type=jar">
       <dependency ref="pkg:maven/org.apache.camel/camel-support@4.8.0?type=jar"/>
@@ -14022,18 +14022,18 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/io.vertx/vertx-web-client@4.5.10?type=jar"/>
       <dependency ref="pkg:maven/io.vertx/vertx-web@4.5.10?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-master-parent@3.15.0-SNAPSHOT?type=pom">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-master-impl@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-master@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-master-deployment@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-master-parent@3.16.0-SNAPSHOT?type=pom">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-master-impl@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-master@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-master-deployment@3.16.0-SNAPSHOT?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-master-impl@3.15.0-SNAPSHOT?type=jar">
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-master-impl@3.16.0-SNAPSHOT?type=jar">
       <dependency ref="pkg:maven/org.apache.camel/camel-core-engine@4.8.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-kubernetes@4.8.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes-cluster-service@3.15.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-support@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-apt@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-annotations@3.15.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-support@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-apt@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-annotations@3.16.0-SNAPSHOT?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/io.fabric8/kubernetes-httpclient-okhttp@6.13.3?type=jar">
       <dependency ref="pkg:maven/io.fabric8/kubernetes-client-api@6.13.3?type=jar"/>
@@ -14095,9 +14095,9 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-support-commons-logging@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes@3.15.0?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-master@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-master-impl@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-master@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-master-impl@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-master@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes-cluster-service@3.15.0?type=jar"/>
@@ -14110,9 +14110,9 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/org.apache.camel/camel-support@4.8.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-cluster@4.8.0?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-master-deployment@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-deployment@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-master@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-master-deployment@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-deployment@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-master@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-master-deployment@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes-deployment@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes-cluster-service-deployment@3.15.0?type=jar"/>
@@ -14129,9 +14129,9 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes-deployment@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes-cluster-service@3.15.0?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime-deployment@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-deployment@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime-deployment@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-deployment@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-bean-deployment@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes-deployment@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-logging-json-deployment@3.15.1?type=jar"/>
@@ -14149,16 +14149,16 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/io.quarkus/quarkus-core-deployment@3.15.1?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-jsonp@3.15.1?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-resume-kafka-parent@3.15.0-SNAPSHOT?type=pom">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-resume-kafka-impl@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-resume-kafka@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-resume-kafka-deployment@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-resume-kafka-parent@3.16.0-SNAPSHOT?type=pom">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-resume-kafka-impl@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-resume-kafka@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-resume-kafka-deployment@3.16.0-SNAPSHOT?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-resume-kafka-impl@3.15.0-SNAPSHOT?type=jar">
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-resume-kafka-impl@3.16.0-SNAPSHOT?type=jar">
       <dependency ref="pkg:maven/org.apache.camel/camel-core-engine@4.8.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-support@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-apt@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-annotations@3.15.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-support@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-apt@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-annotations@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-kafka@4.8.0?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/org.apache.camel/camel-kafka@4.8.0?type=jar">
@@ -14181,45 +14181,45 @@ that achieves high performance when combined with Graal.</description>
     <dependency ref="pkg:maven/com.github.luben/zstd-jni@1.5.6-3?type=jar"/>
     <dependency ref="pkg:maven/org.lz4/lz4-java@1.8.0?type=jar"/>
     <dependency ref="pkg:maven/org.xerial.snappy/snappy-java@1.1.10.5?type=jar"/>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-resume-kafka@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-resume-kafka-impl@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-resume-kafka@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-resume-kafka-impl@3.16.0-SNAPSHOT?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-resume-kafka-deployment@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-deployment@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-resume-kafka@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-resume-kafka-deployment@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core-deployment@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-resume-kafka@3.16.0-SNAPSHOT?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests@3.15.0-SNAPSHOT?type=pom">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-core@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-groovy@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-kotlin@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-java@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-jsh@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-js@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-xml@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-yaml@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-polyglot@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-runtime@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-runtime-xml@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-runtime-yaml@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-cron@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-master@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-env-from-registry@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-env-from-properties@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-producer@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-consumer@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-sinkbinding@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-kamelet@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests@3.16.0-SNAPSHOT?type=pom">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-core@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-groovy@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-kotlin@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-java@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-jsh@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-js@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-xml@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-yaml@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-polyglot@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-runtime@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-runtime-xml@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-runtime-yaml@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-cron@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-master@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-env-from-registry@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-env-from-properties@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-producer@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-consumer@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-sinkbinding@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-kamelet@3.16.0-SNAPSHOT?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-core@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-core@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-core@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-jsonb@3.15.1?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy@3.15.1?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy-jsonb@3.15.1?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-groovy@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-groovy@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-groovy-dsl@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-direct@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-log@3.15.0?type=jar"/>
@@ -14271,8 +14271,8 @@ that achieves high performance when combined with Graal.</description>
     <dependency ref="pkg:maven/org.apache.camel/camel-log@4.8.0?type=jar">
       <dependency ref="pkg:maven/org.apache.camel/camel-support@4.8.0?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-kotlin@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-kotlin@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-kotlin-dsl@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-direct@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-log@3.15.0?type=jar"/>
@@ -14354,8 +14354,8 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/org.jetbrains.kotlin/kotlin-scripting-jvm@2.0.10?type=jar"/>
       <dependency ref="pkg:maven/org.jetbrains.kotlin/kotlin-stdlib@2.0.10?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-java@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-java@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-java-joor-dsl@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-direct@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-log@3.15.0?type=jar"/>
@@ -14374,8 +14374,8 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/org.jooq/joor@0.9.15?type=jar"/>
     </dependency>
     <dependency ref="pkg:maven/org.jooq/joor@0.9.15?type=jar"/>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-jsh@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-jsh@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-jsh-dsl@4.8.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-direct@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-log@3.15.0?type=jar"/>
@@ -14384,8 +14384,8 @@ that achieves high performance when combined with Graal.</description>
     <dependency ref="pkg:maven/org.apache.camel/camel-jsh-dsl@4.8.0?type=jar">
       <dependency ref="pkg:maven/org.apache.camel/camel-endpointdsl-support@4.8.0?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-js@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-js@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-js-dsl@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-direct@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-log@3.15.0?type=jar"/>
@@ -14419,8 +14419,8 @@ that achieves high performance when combined with Graal.</description>
     </dependency>
     <dependency ref="pkg:maven/org.graalvm.sdk/collections@23.1.2?type=jar"/>
     <dependency ref="pkg:maven/org.graalvm.shadowed/icu4j@23.1.2?type=jar"/>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-xml@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-xml@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-xml-io-dsl@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-direct@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-log@3.15.0?type=jar"/>
@@ -14439,8 +14439,8 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/org.apache.camel/camel-xml-io@4.8.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-dsl-support@4.8.0?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-yaml@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-yaml@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-yaml-dsl@4.8.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-direct@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-log@3.15.0?type=jar"/>
@@ -14458,8 +14458,8 @@ that achieves high performance when combined with Graal.</description>
     <dependency ref="pkg:maven/org.apache.camel/camel-yaml-dsl-deserializers@4.8.0?type=jar">
       <dependency ref="pkg:maven/org.apache.camel/camel-yaml-dsl-common@4.8.0?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-polyglot@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-polyglot@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-yaml-dsl@4.8.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-xml-io-dsl@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-direct@3.15.0?type=jar"/>
@@ -14490,8 +14490,8 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/org.apache.camel/camel-core-engine@4.8.0?type=jar"/>
       <dependency ref="pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.17.2?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-runtime@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-runtime@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-yaml-dsl@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-jsonb@3.15.1?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy@3.15.1?type=jar"/>
@@ -14501,9 +14501,9 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-yaml-dsl@4.8.0?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-runtime-xml@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-runtime-inspector@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-runtime-xml@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-runtime-inspector@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-xml-io-dsl@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-timer@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-log@3.15.0?type=jar"/>
@@ -14559,13 +14559,13 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/org.apache.camel/camel-support@4.8.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-tooling-model@4.8.0?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-runtime-yaml@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-runtime-yaml@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-producer@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-consumer@3.15.0?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-runtime-inspector@3.15.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-runtime-inspector@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-yaml-dsl@4.8.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-timer@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-log@3.15.0?type=jar"/>
@@ -14596,9 +14596,9 @@ that achieves high performance when combined with Graal.</description>
     <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-consumer@3.15.0?type=jar">
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative@3.15.0?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-cron@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-cron@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-cron@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-cron@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-yaml-dsl@4.8.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-timer@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-jsonb@3.15.1?type=jar"/>
@@ -14609,15 +14609,15 @@ that achieves high performance when combined with Graal.</description>
     <dependency ref="pkg:maven/org.awaitility/awaitility@4.2.2?type=jar">
       <dependency ref="pkg:maven/org.hamcrest/hamcrest@2.2?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-master@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-master@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-master@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-master@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-jsonb@3.15.1?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy@3.15.1?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy-jsonb@3.15.1?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-producer@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-consumer@3.15.0?type=jar"/>
@@ -14627,8 +14627,8 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy@3.15.1?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy-jsonb@3.15.1?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-env-from-registry@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-env-from-registry@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-producer@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-consumer@3.15.0?type=jar"/>
@@ -14638,9 +14638,9 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy@3.15.1?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy-jsonb@3.15.1?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-env-from-properties@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-env-from-properties@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-producer@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-consumer@3.15.0?type=jar"/>
@@ -14650,27 +14650,27 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy@3.15.1?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy-jsonb@3.15.1?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-producer@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-producer@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-producer@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-jsonb@3.15.1?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy@3.15.1?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy-jsonb@3.15.1?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-consumer@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-consumer@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-consumer@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-jsonb@3.15.1?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy@3.15.1?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy-jsonb@3.15.1?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-sinkbinding@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar"/>
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-knative-sinkbinding@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar"/>
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-producer@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-yaml-dsl@4.8.0?type=jar"/>
@@ -14679,8 +14679,8 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy@3.15.1?type=jar"/>
       <dependency ref="pkg:maven/io.quarkus/quarkus-resteasy-jsonb@3.15.1?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-kamelet@3.15.0-SNAPSHOT?type=jar">
-      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/camel-k-itests-kamelet@3.16.0-SNAPSHOT?type=jar">
+      <dependency ref="pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-yaml-dsl@4.8.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-kamelet@3.15.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel.quarkus/camel-quarkus-direct@3.15.0?type=jar"/>
@@ -14696,6 +14696,6 @@ that achieves high performance when combined with Graal.</description>
       <dependency ref="pkg:maven/org.apache.camel/camel-core-reifier@4.8.0?type=jar"/>
       <dependency ref="pkg:maven/org.apache.camel/camel-core-model@4.8.0?type=jar"/>
     </dependency>
-    <dependency ref="pkg:maven/org.apache.camel.k/apache-camel-k-runtime@3.15.0-SNAPSHOT?type=pom"/>
+    <dependency ref="pkg:maven/org.apache.camel.k/apache-camel-k-runtime@3.16.0-SNAPSHOT?type=pom"/>
   </dependencies>
 </bom>
