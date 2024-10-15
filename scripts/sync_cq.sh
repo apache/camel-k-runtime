@@ -37,6 +37,10 @@ main() {
   git clone https://github.com/apache/camel-quarkus.git
   pushd camel-quarkus
   CQ_VERSION=$(git tag | grep $VERSION_MM | sort | tail -n 1)
+  if [ "$CQ_VERSION" == "" ] ; then
+    echo "INFO: there is no new $VERSION_MM released yet, bye!"
+    exit 0
+  fi
   if [ "$SKIP_VERSION_CHECK" == "false" ] && [ "$CQ_VERSION" == "$VERSION_FULL" ]; then
     echo "INFO: there is no new version released, bye!"
     exit 0
