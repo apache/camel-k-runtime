@@ -1,7 +1,7 @@
 {
   "bomFormat" : "CycloneDX",
   "specVersion" : "1.5",
-  "serialNumber" : "urn:uuid:7d59a5b1-02d9-37ab-969b-4966254f98d6",
+  "serialNumber" : "urn:uuid:355dfde6-4bc0-3460-84cd-0738eb5a4775",
   "version" : 1,
   "metadata" : {
     "lifecycles" : [
@@ -59,7 +59,7 @@
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-runtime-project",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -69,7 +69,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-runtime-project@3.16.0-SNAPSHOT?type=pom",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-runtime-project@3.15.0-SNAPSHOT?type=pom",
       "externalReferences" : [
         {
           "type" : "website",
@@ -93,7 +93,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-runtime-project@3.16.0-SNAPSHOT?type=pom"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-runtime-project@3.15.0-SNAPSHOT?type=pom"
     },
     "properties" : [
       {
@@ -115,7 +115,7 @@
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-support",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -125,7 +125,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-support@3.16.0-SNAPSHOT?type=pom",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-support@3.15.0-SNAPSHOT?type=pom",
       "externalReferences" : [
         {
           "type" : "website",
@@ -149,13 +149,13 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-support@3.16.0-SNAPSHOT?type=pom"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-support@3.15.0-SNAPSHOT?type=pom"
     },
     {
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-annotations",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -165,7 +165,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-annotations@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-annotations@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -189,7 +189,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-annotations@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-annotations@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
@@ -1262,7 +1262,7 @@
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-apt",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -1272,7 +1272,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-apt@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-apt@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -1296,13 +1296,13 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-apt@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-apt@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-catalog-model",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -1312,7 +1312,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-catalog-model@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-catalog-model@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -1336,7 +1336,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-catalog-model@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-catalog-model@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "FasterXML",
@@ -1827,7 +1827,7 @@
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-maven-plugin",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -1837,7 +1837,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-maven-plugin@3.16.0-SNAPSHOT?type=maven-plugin",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-maven-plugin@3.15.0-SNAPSHOT?type=maven-plugin",
       "externalReferences" : [
         {
           "type" : "website",
@@ -1861,7 +1861,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-maven-plugin@3.16.0-SNAPSHOT?type=maven-plugin"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-maven-plugin@3.15.0-SNAPSHOT?type=maven-plugin"
     },
     {
       "publisher" : "The Apache Software Foundation",
@@ -10476,7 +10476,7 @@
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-test",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -10486,7 +10486,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-test@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-test@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -10510,7 +10510,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-test@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-test@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "group" : "org.hamcrest",
@@ -11489,7 +11489,7 @@
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-core-parent",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -11499,7 +11499,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-core-parent@3.16.0-SNAPSHOT?type=pom",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-core-parent@3.15.0-SNAPSHOT?type=pom",
       "externalReferences" : [
         {
           "type" : "website",
@@ -11523,13 +11523,13 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-core-parent@3.16.0-SNAPSHOT?type=pom"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-core-parent@3.15.0-SNAPSHOT?type=pom"
     },
     {
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-core-api",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -11539,7 +11539,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-core-api@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-core-api@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -11563,13 +11563,13 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-core-api@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-core-api@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-core-support",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -11579,7 +11579,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-core-support@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-core-support@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -11603,7 +11603,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-core-support@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-core-support@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
@@ -18003,7 +18003,7 @@
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-core",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -18013,7 +18013,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-core@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-core@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -18037,13 +18037,13 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-core@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-core@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-itests-support",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -18053,7 +18053,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-support@3.16.0-SNAPSHOT?type=pom",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-support@3.15.0-SNAPSHOT?type=pom",
       "externalReferences" : [
         {
           "type" : "website",
@@ -18077,13 +18077,13 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-support@3.16.0-SNAPSHOT?type=pom"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-support@3.15.0-SNAPSHOT?type=pom"
     },
     {
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-itests-loader-inspector",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -18093,7 +18093,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -18117,7 +18117,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "group" : "io.quarkus",
@@ -20262,7 +20262,7 @@
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-runtime-parent",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -20272,7 +20272,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-runtime-parent@3.16.0-SNAPSHOT?type=pom",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-runtime-parent@3.15.0-SNAPSHOT?type=pom",
       "externalReferences" : [
         {
           "type" : "website",
@@ -20296,13 +20296,13 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-runtime-parent@3.16.0-SNAPSHOT?type=pom"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-runtime-parent@3.15.0-SNAPSHOT?type=pom"
     },
     {
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-runtime",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -20312,7 +20312,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -20336,7 +20336,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
@@ -20557,7 +20557,7 @@
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-itests-runtime-inspector",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -20567,7 +20567,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-runtime-inspector@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-runtime-inspector@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -20591,13 +20591,13 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-runtime-inspector@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-runtime-inspector@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-catalog",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -20607,7 +20607,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-catalog@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-catalog@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -20631,13 +20631,13 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-catalog@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-catalog@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-runtime-bom",
-      "version" : "-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "The Apache Software Foundation provides support for the Apache community of open-source software projects. The Apache projects are characterized by a collaborative, consensus based development process, an open and pragmatic software license, and a desire to create high quality software that leads the way in its field. We consider ourselves not simply a group of projects sharing a server, but rather a community of developers and users.",
       "licenses" : [
         {
@@ -20647,7 +20647,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-runtime-bom@-SNAPSHOT?type=pom",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-runtime-bom@3.15.0-SNAPSHOT?type=pom",
       "externalReferences" : [
         {
           "type" : "website",
@@ -20671,13 +20671,13 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-runtime-bom@-SNAPSHOT?type=pom"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-runtime-bom@3.15.0-SNAPSHOT?type=pom"
     },
     {
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-maven-logging",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Set of dependencies used for structural logging of Maven output",
       "licenses" : [
         {
@@ -20687,7 +20687,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-maven-logging@3.16.0-SNAPSHOT?type=pom",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-maven-logging@3.15.0-SNAPSHOT?type=pom",
       "externalReferences" : [
         {
           "type" : "website",
@@ -20711,7 +20711,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-maven-logging@3.16.0-SNAPSHOT?type=pom"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-maven-logging@3.15.0-SNAPSHOT?type=pom"
     },
     {
       "publisher" : "QOS.ch",
@@ -20995,7 +20995,7 @@
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-core-deployment",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -21005,7 +21005,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-core-deployment@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-core-deployment@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -21029,7 +21029,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-core-deployment@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-core-deployment@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
@@ -25020,7 +25020,7 @@
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-cron-parent",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -25030,7 +25030,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-cron-parent@3.16.0-SNAPSHOT?type=pom",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-cron-parent@3.15.0-SNAPSHOT?type=pom",
       "externalReferences" : [
         {
           "type" : "website",
@@ -25054,13 +25054,13 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-cron-parent@3.16.0-SNAPSHOT?type=pom"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-cron-parent@3.15.0-SNAPSHOT?type=pom"
     },
     {
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-cron-impl",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -25070,7 +25070,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-cron-impl@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-cron-impl@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -25094,7 +25094,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-cron-impl@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-cron-impl@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
@@ -25526,7 +25526,7 @@
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-cron",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -25536,7 +25536,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-cron@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-cron@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -25560,7 +25560,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-cron@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-cron@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
@@ -25712,7 +25712,7 @@
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-cron-deployment",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -25722,7 +25722,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-cron-deployment@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-cron-deployment@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -25746,7 +25746,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-cron-deployment@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-cron-deployment@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
@@ -25827,7 +25827,7 @@
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-knative-parent",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -25837,7 +25837,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-knative-parent@3.16.0-SNAPSHOT?type=pom",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-knative-parent@3.15.0-SNAPSHOT?type=pom",
       "externalReferences" : [
         {
           "type" : "website",
@@ -25861,13 +25861,13 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-knative-parent@3.16.0-SNAPSHOT?type=pom"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-knative-parent@3.15.0-SNAPSHOT?type=pom"
     },
     {
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-knative-impl",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -25877,7 +25877,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -25901,7 +25901,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
@@ -26191,7 +26191,7 @@
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-master-parent",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -26201,7 +26201,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-master-parent@3.16.0-SNAPSHOT?type=pom",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-master-parent@3.15.0-SNAPSHOT?type=pom",
       "externalReferences" : [
         {
           "type" : "website",
@@ -26225,13 +26225,13 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-master-parent@3.16.0-SNAPSHOT?type=pom"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-master-parent@3.15.0-SNAPSHOT?type=pom"
     },
     {
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-master-impl",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -26241,7 +26241,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-master-impl@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-master-impl@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -26265,7 +26265,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-master-impl@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-master-impl@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "Red Hat",
@@ -27098,7 +27098,7 @@
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-master",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -27108,7 +27108,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-master@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-master@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -27132,7 +27132,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-master@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-master@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
@@ -27284,7 +27284,7 @@
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-master-deployment",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -27294,7 +27294,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-master-deployment@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-master-deployment@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -27318,7 +27318,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-master-deployment@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-master-deployment@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
@@ -27474,7 +27474,7 @@
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-runtime-deployment",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -27484,7 +27484,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-runtime-deployment@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-runtime-deployment@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -27508,7 +27508,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-runtime-deployment@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-runtime-deployment@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
@@ -27727,7 +27727,7 @@
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-resume-kafka-parent",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -27737,7 +27737,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-resume-kafka-parent@3.16.0-SNAPSHOT?type=pom",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-resume-kafka-parent@3.15.0-SNAPSHOT?type=pom",
       "externalReferences" : [
         {
           "type" : "website",
@@ -27761,13 +27761,13 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-resume-kafka-parent@3.16.0-SNAPSHOT?type=pom"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-resume-kafka-parent@3.15.0-SNAPSHOT?type=pom"
     },
     {
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-resume-kafka-impl",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -27777,7 +27777,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-resume-kafka-impl@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-resume-kafka-impl@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -27801,7 +27801,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-resume-kafka-impl@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-resume-kafka-impl@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
@@ -28187,7 +28187,7 @@
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-resume-kafka",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -28197,7 +28197,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-resume-kafka@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-resume-kafka@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -28221,13 +28221,13 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-resume-kafka@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-resume-kafka@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-resume-kafka-deployment",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -28237,7 +28237,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-resume-kafka-deployment@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-resume-kafka-deployment@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -28261,13 +28261,13 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-resume-kafka-deployment@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-resume-kafka-deployment@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-itests",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -28277,7 +28277,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests@3.16.0-SNAPSHOT?type=pom",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests@3.15.0-SNAPSHOT?type=pom",
       "externalReferences" : [
         {
           "type" : "website",
@@ -28301,13 +28301,13 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests@3.16.0-SNAPSHOT?type=pom"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests@3.15.0-SNAPSHOT?type=pom"
     },
     {
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-itests-core",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -28317,7 +28317,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-core@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-core@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -28341,13 +28341,13 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-core@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-core@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-itests-loader-groovy",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -28357,7 +28357,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-groovy@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-groovy@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -28381,7 +28381,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-groovy@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-groovy@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
@@ -29040,7 +29040,7 @@
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-itests-loader-kotlin",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -29050,7 +29050,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-kotlin@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-kotlin@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -29074,7 +29074,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-kotlin@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-kotlin@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
@@ -30228,7 +30228,7 @@
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-itests-loader-java",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -30238,7 +30238,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-java@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-java@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -30262,7 +30262,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-java@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-java@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
@@ -30546,7 +30546,7 @@
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-itests-loader-jsh",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -30556,7 +30556,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-jsh@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-jsh@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -30580,7 +30580,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-jsh@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-jsh@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
@@ -30657,7 +30657,7 @@
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-itests-loader-js",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -30667,7 +30667,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-js@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-js@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -30691,7 +30691,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-js@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-js@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
@@ -31221,7 +31221,7 @@
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-itests-loader-xml",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -31231,7 +31231,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-xml@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-xml@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -31255,7 +31255,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-xml@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-xml@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
@@ -31478,7 +31478,7 @@
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-itests-loader-yaml",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -31488,7 +31488,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-yaml@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-yaml@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -31512,13 +31512,13 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-yaml@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-yaml@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-itests-loader-polyglot",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -31528,7 +31528,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-polyglot@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-polyglot@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -31552,7 +31552,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-polyglot@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-polyglot@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
@@ -31843,7 +31843,7 @@
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-itests-runtime",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -31853,7 +31853,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-runtime@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-runtime@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -31877,7 +31877,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-runtime@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-runtime@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
@@ -31958,7 +31958,7 @@
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-itests-runtime-xml",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -31968,7 +31968,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-runtime-xml@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-runtime-xml@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -31992,7 +31992,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-runtime-xml@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-runtime-xml@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
@@ -32724,7 +32724,7 @@
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-itests-runtime-yaml",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -32734,7 +32734,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-runtime-yaml@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-runtime-yaml@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -32758,7 +32758,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-runtime-yaml@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-runtime-yaml@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
@@ -33135,7 +33135,7 @@
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-itests-cron",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -33145,7 +33145,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-cron@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-cron@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -33169,7 +33169,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-cron@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-cron@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "group" : "org.awaitility",
@@ -33244,7 +33244,7 @@
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-itests-master",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -33254,7 +33254,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-master@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-master@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -33278,13 +33278,13 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-master@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-master@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-itests-knative",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -33294,7 +33294,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -33318,13 +33318,13 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-itests-knative-env-from-registry",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -33334,7 +33334,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative-env-from-registry@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative-env-from-registry@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -33358,13 +33358,13 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative-env-from-registry@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative-env-from-registry@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-itests-knative-env-from-properties",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -33374,7 +33374,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative-env-from-properties@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative-env-from-properties@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -33398,13 +33398,13 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative-env-from-properties@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative-env-from-properties@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-itests-knative-producer",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -33414,7 +33414,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative-producer@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative-producer@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -33438,13 +33438,13 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative-producer@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative-producer@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-itests-knative-consumer",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -33454,7 +33454,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative-consumer@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative-consumer@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -33478,13 +33478,13 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative-consumer@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative-consumer@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-itests-knative-sinkbinding",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -33494,7 +33494,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative-sinkbinding@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative-sinkbinding@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -33518,13 +33518,13 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative-sinkbinding@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative-sinkbinding@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "camel-k-itests-kamelet",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -33534,7 +33534,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-kamelet@3.16.0-SNAPSHOT?type=jar",
+      "purl" : "pkg:maven/org.apache.camel.k/camel-k-itests-kamelet@3.15.0-SNAPSHOT?type=jar",
       "externalReferences" : [
         {
           "type" : "website",
@@ -33558,7 +33558,7 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-kamelet@3.16.0-SNAPSHOT?type=jar"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-kamelet@3.15.0-SNAPSHOT?type=jar"
     },
     {
       "publisher" : "The Apache Software Foundation",
@@ -33710,7 +33710,7 @@
       "publisher" : "The Apache Software Foundation",
       "group" : "org.apache.camel.k",
       "name" : "apache-camel-k-runtime",
-      "version" : "3.16.0-SNAPSHOT",
+      "version" : "3.15.0-SNAPSHOT",
       "description" : "Version properties used for building and testing Apache Camel",
       "licenses" : [
         {
@@ -33720,7 +33720,7 @@
           }
         }
       ],
-      "purl" : "pkg:maven/org.apache.camel.k/apache-camel-k-runtime@3.16.0-SNAPSHOT?type=pom",
+      "purl" : "pkg:maven/org.apache.camel.k/apache-camel-k-runtime@3.15.0-SNAPSHOT?type=pom",
       "externalReferences" : [
         {
           "type" : "website",
@@ -33744,39 +33744,39 @@
         }
       ],
       "type" : "library",
-      "bom-ref" : "pkg:maven/org.apache.camel.k/apache-camel-k-runtime@3.16.0-SNAPSHOT?type=pom"
+      "bom-ref" : "pkg:maven/org.apache.camel.k/apache-camel-k-runtime@3.15.0-SNAPSHOT?type=pom"
     }
   ],
   "dependencies" : [
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-runtime-project@3.16.0-SNAPSHOT?type=pom",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-runtime-project@3.15.0-SNAPSHOT?type=pom",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-support@3.16.0-SNAPSHOT?type=pom",
-        "pkg:maven/org.apache.camel.k/camel-k-core-parent@3.16.0-SNAPSHOT?type=pom",
-        "pkg:maven/org.apache.camel.k/camel-k-runtime-parent@3.16.0-SNAPSHOT?type=pom",
-        "pkg:maven/org.apache.camel.k/camel-k-cron-parent@3.16.0-SNAPSHOT?type=pom",
-        "pkg:maven/org.apache.camel.k/camel-k-knative-parent@3.16.0-SNAPSHOT?type=pom",
-        "pkg:maven/org.apache.camel.k/camel-k-master-parent@3.16.0-SNAPSHOT?type=pom",
-        "pkg:maven/org.apache.camel.k/camel-k-resume-kafka-parent@3.16.0-SNAPSHOT?type=pom",
-        "pkg:maven/org.apache.camel.k/camel-k-itests@3.16.0-SNAPSHOT?type=pom",
-        "pkg:maven/org.apache.camel.k/apache-camel-k-runtime@3.16.0-SNAPSHOT?type=pom"
+        "pkg:maven/org.apache.camel.k/camel-k-support@3.15.0-SNAPSHOT?type=pom",
+        "pkg:maven/org.apache.camel.k/camel-k-core-parent@3.15.0-SNAPSHOT?type=pom",
+        "pkg:maven/org.apache.camel.k/camel-k-runtime-parent@3.15.0-SNAPSHOT?type=pom",
+        "pkg:maven/org.apache.camel.k/camel-k-cron-parent@3.15.0-SNAPSHOT?type=pom",
+        "pkg:maven/org.apache.camel.k/camel-k-knative-parent@3.15.0-SNAPSHOT?type=pom",
+        "pkg:maven/org.apache.camel.k/camel-k-master-parent@3.15.0-SNAPSHOT?type=pom",
+        "pkg:maven/org.apache.camel.k/camel-k-resume-kafka-parent@3.15.0-SNAPSHOT?type=pom",
+        "pkg:maven/org.apache.camel.k/camel-k-itests@3.15.0-SNAPSHOT?type=pom",
+        "pkg:maven/org.apache.camel.k/apache-camel-k-runtime@3.15.0-SNAPSHOT?type=pom"
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-support@3.16.0-SNAPSHOT?type=pom",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-support@3.15.0-SNAPSHOT?type=pom",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-annotations@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-apt@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-catalog-model@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-maven-plugin@3.16.0-SNAPSHOT?type=maven-plugin",
-        "pkg:maven/org.apache.camel.k/camel-k-test@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-itests-support@3.16.0-SNAPSHOT?type=pom",
-        "pkg:maven/org.apache.camel.k/camel-k-catalog@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-maven-logging@3.16.0-SNAPSHOT?type=pom"
+        "pkg:maven/org.apache.camel.k/camel-k-annotations@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-apt@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-catalog-model@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-maven-plugin@3.15.0-SNAPSHOT?type=maven-plugin",
+        "pkg:maven/org.apache.camel.k/camel-k-test@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-itests-support@3.15.0-SNAPSHOT?type=pom",
+        "pkg:maven/org.apache.camel.k/camel-k-catalog@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-maven-logging@3.15.0-SNAPSHOT?type=pom"
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-annotations@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-annotations@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
         "pkg:maven/org.apache.camel/camel-core-engine@4.8.0?type=jar"
       ]
@@ -33892,13 +33892,13 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-apt@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-apt@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-annotations@3.16.0-SNAPSHOT?type=jar"
+        "pkg:maven/org.apache.camel.k/camel-k-annotations@3.15.0-SNAPSHOT?type=jar"
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-catalog-model@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-catalog-model@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
         "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.17.2?type=jar",
         "pkg:maven/com.fasterxml.jackson.datatype/jackson-datatype-jdk8@2.17.2?type=jar",
@@ -33946,12 +33946,12 @@
       "dependsOn" : [ ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-maven-plugin@3.16.0-SNAPSHOT?type=maven-plugin",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-maven-plugin@3.15.0-SNAPSHOT?type=maven-plugin",
       "dependsOn" : [
         "pkg:maven/org.apache.maven.plugin-tools/maven-plugin-annotations@3.6.0?type=jar",
         "pkg:maven/org.apache.maven.shared/maven-common-artifact-filters@3.1.0?type=jar",
         "pkg:maven/org.apache.maven/maven-plugin-api@3.6.3?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-catalog-model@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-catalog-model@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel/camel-openapi-rest-dsl-generator@4.8.0?type=jar",
         "pkg:maven/org.apache.camel/camel-core-catalog@4.8.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-catalog@3.15.0?type=jar",
@@ -34701,7 +34701,7 @@
       "dependsOn" : [ ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-test@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-test@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
         "pkg:maven/org.junit.jupiter/junit-jupiter@5.10.3?type=jar",
         "pkg:maven/org.assertj/assertj-core@3.26.3?type=jar",
@@ -34861,16 +34861,16 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-core-parent@3.16.0-SNAPSHOT?type=pom",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-core-parent@3.15.0-SNAPSHOT?type=pom",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-core-api@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-core-support@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-core@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-core-deployment@3.16.0-SNAPSHOT?type=jar"
+        "pkg:maven/org.apache.camel.k/camel-k-core-api@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-core-support@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-core@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-core-deployment@3.15.0-SNAPSHOT?type=jar"
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-core-api@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-core-api@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
         "pkg:maven/org.apache.camel/camel-core-engine@4.8.0?type=jar",
         "pkg:maven/org.apache.camel/camel-core-languages@4.8.0?type=jar",
@@ -34878,9 +34878,9 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-core-support@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-core-support@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-core-api@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-core-api@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel/camel-core-engine@4.8.0?type=jar",
         "pkg:maven/org.apache.camel/camel-core-languages@4.8.0?type=jar",
         "pkg:maven/org.apache.camel/camel-endpointdsl@4.8.0?type=jar",
@@ -35692,26 +35692,26 @@
       "dependsOn" : [ ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-core@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-core@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
         "pkg:maven/org.apache.camel/camel-support@4.8.0?type=jar",
         "pkg:maven/org.apache.camel/camel-core-engine@4.8.0?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-core-api@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-core-support@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-core-api@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-core-support@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-core@3.15.0?type=jar"
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-support@3.16.0-SNAPSHOT?type=pom",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-support@3.15.0-SNAPSHOT?type=pom",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-itests-runtime-inspector@3.16.0-SNAPSHOT?type=jar"
+        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-itests-runtime-inspector@3.15.0-SNAPSHOT?type=jar"
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-core@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-core@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/io.quarkus/quarkus-jsonb@3.15.1?type=jar",
         "pkg:maven/io.quarkus/quarkus-resteasy@3.15.1?type=jar",
         "pkg:maven/io.quarkus/quarkus-resteasy-jsonb@3.15.1?type=jar"
@@ -35960,16 +35960,16 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-runtime-parent@3.16.0-SNAPSHOT?type=pom",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-runtime-parent@3.15.0-SNAPSHOT?type=pom",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-runtime-deployment@3.16.0-SNAPSHOT?type=jar"
+        "pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-runtime-deployment@3.15.0-SNAPSHOT?type=jar"
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-core@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-core@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-bean@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes@3.15.0?type=jar",
         "pkg:maven/io.quarkus/quarkus-logging-json@3.15.1?type=jar"
@@ -35997,24 +35997,24 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-runtime-inspector@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-runtime-inspector@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/io.quarkus/quarkus-jsonb@3.15.1?type=jar",
         "pkg:maven/io.quarkus/quarkus-resteasy@3.15.1?type=jar",
         "pkg:maven/io.quarkus/quarkus-resteasy-jsonb@3.15.1?type=jar"
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-catalog@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-catalog@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [ ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-runtime-bom@-SNAPSHOT?type=pom",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-runtime-bom@3.15.0-SNAPSHOT?type=pom",
       "dependsOn" : [ ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-maven-logging@3.16.0-SNAPSHOT?type=pom",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-maven-logging@3.15.0-SNAPSHOT?type=pom",
       "dependsOn" : [
         "pkg:maven/org.slf4j/slf4j-api@2.0.16?type=jar",
         "pkg:maven/ch.qos.logback/logback-core@1.5.7?type=jar",
@@ -36047,9 +36047,9 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-core-deployment@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-core-deployment@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-core@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-core@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-core-deployment@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes-deployment@3.15.0?type=jar",
         "pkg:maven/commons-io/commons-io@2.16.1?type=jar"
@@ -36491,21 +36491,21 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-cron-parent@3.16.0-SNAPSHOT?type=pom",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-cron-parent@3.15.0-SNAPSHOT?type=pom",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-cron-impl@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-cron@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-cron-deployment@3.16.0-SNAPSHOT?type=jar"
+        "pkg:maven/org.apache.camel.k/camel-k-cron-impl@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-cron@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-cron-deployment@3.15.0-SNAPSHOT?type=jar"
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-cron-impl@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-cron-impl@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
         "pkg:maven/org.apache.camel/camel-core-engine@4.8.0?type=jar",
         "pkg:maven/org.apache.camel/camel-timer@4.8.0?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-core-support@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-apt@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-annotations@3.16.0-SNAPSHOT?type=jar"
+        "pkg:maven/org.apache.camel.k/camel-k-core-support@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-apt@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-annotations@3.15.0-SNAPSHOT?type=jar"
       ]
     },
     {
@@ -36515,10 +36515,10 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-cron@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-cron@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-core@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-cron-impl@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-core@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-cron-impl@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-cron@3.15.0?type=jar"
       ]
     },
@@ -36536,10 +36536,10 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-cron-deployment@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-cron-deployment@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-core-deployment@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-cron@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-core-deployment@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-cron@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-cron-deployment@3.15.0?type=jar"
       ]
     },
@@ -36551,19 +36551,19 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-knative-parent@3.16.0-SNAPSHOT?type=pom",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-knative-parent@3.15.0-SNAPSHOT?type=pom",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.16.0-SNAPSHOT?type=jar"
+        "pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.15.0-SNAPSHOT?type=jar"
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-core-support@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-core-support@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel/camel-knative@4.8.0?type=jar",
         "pkg:maven/org.apache.camel/camel-knative-http@4.8.0?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-apt@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-annotations@3.16.0-SNAPSHOT?type=jar"
+        "pkg:maven/org.apache.camel.k/camel-k-apt@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-annotations@3.15.0-SNAPSHOT?type=jar"
       ]
     },
     {
@@ -36600,22 +36600,22 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-master-parent@3.16.0-SNAPSHOT?type=pom",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-master-parent@3.15.0-SNAPSHOT?type=pom",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-master-impl@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-master@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-master-deployment@3.16.0-SNAPSHOT?type=jar"
+        "pkg:maven/org.apache.camel.k/camel-k-master-impl@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-master@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-master-deployment@3.15.0-SNAPSHOT?type=jar"
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-master-impl@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-master-impl@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
         "pkg:maven/org.apache.camel/camel-core-engine@4.8.0?type=jar",
         "pkg:maven/org.apache.camel/camel-kubernetes@4.8.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes-cluster-service@3.15.0?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-core-support@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-apt@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-annotations@3.16.0-SNAPSHOT?type=jar"
+        "pkg:maven/org.apache.camel.k/camel-k-core-support@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-apt@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-annotations@3.15.0-SNAPSHOT?type=jar"
       ]
     },
     {
@@ -36718,10 +36718,10 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-master@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-master@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-core@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-master-impl@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-core@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-master-impl@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-master@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes-cluster-service@3.15.0?type=jar"
@@ -36742,10 +36742,10 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-master-deployment@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-master-deployment@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-core-deployment@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-master@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-core-deployment@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-master@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-master-deployment@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes-deployment@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes-cluster-service-deployment@3.15.0?type=jar"
@@ -36770,10 +36770,10 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-runtime-deployment@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-runtime-deployment@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-core-deployment@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-core-deployment@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-bean-deployment@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-kubernetes-deployment@3.15.0?type=jar",
         "pkg:maven/io.quarkus/quarkus-logging-json-deployment@3.15.1?type=jar"
@@ -36802,20 +36802,20 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-resume-kafka-parent@3.16.0-SNAPSHOT?type=pom",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-resume-kafka-parent@3.15.0-SNAPSHOT?type=pom",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-resume-kafka-impl@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-resume-kafka@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-resume-kafka-deployment@3.16.0-SNAPSHOT?type=jar"
+        "pkg:maven/org.apache.camel.k/camel-k-resume-kafka-impl@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-resume-kafka@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-resume-kafka-deployment@3.15.0-SNAPSHOT?type=jar"
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-resume-kafka-impl@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-resume-kafka-impl@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
         "pkg:maven/org.apache.camel/camel-core-engine@4.8.0?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-core-support@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-apt@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-annotations@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-core-support@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-apt@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-annotations@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel/camel-kafka@4.8.0?type=jar"
       ]
     },
@@ -36858,58 +36858,58 @@
       "dependsOn" : [ ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-resume-kafka@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-resume-kafka@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-core@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-resume-kafka-impl@3.16.0-SNAPSHOT?type=jar"
+        "pkg:maven/org.apache.camel.k/camel-k-core@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-resume-kafka-impl@3.15.0-SNAPSHOT?type=jar"
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-resume-kafka-deployment@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-resume-kafka-deployment@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-core-deployment@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-resume-kafka@3.16.0-SNAPSHOT?type=jar"
+        "pkg:maven/org.apache.camel.k/camel-k-core-deployment@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-resume-kafka@3.15.0-SNAPSHOT?type=jar"
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests@3.16.0-SNAPSHOT?type=pom",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests@3.15.0-SNAPSHOT?type=pom",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-itests-core@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-groovy@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-kotlin@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-java@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-jsh@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-js@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-xml@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-yaml@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-polyglot@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-itests-runtime@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-itests-runtime-xml@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-itests-runtime-yaml@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-itests-cron@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-itests-master@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-itests-knative@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-itests-knative-env-from-registry@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-itests-knative-env-from-properties@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-itests-knative-producer@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-itests-knative-consumer@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-itests-knative-sinkbinding@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-itests-kamelet@3.16.0-SNAPSHOT?type=jar"
+        "pkg:maven/org.apache.camel.k/camel-k-itests-core@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-groovy@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-kotlin@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-java@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-jsh@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-js@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-xml@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-yaml@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-polyglot@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-itests-runtime@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-itests-runtime-xml@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-itests-runtime-yaml@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-itests-cron@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-itests-master@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-itests-knative@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-itests-knative-env-from-registry@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-itests-knative-env-from-properties@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-itests-knative-producer@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-itests-knative-consumer@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-itests-knative-sinkbinding@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-itests-kamelet@3.15.0-SNAPSHOT?type=jar"
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-core@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-core@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-core@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-core@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/io.quarkus/quarkus-jsonb@3.15.1?type=jar",
         "pkg:maven/io.quarkus/quarkus-resteasy@3.15.1?type=jar",
         "pkg:maven/io.quarkus/quarkus-resteasy-jsonb@3.15.1?type=jar"
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-groovy@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-groovy@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-groovy-dsl@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-direct@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-log@3.15.0?type=jar",
@@ -36996,9 +36996,9 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-kotlin@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-kotlin@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-kotlin-dsl@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-direct@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-log@3.15.0?type=jar",
@@ -37136,9 +37136,9 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-java@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-java@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-java-joor-dsl@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-direct@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-log@3.15.0?type=jar",
@@ -37171,9 +37171,9 @@
       "dependsOn" : [ ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-jsh@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-jsh@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel/camel-jsh-dsl@4.8.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-direct@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-log@3.15.0?type=jar",
@@ -37187,9 +37187,9 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-js@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-js@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-js-dsl@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-direct@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-log@3.15.0?type=jar",
@@ -37249,9 +37249,9 @@
       "dependsOn" : [ ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-xml@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-xml@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-xml-io-dsl@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-direct@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-log@3.15.0?type=jar",
@@ -37281,9 +37281,9 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-yaml@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-yaml@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel/camel-yaml-dsl@4.8.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-direct@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-log@3.15.0?type=jar",
@@ -37312,9 +37312,9 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-polyglot@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-loader-polyglot@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-itests-loader-inspector@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel/camel-yaml-dsl@4.8.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-xml-io-dsl@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-direct@3.15.0?type=jar",
@@ -37359,9 +37359,9 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-runtime@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-runtime@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-yaml-dsl@3.15.0?type=jar",
         "pkg:maven/io.quarkus/quarkus-jsonb@3.15.1?type=jar",
         "pkg:maven/io.quarkus/quarkus-resteasy@3.15.1?type=jar",
@@ -37376,10 +37376,10 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-runtime-xml@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-runtime-xml@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-itests-runtime-inspector@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-itests-runtime-inspector@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-xml-io-dsl@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-timer@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-log@3.15.0?type=jar",
@@ -37467,14 +37467,14 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-runtime-yaml@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-runtime-yaml@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-producer@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-consumer@3.15.0?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-itests-runtime-inspector@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-itests-runtime-inspector@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel/camel-yaml-dsl@4.8.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-timer@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-log@3.15.0?type=jar",
@@ -37522,10 +37522,10 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-cron@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-cron@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-cron@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-cron@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel/camel-yaml-dsl@4.8.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-timer@3.15.0?type=jar",
         "pkg:maven/io.quarkus/quarkus-jsonb@3.15.1?type=jar",
@@ -37541,19 +37541,19 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-master@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-master@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-master@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-master@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/io.quarkus/quarkus-jsonb@3.15.1?type=jar",
         "pkg:maven/io.quarkus/quarkus-resteasy@3.15.1?type=jar",
         "pkg:maven/io.quarkus/quarkus-resteasy-jsonb@3.15.1?type=jar"
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-producer@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-consumer@3.15.0?type=jar",
@@ -37565,9 +37565,9 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative-env-from-registry@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative-env-from-registry@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-producer@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-consumer@3.15.0?type=jar",
@@ -37579,10 +37579,10 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative-env-from-properties@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative-env-from-properties@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-producer@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-consumer@3.15.0?type=jar",
@@ -37594,10 +37594,10 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative-producer@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative-producer@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-producer@3.15.0?type=jar",
         "pkg:maven/io.quarkus/quarkus-jsonb@3.15.1?type=jar",
@@ -37606,10 +37606,10 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative-consumer@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative-consumer@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-consumer@3.15.0?type=jar",
         "pkg:maven/io.quarkus/quarkus-jsonb@3.15.1?type=jar",
@@ -37618,10 +37618,10 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative-sinkbinding@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-knative-sinkbinding@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar",
-        "pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-knative-impl@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-knative-producer@3.15.0?type=jar",
         "pkg:maven/org.apache.camel/camel-yaml-dsl@4.8.0?type=jar",
@@ -37632,9 +37632,9 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-kamelet@3.16.0-SNAPSHOT?type=jar",
+      "ref" : "pkg:maven/org.apache.camel.k/camel-k-itests-kamelet@3.15.0-SNAPSHOT?type=jar",
       "dependsOn" : [
-        "pkg:maven/org.apache.camel.k/camel-k-runtime@3.16.0-SNAPSHOT?type=jar",
+        "pkg:maven/org.apache.camel.k/camel-k-runtime@3.15.0-SNAPSHOT?type=jar",
         "pkg:maven/org.apache.camel/camel-yaml-dsl@4.8.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-kamelet@3.15.0?type=jar",
         "pkg:maven/org.apache.camel.quarkus/camel-quarkus-direct@3.15.0?type=jar",
@@ -37658,7 +37658,7 @@
       ]
     },
     {
-      "ref" : "pkg:maven/org.apache.camel.k/apache-camel-k-runtime@3.16.0-SNAPSHOT?type=pom",
+      "ref" : "pkg:maven/org.apache.camel.k/apache-camel-k-runtime@3.15.0-SNAPSHOT?type=pom",
       "dependsOn" : [ ]
     }
   ]
