@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- fix\(ci\): Camel Quarkus 3.16.0 not yet released [\#1285](https://github.com/apache/camel-k-runtime/pull/1285) ([squakez](https://github.com/squakez))
 - fix\(ci\): move back to 3.16.0-SNAPSHOT [\#1283](https://github.com/apache/camel-k-runtime/pull/1283) ([squakez](https://github.com/squakez))
 - fix\(trait\): Telemetry trait properties change [\#1282](https://github.com/apache/camel-k-runtime/pull/1282) ([gansheer](https://github.com/gansheer))
 - feat: bump to 3.16.0 [\#1281](https://github.com/apache/camel-k-runtime/pull/1281) ([squakez](https://github.com/squakez))
