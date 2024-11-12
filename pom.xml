@@ -22,14 +22,14 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-dependencies</artifactId>
-        <version>4.4.3</version>
+        <version>4.4.4</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.camel.k</groupId>
     <artifactId>camel-k-runtime-project</artifactId>
     <!-- Make sure that this version is aligned with the Camel Quarkus Version as it is the convention used in Camel K -->
-    <version>3.8.3-SNAPSHOT</version>
+    <version>3.8.4-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -40,12 +40,12 @@
         <maven.compiler.target>17</maven.compiler.target>
 
         <maven-version>3.8.6</maven-version>
-        <camel-version>4.4.3</camel-version>
+        <camel-version>4.4.4</camel-version>
 
         <!-- quarkus -->
-        <quarkus-version>3.8.5</quarkus-version>
+        <quarkus-version>3.8.6</quarkus-version>
         <quarkus-platform-group>io.quarkus.platform</quarkus-platform-group>
-        <quarkus-platform-version>3.8.5</quarkus-platform-version>
+        <quarkus-platform-version>3.8.6</quarkus-platform-version>
         <quarkus-native-builder-image>quay.io/quarkus/ubi-quarkus-mandrel-builder-image:jdk-21</quarkus-native-builder-image>
 
         <!-- camel-k-runtime specific -->
