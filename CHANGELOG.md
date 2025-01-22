@@ -11,6 +11,8 @@
 - fix\(ci\): move back to 3.16.0-SNAPSHOT [\#1283](https://github.com/apache/camel-k-runtime/pull/1283) ([squakez](https://github.com/squakez))
 - fix\(trait\): Telemetry trait properties change [\#1282](https://github.com/apache/camel-k-runtime/pull/1282) ([gansheer](https://github.com/gansheer))
 - feat: bump to 3.16.0 [\#1281](https://github.com/apache/camel-k-runtime/pull/1281) ([squakez](https://github.com/squakez))
+- build\(deps\): bump org.codehaus.gmavenplus:gmavenplus-plugin from 3.0.2 to 4.0.1 [\#1280](https://github.com/apache/camel-k-runtime/pull/1280) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump org.apache.maven.plugins:maven-deploy-plugin from 3.1.2 to 3.1.3 [\#1279](https://github.com/apache/camel-k-runtime/pull/1279) ([dependabot[bot]](https://github.com/apps/dependabot))
 - feat\(catalog\): change micrometer dependencies [\#1276](https://github.com/apache/camel-k-runtime/pull/1276) ([squakez](https://github.com/squakez))
 - build\(deps\): bump org.cyclonedx:cyclonedx-maven-plugin from 2.8.1 to 2.8.2 [\#1275](https://github.com/apache/camel-k-runtime/pull/1275) ([dependabot[bot]](https://github.com/apps/dependabot))
 - chore: bump Quarkus platform to 3.15.1 [\#1274](https://github.com/apache/camel-k-runtime/pull/1274) ([squakez](https://github.com/squakez))
