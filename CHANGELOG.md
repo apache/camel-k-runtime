@@ -6,6 +6,9 @@
 
 **Merged pull requests:**
 
+- fix\(core\) failing test [\#1293](https://github.com/apache/camel-k-runtime/pull/1293) ([squakez](https://github.com/squakez))
+- build\(deps\): bump org.apache.maven.plugins:maven-plugin-plugin from 3.15.0 to 3.15.1 [\#1290](https://github.com/apache/camel-k-runtime/pull/1290) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump org.apache.maven.plugins:maven-javadoc-plugin from 3.10.0 to 3.11.2 [\#1289](https://github.com/apache/camel-k-runtime/pull/1289) ([dependabot[bot]](https://github.com/apps/dependabot))
 - feat\(ci\): bump Camel Quarkus 3.16.0 [\#1288](https://github.com/apache/camel-k-runtime/pull/1288) ([squakez](https://github.com/squakez))
 - fix\(ci\): Camel Quarkus 3.16.0 not yet released [\#1285](https://github.com/apache/camel-k-runtime/pull/1285) ([squakez](https://github.com/squakez))
 - fix\(ci\): move back to 3.16.0-SNAPSHOT [\#1283](https://github.com/apache/camel-k-runtime/pull/1283) ([squakez](https://github.com/squakez))
