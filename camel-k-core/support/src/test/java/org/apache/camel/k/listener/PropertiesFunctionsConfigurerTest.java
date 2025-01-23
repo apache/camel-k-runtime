@@ -41,7 +41,7 @@ public class PropertiesFunctionsConfigurerTest {
             .hasMessageContaining("returned null value which is not allowed, from input");
 
         assertThat(runtime.getCamelContext().resolvePropertyPlaceholders("{{configmap:my-cm/my-property}}")).isEqualTo("my-cm-property");
-        assertThat(runtime.getCamelContext().resolvePropertyPlaceholders("{{configmap:my-cm/my-property:my-default-cm}}"))
+        assertThat(runtime.getCamelContext().resolvePropertyPlaceholders("{{configmap:my-cm/my-missing-property:my-default-cm}}"))
             .isEqualTo("my-default-cm");
 
         assertThatThrownBy(() -> context.resolvePropertyPlaceholders("{{configmap:none/my-property}}"))
