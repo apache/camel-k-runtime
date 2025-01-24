@@ -6,6 +6,9 @@
 
 **Merged pull requests:**
 
+- build\(deps\): bump org.apache.maven.plugins:maven-remote-resources-plugin from 3.2.0 to 3.3.0 [\#1296](https://github.com/apache/camel-k-runtime/pull/1296) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump groovy-version from 4.0.23 to 4.0.24 [\#1295](https://github.com/apache/camel-k-runtime/pull/1295) ([dependabot[bot]](https://github.com/apps/dependabot))
+- build\(deps\): bump com.google.cloud.tools:jib-maven-plugin from 3.4.3 to 3.4.4 [\#1294](https://github.com/apache/camel-k-runtime/pull/1294) ([dependabot[bot]](https://github.com/apps/dependabot))
 - fix\(core\) failing test [\#1293](https://github.com/apache/camel-k-runtime/pull/1293) ([squakez](https://github.com/squakez))
 - build\(deps\): bump org.apache.maven.plugins:maven-plugin-plugin from 3.15.0 to 3.15.1 [\#1290](https://github.com/apache/camel-k-runtime/pull/1290) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump org.apache.maven.plugins:maven-javadoc-plugin from 3.10.0 to 3.11.2 [\#1289](https://github.com/apache/camel-k-runtime/pull/1289) ([dependabot[bot]](https://github.com/apps/dependabot))
