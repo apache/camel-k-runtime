@@ -1,6 +1,6 @@
 # Changelog
 
-## [camel-k-runtime-project-3.15.3](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-3.15.3) (2025-03-20)
+## [camel-k-runtime-project-3.15.3](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-3.15.3) (2025-03-21)
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-3.15.2...camel-k-runtime-project-3.15.3)
 
