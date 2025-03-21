@@ -235,7 +235,7 @@
 - build\(deps\): bump groovy-version from 3.0.14 to 3.0.15 [\#973](https://github.com/apache/camel-k-runtime/pull/973) ([dependabot[bot]](https://github.com/apps/dependabot))
 - build\(deps\): bump logstash-logback-encoder from 7.2 to 7.3 [\#972](https://github.com/apache/camel-k-runtime/pull/972) ([dependabot[bot]](https://github.com/apps/dependabot))
 
-## [camel-k-runtime-project-3.15.3](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-3.15.3) (2025-03-20)
+## [camel-k-runtime-project-3.15.3](https://github.com/apache/camel-k-runtime/tree/camel-k-runtime-project-3.15.3) (2025-03-21)
 
 [Full Changelog](https://github.com/apache/camel-k-runtime/compare/camel-k-runtime-project-3.15.2...camel-k-runtime-project-3.15.3)
 
